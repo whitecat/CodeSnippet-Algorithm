@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Java programming dynamics, Part 1: Java classes and class loading</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="Take a look at what goes on behind the scenes of executing your Java application in this new series on the dynamic aspects of Java programming. Enterprise Java expert Dennis Sosnoski gives the scoop on the Java binary class format and what happens to classes inside the JVM."/>
+<meta name="Description" content="Take a look at what goes on behind the scenes of executing your Java application in this new series on the dynamic aspects of Java programming. Enterprise Java expert Dennis Sosnoski gives the scoop on the Java binary class format and what happens to classes inside the JVM."/>
+<meta name="Keywords" content="Java binary class format loading JVM compile Dennis Sosnoski, tttjca"/>
+<meta name="DC.Date" scheme="iso8601" content="2003-04-29"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCJVAZZ" />
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2003"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2003-04-29"/>
+<meta name="title" content="Java programming dynamics, Part 1: Java classes and class loading"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Java programming dynamics, Part 1: Java classes and class loading</h1><p><em>A look at classes and what goes on as they're loaded by a JVM</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Dennis Sosnoski</a> (<a href="mailto:dms@sosnoski.com?subject=Java classes and class loading">dms@sosnoski.com</a>), President, Sosnoski Software Solutions, Inc.</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print"><div class="position"><img src="http://www-106.ibm.com/developerworks/i/p-sosnoski.jpg" width="64" height="80" alt="Photo of Dennis Sosnoski" /></div>Dennis Sosnoski is the founder and lead consultant of Seattle-area Java consulting company <a href="http://www.sosnoski.com">Sosnoski Software Solutions, Inc.</a>,
+specialists in J2EE, XML, and Web services support. His professional software development
+experience spans over 30 years, with the last several years focused on server-side Java technologies. Dennis is a frequent speaker on XML and Java technologies at
+conferences nationwide, and chairs the Seattle Java-XML SIG. Contact Dennis at <a href="mailto:dms@sosnoski.com">dms@sosnoski.com</a>.</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; Take a look at what goes on behind the scenes of executing your Java application in this new series on the dynamic aspects of Java programming. Enterprise Java expert Dennis Sosnoski gives the scoop on the Java binary class format and what happens to classes inside the JVM. Along the way, he covers class loading issues ranging from the number of classes required for running a simple Java application to the class loader conflicts that can cause problems in J2EE and similar complex architectures.</p>
+<p class="ibm-no-print"><a href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=Java+dynamics">View more content in this series</a></p>
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 29 Apr  2003
+<br /><b>Level: </b>&nbsp;Intermediate
+
+<br /><b>Activity:</b>&nbsp; 45435 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>This article kicks off a new series covering a family of topics that I call <i>Java programming dynamics</i>. These topics range from the basic structure of the Java binary class file format, through run-time metadata access using reflection, all the way to modifying and constructing new classes at run time. The common thread running through all this material is the idea that programming the Java platform is much more dynamic than working with languages that compile straight to native code. If you understand these dynamic aspects, you can do things with Java programming that can't be matched in any other mainstream programming language.</p>
+
+<p>In this article, I cover some of the basic concepts that underlie these dynamic features of the Java platform. These concepts revolve around the binary format used to represent Java classes, including what happens when these classes are loaded into the JVM. Not only does this material provide a foundation for the rest of the articles in the series, it also demonstrates some very practical concerns for developers working on the Java platform.</p>
+
+<p><a name="N10061"><span class="atitle">A class in binary</span></a></p>
+<p>Developers working in the Java language normally don't need to be concerned about the details of what happens to their source code when it's run through a  compiler. In this series, I'm covering a lot of behind-the-scenes details involved in going from source code to executing program, though, so I'll start with a look at the binary classes generated by a compiler.</p>
+<p>The binary class format is actually defined by the JVM specification.  Normally these class representations are generated from Java language source code by a compiler, and they're usually stored in files with a <code>.class</code> extension. Neither of these features is essential, though. Other programming languages have been developed that use the Java binary class format, and for some purposes new class representations are constructed and immediately loaded within an executing JVM. As far as a JVM is concerned, the important part is not the source or how it's stored, but the format itself.</p>
+<p>So what does this class format actually look like? Listing 1 gives the source code for a (very) short class, along with a partial hexadecimal display of the class file output by the compiler:</p>
+
+<br /><a name="N10078"><b>Listing 1. Source and (partial) binary for Hello.java</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+public class Hello
+{
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+
+0000: cafe babe 0000 002e 001a 0a00 0600 0c09  ................
+0010: 000d 000e 0800 0f0a 0010 0011 0700 1207  ................
+0020: 0013 0100 063c 696e 6974 3e01 0003 2829  .....&lt;init&gt;...()
+0030: 5601 0004 436f 6465 0100 046d 6169 6e01  V...Code...main.
+0040: 0016 285b 4c6a 6176 612f 6c61 6e67 2f53  ..([Ljava/lang/S
+0050: 7472 696e 673b 2956 0c00 0700 0807 0014  tring;)V........
+0060: 0c00 1500 1601 000d 4865 6c6c 6f2c 2057  ........Hello, W
+0070: 6f72 6c64 2107 0017 0c00 1800 1901 0005  orld!...........
+0080: 4865 6c6c 6f01 0010 6a61 7661 2f6c 616e  Hello...java/lan
+0090: 672f 4f62 6a65 6374 0100 106a 6176 612f  g/Object...java/
+00a0: 6c61 6e67 2f53 7973 7465 6d01 0003 6f75  lang/System...ou
+...
+</pre></td></tr></table><br />
+
+
+<p><a name="N10081"><span class="smalltitle">Inside the binary</span></a></p>
+<p>The very first thing in the binary class representation shown in Listing 1 is the "cafe babe" signature that identifies the Java binary class format (and incidentally serves as a lasting -- but largely unrecognized -- tribute to the hard working <i>baristas</i> who kept up the spirits of the developers building the Java platform). This signature is just an easy way of verifying that a block of data really <i>does</i> claim to be an instance of the Java class format. Every Java binary class, even one that isn't present on the file system, needs to start with these four bytes.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Don't miss the rest of this series</h2><div class="ibm-container-body">
+
+Part 2, "<a href="http://www.ibm.com/developerworks/java/library/j-dyn0603/">Introducing reflection</a>" (June 2003)
+<br /><br />Part 3, "<a href="http://www.ibm.com/developerworks/java/library/j-dyn0715.html">Applied reflection</a>" (July 2003)
+<br /><br />Part 4, "<a href="http://www.ibm.com/developerworks/java/library/j-dyn0916.html">Class transformation with Javassist</a>" (September 2003)
+<br /><br />Part 5, "<a href="http://www.ibm.com/developerworks/java/library/j-dyn0203.html">Transforming classes on-the-fly</a>" (February 2004)<br /><br />
+Part 6, "<a href="http://www.ibm.com/developerworks/java/library/j-dyn0302.html">Aspect-oriented changes with Javassist</a>" (March 2004)<br /><br />
+Part 7, "<a href="http://www.ibm.com/developerworks/java/library/j-dyn0414/">Bytecode engineering with BCEL</a>" (April 2004)
+<br /><br />
+Part 8, "<a href="http://www.ibm.com/developerworks/java/library/j-dyn0610/">Replacing reflection with code generation</a>" (June 2004)
+</div></div>
+
+<p>The rest of the data is less entertaining. Following the signature are a pair of class format version numbers (in this case, for minor version 0 and major version 46 -- 0x2e in hexadecimal -- as generated by the 1.4.1 javac), then a count of entries in the constant pool. The entry count (in this case 26, or 0x001a) is followed by the actual constant pool data. This is where all the constants used by the class definition are stored. It includes class and method names, signatures, and strings (which you can recognize in the text interpretation to the right of the hexadecimal dump), along with various binary values.</p>
+
+<p>Items in the constant pool are variable length, with the first byte of each item identifying the type of item and how it should be decoded. I won't go into the details of all that here -- there are many references available if you're interested, starting with the actual JVM specification. The key point is just that the constant pool contains all the references to other classes and methods used by this class, along with the actual definitions for this class and its methods. The constant pool can easily make up half or more of the binary class size, though the average proportion is probably less.</p>
+
+<p>Following the constant pool are several items that reference constant pool entries for the class itself, its super class, and interfaces. These items are followed by information about the fields and methods, which are themselves represented as complex structures. The executable code for methods is present in the form of <i>code attributes</i> contained within the method definitions. This code is in the form of instructions for the JVM, generally called <i>bytecode</i>, which is one of the topics for the next section.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Ask the expert: Dennis Sosnoski on JVM and bytecode issues</h2><div class="ibm-container-body">
+ 
+For comments or questions about the material covered in this article series, as well as anything else that pertains to Java bytecode, the Java binary class format, or general JVM issues, visit the <a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=843&amp;cat=10">JVM and Bytecode</a> discussion forum, moderated by Dennis Sosnoski.
+</div></div>
+
+<p><i>Attributes</i> are used for several defined purposes in the Java class format, including the already-mentioned bytecode, constant values for fields, exception handling, and debugging information. These purposes aren't the only possible uses for attributes, though. From the beginning, the JVM specification has required JVMs to ignore attributes of unknown types. This requirement gives flexibility for extending the use of attributes to serve other purposes in the future, such as providing meta-information needed by frameworks that work with user classes -- an approach that the Java-derived C# language has used extensively. Unfortunately, no hooks have yet been provided for making use of this flexibility at the user level.</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N100EC"><span class="atitle">Bytecode and stacks</span></a></p>
+<p>The bytecode that makes up the executable portion of the class file is actually machine code for a special kind of computer -- the JVM. This is called a <i>virtual</i> machine because it's been designed for implementation in software, rather than hardware. Every JVM used to run Java platform applications is built around an implementation of this machine.</p>
+
+<p>This virtual machine is actually fairly simple. It uses a stack architecture, meaning instruction operands are loaded to an internal stack before they're used. The instruction set includes all the normal arithmetic and logical operations, along with conditional and unconditional branches, load/store, call/return, stack manipulation, and several special types of instructions. Some of the instructions include immediate operand values that are directly encoded into the instruction. Others directly reference values from the constant pool.</p>
+
+<p>Even though the virtual machine is simple, the implementations aren't necessarily so. Early (first generation) JVMs were basically interpreters for the virtual machine bytecode. These actually <i>were</i> relatively simple, but suffered from severe performance problems -- interpreting code is always going to take longer than executing native code. To reduce these performance problems, second generation JVMs added <i>just-in-time</i> (JIT) translation. The JIT technique compiles Java bytecode to native code before executing it for the first time, giving much better performance for repeated executions. Current generation JVMs go even further, using adaptive techniques to monitor program execution and selectively optimize heavily used code.</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10106"><span class="atitle">Loading the classes</span></a></p>
+<p>Languages such as C and C++ that compile to native code generally require a linking step after source code is compiled. This linking process merges code from separately compiled source files, along with shared library code, to form an executable program. The Java language is different. With the Java language, the classes generated by the compiler generally remain just as they are until they're loading into a JVM. Even building a JAR file from the class files doesn't change this -- the JAR is just a container for the class files.</p>
+
+<p>Rather than a separate step, linking classes is part of the job performed by the JVM when it loads them into memory. This adds some overhead as classes are initially loaded, but also provides a high level of flexibility for Java applications. For example, applications can be written to use interfaces with the actual implementations left unspecified until run time. This <i>late binding</i> approach to assembling an application is used extensively in the Java platform, with servlets being one common example.</p>
+
+<p>The rules for loading classes are spelled out in detail in the JVM specification. The basic principle is that classes are only loaded when needed (or at least appear to be loaded this way -- the JVM has some flexibility in the actual loading, but must maintain a fixed sequence of class initialization). Each class that gets loaded may have other classes that it depends on, so the loading process is recursive. The classes in Listing 2 show how this recursive loading works. The <code>Demo</code> class includes a simple <code>main</code> method that creates an instance of <code>Greeter</code> and calls the <code>greet</code> method. The <code>Greeter</code> constructor creates an instance of <code>Message</code>, which it then uses in the <code>greet</code> method call.</p>
+
+<br /><a name="N10138"><b>Listing 2. Source code for class loading demonstration</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+public class Demo
+{
+    public static void main(String[] args) {
+        System.out.println("**beginning execution**");
+        Greeter greeter = new Greeter();
+        System.out.println("**created Greeter**");
+        greeter.greet();
+    }
+}
+
+public class Greeter
+{
+    private static Message s_message = new Message("Hello, World!");
+    
+    public void greet() {
+        s_message.print(System.out);
+    }
+}
+
+public class Message
+{
+    private String m_text;
+    
+    public Message(String text) {
+        m_text = text;
+    }
+    
+    public void print(java.io.PrintStream ps) {
+        ps.println(m_text);
+    }
+}
+</pre></td></tr></table><br />
+
+
+<p>Setting the parameter <code>-verbose:class</code> on the <code>java</code> command line prints a trace of the class loading process. Listing 3 shows partial output from running the Listing 2 program with this parameter:</p>
+
+<br /><a name="N1014E"><b>Listing 3. Partial -verbose:class output</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+[Opened /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Opened /usr/java/j2sdk1.4.1/jre/lib/sunrsasign.jar]
+[Opened /usr/java/j2sdk1.4.1/jre/lib/jsse.jar]
+[Opened /usr/java/j2sdk1.4.1/jre/lib/jce.jar]
+[Opened /usr/java/j2sdk1.4.1/jre/lib/charsets.jar]
+[Loaded java.lang.Object from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Loaded java.io.Serializable from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Loaded java.lang.Comparable from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Loaded java.lang.CharSequence from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Loaded java.lang.String from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+...
+[Loaded java.security.Principal from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Loaded java.security.cert.Certificate 
+  from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Loaded Demo]
+**beginning execution**
+[Loaded Greeter]
+[Loaded Message]
+**created Greeter**
+Hello, World!
+[Loaded java.util.HashMap$KeySet 
+  from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]
+[Loaded java.util.HashMap$KeyIterator 
+  from /usr/java/j2sdk1.4.1/jre/lib/rt.jar]</pre></td></tr></table><br />
+
+
+<p>This is only a partial listing of the most important parts -- the full trace consists of 294 lines, most of which I deleted for this listing. The initial set of class loads (279, in this case) are all triggered by the attempt to load the <code>Demo</code> class. These are the core classes that are used by every Java program, no matter how small. Even eliminating all the code from the <code>Demo main</code> method doesn't affect this initial sequence of loads. The number and names of classes involved will differ from one version of the class libraries to another, though.</p>
+
+<p>The portion of the listing after the <code>Demo</code> class is loaded is more interesting. The sequence here shows that the <code>Greeter</code> class is only loaded when an instance of the class is about to be created. However, the <code>Greeter</code> class uses a static instance of the <code>Message</code> class, so before an instance of the former can be created, the latter class also needs to be loaded.</p>
+
+<p>A lot happens inside the JVM when a class is loaded and initialized, including  decoding the binary class format, checking compatibility with other classes, verifying the sequence of bytecode operations, and finally constructing a <code>java.lang.Class</code> instance to represent the new class. This <code>Class</code> object becomes the basis for all instances of the new class created by the JVM. It's also the identifier for the loaded class itself -- you can have multiple copies of the same binary class loaded in a JVM, each with its own <code>Class</code> instance. Even though these copies all share the same class name, they will be separate classes to the JVM.</p>
+
+<p><a name="N10184"><span class="smalltitle">Off the beaten (class) path</span></a></p>
+<p>Class loading in a JVM is controlled by <i>class loaders</i>. There's a <i>bootstrap</i> class loader built into the JVM that's responsible for loading the basic Java class library classes. This particular class loader has some special features. For one thing, it only loads classes found on the boot class path. Because these are trusted system classes, the bootstrap loader skips much of the validation that gets done for normal (untrusted) classes.</p>
+
+<p>Bootstrap isn't the only class loader. For starters, a JVM defines an <i>extension</i> class loader for loading classes from standard Java extension APIs, and a <i>system</i> class loader for loading classes from the general class path (including your application classes). Applications can also define their own class loaders for special purposes (such as run-time reloading of classes). Such added class loaders are derived from the <code>java.lang.ClassLoader</code> class (possibly indirectly), which provides the core support for building an internal class representation (a <code>java.lang.Class</code> instance) from an array of bytes. Each constructed class is in some sense "owned" by the class loader that loaded it. Class loaders normally keep a map of the classes they've loaded, to be able to find one by name if it's requested again.</p>
+
+<p>Each class loader also keeps a reference to a parent class loader, defining a tree of class loaders with the bootstrap loader at the root. When an instance of a particular class (identified by name) is needed, whichever class loader initially handles the request normally checks with its parent class loader first before trying to load the class directly. This applies recursively if there are multiple layers of class loaders, so it means that a class will normally be <i>visible</i> not only within the class loader that loaded it, but also to all descendant class loaders. It also means that if a class can be loaded by more than one class loader in a chain, the one furthest up the tree will be the one that actually loads it.</p>
+
+<p>There are many circumstances where multiple application classloaders are used by Java programs. One example is within the J2EE framework. Each J2EE application loaded by the framework needs to have a separate class loader to prevent classes in one application from interfering with other applications. The framework code itself will also use one or more other class loaders, again to prevent interference to or from applications. The complete set of class loaders make up a tree-structured hierarchy with different types of classes loaded at each level.</p>
+
+<p><a name="N101AF"><span class="smalltitle">Trees of loaders</span></a></p>
+<p>As an example of a class loader hierarchy in action, Figure 1 shows the class loader hierarchy defined by the Tomcat servlet engine. Here the Common class loader loads from JAR files in a particular directory of the Tomcat installation that's intended for code shared between the server and all Web applications. The Catalina loader is for Tomcat's own classes, and the Shared loader for classes shared between Web applications. Finally, each Web application gets its own loader for its private classes.</p>
+
+<br /><a name="N101BC"><b>Figure 1. Tomcat class loaders</b></a><br />
+<img alt="Tomcat class loaders" height="146" src="tomcat-loaders.gif" width="165"/>
+<br />
+
+<p>In this type of environment, keeping track of the proper loader to use for requesting a new class can be messy. Because of this, the <code>setContextClassLoader</code> and <code>getContextClassLoader</code> methods were added to the <code>java.lang.Thread</code> class in the Java 2 platform. These methods let the framework set the class loader to be used for each application while running code from that application.</p>
+
+<p>The flexibility of being able to load independent sets of classes is an important feature of the Java platform. Useful as this feature is, though, it can create confusion in some cases. One confusing aspect is the continuing issue of dealing with JVM classpaths. In the Tomcat hierarchy of class loaders shown in Figure 1, for instance, classes loaded by the Common class loader will never be able to directly access (by name) classes loaded by a Web application. The only way to tie these together is through the use of interfaces visible to both sets of classes. In this case, that includes the <code>javax.servlet.Servlet</code> implemented by Java servlets.</p>
+
+<p>Problems can arise when code is moved between class loaders for any reason. For instance, when J2SE 1.4 moved the JAXP API for XML processing into the standard distribution, it created problems for many environments where applications had previously relied on loading their own chosen implementations of the XML APIs. With J2SE 1.3, this can be done just by including the appropriate JAR file in the user class path. In J2SE 1.4, the standard versions of these APIs are now in the extensions class path, so these will normally override any implementations present in the user class path.</p>
+
+<p>Other types of confusion are also possible when using multiple class loaders. Figure 2 shows an example of a <i>class identity crisis</i> that results when an interface and associated implementation are each loaded by two separate class loaders. Even though the names and binary implementations of the interfaces and classes are the same, an instance of the class from one loader cannot be recognized as implementing the interface from the other loader.  This confusion could be resolved in Figure 2 by moving the interface class <code>I</code> into the System class loader's space.  There would still be two separate instances of class <code>A</code>, but both would implement the same interface <code>I</code>.</p>
+
+
+<br /><a name="N101F8"><b>Figure 2. Class identity crisis</b></a><br />
+<img alt="Class identity crisis" height="278" src="identity-crisis.gif" width="497"/>
+<br />
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10207"><span class="atitle">Conclusions</span></a></p>
+<p>The Java class definition and JVM specification together define an extremely powerful framework for run-time assembly of code. Through the use of class loaders, Java applications are able to work with multiple versions of classes that would otherwise cause conflicts. The flexibility of class loaders even  allows dynamic reloading of modified code while an application continues to execute.</p>
+
+<p>The cost of the Java platform's flexibility in this area is somewhat higher overhead when starting an application. Hundreds of separate classes need to be loaded by the JVM before it can start executing even the simplest application code. This startup cost generally makes the Java platform better suited to long-running, server-type applications than for frequently used small programs. Server applications also benefit the most from the flexibility of run-time assembly of code, so it's no surprise that the Java platform has become increasingly favored for this type of development.</p>
+
+<p>In Part 2 of this series, I'll cover an introduction to using another aspect of the Java platform's dynamic underpinnings: the Reflection API. Reflection gives your executing code access to internal class information. This can be a great tool for building flexible code that can be hooked together at run time without the need for any source code links between classes. But as with most tools, you need to know when and how to use it to best advantage. Check back to find out the tricks and trade-offs of effective reflection in Part 2 of <i>Java programming dynamics</i>.</p>
+
+<!-- CMA ID: 10804 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br />
+<p><a name="resources"><span class="atitle">Resources</span></a></p><ul><li>Go straight to the source in <a href="http://java.sun.com/docs/books/vmspec/"><i>The Java Virtual Machine Specification</i></a> for details of the binary class format, loading of classes, and actual Java bytecode.<br /><br /></li><li>Learn all the details of building your own special class loaders with the tutorial, 
+"<a href="http://www.ibm.com/developerworks/edu/j-dw-javaclass-i.html">Understanding the Java ClassLoader</a>" by Greg Travis (<i>developerWorks</i>, April 2001).<br /><br /></li><li>Get details on the <a href="http://jikesrvm.sourceforge.net/">Jikes Research Virtual Machine (RVM)</a>, which is implemented in the Java language and is self-hosted (that is, its Java code runs on itself without requiring a second virtual machine).<br /><br /></li><li>Keep up with progress on making attributes available to Java developers with Java Specification Request (JSR) 175 for <a href="http://www.jcp.org/en/jsr/detail?id=175">A Metadata Facility for the Java Programming Language</a>.<br /><br /></li><li>Find out the details of the <a href="http://tomcat.apache.org/index.html">Apache Tomcat</a> Java language Web server project of the Apache Software Foundation, including the details of <a href="http://tomcat.apache.org/tomcat-4.1-doc/class-loader-howto.html">Tomcat class loader usage</a>.<br /><br /></li><li>Find hundreds more Java technology resources on the <a href="http://www.ibm.com/developerworks/java/"><i>developerWorks</i> Java technology zone</a>.<br /><br /></li></ul>
+<p><a name="author"><span class="atitle">About the author</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><img src="http://www-106.ibm.com/developerworks/i/p-sosnoski.jpg" width="64" height="80" alt="Photo of Dennis Sosnoski" /><p><a name="author1"></a>Dennis Sosnoski is the founder and lead consultant of Seattle-area Java consulting company <a href="http://www.sosnoski.com">Sosnoski Software Solutions, Inc.</a>,
+specialists in J2EE, XML, and Web services support. His professional software development
+experience spans over 30 years, with the last several years focused on server-side Java technologies. Dennis is a frequent speaker on XML and Java technologies at
+conferences nationwide, and chairs the Seattle Java-XML SIG. Contact Dennis at <a href="mailto:dms@sosnoski.com">dms@sosnoski.com</a>.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java technology</div><div class="metavalue">ArticleID=10804</div><div class="metavalue">ArticleTitle=Java programming dynamics, Part 1: Java classes and class loading</div><div class="metavalue">publish-date=04292003</div><div class="metavalue">author1-email=dms@sosnoski.com</div><div class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#N10061">A class in binary</a></li><li><a class="ibm-feature-link" href="#N100EC">Bytecode and stacks</a></li><li><a class="ibm-feature-link" href="#N10106">Loading the classes</a></li><li><a class="ibm-feature-link" href="#N10207">Conclusions</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the author</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/spot-nextsteps.jpg"/><p>Spring, JRuby, and Ajax development is easier with WebSphere Application Server - a smart Java 5 and J2EE Web services-based application server.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/ws/wasce/learn.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Try: The no-charge WebSphere Application Server Community Edition is a pre-integrated, lightweight Java 5 application server built on Apache Tomcat and other best-of-breed open source software such as OpenEJB, Apache Axis, and Apache Derby.</a></li><li><a href="http://www.ibm.com/developerworks/websphere/library/techarticles/0810_asplund/0810_asplund.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: The article leverage the Spring Framework and the WebSphere Application Server to improve your J2EE project productivity.</a></li><li><a href="http://www.ibm.com/developerworks/edu/x-dw-x-jrorajax.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Tutorial: See how the free WebSphere Application Server and XML can improve the efficiency of your JRuby on Rails and Ajax development.</a></li><li><a href="http://www.ibm.com/software/dre/h2b/buildh2bpage.wss?synkey=G394201N28809H35&amp;S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: WebSphere Application Server - Express</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Java on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/java/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/java/newto/" class="ibm-forward-link">New to Java programming</a></li><li><a href="http://www.ibm.com/developerworks/views/java/downloads.jsp" class="ibm-forward-link">Downloads and products</a></li><li><a href="http://www.ibm.com/developerworks/views/java/projects.jsp" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/views/java/standards.jsp" class="ibm-forward-link">Standards</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/java/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/views/java/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY02&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/websphere/zones/was/security/?S_CMP=TILE&amp;ca=dti-tilewassecurity&amp;ca=dth-w"><img src="//www.ibm.com/developerworks/i/tile_v16_secure.gif" width="158" height="50" border="0" alt="Securing WebSphere Application Server environments" /></a></p><p class="dw-special-offers"><a href="http://www-01.ibm.com/software/data/cognos/products/cognos-express/demo.html?S_CMP=TILE&amp;ca=dti-tilecognosexpdemos&amp;ca=dth-i"><img src="//www.ibm.com/developerworks/i/tile_v16_express.gif" width="158" height="50" border="0" alt="Cognos Express online demos" /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/downloads/soasandbox/reuse/index.html?S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tilesoawaseclipse&amp;ca=dth-soa"><img src="//www.ibm.com/developerworks/i/tile_v16_sandboxeclipse.gif" width="158" height="50" border="0" alt="SOA Sandbox for WAS CE and Eclipse" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '10804';
+			contentAreas = 'java';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[16],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<html>
+
+<head>
+<title> Java 102 : Dealing with classes </title>
+<meta name="author" content="David Reilly">
+</head>
+
+<body bgcolor="#ffffff">
+<!--webbot bot="Include" U-Include="../ads/add_code_a.html" TAG="BODY" startspan -->
+
+<p align="center">
+
+
+<!-- BEGIN RICH-MEDIA BURST! CODE -->
+<script language="JavaScript">
+rnum=Math.round(Math.random() * 100000);
+
+document.write('<scr'+'ipt src="http://www.burstnet.com/cgi-bin/ads/ad2350a.cgi/v=2.0S/sz=468x60A/'+rnum+'/RETURN-CODE/JS/"></scr'+'ipt>');
+
+</script>
+<noscript><a href="http://www.burstnet.com/ads/ad2350a-map.cgi/ns/v=2.0S/sz=468x60A/" target="_top">
+<img src="http://www.burstnet.com/cgi-bin/ads/ad2350a.cgi/ns/v=2.0S/sz=468x60A/" border="0" alt="Click Here"></a>
+</noscript>
+<!-- END BURST CODE -->
+
+  
+
+
+</p>
+
+<!--webbot bot="Include" endspan i-checksum="36008" -->
+
+
+<p align="center"><a name="top"><img src="../images/sepbar-1.gif" alt="sepbar-1.gif (3106 bytes)" WIDTH="640" HEIGHT="10"></a></p>
+
+<h1 align="center">Java 102 : Dealing with classes </h1>
+<a name="top">
+
+<p align="center">Written by David Reilly<br>
+Revised May 12, 1999<br>
+<img src="../images/sepbar-1.gif" alt="sepbar-1.gif (3106 bytes)" WIDTH="640" HEIGHT="10"></a></p>
+
+<p align="center"><a href="../java101/java101.html">Previous</a> | <a href="../java103/java103.html">Next</a> </p>
+
+<p>Objects and classes are a fundamental part of object-orientated programming, and
+therefore Java. A class contains both data (referred to as attributes), and executable
+code (referred to as methods). In the previous tutorial, we created a class that contained
+a single method ' main '. When the class was executed, the main method was called, and
+the application ran as a normal program. While it is possible to use only a single class
+in a Java project, this is not good practice for large applications. The power
+object-orientation lies in breaking tasks down into simpler components that perform
+logically related tasks. Even a moderately complex program should be composed of many
+classes, which interact with each other. </p>
+
+<p>When designing software with Java, we must deal with a large variety of classes. Each
+class is a separate module, which can interact with other objects through method calls.
+For example, we might design a bank account class, which acts as a record for storing
+salary data. Yet we can also include functions that modify or manipulate the data, such as
+calculating interest or depositing funds. </p>
+
+<p>This class could then be <em>instantiated</em> by another class, creating a new bank
+account object each time. Don't worry if this terminology seems confusing at first - it
+will take a little while to sink in. We are basically creating an bank account object
+(which contains attributes and methods) that is defined by our bank account class. Each
+person would need there own bank account object - but all bank accounts share the same
+template (our bank account class).</p>
+
+<p>We can instantiate an object by using the <font color="blue">new</font> keyword, and
+passing initialisation parameters. These parameters are evaluated by a special function
+called the constructor. The constructor is responsible for setting up the initial state of
+an object. Instead of declaring an object, and calling a special setup routine, a
+constructor is called automatically when the <font color="blue">new</font> keyword is
+used. For example, to create a new account, we might specify the initial balance, and it's
+defined for us without having to modify the attribute directly. </p>
+
+<p>Of course, the constructor method isn't the only method that can change the attributes
+of an object. We can define other methods and then call them from our code. For example,
+we might define a deposit method for a bank account object. To call the method of an
+object, the syntax is <strong>object name</strong>.method name(<em>params</em>). </p>
+
+<p>A simple example of constructing an object, and calling a method is given below. A
+function ' create_account ' instantiates a new account, deposits some money, and returns
+the account. <!-- Code snippet --> </p>
+<code>
+
+<pre>
+  <font color="green">// Create_account creates an account, deposits money,
+     and returns an account</font>
+  <font color="blue">public</font> account create_account(<font color="blue">double</font> balance)
+  {
+     account my_account;
+
+     <font color="green">// Instantiate a new object</font>
+     my_account = <font color="blue">new</font> account(balance);
+
+     <font color="green">// Call the deposit method of our object my_account</font>
+     my_account.deposit(25.00);
+
+     <font color="blue">return</font> account;
+  }
+</pre>
+</code>
+
+<p>To do the same thing in C, we would create a new instance of this bank account
+structure, and then we'd have to call functions that take the structure as a pointer
+reference. If you've used pointers before, you might appreciate just how handy it would be
+to have functions built into a structure. </p>
+
+<p>After seeing how to instantiate an object, it might be a good time to examine how a
+class is defined. Carrying on from the original theme of an account, we'll specify an
+account class. The account class will need a constructor, and several methods such as
+deposit and withdraw. You can either type out the java source file yourself, copy it to
+the clipboard from this document, or download it directly. 
+
+<ul>
+  <li><a href="Account.java" target><img src="../images/disk.gif" border="NO" img align="CENTER" width="32" height="32"></a><a href="Account.java">Account.java</a></li>
+  <li><a href="AccountDemo.java" target><img src="../images/disk.gif" border="NO" img align="CENTER" width="32" height="32"></a><a href="AccountDemo.java">AccountDemo.java</a> </li>
+</ul>
+
+<p>It's also important to provide a public method for obtaining the balance, as we must
+hide from view the balance attribute. One of the handy features of object-orientation is
+that we can make private and protect from view certain attributes. This offers good
+security, as to change the value of these protected attributes a public method must be
+called. Thus, in this example, we can change the balance on our terms (through a
+withdrawal or deposit), instead of allowing some external object to change it for us. </p>
+
+<hr>
+<code>
+
+<pre>
+<font color="green">/*
+ *
+ * Account
+ * Demonstration for Java 102 tutorial
+ * David Reilly, February 25, 1997
+ */</font>
+<font color="blue">public class</font> Account 
+{
+        <font color="blue">protected double</font> balance;
+
+        <font color="green">// Constructor to initialize balance</font>
+        <font color="blue">public</font> Account( double amount )
+	{
+		balance = amount;
+	}
+
+        <font color="green">// Overloaded constructor for empty balance</font>
+        <font color="blue">public</font> Account()
+	{
+		balance = 0.0;
+	}
+
+        <font color="blue">public void</font> deposit( double amount )
+	{
+		balance += amount;
+	}
+
+        <font color="blue">public double</font> withdraw( double amount )
+	{
+                <font color="green">// See if amount can be withdrawn</font>
+		if (balance &gt;= amount)
+		{
+			balance -= amount;
+                        <font color="blue">return</font> amount;
+		}
+		else
+                <font color="green">// Withdrawal not allowed</font>
+                        <font color="blue">return</font> 0.0;
+	}
+
+        <font color="blue">public</font> double getbalance()
+	{
+                <font color="blue">return</font> balance;
+	}
+}  
+</pre>
+</code><em>
+
+<p align="center">Listing 1.0 - Account.java</em> </p>
+
+<hr>
+
+<p>After reading through the code, you'll probably have noticed that there are two
+functions called Account. A function that shares the same name as a class is always the
+constructor, but how can there be two? </p>
+
+<p>Function overloading allows us to have more than one method interface. We can have a
+method that takes a <font color="blue">double</font> as a parameter, or one that has no
+value at all. This is handy, because we could refer to the constructor in more than one
+way. </p>
+<code>
+
+<pre>
+        my_account = <font color="BLUE">new</font> account(250.0);
+        my_account = <font color="BLUE">new</font> account();
+</pre>
+</code>
+
+<p>Function overloading need not just apply to constructor methods either. We could create
+a function that takes multiple parameters, yet has a default set of parameters if no
+values are passed. It's even possible to specify different return types! We'll cover this
+in a future tutorial, but for now, we'll go through demonstration code that uses the
+Account class we created earlier. </p>
+
+<p>In the following code, we create a new account (this time specifying no parameters).
+After depositing some money into the account, we call the println method learned in our
+first tutorial, and give it a string concatenated with the return value of getbalance (in
+this case, a double). One of the great features of Java is that it offers implicit type
+conversion to strings, and thus we do not need to covert a double value into a string. </p>
+
+<p>After printing the balance, we withdraw money from the account, and then reprint the
+balance. You'll notice that we again concatenate a string with the return result of
+getbalance, using the ' + ' operator. </p>
+
+<hr>
+<code>
+
+<pre>
+<font color="green">/*
+ *
+ * AccountDemo
+ * Demonstration of Account class
+ *
+ */</font>
+
+<font color="blue">class</font> AccountDemo 
+{
+        <font color="blue">public static void</font> main(String args[])
+	{
+                <font color="green">// Create an empty account</font>
+                Account my_account = <font color="blue">new</font> Account();
+
+                <font color="green">// Deposit money</font>
+		my_account.deposit(250.00);
+
+                <font color="green">// Print current balance</font>
+		System.out.println (&quot;Current balance &quot; +
+			my_account.getbalance());
+
+                <font color="green">// Withdraw money</font>
+		my_account.withdraw(80.00);
+
+                <font color="green">// Print remaining balance</font>
+		System.out.println (&quot;Remaining balance &quot; +
+			my_account.getbalance());
+	}
+}
+
+</pre>
+</code><em>
+
+<p align="center">Listing 1.1 - AccountDemo.java</em> </p>
+
+<hr>
+
+<p align="left">After running the code, feel free to modify some of the parameter values,
+and call different methods of Account to gain some experience with method calls under
+Java. In the next tutorial, we'll put to use some of our knowledge of classes, and cover
+file processing using the Java IO classes. </p>
+
+<p align="center"><!-- Tutorial series navigation --> <a href="../java101/java101.html">Previous</a> | <a href="../java103/java103.html">Next</a> <!-- Footer --></p>
+
+<p align="left"><a href="../index.html"><img src="../images/rounded3darrow_small.gif" alt="&lt;--" align="absmiddle" border="0" WIDTH="45" HEIGHT="45"></a> <a href="../index.html">Back to the Java
+Coffee Break</a></p>
+</body>
+</html>

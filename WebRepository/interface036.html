@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html> <head>
+<meta NAME="description" CONTENT="The Internet Chess Club, where beginners to grandmasters play online. Serious chess. Serious fun!">
+<meta NAME="Keywords" CONTENT="chess, ICC, free chess, free online chess, online chess, International Chess Club, international chessclub, download, master, Internet, blitz, ajedrez, schach, play chess, free, java, tournament, chess games, games, software, net, Fischer, Kasparov, club, chessclub, chess master, Grandmaster, chessmaster, Blitzin, computer, fun, learn, GM, bughouse, Anand, Polgar, Kramnik, Karpov, Leko, Svidler, Bobby, FIDE, USCF, online, correspondence chess, strategy, chess training, chess club, kriegspiel, Linares, international, simultaneous exhibition, simul, checkmate, game, play, Blitzen, chess rules, chess set, instant chess">
+<meta NAME="Robots" CONTENT="All">
+<meta name="robots" content="index,follow">
+<meta name="revisit-after" content="1days">
+
+<!-- Stern International Chess Club -->
+<TITLE>ICC Web-based Interfaces</TITLE>
+
+
+<script type="text/javascript" src="/common/cookies.js"></script>
+<script TYPE="text/javascript">
+<!--
+function dolanguage() {
+	var i = document.headerform.LANGUAGE.selectedIndex;
+	if (i >= 0) {
+		if (document.headerform.LANGUAGE.options[i].text == "English") {
+			setNormalCookie("ICCLANG", ".en");
+location.reload();		// only check part of string due to problems with foreign characters
+		} else if (document.headerform.LANGUAGE.options[i].text.substring(0,4) == "Espa") { // EspaÃ±ol
+			setNormalCookie("ICCLANG", ".es");
+			location.reload();		} else if (document.headerform.LANGUAGE.options[i].text == "Deutsch") {
+			setNormalCookie("ICCLANG", ".de");
+			location.reload();		} else if (document.headerform.LANGUAGE.options[i].text.substring(0,4) == "Fran") { // FranÃ§ais
+			setNormalCookie("ICCLANG", ".fr");
+			location.reload();		} else if (document.headerform.LANGUAGE.options[i].text == "Italiano") {
+			setNormalCookie("ICCLANG", ".it");
+			location.reload();		} else if (document.headerform.LANGUAGE.options[i].text.substring(0,7) == "Portugu") { // PortuguÃªs
+			setNormalCookie("ICCLANG", ".pt");
+			window.location.href = "/";/*
+		} else if (document.headerform.LANGUAGE.options[i].text == "Svenska") {
+			window.location.href = "/swedish/";
+*/
+		}
+	}
+}
+function doquicklinks() {
+	var i = document.headerform.QUICKLINKS.selectedIndex;
+
+	if (i >= 0) {
+		if (document.headerform.QUICKLINKS.options[i].text == "Buy or extend a Membership")
+			window.location.href = "/tryicc/purchase.html";
+		else if (document.headerform.QUICKLINKS.options[i].text == "ChessFM Videos")
+			window.location.href = "/chessfm/";			
+		else if (document.headerform.QUICKLINKS.options[i].text == "ICC News Items")
+			window.location.href = "/activities/news/";
+		else if (document.headerform.QUICKLINKS.options[i].text == "ICC Weekly Newsletters")
+			window.location.href = "/activities/newsletters.html";
+		else if (document.headerform.QUICKLINKS.options[i].text == "Relay Schedule")
+			window.location.href = "/activities/relays.html";
+		else if (document.headerform.QUICKLINKS.options[i].text == "Weekly Events")
+			window.location.href = "/activities/events.html";
+		else if (document.headerform.QUICKLINKS.options[i].text == "Download ICC Dasher")
+			window.location.href = "/helpcenter/interface/Dasher.html";
+		else if (document.headerform.QUICKLINKS.options[i].text == "Dos Hermanas 2009")
+			window.location.href = "/activities/doshermanas2009/";
+	}
+}
+function LoadTop() {
+	var str = window.location.pathname;
+	if (str.indexOf('frame.html') == -1) top.location.href = location.href; // escape the frame
+}
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+	if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+		document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+	else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+if (window != top) LoadTop();
+MM_reloadPage(true);
+// -->
+</script>
+
+
+<STYLE TYPE="text/css"> 
+<!--
+
+/* Main heading on page */
+.pg_title, h1 {
+color: #0168B3;
+font-size: large;
+font-weight: bold;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+
+/* Sub-headings */
+.sub_title, h2 {
+color: #0168B3;
+font-size: medium;
+font-weight: bold;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+h3{
+color: #0168B3;
+font-size: small;
+font-weight: bold;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+
+/* For the News Title links */
+tt,pre {
+font-size: small; 
+font-weight: normal;
+font-family: "Courier New", Courier, Monaco, monospaced;}
+
+td { /* text on main page */
+color: #000000;
+font-size: small;
+font-weight: normal;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+
+td.smaller { /* text in events listing */
+color: #000000;
+font-size: '9pt';
+font-weight: normal;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+
+/* ### used?? */
+.title {
+color: #ffffff;
+font-size: large;
+font-weight: bold;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+a.title:link, a.title:active, a.title:visited, a.title.hover {
+font-size: large;
+color: #FFFFFF;
+text-decoration: none;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+body.content {
+font-size: large;
+color: #999999;
+background-color: #5BA0D5;
+margin:0;
+padding:0;
+font-weight: normal;
+font-family: Arial, Helvetica, Verdana, sans-serif;}
+-->
+</STYLE>
+<link rel="stylesheet" href="/common/style1.css" type="text/css" media="screen">
+</head>
+
+
+<body bgcolor="#FFFFFF">
+<!-- marginwidth="0" marginheight="0" leftmargin="0" topmargin="0"-->
+
+<map name="menumap">
+<!-- HOME --><AREA shape=POLY target=_top alt=HOME 
+  coords=65,1,141,1,157,15,79,15 href="http://www.chessclub.com/"><!-- TRY/JOIN --><AREA shape=POLY target=_top 
+  alt="JOIN ICC" coords=149,1,237,1,252,15,162,15 
+  href="http://www.chessclub.com/tryicc/"><!-- HELP --><AREA shape=POLY 
+  target=_top alt=HELP coords=246,1,301,1,315,15,260,15 
+  href="http://www.chessclub.com/helpcenter/"><!-- ACTIVITES --><AREA shape=POLY 
+  target=_top alt="MEMBERS &amp; ACTIVITIES" coords=307,1,475,1,490,15,321,15 
+  href="http://www.chessclub.com/activities/"><!-- NEWS --><AREA shape=POLY 
+  target=_top alt=CHESS.FM coords=481,1,584,1,598,15,494,15 
+  href="http://www.chessclub.com/chessfm/"><!-- RESOURCES --><AREA shape=POLY 
+  target=_top alt=RESOURCES coords=589,1,685,1,698,15,603,15 
+  href="http://www.chessclub.com/resources/"><!-- STORE --><AREA shape=POLY 
+  target=_top alt=STORE coords=689,1,761,1,775,15,704,15 
+  href="http://www.chessclub.com/store/"></MAP>
+
+<!-- HOME -->     <area alt="HOME"                     target="_top" shape="poly" coords="65,1,141,1,157,15,79,15"   href="/">
+<!-- TRY/JOIN --> <area alt="JOIN ICC"                 target="_top" shape="poly" coords="149,1,237,1,252,15,162,15" href="/tryicc/">
+<!-- HELP -->     <area alt="HELP"                     target="_top" shape="poly" coords="246,1,301,1,315,15,260,15" href="/helpcenter/">
+<!-- ACTIVITES --><area alt="MEMBERS &amp; ACTIVITIES" target="_top" shape="poly" coords="307,1,475,1,490,15,321,15" href="/activities/">
+<!-- NEWS -->     <area alt="CHESS.FM"                 target="_top" shape="poly" coords="481,1,586,1,600,15,494,15" href="/chessfm/">
+<!-- RESOURCES --><area alt="RESOURCES"                target="_top" shape="poly" coords="589,1,685,1,698,15,603,15" href="/resources/">
+<!-- STORE -->    <area alt="STORE"                    target="_top" shape="poly" coords="689,1,761,1,775,15,704,15 " href="/store/">
+</map>
+<div align="center">
+
+<table width="100%" border=0 cellpadding="0" cellspacing="0" align="center">
+<tr>
+   <td colspan="2" width="100%" valign="top" bgcolor="#DDE2F6">
+   <IMG 
+   SRC="/images/Menu3.jpg"   ISMAP USEMAP="#menumap" HEIGHT="27" WIDTH="781" BORDER="0" ALT="menu"></TD>
+</TR>
+
+<TR bgCOLOR="#DDE2F6">
+   <TD height="61" WIDTH="520" valign="top" bgCOLOR="#DDE2F6" align="left"
+      ><A HREF="/" style="cursor: default"><IMG SRC=
+"/images/HeaderMidLeft.jpg"            WIDTH="520" HEIGHT="61" BORDER="0" ALT=""></A></TD>
+
+   <TD width="100%" ALIGN="left" VALIGN="top" bgCOLOR="#DDE2F6">
+      <FORM name="headerform" class="topbar" action="#">
+      <TABLE border="0" width="300" cellpadding="0" cellspacing="0">
+      <TR>
+          <td height="28" bgcolor="#DDE2F6" align="center" valign="bottom">
+             <p>
+              <select name="LANGUAGE" onChange="dolanguage()" class="input" size="1">
+                  <option>CHOOSE A LANGUAGE</option>
+                  <option  >Deutsch</option>
+                  <option  selected >English</option>
+                  <option  >Espa&ntilde;ol</option> <!-- Espa&ntilde;ol -->
+                  <option  >Fran&ccedil;ais</option> <!-- Fran&ccedil;ais -->
+                  <option  >Italiano</option>
+                  <option  >Portugu&ecirc;s</option> <!-- Portugu&ecirc;s -->
+                  <!-- <option>Svenska</option> -->
+              </select>
+              </p>
+          </td>
+      </tr>
+      <tr>
+         <td height="27" bgcolor="#DDE2F6" align="center" valign="middle">
+            <SELECT NAME="QUICKLINKS" onChange="doquicklinks();" class="input" size="1">
+               <OPTION>QUICK LINKS</OPTION>
+               <OPTION>Buy or extend a Membership</OPTION>
+               <OPTION>ChessFM Videos</OPTION>			   
+               <OPTION>ICC News Items</OPTION>
+               <OPTION>ICC Weekly Newsletters</OPTION>
+               <OPTION>Relay Schedule</OPTION>
+               <OPTION>Weekly Events</OPTION>
+               <OPTION>Download ICC Dasher</OPTION>			   
+               <OPTION>Dos Hermanas 2009</OPTION>
+            </SELECT>
+         </td>
+      </TR>
+      </TABLE>
+      </FORM>
+   </TD>
+</TR>
+
+<TR>
+   <TD colspan="2" height="24"
+   ><table border=0 width="100%" cellpadding="0" cellspacing="0">
+      <TR>
+         <TD width=179 rowspan="2" height="24" bgcolor="#DDE2F6" valign=bottom
+             background="/images/HeaderBelowCounts2.jpg"
+         ><img src="/images/HeaderLowerLeft.jpg"
+            width="179" height="24" border="0" alt=""
+          ></TD>
+         <TD height="17" bgcolor="white"  background="/images/HeaderBelowCounts2.jpg">
+            <SPAN STYLE=
+               "font-family : Verdana, Geneva, Arial, Helvetica, sans-serif ;
+                color : blue ;
+                font-size: 10px ; ">
+                           </SPAN>
+         </TD>
+      </TR>
+      <TR>
+         <TD height="7" bgcolor="white"
+             background="/images/HeaderBelowCounts.jpg"
+             >
+         </TD>
+     </TR>
+     </table
+></TD>
+</TR>
+
+<TR>
+<td colspan=2>  
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+   <td colspan=3 
+   ><img src="/images/spacer.gif" alt="" width="30" height="15" border=0
+   ></td>
+</tr>
+
+<!-- END OF HEADER SECTION -->
+<!-- START OF left SECTION -->
+<tr>
+<td width="130" valign="top">
+<center>
+<!-- Freefind Search -->
+<CENTER>
+<div align="center">
+  <table width="124"  border="0" cellspacing="0" cellpadding="2">
+<FORM ACTION="http://search.freefind.com/find.html" METHOD="GET" accept-charset="utf-8">
+    <tr>
+      <td bgcolor="#336699">
+	  <table align="center" width="100%" border="0" cellpadding="2" cellspacing="0">
+        <tr>
+          <td align="center" bgcolor="#DDDDDD">
+              <input type=hidden name=nsb>
+			  <input type=hidden name=css value="">
+		  	  <input type="HIDDEN" name="id" value="59414529">
+              <input type="HIDDEN" name="pageid" value="r">
+              <input type="HIDDEN" name="mode" value="ALL">
+              <input type="HIDDEN" name="n" value="0">
+              <input type="HIDDEN" name="_charset_" value="">
+              <input type="HIDDEN" name="bcd" value="&#247;">
+            <input name="query" type="TEXT" class="cell4input" size="21" maxlength="255"></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#DDDDDD">
+		    <select name="s" class="cell4combo">
+              <option value="" selected>ICC entire site</option>
+              <option value="help">· Help files</option>
+              <option value="documentation">· Documentation</option>
+              <option value="tips">· Tips</option>
+              <option value="news">· News items</option>
+              <option value="newsletters">· Newsletters</option>
+              <option value="events">· Events</option>
+              <option value="activities">· Activities</option>
+              <option value="resources">· Resources</option>
+              <option value="chessclubs">· Chess Clubs</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#DDDDDD"><input type="SUBMIT" class="button" value=" Search ICC"></td>
+        </tr>
+      </table></td>
+    </tr>
+	</FORM>
+  </table></div>
+<!-- End Freefind Search -->
+<table width="130" border="0" style="table-layout: fixed;">
+  <tr>
+    <td>
+<table class='navbg' width='100%' border='0' cellpadding='0'><tr class='navheadinglink' onMouseOver="this.className='navheadinglinkover'" onMouseOut="this.className='navheadinglink'" onclick="location.href='index.html'"><td><center><b class='navheading'>DOWNLOAD SOFTWARE</b></center></td></tr><tr height='10'><td>&nbsp;<a href="windows.html" class='nav'>Windows Software</a></td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Dasher.html" class='nav'>Dasher</a></td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="blitzin_download.php" class='nav'>BlitzIn</a></td></tr><tr height='10'><td>&nbsp;<a href="mac_download.php" class='nav'>Mac Software</a></td></tr><tr height='10'><td>&nbsp;<a href="unix.html" class='nav'>Unix Software</a></td></tr><tr height='10'><td>&nbsp;<a href="java.html" class='nav'>Web Interfaces</a></td></tr></table><table width='100%' border='0'><tr><td valign='middle'><a href="../"><img src='/images/arrowtop.gif' alt='up' border='0'> HELP Top</a></td></tr></table><table width='100%' border='0'></table><font size="1"><br><i>&quot;I was able to reach that level [one of the top-rated juniors in the U.S.] primarily due to the vast training resources afforded by the Internet Chess Club&quot;<br>&mdash;&nbsp;Matthew Herman
+</i></font><br><br><a href="/tryicc/register/">Get a seven day FREE trial of ICC!</a>    </td>
+  </tr>
+</table>
+</center>
+
+<hr class="nav">
+<!-- Left Panel -->
+</td>
+   <td background="/images/pg_dev.gif" width="1" height="100%"
+      ><img src="/images/spacer.gif" alt="" width="1" height="100%" border=0
+   ></td>
+
+<!-- END OF left SECTION -->
+		<td height="100%" width=625 align="center" valign="top">
+			<table width="100%" border="0" cellpadding="6" cellspacing="0">
+		<tr>
+		<td valign="top">
+
+<!-- END OF begin SECTION: start content -->
+<H1><img src="/images/bullet.gif" align="absmiddle" width="12" height="12" border="1"> ICC Java Interfaces</H1>
+
+<TABLE border="1" bordercolor="#006600">
+  <TR>
+  <TD>
+<strong><font color="red">NEW</font>: </strong> You can now claim a two week free trial membership to use with any Java interface by <a href="https://www.chessclub.com/tryicc/paypal/trial.html" target="_blank"><font style="BACKGROUND-COLOR: #FFFFCC">Validating with PayPal</font></a> <em><strong> after</strong></em> you <a href="http://www.chessclub.com/tryicc/register/" target="_blank">create a username</a>.</TD>
+</TR></TABLE>
+
+<p>When you play on the ICC, you need to run software (called a client or interface) 
+  on your computer to connect, display a chess board, chat, and let you make moves 
+  using the mouse. We recommend that you download and install the client designed 
+  specifically for your operating system from the list on the left. Playing through 
+  Java, which is supported on a wide variety of platforms, is also possible.  There
+  are two kinds of Java interfaces: applets and applications.</p>
+<hr>
+<H1>Java Applets</H1>
+<p>Java applets are different from the other interfaces in that they are run directly 
+  from your browser. Use a java applet if you just want a quick game without installing 
+  anything.</p>
+
+<p><h2>Jin Applet:  a full-featured interface with no installation needed</h2>
+<p> <a href="/jin"><b>Jin Applet</b></a><b> </b>by Alexander Maryanovsky is by far the fanciest
+of the applet interfaces, and is similar to our Windows interface BlitzIn in
+its appearance and capabilities.  You can customize the font, chessboard and so forth,
+and it will save your preferences on the central server, so that wherever you go, be it
+an Internet Cafe, a public library or a friend's house, your preferences go with you.
+You can also download and install Jin as a Java application, see below.
+You have more information in the   Alexander Maryanovsky's <a href="http://www.jinchess.com/" target="_blank">website</a>. 
+<p><h2>CoffeeHouse:  our original Java interface</h2>
+<p> <a href="CoffeeHouse.html"><b>CoffeeHouse</b></a> is an advanced java interface 
+  that can be used to access the ICC.  If you have a suitable browser, CoffeeHouse 
+  is easy to use, requires no installation, and allows you to access nearly 
+  all of ICC's features. 
+
+<p>
+<h2>EasyChess:  the introductory Java interface</h2>
+<p> <a href="EasyChess.html"><b>EasyChess</b></a> is intended to demonstrate only 
+  the most basic features of ICC. EasyChess is extremely easy to use, requires 
+  no installation, and should enable you to start to play instantly. However, 
+  you will not be able to access the more advanced features of ICC. 
+<p></p>
+<hr>
+<p>
+
+
+<h1>Java Applications</h1>
+<p>Java applications are downloaded and installed like any other program. They 
+  are a good option if you can't use a regular client or want to use the same 
+  client on more than one operating system.</p>
+<p>
+<h2>Jin</h2>
+<p> <img src="images/Jin.jpg" width="256" height="185" align="right" alt="Jin screen shot"><a href="http://www.jinchess.com" target="_blank"><b>Jin</b></a> 
+  by Alexander Maryanovsky is a full-featured Java application interface for ICC. 
+<p> <i>Note:</i> In order to run Jin you need a Java Runtime Environment. If you 
+  do not already have it installed, you may obtain it from one of the following 
+  sources: 
+<ul>
+  <li>For Windows you will not usually have to install anything in addition to Jin. To use it fully, however, install the latest <A HREF="http://www.java.com">Java Runtime Environment</A> for Windows. You may also need to install that if Jin doesn't work, or
+    doesn't work properly out of the box.
+  
+  <li><a href="http://www.java.com" target="_blank">For Linux</a> 
+  <li><a href="http://www.freebsd.org/java/" target="_blank">For FreeBSD</a> 
+  <li>All modern Macs have Java preinstalled.
+  <li>You have more information in the   Alexander Maryanovsky's <a href="http://www.jinchess.com/" target="_blank">website</a>. 
+</ul>
+
+<p>
+<hr>
+<h2>ChessViewer Utility for Webmasters</h2> 
+<p><b><A href="/chessviewer/">ChessViewer</a></b> is not an interface to ICC but 
+  rather a Java utility for putting chess games onto web pages. 
+
+   </table>
+   </td>
+   <td background="/images/pg_dev.gif" width="1" height="100%"
+      ><img src="/images/spacer.gif" alt="" width="1" height="100%" border=0
+   ></td>
+   <td>&nbsp;</td>
+
+	<!-- START OF footer SECTION: end content -->
+	<tr>
+		<td colspan="5"><img src="/images/spacer.gif" alt="" width="30" height="15"></td>
+	</tr>
+</table>
+</td>
+</tr>
+
+<!-- start footer -->
+<tr>
+	<td colspan="2" bgcolor="#F0EECA"><img src="/images/index_27.gif" alt="" width="100%" height="7"></td>
+</tr>
+<tr>
+  <td colspan="2" bgcolor="#F0EECA" height="49" align="left">
+    <p align="center"><font size="2" color="#000000"><img src="/images/SmallLogo.gif" alt="logo" width="48" height="54" align="left" HSPACE="1" VSPACE="1" BORDER="0">
+	<A HREF="/tryicc/about.html">About Us</a>
+        | <a href="/helpcenter/contact.html">Contact Us</a>
+        | <a href="http://www.chessclub.com/help/privacy">Privacy Policy</a>
+        | <a href="http://www.chessclub.com/help/agreement">Terms of Service</a>
+	<br></font></p>
+	<p><font size="1" color="#000000">&copy; Copyright 1995-2010 Internet&nbsp;Chess Club, Inc.
+	All Rights Reserved.
+ 
+	</font></p>
+  </td>
+</tr>
+
+</table>
+
+</DIV>
+
+<!-- Google metrics -->
+<script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-584640-1";
+urchinTracker();
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,1760 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="generator" content="Roller Weblogger 4.0.1.1 (BSC)"/>
+               <link rel="EditURI"   type="application/rsd+xml" title="RSD" href="http://blogs.sun.com/ldemichiel/rsd"/>
+        
+            <link rel="alternate" type="application/atom+xml" title="Recent Entries (Atom)"  href="http://blogs.sun.com/ldemichiel/feed/entries/atom" />
+    <link rel="alternate" type="application/rss+xml"  title="Recent Entries (RSS)"   href="http://blogs.sun.com/ldemichiel/feed/entries/rss" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Comments (Atom)" href="http://blogs.sun.com/ldemichiel/feed/comments/atom" />
+    <link rel="alternate" type="application/rss+xml"  title="Recent Comments (RSS)"  href="http://blogs.sun.com/ldemichiel/feed/comments/rss" />
+
+    
+        <title>Java Persistence 2.0 Proposed Final Draft : Linda DeMichiel's Blog</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/ldemichiel/page/sunpacifico-custom.css"/>
+</head>
+
+<body>
+<div class="pagewrap">
+<div class="innerpagewrap">
+
+
+<!-- BEGIN A2 COMPONENT V.7 -->
+<div class="a2" id="a2v7">
+<div class="cornerTL">
+<div class="cornerTR">
+<div class="cornerBL">
+<div class="cornerBR">
+<div id="image1" class="image1">
+
+    <h1>
+    <span class="descrip"></span>
+    <span class="titlehead"><a href="http://blogs.sun.com/ldemichiel/">Linda DeMichiel's Blog</a></span>
+    </h1>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END A2 COMPONENT V.7 -->
+
+<!-- BEGIN CONTENT -->
+<div class="container">
+
+<div class="rWeblogCategoryChooser">
+                                <ul class="rCategory">
+                   <li class="selected">All</li>
+                                            <li><a href="http://blogs.sun.com/ldemichiel/category/Persistence">Persistence</a></li>
+                                                <li><a href="http://blogs.sun.com/ldemichiel/category/Personal">Personal</a></li>
+                                                <li><a href="http://blogs.sun.com/ldemichiel/category/Sun">Sun</a></li>
+                            </ul>
+    </div>
+
+<div class="next-previous">
+<p>
+                                    &laquo; <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1">Java Persistence 2.0...</a> |  
+                <a href="/ldemichiel/">Main</a>
+                | <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_is">Java Persistence 2.0...</a> &raquo;
+    </p>
+</div>
+
+<div class="entries">
+
+                <div class="day">
+<div class="dayheader">
+<h2>Friday Mar 27, 2009</h2>
+</div>
+
+   <div class="entry">
+   <div class="entryheader">
+   <h3 id="java_persistence_2_0_proposed"><a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed">Java Persistence 2.0 Proposed Final Draft</a></h3>
+   </div>
+   <div class="entrybody">
+                    When we released the JPA 2.0 Public Draft several months ago, one of
+our main goals was to get feedback on the new functionality â?? and, in
+this case, the
+most important new piece was the criteria API.<br>
+<br>
+We did.&nbsp; We received quite a few responses to the
+criteria APIâ??many of you pleased that we had addressed this areaâ??others
+suggesting that we should look at providing a typesafe API
+rather than a string-based API. <br>
+<br>
+Gavin King immediately took up the challenge.&nbsp; Gavin's
+proposal to the group, described
+here in his
+<a
+ href="http://in.relation.to/Bloggers/ATypesafeCriteriaQueryAPIForJPA">blog</a>,
+was a
+typesafe API based on a metamodel of the managed classes in the
+persistence unit.<br>
+<br>
+The expert group was in agreement that the metamodel would
+be
+valuable to
+have, independent of its
+use to support a criteria API.&nbsp; (Actually, we had discussed
+the usefulness of a metamodel API back in
+the JPA 1.0 days, although understandably it was low on our
+priority list back then). The group was in less agreement on
+the form of the
+criteria API itself.&nbsp; After many discussions on the pluses
+and
+minuses
+of a metamodel-based API compared to a string-based API, we decided to
+adopt the typesafe API, but to provide developers the option of using a
+string-based approach if they prefer. &nbsp;More
+on that
+belowâ??but first, some background on the metamodel API and how to use
+the typesafe API.<br>
+<br>
+<br>
+<span style="font-weight: bold; text-decoration: underline;">Metamodel
+API<br>
+</span><br>
+From a query point of view, the metamodel captures what the spec refers
+to in JPQL terms as the
+"abstract schema" of the persistence unit â?? that is, the logical view
+over the persistent state and relationships of the managed classes of
+the persistence unit (entities, mapped superclasses, embeddables).<br>
+<br>
+The metamodel can be browsed dynamically, using
+the new <span style="font-family: monospace; color: black;">javax.persistence.metamodel</span>
+interfaces. These interfaces can be used directly to write
+typesafe queries with the new API or, more conveniently,&nbsp;
+metamodel
+classes that capture the metamodel of the persistence unit can be
+generated at the time the
+corresponding managed classes are compiled. &nbsp;To facilitate
+this, we plan to release an annotation processor to be run in
+conjunction with javac to generate these classes.<br>
+<br>
+To illustrate what such metamodel classes look like, consider the
+following set of interrelated entity classes that I used in my earlier <a
+ href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1">post</a>
+:<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+<code style="color: rgb(0, 0, 153);">@Entity public class
+Customer {<br>
+&nbsp; @Id int custId;<br>
+&nbsp; String name;<br>
+&nbsp; ...<br>
+&nbsp; @OneToMany(mappedBy="customer") Set&lt;Order&gt;
+orders;<br>
+&nbsp; ...<br>
+}<br>
+<br>
+@Entity public class Order {<br>
+&nbsp; @Id int orderId;<br>
+&nbsp; ...<br>
+&nbsp; @ManyToOne Customer customer;<br>
+&nbsp; @OneToMany(mappedBy="order") Set&lt;LineItem&gt;
+items;<br>
+&nbsp; ...<br>
+}<br>
+<br>
+@Entity public class LineItem {<br>
+&nbsp; @Id int id;<br>
+&nbsp; @ManyToOne Order order;<br>
+&nbsp; @ManyToOne Product product;<br>
+&nbsp; ...<br>
+}<br>
+<br>
+@Entity public class Product {<br>
+&nbsp; @Id int productId;<br>
+&nbsp; String name;<br>
+&nbsp; String productType;<br>
+&nbsp; ...<br>
+}<br>
+</code><br>
+The corresponding metamodel classes look like this:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">import
+javax.persistence.metamodel.*;<br>
+@TypesafeMetamodel<br>
+public class Customer_ {<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;Customer, Integer&gt; custId;<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;Customer, String&gt; name;<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Set&lt;Customer, Order&gt; orders;<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+}<br>
+<br>
+import javax.persistence.metamodel.*;<br>
+@TypesafeMetamodel<br>
+public class Order_ {<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;Order, Integer&gt; orderId;<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;Order, Customer&gt; customer;<br>
+&nbsp;&nbsp;&nbsp; public static volatile Set&lt;Order,
+LineItem&gt; items;<br>
+&nbsp;&nbsp; ...<br>
+}<br>
+<br>
+import javax.persistence.metamodel.*;<br>
+@TypesafeMetamodel<br>
+public class LineItem_ {<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;LineItem, Integer&gt; id;<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;LineItem, Order&gt; order;<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;LineItem, Product&gt; product;<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+}<br>
+<br>
+import javax.persistence.metamodel.*;<br>
+@TypesafeMetamodel<br>
+public class Product_ {<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;Product, Integer&gt; productId;<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;Product, String&gt; name;<br>
+&nbsp;&nbsp;&nbsp; public static volatile
+Attribute&lt;Product, String&gt; productType;<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+}</code><br>
+<br>
+The advantage of using generated metamodel classes, rather than using
+the <span style="font-family: monospace; color: black;">javax.persistence.metamodel</span>
+API directly, is that it makes
+the
+writing of typesafe queries very easy, as I'll describe in the
+sections below. &nbsp;The API is otherwise much in the spirit of
+that in the Public Draft. &nbsp;It improves over this earlier API
+in that it provides a more "semantic" factorization of interfaces as
+well as the ability to browse the constitute parts of a criteria query
+object.<br>
+<br>
+For the sake of providing a more direct comparison with our earlier
+version, I'm going to take
+what I
+wrote
+about our earlier version of the criteria API and translate
+sample queries to the new
+criteria API.<br>
+<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Writing
+Queries with the New Criteria API</span><br>
+<br>
+The core interfaces of the criteria API are the
+<span style="font-family: monospace; color: black;">CriteriaQuery</span><span
+ style="color: black;"> </span>interface,
+which provides the methods that construct the
+constituent parts of a criteria query (select clauses, where clauses,
+etc.) and the <span style="font-family: monospace; color: black;">QueryBuilder</span><span
+ style="color: black;"> interface</span>â??which
+serves as the factory for criteria query objects and for the operations
+that are used to
+construct expressions and predicates. <br>
+<br>
+The QueryBuilder interface is obtained from the EntityManager
+or EntityManagerFactory. &nbsp;
+Using the QueryBuilder object, you create an "empty"
+CriteriaQuery object:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">EntityManager em =
+... ;<br>
+QueryBuilder qb = em.getQueryBuilder();<br>
+CriteriaQuery q = qb.create();</code><br>
+<br>
+As before, the specification of query roots is the first
+step in
+constructing a query. &nbsp;These correspond to
+the range variables defined in a SQL FROM clause, and specify the
+domain objects
+on which the query is based.&nbsp;
+The&nbsp;<span style="font-family: monospace; color: black;">from</span><span
+ style="color: black;">
+method of the </span><span
+ style="font-family: monospace; color: black;">CriteriaQuery</span>
+interface is used to add a query root to a CriteriaQuery instance. The <span
+ style="font-family: monospace; color: black;">from</span>
+method is additive.&nbsp;
+The addition of further query roots, like additional range variables in
+JPQL, creates a cartesian product with the existing
+roots.<br>
+<br>
+<code style="color: rgb(0, 0, 153);">CriteriaQuery q =
+qb.create();<br>
+Root&lt;Customer&gt; customer = q.from(Customer.class);</code><br>
+<br>
+Query roots are instances of the <span
+ style="font-family: monospace; color: black;">Root </span>interface.
+&nbsp;Notice that the <span
+ style="font-family: monospace; color: black;">Root</span><span
+ style="color: black;">
+variable </span><span
+ style="font-family: monospace; color: black;">customer</span>
+is parameterized by the type of the entity that it
+represents.&nbsp; <br>
+<br>
+Given one or more query roots, the query domain can be modified using <span
+ style="font-family: monospace;">join</span>
+operations.
+&nbsp; The argument to the <span
+ style="font-family: monospace; color: black;">join</span>
+method is a metamodel attribute which captures both the
+source of the join and the join target. &nbsp;For an entity
+relationship or for an element collection this attribute
+is of
+type <span style="font-family: monospace; color: black;">javax.persistence.metamodel.Collection</span><span
+ style="color: black;">,
+</span><span style="font-family: monospace; color: black;">javax.persistence.metamodel.Set</span><span
+ style="color: black;">,
+</span><span style="font-family: monospace; color: black;">javax.persistence.metamodel.List</span><span
+ style="color: black;">,</span><span
+ style="color: black;"> or </span><span
+ style="font-family: monospace; color: black;">javax.persistence.metamodel.Map.</span><span
+ style="color: black;"> </span><span
+ style="color: black;">When performing a
+join to an embeddable</span><span style="color: black;">,
+it is of type </span><span
+ style="font-family: monospace; color: black;">javax.persistence.metamodel.Attribute.</span><span
+ style="color: black;">&nbsp;</span><br>
+<br>
+For example, to modify the above query to operate over
+customers and their orders, we would add:<br>
+<br>
+<code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">Join&lt;Customer,Order&gt;
+order = customer.join(Customer_.orders);</span></code><br>
+<br>
+The argument to the <span style="font-family: monospace;">join</span>
+method here is of type <span
+ style="font-family: monospace; color: black;">Set&lt;Customer,
+Order&gt;</span>.&nbsp; &nbsp;The typesafe
+parameterization of the <span
+ style="font-family: monospace; color: black;">join</span>
+method insures that it is not possible to construct an invalid join
+from the <span style="font-family: monospace; color: black;">customer</span>
+root.<br>
+<br>
+When writing
+queries using the typesafe API in this way, in general the only places
+that you will use the attributes
+of metamodel classes is to specify navigation (joins in the
+from-clause, and path navigation in the other clauses of the query).
+&nbsp;From a typing point of view, these objects play the role of
+Java
+member literals (if only the Java language had member literals!) in
+providing type
+information.<br>
+<br>
+<br>
+<span style="font-weight: bold; text-decoration: underline;">The
+SELECT and WHERE Clauses</span><br>
+<br>
+Every criteria query needs a select clause. &nbsp;Every non-trivial
+query has a
+where clause.<br>
+<br>
+Continuing our earlier example, a query to return
+all customers ordering products of type
+'printer' would look something like this with JPQL:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT c.name<br>
+FROM Customer c JOIN c.orders o JOIN o.items i<br>
+WHERE i.product.productType = 'printer' </code><br>
+<br>
+The criteria API equivalent is the following:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">QueryBuilder qb =
+em.getQueryBuilder();<br>
+CriteriaQuery q = qb.create();<br>
+Root&lt;Customer&gt; customer = q.from(Customer.class);<br>
+Join&lt;Order, LineItem&gt; item =
+customer.join(Customer_.orders).join(Order_.items);<br>
+q.where(qb.equals(item.get(Item_.product).get(Product_.productType),
+"printer"))<br>
+&nbsp;.select(customer.get(Customer_.name));</code><code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+</code><br>
+There are a couple of things to note:<br>
+<br>
+The argument to the <span
+ style="font-family: monospace; color: black;">where</span>
+method is a boolean expression (of type <span
+ style="font-family: monospace;">Expression&lt;Boolean&gt;</span>).&nbsp;
+As mentioned
+above, the <span style="font-family: monospace; color: black;">QueryBuilder</span>
+interface serves as a factory for such expressions.<br>
+<br>
+In this particular example, the first argument to the <span
+ style="font-family: monospace; color: black;">equals</span>
+method is a <span style="font-family: monospace; color: black;">Path</span>
+instance. &nbsp;The <span
+ style="font-family: monospace; color: black;">get</span>
+method is used to traverse a path. &nbsp;Like
+the <span style="font-family: monospace; color: black;">join</span>
+method, it relies on use of a metamodel attribute to achieve
+typesafe navigation. &nbsp;In this case, the
+path is derived from
+invoking&nbsp;<span style="font-family: monospace; color: black;">get(Item_.product)</span>
+on the <span style="font-family: monospace;">item</span>
+object and is then further chained to navigate to
+the&nbsp;<span style="font-family: monospace; color: black;">productType</span>
+attribute.
+&nbsp;<br>
+<br>
+The <span style="font-family: monospace; color: black;">where</span>
+method returns the modified <span
+ style="font-family: monospace; color: black;">CriteriaQuery</span>
+instance. &nbsp;If the <span
+ style="font-family: monospace; color: black;">where</span>
+method is applied again, the restrictions are replaced. &nbsp; If
+the <span style="font-family: monospace; color: black;">where</span>
+method is invoked without an argument, they are removed.<br>
+<br>
+The <span style="font-family: monospace; color: black;">select</span><span
+ style="color: rgb(0, 0, 153);">
+</span>method also returns the modified
+<span style="font-family: monospace;">CriteriaQuery</span>
+instance. &nbsp;If the <span style="font-family: monospace;">select</span>
+method is applied
+again, the select list is replaced. &nbsp;If the <span
+ style="font-family: monospace;">select</span>
+method is invoked without an argument, they are removed (and the query
+will not be
+executable). &nbsp;
+<br>
+<br>
+<br>
+<span style="font-weight: bold; text-decoration: underline;">Coverage</span><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+As
+with&nbsp;the version presented in the Public Draft, the new
+criteria
+API is intended to provide support for all the functionality of JPQL.<br>
+<br>
+In the following sections we examine how we might rewrite some of the
+JPQL
+examples in my earlier <a
+ href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1">blog</a>.&nbsp;
+I'm just going to show
+the JPQL queries here and assume the existence of the
+obvious managed classes and their corresponding metamodel classes.<br>
+<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Navigation</span><br>
+<br>
+&nbsp;JPQL:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT DISTINCT
+p.billedTo<br>
+FROM Employee e JOIN e.contactInfo c JOIN c.phones p<br>
+WHERE e.contactInfo.address.zipcode = '95054'<br>
+&nbsp;&nbsp;&nbsp; AND p.phonetype = PhoneType.OFFICE</code><br>
+<code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><br>
+Using the criteria API, this query can be written as follows.<br>
+<br>
+<code style="color: rgb(0, 0, 153);">CriteriaQuery q =
+qb.create();<br>
+Root&lt;Employee&gt; e = q.from(Employee.class);<br>
+Join&lt;Employee, ContactInfo&gt; c =
+e.join(Employee_.contactInfo);<br>
+Join&lt;ContactInfo, Phone&gt; p = c.join(ContactInfo_.phones);<br>
+q.where(qb.equal(c.get(ContactInfo_.address).get(Address_.zipcode),
+"95054"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.equal(p.get(Phone_.phonetype), PhoneType.OFFICE))<br>
+&nbsp; .select(p.get(Phone_.billedTo)).distinct(true); </code><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Maps</span><br>
+<br>
+JPQL:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT p<br>
+FROM PictureCategory c JOIN c.photos p<br>
+WHERE c.name = 'birds' AND KEY(p) LIKE '%egret%'<br>
+<br>
+</code>Using the criteria API:<br>
+<code style="color: rgb(0, 0, 153);"><br>
+CriteriaQuery q = qb.create();<br>
+Root&lt;PictureCategory&gt; c = q.from(PictureCategory.class);<br>
+MapJoin&lt;PictureCategory, String, Photo&gt; p =
+c.join(PictureCategory_.photos);<br>
+q.where(qb.equal(c.get(PictureCategory_.name), "birds"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.like(p.key(), "%egret%"))<br>
+&nbsp;.select(p);<br>
+<span style="font-family: monospace;"></span></code><code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><br>
+As in the JPQL query, a variable referring to a map type
+corresponds to the map <span style="font-style: italic;">value</span>.
+&nbsp;Notice that the <span style="font-family: monospace;">MapJoin</span>
+instance is parameterized on the type of the source entity, and the
+types of the map key and map value.<br>
+<br>
+JPQL:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT
+v.location.street, ENTRY(i)<br>
+FROM VideoStore v JOIN v.videoInventory i<br>
+WHERE v.location.zipcode = '95054' <br>
+&nbsp;&nbsp; AND KEY(i).director = 'Hitchcock' AND VALUE(i)
+&gt; 0 <br>
+</code><code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><br>
+Using the criteria API:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">CriteriaQuery q =
+qb.create();<br>
+Root&lt;VideoStore&gt; v = q.from(VideoStore.class);<br>
+MapJoin&lt;VideoStore, Movie, Integer&gt; i =
+v.join(VideoStore_.videoInventory);<br>
+q.where(qb.equal(v.get(VideoStore_.location).get(Address_.zipcode),
+"95054"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.equal(i.key().get(Movie_.director), "Hitchcock"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.gt(i, 0))<br>
+&nbsp;.select(v.get(VideoStore_.location).get(Address_.street),
+i.entry());</code><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Ordered
+Lists</span><br>
+<br>
+JPQL:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT e<br>
+FROM Employee e JOIN e.dept d<br>
+WHERE d.name='Marketing' AND INDEX(e) &lt; 5</code><br>
+<code></code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+</span><span style="color: black;">Using the
+criteria API:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">CriteriaQuery q =
+qb.create();<br>
+Root&lt;Department&gt; d = q.from(Department.class);<br>
+ListJoin&lt;Department, Employee&gt; e =&nbsp;
+d.join(Department_.members);<br>
+q.where(qb.equal(d.get(Department_.name), "Marketing),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.lt(e.index, 5))<br>
+&nbsp;.select(e); </code><br>
+<br>
+Notice that the <span style="font-family: monospace; color: black;">index</span>
+operation here is properly typed as applying to a <span
+ style="font-family: monospace; color: black;">ListJoin</span>
+instance. &nbsp;Instead of
+joining from Employee to Department, as in the JPQL query,&nbsp; we
+therefore join from Department to Employee. &nbsp;From a database
+point
+of view, of course, the two are identical.<br>
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+</span><br>
+<span style="font-weight: bold; text-decoration: underline;">Restricted
+Polymorphism</span><br>
+<br>
+JPQL:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT e<br>
+FROM Employee e JOIN e.dept d<br>
+WHERE d.name = 'Marketing' AND TYPE(e) IN (PartTimeEmployee, Contractor)</code><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+</span>In the criteria query, entity class objects are used to
+specify entity type arguments to the <span
+ style="font-family: monospace; color: black;">in </span>method.
+&nbsp;The <span style="font-family: monospace; color: black;">in</span>
+method supports use of a builder pattern, which this query illustrates:<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+</span><code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">CriteriaQuery
+q = qb.create();<br>
+Root&lt;Employee&gt; e = q.from(Employee.class);<br>
+Join&lt;Employee, Department&gt; d = e.join(Employee_.dept);<br>
+q.where(qb.equal(d.get(Department_.name), "Marketing"),<br>
+&nbsp; &nbsp; &nbsp; &nbsp;
+qb.in(e.type()).value(PartTimeEmployee.class).value(Contractor.class))<br>
+&nbsp; .select(e);<br>
+</span></code><br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Case
+Expressions</span><br>
+<br>
+This query shows the use of the general form of case
+expressions.<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT c, CASE WHEN
+c.annualSpending &gt; 10000 THEN 'Premier'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+WHEN c.annualSpending &gt;&nbsp; 5000 THEN 'Gold'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+WHEN c.annualSpending &gt;&nbsp; 2000 THEN 'Silver'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ELSE 'Bronze'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+END<br>
+FROM Customer c<br>
+<br>
+CriteriaQuery q = qb.create();<br>
+Root&lt;Customer&gt; c = q.from(Customer.class);<br>
+Expression&lt;Integer&gt; annualSpending =
+c.get(Customer_.annualSpending);<br>
+q.select(c, qb.selectCase()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.when(qb.gt(annualSpending, 10000),&nbsp; "Premier")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.when(qb.gt(annualSpending, 10000),&nbsp; "Gold")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.when(qb.gt(annualSpending, 10000),&nbsp; "Silver")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.otherwise("Bronze"));&nbsp; </code><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+<br>
+</span>This one uses a NULLIF expression:<span
+ style="color: rgb(0, 0, 153);"></span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+<br>
+</span><code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><code>SELECT
+AVG(NULLIF(e.salary, -99999))<br>
+FROM Employee e<br>
+<br>
+CriteriaQuery q = qb.create();<br>
+Root&lt;Employee&gt; e = q.from(Employee.class);<br>
+q.select(qb.avg(qb.nullif(e.get(Employee_.salary), -99999)));<br>
+</code><br>
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+<span style="text-decoration: underline; font-weight: bold;">Subqueries</span><br>
+<br>
+The following JPQL query returns those customers whose unpaid balance
+is less than half of the average. &nbsp;This makes use of a
+non-correlated subquery.<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT goodCustomer<br>
+FROM Customer goodCustomer<br>
+WHERE goodCustomer.balanceOwed &lt; (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SELECT AVG(c.balanceOwed)/2.0 FROM Customer c)</code><br>
+<br>
+Using the criteria API, the corresponding query can be written as shown
+below. &nbsp;There are <span
+ style="font-family: monospace; color: black;">Root</span>
+objects for both
+the subquery and the containing query. &nbsp;The subquery method of
+the <span style="font-family: monospace; color: black;">CriteriaQuery</span>
+interface creates a <span
+ style="font-family: monospace; color: black;">Subquery</span>
+instance. &nbsp;This instance is typed according to its expected
+result type.<br>
+<br>
+<code style="color: rgb(0, 0, 153);">CriteriaQuery q =
+qb.create();<br>
+Root&lt;Customer&gt; goodCustomer = q.from(Customer.class);<br>
+Subquery&lt;Double&gt; sq = q.subquery(Double.class);<br>
+Root&lt;Customer&gt; c = sq.from(Customer.class);<br>
+q.where(qb.lt(goodCustomer.get(Customer_.balanceOwed),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+sq.select(qb.toDouble(qb.quot(qb.avg(c.get(Customer_.balanceOwed)),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2.0)))))<br>
+&nbsp;.select(goodCustomer);</code><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"><code></code></span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+The following JPQL query selects those employees that make more than
+all of the managers in their department. &nbsp;This has a
+correlated subquery, as it uses the <span
+ style="font-family: monospace; color: black;">emp</span>
+range variable of the containing query.<br>
+<br>
+<code style="color: rgb(0, 0, 153);">SELECT emp<br>
+FROM Employee emp<br>
+WHERE emp.salary &gt; ALL (<br>
+&nbsp;&nbsp;&nbsp; SELECT m.salary<br>
+&nbsp;&nbsp;&nbsp; FROM Manager m<br>
+&nbsp;&nbsp;&nbsp; WHERE m.department = emp.department) </code><br>
+<code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><br>
+This is the criteria API equivalent. <br>
+<br>
+<code style="color: rgb(0, 0, 153);">CriteriaQuery q =
+qb.create();<br>
+Root&lt;Employee&gt; emp = q.from(Employee.class);<br>
+Subquery&lt;BigDecimal&gt; sq = q.subquery(BigDecimal.class);<br>
+Root&lt;Manager&gt; m = sq.addRoot(Manager.class);<br>
+sq.select(m.get(Manager_.salary))<br>
+&nbsp; .where(qb.equal(m.get(Manager_.dept),
+emp.get(Employee_.dept)));<br>
+q.select(emp)<br>
+&nbsp;.where(qb.gt(emp.get(Employee_.salary), qb.all(sq)));</code><br>
+<code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><code></code></span><span
+ style="font-weight: bold; text-decoration: underline;"><br>
+<br>
+String-based Use of the Criteria API<br>
+</span><span
+ style="font-weight: bold; text-decoration: underline;"><br>
+</span>In
+addition to the typesafe API, the criteria API also supports
+string-based navigation, as did the API of the Public
+Draft. &nbsp;As I mentioned, the Expert Group was somewhat divided
+over the need
+for
+string-based support, but many members felt strongly that some
+developers would prefer it.<br>
+<br>
+As you might have already inferred from the examples above, the main
+difference in the string-based usage of the criteria API is
+that strings are used to specify joins and path navigation.<br>
+<br>
+The following queries, taken from those above, show how a criteria
+query would
+be written to use the methods that take strings rather than metamodel
+types as arguments: <br>
+<br>
+<code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span></code><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><code>CriteriaQuery
+q = qb.create();<br>
+Root&lt;Employee&gt; e = q.from(Employee.class);<br>
+Join&lt;Employee, ContactInfo&gt; c&nbsp; =&nbsp;
+e.join("contactInfo");<br>
+Join&lt;ContactInfo, Phone&gt; p = c.join("phones");<br>
+q.where(qb.equal(c.get("address").get("zipcode"), "95054"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.equal(p.get("phonetype"), PhoneType.OFFICE))<br>
+&nbsp; .select(p.get("billedTo")).distinct(true);<br>
+<br>
+<br>
+CriteriaQuery q = qb.create();<br>
+Root&lt;VideoStore&gt; v = q.from(VideoStore.class);<br>
+MapJoin&lt;VideoStore, Movie, Integer&gt; i =
+v.join("videoInventory");<br>
+q.where(qb.equal(v.get("location").get("zipcode"), "95054"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.equal(i.key().get("title"), "Vertigo"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.gt(i, 0))<br>
+&nbsp;.select( v.get("location").get("street"));<br>
+</code><br>
+</span>If &nbsp;you prefer to use raw types rather than
+the parameterized types shown above, you can do so,
+however this will result in compiler warnings unless <span
+ style="font-family: monospace;">@SuppressWarnings("unchecked")</span>
+is used:<br>
+<br>
+<code style="color: rgb(0, 0, 153);">CriteriaQuery q =
+qb.create();<br>
+Root e = q.from(Employee.class);<br>
+Join c = e.join("contactInfo");<br>
+Join p = c.join("phones");<br>
+q.where(qb.equal(c.get("address").get("zipcode"), "95054"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+qb.equal(p.get("phonetype"), PhoneType.OFFICE))<br>
+&nbsp; .select(p.get("billedTo")).distinct(true);</code><br>
+<br>
+<span style="font-weight: bold; text-decoration: underline;"><span
+ style="font-weight: bold;"><span
+ style="text-decoration: underline;"><br>
+</span></span>Send Us Your Feedback</span><br>
+<br>
+This draft of the spec contains some important changes, particularly
+with regard to the Criteria API, and can be downloaded&nbsp;<a
+ href="http://jcp.org/en/jsr/detail?id=317">here</a>.
+&nbsp;As always, we welcome your
+feedback and suggestions. &nbsp; If you would like to send feedback
+to the
+expert group, you can reach us at
+jsr<faketag></faketag>-317-pfd-feedback<faketag></faketag>@sun.com.<br>
+<br>
+thanks!<br>
+<br>
+<br>
+
+           </div>
+   <div class="entryfooter">
+   <p>
+            Posted at 11:37AM Mar 27, 2009
+            by Linda DeMichiel in <span class="category">Persistence</span>
+                                         | <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comments" class="commentsLink">Comments[21]</a>
+                        | <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed">Permalink</a>
+   </p>
+   </div>
+   </div>
+
+
+</div>
+    
+        <!-- Begin SiteCatalyst code version: G.5. -->
+<script type="text/javascript" language="JavaScript">
+<!--
+if(typeof s_channel=='undefined'){var s_channel="ldemichiel";}
+//--></script>
+<script type="text/javascript" language="JavaScript" src="/omniture/s_code_remote.js"></script>
+<!-- End SiteCatalyst code version: G.5. -->
+</div>
+
+    <a name="comments"></a>
+    <div class="comments" id="comments">
+
+            <div class="comments-head">Comments:</div>
+            
+    <br/>
+                        <a name="comment-1238226976000" id="comment-1238226976000"></a>
+            <div class="comment odd" id="comment1">
+
+                
+<p>Advantages of the Metamodel API:</p>
+
+
+<p>- Auto-complete support in the IDE<br/>
+- Refactoring support<br/>
+- Compiler type checking<br/>
+- Protection against SQL injection</p>
+
+
+<p>The idea is that IDE creates the metamodel classes dynamically (while editing the code).</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.h2database.com"><b>Thomas Mueller</b></a>
+                
+                on March 28, 2009 at 12:56 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238226976000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238247546000" id="comment-1238247546000"></a>
+            <div class="comment even" id="comment2">
+
+                
+<p>Hey Thomas,<br/>
+Note that while the IDE can explicitly generate the metamodel on the fly, it can also delegate to the annotation processor that is triggered by the Java compiler. Even if the IDE has no specific JPA plugin, the metamodel is still generated on the fly. Same for plain old command line compilation.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://in.relation.to"><b>Emmanuel Bernard</b></a>
+                
+                on March 28, 2009 at 06:39 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238247546000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238253716000" id="comment-1238253716000"></a>
+            <div class="comment odd" id="comment3">
+
+                
+<p>&gt; [the IDE] can ... delegate to the annotation processor</p>
+
+
+<p>Yes, that's what I wanted to say. Currently, many (most?) IDEs don't fully support on-the-fly annotation processing. But once the Metamodel API is standardized, I'm sure IDE support will improve.</p>
+
+
+<p>The syntax is still a bit verbose:</p>
+
+
+<p>q.where(qb.equal(c.get(ContactInfo_.address).get(Address_.zipcode), &quot;95054&quot;),<br/>
+        qb.equal(p.get(Phone_.phoneType), PhoneType.OFFICE))<br/>
+  .select(p.get(Phone_.billedTo)).distinct(true); </p>
+
+
+<p>I hope this can be simplified to:</p>
+
+
+<p>q.where(ContactInfo_.address.zipcode).eq(&quot;95054&quot;).<br/>
+  and(Phone_.phoneType).eq(PhoneType.OFFICE).<br/>
+  selectDistinct(Phone_.billedTo); </p>
+
+
+<p>that's quite a bit closer to C# LINQ / SQL.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.h2database.com"><b>Thomas Mueller</b></a>
+                
+                on March 28, 2009 at 08:21 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238253716000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238256001000" id="comment-1238256001000"></a>
+            <div class="comment even" id="comment4">
+
+                
+<p>Why are one to many conveyed as a 'set', pertaining to the crit api, shouldn't there be a clearer translation of the relationship instead of the artifact in the metamodel?  Meaning,</p>
+
+
+<p>public static volatile Set&lt;Order, LineItem&gt; items;</p>
+
+
+<p>should be</p>
+
+
+<p>public static volatile OnToMany&lt;Order, LineItem&gt; items;</p>
+
+
+<p>Is there anything in the metamodel/crit API where a Set vs. List vs. Bag would exhibit different type-safe signatures vs. using the more explicit translation of the relationship names?</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Jacob Hookom</b>
+                
+                on March 28, 2009 at 09:00 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238256001000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238257162000" id="comment-1238257162000"></a>
+            <div class="comment odd" id="comment5">
+
+                
+<p>On that note, the ManyToOne-- are being translated as 'Attribute', wouldn't you want to preserve that type in the metamodel if there's ever specific behavior which needs to be introduced into the crit api?</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Jacob Hookom</b>
+                
+                on March 28, 2009 at 09:19 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238257162000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238260532000" id="comment-1238260532000"></a>
+            <div class="comment even" id="comment6">
+
+                
+<p>Hey Jacob,<br/>
+Yes indeed a Set is different than a List and a Map:<br/>
+ - from a List node you can access the index() property and the value()<br/>
+ - from a Map node, you can access a key() and a value()<br/>
+ - from a set no index of any kind is accessible</p>
+
+
+<p>Why would you want to retain the cardinality in the logical model? It seems that from a Java point of view, you don't really care about cardinality</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://in.relation.to"><b>Emmanuel Bernard</b></a>
+                
+                on March 28, 2009 at 10:15 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238260532000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238262071000" id="comment-1238262071000"></a>
+            <div class="comment odd" id="comment7">
+
+                
+<p>What's driving changes to the metamodel long term?  Is it the 'Java' point of view or the JPA Crit API?  Bringing in stronger typing here based on the relationship, not on the collection type could help clear up more complex query scenarios.  Half of our uses today of the crit API end up using projections, and your actual 'Java' model is unchanged, you still have Map, Set, List, but I think those monikers are misplaced here within expressing relationships in the crit API.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Jacob Hookom</b>
+                
+                on March 28, 2009 at 10:41 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238262071000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238262513000" id="comment-1238262513000"></a>
+            <div class="comment even" id="comment8">
+
+                
+<p>Hi Thomas,</p>
+
+
+<p>I expect to see the IDE support improve as well, particularly for the annotation-only case.  For the annotation processor, though, we are also planning the handle the more complex cases as well, such as where XML only or a combination of annotations and XML might have been used.</p>
+
+
+<p>We also looked at syntaxes such as you suggest.  Part of the issue here is handling all of the more complex expressions that might be used in a where clause.  Our goal with this API is to support everything that JPQL currently supports (and features we think we might be adding to JPQL).</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Linda DeMichiel</b>
+                
+                on March 28, 2009 at 10:48 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238262513000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238263208000" id="comment-1238263208000"></a>
+            <div class="comment odd" id="comment9">
+
+                
+<p>Hi Jacob,</p>
+
+
+<p>Yes, we did make tradeoffs in the metamodel API between the granularity of types and the complexity of the API.  Longer term, we are thinking about expanding the metamodel to encompass the object/relational mapping information.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Linda DeMichiel</b>
+                
+                on March 28, 2009 at 11:00 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238263208000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238419800000" id="comment-1238419800000"></a>
+            <div class="comment even" id="comment10">
+
+                
+<p>Please unbound the QueryBuilder from EntityManager</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Vladimir</b>
+                
+                on March 30, 2009 at 06:30 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238419800000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1238579245000" id="comment-1238579245000"></a>
+            <div class="comment odd" id="comment11">
+
+                
+<p>Great Work!<br/>
+In my opinion the typesafe API is a big step for JPA!<br/>
+That's what I was missing compared with .NET LINQ. <br/>
+No I will have it more or less in JPA 2.0.<br/>
+Thanks a lot!</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Simon Martinelli</b>
+                
+                on April 01, 2009 at 02:47 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1238579245000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242283305000" id="comment-1242283305000"></a>
+            <div class="comment even" id="comment12">
+
+                
+<p>Is JPA or JPA2 has an on the fly entity beans generation options?<br/>
+.NET has a .dbml file and it may generate classes run time.<br/>
+i am sorry bu as a java developper. This usage is more difficult than .NET Linq.<br/>
+JPQL and scripting languages should be embeddable.</p>
+
+
+<p>May we merge metamodel class and entity class?<br/>
+for instance:<br/>
+Join&lt;Order, LineItem&gt; item = customer.join(Customer.orders).join(Order.items);<br/>
+q.where(qb.equals(item.get(Item.product).get(Product.productType), &quot;printer&quot;))<br/>
+ .select(customer.get(Customer.name));</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.penguenyuvasi.org/"><b>F&#305;rat K&Uuml;&Ccedil;&Uuml;K</b></a>
+                
+                on May 13, 2009 at 11:41 PM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1242283305000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242333272000" id="comment-1242333272000"></a>
+            <div class="comment odd" id="comment13">
+
+                
+<p>I agree with Thomas. I wish the syntax was a little less verbose. The constant p.get(X_) really takes away from the query. That said, I love the idea of the type safe query api and appreciate all the hard work you guys are going. Is this api finalized yet? Is there a chance that the syntax can be slimmed down?</p>
+
+
+<p>q.where(qb.equal(c.get(ContactInfo_.address).get(Address_.zipcode), &quot;95054&quot;),<br/>
+qb.equal(p.get(Phone_.phoneType), PhoneType.OFFICE))<br/>
+.select(p.get(Phone_.billedTo)).distinct(true);</p>
+
+
+<p>I hope this can be simplified to:</p>
+
+
+<p>q.where(ContactInfo_.address.zipcode).eq(&quot;95054&quot;).<br/>
+and(Phone_.phoneType).eq(PhoneType.OFFICE).<br/>
+selectDistinct(Phone_.billedTo);</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>sboulay</b>
+                
+                on May 14, 2009 at 01:34 PM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1242333272000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242355003000" id="comment-1242355003000"></a>
+            <div class="comment even" id="comment14">
+
+                
+<p>No, we can't use infix notation because we would lose the typesafety. You can't do *everything* with Java generics.</p>
+
+
+<p>Also, I personally find hungarian notation much more natural in a language without operator overloading - it emphasizes the symmetry of the operation. </p>
+
+
+<p>If you want infix notation, you need Java to add generified operator overloading :-)</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://in.relation.to/Bloggers/Gavin"><b>Gavin King</b></a>
+                
+                on May 14, 2009 at 07:36 PM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1242355003000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242371268000" id="comment-1242371268000"></a>
+            <div class="comment odd" id="comment15">
+
+                
+<p>&gt; we can't use infix notation because we would lose the typesafety.</p>
+
+
+<p>No. At least JaQu doesn't lose the typesafety. It works with:<br/>
+q.where(ContactInfo_.address.zipcode).eq(&quot;95054&quot;) because<br/>
+q: Query&lt;T&gt;<br/>
+Query&lt;T&gt;.where: &lt;A&gt; QueryCondition&lt;T, A&gt; where(A x)<br/>
+QueryCondition&lt;T, A&gt;.eq: QueryWhere&lt;T&gt; eq(A y)<br/>
+See: <a href="http://code.google.com/p/h2database/source/browse/#svn/trunk/h2/src/tools/org/h2/jaqu" rel="nofollow">http://code.google.com/p/h2database/source/browse/#svn/trunk/h2/src/tools/org/h2/jaqu</a></p>
+
+
+<p>&gt; You can't do *everything* with Java generics.</p>
+
+
+<p>Well, you can do a lot.</p>
+
+
+<p>&gt; I personally find hungarian notation much more natural</p>
+
+
+<p>I understand that. With the infix notation can't use () to <br/>
+override precedence. Example:</p>
+
+
+<p>where id=10 and name='a' or name='b'<br/>
+where(id).is(10).and(name).is(&quot;a&quot;).or(name).is(&quot;b&quot;)</p>
+
+
+<p>But there is no easy 'completely fluent' way to write:<br/>
+where id=10 and (name='a' or name='b')<br/>
+where (id=10 and name='a') or name='b'</p>
+
+
+<p>You would need some kind of 'escape' syntax:</p>
+
+
+<p>where(id).is(10).and(q.test(name).is(&quot;a&quot;).or(name).is(&quot;b&quot;))<br/>
+where(q.test(id).is(10).and(name).is(&quot;a&quot;)).or(name).is(&quot;b&quot;)</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.h2database.com"><b>Thomas Mueller</b></a>
+                
+                on May 15, 2009 at 12:07 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1242371268000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242371981000" id="comment-1242371981000"></a>
+            <div class="comment even" id="comment16">
+
+                
+<p>&quot;No. At least JaQu doesn't lose the typesafety. It works with:&quot;</p>
+
+
+<p>I don't buy that. Some operations simply don't apply to all types. For example you can't multiply strings, or lower() numbers.</p>
+
+
+<p>I don't believe it's possible to constrain the operations available to the correct type when you use infix notation.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://in.relation.to/Bloggers/Gavin"><b>Gavin King</b></a>
+                
+                on May 15, 2009 at 12:19 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1242371981000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242392606000" id="comment-1242392606000"></a>
+            <div class="comment odd" id="comment17">
+
+                
+<p>I am sure that there are good technical reasons why your not using the *infix* notation but I am a little worried that it will hurt the readability and usability of the criteria api .. IMO. Are there other syntax's you guys are considering?</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>sboulay</b>
+                
+                on May 15, 2009 at 06:03 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1242392606000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242456602000" id="comment-1242456602000"></a>
+            <div class="comment even" id="comment18">
+
+                
+<p>IMHO the syntax does look awkward, but not excessively so. The primary goal here is type safety. If my query is 100% type safe, but at the cost of being 10% harder to read, then I can live with that. At least then I wouldn't have to wait until my app gets built and the tests run to find out I fat-fingered some property name or forgot a comma. And of course, I can always fallback to JPQL for a particular query if I feel the readability is more important.</p>
+
+
+<p>Just like with any new language, the more you expose yourself to it and use it, the more natural it feels. JPQL seems easy to read because it is similar to SQL, which many of us have been using for years. But even SQL syntax can be cumbersome, especially when you're first learning it. I think this would eventually get to the point where it feels, if not elegant, at least familiar and comprehensible.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Eric McIntyre</b>
+                
+                on May 15, 2009 at 11:50 PM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1242456602000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1243460871000" id="comment-1243460871000"></a>
+            <div class="comment odd" id="comment19">
+
+                
+<p>- The .NET guys are not laughing at us any more, they are just smiling<br/>
+- Yet another obvious reason to use Scala to write your domain and services layers</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Hossam Karim</b>
+                
+                on May 27, 2009 at 02:47 PM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1243460871000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1243879106000" id="comment-1243879106000"></a>
+            <div class="comment even" id="comment20">
+
+                
+<p>&gt; MHO the syntax does look awkward, but not excessively so. <br/>
+&gt; The primary goal here is type safety. <br/>
+&gt; If my query is 100% type safe, but at the cost of being 10% harder to read, <br/>
+&gt; then I can live with that. At least then I wouldn't have to wait until my <br/>
+&gt; app gets built and the tests run to find out I fat-fingered some property <br/>
+&gt; name or forgot a comma. And of course, I can always fallback to JPQL for <br/>
+&gt; a particular query if I feel the readability is more important.</p>
+
+
+<p>Actually, we're considering waiting for JPA 2 to use the Criteria. However, the criteria syntax scared the hell out of me. I don't think it's 10% harder to read, but 100% harder.<br/>
+Look at this example from the JPA 2.0 proposed final draft spec (and it shows a trivial query):</p>
+
+
+<p>QueryBuilder qb = ...<br/>
+CriteriaQuery q = qb.create();<br/>
+Root&lt;Customer&gt; cust = q.from(Customer.class);<br/>
+Join&lt;Customer, Order&gt; order = cust.join(Customer_.orders);<br/>
+Join&lt;Order, Item&gt; item = order.join(Order_.lineitems);<br/>
+q.select(cust.get(Customer_.name))<br/>
+.where(qb.equal(item.get(Item_.product).get(Product_.productType),<br/>
+&quot;printer&quot;));</p>
+
+
+<p>This query is equivalent to the following Java Persistence query language query:<br/>
+SELECT c.name<br/>
+FROM Customer c JOIN c.orders o JOIN o.lineitems i<br/>
+WHERE i.product.productType = 'printer'</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://freeit.inf.br"><b>Luis Fernando Planella Gonzalez</b></a>
+                
+                on June 01, 2009 at 10:58 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1243879106000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1244208658000" id="comment-1244208658000"></a>
+            <div class="comment odd" id="comment21">
+
+                
+<p>We have tried to combine typesafe and compact queries in Querydsl. We support both JPA and JDO based backends.</p>
+
+
+<p>See for yourself how it compares to the proposed JPA 2 syntax.</p>
+
+
+<p>JPA 2 query :</p>
+
+
+<p>QueryBuilder qb = ...<br/>
+CriteriaQuery q = qb.create();<br/>
+Root&lt;Customer&gt; cust = q.from(Customer.class);<br/>
+Join&lt;Customer, Order&gt; order = cust.join(Customer_.orders);<br/>
+Join&lt;Order, Item&gt; item = order.join(Order_.lineitems);<br/>
+q.select(cust.get(Customer_.name))<br/>
+  .where(qb.equal(item.get(Item_.product).get(Product_.productType),&quot;printer&quot;));</p>
+
+
+<p>Querydsl query : </p>
+
+
+<p>HQLQuery query = ...<br/>
+QCustomer cust = QCustomer.customer; <br/>
+QOrder order = QOrder.order; <br/>
+QLineItem lineItem = QLineItem.lineItem;</p>
+
+
+<p>List&lt;String&gt; customerNames = query.from(cust) <br/>
+  .innerJoin(cust.orders, order)<br/>
+  .innerJoin(order.lineitems, lineitem)<br/>
+  .where(lineItem.product.productType.eq(&quot;Printer&quot;))<br/>
+  .list(cust.name);  </p>
+
+
+<p>(QCustomer, QOrder and QLineItem are Querydsl metamodel types, they are immutable and can be reused over queries)</p>
+
+
+<p>JPAQL query :</p>
+
+
+<p>SELECT c.name<br/>
+FROM Customer c JOIN c.orders o JOIN o.lineitems i<br/>
+WHERE i.product.productType = 'printer'</p>
+
+
+<p>What do you think?</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://source.mysema.com/display/querydsl/Querydsl"><b>Timo Westk&auml;mper</b></a>
+                
+                on June 05, 2009 at 06:30 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed#comment-1244208658000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                </div>
+
+    <div class="comments-form">
+    <div class="comments-head">Post a Comment:</div>
+    <a name="comment-form"></a>
+
+
+    
+    <form method="post" action="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed" focus="name" 
+        name="commentForm" onsubmit="fixURL(this); return validateComments(this)">    
+        <input type="hidden" name="method" value="post" />
+
+        <ul>
+            <li>
+                <label class="desc">Name:</label>
+                <input type="text" name="name" class="text large" value="" size="50" maxlength="255" />
+            </li>
+
+            <li><label class="desc">E-Mail:</label>
+                <input type="text" name="email" class="text large" value="" size="50" maxlength="255" />
+            </li>
+
+            <li><label class="desc">URL:</label>
+                <input type="text" name="url" class="text large" value="" size="50" maxlength="255" />
+            </li>
+
+                    <li><input type="checkbox" class="checkbox" id="notify" name="notify" />
+                <label for="notify" class="choice">Notify me by email of new comments</label>
+            </li>
+                    <li>
+                <input type="checkbox" class="checkbox" id="rememberInfo" name="rememberInfo" />
+                <label for="rememberInfo" class="choice">Remember Information?</label>
+            </li>
+            <li>
+                <label class="desc">Your Comment:</label>
+             
+            <textarea name="content" class="textarea large" cols="40" rows="10"></textarea>
+
+            </li>
+            <li class="info">
+                <span class="comments-syntax-indicator">
+                HTML Syntax:
+                                    <span class="disabled">NOT allowed</span>
+                                </span>
+            </li>
+            <li class="info">
+               <script type="text/javascript" src="/theme/scripts/clientSideInclude.js"></script>
+               <div id="commentAuthenticator"></div>
+            </li>
+            <li>
+               <input type="button" class="button" name="post" value="&nbsp;Preview&nbsp;"
+                  onclick="this.form.method.value='preview';this.form.submit()" />
+               <input type="submit" class="button" name="post" value="&nbsp;Post&nbsp;" />
+            </li>
+        </ul>
+
+    </form>
+
+    <script type="text/javascript" src="/theme/scripts/roller.js"></script>
+    <script type="text/javascript">
+    clientSideInclude('commentAuthenticator', '/CommentAuthenticatorServlet');
+
+    var author = getCookie("commentAuthor");
+    var email = getCookie("commentEmail");
+    var url = getCookie("commentUrl");
+    // check each field - IE will render "null"
+    if (author) {
+        document.forms['commentForm'].name.value = author;
+    }
+    if (email) {
+        document.forms['commentForm'].email.value = email;
+    }
+    if (url) {
+        document.forms['commentForm'].url.value = url;
+    }
+
+    if (author || email || url) {
+        document.forms['commentForm'].rememberInfo.checked = true;
+    }
+
+    function fixURL(theForm) {
+        if (theForm.url.value != "" &&
+            theForm.url.value.indexOf("http://") == -1) { //prepend http://
+            theForm.url.value = "http://"+theForm.url.value;
+        }
+        saveUserInformation(theForm);
+    }
+
+    function saveUserInformation(theForm) {
+        if (theForm.rememberInfo.checked) {
+            rememberUser(theForm);
+        } else {
+            forgetUser(theForm);
+        }
+    }
+
+    function validateComments(theForm) {
+        if (theForm.content.value == "") {
+            alert("Please enter a comment.");
+            theForm.content.focus();
+            return false;
+        }
+    }
+    </script>
+
+
+    </div>
+
+           <!-- BEGIN RIGHT NAV -->
+<div class="nav">
+
+
+
+
+
+
+<div class="navcol">
+<div class="innernavcol">
+
+<div class="about navsect">
+<div class="navhead">
+<h2>About This Weblog</h2>
+</div>
+<div class="navbody">
+<!-- weblog about setting -->
+<p>Linda DeMichiel is the Specification Lead for Java Persistence 2.0 and former Spec Lead for EJB 3.0.  She is a senior architect in the Java Platform, Enterprise Edition team at Sun Microsystems.</p>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<!-- BANNERS -->
+
+<div class="banners">
+<script type="text/javascript">
+<!--
+   if (!document.phpAds_used) document.phpAds_used = ',';
+   phpAds_random = new String (Math.random()); phpAds_random = phpAds_random.substring(2,11);
+   document.write ("<" + "script language='JavaScript' type='text/javascript' src='");
+   document.write ("http://ads.sun.com/ads/adjs.php?n=" + phpAds_random);
+   document.write ("&amp;what=zone:44");
+   document.write ("&amp;exclude=" + document.phpAds_used);
+   if (document.referer) { document.write ("&amp;referer=" + escape(document.referer)); }
+   document.write ("'><" + "/script>");
+//-->
+</script><noscript><a href="http://ads.sun.com/ads/adclick.php?n=ad99629f" target="_blank"><img src="http://ads.sun.com/ads/adview.php?what=zone:44&amp;n=ad99629f" border="0" alt=""></a></noscript>
+</div>
+
+
+
+
+
+<div class="navcol">
+<div class="innernavcol">
+
+
+
+
+
+<!-- ARCHIVES -->
+
+<div class="navsect">
+<div class="navhead">
+<h2>Archives</h2>
+</div>
+<div class="navbody">
+<div class="hCalendarTable"><table cellspacing="0" border="0"  summary="Blog Archive Calendar" class="hCalendarTable"><tr><td colspan="7" align="center" class="hCalendarMonthYearRow"><a href="/ldemichiel/date/200912" title="Prev" class="hCalendarNavBar">&laquo;</a> January 2010</td></tr><tr><th class="hCalendarDayNameRow" align="center">Sun</th><th class="hCalendarDayNameRow" align="center">Mon</th><th class="hCalendarDayNameRow" align="center">Tue</th><th class="hCalendarDayNameRow" align="center">Wed</th><th class="hCalendarDayNameRow" align="center">Thu</th><th class="hCalendarDayNameRow" align="center">Fri</th><th class="hCalendarDayNameRow" align="center">Sat</th></tr><tr><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDay"><div class="hCalendarDayTitle">1</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">2</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">3</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">4</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">5</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">6</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">7</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">8</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">9</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">10</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">11</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">12</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">13</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">14</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">15</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">16</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">17</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">18</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">19</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">20</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">21</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">22</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">23</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">24</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">25</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">26</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">27</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">28</div></td><td class="hCalendarDayCurrent"><div class="hCalendarDayTitle">29</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">30</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">31</div></td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td></tr><tr class="hCalendarNextPrev"><td colspan="7" align="center"><a href="/ldemichiel/" class="hCalendarNavBar">Today</a></td></tr></table>
+</div>
+</div>
+</div>
+
+
+
+
+
+<!-- FEED -->
+
+<div class="feeds navsect">
+<div class="navhead">
+<h2>Feeds</h2>
+</div>
+<div class="navbody">
+    <ul class="rFeeds">
+    <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom">All</a></li>
+                <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom?cat=%2FPersistence">/Persistence</a></li>
+            <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom?cat=%2FPersonal">/Personal</a></li>
+            <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom?cat=%2FSun">/Sun</a></li>
+        <li><a href="http://blogs.sun.com/ldemichiel/feed/comments/atom">Comments</a></li>
+    </ul>
+</div>
+</div>
+
+
+
+
+
+<!-- SEARCH -->
+
+<div class="navsect">
+<div class="navhead">
+<h2>Search</h2>
+</div>
+<div class="navbody">
+    <form id="searchForm" method="get" action="http://search.sun.com/blogs/index.jsp" style="margin: 0; padding: 0" >
+        <input type="hidden" name="weblog" value="ldemichiel">
+        <p>
+          <input type="text" name="qt" size="10" maxlength="255" />
+          <input type="submit" value="Search" />
+        </p>
+    </form>
+</div>
+</div>
+
+
+
+
+
+<!-- BOOKMARKS -->
+
+    <div class="navsect">
+    <div class="navhead">
+    <h2>Bookmarks</h2>
+    </div>
+    <div class="navbody">
+    <ul class="rFolder">
+                    <li class="rFolderItem">
+                                <a href="http://blogs.sun.com"
+               title=""
+               class="rBookmark0">blogs.sun.com</a>
+                </li>
+            <li class="rFolderItem">
+                                <a href="http://java.com"
+               title=""
+               class="rBookmark0">java.com</a>
+                </li>
+            <li class="rFolderItem">
+                                <a href="http://java.net"
+               title=""
+               class="rBookmark0">java.net</a>
+                </li>
+            <li class="rFolderItem">
+                                <a href="http://www.opensolaris.org"
+               title=""
+               class="rBookmark0">opensolaris.org</a>
+                </li>
+                    </ul>
+	</div>
+	</div>
+
+
+
+
+
+<!-- LINKS -->
+
+<div class="navsect">
+<div class="navhead">
+<h2>Other Blog Links</h2>
+</div>
+<div class="navbody">
+    <ul class="rNavigationBar">
+        <li class="rNavItem">
+            <a href="/"><span>blogs.sun.com</span></a>
+        </li>
+        <li class="rNavItem">
+            <a href="http://blogs.sun.com/ldemichiel/"><span>Weblog</span></a>
+        </li>
+                                                                                                                                                                                        <li class="rNavItem">
+                    <a href="/roller-ui/login-redirect.rol"><span>Login</span></a>
+                </li>
+                        </ul>
+  
+    
+</div>
+</div>
+
+
+
+
+
+<!-- AFFINITY -->
+<div class="affinity"></div>
+
+
+
+
+
+<!-- REFERRERS -->
+
+<div class="navsect">
+<div class="navbody">
+<div class="rFolderitem">
+    <p>Today's Page Hits: 16</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+</div>
+<!-- END RIGHT NAV -->
+    
+</div>
+</div>
+</div>
+</body>
+</html>

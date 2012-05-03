@@ -1,0 +1,870 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" dir="ltr">
+  <head>
+    <title>
+      Code Style: Java abstract classes frequently asked questions (FAQ)
+    </title>
+        <meta http-equiv="pics-label" content='(pics-1.1 "http://www.icra.org/ratingsv02.html" comment "ICRAonline EN v2.0" l gen true for "http://www.codestyle.org/" r (nz 1 vz 1 lz 1 oz 1 cz 1) "http://www.rsac.org/ratingsv01.html" l gen true for "http://www.codestyle.org/" r (n 0 s 0 v 0 l 0))' />
+    <link rel="schema.DC" href="http://purl.org/DC/elements/1.0/" title="The Dublin Core metadata Element Set" />
+    <meta name="DC.Creator" content="Shaw, Philip" />
+    <meta name="DC.Publisher" content="Philip Shaw" />
+    <meta name="DC.Type" scheme="DCMIType" content="Text" />
+    <meta name="DC.Format" scheme="IMT" content="text/html" />
+    <meta name="DC.Language" scheme="RFC1766" content="en-GB" />
+    <meta name="DC.Coverage.spatial" scheme="TGN" content="World" />
+    <meta name="DC.Coverage.temporal" scheme="Period" content="start=1990;scheme=W3CDTF" />
+    <link rel="DC.Rights" href="http://www.codestyle.org/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="home" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="shortcut icon" href="/favicon.ico" title="Code Style shortcut icon" type="image/x-icon" />
+    <link rel="copyright" href="/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="appendix" href="/codestyle/SiteMap.shtml" title="Code Style site map" type="text/html" />
+    <link rel="appendix" href="/SubjectIndex.shtml" title="Code Style subject index" type="text/html" />
+    <link rel="help" href="/faq/index.shtml" title="Help and FAQ section" type="text/html" />
+    <link rel="P3Pv1" href="http://www.codestyle.org/w3c/p3p.xml" title="Privacy Policy" type="text/xml" />
+    <link rel="meta" href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Abstract.shtml" title="RDF Metadata" />
+    <link rel="alternate" href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Abstract.shtml" type="application/rss+xml" title="RSS news feed" />
+    <meta name="DC.Title" content="Java abstract classes FAQ" />
+    <meta name="DCTERMS.created" scheme="W3CDTF" content="2008-06-14T17:46:39Z" />
+    <meta name="DCTERMS.issued" scheme="W3CDTF" content="2008-06-14T17:48:35Z" />
+    <meta name="DCTERMS.modified" scheme="W3CDTF" content="2009-11-14T14:54:36Z" />
+    <meta name="DC.Identifier" scheme="URI" content="http://www.codestyle.org/java/faq-Abstract.shtml" />
+    <meta name="DCTERMS.abstract" content="FAQs about Java abstract classes, methods, abstraction principles and their usage." />
+    <meta name="description" content="FAQs about Java abstract classes, methods, abstraction principles and their usage." />
+        <meta name="keywords" content="java inheritance, java interface, threads in java, inheritance in java, java faq, difference between overloading and overriding, java new thread, difference between abstraction and encapsulation, difference between encapsulation and abstraction, java interface examples, command line argument in java, types of inheritance in java, java main arguments, java thread questions, difference between wait and sleep, java run method, command line in java, java run thread" />
+    <meta name="DC.Description.tableOfContents" scheme="URI" content="http://www.codestyle.org/java/Contents.shtml" />
+    <meta name="DC.Subject" scheme="DDC" content="006" />
+    <meta name="DC.Subject" lang="en-GB" xml:lang="en-GB" content="Java" />
+    <link rel="help" href="/java/FAQ.shtml" title="Java Programming FAQ" type="text/html" />
+    <link rel="up" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="index section chapter start bookmark" href="/java/index.shtml" title="Java &amp; servlets section" type="text/html" />
+    <link rel="contents toc" href="/java/Contents.shtml" title="Java &amp; servlets contents" type="text/html" />
+    <link rel="appendix" href="/java/AnchorPoints.shtml" title="Anchor Points: Java servlets" type="text/html" />
+    <link rel="appendix" href="/java/FAQ.shtml" title="Java programming FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Threads.shtml" title="Java threads FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Inheritance.shtml" title="Java inheritance FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-CommandLine.shtml" title="Java command line FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Interface.shtml" title="Java interface design FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Language.shtml" title="Java language FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-API.shtml" title="Java API FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Strings.shtml" title="Java strings FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-JDBC.shtml" title="JDBC FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Objects.shtml" title="Java objects FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Static.shtml" title="Java static context FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Abstract.shtml" title="Java abstract classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Compiler.shtml" title="Java compiler FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-UtilityClasses.shtml" title="Java utility classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-IO.shtml" title="Java I/O FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Networking.shtml" title="Java networking FAQ" type="text/html" />
+    <link rel="stylesheet" type="text/css" href="/styles/section-Java.css" />        <link rel="stylesheet" type="text/css" href="/styles/CSPersistent.xcss" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSAlternate.css"  title="Blue, sans-serif" />
+    <link rel="stylesheet" type="text/css" href="/styles/CSStandard.xcss"  title="Standard" />
+<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="/styles/CSStdLayoutIE6.css" title="Standard" />
+<![endif]-->
+    <link rel="stylesheet" type="text/css" href="/styles/CSPrint.css" media="print" title="Standard" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSStandard.xcss" media="all" title="Print preview" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSPrint.css" media="all" title="Print preview" />
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      try {
+        _uacct = "UA-1503486-1";
+        urchinTracker();
+      }
+      catch(err) {}
+    </script>
+    <script type="text/javascript" src="/scripts/StandardFunctions.xjs"></script>
+  </head>
+  <body>
+    <div id="TopBar">
+  <a href="http://www.codestyle.org/"><img src="/images/logo-EurostileLozenge168x61.png" width="168" height="61" alt="Code Style - Vital source since 2000" class="Logo" title="Go to the Code Style home page - accesskey 0" /></a>
+  <div class="URI">
+    CSS font stacks, media style sheets &amp; web standards
+  </div>
+  <div id="SiteSearch">
+    <form action="http://www.google.com/cse" id="site-search-box">
+      <div>
+        <label for="search-input">
+          Site search:
+        </label>
+        <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input type="text" name="q" id="search-input" size="16" maxlength="255"  value="search words" onfocus="if(this.value=='search words') this.value='';" alt="Enter a search query in this field (accesskey 9) then tab to the search button that follows and activate" accesskey="9" /><input type="submit" name="sa" id="search-submit" value="Go" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+      </div>
+    </form>
+  </div>
+</div>
+
+    <div id="Header">
+            <h1 class="Title">
+        Java abstract classes FAQ
+      </h1>
+    </div>
+    <div id="Content">
+      <div class="LocalNav">
+      <div class="SponsorZone">
+        <p>
+          <script type="text/javascript">
+Vertical1238757 = false;
+ShowAdHereBanner1238757 = false;
+RepeatAll1238757 = false;
+NoFollowAll1238757 = false;
+BannerStyles1238757 = new Array(
+    "a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+    "img{border:0;clear:right;}",
+    "a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+    "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+);
+document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1238757/1238757.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+        </p>
+        <p>
+          <a href="http://buysellads.com/buy/detail/5795" onclick="urchinTracker('/SponsorFAQ');" title="Your 180 by 150 pixel banner on all pages of the Code Style site">Your banner ad here</a>
+        </p>
+      </div>
+      <div class="RgtBox">
+  <h2>
+    Questions answered
+  </h2>
+  <ul>
+    <li>
+      <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">Site help</a>
+    </li>
+    <li>
+      <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+    </li>
+    <li>
+      <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+    </li>
+    <li>
+      <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+    </li>
+    <li>
+      <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+    </li>
+    <li>
+      <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+    </li>
+    <li>
+      <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+    </li>
+    <li>
+      <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+    </li>
+    <li>
+      <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+    </li>
+    <li>
+      <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+    </li>
+    <li>
+      <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+    </li>
+    <li>
+      <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+    </li>
+    <li>
+      <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+    </li>
+    <li>
+      <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+    </li>
+    <li>
+      <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+    </li>
+    <li>
+      <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+    </li>
+  </ul>
+  <h3>
+    Terms explained
+  </h3>
+  <ul>
+    <li>
+       <a href="/css/Glossary.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+       <a href="/css/media/Glossary.shtml" class="SectionCSS">Media style sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/Glossary.shtml" class="SectionCSS">Font family</a>
+    </li>
+  </ul>
+<h3>
+  Text ad service
+</h3>
+<p>
+  Put your <a href="/codestyle/advertise/index.shtml"  title="Text ad service information">text ad</a> here <img src="/images/icon-TextAdBelow.png" alt="Down arrow icon" width="12" height="16" />
+</p>
+</div>
+    <!-- *** Start FAQ service area *********************** -->
+      <div class="TextAd">
+        <p>
+          <a href="http://www.westnic.net" onclick="urchinTracker('/TextAdWestNIC');">WestNIC</a> provides reliable <a href="http://www.westnic.net/web-hosting/" onclick="urchinTracker('/TextAdWestNIC');">web hosting</a> services
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          <a href="http://www.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">Free software downloads</a> and <a href="http://drivers.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">drivers download</a> resources
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          25% off cpanel <a href="http://www.ahosting.biz/web/index.html" onclick="urchinTracker('/TextAdAhosting-WebHosting-FAQ');">web hosting</a> and <a href="http://www.ahosting.biz/reseller/index.html" onclick="urchinTracker('/TextAdAhosting-ResellerHosting-FAQ');">reseller hosting</a> deals. Promo:&nbsp;<strong>codestyle25off</strong>
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          Top <a href="http://www.topcanadianhotels.com/" onclick="urchinTracker('/TextAdTopCanadianHotels');">Canadian Hotels</a> no booking fees from <a href="http://www.topcanadianhotels.com/victoria-bc-hotels.html" onclick="urchinTracker('/TextAdTopCanadianHotels');">Victoria BC</a> to Nova Scotia
+        </p>
+      </div>
+<!-- *** End FAQ service area ************************* -->
+      </div>
+            <div class="WideNav">
+        <a href="#sitenav">Site navigation below</a>
+      </div>
+      <p class="Standfirst">
+        This FAQ is part of the <span class="CS">Code Style</span> <a href="/faq/index.shtml">Help and FAQ</a> section. Join our <a href="/codestyle/premium/index.shtml">premium content service</a> for full access all FAQ answers.
+      </p>
+      <ul>
+        <li>
+          <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Abstract.shtml">News feed for this FAQ</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Abstract.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+<!-- *** Start Java service area ********************** -->
+        <li>
+          <a href="/java/RSS.shtml">All Java news feeds</a> <a href="/java/RSS.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+        <li>
+          <a href="/java/Newsletters.shtml">All Java newsletters</a> <a href="/java/Newsletters.shtml"><img src="/images/icon-Email.png" alt="Email newsletter icon" width="16" height="15" /></a>
+        </li>
+<!-- *** End Java service area ************************ -->
+        <li>
+          <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');">Twitter feed</a> <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');"><img src="/images/icon-Twitter.png" width="16" height="16" alt="Twitter icon" /></a>
+        </li>
+      </ul>
+            <div class="FAQSearchBox">
+        <form action="http://www.google.com/cse" id="faq-search-box">
+          <h2>
+            FAQ search
+          </h2>
+          <p>
+            <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+            <input type="hidden" name="ie" value="UTF-8" />
+            <input type="text" name="q" id="faq-search-input" size="48" maxlength="255"  value="intitle:FAQ " alt="Enter a search query after intitle:FAQ, then tab to the search button that follows and activate"  />
+            <input type="submit" name="sa" id="faq-search-submit" value="Search" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+          </p>
+        </form>
+      </div>
+      <div class="MenuBox">
+  <h2>
+    Understanding abstract classes
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Abstract.shtml#abstractapplication">When should I use abstract methods?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#superclasstype">Must a superclass be abstract or concrete?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#noabstractmethod">Must abstract classes contain at least one abstract method?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#empty-abstract">You're wrong, abstract classes must have an abstract method!</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#whynoabstract">Why do we need abstract classes with no abstract methods?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#abstractinheritance">How can an abstract method be inherited?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#skipabstract">Do I have to implement all abstract methods?</a>
+    </li>
+  </ul>
+  <h2>
+    Abstract method design constraints
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Abstract.shtml#staticabstract">Can a static method be abstract?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#whyabstractstatic">Why can't abstract methods be declared static?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#abstractprivate">Why can't an abstract method be declared private?</a>
+    </li>
+  </ul>
+  <h2>
+    Abstract classes and methods
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Abstract.shtml#concretemethodinherit">How can I call a concrete instance method on an abstract class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#abstractexample">Can you give an example of an abstract class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#abstract-static-method">Can I call a static method on an abstract class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml#abstract-constructor">Can I declare a constructor for an abstract class?</a>
+    </li>
+  </ul>
+</div>
+      <h2 class="NewSection">
+        Understanding abstract classes
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="abstractapplication" id="abstractapplication">When should I use abstract methods?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Abstract methods are usually declared where two or more subclasses are expected to fulfil a similar role in different ways. Often the subclasses are required to the fulfil an interface, so the abstract superclass might provide several of the interface methods, but leave the subclasses to implement their own variations of the abstract methods. Abstract classes can be thought of as part-complete templates that make it easier to write a series of subclasses.
+      </p>
+      <p>
+        For example, if you were developing an application for working with different types of documents, you might have a <code>Document</code> interface that each document must fulfil. You might then create an <code>AbstractDocument</code> that provides concrete <code>openFile()</code> and <code>closeFile()</code> methods, but declares an abstract <code>displayDocument(JPanel)</code> method. Then separate <code>LetterDocument</code>, <code>StatementDocument</code> or <code>InvoiceDocument</code> types would only have to implement their own version of <code>displayDocument(JPanel)</code> to fulfil the <code>Document</code> interface.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractapplication">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractapplication">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractapplication">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractapplication">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="superclasstype" id="superclasstype">Must a superclass be abstract or concrete?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> A superclass may be abstract or concrete, provided the concrete class is not declared <code>final</code>. In both cases, you can add supplementary methods to those inherited from the superclass. To extend abstract classes you must fulfil any <code>abstract</code> methods that are declared by the superclass.
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=superclasstype">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=superclasstype">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=superclasstype">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=superclasstype">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="noabstractmethod" id="noabstractmethod">Must abstract classes contain at least one abstract method?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> No, abstract classes are not required to have any abstract methods, they can simply be marked abstract for general design reasons. An abstract class may contain a full set of functional, integrated methods but have no practical use in its basic form, for example. In other words, they may require extension with additional methods to fulfil a range of different purposes. If the purpose is not specified by abstract method signatures, the range of potential applications for subclasses can be very broad.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=noabstractmethod">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=noabstractmethod">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=noabstractmethod">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=noabstractmethod">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="empty-abstract" id="empty-abstract">You're wrong, abstract classes must have an abstract method!</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The answer given is definitely correct. It is not common, but an abstract class may have <em>no</em> methods at all and still compile successfully, such as the example below.
+      </p>
+      <pre>
+public abstract class AbstractNoMethods {
+
+    // Empty
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=empty-abstract">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=empty-abstract">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=empty-abstract">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=empty-abstract">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="whynoabstract" id="whynoabstract">Why do we need abstract classes with no abstract methods?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> An abstract class without any abstract methods should be a rare thing and you should always question your application design if this case arises. Normally you should refactor to use a concrete superclass in this scenario.
+      </p>
+      <p>
+        One specific case where abstract class may justifiably have no abstract methods is where it partially implements an interface, with the intention that its subclasses must complete the interface. To take a slightly contrived motoring analogy, a <code>Chassis</code> class may partially implement a <code>Vehicle</code> interface and provide a set of core methods from which a range of concrete <code>Vehicle</code> types are extended. <code>Chassis</code> is not a viable implementation of a <code>Vehicle</code> in its own right, so a concrete <code>Car</code> subclass would have to implement interface methods for functional wheels, engine and bodywork.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whynoabstract">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whynoabstract">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whynoabstract">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whynoabstract">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstractinheritance" id="abstractinheritance">How can an abstract method be inherited?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> A subclass inherits all non-private fields and methods of its superclass whether the methods are abstract or have concrete implementations. If a subclass does not implement an abstract method, the subclass must be declared abstract itself. That means that an abstract method can be inherited through numerous abstract classes without any concrete implementation.
+      </p>
+      <p>
+        A common use of abstract methods is the template design pattern, where the common behaviour of a class hierarchy is defined in a set of concrete methods in an abstract superclass. Those core methods include calls to abstract template methods which must be implemented in concrete subclasses. This makes it relatively easy to implement subclasses and produce type-specific behaviour in each.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractinheritance">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractinheritance">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractinheritance">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractinheritance">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="skipabstract" id="skipabstract">Do I have to implement all abstract methods?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Yes, it is possible to extend an abstract class without implementing its abstract methods, but in this case the subclass must also be declared abstract. If the subclass is not declared abstract, the compiler will throw an error. So ultimately it is necessary for any concrete subclass to implement the abstract methods.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=skipabstract">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=skipabstract">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=skipabstract">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=skipabstract">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Abstract method design constraints
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="staticabstract" id="staticabstract">Can a static method be abstract?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>abstract</code> keyword cannot be applied to static method declarations. The compiler will reject the class with the error &quot;illegal combination of modifiers&quot;. However, an abstract class can have static variables and methods, which can be accessed directly using the standard dot notation, e.g. <code>AbstractExample.staticMethod()</code>. It follows that static methods must be concrete.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=staticabstract">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=staticabstract">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=staticabstract">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=staticabstract">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="whyabstractstatic" id="whyabstractstatic">Why can't abstract methods be declared static?</a>
+        </dt>
+        <dd>
+          <p>
+        The rule against static abstract methods is fundamentally a Java language design decision, which is not explained in the Java Language Specification. The abstract inheritance and implementation scheme is concerned with forming a structured collaboration of classes with deferred implementation of its abstract instance methods. This scheme can be verified at compile time to ensure it is safe at runtime.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whyabstractstatic">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whyabstractstatic">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whyabstractstatic">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=whyabstractstatic">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstractprivate" id="abstractprivate">Why can't an abstract method be declared private?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>private</code> and <code>abstract</code> method modifiers do not make sense in combination and the compiler should normally fail with a warning in this case. An abstract method must be overridden by any subclass, but subclasses do not have access to their superclass' private fields, so a private abstract method could never be fulfilled.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractprivate">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractprivate">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractprivate">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractprivate">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Abstract classes and methods
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="concretemethodinherit" id="concretemethodinherit">How can I call a concrete instance method on an abstract class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> It is only possible to call a concrete method of an abstract class when the method is instantiated through a concrete subclass. The method must also have a public or package visibility modifier that makes it accessible to the calling class. When you call the method on the subclass, it implicitly invokes superclass implementation, as in the example below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/ConcreteMethodInherit.shtml">How can I call a concrete instance method on an abstract class?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=concretemethodinherit">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=concretemethodinherit">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=concretemethodinherit">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=concretemethodinherit">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstractexample" id="abstractexample">Can you give an example of an abstract class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Yes, this example of an abstract class hierarchy has a superclass <code>AbstractShape</code> that includes a concrete <code>moveTo(int, int)</code> method that will be inherited by any subclass. It also includes an abstract <code>double getArea()</code> method that must be implemented by any concrete subclass. The implementation of the <code>getArea()</code> method is different in the <code>Circle</code> and <code>Square</code> subclasses.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/AbstractExample.shtml">Can you give an example of an abstract class?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractexample">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractexample">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractexample">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstractexample">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstract-static-method" id="abstract-static-method">Can I call a static method on an abstract class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> In Java it is possible to execute the static methods of abstract classes, since an object instance is not required in this context.
+      </p>
+      <pre>
+public abstract class AbstractStaticMethod {
+
+    public static void doSomething() {
+
+        System.out.println(&quot;Static method called.&quot;);
+    }
+
+    public static void main(String[] args) {
+
+        doSomething();
+    }
+}
+      </pre>
+      <p>
+        Since abstract classes cannot be instantiated in their own right, no instance methods can be called except through their subclasses.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-static-method">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-static-method">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-static-method">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-static-method">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstract-constructor" id="abstract-constructor">Can I declare a constructor for an abstract class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> This may sound odd, but an abstract class may have constructors, but they cannot be used to instantiate the abstract class. If you write statements to call the constructor the compiler will fail and report the class is &quot;abstract; cannot be instantiated&quot;.
+      </p>
+      <pre>
+public abstract class AbstractConstructor {
+
+    public AbstractConstructor() {
+
+        // Statements
+    }
+
+    public AbstractConstructor(final int size) {
+
+        // Statements
+    }
+
+    public static void main(String[] args) {
+
+        // Not permitted
+        // AbstractConstructor instance1 = new AbstractConstructor();
+
+        // Not permitted either
+        // AbstractConstructor instance2 = new AbstractConstructor(4);
+    }
+}
+      </pre>
+      <p>
+        Constructors in abstract classes are designed only to be used by their subclasses using a <code>super()</code> call in their own constructors. Though the abstract class cannot stand as an instance in its own right, when its abstract methods are fulfilled by a subclass, its constructors can be called upon to deliver stock template-like initialisation behaviour, for example.
+      </p>
+      <pre>
+public class ConcreteSubclassSuperconstructor extends AbstractConstructor {
+
+	private static final int INDEX = 4;
+
+    public ConcreteSubclassSuperconstructor() {
+
+        super(INDEX);
+    }
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-constructor">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-constructor">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-constructor">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+abstract+classes%20FAQ&amp;id=abstract-constructor">new question</a>.</p>
+        </dd>
+      </dl>
+      <div class="MenuBox">
+  <table width="100%" summary="Code Style FAQ section classification with front-end, back-end and learning Java categories">
+    <col width="33%" />
+    <col width="33%" />
+    <col width="33%" />
+    <tbody>
+      <tr>
+        <th>
+          Front-end FAQs
+        </th>
+        <th>
+          Back-end FAQs
+        </th>
+        <th>
+          Learning Java
+        </th>
+      </tr>
+      <tr>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+              <ul>
+                <li>
+                  <a href="/css/faq-Problems.shtml" class="SectionCSS">CSS problems</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Survey.shtml" class="SectionFontSampler">Web font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-LinuxSurvey.shtml" class="SectionFontSampler">Linux font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Windows.shtml" class="SectionFontSampler">Windows fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Mac.shtml" class="SectionFontSampler">Mac fonts</a>
+                </li>
+                <li>
+                  <a href="/css/media/FAQ.shtml" class="SectionMediaMonitor">Media style sheets</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+            </li>
+            <li>
+              <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+              <ul>
+                <li>
+                  <a href="/javascript/faq-Browser.shtml" class="SectionJavascript">Javascript browser</a>
+                </li>
+                <li>
+                  <a href="/javascript/faq-HowTo.shtml" class="SectionJavascript">Javascript &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/FAQ.shtml" class="SectionJavascript">Document Object Model</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/FAQ.shtml" class="SectionJavascript">Drop-down menus</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/faq-CustomMenu.shtml" class="SectionJavascript">DOM menu customisation</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+              <ul>
+                <li>
+                  <a href="/java/servlets/faq-HowTo.shtml" class="SectionJava">Java servlet &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-JSP.shtml" class="SectionJava">Java Server Pages</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-API.shtml" class="SectionJava">Java servlet API</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Lifecycle.shtml" class="SectionJava">Servlet lifecycle</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Sessions.shtml" class="SectionJava">Servlet sessions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Threads.shtml" class="SectionJava">Servlet threads</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Exceptions.shtml" class="SectionJava">Servlet exceptions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Tags.shtml" class="SectionJava">JSP tags &amp; libraries</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+              <ul>
+                <li>
+                  <a href="/java/servers/faq-Tomcat.shtml" class="SectionJava">Apache Tomcat</a>
+                </li>
+                <li>
+                  <a href="/java/servers/faq-TomcatConfig.shtml" class="SectionJava">Tomcat configuration</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+              <ul>
+                <li>
+                  <a href="/sitemanager/design/FAQ.shtml" class="SectionSiteManager">Site design</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+              <ul>
+                <li>
+                  <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+                </li>
+                <li>
+                  <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+                </li>
+                <li>
+                  <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+                </li>
+                <li>
+                  <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+                </li>
+                <li>
+                  <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>About us:</strong> <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">site help</a>, <a href="/codestyle/advertise/FAQ.shtml" class="SectionCodeStyle">text ads</a>, <a href="/codestyle/sponsor/FAQ.shtml" class="SectionCodeStyle">sponsored links</a> and <a href="/codestyle/premium/FAQ.shtml" class="SectionCodeStyle">premium content</a> FAQs.
+  </p>
+</div>          </div>
+        <div id="Sidebar">
+      <div class="Top">
+        <div class="TopLeft"></div>
+        <div class="TopRight"></div>
+      </div>
+      <h3 class="Options">
+        <a name="sitenav" id="sitenav"><span class="NoStyle">Navigation</span>Topics &amp; tools</a>
+      </h3>
+      <ul class="Menu">
+        <li>
+          <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home page</a>
+        </li>
+        <li>
+          <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS style guide</a>
+          <ul>
+            <li>
+              <a href="/css/font-family/index.shtml" title="The most common fonts on Windows, Mac and Unix systems - accesskey 2" accesskey="2" class="SectionFontSampler">Web font sampler</a>
+            </li>
+            <li>
+              <a href="/css/media/index.shtml" title="Media dependent stylesheet test suite and conformance guides for key browsers - accesskey 3" accesskey="3" class="SectionMediaMonitor">CSS media monitor</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="/java/index.shtml" title="Configuration guides and references on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java &amp; servlets</a>
+        </li>
+        <li>
+          <a href="/javascript/index.shtml" title="Drop down menu script and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript &amp; DOM</a>
+        </li>
+        <li>
+          <a href="/html/index.shtml" title="HTML &amp; XHTML - accesskey 6" accesskey="6" class="SectionHTML">HTML &amp; XHTML</a>
+        </li>
+        <li>
+          <a href="/faq/index.shtml" title="Site help and answers to frequently asked questions - accesskey 7" accesskey="7" class="SectionFAQ">Help and FAQs</a>
+        </li>
+        <li>
+          <a href="/codestyle/log/index.shtml" title="A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Site log</a>
+        </li>
+      </ul>
+      <div class="Bottom">
+        <div class="BotLeft"></div>
+        <div class="BotRight"></div>
+      </div>
+    </div>
+    <div id="LinkShare">
+      <script type="text/javascript">
+        var addthis_pub             = 'codestyle';
+        var addthis_logo            = 'http://www.codestyle.org/images/logo-EurostileLozenge168x61.png';
+        var addthis_logo_background = 'FFFFFF';
+        var addthis_logo_color      = '003399';
+        var addthis_brand           = 'Code Style';
+        var addthis_options         = 'google,facebook,favorites,delicious,live,reddit,technorati,slashdot,newsvine,stumbleupon,fark,digg,more';
+      </script>
+      <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto();"><img src="http://s9.addthis.com/button1-addthis.gif" width="125" height="16" alt="Add this page to your chosen social bookmarking service" /></a>
+      <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+    </div>
+    <div class="AdButtonBar">
+      <script type="text/javascript">
+        Vertical1243396 = false;
+        ShowAdHereBanner1243396 = true;
+        RepeatAll1243396 = false;
+        NoFollowAll1243396 = false;
+        BannerStyles1243396 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243396/1243396.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        Vertical1243397 = false;
+        ShowAdHereBanner1243397 = true;
+        RepeatAll1243397 = true;
+        NoFollowAll1243397 = false;
+        BannerStyles1243397 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243397/1243397.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+    </div>
+            <h3 class="NoStyle">
+      <em><a href="/css/Warning.shtml">Style warning - please read</a></em>
+    </h3>
+    <div id="Footbar">
+      <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home</a> &middot;
+      <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS</a> &middot;
+      <a href="/java/index.shtml" title="How-to articles on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java</a> &middot;
+      <a href="/javascript/index.shtml" title="Javascript &amp; DOM: Code samples and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript</a> &middot;
+      <a href="/html/index.shtml" title="HTML - accesskey 6" accesskey="6" class="SectionHTML">HTML</a> &middot;
+      <a href="/faq/index.shtml" title="Help and frequently asked questions about the Code Style Web site - accesskey 7" accesskey="7" class="SectionFAQ">Help</a> &middot;
+      <a href="/codestyle/log/index.shtml" title="Site log: A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Log</a>
+    </div>    <div id="Footer">
+      Copyright &copy; 2000-2010 <a href="/codestyle/PhilipShaw.shtml">Philip Shaw</a>, all rights reserved, <a href="/codestyle/Copyright.shtml">terms and conditions apply</a>.<br />
+      <a href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0, follow this link to validate the markup for this page">Valid XHTML</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Correct CSS, follow this link to check the stylesheet for this page">correct CSS</a>. Last updated 22 January 2010 at 07:03:31 AM UTC.<br />
+      <abbr title="Uniform Resource Identifier">URI</abbr>: <a href="http://www.codestyle.org/java/faq-Abstract.shtml" title="This is the full URI of the current page, follow this link to reload">http://www.codestyle.org/java/faq-Abstract.shtml</a> Metadata: <a href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Abstract.shtml" title="RDF Metadata">RDF</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Abstract.shtml" rel="alternate" type="application/rss+xml" title="RSS news feed">RSS 1.0</a>
+    </div>  </body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Diagnosing Java code: The case for static types</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="Many popular languages -- such as Ruby, Python, and other so-called scripting languages -- have moved away from static type checking as a means to help improve the reliability of code. Still, static type checking can be one of the key weapons in a powerful arsenal against introducing and for detecting bugs. In this article, Eric Allen makes a case for static type checking, explains why we should be glad that the Java language supports it, and discusses how it can be made even better."/>
+<meta name="Description" content="Many popular languages -- such as Ruby, Python, and other so-called scripting languages -- have moved away from static type checking as a means to help improve the reliability of code. Still, static type checking can be one of the key weapons in a powerful arsenal against introducing and for detecting bugs. In this article, Eric Allen makes a case for static type checking, explains why we should be glad that the Java language supports it, and discusses how it can be made even better."/>
+<meta name="Keywords" content="Eric Allen, Diagnosing Java Code, code design, testability, extensibility, bug patterns, patterns, debug, code reuse, static types, static type checking, type checking, type system, Ruby, Python, scripting, scripting languages, java programming, java tutorials, java training, java help, java standards, java code, java resources, java programming, java how to, components, beans, java beans, jdk, jugs, java user groups, tttjca"/>
+<meta name="DC.Date" scheme="iso8601" content="2002-06-01"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCJVAZZ" />
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2002"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2002-06-01"/>
+<meta name="title" content="Diagnosing Java code: The case for static types"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Diagnosing Java code: The case for static types</h1><p><em>Love or hate it, static type checking can make code more robust</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Eric Allen</a> (<a href="mailto:eallen@cs.rice.edu?subject=The case for static types">eallen@cs.rice.edu</a>), Ph.D. candidate, Java programming languages team, Rice University</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print">
+Eric Allen has a bachelor's degree in computer science and mathematics from Cornell University and is a Ph.D. candidate in the Java programming languages team at Rice University. Before returning to Rice to finish his degree, Eric was the lead Java software developer at Cycorp, Inc. He has also moderated the Java Beginner discussion forum at <i>JavaWorld</i>. His research concerns the development of semantic models and static analysis tools for the Java language, both at the source and bytecode levels. Eric is the lead developer of Rice's experimental compiler for the NextGen programming language, an extension of the Java language with added language features, and is a project manager of DrJava, an open-source Java IDE designed for beginners. Contact Eric at <a href="mailto:eallen@cs.rice.edu">eallen@cs.rice.edu</a>.</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; Many popular languages -- such as Ruby, Python, and other so-called "scripting" languages -- have moved away from static type checking as a means to help improve the reliability of code. Still, static type checking can be one of the key weapons in a powerful arsenal against introducing and for detecting bugs. In this article, Eric Allen makes a case for static type checking, explains why we should be glad that the Java language supports it, and discusses how it can be made even better. Share your thoughts on this article with the author and other readers in the <a href="javascript:void forumWindow()">discussion forum</a> by clicking <b>Discuss</b> at the top or bottom of the article.</p>
+<p class="ibm-no-print"><a href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=diagnosing%20java%20code:">View more content in this series</a></p>
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 01 Jun  2002
+<br /><b>Level: </b>&nbsp;Introductory
+
+<br /><b>Activity:</b>&nbsp; 4640 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>Static types -- most programmers love them or hate them. Advocates boast that static types allow them to produce cleaner and more reliable code than they could without them. Detractors moan about the added complexity that static types require of a program.</p><p>Granted, static types are not a free lunch; they can be tedious to work with at times. However, if our main concern is to keep bugs out of our code, then, taken as a whole, Java programming is better off for having and using static types. Why? Static type checking:</p><ul>
+<li>Improves robustness through early error detection</li>
+<li>Increases performance by making required checks at the best times</li>
+<li>Supplements the weaknesses of unit testing</li>
+</ul><p>Let's examine these reasons in more detail and take a look at static type checking in combination with pair programming.</p><p><a name="1"><span class="atitle">Improve robustness via early detection</span></a></p><p>
+
+Static type checking improves program robustness. Why? Because it helps locate errors as quickly as they possibly can be -- <i>before the program is run</i>. The logic here is inescapable. The sooner a bug is identified, the easier it will be to diagnose the problem, and a smaller amount of data will be corrupted by the errant computation.</p>
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><a name="sidebar1"></a><h2>The path to NextGen</h2><div class="ibm-container-body">
+
+At Rice University, one of the programming languages technology groups has implemented a compiler for an upward-compatible version of GJ, called NextGen.
+
+<p>GJ is a compiler written by Martin Odersky that allows users to add <i>generic</i>, or <i>parameterized types</i> to the Java language without sacrificing compatibility with legacy code. Its forerunner was known as Pizza; it was an experimental language with several new features that were adopted into Java 1.2. GJ improved Pizza by only adding generic types.</p>
+<p>GJ compiles source to bytecode by means of <i>type erasure</i>, a method that replaces every instance of each type variable with that variable's upper bound. It also allows type variables to be declared for specific methods, rather than for whole classes.</p>
+<p>The NextGen language was jointly developed by Robert Cartwright of Rice University and Guy Steele of Sun Microsystems. This language adds the ability to perform run-time checks of type variables to GJ. It supports type parameterization of individual methods, and supports inner classes and run-time operations on generic types. It doesn't allow type variables to be instantiated with primitive types.</p>
+</div></div>
+<p>Locating and diagnosing a bug before the program is run is the ideal state. This advantage makes static type checking a great success story in programming language design because it is one of the few ways to automatically detect bugs in a program before it is run, and because it can perform this task in an acceptable amount of time. By "acceptable amount of time," I mean time linear in the length of the program (with a small constant factor) as opposed to the cubic or even exponential time required by other forms of automated checking (many aren't guaranteed to ever finish at all).</p><p>Granted, the more powerful a type system is, the easier it is to program in (and the more errors it will detect). I don't deny that the simplicity of the Java type system leaves much to be desired; this simplicity often gets in the way, forcing us to circumvent it with casts. But this situation is slowly improving.</p><p>The Sun JSR14 compiler adds a limited form of generic (or <i>parameterized</i>) types to the language; we can be confident that its adoption into the language is just a matter of time because it is now firmly in the community process. More advanced language extensions such as NextGen promise to further build on the increased expressiveness provided by JSR14. That's a good thing, because, in many contexts, NextGen helps to alleviate some of the added complexity necessary even in JSR14. See the <a href="#resources">Resources</a> section for more information on this issue. (Besides the JSR14 link, there are some articles on <i>parametric polymorphism</i>.)</p><p>The benefits of static type checking extend beyond robustness, though. It can also safeguard your program's performance.</p>
+
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="2"><span class="atitle">Increase performance by reducing needed checks</span></a></p><p>
+
+In a safe language (and by "safe" I mean a language that does not allow us to break its own abstractions), various checks on the types of arguments passed to methods, as well as checks on the types of accessed fields, are required and must be done. If these checks are not done statically, then they must be done at run time.</p><p>Performing these required checks takes time, and languages that perform them at run time incur a corresponding performance hit. When an invariant is checked statically, we can eliminate the need to check it at run time, speeding up the program. So, not only does static type checking allow us to produce more robust code; it lets us produce more efficient code as well.</p><p>Traditionally, static type checking during compilation is considered to be inefficient. Linking together various type references across files can take a long time for large programs in languages such as C/C++ because the various files must be combined into one large executable with each compilation. But the Java language avoids this issue entirely because classes are compiled separately and loaded on demand into the JVM. There is no need to link all referenced files into a single executable -- so there is no corresponding slow-down during compilation.</p><p>So now, what do we say to those who claim that static typing is unnecessary in the context of unit tests?</p><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="3"><span class="atitle">Exceeding the limits of unit tests</span></a></p><p>
+
+As regular readers of this column know, I am a strong advocate of unit testing. It is the best practice to cover your programs with unit tests. However, I will be the first to acknowledge the limitations of unit testing.</p><p>A unit test can only test the behavior of a program during a specific run, with specific inputs. Granted, in the narrow context of that run, we can test the <i>deep</i> properties of the program.</p><p>In contrast, type checking checks <i>shallow</i> properties, but it does so for all potential runs of the program, with any possible inputs. </p><p><a name="3a"><span class="smalltitle">Combining type checking and unit tests</span></a></p><p>
+
+Just as stories and unit tests complement one another when specifying the behavior of a program, unit tests and static type checking complement one another when identifying and stamping out bugs. The combined effect of these two means of bug elimination is greater than the sum of their individual effects.</p><p>Some designers and programmers will note that the kinds of errors experienced in sophisticated programs are much deeper than those caught by static type checking; therefore, they conclude that the static type system hinders more than it helps. And without a doubt, a statically typed language can make programs more verbose and can even prevent us from writing some programs that would never cause any errors.</p><p>There are always tradeoffs. Using static types is not a free lunch. Often, the program we write for the statically typed language will be more complex than what we could write outside the type system. But even "sophisticated" programs sport the kinds of shallow errors that are the special prey of static type checking.</p><p>Even if these shallow errors are eliminated in a program, refactoring can easily reproduce them. If we are to adopt the extreme programming philosophy of perpetual refactoring, we will want to catch such shallow errors as soon as they are introduced. (On the flip side, unit tests help to catch deeper errors that occur under refactoring. The two concepts do add up to a sum greater than their parts.) Static type checking works quite well in the context of extreme programming.</p><p><a name="3b"><span class="smalltitle">A conflict between type checking and unit tests</span></a></p><p>
+
+Nevertheless, there is one conflict between static type checking and unit testing that should be mentioned. Extreme programming instructs us that we should interweave the writing of unit tests with the writing of the code to implement those tests.</p><p>Each set of unit tests helps to specify a new aspect of functionality and should be written right before the code that allows us to pass those tests. Ideally, we'd like to compile those tests immediately after writing them, so we can be sure they're ready to go.</p><p>But there's a problem here: <i>the new tests won't pass static type checking until we have defined the classes and methods to which the tests refer.</i> These classes and methods can be stubs that we fill in later, but unless we have something in place, the references to them in the tests won't make sense to the static checker.</p><p>Consider the relatively simple example in Listing 1, which shows a test class for an implementation of multi-sets (an abstract data-structure):</p><br /><a name="code1"><b>Listing 1. A test class for an implementation of multi-sets</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+import  junit.framework.*;
+import java.io.*;
+
+/**
+ * A test class for MultiSet.
+ *
+ */
+public class MultiSetTest extends TestCase {
+  private static String W = "w";
+  private static String X = "x";
+  private static String Y = "y";
+  private static String Z = "z";
+
+  private static MultiSet&lt;String&gt; EMPTY = new MultiSet&lt;String&gt;();
+  private static MultiSet&lt;String&gt; XY = new MultiSet&lt;String&gt;(X, Y);
+  private static MultiSet&lt;String&gt; YZ = new MultiSet&lt;String&gt;(Y, Z);
+  private static MultiSet&lt;String&gt; XYZ = new MultiSet&lt;String&gt;(X, Y, Z);
+  private static MultiSet&lt;String&gt; XYY = new MultiSet&lt;String&gt;(X, Y, Y);
+  private static MultiSet&lt;String&gt; WXY = new MultiSet&lt;String&gt;(W, X, Y);
+
+  /**
+   * Constructor.
+   * @param  String name
+   */
+  public MultiSetTest(String name) {
+    super(name);
+  }
+
+  /**
+   * Creates a test suite for JUnit to run.
+   * @return a test suite based on the methods in this class
+   */
+  public static Test suite() {
+    return new TestSuite(MultiSetTest.class);
+  }
+
+  private void _assertOrder(MultiSet set, String key, int value) {
+    assertEquals("order for key " + key, value, set.order(key));
+  }
+
+  public void testEmpty() {
+    _assertOrder(EMPTY, X, 0);
+    _assertOrder(EMPTY, Y, 0);
+    _assertOrder(EMPTY, Z, 0);
+  }
+
+  public void testOrder() {
+    _assertOrder(XY, X, 1);
+    _assertOrder(XY, Y, 1);
+    _assertOrder(YZ, Y, 1);
+    _assertOrder(YZ, Z, 1);
+  }
+
+  public void testAdd() {
+    MultiSet added = XY.add(YZ);
+    _assertOrder(added, X, 1);
+    _assertOrder(added, Y, 2);
+    _assertOrder(added, Z, 1);
+  }
+
+  public void testSubset() {
+    assertTrue(XY.subset(XYZ));
+    assertTrue(YZ.subset(XYZ));
+    assertTrue(! YZ.subset(XY));
+    assertTrue(! XY.subset(YZ));
+    assertTrue(! XYZ.subset(XY));
+    assertTrue(! XYZ.subset(YZ));
+    assertTrue(! XYY.subset(XYZ));
+    assertTrue(! XYZ.subset(XYY));
+  }
+
+  public void testSubtract() {
+    MultiSet XYYZ = XY.add(YZ);
+    assertEquals(YZ, XYYZ.subtract(WXY));
+    assertEquals(YZ, XYYZ.subtract(XY));
+    assertEquals(XY, XYYZ.subtract(YZ));
+    assertEquals(EMPTY, EMPTY.subtract(YZ));
+    assertEquals(EMPTY, YZ.subtract(YZ));
+  }
+
+  public void testUnion() {
+    assertEquals(XYZ, XY.union(YZ));
+  }
+
+  public void testIsEmpty() {
+    assertTrue(EMPTY.isEmpty());
+    assertTrue(! XY.isEmpty());
+  }
+}
+</pre></td></tr></table><br /><p>Where is class <code>MultiSet</code>? What about the methods <code>union()</code>, <code>isEmpty()</code>, and the like?</p><p>A type checker wouldn't have any better idea about the location of these classes and methods than you do, so although this code compiles in my environment, it won't compile for you. That is, it won't compile until you write an implementation of class <code>MultiSet</code> with all of the appropriate methods. Remember, in a statically typed language, you can't compile new unit tests until you at least generate stubs for the classes and methods you're trying to test.</p><p>This conflict can be easily alleviated through the use of test-oriented development tools. Specifically, you need a development tool that can read over a unit test, accumulate the class and method references (and appropriate signatures) necessary for that test to pass static type checking, and then generate the stub classes.</p><p>If you consider what the design of such a development tool would look like, it becomes pretty clear that the plan for a test-oriented development tool would look exactly like a static type checker, except that, instead of generating errors, it would simply accumulate a log of the stubs that it needs to generate. We are currently implementing a static checker for NextGen with a "stub-generating" mode that does exactly this.</p><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="4"><span class="atitle">Pair programming: Another shallow error check</span></a></p><p>
+
+Another complement to the shallow but general error detection capabilities of static type checking is <i>pair programming,</i> one of the tenets of extreme programming. Multiple intelligent agents checking each others work is a great way to eliminate many of those shallow errors.</p><p>Another effective means to achieve this effect is through open source coding. When code can be made open source, robustness tends to improve -- after all, then you have more than two pairs of programmer's eyes going over the code, looking for the smallest of "gotchas." As Eric Raymond of "The Cathedral and the Bazaar" fame puts it (in what he dubs Linus's Law), "Given enough eyeballs, all bugs are shallow."</p><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="5"><span class="atitle">Going beyond simple type checking</span></a></p><p>
+
+Of course, for the same reasons that static type checking can be beneficial, more advanced forms of static checking can be too. The terms "static checking" and "static analysis" are more general notions than just checking types -- they refer to any mechanism for analyzing the text of a program to determine how it will behave at run time.</p><p>As other teams have shown, the Java language can be extended to include other forms of static checking, such as limited static verification of assertions. Another direction for future work is to add various "soft typing systems" on top of the Java language, in which operations such as casts can be verified to succeed in certain contexts, but unverified casts are not prohibited.</p><p>When eliminating bugs, we should attempt to bring all arms to bear on the problem, developing new and effective static checking systems to check as many invariants as possible. In the next few articles, we'll explore some of the static analysis tools available for Java programming, both as prototypes and as production tools.</p><!-- CMA ID: 10672 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br />
+<p><a name="resources"><span class="atitle">Resources</span></a></p><ul><li>Here are some details on the Java Specification Request "<a href="http://jcp.org/jsr/detail/14.jsp">JSR 14</a>: Add Generic Types To The Java Programming Language." The idea is to extend the language with generic (also known as <i>parameterized</i>) types.
+<br /><br /></li><li>Eric Allen covered various proposals for adding generics to Java programming in the February 2000 <i>JavaWorld</i> article, "<a href="http://www.javaworld.com/jw-02-2000/jw-02-jsr.html">Behold the power of parametric polymorphism</a>."
+<br /><br /></li><li>Paul Rogers addressed the relationship between types and sub-type polymorphism in this April 2001 <i>JavaWorld</i> article, "<a href="http://www.javaworld.com/javaworld/jw-04-2001/jw-0413-polymorph.html">Reveal the magic behind subtype polymorphism</a>."
+<br /><br /></li><li>David F. Bacon's talk, "<a href="http://www.research.ibm.com/people/d/dfb/talks/Bacon97PhDTalk.pdf">Fast and Effective Optimization of Statically Typed Object-Oriented Programs</a>," in which he offers an optimization algorithm for statically typed object-oriented languages, is available from IBM Research (in PDF format).
+<br /><br /></li><li>Eric Raymond's "<a href="http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/index.html">The Cathedral and the Bazaar</a>" carries a discussion on the increased robustness inherent in open source software.
+<br /><br /></li><li>Are you looking for thorough, conceptual resources on such issues in programming as:
+	<ul>
+<li>Synthesizing object-oriented and functional design to promote reuse</li>
+<li>Reduction semantics for classes</li>
+<li>Modular and polymorphic set-based analysis</li>
+<li>Static debugging via componential set-based analysis</li>
+<li>Direct- and continuation-passing-style optimizing compilers</li>
+</ul>
+These are just a few of the topics covered in available papers, theses, dissertations, and technical reports at the <a href="http://www.cs.rice.edu/CS/PLT/Publications/">Rice University Programming Languages Team</a> site.
+<br /><br /></li><li>You can never say it enough! Two excellent resources for designing, testing, and implementing killer Java code are the <a href="http://www.extremeprogramming.org/">Extreme Programming site</a> and the <a href="http://www.junit.org/index.htm">JUnit site</a> (which provides links to a multitude of sources on program testing methods).
+<br /><br /></li><li>Read all of Eric Allen's <a href="http://www-128.ibm.com/developerworks/views/java/libraryview.jsp?search_by=diagnosing%20java%20code:">
+<i>Diagnosing Java code</i>
+</a> articles.<br />
+<br /><br /></li><li>Find other Java technology resources on the <i>developerWorks</i>
+<a href="http://www.ibm.com/developerworks/java/?article=jr">Java technology zone</a>.<br /><br /></li></ul>
+<p><a name="author"><span class="atitle">About the author</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><p><a name="author1"></a>
+Eric Allen has a bachelor's degree in computer science and mathematics from Cornell University and is a Ph.D. candidate in the Java programming languages team at Rice University. Before returning to Rice to finish his degree, Eric was the lead Java software developer at Cycorp, Inc. He has also moderated the Java Beginner discussion forum at <i>JavaWorld</i>. His research concerns the development of semantic models and static analysis tools for the Java language, both at the source and bytecode levels. Eric is the lead developer of Rice's experimental compiler for the NextGen programming language, an extension of the Java language with added language features, and is a project manager of DrJava, an open-source Java IDE designed for beginners. Contact Eric at <a href="mailto:eallen@cs.rice.edu">eallen@cs.rice.edu</a>.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java technology</div><div class="metavalue">ArticleID=10672</div><div class="metavalue">ArticleTitle=Diagnosing Java code: The case for static types</div><div class="metavalue">publish-date=06012002</div><div class="metavalue">author1-email=eallen@cs.rice.edu</div><div class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#1">Improve robustness</a></li><li><a class="ibm-feature-link" href="#2">Increase performance</a></li><li><a class="ibm-feature-link" href="#3">Supplement unit testing</a></li><li><a class="ibm-feature-link" href="#4">Pair programming</a></li><li><a class="ibm-feature-link" href="#5">What's beyond?</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the author</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/spot-nextsteps.jpg"/><p>Spring, JRuby, and Ajax development is easier with WebSphere Application Server - a smart Java 5 and J2EE Web services-based application server.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/ws/wasce/learn.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Try: The no-charge WebSphere Application Server Community Edition is a pre-integrated, lightweight Java 5 application server built on Apache Tomcat and other best-of-breed open source software such as OpenEJB, Apache Axis, and Apache Derby.</a></li><li><a href="http://www.ibm.com/developerworks/websphere/library/techarticles/0810_asplund/0810_asplund.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: The article leverage the Spring Framework and the WebSphere Application Server to improve your J2EE project productivity.</a></li><li><a href="http://www.ibm.com/developerworks/edu/x-dw-x-jrorajax.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Tutorial: See how the free WebSphere Application Server and XML can improve the efficiency of your JRuby on Rails and Ajax development.</a></li><li><a href="http://www.ibm.com/software/dre/h2b/buildh2bpage.wss?synkey=G394201N28809H35&amp;S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: WebSphere Application Server - Express</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Java on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/java/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/java/newto/" class="ibm-forward-link">New to Java programming</a></li><li><a href="http://www.ibm.com/developerworks/views/java/downloads.jsp" class="ibm-forward-link">Downloads and products</a></li><li><a href="http://www.ibm.com/developerworks/views/java/projects.jsp" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/views/java/standards.jsp" class="ibm-forward-link">Standards</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/java/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/views/java/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY02&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/offers/lp/demos/summary/r-rationalsynergy.html?S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tileratsynergydemo&amp;ca=dth-r"><img src="//www.ibm.com/developerworks/i/tile_v16_synergy.gif" width="158" height="50" border="0" alt="Demo Rational Synergy Suite " /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/offers/lp/demos/summary/tiv-cloudburst.html?S_CMP=TILE&amp;ca=dti-tiletivcloudburstdemo&amp;ca=dth-t&amp;ca=dth-cloud"><img src="//www.ibm.com/developerworks/i/tile_v16_cloudburst2.gif" width="158" height="50" border="0" alt="Tivoli and Cloud CloudBurst Demo Series" /></a></p><p class="dw-special-offers"><a href="https://www14.software.ibm.com/webapp/iwm/web/signup.do?source=dw-c-wcsdp&amp;S_PKG=102909&amp;S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tile5bpcloud&amp;ca=dth-r"><img src="//www.ibm.com/developerworks/i/tile_v16_best5.gif" width="158" height="50" border="0" alt="5 best practices for developing in a cloud" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '10672';
+			contentAreas = 'java';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[28,16],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

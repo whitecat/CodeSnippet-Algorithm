@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../../notes.css"/>
+
+  <title>Java: Local/Instance/Class</title>
+</head>
+<body><div id="content">
+
+<h1 class="title"><a href="../../index.html">Java Notes</a></h1><h1>Local/Instance/Class Variables</h1>
+
+
+
+<p>There are three kinds of Java variables:</p>
+<ol>
+<li><b>Local variables</b> are declared in a method, constructor, or block.  
+    When a method is entered, an area is pushed onto the <i>call stack</i>.
+    This area contains slots for each local variable and parameter.
+    When the method is called, the parameter slots are initialized to
+    the parameter values.  When the method exits, this area is popped off
+    the stack and the memory becomes available for the next called method.
+    Parameters are essentially local variables which are initialized from
+    the actual parameters.  Local variables are not visible outside the method.
+    </li>
+<li><b>Instance variables</b> are declared in a class, but outside a method.  
+    They are also called <i>member</i> or <i>field variables</i>. 
+    When an object is allocated in the <i>heap</i>, there is a slot in it
+    for each instance variable value.  
+    Therefore an instance variable is created when an object is created and destroyed 
+    when the object is destroyed.  Visible in all methods and constructors of the
+    defining class, should generally be declared private, but may be given greater visibility.
+    </li>
+<li><b>Class/static variables</b> are declared with the <code>static</code> keyword in a class, 
+    but outside a method.  There is only one copy per class, regardless of 
+    how many objects are created from it.  They are stored in static memory.  
+    It is rare to use static variables other than declared <code>final</code> and used
+    as either public or private constants.
+    </li>
+</ol>
+
+<p></p>
+
+<table border="1" cellspacing="0" cellpadding="4" summary="">
+   <tr>
+      <th width="10%"><i>characteristic</i></th>
+      <th width="30%"><b><i>Local variable</i></b></th>
+      <th width="30%"><b><i>Instance variable</i></b></th>
+      <th width="30%"><b><i>Class variable</i></b></th>
+   </tr>
+   <tr valign="top">
+      <td><i>Where declared</i></td>
+      <td>In a method, constructor, or block.
+          </td>
+      <td>In a class, but outside a method.  Typically <code>private</code>.
+          </td>
+      <td>In a class, but outside a method.  Must be declared
+          <code>static</code>.  Typically also <code>final</code>.
+          </td>
+   </tr>
+   <tr valign="top">
+      <td><i>Use</i></td>
+      <td>Local variables hold values used in computations in
+          a method.</td>
+      <td>Instance variables hold values that must
+          be referenced by more than one method (for example, components
+          that hold values like text fields, variables that control
+          drawing, etc), or that are essential parts of an object's state 
+          that must exist from one method invocation to another.</td>
+      <td>Class variables are mostly used for <i>constants</i>,
+          variables that never change from their initial value.</td>
+   </tr>
+   <tr valign="top">
+      <td><i>Lifetime</i></td>
+      <td><b>Created</b> when method or constructor is entered.
+          <p><span class="leadin">Destroyed</span> on exit.</p></td>
+      <td><b>Created</b> when instance of class is 
+          created with <tt>new</tt>.
+          <br /><b>Destroyed</b> when there are no more references
+          to enclosing object (made available for garbage collection).</td>
+      <td><b>Created</b> when the program starts.
+          <br/><b>Destroyed</b> when the program stops.
+          </td>
+   </tr>
+   
+   <tr valign="top">
+      <td><i>Scope/Visibility</i></td>
+      <td>Local variables (including formal parameters) 
+          are visible only in the method, constructor, or block in
+          which they are declared.  
+          Access modifiers (<code>private</code>, <code>public</code>, ...)
+          can <i>not</i> be used with local variables.  All local variables
+          are effectively private to the block in which they are declared.  
+          No part of the program outside of the
+          method / block can see them.
+          A special case is that local variables declared in the initializer part of a
+          <tt>for</tt> statement have a scope of the <tt>for</tt> statement.
+          </td>
+      <td>Instance (field) variables can been seen by all methods in the
+          class.  Which other classes can see them is 
+          determined by their declared access:
+          <p><span class="leadin"><tt>private</tt></span> should be your default choice in declaring
+                them.  No other class can see private instance variables.
+                This is regarded as the best choice.  Define <i>getter</i> and 
+                <i>setter</i> methods if the value has to be gotten or set from
+                outside so that data consistency can be enforced, and to preserve
+                internal representation flexibility.</p>
+          <p><span class="leadin">Default (also called <i>package</i> visibility)</span> allows a variable
+                to be seen by any class in the same package.  
+                <code>private</code> is preferable.</p>
+          <p><span class="leadin"><tt>public</tt></span>. Can be seen from any class.  Generally a bad idea.</p>
+          <p><span class="leadin"><tt>protected</tt></span> variables are only visible
+                from any descendant classes.  Uncommon, and
+                probably a bad choice.</p>
+          </td>
+      <td>Same as instance variable, but are often 
+          declared <tt>public</tt> to make constants available to users of the class.</td>
+   </tr>
+   
+   <tr valign="top">
+      <td><i>Declaration</i></td>
+      <td>Declare before use anywhere in a method or block.</td>
+      <td>Declare anywhere at class level (before or after use).</td>
+      <td>Declare anywhere at class level with <tt>static</tt>.</td>
+   </tr>
+   
+   <tr valign="top">
+      <td><i>Initial value</i></td>
+      <td>None.  Must be assigned a value before the first use.</td>
+      <td>Zero for numbers, false for booleans, or null for 
+          object references.  May be assigned value at declaration or in constructor.</td>
+      <td>Same as instance variable, and it addition can be 
+          assigned value in special <i>static initializer block</i>.</td>
+   </tr>
+   
+   <tr valign="top">
+      <td><i>Access from outside</i></td>
+      <td>Impossible.  Local variable names are known only within the method.</td>
+      <td>Instance variables should be declared <code>private</code> to promote 
+          information hiding, so should not be accessed from outside a class.
+          However, in the few cases where there are accessed from outside the
+          class, they must be qualified by an object (eg, myPoint.x).</td>
+      <td>Class variables are qualified with the class name (eg, Color.BLUE).
+          They can also be qualified with an object, but this is a deceptive 
+          style.</td>
+   </tr>
+   
+   <tr valign="top">
+      <td><i>Name syntax</i></td>
+      <td>Standard rules.</td>
+      <td>Standard rules, but are often prefixed to clarify difference from 
+          local variables, eg with <code>my</code>, <code>m</code>, or <code>m_</code> (for member) as in <code>myLength</code>,
+          or <code>this</code> as in <code>this.length</code>.</td>
+      <td><code>static public final</code> variables (constants) are all uppercase,
+          otherwise normal naming conventions.  Alternatively prefix the variable
+          with "c_" (for class) or something similar.</td>
+   </tr>
+
+</table>
+
+
+<div class="footer">
+Copyleft 2004 <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
+</div>
+</div></body>
+</html>
+

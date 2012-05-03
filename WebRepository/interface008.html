@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="keywords" content="Java,tutorial, interface, method signature">
+<link rel="stylesheet" type="text/css" href="../lang.css">
+<title>Interface in Java</title>
+</head>
+<body>
+
+<div class="donate253586027">If you enjoyed this site, please consider donating $3. Any amount is appreciated. <a href="http://xahlee.org/thanks.html">Thanks!</a><form action="https://www.paypal.com/cgi-bin/webscr" method="post"><div><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8127788"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit"><img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"></div></form></div>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<h1>Interface in Java</h1>
+
+<p>Xah Lee, 2005-02</p>
+
+<h2>The Concept of Interface</h2>
+
+<p>In a functional language, a function can be specified by its name and
+parameter specs. For example:</p>
+
+<pre class="bdr">
+f(3)
+f(3, [9,2])
+f("some string")
+</pre>
+
+<p>These are examples of 3 function calls. The functions all having the same name, but having different number and type of arguments.</p>
+
+<p>A function is essentially known to outsiders by its name and parameter specs. The gist in this concept is that the user don't need to know the implementation details of the function. All she needs to know is the function's name, and parameter specs and return value spec. (and of course what the function is supposed to do.) In this way, interface and implementation are separated. The implementation can change or improve anytime, and users don't need to know.</p>
+
+<p>In Java, the above concept of function name and parameter spec is called a method's â??signatureâ??.</p>
+
+<p>For another example, usually a program needs to talk to another software such as a database software. The database software may have a set of functions for the purpose of communicating to other software. In essence, making the database useful to other software. Such a list of function spec is often called API, which stands for Application Programing Interface.</p>
+
+<p>The API terminology is abused by the marketing-loving Sun Microsystems by calling the Java language's documentation as â??The Java APIâ??, even though Java the language and its paraphernalia of libraries and hardware-emulation system (all together jargonized as the Java â??Platformâ??) isn't a Application nor Interface. (a API implies that there are two disparate entities involved, which are allowed to communicate thru it. (e.g. LiveJournal blog API, Google Map API, ImageMagick's API, Database API, credit card network API) ) In the case of â??The Java APIâ??, it's one entity talking to itself.).</p>
+
+<p>In general, the interface concept in programing is a sort of specification that allows different entities to call and make use of the other, with the implication that the caller need not know what's behind the facade.</p>
+
+<p>In the Object Oriented Programing Paradigm, a new concept arose, that is
+the â??interfaceâ?? aspect of a class.</p>
+
+<p>As we've seen, a function has parameter spec that is all there it is a user needs to know for using it. In Java, this is the method's â??signatureâ??. Now, as the methodology of the OOP experience multiplies, it became apparent that the interface concept can be applied to Classes as well. Specifically: the interface of a class is the class's methods.</p>
+
+<p>This concept is then turned into a OOP machinery, in hope of extracting usefulness in software engineering. That is to say, now in the Java language, a programer can actually write a piece of code, whose sole purpose is to define what methods and variables a class contains. This, is done with the keyword â??interfaceâ??. Once a interface is defined, other classes can say which interfaces they implement, so that if class C implement interface I, then programers don't need to know the details about C. All they need to know is the interface I. (which specifies all the methods, constructors, variables, a class must have.)</p>
+
+<p>(Java's interface, is essentially the â??signatureâ?? of a class, in
+Sun Microsystem's own jargon.)</p>
+
+<h2>Interface in Java</h2>
+
+<p>A programer may ask, what's the big deal anyway? Since in Java, classes are well documented anyway. What difference does it make to know the documentation of C versus the documentation of interface for C?</p>
+
+<h3>Interfaces Can Have Hierarchical Relations</h3>
+
+<p>The thing about interface in Java is that the complexity grows. A Java interface, can be inherited, just as classes. The idea is that interfaces can also form a hierarchy just like classes.</p>
+
+<p>In OOP language such as Java, the object entities used to solve computing problems are thought to form a relation as of a tree, thus we have the class hierarchy. In a similar way, it is thought that interface, can also form a hierarchy fruitfully. A good example is the list data type. The explanation follows.</p>
+
+<p>In computing languages, often there's a data concept variously known as lists, aggregate, sequences, array, vector, tuple, set, matrix, trees. The basic idea is that it just a collection of things treated as one single entity. This collective may not allow repetitions (a â??setâ??), elements may be nested (tree), may have certain structure constrains when nested (matrix), may have certain computational properties such as speed of retrieving a element or adding a element or memory footprint (vector, array, hash table, associative list) etc and so on. Different requirement and different computational properties have given them various names to go by. One can however organize them by the interface perspective. In Java, they are known as Collection, and all have the interface of Collection.</p>
+
+<p><span class="ref"><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Collection.html">Java Doc: Collection</a></span></p>
+<p><span class="ref"><a href="http://java.sun.com/docs/books/tutorial/collections/interfaces/index.html">Java Tutorial: index</a></span></p>
+
+<p>Consider a Set and List. Their difference is that Set does not allow repeated element, while List does. And, Set are typically thought of as without a order, while List often does. Other than that, both concepts are the same. They both need methods like adding elements, deleting, inserting, sorting etc. Therefore, from interface point of view, they share a parent. In Java, both Set and List are interfaces, inherited from the parent interface Collection.</p>
+
+<h3>A Class Can Have Multiple Interfaces</h3>
+
+<p>When a class C has interface I, it is said to â??implementâ?? that interface.</p>
+
+<p>In Java, it so designed that a class can implement more than one interfaces (or none). When a class C implements interfaces I1 and I2, C is guaranteed to have all methods declared by interface I1 and I2. For example, in Java, class Integer has interfaces Comparable and Serializable. And the class ArrayList has these interfaces: Cloneable, Collection, List, RandomAccess, Serializable.</p>
+
+<p>For example, see the Java documentation on these interfaces:</p>
+
+<ul>
+<li>Interface RandomAccess: <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/RandomAccess.html">http://java.sun.com/j2se/1.5.0/docs/api/java/util/RandomAccess.html</a></li>
+<li>Interface Serializable: <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/io/Serializable.html">http://java.sun.com/j2se/1.5.0/docs/api/java/io/Serializable.html</a></li>
+<li>Interface Comparable: <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/Comparable.html">http://java.sun.com/j2se/1.5.0/docs/api/java/lang/Comparable.html</a></li>
+</ul>
+
+<p>So now, in Java, we have two hierarchies of separate category: Classes and Interfaces. The Classes hierarchy is one single giant tree. However, the interfaces are not all together as one tree. They are more like forests, of many trees. That is, many separate group of hierarchy. It is important to remember that interfaces and classes are separate entities.</p>
+
+<h3>Interface as Labels</h3>
+
+<p>It is curious, that if you look at some of the interfaces, such as RandomAccess and Serializable, they do not declare a single method or variable.
+What good is a interface when it doesn't have a single member?
+</p>
+
+<p>For example, the ArrayList class has these interfaces: Cloneable, RandomAccess, Serializable. None of these interfaces declares a single member. As one can infer from the names, they seem to suggest what properties ArrayList has, than a syntax facade that hides implementation irrelevances.</p>
+
+<p>One might ask, in â??interfacesâ?? such as RandomAccess that doesn't have a single variable or method, in what technical definition that a class is said to satisfy such interfaces?  And, given the existence of these property-like interfaces, can a programer define their own arbitrary computational property contract?  For example, suppose i want a property ConstantTime for a class in a game i'm developing. Once i declared a class to have â??interfaceâ?? ConstantTime, apparently my class is not going to magically become constant time. How do i define arbitrary properties to the compiler, and how's the compiler going to verify it?</p>
+
+<p>Java's Interface has mutated so much from the interface concept that it also functions as a pure label. If a interface does not have any variables or methods, any class can declare it as a interface. There is no restraint whatsoever. For example, the RandomAccess interface in Java does not have any variables or methods. Any class can declare it as a interface, randomly accessible or not.
+When interface is used as a label, it is called a â??marker interfaceâ?? by the Java documentation. For example, see
+<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/RandomAccess.html">http://java.sun.com/j2se/1.5.0/docs/api/java/util/RandomAccess.html</a>
+</p>
+
+<p>As a pure label, a programer can create â??marker interfacesâ?? like â??blueâ??, â??redâ??, â??yellowâ?? to attach to classes, as well as â??JohnsJobâ??, â??Experimentalâ??.</p>
+
+<p>Because the multi-inheritance nature of Java interface, and its double role as a label, it no longer function as a communication facade that is the normal meaning of interface. If a Java class have interfaces A, B, C, D, E, one cannot be sure just exactly what methods or variables the class have. (it will be a union of them, and some of them do not serve any technical function in language other than as a lable to the programer to help in writing programs)</p>
+
+<p>Using interface as a inert label to indicate computational properties (e.g. RandomAccess) is a egregious incompetence in the design of a language for computation. The gist of the problem is that it is a piece of mathematical irrelevance in the language. As a labeling mechanism in a language, for the possible benefit from the software engineering perspective, then it should not be designed as part of the Class Interface, since the concept of labeling, and concept of programing interface, are semantically disparate.
+</p>
+
+<hr>
+<h3>On the Inanity of Standard Java Tutorials</h3>
+
+<p>The standard Java tutorials out there are often inane, in that none
+of them actually tried to teach what the language actually manifestly
+do, but instead, often talk in some purportedly good engineering
+perspective.
+</p>
+
+<p>For a incomprehensible metaphysical intro to interface using bicycle,
+see this page of the Official Java Tutorial:
+<a href="http://java.sun.com/docs/books/tutorial/java/concepts/interface.html">http://java.sun.com/docs/books/tutorial/java/concepts/interface.html</a>.
+For a more detailed account of Interface using baffling financial
+stocks, see this page of the Official Java Tutorial:
+http://java.sun.com/docs/books/tutorial/java/interpack/createinterface.html.
+(the official Java Tutorial has went into major changes in 2006. For the version of the above two pages, see <a href="_p/j_tutorial_interface_2005.zip">local copy as of 2005</a>.
+</p>
+
+<p>PS the official Java tutorial thru its update history has changed its stance about what's a interface. The following are verbatim quotes:</p>
+
+<p>before 2005:</p>
+
+<blockquote><p><b>Definition</b>: An interface is a named collection of method definitions (without implementations). An interface can also declare constants.</p></blockquote>
+
+<p>sometimes after 2005-01:</p>
+
+<blockquote><p><b>Definition</b>: An interface is a device that unrelated objects -- objects that are not related by class hierarchy -- can use to interact with each other. An object can implement multiple interfaces.</p></blockquote>
+
+<p>Complexer and complexer. Note its use of the word â??deviceâ??.</p>
+
+<p>In its current incarnation (as of 2006-08-14) of the tutorial
+<a href="http://java.sun.com/docs/books/tutorial/java/IandI/index.html">http://java.sun.com/docs/books/tutorial/java/IandI/index.html</a>,
+interface is not particularly given a definition.
+</p>
+
+<p>References:</p>
+<ul>
+<li>Java lang spec, 3rd ed, 8.4.2 on Method Signature: <a href="http://java.sun.com/docs/books/jls/third_edition/html/classes.html#38649">http://java.sun.com/docs/books/jls/third_edition/html/classes.html#38649</a></li>
+<li>Official Java documentation page for 1.5.0, where it calls itself API. <a href="http://java.sun.com/j2se/1.5.0/docs/api/overview-summary.html">http://java.sun.com/j2se/1.5.0/docs/api/overview-summary.html</a></li>
+</ul>
+
+<div class="rltd">
+<ul>
+<li><a href="abstract_class.html">Java abstract class</a></li>
+<li><a href="package.html">Java Package</a></li>
+<li><a href="../UnixResource_dir/writ/responsible_license.html">Responsible Software Licensing</a></li>
+</ul>
+</div>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<div class="dstp">2005-02</div>
+<div class="cpr">Â© 2005 by <a href="http://xahlee.org/PageTwo_dir/more.html">Xah Lee</a>.</div>
+
+<div class="xsig"></div>
+
+<script type="text/javascript"> var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); </script> <script type="text/javascript"> try { var pageTracker = _gat._getTracker("UA-10884311-2"); pageTracker._trackPageview(); } catch(err) {}</script>
+</body>
+</html>

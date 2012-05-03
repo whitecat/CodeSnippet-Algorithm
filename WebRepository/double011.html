@@ -1,0 +1,905 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Double-checked locking and the Singleton pattern</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="All programming languages have their share of idioms. Many are useful to know and use, and programmers spend valuable time creating, learning, and implementing them. The problem is that some idioms are later proven not to be all that they were purported, or to simply not work as described. Double-checked locking is one such idiom in the Java programming language that should never be used. In this article, Peter Haggar examines the roots of the double-checked locking idiom, why it was developed, and why it doesn't work."/>
+<meta name="Description" content="All programming languages have their share of idioms. Many are useful to know and use, and programmers spend valuable time creating, learning, and implementing them. The problem is that some idioms are later proven not to be all that they were purported, or to simply not work as described. Double-checked locking is one such idiom in the Java programming language that should never be used. In this article, Peter Haggar examines the roots of the double-checked locking idiom, why it was developed, and why it doesn't work."/>
+<meta name="Keywords" content="double-checked locking, singleton, multithreading, java programming, Java memory model, JMM, peter haggar, tttjca"/>
+<meta name="DC.Date" scheme="iso8601" content="2002-05-01"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCJVAZZ" />
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2002"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2002-05-01"/>
+<meta name="title" content="Double-checked locking and the Singleton pattern"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Double-checked locking and the Singleton pattern</h1><p><em>A comprehensive look at this broken programming idiom</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Peter Haggar</a> (<a href="mailto:haggar@us.ibm.com?subject=Double-checked locking and the Singleton pattern">haggar@us.ibm.com</a>), Senior Software Engineer, IBM</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print">Peter Haggar is a Senior Software Engineer with IBM in Research Triangle Park, North Carolina, and the author of the book <a href="http://www.amazon.com/exec/obidos/ASIN/0201616467/qid%3D1006196037/sr%3D1-1/ref%3Dsr%5F1%5F6%5F1/102-8210645-2522519">
+<i>Practical Java Programming Language Guide</i>
+</a> published by Addison-Wesley. In addition, he has published numerous articles on Java programming. He has a broad range of programming experience, having worked on development tools, class libraries, and operating systems. At IBM, Peter works on emerging Internet technology and is currently focused on high-performance Web services. Peter is a frequent technical speaker on Java technology at numerous industry conferences. He has worked for IBM for more than 14 years and received a B.S. in Computer Science from Clarkson University. Contact Peter at <a href="mailto:haggar@us.ibm.com">haggar@us.ibm.com</a>.
+</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; All programming languages have their share of idioms. Many are useful to know and use, and programmers spend valuable time creating, learning, and implementing them. The problem is that some idioms are later proven not to be all that they were purported, or to simply not work as described. The Java programming language contains several useful programming idioms. It also contains some that further study has shown should not be used. Double-checked locking is one such idiom that should never be used. In this article, Peter Haggar examines the roots of the double-checked locking idiom, why it was developed, and why it doesn't work.</p>
+
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 01 May  2002
+<br /><b>Level: </b>&nbsp;Intermediate
+
+<br /><b>Activity:</b>&nbsp; 40334 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>
+                <i>
+
+                    <b>Editor's note</b>: This article refers to the Java Memory Model before it was revised for Java 5.0; statements about memory ordering may no longer be correct.  However, the double-checked locking idiom is still broken under the new memory model. For more information on the memory model in Java 5.0, see "Java theory and practice: Fixing the Java Memory Model" <a href="http://www.ibm.com/developerworks/library/j-jtp02244.html">Part 1</a> and <a href="http://www.ibm.com/developerworks/library/j-jtp03304/">Part 2</a>.</i>
+            </p>
+            <p>The Singleton creation pattern is a common programming idiom.  When used with multiple threads, you must use some type of synchronization.  In an effort to create more efficient code, Java programmers created the double-checked locking idiom to be used with the Singleton creation pattern to limit how much code is synchronized.  However, due to some little-known details of the Java memory model, this double-checked locking idiom is not guaranteed to work.  Instead of failing consistently, it will fail sporadically.  In addition, the reasons for its failure are not obvious and involve intimate details of the Java memory model.  These facts make a code failure due to double-checked locking very difficult to track down.  In the remainder of this article, we'll examine the double-checked locking idiom in detail to understand just where it breaks down.</p>
+            <p><a name="1"><span class="atitle">Singleton creation idiom</span></a></p>
+            <p>
+
+To understand where the double-checked locking idiom originated, you must understand the common singleton creation idiom, which is illustrated in Listing 1:</p>
+            <br /><a name="code1"><b>Listing 1. Singleton creation idiom</b></a><br /><table width="65%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+import java.util.*;
+class Singleton
+{
+  private static Singleton instance;
+  private Vector v;
+  private boolean inUse;
+
+  private Singleton()
+  {
+    v = new Vector();
+    v.addElement(new Object());
+    inUse = true;
+  }
+
+  public static Singleton getInstance()
+  {
+    if (instance == null)          //1
+      instance = new Singleton();  //2
+    return instance;               //3
+  }
+}
+</pre></td></tr></table><br />
+            <p>The design of this class ensures that only one <code>Singleton</code> object is ever created. The constructor is declared <code>private</code> and the <code>getInstance()</code> method creates only one object. This implementation is fine for a single-threaded program. However, when multiple threads are introduced, you must protect the <code>getInstance()</code> method through synchronization. If the <code>getInstance()</code> method is not protected, it is possible to return two different instances of the <code>Singleton</code> object. Consider two threads calling the <code>getInstance()</code> method concurrently and the following sequence of events:</p>
+            <ol>
+                <li>Thread 1 calls the <code>getInstance()</code> method and determines that <code>instance</code> is <code>null</code> at //1. <br />
+                    <br />
+                </li>
+                <li>Thread 1 enters the <code>if</code> block, but is preempted by thread 2 before executing the line at //2. <br />
+                    <br />
+                </li>
+                <li>Thread 2 calls the <code>getInstance()</code> method and determines that <code>instance</code> is <code>null</code> at //1. <br />
+                    <br />
+                </li>
+                <li>Thread 2 enters the <code>if</code> block and creates a new <code>Singleton</code> object and assigns the variable <code>instance</code> to this new object at //2. <br />
+                    <br />
+                </li>
+                <li>Thread 2 returns the <code>Singleton</code> object reference at //3. <br />
+                    <br />
+                </li>
+                <li>Thread 2 is preempted by thread 1. <br />
+                    <br />
+                </li>
+
+                <li>Thread 1 starts where it left off and executes line //2 which results in another <code>Singleton</code> object being created. <br />
+                    <br />
+                </li>
+                <li>Thread 1 returns this object at //3.</li>
+            </ol>
+            <p>The result is that the <code>getInstance()</code> method created two <code>Singleton</code> objects when it was supposed to create only one. This problem is corrected by synchronizing the <code>getInstance()</code> method to allow only one thread to execute the code at a time, as shown in Listing 2:</p>
+            <br /><a name="code2"><b>Listing 2. Thread-safe getInstance() method</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+public static synchronized Singleton getInstance()
+{
+  if (instance == null)          //1
+    instance = new Singleton();  //2
+  return instance;               //3
+}
+</pre></td></tr></table><br />
+
+            <p>The code in Listing 2 works fine for multithreaded access to the <code>getInstance()</code> method. However, when you analyze it you realize that synchronization is required only for the first invocation of the method. Subsequent invocations do not require synchronization because the first invocation is the only invocation that executes the code at //2, which is the only line that requires synchronization. All other invocations determine that <code>instance</code> is non-<code>null</code> and return it. Multiple threads can safely execute concurrently on all invocations except the first. However, because the method is <code>synchronized</code>, you pay the cost of synchronization for every invocation of the method, even though it is only required on the first invocation.</p>
+
+            <p>In an effort to make this method more efficient, an idiom called double-checked locking was created. The idea is to avoid the costly synchronization for all invocations of the method except the first. The cost of synchronization differs from JVM to JVM. In the early days, the cost could be quite high. As more advanced JVMs have emerged, the cost of synchronization has decreased, but there is still a performance penalty for entering and leaving a <code>synchronized</code> method or block. Regardless of the advancements in JVM technology, programmers never want to waste processing time unnecessarily.</p>
+            <p>Because only line //2 in Listing 2 requires synchronization, we could just wrap it in a synchronized block, as shown in Listing 3:</p>
+            <br /><a name="code3"><b>Listing 3. The getInstance() method</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+public static Singleton getInstance()
+{
+  if (instance == null)
+  {
+    synchronized(Singleton.class) {
+      instance = new Singleton();
+    }
+  }
+  return instance;
+}
+</pre></td></tr></table><br />
+
+            <p>The code in Listing 3 exhibits the same problem as demonstrated with multiple threads and Listing 1. Two threads can get inside of the <code>if</code> statement concurrently when <code>instance</code> is <code>null</code>. Then, one thread enters the <code>synchronized</code> block to initialize <code>instance</code>, while the other is blocked. When the first thread exits the <code>synchronized</code> block, the waiting thread enters and creates another <code>Singleton</code> object. Note that when the second thread enters the <code>synchronized</code> block, it does not check to see if <code>instance</code> is non-<code>null</code>.</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="2"><span class="atitle">Double-checked locking</span></a></p>
+
+            <p>
+
+To fix the problem in Listing 3, we need a second check of <code>instance</code>. Thus, the name "double-checked locking." Applying the double-checked locking idiom to Listing 3 results in Listing 4.</p>
+            <br /><a name="code4"><b>Listing 4. Double-checked locking example</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+public static Singleton getInstance()
+{
+  if (instance == null)
+  {
+    synchronized(Singleton.class) {  //1
+      if (instance == null)          //2
+        instance = new Singleton();  //3
+    }
+  }
+  return instance;
+}
+</pre></td></tr></table><br />
+
+            <p>The theory behind double-checked locking is that the second check at //2 makes it impossible for two different <code>Singleton</code> objects to be created as occurred in Listing 3. Consider the following sequence of events:</p>
+            <ol>
+                <li>Thread 1 enters the <code>getInstance()</code>  method. <br />
+                    <br />
+                </li>
+                <li>Thread 1 enters the <code>synchronized</code> block at //1 because <code>instance</code> is <code>null</code>.<br />
+                    <br />
+                </li>
+                <li>Thread 1 is preempted by thread 2.<br />
+                    <br />
+                </li>
+                <li>Thread 2 enters the <code>getInstance()</code> method.<br />
+                    <br />
+                </li>
+
+                <li>Thread 2 attempts to acquire the lock at //1 because <code>instance</code> is still <code>null</code>. However, because thread 1 holds the lock, thread 2 blocks at //1.<br />
+                    <br />
+                </li>
+                <li>Thread 2 is preempted by thread 1.<br />
+                    <br />
+                </li>
+
+                <li>Thread 1 executes and because instance is still <code>null</code> at //2, creates a <code>Singleton</code> object and assigns its reference to <code>instance</code>. <br />
+                    <br />
+                </li>
+                <li>Thread 1 exits the <code>synchronized</code> block and returns instance from the <code>getInstance()</code> method. <br />
+                    <br />
+                </li>
+                <li>Thread 1 is preempted by thread 2.<br />
+                    <br />
+                </li>
+
+                <li>Thread 2 acquires the lock at //1 and checks to see if <code>instance</code> is <code>null</code>. <br />
+                    <br />
+                </li>
+                <li>Because <code>instance</code> is non-<code>null</code>, a second <code>Singleton</code> object is not created and the one created by thread 1 is returned.</li>
+            </ol>
+            <p>The theory behind double-checked locking is perfect. Unfortunately, reality is entirely different. The problem with double-checked locking is that there is no guarantee it will work on single or multi-processor machines.</p>
+            <p>The issue of the failure of double-checked locking is not due to implementation bugs in JVMs but to the current Java platform memory model. The memory model allows what is known as "out-of-order writes" and is a prime reason why this idiom fails.</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="3"><span class="atitle">Out-of-order writes</span></a></p>
+
+            <p>
+
+To illustrate the problem, you need to re-examine line //3 from Listing 4 above. This line of code creates a <code>Singleton</code> object and initializes the variable <code>instance</code> to refer to this object. The problem with this line of code is that the variable <code>instance</code> can become non-<code>null</code> before the body of the <code>Singleton</code> constructor executes. </p>
+            <p>Huh? That statement might be contradictory to everything you thought possible, but it is, in fact, the case. Before explaining how this happens, accept this fact for a moment while examining how this breaks the double-checked locking idiom. Consider the following sequence of events with the code in Listing 4:</p>
+            <ol>
+                <li>Thread 1 enters the <code>getInstance()</code> method.<br />
+                    <br />
+                </li>
+                <li>Thread 1 enters the <code>synchronized</code> block at //1 because <code>instance</code> is <code>null</code>.<br />
+                    <br />
+                </li>
+
+                <li>Thread 1 proceeds to //3 and makes instance non-<code>null</code>, but <i>before</i> the constructor executes. <br />
+                    <br />
+                </li>
+                <li>Thread 1 is preempted by thread 2.<br />
+                    <br />
+                </li>
+                <li>Thread 2 checks to see if instance is <code>null</code>. Because it is not, thread 2 returns the <code>instance</code> reference to a fully constructed, but partially initialized, <code>Singleton</code> object. <br />
+                    <br />
+                </li>
+                <li>Thread 2 is preempted by thread 1.<br />
+                    <br />
+                </li>
+                <li>Thread 1 completes the initialization of the <code>Singleton</code> object by running its constructor and returns a reference to it.</li>
+            </ol>
+            <p>This sequence of events results in a period of time where thread 2 returned an object whose constructor
+had not executed.</p>
+
+            <p>To show how this occurs, consider the following pseudo code for the line: <code>instance =new Singleton();</code>
+            </p>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+mem = allocate();             //Allocate memory for Singleton object.
+instance = mem;               //Note that instance is now non-null, but
+                              //has not been initialized.
+ctorSingleton(instance);      //Invoke constructor for Singleton passing
+                              //instance.
+</pre></td></tr></table><br />
+            <p>This pseudo code is not only possible, but is exactly what happens on some JIT compilers. The order of execution is perceived to be out of order, but is allowed to happen given the current memory model. The fact that JIT compilers do just this makes the issues of double-checked locking more than simply an academic exercise.</p>
+
+            <p>To demonstrate this, consider the code in Listing 5. It contains a stripped-down version of the <code>getInstance()</code> method. I've removed the "double-checkedness" to ease our review of the assembly code produced (Listing 6). We are interested only in seeing how the line <code>instance=new Singleton();</code> is compiled by the JIT compiler. In addition, I've provided a simple constructor to make it clear when the constructor is run in the assembly code.</p>
+            <br /><a name="code5"><b>Listing 5. Singleton class to demonstrate out-of-order writes</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+class Singleton
+{
+  private static Singleton instance;
+  private boolean inUse;
+  private int val;  
+
+  private Singleton()
+  {
+    inUse = true;
+    val = 5;
+  }
+  public static Singleton getInstance()
+  {
+    if (instance == null)
+      instance = new Singleton();
+    return instance;
+  }
+}
+</pre></td></tr></table><br />
+
+            <p>Listing 6 contains the assembly code produced by the Sun JDK 1.2.1 JIT compiler for the body of the <code>getInstance()</code> method from Listing 5.</p>
+            <br /><a name="code6"><b>Listing 6. Assembly code produced from code in Listing 5</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+;asm code generated for getInstance
+054D20B0   mov         eax,[049388C8]      ;load instance ref
+054D20B5   test        eax,eax             ;test for null
+054D20B7   jne         054D20D7
+054D20B9   mov         eax,14C0988h
+054D20BE   call        503EF8F0            ;allocate memory
+054D20C3   mov         [049388C8],eax      ;store pointer in 
+                                           ;instance ref. instance  
+                                           ;non-null and ctor
+                                           ;has not run
+054D20C8   mov         ecx,dword ptr [eax] 
+054D20CA   mov         dword ptr [ecx],1   ;inline ctor - inUse=true;
+054D20D0   mov         dword ptr [ecx+4],5 ;inline ctor - val=5;
+054D20D7   mov         ebx,dword ptr ds:[49388C8h]
+054D20DD   jmp         054D20B0
+</pre></td></tr></table><br />
+            <p>
+
+                <b>Note:</b> To reference the lines of assembly code in the following explanation, I refer to the last two values of the instruction address because they all begin with <code>054D20</code>. For example, <code>B5</code> refers to <code>test eax,eax</code>.</p>
+
+            <p>The assembly code is produced by running a test program that calls the <code>getInstance()</code> method in an infinite loop. While the program runs, run the Microsoft Visual C++ debugger and attach it to the Java process representing the test program. Then, break the execution and find the assembly code representing the infinite loop.</p>
+            <p>The first two lines of assembly code at <code>B0</code> and <code>B5</code> load the <code>instance</code> reference from memory location <code>049388C8</code> into <code>eax</code> and test for <code>null</code>. This corresponds to the first line of the <code>getInstance()</code> method in Listing 5. The first time this method is called, <code>instance</code> is <code>null</code> and the code proceeds to <code>B9</code> . The code at <code>BE</code> allocates the memory from the heap for the <code>Singleton</code> object and stores a pointer to that memory in <code>eax</code>. The next line, <code>C3</code>, takes the pointer in <code>eax</code> and stores it back into the instance reference at memory location <code>049388C8</code>. As a result, <code>instance</code> is now non-<code>null</code> and refers to a valid <code>Singleton</code> object. However, the constructor for this object has not run yet, which is precisely the situation that breaks double-checked locking. Then at line <code>C8</code>, the <code>instance</code> pointer is dereferenced and stored in <code>ecx</code>. Lines <code>CA</code> and <code>D0</code> represent the inline constructor storing the values <code>true</code> and <code>5</code> into the <code>Singleton</code> object. If this code is interrupted by another thread after executing line <code>C3</code> but before completing the constructor, double-checked locking fails.</p>
+
+            <p>Not all JIT compilers generate the code as above. Some generate code such that <code>instance</code> becomes non-<code>null</code> only after the constructor executes. Both the IBM SDK for Java technology, version 1.3 and the Sun JDK 1.3 produce code such as this. However, this does not mean you should use double-checked locking in these instances. There are other reasons it could fail. In addition, you do not always know which JVMs your code will run on, and the JIT compiler could always change to generate code that breaks this idiom.</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="4"><span class="atitle">Double-checked locking: Take two</span></a></p>
+            <p>
+
+Given that the current double-checked locking code does not work, I've put together another version of the code, shown in Listing 7, to try to prevent the out-of-order write problem you just saw. </p>
+            <br /><a name="code7"><b>Listing 7. Attempting to solve the out-of-order write problem</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+public static Singleton getInstance()
+{
+  if (instance == null)
+  {
+    synchronized(Singleton.class) {      //1
+      Singleton inst = instance;         //2
+      if (inst == null)
+      {
+        synchronized(Singleton.class) {  //3
+          inst = new Singleton();        //4
+        }
+        instance = inst;                 //5
+      }
+    }
+  }
+  return instance;
+}
+</pre></td></tr></table><br />
+
+            <p>Looking at the code in Listing 7 you should realize that things are getting a little ridiculous. Remember, double-checked locking was created as a way to avoid synchronizing the simple three-line <code>getInstance()</code> method. The code in Listing 7 has gotten out of hand. In addition, the code does not fix the problem. Careful examination reveals why.</p>
+
+            <p>This code is trying to avoid the out-of-order write problem. It tries to do this by introducing the local variable <code>inst</code> and a second <code>synchronized</code> block. The theory works as follows:</p>
+            <ol>
+                <li>Thread 1 enters the <code>getInstance()</code> method.<br />
+                    <br />
+                </li>
+                <li>Because <code>instance</code> is <code>null</code>, thread 1 enters the first <code>synchronized</code> block at //1.<br />
+                    <br />
+                </li>
+                <li>The local variable <code>inst</code> gets the value of <code>instance</code>, which is <code>null</code> at //2.<br />
+                    <br />
+                </li>
+                <li>Because <code>inst</code> is <code>null</code>, thread 1 enters the second <code>synchronized</code> block at //3.<br />
+                    <br />
+                </li>
+
+                <li>Thread 1 then begins to execute the code at //4, making <code>inst</code> non-<code>null</code> but before the constructor for <code>Singleton</code> executes. (This is the out-of-order write problem we just saw.)<br />
+                    <br />
+                </li>
+                <li>Thread 1 is preempted by Thread 2. <br />
+                    <br />
+                </li>
+                <li>Thread 2 enters the <code>getInstance()</code> method.<br />
+                    <br />
+                </li>
+                <li>Because <code>instance</code> is <code>null</code>, thread 2 attempts to enter the first <code>synchronized</code> block at //1. Because thread 1 currently holds this lock, thread 2 blocks.<br />
+                    <br />
+                </li>
+                <li>Thread 1 then completes its execution of //4.<br />
+                    <br />
+                </li>
+                <li>Thread 1 then assigns a fully constructed <code>Singleton</code> object to the variable <code>instance</code> at //5 and exits both <code>synchronized</code> blocks.<br />
+                    <br />
+                </li>
+                <li>Thread 1 returns <code>instance</code>.<br />
+                    <br />
+                </li>
+                <li>Thread 2 then executes and assigns <code>instance</code> to <code>inst</code> at //2. <br />
+                    <br />
+                </li>
+                <li>Thread 2 sees that <code>instance</code> is non-<code>null</code>, and returns it.</li>
+            </ol>
+
+            <p>The key line here is //5. This line is supposed to ensure that <code>instance</code> will only ever be <code>null</code> or refer to a fully constructed <code>Singleton</code> object. The problem occurs where theory and reality run orthogonal to one another.</p>
+
+            <p>The code in Listing 7 doesn't work because of the current definition of the memory model. The
+Java Language Specification (JLS) demands that code within a <code>synchronized</code> block not be moved
+out of a <code>synchronized</code> block. However, it does not say that code not in a <code>synchronized</code> block cannot be moved <i>into</i> a <code>synchronized</code> block.</p>
+            <p>A JIT compiler would see an optimization opportunity here. This optimization would remove the code at //4 and the code at //5, combine it and generate the code shown in Listing 8:</p>
+            <br /><a name="code8"><b>Listing 8. Optimized code from Listing 7</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+public static Singleton getInstance()
+{
+  if (instance == null)
+  {
+    synchronized(Singleton.class) {      //1
+      Singleton inst = instance;         //2
+      if (inst == null)
+      {
+        synchronized(Singleton.class) {  //3
+          //inst = new Singleton();      //4
+          instance = new Singleton();               
+        }
+        //instance = inst;               //5
+      }
+    }
+  }
+  return instance;
+}
+</pre></td></tr></table><br />
+            <p>If this optimization takes place, you have the same out-of-order write problem we discussed earlier.</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="5"><span class="atitle">volatile anyone?</span></a></p>
+            <p>
+
+Another idea is to use the keyword <code>volatile</code> for the variables <code>inst</code> and <code>instance</code>. According to the JLS (see <a href="#resources">Resources</a>), variables declared <code>volatile</code> are supposed to be sequentially consistent, and therefore, not reordered. But two problems occur with trying to use <code>volatile</code> to fix the problem with double-checked locking:</p>
+            <ul>
+                <li>The problem here is not with sequential consistency. Code is being moved, not reordered.<br />
+                    <br />
+                </li>
+                <li>Many JVMs do not implement <code>volatile</code> correctly regarding sequential consistency anyway.</li>
+            </ul>
+            <p>The second point is worth expanding upon. Consider the code in Listing 9:</p>
+            <br /><a name="code9"><b>Listing 9. Sequential consistency with volatile</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+class test
+{
+  private volatile boolean stop = false;
+  private volatile int num = 0;
+
+  public void foo()
+  {
+    num = 100;    //This can happen second
+    stop = true;  //This can happen first
+    //...
+  }
+
+  public void bar()
+  {
+    if (stop)
+      num += num;  //num can == 0!
+  }
+  //...
+}
+</pre></td></tr></table><br />
+            <p>According to the JLS, because <code>stop</code> and <code>num</code> are declared <code>volatile</code>, they should be sequentially consistent. This means that if <code>stop</code> is ever <code>true</code>, <code>num</code> must have been set to <code>100</code>. However, because many JVMs do not implement the sequential consistency feature of <code>volatile</code>, you cannot count on this behavior. Therefore, if thread 1 called <code>foo</code> and thread 2 called <code>bar</code> concurrently, thread 1 might set <code>stop</code> to <code>true</code> 
+before <code>num</code> is set to <code>100</code>. This could lead thread 2 to see <code>stop</code> as <code>true</code>, but <code>num</code> still set to <code>0</code>. There are additional problems with <code>volatile</code> and the atomicity of 64-bit variables, but this is beyond the scope of this article. See <a href="#resources">Resources</a> for more information on this topic. </p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="6"><span class="atitle">The solution</span></a></p>
+            <p>
+
+The bottom line is that double-checked locking, in whatever form, should not be used because you cannot guarantee that it will work on any JVM implementation. JSR-133 is addressing issues regarding the memory model, however, double-checked locking will not be supported by the new memory model. Therefore, you have two options:</p>
+            <ul>
+                <li>Accept the synchronization of a <code>getInstance()</code> method as shown in Listing 2.<br />
+                    <br />
+                </li>
+                <li>Forgo synchronization and use a <code>static</code> field. </li>
+            </ul>
+            <p>Option 2 is shown in Listing 10:</p>
+            <br /><a name="code10"><b>Listing 10. Singleton implementation with static field</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+class Singleton
+{
+  private Vector v;
+  private boolean inUse;
+  private static Singleton instance = new Singleton();
+
+  private Singleton()
+  {
+    v = new Vector();
+    inUse = true;
+    //...
+  }
+
+  public static Singleton getInstance()
+  {
+    return instance;
+  }
+}
+</pre></td></tr></table><br />
+
+            <p>The code in Listing 10 does not use synchronization and ensures that the <code>Singleton</code> object is not created until a call is made to the <code>static getInstance()</code> method. This is a good alternative if your objective is to eliminate synchronization.</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="7"><span class="atitle">String is not immutable</span></a></p>
+            <p>
+
+You might wonder about the <code>String</code> class given the issue of out-of-order writes and a reference 
+becoming non-<code>null</code> prior to the constructor executing. Consider the following code:</p>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+private String str;
+//...
+str = new String("hello");
+</pre></td></tr></table><br />
+            <p>The <code>String</code> class is supposed to be immutable. However, given the out-of-order write problem we 
+discussed previously, could that cause a problem here? The answer is it could. Consider two threads with access to the <code>String str</code>. One thread could see the <code>str</code> reference refer to a <code>String</code> object in which the constructor has not run. In fact, Listing 11 contains code that shows this occurring. Note that this code breaks only with older JVMs that I tested. Both the IBM 1.3 and Sun 1.3 JVMs produce immutable <code>String</code>s as expected.</p>
+            <br /><a name="code11"><b>Listing 11. Example of a Mutable String</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+                
+class StringCreator extends Thread
+{
+  MutableString ms;
+  public StringCreator(MutableString muts)
+  {
+    ms = muts;
+  }
+  public void run()
+  {
+    while(true)
+      ms.str = new String("hello");          //1
+  }
+}
+class StringReader extends Thread
+{
+  MutableString ms;
+  public StringReader(MutableString muts)
+  {
+    ms = muts;
+  }
+  public void run()
+  {
+    while(true)
+    {
+      if (!(ms.str.equals("hello")))         //2
+      {
+        System.out.println("String is not immutable!");
+        break;
+      }
+    }
+  }
+}
+class MutableString
+{
+  public String str;                         //3
+  public static void main(String args[])
+  {
+    MutableString ms = new MutableString();  //4
+    new StringCreator(ms).start();           //5
+    new StringReader(ms).start();            //6
+  }
+}
+</pre></td></tr></table><br />
+            <p>This code creates a <code>MutableString</code> class at //4 that contains a <code>String</code> reference shared by two threads at //3. Two objects are created, <code>StringCreator</code> and <code>StringReader</code>, on two separate threads at lines //5 and //6, passing a reference to the <code>MutableString</code> object. The <code>StringCreator</code> class enters an infinite loop and creates <code>String</code> objects with the value "hello" at //1. The <code>StringReader</code> also enters an infinite loop and checks to see if the current <code>String</code> object has the value "hello" at //2. If it doesn't, the <code>StringReader</code> thread prints out a message and stops. If the <code>String</code> class is immutable, you should never see any output from this program. The only way for <code>StringReader</code> to see the <code>str</code> reference to be anything other than a <code>String</code> object with "hello" as its value is if the problem of out-of-order writes occurs.</p>
+
+            <p>Running this code on old JVMs like Sun JDK 1.2.1 results in the out-of-order write problem, and 
+thus, a non-immutable <code>String</code>.</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="7"><span class="atitle">Summary</span></a></p>
+
+            <p>
+
+In an effort to avoid costly synchronization in singletons, programmers, quite ingeniously, invented the double-checked locking idiom. Unfortunately, it was not until this idiom was in fairly wide use that it became apparent that it is not a safe programming construct due to the current memory model. Work is underway to redefine areas of the memory model that are weak. However, even under the newly proposed memory model, double-checked locking will not work. The best solution to this problem is to accept synchronization or use a <code>static field</code>.
+</p>
+        <!-- CMA ID: 10662 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br />
+<p><a name="resources"><span class="atitle">Resources</span></a></p>
+            <ul><li>In his book <a href="http://www.amazon.com/gp/product/0201616467/102-2341673-9200934?v=glance&amp;n=283155">
+                        <i>Practical Java Programming Language Guide</i>
+                    </a> (Addison-Wesley, 2000), Peter Haggar covers a multitude of Java programming topics including an entire chapter on multithreading issues and programming techniques.
+<br /><br /></li><li>
+                    <a href="http://www.amazon.com/gp/product/0201310082/102-2341673-9200934?v=glance&amp;n=283155&amp;v=glance">
+                        <i>The Java Language Specification, Second Edition</i>
+                    </a> by Bill Joy, et. al. (Addison-Wesley, 2000) is the definitive technical reference for the Java programming language.
+<br /><br /></li><li>
+                    <a href="http://www.amazon.com/gp/product/0201432943/102-2341673-9200934?v=glance&amp;n=283155">
+                        <i>The Java Virtual Machine Specification, Second Edition</i>
+                    </a> by Tim Lindholm and Frank Yellin (Addison-Wesley, 1999) is the definitive document on Java compilers and runtime environments.
+<br /><br /></li><li>Visit Bill Pugh's <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/">Java Memory Model Web site</a> for a wealth of information on this important topic.
+<br /><br /></li><li>For more information on <code>volatile</code> and 64-bit variables, see Peter Haggar's article "Does Java Guarantee Thread Safety?" in the June 2002 issue of <a href="http://www.ddj.com/">
+                        <i>Dr. Dobb's Journal</i>
+                    </a>.
+<br /><br /></li><li>
+                    <a href="http://jcp.org/jsr/detail/133.jsp">JSR-133</a> deals with the revision to Java platform's memory model and thread specification.
+<br /><br /></li><li> Java software consultant Brian Goetz examines when to use synchronization in "<a href="http://www.ibm.com/developerworks/java/library/j-threads1.html">Threading lightly: Synchronization is not the enemy</a>" (developerWorks, July 2001). 
+<br /><br /></li><li>In "<a href="http://www.ibm.com/developerworks/java/library/j-threads3.html">Threading lightly: Sometimes it's best not to share</a>" (developerWorks, October 2001), Brian Goetz examines <code>ThreadLocal</code> and offers tips for exploiting its power. 
+<br /><br /></li><li>In "<a href="http://www.ibm.com/developerworks/java/library/j-thread.html">Writing multithreaded Java applications</a>" (developerWorks, February 2001), Alex Roetter introduces the Java Thread API, outlines issues involved in multithreading, and offers solutions to common problems. 
+<br /><br /></li><li>Find other Java technology resources on the <i>developerWorks</i>
+                    <a href="http://www.ibm.com/developerworks/java/?article=jr">Java technology zone</a>.<br /><br /></li></ul>
+<p><a name="author"><span class="atitle">About the author</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><p><a name="author1"></a>Peter Haggar is a Senior Software Engineer with IBM in Research Triangle Park, North Carolina, and the author of the book <a href="http://www.amazon.com/exec/obidos/ASIN/0201616467/qid%3D1006196037/sr%3D1-1/ref%3Dsr%5F1%5F6%5F1/102-8210645-2522519">
+<i>Practical Java Programming Language Guide</i>
+</a> published by Addison-Wesley. In addition, he has published numerous articles on Java programming. He has a broad range of programming experience, having worked on development tools, class libraries, and operating systems. At IBM, Peter works on emerging Internet technology and is currently focused on high-performance Web services. Peter is a frequent technical speaker on Java technology at numerous industry conferences. He has worked for IBM for more than 14 years and received a B.S. in Computer Science from Clarkson University. Contact Peter at <a href="mailto:haggar@us.ibm.com">haggar@us.ibm.com</a>.
+</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java technology</div><div class="metavalue">ArticleID=10662</div><div class="metavalue">ArticleTitle=Double-checked locking and the Singleton pattern</div><div class="metavalue">publish-date=05012002</div><div class="metavalue">author1-email=haggar@us.ibm.com</div><div class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#1">Singleton creation idiom</a></li><li><a class="ibm-feature-link" href="#2">Double-checked locking</a></li><li><a class="ibm-feature-link" href="#3">Out-of-order writes</a></li><li><a class="ibm-feature-link" href="#4">Double-checked locking: Take two</a></li><li><a class="ibm-feature-link" href="#5">volatile anyone?</a></li><li><a class="ibm-feature-link" href="#6">The solution</a></li><li><a class="ibm-feature-link" href="#7">String is not immutable</a></li><li><a class="ibm-feature-link" href="#7">Summary</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the author</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/spot-nextsteps.jpg"/><p>Spring, JRuby, and Ajax development is easier with WebSphere Application Server - a smart Java 5 and J2EE Web services-based application server.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/ws/wasce/learn.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Try: The no-charge WebSphere Application Server Community Edition is a pre-integrated, lightweight Java 5 application server built on Apache Tomcat and other best-of-breed open source software such as OpenEJB, Apache Axis, and Apache Derby.</a></li><li><a href="http://www.ibm.com/developerworks/websphere/library/techarticles/0810_asplund/0810_asplund.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: The article leverage the Spring Framework and the WebSphere Application Server to improve your J2EE project productivity.</a></li><li><a href="http://www.ibm.com/developerworks/edu/x-dw-x-jrorajax.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Tutorial: See how the free WebSphere Application Server and XML can improve the efficiency of your JRuby on Rails and Ajax development.</a></li><li><a href="http://www.ibm.com/software/dre/h2b/buildh2bpage.wss?synkey=G394201N28809H35&amp;S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: WebSphere Application Server - Express</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Java on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/java/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/java/newto/" class="ibm-forward-link">New to Java programming</a></li><li><a href="http://www.ibm.com/developerworks/views/java/downloads.jsp" class="ibm-forward-link">Downloads and products</a></li><li><a href="http://www.ibm.com/developerworks/views/java/projects.jsp" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/views/java/standards.jsp" class="ibm-forward-link">Standards</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/java/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/views/java/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY02&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/websphere/zones/was/security/?S_CMP=TILE&amp;ca=dti-tilewassecurity&amp;ca=dth-w"><img src="//www.ibm.com/developerworks/i/tile_v16_secure.gif" width="158" height="50" border="0" alt="Securing WebSphere Application Server environments" /></a></p><p class="dw-special-offers"><a href="http://www-01.ibm.com/software/data/cognos/products/cognos-express/demo.html?S_CMP=TILE&amp;ca=dti-tilecognosexpdemos&amp;ca=dth-i"><img src="//www.ibm.com/developerworks/i/tile_v16_express.gif" width="158" height="50" border="0" alt="Cognos Express online demos" /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/downloads/soasandbox/reuse/index.html?S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tilesoawaseclipse&amp;ca=dth-soa"><img src="//www.ibm.com/developerworks/i/tile_v16_sandboxeclipse.gif" width="158" height="50" border="0" alt="SOA Sandbox for WAS CE and Eclipse" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '10662';
+			contentAreas = 'java';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[24],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,627 @@
+<html><head>
+<title>Using The Java Native Interface</title>
+<meta name="Keywords" content="JNI, Java Native Interface, JVM,
+JDK, ACM Crossroads, ACM, Crossroads">
+<meta name="description" content="How to use the Java Native
+Interface; ACM Crossroads 4-2.">
+</head>
+<!--#include virtual="/crossroads/includes/body.html"-->
+<!--#exec cgi="/crossroads/cgi-bin/path.cgi"--><hr>
+<center>
+<h1>Using The Java Native Interface</h1>
+</center>
+<p align="center">by <a href="/crossroads/crew/fouzi_husaini.html">S. Fouzi Husaini</a></p>
+
+<H2>Abstract:</H2>
+<P>The Java Native Interface (JNI) comes with the standard Java Development Kit
+(JDK) from Sun Microsystems. It permits Java programmers to integrate native
+code (currently C and C++) into their Java applications. This article will
+focus on how to make use of the JNI and will provide a few examples
+illustrating the usefulness of this feature. Although a native method system
+was included with the JDK 1.0 release, this article is concerned with the
+JDK 1.1 JNI which has several new features, and is much cleaner than the
+previous release. Also, the examples given will be specific to JDK 1.1
+installed on the Solaris Operating System.
+</P>
+
+<H2>Motivation</H2>
+<P>Recently I found myself in the position of needing to place a user-friendly
+Java Graphical User Interface (GUI) 
+on a very bland, keyboard input menu-driven program that I had
+written in C. The C program was just a wrapper which made calls to a very
+rich C library. Having had some experience with Java, I knew the basics of
+creating a simple GUI (creating a frame and adding panels to the frame
+consisting of buttons, text fields etc.). I needed to find a way I could
+interface the C program and the Java GUI. I was certainly not about
+to rewrite the meat of the C program just for the sake of the interface.
+Then I came to know about the Java Native Interface, or JNI, which allows
+Java programmers to make calls to native code.
+</P>
+
+<H2>What is Different About the Native Interface From JDK 1.0 to 1.1?</H2>
+<P>
+The biggest change which came with JDK 1.1 is the ability for a native
+application to interface with the Java Virtual Machine (JVM). 
+In the
+native method system from JDK 1.0, an application programmer could call
+native code but the native code could not invoke methods from the Java
+application/applet. Not being able to work with
+the JVM meant that the <I>interface</I> was very one-sided.  This placed
+restrictions on anyone doing native interface programming which required
+more from the Java side than just calling out native methods
+[<a href="#sgi">1</a>].
+Sun solved this problem in JDK 1.1 with the introduction of the JNI.  Using
+the JNI, a programmer can have the Java application make a native call, then
+have the native method make a call back to a Java method, and so on. The JNI
+also supports invocation of the JVM. What this means is that a programmer
+can start up the JVM, call methods and create Java objects all within
+native code. This is done by running the native code executable after
+compiling and linking the native code, the libraries shipped with the JDK
+and the JNI function library.</P>
+
+<P>The other major change deals with portability. With the older system,
+inconsistencies occurred when moving native method code to different
+machines because of platform dependent features such as data sizes 
+[<a href="#sgi">1</a>]. With the current version, the creators of
+the JNI have provided for a clean, uniform definition of all data sizes, so
+that the application programmer does not need to make any source level
+changes during a port [<A HREF="#tutorial">2</A>].
+</P>
+
+Rather than writing Hello World programs (which can be very beneficial),
+lets put some of the features of the JNI to use for an actual problem.
+</P>
+
+<H2>Problem Statement</H2>
+<P>
+A powerful program which simulates fluid pressure along a pipeline is used
+by an engineering team to perform numerical analysis and design analysis
+upon the structure. Unfortunately, to input data into the simulator one must
+edit text files and manually perform repetitive, and archaic commands.
+Rewriting this legacy code is not an option because it is not only
+functional, but is very complex, and makes use of many other legacy code
+libraries. A front end GUI is desired for the
+simulator. This GUI will be written in Java and will interface with the
+simulator which was written in C.
+</P>
+
+<H2>Command Line Arguments Example</H2>
+<P>
+First, let us assume that the pipeline simulator accepts command line input
+for various initialization settings. Our first task is to find a way of
+having those inputs sent to the simulator. Here is a sample program which
+takes in command line arguments given to a Java program, and makes a native
+call with those arguments.
+<p>
+<UL>
+  <LI> First write the Java Program called Arguments.java as below. 
+ (The code can be found online at <a href=
+"http://www.csc.calpoly.edu/~fouzi/crossroads/Arguments.java" target="_blank">
+http://www.csc.calpoly.edu/~fouzi/crossroads/Arguements.java
+</a>)</LI>
+</UL>
+<p>
+
+<pre>
+class Arguments
+{
+   private native void setArgs (String[] javaArgs);
+   public static void main (String args[]) 
+   {
+      Arguments A = new Arguments();
+      newArgs[] = A.setArgs(args);
+   }
+   static 
+   {
+      System.loadLibrary("MyArgs");
+   }
+}
+
+</pre>
+
+There are 3 points of interest here.
+<UL>
+  <LI>Notice the keyword <i>native</i> appearing before the declaration of 
+  the <i>setArgs</i> method. Also notice that <i>setArgs</i> ends with a 
+semi-colon. 
+  When the keyword <i>native</i> appears before a method return type, this lets
+  the Java compiler know that this method will be defined later on as native 
+code.
+  The semi-colon at the end of the method makes it look a lot like a prototype 
+  in C. Surprisingly enough, it is the same idea.</LI>
+  <LI> The <i>setArgs</i> method is referenced just like any other method. 
+The class name and then the period followed by the method name. Nothing special 
+at all about this.</LI>
+  <LI> Last, there appears a static block at the end of this class. The JNI 
+works
+  by compiling native code into a shared library (DLL for Windows 95/NT) and 
+then
+  loading that library within the class where the native code is first declared.
+  In UNIX, shared library files usually have the prefix <i>lib</i> and the 
+suffix
+  <i>.so</i>. The JNI assumes this to be the case, so when the program
+  runs it will try to load a library by the name  
+<b>lib</b><i>MyArgs</i><b>.so</b>
+  </LI>
+
+</UL>
+<h4>Compiling</h4>
+
+The Java program is compiled just like any other non-JNI Java program. For
+our example we would do the following:
+
+<pre>
+	javac Arguments.java
+</pre>
+
+<h3>Header File</h3>
+Before jumping into writing the implementation for the native method, we can
+take advantage of the <i>javah</i> utility. This will create a header file
+that can be used as a guide when writing the implementation of the method
+in native code. To create the header file we would do the following:
+<p>
+<pre>
+	javah -jni Arguments
+</pre>	
+
+<p>
+This will create a file named Arguments.h which can be found online at
+<a href=
+"http://www.csc.calpoly.edu/~fouzi/crossroads/Arguments.h" target="_blank">
+http://www.csc.calpoly.edu/~fouzi/crossroads/Arguments.h</a>.
+
+<pre>
+/* DO NOT EDIT THIS FILE - it is machine generated */
+#include &lt;jni.h&gt;
+/* Header for class Arguments */
+
+#ifndef _Included_Arguments
+#define _Included_Arguments
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     Arguments
+ * Method:    setArgs
+ * Signature: ([Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_Arguments_setArgs
+  (JNIEnv *, jobject, jobjectArray);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+</pre>
+
+<UL>
+<LI> The first two parameters of <i>Java_Arguments_setArgs</i> appear before
+every native method. The first is a pointer to the object, and the second
+is the object itself. Later on when we look into the implementation, it will
+become clearer how and why these are used.
+</LI>
+<LI> The third parameter of type <i>jobjectArray</i> is what is supposed to 
+represent the <i>String[]</i> object we intend to pass to the pipeline
+simulator. The JNI has converted this into a generic type of an object array.
+Since it would be ridiculous to have a type for every possible Array type,
+the developers of the JNI included the primitive data types. For all other 
+objects there is the <i>jobject</i>, and 
+for an array of any object type, the <i>jobjectArray</i>.</LI> 
+<LI> Notice how our method name <i>setArgs</i> now has a much longer name. All
+native methods are prefixed with <i>Java_</i><i>ClassName_</i>. From a very
+painful experience I recommend to NEVER use underscores as a naming convention
+for your native methods. This throws off the parser, and things just plain won't
+work.</LI>
+</UL>
+
+<h3>Native Method Implementation</h3>
+Now we are ready to begin writing the implementation for our <i>setArgs</i> 
+native method. 
+Since we are receiving a <i>Strings[]</i> object we need to convert that into an
+<i>argv, argc</i> data type to pass to the pipeline simulator. We must also 
+keep in mind
+the fact that Java arguments begin with the first argument provided, while C 
+arguments begin 
+with the program name itself. Here is an implementation of Aguments.c, also
+found online at
+<a href="http://www.csc.calpoly.edu/~fouzi/crossroads/Arguments.c" target="_blank">
+http://www.csc.calpoly.edu/~fouzi/crossroads/Arguments.c
+</a> in which the <i>jobjectArray</i> is converted into an argv, and the 
+arguments are printed to the screen.
+
+<pre>
+#include "/usr/local/java/include/jni.h"
+#include "Arguments.h"
+#include &lt;stdio.h&gt;
+
+JNIEXPORT void JNICALL 
+Java_Arguments_setArgs (JNIEnv *jenv, jobject job, jobjectArray oarr)
+{
+   /* obtain the size the array with a call to the JNI function
+      GetArrayLength()						   */
+   jsize argc = (*jenv)->GetArrayLength(jenv, oarr);
+
+   /* Declare a char array for argv */
+   char const* argv[128];
+   int i;
+
+   for (i = 1; i < argc + 1; i++)
+   {
+      /* obtain the current object from the object array */
+      jobject myObject = (*jenv)->GetObjectArrayElement(jenv, oarr, i-1);
+
+      /* Convert the object just obtained into a String */
+      const char *str = (*jenv)->GetStringUTFChars(jenv,myObject,0);
+
+      /* Build the argv array */
+      argv[i] = str;
+
+      /* Free up memory to prevent memory leaks */
+      (*jenv)->ReleaseStringUTFChars(jenv, myObject, str); 
+
+      /* print the argv array to the screen */
+      printf ("argv[%i] = %s\n",i,argv[i]);
+   }
+
+  /* Increment argc to adjust the difference between Java and C arguments 
+      argc++;
+
+      Call a pipeline simulator function which uses command line arguments
+      initializePipeline(argc,argv);
+  */
+
+   return;
+}
+</pre>
+
+<UL>
+	<LI> The very first line of our implementation makes a JNI call to 
+	<i>GetArrayLength</i>. Here we can see how the jenv pointer is used to
+	make JNI function calls. We pass a pointer to the object, and 
+	the object Array to <i>GetArrayLength</i> which then returns something
+	of type <i>jsize</i>, which is simply typedefed as a <i>jint</i>.</LI>
+	<LI> To extract the data from within the array, we call the JNI function
+	<i>GetObjectArrayElements</i>. Passing it the pointer to the object,
+	the object array, and an index into the object array, it returns something
+	of type jobject. Since we know what type of object array this is that we
+	are dealing with <i>String</i> we can treat it as such.</LI>
+	<LI>Now to convert the object which we have stored in <i>myObject</i> we
+	call the JNI function <i>GetStringUTFChars</i>. Passing it, again the
+	pointer to the object, the object containing the string, and a boolean 
+	value for copying purposes, it returns <i>const char*</i>. So we simply add
+	this to our <i>argv</i> array.</LI>
+	<LI>To prevent from having memory leaks, or other performance problems,
+	the JNI provides us with a function that frees up memory that gets used
+	up when getting strings. The <i>ReleaseUTFChars</i> serves this purpose,
+	and it should be used every time you make a call to <i>GetStringUTFChars</i>.
+	</LI>
+	<LI> The commented section of the code, is there if we really had this 
+	pipeline simulator. Supposing there was an initialization function called
+	<i>initializePipeline</i> we could then send it the argc, and argv values.
+	</LI>
+</UL>
+<h4>Compiling</h4>
+To compile the native implementation we need to create a shared library file (recall
+the static block in the Java file). Assuming that Java is installed in /usr/local/java 
+our compile line will look like this:
+
+<pre>
+cc -G -I/usr/local/java/include -I/usr/local/java/include/solaris 
+	Arguments.c -o libMyArgs.so
+
+	<b>NOTE</b>: Substituting <i>gcc</i> for <i>cc</i> will also work.
+</pre>
+
+Before running the program, you must make sure that the shared library file
+is placed in a directory which is contained within the LD_LIBRARY_PATH
+environment variable. Otherwise it will not run, and will result in an
+error.
+
+<h4>Running the Program</h4>
+<pre>
+        java Arguments firstargument secondArgument thirdargument
+</pre>
+
+<h4>Program Output</h4>
+<pre>
+        argv[1] = firstargument
+        argv[2] = secondArgument
+        argv[3] = thirdargument
+</pre>
+
+</P>	
+
+<h2>Calling Java Methods</h2>
+To illustrate the usefulness of the new feature in the JNI, we will
+demonstrate a situation where calling a Java method from within native code
+is desired. Based on some user input which is fed to the simulator via a
+native call, the next method which is invoked depends on the results of the
+processed data. The only way to make this decision is to have some sort of
+two way communication with the native method.
+
+<h3>Java Program</h3>
+Here we have an example of a compressor in <a href="http://www.csc.calpoly.edu/~fouzi/crossroads/Compressor.java" target="_blank">Compressor.java</a>
+within the pipeline. The Java GUI is supposed to draw either an increase or
+a decrease, depending upon the value set for the compression.
+
+<pre>
+class Compressor
+{
+   private native void setCompression(double pressure);
+   public static void main (String args[]) 
+   {
+      Compressor C = new Compressor();
+      double pressure = 5.0;
+      C.setCompression(pressure);
+   }
+
+   public void drawCompressionIncrease(double amount)
+   {
+      System.out.println ("Increase: Amount = " + amount);
+   }
+   public void drawCompressionDecrease(double amount)
+   {
+      System.out.println ("Decrease: Amount = " + amount);
+   }
+   static 
+   {
+      System.loadLibrary("MyCompressor");
+   }
+}
+</pre>
+
+<UL>
+	<LI> Just like the previous example, we have a native method here as well.
+	This native method <i>setCompression</i> is expected to make a call to the
+	pipeline simulator and set the compression rate. For this we pass this 
+	method a double.</LI>
+	<LI> There also exist two other methods here, <i>drawCompressionIncrease</i>
+	and <i>drawCompressionDecrease</i>. In a real situation, these two methods
+	would be doing GUI related drawing things, but here we are just printing 
+	the value that they are called with.</LI>
+</UL>
+
+<h4>Compiling</h4>
+<pre>
+        javac Compressor.java
+</pre>
+
+<h3>Header File and Javap</h3>
+<h4>Header File</h4>
+We perform the same process for obtaining the header file Compressor.h
+(found at
+<a href="http://www.csc.calpoly.edu/~fouzi/crossroads/Compressor.h" target="_blank">
+http://www.csc.calpoly.edu/~fouzi/crossroads/Compressor.h
+</a>).
+<pre>
+        javah -jni Compressor
+</pre>
+<pre>
+/* DO NOT EDIT THIS FILE - it is machine generated */
+#include &lt;jni.h&gt;
+/* Header for class Compressor */
+
+#ifndef _Included_Compressor
+#define _Included_Compressor
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     Compressor
+ * Method:    setCompression
+ * Signature: (D)V
+ */
+JNIEXPORT void JNICALL Java_Compressor_setCompression
+  (JNIEnv *, jobject, jdouble);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+</pre>
+<h4>Method Signatures</h4>
+In order to make a method call from within native code, we need to know the 
+method 
+signatures of the methods we intend on calling. To do so, we can use the 
+<i>javap</i> utility.
+<pre>
+        javap -s -p Compressor
+</pre>
+The -s flag tells javap to output signatures instead of Java types, and the -p 
+forces that private methods be included as well [<a href="#tutorial">2</a>].
+This gives us the following:
+<pre>
+Compiled from Compressor.java
+synchronized class Compressor extends java.lang.Object 
+    /* ACC_SUPER bit set */
+{
+    private native void setCompression(double);
+	/*   (D)V   */
+    public static void main(java.lang.String[]);
+	/*   ([Ljava/lang/String;)V   */
+    public void drawCompressionIncrease(double);
+	/*   (D)V   */
+    public void drawCompressionDecrease(double);
+	/*   (D)V   */
+    Compressor();
+	/*   ()V   */
+    static static {};
+	/*   ()V   */
+}
+</pre>
+
+<UL>
+	<LI> The method signatures for <i>drawCompressionIncrease</i> and <i>
+	drawCompressionDecrease</i> are both <i>"(D)V"</i>. These are simply
+	symbols from JVM data types. The <i>D</i> represents a <i>double</i>
+	and the <i>V</i> indicates that the method has a return type of 
+<i>void</i>.
+	</LI>
+</UL>
+<h3>Native Method Implementation</h3>
+Now with both the header file and the function signatures, we can begin to 
+write the native implementation of <i>setCompression</i>.
+Find this Compressor.c file online at
+<a href="http://www.csc.calpoly.edu/~fouzi/crossroads/Compressor.c" target="_blank">
+http://www.csc.calpoly.edu/~fouzi/crossroads/Compressor.c
+</a>
+<pre>
+#include "/usr/local/java/include/jni.h"
+#include "Compressor.h"
+#include &lt;stdio.h&gt;
+
+JNIEXPORT void JNICALL 
+Java_Compressor_setCompression (JNIEnv *jenv, jobject job, jdouble amount)
+{
+   /* obtain the class of the "this" object */
+   jclass myClass = (*jenv)->GetObjectClass(jenv, job);
+
+   /* obtain the method ID of the drawCompressionIncrease Java Method */
+   jmethodID increaseMID = (*jenv)->GetMethodID(jenv,myClass, 
+			    "drawCompressionIncrease", "(D)V");
+
+   /* obtain the method ID of the drawCompressionDecrease Java Method */
+   jmethodID decreaseMID = (*jenv)->GetMethodID(jenv,myClass, 
+			   "drawCompressionDecrease", "(D)V");
+   double change;
+
+   /* set the change to a value returned by a pipeline simulator call 
+      change = pipeline_set_compression(amount);                   */
+
+  /* method invocation */
+
+   change = 1.0;
+
+   if (change > 0)
+   (*jenv)->CallVoidMethod(jenv,job,increaseMID,change);
+   else
+   (*jenv)->CallVoidMethod(jenv,job,decreaseMID,change);
+
+   return;
+}
+</pre>
+
+<UL>
+<LI>In order to make a Java method call, the native code must know the
+class, the method name, and the signature of the method. 
+The class is obtained by calling the JNI function <i>GetObjectClass</i>
+which returns type jclass.</LI>
+<LI>The first method we define is for the <i>drawCompressionIncrease</i> method.
+From the <i>javap</i> output we determined that the signature for this method
+is <i>"(D)V"</i>. Calling the JNI function <i>GetMethodID</i> we can store the
+method ID into a variable called <i>increaseMID</i>. We do the same for 
+<i>drawCompressionDecrease</i></LI>
+<LI>The commented code, is a function call to the pipeline
+simulator. For the purpose of this example we comment that code, and hardcode
+the value of change to 1.0</LI>
+<LI>The Java methods are then invoked using the JNI function 
+<I>CallVoidMethod</i>
+by passing in the method ID as well as whatever parameters the method requires.
+We expect the <i>drawCompressionIncrease</i> method to be called.</li>
+</UL>
+
+<h4>Compiling</h4>
+Again, we must create a shared library file.
+
+<pre>
+    cc -G -I/usr/local/java/include 
+    -I/usr/local/java/include/solaris
+    Compressor.java -o libMyCompressor.so
+</pre>
+
+<h4>Running the Program</h4>
+<pre>
+        java Compressor
+</pre>
+
+<h4>Program Output</h4>
+<pre>
+        Increase: Amount = 1.0
+</pre>
+
+<h2>Platform Independence</h2>
+<p>
+An article written on Java that does not mention platform independence is
+probably an incomplete article. How does platform independence play into the
+JNI? Well, with languages like C and C++, software builders find themselves
+porting their software to various systems. In our example we can
+assume that the legacy pipeline simulator had been ported to both a UNIX
+machine such as a Sun Sparc, and a DOS/Windows PC. With some other
+non-platform independent language we would have been forced to port the GUI
+along with the legacy code. With Java that is not necessary. Our GUI can
+simply be moved over to the PC and plugged into that simulator with a few
+minor modifications made to the shared library. No new code, no hassle!
+
+</p>
+
+<h2>Conclusion</h2>
+<p>
+The examples I have provided above are just a few reasons for why someone
+would want to use the JNI. The need to interface with legacy code will
+always be there. By providing programmers with the JNI, Java makes itself
+more flexible and available to a wider range of applications.  
+</p>
+<p>
+My expectations before looking into the JNI were that it would be a 3 week
+intensive lesson just trying to figure out how to get it to work. It turned
+out to be quite the opposite. After reading through the tutorials (
+<A HREF="http://java.sun.com/docs/books/tutorial/native1.1/index.html" target="_blank">
+http://java.sun.com/docs/books/tutorial/native1.1</A>)
+ available from Sun Microsystems, I was up and running within
+a few hours. The developers of the JNI have done an excellent job of
+providing Java programmers with a helpful, and easy to use tool. On the
+downside though, there is not very much literature out there about the JNI.
+The tutorial by Beth Stearns at the Sun Microsystems web page 
+[<a href="#tutorial">1</a>] is very helpful, but more needs to be written
+about it. Hopefully in writing this article, I will not only inform some
+people about the JNI but it will prompt others to do more in-depth research
+and provide us all with more literature about this great feature of Java.
+</p>
+<br>
+<H2>References</H2>
+<P>
+<DL COMPACT>
+<DT><a name="sgi"></a><b>1</b>
+	<DD>Shiffman, Hank.
+	<I>Java Grows Up: JNI, RMI, Beans & More</I>.
+	Silicon Graphics Inc.
+<a href="http://www.disordered.org/Java-At-One.html" target="_blank">
+http://www.disordered.org/Java-At-One.html</a>
+</P>
+<DT><a name="tutorial"></a><b>2</b>
+	<DD>Stearns, Beth.
+	<I>Integrating Native Code and Java Programs</I>.
+	Sun Microsystems Inc.
+<a href="http://java.sun.com/docs/books/tutorial/native1.1/index.html" target="_blank">
+http://java.sun.com/docs/books/tutorial/native1.1/index.html</a>
+</P>
+</DL>
+<hr>
+
+<a name="authorbio">
+Fouzi Husaini is senior level undergraduate in Computer Science at
+California Polytechnic State University, San Luis Obispo, CA. He interned at
+Sun Microsystems under the supervision of Software Simulation Engineer,
+Assana Fard from June till September 1997 where he developed an ASIC
+verification tool in Java using the JNI.
+<p>
+<b>
+Want more <i>Crossroads</i> articles about Java? Get a
+<a href="/crossroads/doc/indices/features.html#Java">listing</a> or go to
+<a href="/crossroads/xrds4-3/codeob.html">the next one</a> or
+<a href="/crossroads/xrds4-2/dynac.html">the previous one</a>.
+</b>
+<p>
+<p>
+Last Modified:
+<!--#echo var="LAST_MODIFIED"-->
+<br>
+Location: www.acm.org/crossroads/xrds4-2/jni.html
+<p>
+<!--#include virtual="/crossroads/includes/footer.html"-->
+<p>
+<center>
+<!--#exec cgi="/crossroads/cgi-bin/counter/counter.cgi"-->
+</center>
+</body>
+</html> 

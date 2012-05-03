@@ -1,0 +1,1482 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+	<head>
+
+		<title>Instrumentation: Modify Applications with Java 5 Class File Transformations</title>
+        <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+        <link rel="stylesheet" type="text/css" href="/forums/style.jsp">
+<link href="/css/jl.css" rel="stylesheet" type="text/css" />
+<link href="/css/jlJive.css" rel="stylesheet" type="text/css" />
+<link href="/css/navmenu.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="top" href="/" title="Javalobby Home Page">
+		<link rel="up" href="/java/forums/f18032.html" title="Up to thread list">
+
+		
+		
+				<link rel="prev"
+							href="/java/forums/t33048.html"
+							title="Previous thread" >
+		
+
+		
+		
+
+    
+        <link rel="alternate" type="application/rss+xml" title="RSS"
+         href="http://www.javalobby.org/rss/rssmessages.jspa?threadID=19309">
+
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+sfHover = function() {
+	var sfEls = document.getElementById("nav").getElementsByTagName("LI");
+	for (var i=0; i<sfEls.length; i++) {
+		sfEls[i].onmouseover=function() {
+			this.className+=" sfhover";
+		}
+		sfEls[i].onmouseout=function() {
+			this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+		}
+	}
+}
+if (document.all) { //MS IE
+	if (window.attachEvent) window.attachEvent("onload", sfHover);
+	else { //IE 5.2 Mac does not support attachEvent
+		var old = window.onload;
+		window.onload = function() { if (old) old(); sfHover(); }
+	}
+}
+//--><!]]></script>
+<!--[if IE]>
+<style>
+body {
+  height: 100%;
+  overflow: hidden;
+  font-size: 100%;
+  }
+div#wrap_outer {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  }
+div#glideDiv0 {
+  position: absolute;
+}
+#comments dd pre {
+	width: 100%;
+	overflow: scroll;
+}
+</style>
+<script type="text/javascript">
+onload = function() { wrap_outer.focus() }
+</script>
+<![endif]-->
+</head>
+    <body >
+    
+
+<div id="wrap_outer">
+<!-- TOP LEADERBOARD GOES HERE -->
+
+<div id="wrap_inner">
+<div id="header">
+	<div class="netbar">
+		<a href="http://www.javalobby.org/" title="Java & J2EE Programming community with Java forums, Java blogs, Java news & Java tutorials">Javalobby</a> |
+        <a href="http://www.eclipsezone.com/" title="Eclipse Developer and User Community">EclipseZone</a> |
+        <a href="http://www.javaforge.com/" title="Open Source Java Project Hosting">JavaForge</a> |
+		<a href="http://www.jroller.com/" title="Free Java Blogging community for Java & J2EE Developer blogs">JRoller</a> |
+		<a href="http://www.javablackbelt.com/" title="Java skill evaluation platform">JavaBlackBelt</a> |
+		<a href="http://www.jdocs.com/" title="Javadoc API docs for over 130 Java & J2EE libraries">JDocs</a> |
+        <a href="http://www.javacrawl.com/" title="RSS Portal for Java news & J2EE news">Javacrawl</a> |		
+        <a href="http://www.jugcentral.com/" title="Java User Group hosting & services for JUGs">JUGCentral</a> |
+		<a href="http://www.myjavaserver.com/" title="Free Java JSP & J2EE hosting for developers learning Java">MyJavaServer</a> |
+		<a href="http://www.dzone.com/advertise.jsp" title="Promote your products & services to Java developers"><b>ADVERTISE</b></a>
+	</div>
+	<div class="welcomebar">
+		
+				<form action="/forums/login.jspa" method="post" name="loginform">
+				Username/Email: <input type="text" name="username" size="20" maxlength="150" value="" tabindex="1" id="username01" />
+				Password: <input type="password" name="password" size="20" maxlength="150" value="" tabindex="2" id="password01" />
+				<input type="hidden" name="autoLogin" id="autoLogin01" value="true" />
+				<input type="hidden" name="successURL" id="successURL01" value="http://www.javalobby.org/java/forums/t19309.html" />
+
+				<a href="javascript:document.loginform.submit()">SIGN IN</a> | <a href="/account!default.jspa">JOIN NOW!</a>
+				</form>
+		
+	</div>
+	</div>
+<div id="navcontainer">
+	<ul id="nav">
+		<li><a href="/">Home</a></li>
+		<li><a href="#">Features</a>
+			<ul>
+				<li><a href="/forums/post!default.jspa?forumID=61">Submit&nbsp;an&nbsp;article</a></li>
+				<li><a href="/spotlights.jsp?view=all">Presentations and Articles</a></li>
+				<li><a href="/av/javapolis/">JavaPolis 2004 Online</a></li>
+                <li><a href="/av/javazone/">JavaZone 2005</a></li>
+
+				<li><a href="/java/forums/f17.html">Announcements</a></li>
+				<li><a href="/nl/index.jsp">Newsletters</a></li>
+
+			</ul>
+		</li>
+		<li><a href="/java/forums/c5601.html">Forums</a>
+			<ul>
+				<li><a href="/java/forums/c5601.html">Overview</a></li>
+				<li><a href="/forums/help.jspa">Help&nbsp;&amp;&nbsp;FAQ</a></li>
+				<li><a href="/notyet.jsp">Posting&nbsp;guidelines</a></li>
+				<li><a href="/notyet.jsp">Recent&nbsp;postings</a></li>
+				<li><a href="/notyet.jsp">Popular&nbsp;discussions</a></li>
+				
+				<li><a href="/forums/online.jspa">Who's&nbsp;online</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Blogs</a>
+			<ul>
+				<li><a href="http://www.jroller.com/">Popular&nbsp;blogs</a></li>
+				<li><a href="http://www.jroller.com/user.do?method=registerUser">Start&nbsp;your&nbsp;free&nbsp;blog</a></li>
+				<li><a href="http://www.jroller.com/">Recent&nbsp;blog&nbsp;entries</a></li>
+			</ul>
+		</li>
+		<li><a href="#">JL Network</a>
+			<ul>
+				<li><a href="http://www.javalobby.org/" title="Java J2SE J2EE Programming community with Java forums, Java blogs, Java news & Java tutorials">Javalobby.org</a></li>
+        <li><a href="http://www.javacrawl.com/" title="RSS Portal for Java news & J2EE news">Javacrawl.com</a></li>
+				<li><a href="http://www.jdocs.com/" title="Javadoc API docs for over 130 Java & J2EE libraries">JDocs.com</a></li>
+				<li><a href="http://www.jroller.com/" title="Free Java blog network for over 7,000 Java & J2EE Developer blogs">JRoller.com</a></li>
+				<li><a href="http://www.jugcentral.com/" title="Java User Group hosting & services for JUGs">JUGCentral.com</a></li>
+				<li><a href="http://www.myjavaserver.com/" title="Free Java JSP & J2EE hosting for developers learning Java">MyJavaServer.com</a></li>
+				<li><a href="#">Friends&nbsp;&amp;&nbsp;Partners</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Members&nbsp;Only</a>
+			<ul>
+				<li><a href="/forums/usersettings!default.jspa">Control&nbsp;Panel</a></li>
+				
+				<li><a href="/forums/accountEditNewsletter!default.jspa">Subscriptions</a></li>
+				<li><a href="/notyet.jsp">Downloads</a></li>
+				<li><a href="/notyet.jsp">Benefits</a></li>
+				<li><a href="/notyet.jsp">Special&nbsp;Offers</a></li>
+			</ul>
+		</li>
+		<li><a href="#">About JL</a>
+			<ul>
+				<li><a href="/about.jsp">Our&nbsp;story</a></li>
+				<li><a href="/network.jsp">Sites&nbsp;&amp;&nbsp;Services</a></li>
+				<li><a href="/notyet.jsp">In&nbsp;the&nbsp;News</a></li>
+				<li><a href="/privacy.jsp">Privacy&nbsp;policy</a></li>
+				<li><a href="/contact.jsp">Contact&nbsp;us</a></li>
+				<li><a href="/advertise.jsp">Advertising&nbsp;info</a></li>
+				<li><a href="/forums/help.jspa">FAQ</a></li>
+			</ul>
+		</li>
+	</ul>
+	<div style="clear: both;"> </div>
+</div>
+<div id="topLeaderboard">
+<!-- BEGIN ADVERTPRO ADVANCED CODE BLOCK -->
+
+<SCRIPT language="JavaScript" src="http://avpa.javalobby.org/servlet/view/javascript/zone?zid=32&pid=0&random=50873534" type="text/javascript"></SCRIPT>
+<NOSCRIPT>
+<IFRAME src="http://avpa.javalobby.org/servlet/view/html/zone?zid=32&pid=0&random=50873534" height="90" width="728" hspace="0" vspace="0" frameborder="0" marginwidth="0" marginheight="0" scrolling="no">
+<A href="http://avpa.javalobby.org/servlet/click/zone?zid=32&pid=0&lookup=true&random=50873534" target="_top">
+<IMG src="http://avpa.javalobby.org/servlet/view/image/zone?zid=32&pid=0&random=50873534" height="90" width="728" hspace="0" vspace="0" border="0" alt="Click Here!">
+</A>
+</IFRAME>
+</NOSCRIPT>
+
+<!-- END ADVERTPRO ADVANCED CODE BLOCK -->
+</div>
+    
+<div id="rightColumn">
+
+
+<div class="jljive-portlet">
+  <div class="header">
+
+    <h1>Popular @ <a href="http://www.dzone.com">
+      <img src="/images/std/dzone_130x24.gif" alt="dzone.com: fresh links for developers"
+           title="dzone.com: fresh links for developers"
+           style="border:none;vertical-align:text-top;padding-top:2px;"></a></h1></div>
+  <ul class="dzone">
+    
+    
+      <li>
+        <a href="http://www.dzone.com/links/rss/things_ive_learned_at_google_so_far.html" title="Things I've learned at Google so far">
+        Things I've learned at Google so far</a>
+        </li>
+    
+      <li>
+        <a href="http://www.dzone.com/links/rss/resistance_is_futile_you_will_be_assimilated.html" title="Resistance is futile - you will be assimilated">
+        Resistance is futile - you will be...</a>
+        </li>
+    
+      <li>
+        <a href="http://www.dzone.com/links/rss/worlds_smallest_operating_system_2.html" title="World's Smallest Operating System">
+        World's Smallest Operating System</a>
+        </li>
+    
+      <li>
+        <a href="http://www.dzone.com/links/rss/memory_leak_protection_in_tomcat_7.html" title="Memory Leak Protection in Tomcat 7">
+        Memory Leak Protection in Tomcat 7</a>
+        </li>
+    
+      <li>
+        <a href="http://www.dzone.com/links/rss/java_or_how_i_learned_to_stop_worrying_and_love_t.html" title="Java or: How I learned to stop worrying and love the code">
+        Java or: How I learned to stop worrying...</a>
+        </li>
+    
+      <li>
+        <a href="http://www.dzone.com/links/rss/new_feature_of_junit_theories.html" title="New Feature of JUnit: Theories">
+        New Feature of JUnit: Theories</a>
+        </li>
+    
+      <li class="last">
+        <a href="http://www.dzone.com/links/rss/be_careful_with_magical_code.html" title="Be careful with magical code">
+        Be careful with magical code</a>
+        </li>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </ul>
+
+  <div class="footer">
+    <img src="/images/std/icons/write_16x16.gif" hspace="0" vspace="0" align="texttop"/>
+    <a href="http://www.dzone.com/links/add.html" class="post">Submit a story</a>
+    &nbsp;<img src="/images/std/icons/check_16x16.gif" hspace="0" vspace="0" align="texttop"/>
+    <a href="http://www.dzone.com/links/queue.html" class="post">Vote on new stories</a>
+  </div>
+</div>
+
+
+<div id="mpu">
+  <!-- BEGIN ADVERTPRO ADVANCED CODE BLOCK -->
+   <SCRIPT language="JavaScript" src="http://avpa.javalobby.org/servlet/view/javascript/zone?zid=33&pid=0&random=39569214" type="text/javascript"></SCRIPT>
+<NOSCRIPT>
+<IFRAME src="http://avpa.javalobby.org/servlet/view/html/zone?zid=33&pid=0&random=39569214" height="250" width="300" hspace="4" vspace="4" frameborder="0" marginwidth="0" marginheight="0" scrolling="no">
+<A href="http://avpa.javalobby.org/servlet/click/zone?zid=33&pid=0&lookup=true&random=39569214" target="_top">
+<IMG src="http://avpa.javalobby.org/servlet/view/image/zone?zid=33&pid=0&random=39569214" height="250" width="300" hspace="4" vspace="4" border="0" alt="Support Javalobby, visit our sponsors">
+</A>
+</IFRAME>
+</NOSCRIPT>
+
+   <!-- END ADVERTPRO ADVANCED CODE BLOCK -->
+  </div> <!-- end mpu DIV -->
+
+<div class="jljive-portlet">
+	<div class="header">Forum Controls</div>
+		
+		
+
+		
+		
+
+		
+			
+		
+	<ul>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="/forums/post!reply.jspa?threadID=19309"
+	class="noborder"><img src="/images/std/icons/write_16x16.gif"
+	width="16" height="16" border="0"
+	alt="Reply to this Thread"></a> 
+<a href="/forums/post!reply.jspa?threadID=19309">Reply to this Thread</a></li>
+
+
+  
+
+<li><a href="/forums/search!default.jspa?objID=f18032"
+	class="noborder"><img src="images/search-16x16.gif" width="16"
+	height="16" border="0" alt="Search Forum"></a>
+ <a
+	href="/forums/search!default.jspa?objID=f18032">Search Forum</a></li>
+
+
+
+
+
+
+
+        <li>
+            <a href="/java/forums/f18032.html" class="noborder"
+             ><img src="images/arrow-left-16x16.gif" width="16" height="16" border="0" alt="Back to Thread List"></a>
+            
+            <a href="/java/forums/f18032.html"
+             >Back to Thread List</a></li>
+
+
+
+	</ul>
+              <div class="footer">
+                
+                Whos Online:
+
+                
+
+                
+                
+                        
+                        
+                155 guest(s), 0 user(s).
+
+                
+                <a href="/forums/online.jspa">More info &raquo;</a>
+            </div>
+
+</div>
+
+
+	
+
+
+
+
+		<div class="jljive-portlet">
+		<div class="header">Spotlight Features</div>
+		
+
+
+
+
+<div class="spotlight">
+
+
+</div>
+
+
+        <div class="footer"><a href="/spotlights.jsp">Read the Spotlight Archives</a></div>
+		</div>
+
+<!-- end rightColumn div --></div>
+
+<div id="leftColumn">
+     
+    
+		<span class="jljive-paginator">
+		
+		Replies:
+		6 -
+		
+		Pages:
+		1 &nbsp;
+
+		
+		</span>
+	
+	<br>
+	
+		<span class="jljive-paginator">
+			
+					
+					Threads:
+					[
+					
+							
+							<a href="/java/forums/t33048.html"
+							 >Previous</a>
+					
+					|
+					
+							
+							Next
+					
+					]
+			
+		</span>
+	
+    
+    <div id="comments">
+	<dl>
+		
+
+			
+				
+
+
+
+
+
+
+
+
+
+
+
+    
+
+		<div class="rootmsg">
+			<div class="rm_header">
+				<a name="91837230"></a>
+				<div class="msgControls">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        
+
+                        
+                        
+                        
+                        
+
+                            <td>&nbsp;</td>
+                            <td class="jive-icon">
+                                <a href="/forums/post!reply.jspa?messageID=91837230" title="Click to reply to this thread"
+                                 ><img src="/images/std/icons/write_16x16.gif" width="16" height="16" border="0" alt="Click to reply to this thread"></a>
+                            </td>
+                            <td class="jive-icon-label">
+                                <a href="/forums/post!reply.jspa?messageID=91837230"
+                                 title="Click to reply to this thread"
+                                 >Reply</a>
+                            </td>
+
+                        
+                    </tr>
+                    </table>
+        </div><h1>Instrumentation: Modify Applications with Java 5 Class File Transformations
+</h1>
+			
+				<h4>At 11:02 PM
+				on Jun 27, 2005, <a href="/forums/profile.jspa?userID=58312" class="author">R.J. Lorimer</a>  wrote:</h4>
+			</div>
+			<style type="text/css">
+        div#smalljobs a.post {
+            font-size: 70%;
+            margin-left: 1em;
+            color: #933;
+        }
+             div#smalljobs ul {
+       margin: 0;
+                 padding: 0;
+                 list-style: none;
+     }
+     div#smalljobs li {
+       border-bottom: none;
+         margin: 0px 0.0em 0px 1.5em;
+         line-height: 140%;
+         overflow: hidden;
+         height: 1.4em;
+       padding: 0;
+     }
+     div#smalljobs {
+         padding-left: 1em;
+         padding-bottom: 0.5em;
+         padding-right: 1em;
+         margin-bottom: 1em;
+         clear: both;
+         background-color: #f8f8f8;
+     }
+    </style>
+     <div id="smalljobs" class="thread">
+       <h3><a href="http://jobs.dzone.com">Fresh Jobs for Developers</a> <a href="https://jobs.dzone.com/jobs/new" class="post">Post a job opportunity</a></h3>
+       <ul>
+      
+         
+         
+           <li><nobr>&raquo; <a href="http://jobs.dzone.com/id/385?ref=jlthread" title="View full details at jobs.dzone.com"><b>Any</b> seeks a J2EE</a> in Sri Lanka</nobr></li>
+         
+       
+       </ul>
+   </div>
+                    
+                    
+                        <img class="jive-avatar" src="avatar-display.jspa?avatarID=3&file=av.png" align="right" hspace="4" vspace="4" border="0" alt="" />
+                    
+                 <div id="dzone_vote_widget" style="float: left; margin-right: 8px;">
+                <script language="javascript" src="http://www.dzone.com/widgets/zoneit.js"></script></div><p>
+While I was sitting here at home envying a large majority of my fellow collegues are 
+off having a blast at JavaOne (sigh), I was fiddling with some of the stuff
+that I haven't had a chance to play with until now. One of those new and nifty 
+features is the 
+<code>java.lang.instrument
+</code> package. This is another one of 
+those Java 5 features that I am really surprised hasn't made more of a splash as 
+of yet. This library finally makes it possible for tools such as a Java code profiler 
+and optimizer to be a.) written in 100% Java code and b.) be 100% spec compliant, 
+all 
+<u>at the same time
+</u>, which up to this point hasn't been possible. Most 
+of the popular tools out there for profiling are either a.) proprietary (meaning I don't know 
+what they use) (see 
+<a href="http://www.ej-technologies.com/products/jprofiler/overview.html">JProfiler
+</a>, 
+<a href="http://www.yourkit.com/">YourKit
+</a>) 
+b.) open source and tied to the the JVMPI infrastructure from pre-Java 5 which 
+is native in nature (see 
+<a href="http://ejp.sourceforge.net/">Extensible Java Profiler
+</a>), 
+or c.) open source and implemented using a non-standard approach (see 
+<a href="http://jrat.sourceforge.net/">JRat
+</a>). 
+Each has problems:
+</p>
+<p>
+<ul>
+<li>A. - Proprietary software can be expensive.
+</li>
+<li>B. - Native code is always a mess to deal with, even if the worst of the work is done ahead of time for you.
+</li>
+<li>C. - Non-Standard implementations have a tendency to not have any core tool support, and as such, aren't always as flexible.
+</li>
+</ul>
+</p>
+<p>
+You can see a pretty thorough list of existing open source profilers 
+<a href="http://www.google.com/url?sa=U&start=2&q=http://www.manageability.org/blog/stuff/open-source-profilers-for-java/view&e=747">here
+</a> 
+via Carlos Perez's Manageability.org.
+</p>
+<p>
+The new instrumentation package provides a standard library to implement 100% Java 
+instrumentation code, and is also paired with a standard syntax for 
+connecting an instrumentation library with any running application. Today, I want 
+to walk through creating your first instrumentation class (the how), and 
+hopefully get into what you can do with it (the what/why) in the near future.
+</p>
+<p>
+The instrumentation package is intended to be used by special Java libraries called 
+Java agents. A Java agent is a pluggable library that runs embedded in a JVM and 
+intercepts the classloading process. What this allows then, is to have the agent 
+a.) monitor the classloading process and b.) instrument (or engineer) the bytecode 
+of the classes to provide informational callbacks into the agent's libraries. Notice 
+I said that it *allows* the agent to instrument/engineer the bytecode - the core 
+Java packages don't have support for programmatic manipulation of bytecode, they leave
+that up to the developer. Thankfully we have a mass of open-source support already 
+(
+<a href="http://jakarta.apache.org/bcel/">BCEL
+</a>, 
+<a href="http://www.csg.is.titech.ac.jp/~chiba/javassist/">Javassist
+</a>, and 
+<a href="http://asm.objectweb.org">ASM
+</a> to name a few).
+</p>
+<p>
+Implementing an agent is quite easy. First, you need a special 
+<code>premain
+</code> bootstrap 
+class. Like the 
+<code>main
+</code> method you put in a bootstrap class for a regular 
+Java application, agents have a 
+<code>premain
+</code> method that takes different 
+arguments specialized for writing an instrumentation agent. Here is the signature of a 
+<code>premain
+</code> method:
+</p>
+<p>
+<pre><font color="navy"><b>public</b></font> <font color="navy"><b>static</b></font> <font color="navy"><b>void</b></font> premain(String agentArguments, Instrumentation instrumentation) <font color="navy">{</font>	
+	<font color="darkgreen">// ...</font>
+<font color="navy">}</font>
+</pre>
+</p>
+<p>
+The two arguments are:
+</p>
+<p>
+<ol>
+<li>A String representing the arguments to the agent (we'll get to how you pass them 
+momentarily). Note that it is *not* a string array. The agent hook expects you to do 
+any argument parsing/tokenizing yourself. Pipes, commas, spaces, semi-colons, it is 
+up to you.
+</li>
+<li>The Instrumentation instance. This class is the hook into the active instrumentation 
+library that is running for your agent. This class is where you will pass in any class 
+transformers or redefined classes that you have manipulated.
+</li>
+</ol>
+</p>
+<p>
+The 
+<code>java.lang.instrument.Instrumentation
+</code> object passed into the 
+<code>premain
+</code> 
+gives you access to do two primary ways to manipulate classes - class file transformations via a 
+<code>java.lang.instrument.ClassFileTransformer
+</code> instance, and class file redefinitions 
+via the 
+<code>java.lang.instrument.Instrumentation#redefineClasses(ClassDefinition[])
+</code> 
+method. The main difference between the two is that the redefine method is used to redefine 
+already loaded classes, and as such can be used to alter classes in the active JVM 
+that even the agent may be dependent on (such as 
+<code>java.lang.Object
+</code>) 
+where-as the transformer will only see classes loaded after it has been registered, and 
+only classes that the transformer itself is not dependent on. For today I will 
+simply show how to write a 
+<code>ClassFileTransformer
+</code>.
+</p>
+<p>
+Instances of 
+<code>ClassFileTransformer
+</code> are meant to perform modifications 
+to the bytecode of existing classes for a variety of reasons. What I mention here 
+is the primary intention of the library (instrumentation), but creativity may prevail -
+here is a link to someone who wrote an agent to engineer 
+<a href="http://www.google.com/url?sa=U&start=1&q=http://surguy.net/articles/removing-log-messages.xml&e=747">out Log4J logging calls from an application
+</a> 
+by using an agent (in otherwords, without changing the application distribution itself).
+</p>
+<p>
+Writing a 
+<code>ClassFileTransformer
+</code> is deceptively easy - the interface only 
+has one method. The trick is what you do with the parameters and return-value of the 
+method. Here is a simple example that simply prints to the console every time a class 
+is loaded in the JVM.
+</p>
+<p>
+<pre><font color="navy"><b>package</b></font> com.javalobby.tnt.instrument;
+&nbsp;
+<font color="navy"><b>import</b></font> java.lang.instrument.ClassFileTransformer;
+<font color="navy"><b>import</b></font> java.lang.instrument.IllegalClassFormatException;
+<font color="navy"><b>import</b></font> java.security.ProtectionDomain;
+&nbsp;
+<font color="navy"><b>public</b></font> <font color="navy"><b>class</b></font> SimpleTransformer <font color="navy"><b>implements</b></font> ClassFileTransformer <font color="navy">{</font>
+&nbsp;
+	<font color="navy"><b>public</b></font> SimpleTransformer() <font color="navy">{</font>
+		<font color="navy"><b>super</b></font>();
+	<font color="navy">}</font>
+&nbsp;
+	<font color="navy"><b>public</b></font> <font color="navy"><b>byte</b></font>[] transform(ClassLoader loader, String className, Class redefiningClass, ProtectionDomain domain, <font color="navy"><b>byte</b></font>[] bytes) <font color="navy"><b>throws</b></font> IllegalClassFormatException <font color="navy">{</font>
+		System.out.println(<font color="red">"Transformer to Transform Class: "</font> + className);
+		<font color="navy"><b>return</b></font> bytes;
+	<font color="navy">}</font>
+<font color="navy">}</font>
+</pre>
+</p>
+<p>
+Obviously, printing to the console is not the same as doing bytecode transformations. 
+That process is complicated enough, however, that I feel I owe a separate article 
+to that alone.
+</p>
+<p>
+For our simple agent, I created a very simple 
+<code>premain
+</code> class that simply adds our 
+transformer. Here is the source:
+</p>
+<p>
+<pre><font color="navy"><b>package</b></font> com.javalobby.tnt.instrument;
+&nbsp;
+<font color="navy"><b>import</b></font> java.lang.instrument.Instrumentation;
+&nbsp;
+<font color="navy"><b>public</b></font> <font color="navy"><b>class</b></font> SimpleMain <font color="navy">{</font>
+	<font color="navy"><b>public</b></font> <font color="navy"><b>static</b></font> <font color="navy"><b>void</b></font> premain(String agentArguments, Instrumentation instrumentation) <font color="navy">{</font>	
+		instrumentation.addTransformer(<font color="navy"><b>new</b></font> SimpleTransformer());
+	<font color="navy">}</font>	
+<font color="navy">}</font>
+</pre>
+</p>
+<p>
+The last component we need then, is to figure out how to package our agent 
+up so we can execute it with our applications. The 
+<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/package-summary.html">java.lang.instrument
+</a> 
+package summary describes the manifest format in good detail - for our simple example, 
+here is what I have:
+</p>
+<p>
+<pre>
+Manifest-Version: 1.0 
+Premain-Class: com.javalobby.tnt.instrument.SimpleMain
+
+</pre>
+</p>
+<p>
+Please be very careful about the 
+<code>Premain-Class
+</code> line - the agent library 
+is not very good at parsing the manifest file, and spaces that are actually allowed 
+by the manifest specification are not trimmed off of the class name, and it will say something 
+like this when you try to start:
+</p>
+<p>
+<pre>
+Exception in thread "main" java.lang.ClassNotFoundException: com.javalobby.tnt.instrument.SimpleMain
+        at java.net.URLClassLoader$1.run(Unknown Source)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at java.net.URLClassLoader.findClass(Unknown Source)
+        at java.lang.ClassLoader.loadClass(Unknown Source)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+        at java.lang.ClassLoader.loadClass(Unknown Source)
+        at sun.instrument.InstrumentationImpl.loadClassAndCallPremain(Unknown Source)
+FATAL ERROR in native method: processing of -javaagent failed
+</pre>
+</p>
+<p>
+This sure looks like a classpath problem (and boy did I think it was for a *long* time 
+working on this article) before I found this bug: 
+<a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6274276">Bug 6274276
+</a> 
+about the problem i just described. You *must* have the mandatory one space before the 
+class name, and *no* spaces after the classname - only a carriage return. Also, remember that 
+the manifest should end in a blank line (hence why the manifest above has extra blank 
+space below it).
+</p>
+<p>
+Ok, then we just compile and package our code (like this) in the JAR:
+</p>
+<p>
+<pre>
+test.jar
+|
++--- META-INF
+|    |
+|    +--- MANIFEST.MF (we just worked on this one)
+|
++--- com
+     |
+     +--- javalobby
+          |
+          +--- tnt
+               |
+               +--- instrument
+                    |
+                    +--- SimpleMain.class
+                    |
+                    +--- SimpleTransformer.class
+</pre>
+</p>
+<p>
+Finally, we just need to execute it.  The 
+<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/package-summary.html">java.lang.instrument
+</a> 
+package summary comes to the rescue again - this time showing us the execution 
+syntax:
+</p>
+<p>
+<pre>
+java(w) -javaagent:jarpath[=options] 
+
+</pre>
+</p>
+<p>
+Executing this agent is about as easy as it gets - 
+we have no options, and we have no classpath dependencies. Presuming a program 
+called 'MyProgram', our startup command may look something like this:
+</p>
+<p>
+<pre>java -javaagent:test.jar com.javalobby.tnt.MyProgram
+</pre>              
+</p>
+<p>
+Executing this on a simple main method that just loaded a class to do some fibonacci 
+calculations returned these results in the console:
+</p>
+<p>
+<pre>
+~&gt;java -javaagent:test.jar com.javalobby.tnt.instrument.example.ExampleMain
+Transformer to Transform Class: sun/misc/URLClassPath$FileLoader$1
+Transformer to Transform Class: com/javalobby/tnt/instrument/example/ExampleMain
+Transformer to Transform Class: com/javalobby/tnt/instrument/example/ExampleClass
+Transformer to Transform Class: java/lang/Shutdown
+Transformer to Transform Class: java/lang/Shutdown$Lock
+</pre>
+</p>
+<p>
+Try this new instrumentation out on Java applications you have; I have attached 
+the completed JAR file for giggles - it should be able to run with anything you 
+throw at it. Stay tuned as I'll cover how to actually engineer our classes, 
+and what can be done with the results.
+</p>
+<p>
+Until next time,
+</p><p>
+R.J. Lorimer
+<br/>
+<a href="#">rj -at- javalobby.org
+</a><br/>
+<a href="http://www.coffee-bytes.com" target="_blank">http://www.coffee-bytes.com</a>
+<br/>
+</p>
+      <div class="rm_footer">
+         <!-- BEGIN ADVERTPRO ADVANCED CODE BLOCK -->
+          <span style="float:right"> <SCRIPT language="JavaScript" src="http://avpa.javalobby.org/servlet/view/javascript/zone?zid=71&pid=0&random=51182515" type="text/javascript"></SCRIPT>
+<NOSCRIPT>
+<IFRAME src="http://avpa.javalobby.org/servlet/view/html/zone?zid=71&pid=0&random=51182515" height="60" width="234" hspace="4" vspace="4" frameborder="0" align="right" marginwidth="0" marginheight="0" scrolling="no">
+<A href="http://avpa.javalobby.org/servlet/click/zone?zid=71&pid=0&lookup=true&random=51182515" target="_top">
+<IMG src="http://avpa.javalobby.org/servlet/view/image/zone?zid=71&pid=0&random=51182515" height="60" width="234" hspace="4" vspace="4" border="0" alt="Support Javalobby, visit our sponsors" align="right">
+</A>
+</IFRAME>
+</NOSCRIPT>
+</span>
+          <!--<a href="http://avpa.javalobby.org/servlet/click/zone?zid=71&pid=0&lookup=true&position=1" target="_top">
+<img src="http://avpa.javalobby.org/servlet/view/banner/image/zone?zid=71&pid=0&position=1" height="60" width="234" hspace="0" vspace="4" align="right" border="0" alt="Click Here!">
+</a>-->   <!-- END ADVERTPRO ADVANCED CODE BLOCK -->
+
+				
+				<h3>6 replies
+					
+							 so far
+							
+							<span class="postYours">(<a href="/forums/post!reply.jspa?threadID=19309" style="border:none"
+							 ><img src="/images/std/icons/write_16x16.gif" title="Reply to this Thread"
+							 width="16" height="16" ></a>
+							<a href="/forums/post!reply.jspa?threadID=19309"
+							 >Post your own</a>)</span>
+					
+				</h3>
+				
+						<ul class="jljive-attachmentList">
+								
+								<li><a href="/servlet/JiveServlet/download/18032-19309-91837230-1192/test.jar"
+														><img src="/servlet/JiveServlet?attachImage=true&amp;contentType=application%2Foctet-stream&amp;attachment=1192" border="0"
+															alt="Attachment"
+														></a
+														>
+														<a href="/servlet/JiveServlet/download/18032-19309-91837230-1192/test.jar"
+														 >test.jar</a>
+														 (1.6 K)
+												
+								
+						</ul>
+	
+				
+		</div>
+		</div>
+
+
+                <!-- Text ad at top of right column -->
+                
+	
+
+            
+
+		
+
+			
+				
+
+
+
+
+
+
+
+
+
+
+<a name="92037417"></a>
+<dt id="reply1" class="alt"><a href="#92037417"
+																				class="postno"
+																				title="Permlink to this reply">1
+	.</a>
+		<span class="replyInfo">At 12:24 PM
+		on Aug 17, 2006, <a
+				href="/forums/profile.jspa?userID=204537"
+				class="author">nikoloas</a>
+
+
+            
+ wrote:</span>
+</dt>
+<dd class="alt">
+	<div class="msgControls">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        
+
+                        
+                        
+                        
+                        
+
+                            <td>&nbsp;</td>
+                            <td class="jive-icon">
+                                <a href="/forums/post!reply.jspa?messageID=92037417" title="Click to reply to this thread"
+                                 ><img src="/images/std/icons/write_16x16.gif" width="16" height="16" border="0" alt="Click to reply to this thread"></a>
+                            </td>
+                            <td class="jive-icon-label">
+                                <a href="/forums/post!reply.jspa?messageID=92037417"
+                                 title="Click to reply to this thread"
+                                 >Reply</a>
+                            </td>
+
+                        
+                    </tr>
+                    </table>
+        </div>
+	<h3>Re: Instrumentation: Modify Applications with Java 5 Class File Transformat
+</h3>
+	Hi 
+<br><br>do you know if an agent can have extra methods than can be called from inside premain method?
+<br>or if an agent class is allowed to extend another class?
+<br><br>I just created an agent and It worked correctly but when It extends another class and contains extra methods, it sends error messages
+<br><br>thanks for your help
+
+
+	
+</dd>
+
+
+
+
+
+
+			
+
+		
+
+			
+				
+
+
+
+
+
+
+
+
+
+
+<a name="92038872"></a>
+<dt id="reply2" class="alt2"><a href="#92038872"
+																				class="postno"
+																				title="Permlink to this reply">2
+	.</a>
+		<span class="replyInfo">At 6:27 AM
+		on Sep 2, 2006, <a
+				href="/forums/profile.jspa?userID=199933"
+				class="author">Guy Korland</a>
+
+
+            
+ wrote:</span>
+</dt>
+<dd class="alt2">
+	<div class="msgControls">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        
+
+                        
+                        
+                        
+                        
+
+                            <td>&nbsp;</td>
+                            <td class="jive-icon">
+                                <a href="/forums/post!reply.jspa?messageID=92038872" title="Click to reply to this thread"
+                                 ><img src="/images/std/icons/write_16x16.gif" width="16" height="16" border="0" alt="Click to reply to this thread"></a>
+                            </td>
+                            <td class="jive-icon-label">
+                                <a href="/forums/post!reply.jspa?messageID=92038872"
+                                 title="Click to reply to this thread"
+                                 >Reply</a>
+                            </td>
+
+                        
+                    </tr>
+                    </table>
+        </div>
+	<h3>Re: Instrumentation: Modify Applications with Java 5 Class File Transformat
+</h3>
+	Are there any tools out there that use these new capabilities?
+<br><br>Thanks,
+<br>Guy
+
+
+	
+</dd>
+
+
+
+
+
+
+			
+
+		
+
+			
+				
+
+
+
+
+
+
+
+
+
+
+<a name="92040063"></a>
+<dt id="reply3" class="alt"><a href="#92040063"
+																				class="postno"
+																				title="Permlink to this reply">3
+	.</a>
+		<span class="replyInfo">At 8:10 AM
+		on Sep 14, 2006, <a
+				href="/forums/profile.jspa?userID=205908"
+				class="author">Rory Winston</a>
+
+
+            
+ wrote:</span>
+</dt>
+<dd class="alt withSig">
+	<div class="msgControls">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        
+
+                        
+                        
+                        
+                        
+
+                            <td>&nbsp;</td>
+                            <td class="jive-icon">
+                                <a href="/forums/post!reply.jspa?messageID=92040063" title="Click to reply to this thread"
+                                 ><img src="/images/std/icons/write_16x16.gif" width="16" height="16" border="0" alt="Click to reply to this thread"></a>
+                            </td>
+                            <td class="jive-icon-label">
+                                <a href="/forums/post!reply.jspa?messageID=92040063"
+                                 title="Click to reply to this thread"
+                                 >Reply</a>
+                            </td>
+
+                        
+                    </tr>
+                    </table>
+        </div>
+	<h3>Re: Instrumentation: Modify Applications with Java 5 Class File Transformat
+</h3>
+	I think the AspectJ aspect weaving tools use this....I remember AspctWerkz used to use this mechanism, anyways.
+
+
+	
+</dd>
+
+
+<dd class="signature alt">
+	--------------------------------------<br>
+Rory Winston<br>
+<a href="http://www.researchkitchen.co.uk/blog">http://www.researchkitchen.co.uk/blog</a><br>
+<a href="http://people.apache.org/~rwinston">http://people.apache.org/~rwinston</a></dd>
+
+
+
+
+
+			
+
+		
+
+			
+				
+
+
+
+
+
+
+
+
+
+
+<a name="92135023"></a>
+<dt id="reply4" class="alt2"><a href="#92135023"
+																				class="postno"
+																				title="Permlink to this reply">4
+	.</a>
+		<span class="replyInfo">At 7:43 AM
+		on Mar 19, 2007, <a
+				href="/forums/profile.jspa?userID=218075"
+				class="author">Israr Ahmed</a>
+
+
+            
+ wrote:</span>
+</dt>
+<dd class="alt2 withSig">
+	<div class="msgControls">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        
+
+                        
+                        
+                        
+                        
+
+                            <td>&nbsp;</td>
+                            <td class="jive-icon">
+                                <a href="/forums/post!reply.jspa?messageID=92135023" title="Click to reply to this thread"
+                                 ><img src="/images/std/icons/write_16x16.gif" width="16" height="16" border="0" alt="Click to reply to this thread"></a>
+                            </td>
+                            <td class="jive-icon-label">
+                                <a href="/forums/post!reply.jspa?messageID=92135023"
+                                 title="Click to reply to this thread"
+                                 >Reply</a>
+                            </td>
+
+                        
+                    </tr>
+                    </table>
+        </div>
+	<h3>Re: Instrumentation: Modify Applications with Java 5 Class File Transformat
+</h3>
+	Rory Winston's reply is the better one.
+
+
+	
+</dd>
+
+
+<dd class="signature alt2">
+	There certainly have been performance issues with <a href="http://www.java-tips.org">Java</a>. 
+We've been working really hard on them. 
+The primary way we've attacked the problem is with advanced virtual machines. The performance 
+has been getting very nice. --James Gosling, 1999.</dd>
+
+
+
+
+
+			
+
+		
+
+			
+				
+
+
+
+
+
+
+
+
+
+
+<a name="92161490"></a>
+<dt id="reply5" class="alt"><a href="#92161490"
+																				class="postno"
+																				title="Permlink to this reply">5
+	.</a>
+		<span class="replyInfo">At 8:32 AM
+		on Jul 17, 2007, <a
+				href="/forums/profile.jspa?userID=236460"
+				class="author">Sofien</a>
+
+
+            
+ wrote:</span>
+</dt>
+<dd class="alt">
+	<div class="msgControls">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        
+
+                        
+                        
+                        
+                        
+
+                            <td>&nbsp;</td>
+                            <td class="jive-icon">
+                                <a href="/forums/post!reply.jspa?messageID=92161490" title="Click to reply to this thread"
+                                 ><img src="/images/std/icons/write_16x16.gif" width="16" height="16" border="0" alt="Click to reply to this thread"></a>
+                            </td>
+                            <td class="jive-icon-label">
+                                <a href="/forums/post!reply.jspa?messageID=92161490"
+                                 title="Click to reply to this thread"
+                                 >Reply</a>
+                            </td>
+
+                        
+                    </tr>
+                    </table>
+        </div>
+	<h3>Re: Instrumentation: Modify Applications with Java 5 Class File Transformat
+</h3>
+	Hi all,I tried to make a java agent with this code 
+<br>public static void premain(String agentArgs, Instrumentation inst) {
+<br>PropertyConfigurator.configure("config/log4j.properties");
+<br>String agentName = ConfigInitiator.getConfiguration().getString("jvmstat_agent.name");
+<br>JvmThread jvmstatThread = new JvmThread(0, agentName);
+<br>logger.info("Starting JVM Stats Collector...");
+<br>Thread thread = new Thread(jvmstatThread);
+<br>thread.start();
+<br>}
+<br>And it gives me this exception 
+<br><br>Exception in thread "main" java.lang.NoSuchMethodError: main
+<br>I launch it throw a ".bat" file using this line 
+<br><br>java -cp %APEF_JVMSTATCOLLECTOR_CP% -javaagent:%APEF_DIST%\JVMSTAT1.5.0.AgentExtension.jar com.adhocpes.apef.perf.pecollector.jvmstat.exec.JvmStatAgent
+<br><br>%APEF_JVMSTATCOLLECTOR_CP% is a variable which already difined in the .bat file ... 
+<br>I don't know the error causes ...
+
+
+	
+</dd>
+
+
+
+
+
+
+			
+
+		
+
+			
+				
+
+
+
+
+
+
+
+
+
+
+<a name="92219158"></a>
+<dt id="reply6" class="alt2"><a href="#92219158"
+																				class="postno"
+																				title="Permlink to this reply">6
+	.</a>
+		<span class="replyInfo">At 12:36 AM
+		on Dec 26, 2007, <a
+				href="/forums/profile.jspa?userID=263656"
+				class="author">Vimil</a>
+
+
+            
+ wrote:</span>
+</dt>
+<dd class="alt2">
+	<div class="msgControls">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        
+
+                        
+                        
+                        
+                        
+
+                            <td>&nbsp;</td>
+                            <td class="jive-icon">
+                                <a href="/forums/post!reply.jspa?messageID=92219158" title="Click to reply to this thread"
+                                 ><img src="/images/std/icons/write_16x16.gif" width="16" height="16" border="0" alt="Click to reply to this thread"></a>
+                            </td>
+                            <td class="jive-icon-label">
+                                <a href="/forums/post!reply.jspa?messageID=92219158"
+                                 title="Click to reply to this thread"
+                                 >Reply</a>
+                            </td>
+
+                        
+                    </tr>
+                    </table>
+        </div>
+	<h3>Re: Instrumentation: Modify Applications with Java 5 Class File Transformations
+</h3>
+	I tried to instrument FileInputStream and FileOutputStream classes to monitor open files and check if the application closes all files after opening them. The problem is when I try to access a class defined by me from the close method of FileInputStream I get a ClassNotFound Exception, I am however able to access the class from the premain method. Any idea what the problem could be?
+
+
+	
+</dd>
+
+
+
+
+
+
+			
+
+		
+	</dl>
+	</div>
+
+</div>
+
+<div class="jive-message-list-footer">
+	
+		<span class="jljive-paginator">
+		
+		Replies:
+		6 -
+		
+		Pages:
+		1 &nbsp;
+
+		
+		</span>
+	
+	
+		<span class="jljive-paginator">
+			
+					
+					Threads:
+					[
+					
+							
+							<a href="/java/forums/t33048.html"
+							 >Previous</a>
+					
+					|
+					
+							
+							Next
+					
+					]
+			
+		</span>
+	
+</div>
+
+
+    <br>
+    <a href="/rss/rssmessages.jspa?threadID=19309"
+    title="Point your RSS reader here for a feed of the latest messages in this thread"><img src="images/rss-24x16.gif"
+    width="24" height="14" border="0" alt="thread.rss_message"></a>
+
+
+<!-- layers that slide go here.
+		 Be sure to include id for each layer in style sheet in head -->
+<div id="glideDiv0">
+	
+			
+			<a href="/forums/post!reply.jspa?threadID=19309"
+			 ><img src="/images/std/icons/write.gif" title="Reply to this Thread"
+			 width="24" height="24" align="right"></a>
+	
+
+	
+	<a href="/"
+	><img src="/images/std/icons/home.gif" title="Home"
+		width="24" height="24" align="right"></a>
+
+	
+	<a href="/java/forums/f18032.html"
+	><img src="/images/std/icons/folder_up.gif" title="Up to Thread List"
+		width="24" height="24" align="right"></a>
+
+	
+	
+			<img src="/images/std/icons/next_thread_off.gif" title="No Next Thread" width="24" height="24" align="right">
+	
+
+	
+	
+			<img src="/images/std/icons/next_messages_off.gif" title="No Additional Replies" width="24" height="24" align="right">
+	
+
+	
+	
+			<img src="/images/std/icons/prev_messages_off.gif" title="No Previous Replies" width="24" height="24" align="right">
+	
+
+	
+	
+			<a href="/java/forums/t33048.html"
+			 ><img src="/images/std/icons/prev_thread.gif" title="Previous Thread" width="24" height="24" align="right"></a>
+	
+
+	
+	
+			<img src="/images/std/icons/write_off.gif" title="No Email this thread to a friend" width="24" height="24" align="right">
+	
+
+</div>
+<br/><br/>
+<div id="footer">
+	<!-- BEGIN ADVERTPRO ADVANCED CODE BLOCK -->
+ <SCRIPT language="JavaScript" src="http://avpa.javalobby.org/servlet/view/javascript/zone?zid=24&pid=0&random=17196856" type="text/javascript"></SCRIPT>
+<NOSCRIPT>
+<IFRAME src="http://avpa.javalobby.org/servlet/view/html/zone?zid=24&pid=0&random=17196856" height="60" width="468" hspace="0" vspace="0" frameborder="0" marginwidth="0" marginheight="0" scrolling="no">
+<A href="http://avpa.javalobby.org/servlet/click/zone?zid=24&pid=0&lookup=true&random=17196856" target="_top">
+<IMG src="http://avpa.javalobby.org/servlet/view/image/zone?zid=24&pid=0&random=17196856" height="60" width="468" hspace="0" vspace="0" border="0" alt="Click Here!">
+</A>
+</IFRAME>
+</NOSCRIPT>
+
+ <!-- END ADVERTPRO ADVANCED CODE BLOCK -->
+<a href="http://www.spreadfirefox.com/?q=affiliates&amp;id=29092&amp;t=64" class="noborder"><img border="0" alt="Get Firefox!" title="Get Firefox!" src="/images/logos/get_firefox.gif"/></a>
+&nbsp;<a href="http://www.jivesoftware.com/poweredby?src=javalobby" style="font-size: 11px">Powered by Jive Software</a> <a href="http://www.caucho.com"><img border="0"
+                             alt="Powered by Caucho Resin!"
+                             title="Powed by Caucho Resin!"
+                             src="/images/logos/resin-powered.gif"/></a>
+<!-- end footer div--></div>
+
+<!-- end wrap_inner div--></div>
+<!-- end wrap_outer div--></div>
+	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-410289-4";
+urchinTracker();
+</script>
+    <!-- Start Quantcast tag -->
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+    <script type="text/javascript">
+    _qacct="p-ebK_XdQH1HeLo";quantserve();</script>
+    <noscript>
+    <img src="http://pixel.quantserve.com/pixel/p-ebK_XdQH1HeLo.gif" style="display: none" height="1" width="1" alt="Quantcast"/></noscript>
+    <!-- End Quantcast tag -->
+    
+</body>
+</html>

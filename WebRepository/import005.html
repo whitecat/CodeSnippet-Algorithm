@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <link rel="stylesheet" href="http://st.pimg.net/tucs/style.css" type="text/css" />
+<link rel="stylesheet" href="http://st.pimg.net/tucs/print.css" type="text/css" media="print" />
+  <link rel="alternate" type="application/rss+xml" title="RSS 1.0" href="http://search.cpan.org/uploads.rdf" />
+  <link rel="search" href="http://st.pimg.net/tucs/opensearch.xml" type="application/opensearchdescription+xml" title="SearchCPAN" />
+  <title>Java::Import - search.cpan.org</title>
+ </head>
+ <body id="cpansearch">
+<center><div class="logo"><a href="/"><img src="http://st.pimg.net/tucs/img/cpan_banner.png" alt="CPAN"></a></div></center>
+<div class="menubar">
+ <a href="/">Home</a>
+&middot; <a href="/author/">Authors</a>
+&middot; <a href="/recent">Recent</a>
+&middot; <a href="http://log.perl.org/cpansearch/">News</a>
+&middot; <a href="/mirror">Mirrors</a>
+&middot; <a href="/faq.html">FAQ</a>
+&middot; <a href="/feedback">Feedback</a>
+</div>
+<form method="get" action="/search" name="f" class="searchbox">
+<input type="text" name="query" value="" size="35">
+<br>in <select name="mode">
+ <option value="all">All</option>
+ <option value="module" >Modules</option>
+ <option value="dist" >Distributions</option>
+ <option value="author" >Authors</option>
+</select>&nbsp;<input type="submit" value="CPAN Search">
+</form>
+
+
+ <a name="_top"></a>
+  <div class=path>
+<div id=permalink class="noprint"><a href="/perldoc?Java::Import">permalink</a></div>
+  <a href="/~rusekd/">David Rusek</a> &gt;
+  <a href="/~rusekd/Java-Import-0.03/">Java-Import-0.03</a> &gt;
+  Java::Import
+ </div>
+
+<div class="noprint" style="float:right;align:left;width:19ex">
+<a href="http://hexten.net/cpan-faces/"><img src="http://www.gravatar.com/avatar.php?gravatar_id=3cc0642b7ca03d2eb433ec72bceb3bb5&rating=G&size=80&default=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png" width=80 height=80 
+style="float:right"
+/></a>
+<br style="clear:both"/>
+<p style="text-align:right">Download:<br/> <a href="/CPAN/authors/id/R/RU/RUSEKD/Java-Import-0.03.tar.gz">Java-Import-0.03.tar.gz</a></p>
+<p style="text-align:right"><a href="http://deps.cpantesters.org/?module=Java::Import;perl=latest">Dependencies</a></p>
+<p style="text-align:right"><a href="http://www.annocpan.org/~RUSEKD/Java-Import-0.03/lib/Java/Import.pm">Annotate this POD
+</a></p>
+
+<div style="float:right">
+<div class=box style='width:150px'>
+<h1 class=t5>CPAN RT</h1>
+<div style="margin:2px">
+<table style="margin-left:auto;margin-right:auto">
+<tr><td>New&nbsp;</td><td style="text-align:right"> 1</td></tr>
+<tr><td>Open&nbsp;</td><td style="text-align:right"> 0</td></tr>
+</table>
+<a href="https://rt.cpan.org/NoAuth/Bugs.html?Dist=Java-Import">View Bugs</a><br/>
+<a href="https://rt.cpan.org/Public/Bug/Report.html?Queue=Java-Import">Report a bug</a>
+</div>
+</div>
+
+</div>
+</div>
+<span class="noprint">
+  <a href="/src/RUSEKD/Java-Import-0.03/lib/Java/Import.pm">Source</a> &nbsp;
+</span>
+<a name="___top"></a>
+<div class=pod>
+<div class=toc>
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CALLING_JAVA_CLASSES_FROM_PERL'>CALLING JAVA CLASSES FROM PERL</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#Importing_Java_Classes'>Importing Java Classes</a>
+    <li class='indexItem indexItem2'><a href='#Constructing_Class_Instances'>Constructing Class Instances</a>
+    <li class='indexItem indexItem2'><a href='#Calling_Object_Methods'>Calling Object Methods</a>
+    <li class='indexItem indexItem2'><a href='#Calling_Static_Methods'>Calling Static Methods</a>
+    <li class='indexItem indexItem2'><a href='#Handling_Return_Values'>Handling Return Values</a>
+    <li class='indexItem indexItem2'><a href='#Handling_Method_Arguments'>Handling Method Arguments</a>
+    <li class='indexItem indexItem2'><a href='#Dealing_with_Java_Arrays'>Dealing with Java Arrays</a>
+    <li class='indexItem indexItem2'><a href='#Dealing_with_Primitive_Types'>Dealing with Primitive Types</a>
+    <li class='indexItem indexItem2'><a href='#Exception_Handling'>Exception Handling</a>
+    <li class='indexItem indexItem2'><a href='#isa'>isa</a>
+    <li class='indexItem indexItem2'><a href='#can'>can</a>
+    <li class='indexItem indexItem2'><a href='#Converting_Java_Objects_to_Strings'>Converting Java Objects to Strings</a>
+    <li class='indexItem indexItem2'><a href='#Inheriting_from_a_Java_Class'>Inheriting from a Java Class</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#TODO'>TODO</a>
+  <li class='indexItem indexItem1'><a href='#REQUIREMENTS'>REQUIREMENTS</a>
+  <li class='indexItem indexItem1'><a href='#ACKNOWLEDGEMENTS'>ACKNOWLEDGEMENTS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+</ul>
+</div>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>Java::Import - Use Java classes in Perl</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<pre>   use Java::Import qw(
+      some.package.SomeClass
+   );
+
+   my $instance = new some.package.SomeClass();
+   $instance-&#62;someMethod();
+
+   my $ret_val = some::package::SomeClass::someStaticMethod();
+   $ret_val-&#62;someMethod();
+
+   $ret_val2 = $instance-&#62;someOtherMethod($ret_val);
+   $ret_val2-&#62;someMethod();
+
+   my $java_array_ref $instance-&#62;someMethod2();
+   foreach my $obj ( @$java_array_ref ) {
+      $obj-&#62;someMethod();
+   }</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>The purpose of this module is to provide a simple method for using Java classes from a Perl program while using the latest in Open Source Java Technology. Thus, this module makes great use of the GNU Compiler Tools for Java in it&#39;s implimentation.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CALLING_JAVA_CLASSES_FROM_PERL"
+>CALLING JAVA CLASSES FROM PERL <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>The main goal of this module is to make it very easy and transparent to call Java classes from Perl. This is handled through the use of the Java Reflection API, directly. This is done through the use of the GCJ::Cni(3) interface.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Importing_Java_Classes"
+>Importing Java Classes</a></h2>
+
+<p>Importing a Java class for use in your Perl program is very easy</p>
+
+<pre>   use Java::Import qw(
+      java.lang.StringBuffer
+   );</pre>
+
+<p>This simply sets up a namespace corresposding to the requested Java class and facilitates any future calls to this class or any of its&#39; instances. You can import as many Java classes as you desire. All java classes are translated into Perl namespaces by simply replacing &#39;.&#39; with &#39;::&#39;. In the above example &#34;java.lang.StringBuffer&#34; will correspond to the &#34;java::lang::StringBuffer&#34; namespace in Perl.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Constructing_Class_Instances"
+>Constructing Class Instances</a></h2>
+
+<p>Once a Java class has been &#39;imported&#39; and it&#39;s namespace has been setup it can be instantiated with the new operator/method.</p>
+
+<pre>   use Java::Import qw(
+      java.lang.StringBuffer
+   );
+   
+   my $sb = new java::lang::StringBuffer();</pre>
+
+<p>Since Java Reflection is being used behind the scenes, a call to construct a class without a public Constructor or with the wrong types/amount of parameters will throw a NoSuchMethodException. More information on catching exceptions may be found below.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Calling_Object_Methods"
+>Calling Object Methods</a></h2>
+
+<p>Calling Methods on a Java object in Perl is no different than calling methods on a regular Perl Object.</p>
+
+<pre>   use Java::Import qw(
+      java.lang.StringBuffer()
+   );
+   
+   my $sb = new java::lang::StringBuffer();
+   $sb-&#62;append(jstring(&#34;java String&#34;));</pre>
+
+<p>The method call is intercepted by Perl along with its&#39; arguments and invoked on the appropriate object instance. If a return value is expected it will also be a Java object of the appropriate type.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Calling_Static_Methods"
+>Calling Static Methods</a></h2>
+
+<p>Static methods are handled as part of the namespace setup by the use statement and are called through the customary Perl convention, for instance:</p>
+
+<pre>   use Java::Import qw(
+      java.lang.Class
+   );
+
+   my $class_object = java::lang::Class-&#62;forName(jstring(&#34;java.lang.StringBuffer&#34;));</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Handling_Return_Values"
+>Handling Return Values</a></h2>
+
+<p>All values returned from a Java method are themselves Java classes. This means that even primitive Java types are treated as Java objects this is done by wrapping them in their equivilant &#34;java.lang&#34; object. The only exception to this rule is Strings. For instance, a return type of Java &#39;int&#39; will be returned to Perl as type &#34;java.lang.Integer&#34;. To convert a Primitive type to a Perl type you may access it as a string.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Handling_Method_Arguments"
+>Handling Method Arguments</a></h2>
+
+<p>All arguments to methods of a Java Object must themselves be Java Objects. This means that primitives must first be wrapped in their Object equivilant before being passed to a Java Method. You can find information on wrapping Java primitive types below. This piece of functionality is quite annoying and will change in the future.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Dealing_with_Java_Arrays"
+>Dealing with Java Arrays</a></h2>
+
+<p>When a Java Method returns an array of objects, it is automatically tied to a Perl Class which will give it Perl-like array functionailty.</p>
+
+<pre>   use Java::Import qw(
+      some.package.SomeClass
+   );
+   
+   my $array_ref = some::package::SomeClass::giveMeAnArray();
+   foreach my $obj ( @$array_ref ) {
+      $obj-&#62;someMethod();
+   }</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Dealing_with_Primitive_Types"
+>Dealing with Primitive Types</a></h2>
+
+<p>To use primitive types in Java Method calls they must first be wrapped in their Object equivilant. The following functions are made available through the Java::Import namespace for this purpose.</p>
+
+<pre>   jint
+   jboolean
+   jshort
+   jlong
+   jchar
+   jbyte
+   jfloat
+   jdouble
+   jstring</pre>
+
+<p>These functions are not exported by default and must be accessed through the Java::Import namespace.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Exception_Handling"
+>Exception Handling</a></h2>
+
+<p>Exception handling is handled the same way as Perl exception handling:</p>
+
+<pre>   use Java::Import qw(
+      some.package.SomeClass
+   );
+   
+   eval {
+      my $class_instance = new some::package::SomeClass();
+      $class_instance-&#62;someMethod();
+   };
+   
+   if ( $@ ) {
+      if ( $@-&#62;isa(&#39;some::package::SomeException&#39;) ) {
+         $@-&#62;printStackTrace();
+      } else {
+         print &#34;Caught Unhandled Exception\&#34;;
+      }
+   }</pre>
+
+<p>Note that the $@ variable holds an instance of the Exception thrown. Even though Java Reflection is being used this is not of type InvocationTargetException, instead the wrapped Exception is thrown.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="isa"
+>isa</a></h2>
+
+<p>You can ask questions about an object&#39;s inheritence hierarchy through the isa method. This is mostly useful when handling Exceptions.</p>
+
+<pre>   use Java::Import qw(
+      java.lang.Class
+   }
+   
+   eval {
+      my $sb_class = java::lang::Class-&#62;forName(jstring(&#34;java.lang.StringBuffer&#34;));
+      my $sb_obj = $sb_class-&#62;newInstance();
+   };
+   
+   if ( $@ ) {
+      if ( $@-&#62;isa(&#34;java::lang::ClassNotFoundException&#34;) ) {
+         print &#34;Cannot find Class\n&#34;;
+      } elsif ( $@-&#62;isa(&#34;java::lang::InstantiationException&#34;) ) {
+         print &#34;Instantiation Exception\n&#34;;
+      } elsif ( $@-&#62;isa(&#34;java::lang::IllegalAccessException&#34;) ) {
+         print &#34;IllegalAccesException\n&#34;;
+      } elsif ( $@-&#62;isa(&#34;java::lang::SecurityException&#34;) ) {
+         print &#34;SecurityException\n&#34;;
+      }
+   }</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="can"
+>can</a></h2>
+
+<p>You can also ask a Java Object whether it has the capability to perform a certain action through the can method.</p>
+
+<pre>   use Java::Import qw(
+      java.lang.StringBuffer
+   );
+   
+   my $sb = new java::lang::StringBuffer(jstring(&#34;hi there&#34;));
+   if ( $sb-&#62;can(&#34;toString&#34;) ) {
+      print $sb-&#62;toString() . &#34;\n&#34;;
+   }</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Converting_Java_Objects_to_Strings"
+>Converting Java Objects to Strings</a></h2>
+
+<p>When using a Java Object in a String Context the toString method will automatically be invoked therefore the following piece of code will have the desired result:</p>
+
+<pre>   use Java::Import qw(
+      java.lang.StringBuffer
+   );
+   
+   my $sb = new java::lang::StringBuffer(jstring(&#34;hi there&#34;));
+   print &#34;$sb\n&#34;;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Inheriting_from_a_Java_Class"
+>Inheriting from a Java Class</a></h2>
+
+<p>Very simply, add the appropriate Java Class to the ISA array.</p>
+
+<pre>   use Java::Import qw( java.lang.StringBuffer );
+   
+   package BetterBuffer;
+   our @ISA = qw(java::lang::StringBuffer);
+   
+   sub new {
+      bless new java::lang::StringBuffer(@_), shift;
+   }
+   
+   sub append {
+      my $self = shift;
+      $self-&#62;SUPER::append(@_);
+      print &#34;The Capacity of the Buffer is: &#34; . $self-&#62;capacity() . &#34;\n&#34;;
+   }
+
+   1;
+
+   package main;
+   
+   my $bb = new BetterBuffer(jstring(&#34;better buffer!&#34;));
+   $bb-&#62;append(jstring(&#34; woo hoo? &#34;));
+   print &#34;$bb\n&#34;;</pre>
+
+<p>At the moment you cannot use this inherited class as a replacement for StringBuffer in other Java Calls. In addition, Inheriting from Abstract classes and Interfaces will not currently work. These features are something I hope to see in the future.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="TODO"
+>TODO <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>- Add Support for Java Fields.</p>
+
+<p>- Inheritence does not work as expected.</p>
+
+<p>- Allow inherited classes to be passed as Java Objects.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="REQUIREMENTS"
+>REQUIREMENTS <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>This module requires gcc-java &#62;= 4.0 to build and run. A patch for 3.x is in the works.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ACKNOWLEDGEMENTS"
+>ACKNOWLEDGEMENTS <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>A special thanks to Google and the Perl Foundation for sponsoring this project through their first ever Summer of Code Program.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>David Rusek, rusekd@cpan.org</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO <img alt='^' src='http://st.pimg.net/tucs/img/up.gif'></a></h1>
+
+<p>perl(1), <a href="/perldoc?Inline%3A%3AJava" class="podlinkpod"
+>Inline::Java</a>(3), <a href="/perldoc?GCJ%3A%3ACni" class="podlinkpod"
+>GCJ::Cni</a>(3), GCJ (<a href="http://gnu.gcc.org/java" class="podlinkurl"
+>http://gnu.gcc.org/java</a>)</p>
+
+</div>
+
+
+<div class="footer"><div class="cpanstats">61520 Uploads, 19570 Distributions
+78499 Modules, 7958 Uploaders
+</div>
+hosted by <a href="http://www.yellowbot.com">YellowBot</a><br/>
+<a href="http://www.yellowbot.com"><img alt="do. tag. write. share." src="http://st.pimg.net/tucs/img/yellowbot_logo.gif"></a>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3528438-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<!-- Wed Feb  3 23:49:06 2010 GMT (0.0284929275512695) @cpansearch1 -->
+ </body>
+</html>

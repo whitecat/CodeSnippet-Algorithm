@@ -1,0 +1,902 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>jGuru: How do I import my own java packages and classes for use in JSP pages? In what directory should they reside? How do I put them on the CLASSPATH? </title>
+<META NAME="keywords" CONTENT="JSP">
+
+
+<style>
+<!--
+a{text-decoration:none;}
+a:hover{color:669900; }
+.body{background-color:white;}
+.nav{color:669900;}
+.nav3{color:ff0000;}
+.nav2{color:000000;}
+.pass {FONT-FAMILY: Verdana, Geneva, Arial; FONT-SIZE: 9px; LINE-HEIGHT:9px; FONT-WEIGHT: bold;}
+.dwsmall { font-family: Verdana, sans-serif; font-size: 70%}
+.dwr1 { background-color : #cc6633 }
+.dwinput { font-family: Verdana, sans-serif; font-size: 70%; width: 120;}
+.personal { font-family:Arial,Geneva;color:#666666;font-size:13px; }
+-->
+</style>
+
+<SCRIPT LANGUAGE=JavaScript>
+v_path = location.pathname;
+v_docn = v_path.slice(v_path.lastIndexOf("/"),v_path.length);
+if((v_docn == "/")||(v_docn.indexOf("/index") != -1)){v_docn = "/index"};
+v_path = v_path.slice(0,v_path.lastIndexOf("/"))
+
+OAS_url = 'http://mjxads.internet.com/RealMedia/ads/';
+OAS_sitepage = 'intm/webdev/www.jguru.com' + v_path + v_docn;
+//OAS_sitepage = 'intm/sbc/www.webopedia.com';
+OAS_listpos = '468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10,fl1,fl2,fl3,fl4,fl5';
+OAS_query = '';
+OAS_target = '_top';
+OAS_version = 10;
+OAS_rn = '001234567890'; OAS_rns = '1234567890';
+OAS_rn = new String (Math.random()); OAS_rns = OAS_rn.substring (2, 11);
+function OAS_NORMAL(pos) {
+var_a=('<A HREF="' + OAS_url + 'click_nx.cgi/' + OAS_sitepage );
+var_b=(var_a + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' );
+var_c=(var_b+ OAS_query + '" TARGET=' + OAS_target + '>');
+document.write(var_c);
+var_aa=('<IMG SRC="' + OAS_url + 'adstream_nx.cgi/' + OAS_sitepage ); 
+var_bb=( var_aa + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?');
+var_cc=( var_bb + OAS_query + '" BORDER=0></A>');
+document.write(var_cc);
+}
+
+OAS_version = 11;
+if (navigator.userAgent.indexOf('Mozilla/3') != -1 )
+OAS_version = 10;
+if (navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
+OAS_version = 10;
+if (OAS_version >= 11) {
+var_aaa=('<SCRIPT LANGUAGE=JavaScript1.1 SRC="' + OAS_url); 
+var_bbb=(var_aaa + 'adstream_mjx.ads/' + OAS_sitepage + '/1'); 
+var_ccc=(var_bbb + OAS_rns + '@' + OAS_listpos + '?' + OAS_query );
+var_ddd=(var_ccc + '"><\/SCRIPT>');
+document.write(var_ddd);
+}
+
+document.write('');
+function OAS_AD(pos) {
+if (OAS_version >= 11)
+OAS_RICH(pos);
+else
+OAS_NORMAL(pos);
+}
+</SCRIPT>
+
+</head>
+
+<BODY BGCOLOR="#FFFFFF" link="#003366" vlink="#336699">
+
+<table cellpadding="0" border="0" cellspacing="0" align="center">
+<tr>
+<td>
+	<!-ad--><!-- START TOP BANNER-->
+					
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td align="center" width="100%" colspan="2">
+
+<!------ OAS AD '468x60-1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('468x60-1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!468x60-1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!468x60-1" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '468x60-1' end ------>
+
+	</td>
+</tr>
+</table>
+					<!-- END TOP BANNER--><!-/ad--></td>
+<td><img src="/images/spacer.gif" width="1" height="95" alt="" border="0"></td>
+</tr>
+</table>
+
+<img src="/images/spacer.gif" width="1" height="7" alt="" border="0"><br>
+
+<table cellpadding="0" border="0" cellspacing="0">
+<tr>
+<td rowspan="3"><a href="/"><img src="/images/jguru/logo.gif" width="105" height="103" alt="jGuru" border="0"></a></td>
+
+			<FORM METHOD="POST" ACTION="/misc/process_login.jsp">
+		<td width="100%" valign=middle align=right bgcolor="#eaeaea">
+<table cellpadding=0 cellspacing=0 border=0 bgcolor="#eaeaea"><tr><td bgcolor="#eaeaea">
+		<a href="/misc/register.jsp"><img src="/images/jguru/button-register.gif" width="65" height="13" alt="Register" border="0" align="middle"></a>
+<img src="/images/spacer.gif" width="20" height="1"><img src="/images/jguru/button-email.gif" width="34" height="8" alt="Email">
+		<INPUT type="text" size="10" name="email">
+		&nbsp;&nbsp;&nbsp;
+		<img src="/images/jguru/button-password.gif" width="60" height="8" alt="Password">
+		<INPUT type="password" size="10" name="password">
+		<input type=image src="/images/jguru/button-sm-go.gif" width="23" height="13" alt="go" border="0"><img
+src="/images/spacer.gif" width="10" height="1"></td>
+<td><span class="pass"><a href="/misc/request_password.jsp">Forgot your<br>password?</a></span></td>
+</tr></table>
+		</td>
+		</FORM>
+</tr>
+
+<tr>
+<td>
+			<table border=0 cellspacing=0 cellpadding=4 width="600">
+<tr>
+<td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/index.jsp" class=nav><font color=#669900>HOME</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="http://www.jguru.com/images/premium/zone-bullet.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/faq/index.jsp" class=nav2><font color=#669900>FAQS</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/forums/index.jsp" class=nav><font color=#669900>FORUMS</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/download/index.jsp" class=nav><font color=#669900>DOWNLOADS</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/article/index.jsp" class=nav><font color=#669900>ARTICLES</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/peerscope/index.jsp" class=nav><font color=#669900>PEERSCOPE</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/learn/index.jsp" class=nav><font color=#669900>LEARN</font></a></strong>
+</font></td>
+</tr>
+</table>
+
+</td>
+</tr>
+
+<tr>
+<!-- search  begins -->
+<form action="/search/results.jsp" method="POST">
+<INPUT type=hidden NAME=resource VALUE="universe">
+<td valign="middle" width="100%" bgcolor="#EAEAEA">
+<img src="/images/spacer.gif" width="725" height="4" alt="" border="0"><br>	
+<font color="#000000" size="2" face="arial,helvetica">
+&nbsp;&nbsp;<strong>Search</strong></font>
+<input type="text" name="query" size="50" style="width:80%; font-family:geneva,arial; background-color:#ffffff; color:#000000; font-size:10pt;">&nbsp;<input type="image" src="/images/jguru/button-sm-go.gif" width="23" height="13" alt="go" border="0">&nbsp;<a href="/misc/features-search.jsp"><img src="/images/jguru/button-quest.gif" width="13" height="13" alt="jGuru Search Help" border="0"></a></font>
+<INPUT type=hidden NAME=resource VALUE="jGuru:faq/JSP">
+<INPUT type=hidden NAME=resource VALUE="jGuru:forum/JSP">
+
+</td>
+</form>
+<!-- search  ends -->
+
+</tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td><img src="/images/spacer.gif" width="1" height="95" alt="" border="0"></td>
+<td>
+<!------ OAS AD 'ciu' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('ciu');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!ciu" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!ciu" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD 'ciu' end ------>
+</td</tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td valign=top width="100%">
+
+<table border="0" width="100%">
+<tr>
+<td valign=top colspan="2" width="50%">
+<br>
+
+<!-- BODY begins -->
+
+
+
+
+<table width=100% cellpadding=1 cellspacing=0 border=0>
+<tr><td align=left bgcolor=#666666>
+<table width=100% bgcolor=#ffffff cellpadding=5 cellspacing=0 border=0>
+      <tr>
+        <td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b>Question</b>
+	</font></td>
+        <td valign="top" colspan=3><small>
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b><p>
+How do I import my own java packages and classes for use in JSP pages? In what directory should they reside? How do I put them on the CLASSPATH?
+</p></b>
+	</font></td>
+      </tr>
+
+		<tr>
+        <td valign="top" align="right">
+		<font face="Verdana,Arial,Helvetica" size=2>
+		<b>Derived from</b>
+		</font></td>
+        <td valign="top" colspan=3><small>
+		<font face="Verdana,Arial,Helvetica" size=2>
+		A <a href=/forums/view.jsp?EID=1308843><b>question</b></a> posed by <a href="/guru/viewfaqs.jsp?EID=1308842"><strong>David Ho</strong></a>
+		</font></td>
+	</tr>
+	
+
+      <tr>
+        <td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b>Topics</b>
+	</font></td>
+        <td valign="top" colspan=3>
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<a href="/faq/subtopic.jsp?topicID=63"><strong>Java:API:JSP</strong></a>
+	</td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b>Author</b>
+	</font></td>
+        <td valign="top" colspan=3>
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<a href="/guru/viewfaqs.jsp?EID=1168738"><strong>Byron Tymvios</strong></a>
+	
+
+	</font></td>
+      </tr>
+
+<tr>
+	<td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b><em>Created</em></b>
+	</font></td>
+        <td valign="top">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	Aug 28, 2006
+	</font></td>
+
+    
+</tr>
+
+</table>
+</td></tr></table>
+
+
+
+<br>
+
+<center>
+<table align="center" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td align="center" height="300">
+	<!------ OAS AD '336x280' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('336x280');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!336x280" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!336x280" border=0>
+	</A> 
+	</NOSCRIPT>
+	<!------ OAS AD '336x280' end ------>
+	</td>
+</tr>
+</table>
+</center>
+<br>
+
+<font face="Verdana,Arial,Helvetica" size=2>
+<strong>Answer</strong>
+</font>
+<br>
+
+<font face="Verdana,Arial,Helvetica" size=2>
+<p>
+If your classes are packaged in a jar file you can put the jar file into the WEB-INF/lib directory of your web application. If you have unpackaged classes you can put them in the WEB-INF/classes directory, however the directory tree under WEB-INF/classes needs to look the same as the class's package. So if your classes package name is com.xyz then the directory structure should look like this web-inf/classes/com/xyz with your classes in the xyz directory.<br><br>
+Once the jar and/or classes are in these directories they will automatically be on the classpath, the container/application server should take care of that.<br><br>
+To import these classes for use in a JSP page you need to use the JSP page directive with the import attribute, and the value of the import attribute should be set to the class or classes you would like to import.<br><br>
+
+Example:<br>
+// To import one class<br>
+&lt;%@ page import="com.xyz.MyClass" %&gt;<br>
+OR<br>
+// To import multiple classes from the com.xyz package<br>
+&lt;%@ page import="com.xyz.*" %&gt;
+</p>
+</font>
+<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1310433&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1310433&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>5</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+<br><br>
+<font face="Verdana,Arial,Helvetica" size=2>
+<b>Comments and alternative answers</b>
+<br><br>
+<a href="/forums/comment.jsp?op=2&EID=1310433"><img src="/images/button-sm-comment.gif" alt="Comment on this FAQ entry" border=0></a>
+<br><br>
+</font>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1311765"><strong>confusion</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1311761"><strong>sri nivas</strong></a>, Sep 7, 2006&nbsp;&nbsp;[replies:2]<br>
+But so many web_inf is there which one is the correct one for put the packages.This is my problem.now i put into root/web_inf/classes. but its give same error like...  com.vo. packege does not exsists.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1311765&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1311765&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=3&type=1&EID=1311765"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1311765"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1311796"><strong>Re: confusion</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1168738"><strong>Byron Tymvios</strong></a>, Sep 7, 2006&nbsp;&nbsp;[replies:1]<br>
+<p>
+You should put them under the WEB-INF of your web application folder, so instead of root/WEB-INF it should be &lt;YOUR_APP_FOLDER&gt;/WEB-INF. Have a look at <a href="http://www.jguru.com/faq/view.jsp?EID=1310663">THIS</a> FAQ also.
+</p><br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1311796&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1311796&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=4&type=1&EID=1311796"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1311796"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1356573"><strong>Re[2]: confusion</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1356572"><strong>Ben Weese</strong></a>, Feb 15, 2008<br>
+What if there is no path id generated in my build.xml?<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1356573&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1356573&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=5&type=1&EID=1356573"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1356573"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+
+
+<br>
+<!-- END BODY -->
+</td>
+
+</td>
+</tr>
+</table>
+
+</td>
+
+<td valign=top width="20"><img src="/images/spacer.gif" width=20 height=1></td>
+
+<td valign=top>
+<br>
+
+<table border="0" cellspacing="0" cellpadding="10" width="172" align="right">
+    <tr>
+    <td width="145" align=center bgcolor="#666666">
+    <strong><a href="/forums/pick_question_topic.jsp"><img src="/images/jguru/button-ask-question.gif" width="110" height="18" alt="Ask A Question" border="0"></a><br>
+</td>
+</tr>
+</table>
+<br clear="all">
+
+<center>
+<br>
+<div align="center"><!------ OAS AD '125x800' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('125x800');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!125x800" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!125x800" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '125x800' end ------></div>
+
+<br>
+&nbsp;
+
+<br>
+<table border="0" cellspacing="0" cellpadding="1" width="145">
+       <tr><td width="1" bgcolor="#9999cc">
+        <table border="0" cellspacing="0" cellpadding="10" width="143">
+            <tr>
+            <td width="145" bgcolor="#ffffff">
+            <font face="Verdana,Arial,Helvetica,sans-serif" size=2>
+            <strong>Related Links</strong><br><img src=/images/spacer.gif width=1 height=6><br>
+	    
+		<a href="/faq/home.jsp?topic=JSP">JSP FAQ</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="/forums/home.jsp?topic=JSP">JSP Forum</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://java.sun.com/products/jsp/" target="_blank">Sun's JSP home page </a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://archives.java.sun.com/archives/jsp-interest.html" target="_blank">SUN's JSP-Interest mailing archive</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://www-4.ibm.com/software/developer/education/java/online-courses.html" target="_blank">IBM's "Introduction to JSP" online course</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://www.jspinsider.com/" target="_blank">JSP Insider</a>
+            </font>
+            </td></tr>
+        </table>
+        </td></tr>
+</table>
+
+</center>
+
+<br>
+		<table border=0 cellspacing=0 cellpadding=1 width=172>
+			<tr>
+			<td width=1 bgcolor="#cccccc">
+			<table border=0 cellspacing=0 cellpadding=10 width=170>
+			  <tr>
+				<td bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica,Sans-Serif" size="1" color="#999999">
+<strong>
+<a class="nav" href="/misc/wishlist.jsp">Wish List</a><br>
+<a class="nav" href="/misc/features.jsp">Features</a><br>
+<a class="nav" href="/misc/about-overview.jsp">About jGuru</a><br>
+<a class="nav" href="/misc/contact.jsp">Contact Us</a><br>
+
+	</td></tr></table>
+</td></tr></table>
+
+</td>
+
+
+	</tr>
+</table>
+
+<br>
+<!-- breadcrumb /lib/sites/jguru/templates/gutter/page.st -->
+<table align="center">
+<!------ OAS AD 'fl1' begin (Developer Solutions Box)------>
+<tr><td><img src="/images/jw_devsol.gif" border="0"></td></tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl3');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl4');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl5');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr><td><p>&nbsp;</td></tr>
+<!------ Developer Solutions Box end ------>
+<tr>
+<td>
+<!------ OAS AD '468x60-2' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('468x60-2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '468x60-2' end ------>
+</td>
+</tr>
+</table>
+<br>
+<!-- Google Analytics -->
+<script src="/icom_includes/footers/scripts/ga.js"  type="text/javascript">
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+delete Array.prototype.itemValidation;
+delete Array.prototype.isArray;
+var superTracker = _gat._getTracker("UA-2838492-1");
+superTracker._initData();
+superTracker._trackPageview();
+
+-->
+</script>
+<script  type="text/javascript" >
+   var site_name =  location.hostname;
+   if ( site_name.indexOf("www.") != 0 ) {
+     site_name  = "www."+site_name ;
+   }
+   document.write("<SCR" + "IPT LANGUAGE='JavaScript1.2' SRC='/icom_includes/footers/sites/"+ site_name +".js' TYPE='text/javascript'><\/SCR" + "IPT>");
+-->
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+   pageTracker._initData();
+   pageTracker._trackPageview();
+   // -->
+</script>
+<!-- End Google Analytics -->
+
+
+<!-- Revenue Science API -->
+<script src="http://js.revsci.net/gateway/gw.js?csid=K08784"></script>
+<script>
+  DM_addEncToLoc("pid","INT");
+  DM_tag();
+
+</script>
+<!-- Revenue Science API -->
+
+
+
+
+<style type="text/css">
+@charset "UTF-8";
+/* CSS Document */
+
+
+/* JOM CSS */
+
+#jomfooter {
+	border: 0;
+	margin: 5px;
+	padding: 5px;
+	}
+
+#jomfooter * {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	margin: 0;
+	}
+
+#jomfooter img {
+	border: 0;
+	behavior: url('/icom_includes/footers/css/iepngfix.htc');
+	padding: 5px;
+	padding: expression('0');
+	}
+
+#jomfooter p {
+	font-size: 11px;
+	line-height: 20px;
+	margin: 10px;
+	}
+
+#jomfooter form b {
+	font-size: 12px;
+	}
+
+#jomfooter a {
+	text-decoration: underline;
+	}
+
+#jomfooter a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter table td {
+	border: 0;
+	}
+
+
+/* GEMS Solutions CSS */
+
+#jomfooter #solsect {
+	margin: 0 auto;
+	padding: 10px 0;
+	width: 720px;
+	}
+
+#jomfooter #solsect .top {
+	background: url('/icom_includes/footers/soltopbg.gif') repeat-x #bbb;
+	height: 26px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .top a {
+	font-size: 16px;
+	font-weight: bold;
+	color:#333;
+	text-decoration:none;
+	margin-left: 5px;
+	padding: 0;
+	line-height: 25px;
+	}
+
+#jomfooter #solsect .top a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter #solsect .solsectpad {
+	background: #fff;
+	}
+
+#jomfooter #solsect .solsectpad .main {
+	background:url('/icom_includes/footers/solmidbg.gif') repeat-x #e7e8e3;
+	padding: 5px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .solsectpad .main h2 {
+	font-size: 12px;
+	color: #000;
+	font-weight: normal;
+	padding-bottom: 3px;
+	}
+
+#jomfooter #solsect a {
+	color: #333;
+	font-size: 10px;
+	text-decoration: none;
+	line-height: 13px;
+	}
+
+#jomfooter #solsect a:hover {
+	text-decoration: underline;
+	}
+</style>
+
+
+
+<!-- Begin JOM Footer -->
+
+
+<div id="jomfooter" align="center">
+<p>
+    <a href="http://www.internet.com/"><img src="http://www.internet.com/icom_includes/footers/img/icom_logo_qsfooter.png" width="240" height="40" hspace="0" /></a>
+
+    <br>
+    The Network for Technology Professionals</p>
+<form method="POST" action="http://search.internet.com/www.jupiterweb.com" target="_top">        
+        <input type="HIDDEN" name="IC_Summary" value="1">
+        <input type="HIDDEN" name="IC_StartNumber" value="0">
+        <input type="HIDDEN" name="IC_BatchSize" value="10">
+        <input type="HIDDEN" name="IC_RelevanceThreshold" value="50">
+        <input type="hidden" name="IC_QueryDatabase" value="all">
+        <b>Search:</b> 
+        <input type="text" name="IC_QueryText" size="45">
+
+        <input type="image" border="0" value="Find" name="SUBMIT" src="/icom_includes/footers/but_find.gif" width="41" height="20" align="absmiddle">
+  </form>
+    <p>
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41188"> About Internet.com</a> 
+        <br>
+      <script type="text/javascript">
+            document.write(' Copyright ');
+            var today = new Date();
+            document.write(  + today.getFullYear());
+            document.write(' QuinStreet Inc. All Rights Reserved.');
+        </script>
+  <noscript>
+        Copyright 2010 QuinStreet Inc. All Rights Reserved.
+  </noscript>
+
+  </p>
+       <p> <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41187">Legal Notices</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Licensing1">Licensing</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Permissions">Permissions</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41186">Privacy  Policy</a>.
+        <br />
+
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/mediakit/">Advertise</a> | <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/">Newsletters</a> |  <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/announcement_list.html">E-mail Offers</a>
+
+  </p>
+
+
+<!-- start solutions links section -->
+    <div id="solsect">
+        <div class="top" align="left"><a href="#">Solutions</a></div>
+        <div class="solsectpad">
+                        <div class="main" align="left">
+				<h2>Whitepapers and eBooks</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40965">Microsoft Personalized Whitepapers and Resources for You</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43201">Articles: Build a More Agile Business with IBM</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41021">Microsoft White Paper Windows Server 2008 R2 Hyper-V Live Migration</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43214">IBM Articles: Virtualization Delivers a Dynamic Infrastructure</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41198">Microsoft Blog: Exchange 2010: Saving Money, Delighting Users, Protecting Communications </a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43173">Articles: IBM Offers Enhanced Measurement and Management for Energy Usage</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41341">Microsoft PDF: Optimizing SharePoint Environments </a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43176">Articles: IBM Helps Transformation to an Information-Based Enterprise</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/VS_2010/Door/43217">Microsoft Articles: Visual Studio 2010</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-Adobe/Article/43031">Adobe Article: Adobe Helps PHP Developers Create Rich Internet Applications</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/hotlist-Adobe/link/42707">Adobe Article: Java Developers Finding a Home at Adobe Flex</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WHITEPAPERS, EBOOKS, AND ARTICLES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Webcasts</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41288">Microsoft Video: Deep Dive into Direct Access and UAG </a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41048">Microsoft Webcast: A PowerPivot Primer </a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MS_PHP/Door/42951">Webcast: Connecting PHP to Microsoft Technologies</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41264">Microsoft Video: Desktop Optimization</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MS_Azure/Door/41806">Video: Windows Azure Debugging Tips</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WEBCASTS, PODCASTS, AND VIDEOS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Downloads and eKits</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.devx.com/MicrosoftSC/Door/43162">Microsoft Free Trials: Windows Server 2008 R2, Exchange Server 2010 and Windows 7</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MSDN/Door/40684">Get the Windows 7 SDK</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/RedGateVS/Door/41829">Free Trial: Red Gate SQL Backup Pro 6</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41019">Download: Windows Server Trial</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IronSpeed/Article/40848">Iron Speed Designer Application Generator</a><br>
+						   						                              <a target="_blank" href="http://clk.atdmt.com/525/go/172033525/direct;at.mrtitp00030818;ct.1/01/">Microsoft Windows Server 2008 R2 comes with Hyper-V and Live Migration built in, to lower third-party software costs and downtime. Check out the top 10 reasons to upgrade to Windows Server 2008 R2.</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE DOWNLOADS, EKITS, AND FREE TRIALS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Tutorials and Demos</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40967">Learn Unified Communications</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/BlackBerry/Door/43805">BlackBerry Application Development Resources</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40968">Learn SQL Server 2008</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40966">Learn Windows Server 2008 R2</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/Link/40644">Internet.com Hot List: Get the Inside Scoop on IT and Developer Products</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40970">Learn Forefront</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40969">Learn System Center</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/ebook/Article/39031">All About Botnets</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40971">Learn SharePoint</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                    </div>
+    </div>
+</div>
+
+<!-- End JOM Footer -->
+
+</body>
+</html>

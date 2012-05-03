@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html><head><title>Disassembling Java Bytecode Class Files with 'javap -c -private'</title><meta content="This section provides a tutorial example of how to disassemble Java bytecodes with 'javap -c -private' command. The disassembled codes are JVM execution instructions." name="description"/><meta content="javap, Java, Class, File, Disassembler" name="keywords"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link href="_hypub.css" type="text/css" rel="stylesheet"/><script src="_hypub.js" type="text/javascript">x=1;</script></head><body><div class="body"><table cellpadding="0" cellspacing="0" class="frame"><tr><td colspan="3" class="frameTop"><script language="JavaScript">writeTop("__fileName__");</script></td></tr><tr><td class="frameLeft"><script language="JavaScript">writeLeft("__fileName__");</script></td><td class="frameCenter"><table cellpadding="0" cellspacing="0" class="pageBorder"><tr><td height="1" colspan="3"><img src="_dot.gif" width="100%" height="1"/></td></tr><tr><td rowspan="1" width="1"><img src="_dot.gif" width="1" height="100%"/></td><td><table cellpadding="0" cellspacing="0" class="page"><tr><td><table border="0" cellpadding="0" cellspacing="0"><tr><td colspan="3" aligh="left"><b>Java Tool Tutorials - Herong's Tutorial Notes</b></td></tr><tr><td align="left">Dr. Herong Yang, Version 5.10</td><td align="center"/><td align="right"><script language="JavaScript">writeMenu("__fileName__");</script></td></tr><tr><td colspan="3" class="pageLine"><img src="_dot.gif" width="100%" height="1"/></td></tr><tr><td colspan="3" class="body"><table><tr><td class="pageLeft"><script language="JavaScript">bannerLeft("");</script><script src="http://pagead2.googlesyndication.com/pagead/show_ads.js" type="text/javascript">x=1;</script><script language="JavaScript">writePageLeft("__fileName__");</script></td><td class="pageRight">
+<!-- section start -->
+
+
+
+
+
+<p class="pageTitle">Disassembling Java Bytecode Class Files with 'javap -c -private'</p>
+<p class="navChapter">&lt;&lt; <a href="javap-The-Java-Class-File-Disassembler.html">'javap' - The Java Class File Disassembler</a></p>
+<p class="navIndex">&lt;&lt; <a href="index.html">Java Tool Tutorials - Herong's Tutorial Notes</a></p>
+<p class="pageDescription">This section provides a tutorial example of how to disassemble Java bytecodes with 'javap -c -private' command. The disassembled codes are JVM execution instructions.</p>
+
+<script language="JavaScript">bannerTop("");</script><script src="http://pagead2.googlesyndication.com/pagead/show_ads.js" type="text/javascript">x=1;</script>
+
+<p>Actually, the main function of "javap" is to disassemble Java bytecodes with the "-c" option. 
+The disassembed codes are execution instructions of JVM (Java Virtual Machine).
+</p>
+
+<p>Now, let's try "javap -c -private" with the bytecode compiled from Circle.java source code.
+</p>
+<pre class="source">
+C:\herong&gt;javap -private Circle
+
+Compiled from "Circle.java"
+public class Circle extends java.lang.Object{
+public java.lang.String uom;
+
+private int x;
+
+private int y;
+
+private int r;
+
+public Circle();
+  Code:
+   0:	aload_0
+   1:	invokespecial	#1; //Method java/lang/Object."&lt;init&gt;":()V
+   4:	aload_0
+   5:	ldc	#2; //String Centimeter
+   7:	putfield	#3; //Field uom:Ljava/lang/String;
+   10:	aload_0
+   11:	iconst_0
+   12:	putfield	#4; //Field x:I
+   15:	aload_0
+   16:	iconst_0
+   17:	putfield	#5; //Field y:I
+   20:	aload_0
+   21:	iconst_1
+   22:	putfield	#6; //Field r:I
+   25:	return
+
+public void setRadius(int);
+  Code:
+   0:	aload_0
+   1:	iload_1
+   2:	putfield	#6; //Field r:I
+   5:	return
+
+public void setCenter(int, int);
+  Code:
+   0:	aload_0
+   1:	iload_1
+   2:	putfield	#4; //Field x:I
+   5:	aload_0
+   6:	iload_2
+   7:	putfield	#5; //Field y:I
+   10:	return
+
+...
+
+private double getArea();
+  Code:
+   0:	ldc2_w	#18; //double 3.14159d
+   3:	aload_0
+   4:	getfield	#6; //Field r:I
+   7:	i2d
+   8:	dmul
+   9:	aload_0
+   10:	getfield	#6; //Field r:I
+   13:	i2d
+   14:	dmul
+   15:	dreturn
+
+}
+</pre>
+
+<p>Note that:
+</p>
+<ul>
+<li>I used "-c" and "-private" options together to disassemble both private and public methods.
+</li>
+<li>All class level variables are printed out in the disassembled codes as comments like "//Field r:I". 
+</li>
+<li>Constants are printed out in the disasembled codes as comments like "//double 3.14159d".
+</li>
+<li>String constants are also printed out in the disasembled codes as comments like "//String Centimeter".
+So don't distribute any Java bytecode compiled from source codes that contain any password strings. 
+People can easy find the passwords using the "javap" tool.
+</li>
+<li>If you want to understand each statement listed in the disassembled code, you need to read the 
+<a href="http://java.sun.com/docs/books/jvms/">JVM Specification</a> first.
+</li>
+</ul>
+
+<p/><script language="JavaScript">bannerBottom("");</script><script src="http://pagead2.googlesyndication.com/pagead/show_ads.js" type="text/javascript">x=1;</script>
+<p class="blockTitle">Sections in This Chapter</p>
+
+<p class="chapterToc"><a href="javap-Java-Disassembler-Command-Options.html">'javap' - Java Disassembler Command and Options</a></p>
+<p class="chapterToc"><a href="javap-List-of-Public-Variable-and-Method.html">Listing Public Variables and Methods with 'javap'</a></p>
+<p class="chapterToc"><a href="javap-List-of-Private-Variable-Method.html">Listing Private Variables and Methods with 'javap -private'</a></p>
+<p class="chapterToc"><a href="javap-Disassemble-Java-Bytecode-Class-Files.html">Disassembling Java Bytecode Class Files with 'javap -c -private'</a></p>
+<p class="chapterToc"><a href="javap-Look-Up-Method-Signature.html">Looking Up Method Signature with 'javap' Command</a></p>
+
+<script type="text/javascript" src="_bookToc.js">x=1;</script><script type="text/javascript">showPageFooter("http://www.herongyang.com/Java-Tools/__bookdir__", "__htmlname__");</script>
+<!-- section end -->
+</td></tr></table></td></tr><tr><td colspan="3" class="pageLine"><img src="_dot.gif" width="100%" height="1"/></td></tr><tr><td align="left">Dr. Herong Yang, updated in 2008</td><td align="center"/><td align="right"><script language="JavaScript">writeMenu("__fileName__");</script></td></tr><tr><td colspan="3" aligh="left"><b>
+Disassembling Java Bytecode Class Files with 'javap -c -private'</b></td></tr></table></td></tr></table></td><td rowspan="1" width="1"><img src="_dot.gif" width="1" height="100%"/></td></tr><tr><td height="1" colspan="3"><img src="_dot.gif" width="100%" height="1"/></td></tr></table></td><td class="frameRight"><script language="JavaScript">writeRight("__fileName__");</script></td></tr><tr><td colspan="3" class="frameBottom"><script language="JavaScript">writeBottom("__fileName__");</script></td></tr></table></div></body></html>

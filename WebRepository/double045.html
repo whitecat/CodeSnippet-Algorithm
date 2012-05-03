@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Visitor Design Pattern in Java: Double dispatch (within a single hierarchy)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="prev" href="/design_patterns/template_method" />
+
+<link rel="up" href="/behavioral_patterns" />
+
+<link rel="shortcut icon" href="/files/favicon.gif" type="image/x-icon" />
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/contrib/codefilter/codefilter.css?5" />
+<link type="text/css" rel="stylesheet" media="all" href="/files/sm/css/css_83fb38fe20f6f3ac559630ee139e48f9.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="/files/sm/css/css_3c2cb058e53bcfec05563799799f8f15.css" />
+<link type="text/css" rel="stylesheet" media="print" href="/files/sm/css/css_2e67d6d4e82357b6626e9a4a9a9da01a.css" />
+  <script type="text/javascript" src="/files/sm/js/js_9b264c41b1445cd5533833dbad924464.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "dhtmlMenu": { "slide": "slide", "children": "children", "clone": "clone", "siblings": 0, "relativity": 0, "doubleclick": 0 } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var global_path = "/sites/all/modules/contrib/highlightjs/highlight/"; initHighlightingOnLoad("javascript", "php", "cpp", "java", "delphi", "python", "c-sharp", "html", "css", "actionscript", "output");
+//--><!]]>
+</script>
+  <!--[if lt IE 7]>
+    <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/sm3/styles/ie6.css" />
+  <![endif]-->
+  <!--[if IE 7]>
+    <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/sm3/styles/ie.css" />
+  <![endif]-->
+</head>
+<body class="home">
+  
+  <div class="wrapper">
+    <div class="container"><!--end container-->
+
+      <div class="header">
+        <div class="title"><a href="/">SourceMaking</a></div>
+        <div class="menu-wrapper">
+          <div class="menu-container">
+                          <ul  class="nav menu"><li class="expanded first no-dhtml  active-trail"><a href="/design_patterns" class="menu-patterns" id="dhtml_menu-24">Design Patterns</a><div class="li-wrapper"><div class="wl"></div><div class="wr"></div><ul  class=" menu"><li class="leaf first no-dhtml "><a href="/design_patterns" id="dhtml_menu-4320">Design Patterns Reference</a></li>
+<li class="leaf last no-dhtml "><a href="http://sourcemaking.com/design-patterns-video" class="menu-star" id="dhtml_menu-423">Design Patterns Video Course</a></li>
+</ul></div></li>
+<li class="expanded  no-dhtml "><a href="/antipatterns" class="menu-apatterns" id="dhtml_menu-262">AntiPatterns</a><div class="li-wrapper"><div class="wl"></div><div class="wr"></div><ul  class=" menu"><li class="leaf first no-dhtml "><a href="/antipatterns" id="dhtml_menu-4321">Antipatterns Reference</a></li>
+<li class="leaf last no-dhtml "><a href="/antipatterns-book" class="menu-star" id="dhtml_menu-432">AntiPatterns Book</a></li>
+</ul></div></li>
+<li class="expanded  no-dhtml "><a href="/refactoring" class="menu-refactoring" id="dhtml_menu-306">Refactoring</a><div class="li-wrapper"><div class="wl"></div><div class="wr"></div><ul  class=" menu"><li class="leaf last no-dhtml "><a href="/refactoring" id="dhtml_menu-4322">Refactoring Reference</a></li>
+</ul></div></li>
+<li class="expanded last no-dhtml "><a href="/uml" class="menu-uml" id="dhtml_menu-4225">UML</a><div class="li-wrapper"><div class="wl"></div><div class="wr"></div><ul  class=" menu"><li class="leaf first no-dhtml "><a href="/uml" id="dhtml_menu-4323">UML Reference</a></li>
+<li class="leaf last no-dhtml "><a href="/uml-course" class="menu-star" id="dhtml_menu-4319">UML Course</a></li>
+</ul></div></li>
+</ul>                      </div>
+          <div class="clear"></div>
+        </div>
+        <div class="head-links">
+                      <ul  class=" menu"><li class="leaf first login-link no-dhtml "><a href="/user" class="account" id="dhtml_menu-1398">Log in</a></li>
+<li class="leaf last no-dhtml "><a href="/contact" class="contact" id="dhtml_menu-2464">Contact</a></li>
+</ul>          
+          <div class="head-center"></div>
+        </div>
+      </div>
+
+        <div class="content-main">
+          <div id="block-block-31" class="clear-block block block-block">
+
+
+  <div class="content"><a href="https://twitter.com/sourcemaking" rel="nofollow" style="position:absolute; top:-130px; left:310px; background:transparent url(/files/sm/twitter.png) no-repeat 0 0; width: 74px; height:53px;" title="Twitter" onclick="javascript: pageTracker._trackEvent('Click', 'Twitter', 'Top');"></a>
+</div>
+</div>
+          <div class="breadcrumb"><a href="/">Home</a> â?º <a href="/design_patterns">Design Patterns</a> â?º <a href="/behavioral_patterns">Behavioral patterns</a> â?º <a href="/design_patterns/visitor">Visitor Design Pattern</a></div>          
+                      <div class="title">
+              <h1>Visitor Design Pattern in Java: Double dispatch (within a single hierarchy)</h1>
+              <script type="text/javascript">
+                title = $('h1').text();title = title.replace(' Design Pattern in ', ' in ');$('h1').text(title);
+                $('.breadcrumb a').each(function(){ bread = $(this).text();bread = bread.replace(/ Design Pattern$/, '');$(this).text(bread); }) 
+                
+              </script>
+                          </div>
+            <div class="clear" style="height:1px;"></div>
+          
+                                                  <div id="block-ad-14" class="clear-block block block-ad">
+
+
+  <div class="content"><script type='text/javascript' src='/sites/all/modules/contrib/ad/serve.php?q=1&amp;t=14&amp;u=node%2F120'></script></div>
+</div>
+<div id="block-bonus_block-0" class="clear-block block block-bonus_block">
+
+
+  <div class="content"><div class="article_i"><a href="/design_patterns/visitor">Read full article</a></div><div class="clear:left;"></div><div id="whitebox" style="height:700px;"><div class="code_i"><a onclick="$('#whitebox').slideUp('fast'); return false;" href="#code">See the code</a></div></div><script type="text/javascript">
+                    var coo = "";
+                    var nameEQ = "was=";
+                    var ca = document.cookie.split(";");
+                      for(var i=0;i < ca.length;i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == " ") c = c.substring(1,c.length);
+                        if (c.indexOf(nameEQ) == 0) coo = c.substring(nameEQ.length,c.length);
+                    }
+                    if (coo) { $("#whitebox").hide(); }
+                  </script><a id="code"></a></div>
+</div>
+          <div class="node">
+
+  <div class="content clear">
+    <div class="putanchors"><p>
+Discussion.  We would like to declare a function like:
+   <code>void process( virtual Base object1, virtual Base object2 )</code>
+that does the right thing based on the type of 2 objects that come from
+a single inheritance hierarchy.  The only problem is that the keyword
+&#8220;virtual&#8221; may not be used to request dynamic binding for an object being
+passed as an argument.  Java will only &#8220;discriminate&#8221; the type of an object
+being messaged, not the type of an object being&nbsp;passed.
+</p>
+<p>
+So in order for
+the type of 2 objects to be discriminated, each object must be the
+receiver of a virtual function call.  Here, when <code>process1()</code> is called on
+the first object, its type becomes &#8220;known&#8221; at runtime, but the type of
+the second is still UNknown.  <code>process2()</code> is then called on the second
+object, and the identity (and type) of the first object is passed as an
+argument.  Flow of control has now been vectored to the spot where the
+type (and identity) of both objects are&nbsp;known.
+</p>
+
+<pre><code class="java">public class VisitorSingle {&#10;&#10;interface Base {&#10;   void process1( Base secondObject );&#10;   void process2(  A   firstObject  );&#10;   void process2(  B   firstObject  );&#10;   void process2(  C   firstObject  );&#10;}&#10;&#10;static class A implements Base {&#10;   public void process1( Base second ) { second.process2( this ); }&#10;   public void process2( A first ) {&#10;      System.out.println( &quot;first is A, second is A&quot; ); }&#10;   public void process2( B first ) {&#10;      System.out.println( &quot;first is B, second is A&quot; ); }&#10;   public void process2( C first ) {&#10;      System.out.println( &quot;first is C, second is A&quot; ); }&#10;}&#10;&#10;static class B implements Base {&#10;   public void process1( Base second ) { second.process2( this ); }&#10;   public void process2( A first ) {&#10;      System.out.println( &quot;first is A, second is B&quot; ); }&#10;   public void process2( B first ) {&#10;      System.out.println( &quot;first is B, second is B&quot; ); }&#10;   public void process2( C first ) {&#10;      System.out.println( &quot;first is C, second is B&quot; ); }&#10;}&#10;&#10;static class C implements Base {&#10;   public void process1( Base second ) { second.process2( this ); }&#10;   public void process2( A first ) {&#10;      System.out.println( &quot;first is A, second is C&quot; ); }&#10;   public void process2( B first ) {&#10;      System.out.println( &quot;first is B, second is C&quot; ); }&#10;   public void process2( C first ) {&#10;      System.out.println( &quot;first is C, second is C&quot; ); }&#10;}&#10;&#10;public static void main( String[] args ) {&#10;   Base array[] = { new A(), new B(), new C() };&#10;   for (int i=0; i &lt; array.length; i++)&#10;      for (int j=0; j &lt; 3; j++)&#10;         array[i].process1( array[j] );&#10;}}&#10;</code></pre>
+
+<code class="output">first is A, second is A&#10;first is A, second is B&#10;first is A, second is C&#10;first is B, second is A&#10;first is B, second is B&#10;first is B, second is C&#10;first is C, second is A&#10;first is C, second is B&#10;first is C, second is C&#10;</code></div><div id="block-ad-12" class="clear-block block block-ad">
+
+
+  <div class="content"><script type='text/javascript' src='/sites/all/modules/contrib/ad/serve.php?q=1&amp;t=12&amp;u=node%2F120'></script></div>
+</div>
+<div class="examples"><h3>List of Visitor examples</h3><h4>C# examples</h4><div class="item-list"><ul><li class="first last"><a href="/design_patterns/visitor/c%2523">Visitor in C#</a></li>
+</ul></div><h4>C++ examples</h4><div class="item-list"><ul><li class="first"><a href="/design_patterns/visitor/cpp/1">Visitor in C++: Before and after</a></li>
+<li><a href="/design_patterns/visitor/cpp/3">Visitor in C++: Recovering lost type information</a></li>
+<li class="last"><a href="/design_patterns/visitor/cpp/2">Visitor in C++</a></li>
+</ul></div><h4>Delphi examples</h4><div class="item-list"><ul><li class="first last"><a href="/design_patterns/visitor/delphi">Visitor in Delphi</a></li>
+</ul></div><h4>Java examples</h4><div class="item-list"><ul><li class="first"><a href="/design_patterns/visitor/java/1">Visitor in Java</a></li>
+<li><a href="/design_patterns/visitor/java/4">Visitor in Java</a></li>
+<li><a href="/design_patterns/visitor/java/3">Visitor in Java</a></li>
+<li class="last"><a href="/design_patterns/visitor/java/2" class="active">Visitor in Java: Double dispatch (within a single hierarchy)</a> <span class="tip"> <=[You are here]</span></li>
+</ul></div><h4>PHP examples</h4><div class="item-list"><ul><li class="first last"><a href="/design_patterns/visitor/php">Visitor in PHP</a></li>
+</ul></div></div>  <div id="book-navigation-2" class="book-navigation">
+        
+    
+    
+        <div class="page-links page-current fleft clear-block">
+              <a href="/design_patterns/template_method" class="page-previous" title="Go to previous page">â?¹ Template Method Design Pattern</a>
+                
+            
+              <a href="/design_patterns/visitor" class="page-up" title="Go to parent page">â?? Visitor</a>
+            
+    </div>
+        <div class="clear"></div>
+  </div>
+  </div>
+</div>
+<div id="block-block-18" class="clear-block block block-block">
+
+
+  <div class="content"><table class="copyfooter"><tr>
+<td class="footerimg">
+  <a class="non" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="/files/cc88x31.png" /></a>
+</td>
+<td class="footertext">
+  This work is licensed under a 
+  <a class="non" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 Unported License</a>
+</td>
+</tr></table></div>
+</div>
+        </div><!-- end content-main-->
+
+        <div class="content-secondary">
+                      <div id="block-bonus_block-1" class="clear-block block block-bonus_block">
+
+
+  <div class="content"><table style="margin:0;vertical-align:bottom;"><tr>
+    <td style="padding:0 10px 0 0; width:95px;">
+      <div class="addthis">
+        <!-- AddThis Button BEGIN -->
+        <script type="text/javascript">var addthis_pub = "neochief";</script>
+        <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/sm-bookmark-en.gif" width="83" height="16" alt="" /></a>
+        <!-- AddThis Button END -->
+        <div class="clear"></div>
+      </div>
+    </td><td style="padding:0 10px 0 0;">
+    </td>
+  </tr></table><div class="clear"></div>
+    <div id="search">
+      <div id="searchcontrol"></div>
+    </div></div>
+</div>
+<div id="block-bonus_book-0" class="clear-block block block-bonus_book">
+
+  <h2><a href="/design_patterns" class="book-title">Design Patterns</a></h2><span class="contents">contents</span>
+
+  <div class="content clear"><ul  class=" menu"><li class="expanded first dhtml-menu  collapsed start-collapsed "><a href="/creational_patterns" id="dhtml_menu-1010">Creational patterns</a><script type="text/javascript"> document.write('<ul  class=" menu"><li class="leaf first dhtml-menu "><a href="/design_patterns/abstract_factory" id="dhtml_menu-1013">Abstract Factory Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/builder" id="dhtml_menu-1014">Builder Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/factory_method" id="dhtml_menu-1015">Factory Method Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/object_pool" id="dhtml_menu-1016">Object Pool Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/prototype" id="dhtml_menu-1017">Prototype Design Pattern</a></li> <li class="leaf last dhtml-menu "><a href="/design_patterns/singleton" id="dhtml_menu-1018">Singleton Design Pattern</a></li> </ul>');</script></li>
+<li class="expanded  dhtml-menu  collapsed start-collapsed "><a href="/structural_patterns" id="dhtml_menu-1011">Structural patterns</a><script type="text/javascript"> document.write('<ul  class=" menu"><li class="leaf first dhtml-menu "><a href="/design_patterns/adapter" id="dhtml_menu-1019">Adapter Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/bridge" id="dhtml_menu-1020">Bridge Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/composite" id="dhtml_menu-1021">Composite Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/decorator" id="dhtml_menu-1022">Decorator Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/facade" id="dhtml_menu-1023">Facade Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/flyweight" id="dhtml_menu-1024">Flyweight Design Pattern</a></li> <li class="leaf  dhtml-menu "><a href="/design_patterns/private_class_data" id="dhtml_menu-1025">Private Class Data</a></li> <li class="leaf last dhtml-menu "><a href="/design_patterns/proxy" id="dhtml_menu-1026">Proxy Design Pattern</a></li> </ul>');</script></li>
+<li class="expanded last dhtml-menu  active-trail"><a href="/behavioral_patterns" id="dhtml_menu-1012">Behavioral patterns</a><ul  class=" menu"><li class="leaf first dhtml-menu "><a href="/design_patterns/chain_of_responsibility" id="dhtml_menu-1027">Chain of Responsibility</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/command" id="dhtml_menu-1028">Command Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/interpreter" id="dhtml_menu-1029">Interpreter Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/iterator" id="dhtml_menu-1030">Iterator Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/mediator" id="dhtml_menu-1031">Mediator Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/memento" id="dhtml_menu-1032">Memento Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/null_object" id="dhtml_menu-1033">Null Object Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/observer" id="dhtml_menu-1034">Observer Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/state" id="dhtml_menu-1035">State Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/strategy" id="dhtml_menu-1036">Strategy Design Pattern</a></li>
+<li class="leaf  dhtml-menu "><a href="/design_patterns/template_method" id="dhtml_menu-1037">Template Method Design Pattern</a></li>
+<li class="leaf last dhtml-menu  active-trail"><a href="/design_patterns/visitor" id="dhtml_menu-1038">Visitor Design Pattern</a></li>
+</ul></li>
+</ul></div>
+</div>
+                  </div><!-- end content-secondary-->
+
+      <div class="footer">
+                  <div id="block-feedback-form" class="clear-block block block-feedback">
+
+  <div class="title"><span class="feedback-link">Feedback</span></div>
+
+  <div class="content"><form action="/design_patterns/visitor/java/2"  accept-charset="UTF-8" method="post" id="feedback-form" class="feedback-form">
+<div><input type="hidden" name="ajax" id="edit-ajax" value="0"  />
+<div class="feedback-help">If you experience a bug or would like to see an addition on the current page, feel free to leave us a message.</div><div class="form-item" id="edit-message-wrapper">
+ <label for="edit-message">Message: <span class="form-required" title="This field is required.">*</span></label>
+ <textarea cols="60" rows="5" name="message" id="edit-message"  class="form-textarea resizable required feedback-message"></textarea>
+</div>
+<div id="feedback-throbber"><input type="submit" name="op" id="feedback-submit" value="Send"  class="form-submit" />
+</div><input type="hidden" name="form_build_id" id="form-31b4c436bd71cc14657e316e1249517c" value="form-31b4c436bd71cc14657e316e1249517c"  />
+<input type="hidden" name="form_id" id="edit-feedback-form" value="feedback_form"  />
+
+</div></form>
+</div>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA5K0ecxf29CdGf0jCSGwwBhRUGqS5xr_iQ5HQbbZHAsPbj-uEiRRueIFQpz5QCsWnl3Em0Uafe8m_VA"></script>
+     <script type="text/javascript" src="/sites/all/modules/custom/search_utils.js"></script>              </div>
+
+    </div><!--end container-->
+  </div><!--end wrapper-->
+
+  <script type="text/javascript">if (typeof window.createCookie == 'function') { createCookie("was", "1"); }</script>
+  <script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+try{var pageTracker = _gat._getTracker("UA-521840-6");pageTracker._trackPageview();} catch(err) {}
+//--><!]]>
+</script>
+
+  </body>
+</html>

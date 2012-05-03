@@ -1,0 +1,945 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<style type="text/css">@import url( /templates/default/styles/style.css?1265272316020 );</style>
+<style type="text/css">@import url( /templates/default/styles/en_US.css?1265272316020 );</style>
+
+	<style type="text/css">@import url( /templates/default/styles/SyntaxHighlighter.css?1265272316020 );</style>
+
+<title>convert long to byte array and back (Java in General forum at JavaRanch)</title>
+
+<link rel="canonical" href="http://www.coderanch.com/t/378647/Java-General/java/convert-long-byte-array-back"/>
+<link rel="alternate" media="handheld" href="http://www.coderanch.com/mobile/t/378647/Java-General/java/convert-long-byte-array-back?foo=a">
+
+</head>
+<body class="en_US">
+
+<!--
+Original theme from phpBB (http://www.phpbb.com) subSilver
+Created by subBlue design
+http://www.subBlue.com
+
+Modifications by JForum Team
+-->
+    <div align="center" class="shngl">
+        <a rel="nofollow" href="/forums/banner/redirect/64" target="_blank"><img src="http://www.coderanch.com/shingles/trainbeaser.png"  border="0" alt="TrainBeaser for iPhone" width="468" height="60"/></a>
+    </div>
+
+<table width="100%" border="0">
+	<tr>
+		<td>
+			<table cellspacing="0" cellpadding="0" width="100%" border="0">
+				<tr>
+					<td align="center">
+						<a href="/forums/forums/list;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img src="/templates/default/images/moosefly.gif"  vspace="1" border="0" alt="[Logo]" title="" /></a>
+                    </td>
+                    <td class="logo" valign="center">
+                        A friendly place
+					    for Java greenhorns!
+
+                    </td>
+					 
+					<td width="100%" align="center" valign="middle">
+					        <span class="boardtitle"><a href="http://www.javaranch.com/">Java</a><a href="http://www.javaranch.com/">Ranch</a> &raquo; <a href="/forums/list;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">JavaRanch Saloon</a></span>
+						<table cellspacing="0" cellpadding="2" border="0">
+							<tr>
+								<td valign="top" nowrap="nowrap" align="center">&nbsp;
+									<a id="search" class="mainmenu" href="/forums/search/filters/1;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><b>Search</b></a>
+ 									| <a id="faq" class="mainmenu" href="http://faq.javaranch.com/"><b>FAQ</b></a>
+									| <a id="latest" class="mainmenu" href="/forums/recentTopics/list;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Recent Topics</a>
+									| <a id="hottest" class="mainmenu" href="/forums/hottestTopics/list;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Hot Topics</a>
+
+									<br>
+
+
+
+										<a id="register" class="mainmenu" href="/forums/user/insert;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Register</a> / </span>
+										<a id="login" class="mainmenu" href="/forums/user/login;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Login</a> </span>
+										<br>
+
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<!-- added to display announcements across JavaRanch -->
+										<br /><br />
+										<div class="announcementBar">Win a copy of <a href="http://www.amazon.com/gp/product/0071625097?tag=jranch-20">JavaServer Faces 2.0, The Complete Reference</a> this week in the <a href="http://www.coderanch.com/forums/f-82/JSF">JSF</a> forum!
+</div>
+									</td>
+								</tr>
+
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+
+                                            
+<script type="text/javascript" src="/templates/default/js/userLocalTime.js?1265272316020"></script>
+<script type="text/javascript" src="/templates/default/js/jquery.js?1265272316020"></script>
+<script type="text/javascript" src="/templates/default/js/jquery.jeditable.pack.js?1265272316020"></script>
+<script type="text/javascript" src="/templates/default/js/post_show.js?1265272316020"></script>
+<script type="text/javascript" src="/templates/default/js/post.js?1265272316020"></script>
+<script type="text/javascript" src="/templates/default/js/pagination.js?1265272316020"></script>
+<script type="text/javascript" src="/templates/default/js/wz_tooltip.js"></script>
+<script type="text/javascript" src="/templates/default/js/social.js"></script>
+
+
+<script type="text/javascript">
+function showEmail(beforeAt, afterAt)
+{
+	return beforeAt + "@" + afterAt;
+}
+
+function addBookmark(relationType, relationId)
+{
+	var w = window.open('/forums/bookmarks/insert/' + relationType + '/' + relationId + ';jsessionid=9BB0B9012E289D1EB2088B39CD630A0B', 'bookmark_add', 'width=700, height=200, scrollbars=auto, resizable=true');
+	w.focus();
+}
+
+
+	var watchImage = "/templates/default/images/en_US/watch_topic_start.gif";
+	var unwatchImage = "/templates/default/images/en_US/stop_watching.gif";
+	var watchURL = "/forums/posts/watch/0/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B";
+	var unwatchURL = "/forums/posts/unwatch/0/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B";
+	var unwatchHandler = function() { turnOn=false; toggleWatch(); return false; };
+	var watchHandler = function() { turnOn=true; toggleWatch(); return false; };
+	var turnOn;
+
+	function toggleWatch () {
+		$.ajax({
+			url: turnOn ? watchURL : unwatchURL,
+			type: 'POST', 
+			dataType: 'json', 
+			success: function (data) {   
+				//$("#messages").html(data.message); 
+				if (turnOn) {
+					$(".toggleWatchImage")[0].src = unwatchImage; 
+					$(".toggleWatchImage")[1].src = unwatchImage; 
+					$(".toggleWatchLink")[0].href = unwatchURL; 
+					$(".toggleWatchLink")[1].href = unwatchURL; 
+					$(".toggleWatchLink")[0].onclick = unwatchHandler;
+					$(".toggleWatchLink")[1].onclick = unwatchHandler;
+				} else {
+					$(".toggleWatchImage")[0].src = watchImage; 
+					$(".toggleWatchImage")[1].src = watchImage; 
+					$(".toggleWatchLink")[0].href = watchURL; 
+					$(".toggleWatchLink")[1].href = watchURL; 
+					$(".toggleWatchLink")[0].onclick = watchHandler;
+					$(".toggleWatchLink")[1].onclick = watchHandler;
+				}
+			}
+		}); 
+	}
+</script>
+
+
+<table cellspacing="0" cellpadding="10" width="97%" align="center" border="0">
+	<tr>
+		<td class="bodyline">
+
+<!-- google_ad_section_start -->                  
+<!--  NOTE - A MOBILE VERSION OF THIS PAGE EXISTS -->
+
+<table cellspacing="2" cellpadding="2" width="100%" border="0" class="threadbar">
+  <tr>
+    <td align="left" valign="middle">
+                <a href="/forums/posts/reply/0/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow" class="nav"><img alt="Reply" src="/templates/default/images/en_US/reply.gif" width="82px" height="25px" /></a>
+	    <a href="javascript:addBookmark(2, 378647);"><img src="/templates/default/images/en_US/bookmark_it.gif" alt='Bookmark it!' width="82" height="25" /></a>
+			<a class="toggleWatchLink"
+				href="/forums/forums/posts/watch/0/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"
+				onClick="turnOn=true; toggleWatch(); return false">
+		  <img class="toggleWatchImage"
+		  	src="/templates/default/images/en_US/watch_topic_start.gif"
+			alt="Watch this topic" width="82" height="25" /></a>
+		<span class="nav">
+			<a class="maintitle" href="http://www.javaranch.com/">Java</a><a class="maintitle" href="http://www.javaranch.com/">Ranch</a> &raquo;
+			<a class="maintitle" href="/forums/forums/list;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Forums</a> &raquo;
+			<a class="maintitle" href="/forums/c/1/java;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Java</a> &raquo;
+			<a class="maintitle" href="/forums/f-1/Java-General;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Java in General</a>
+		</span>
+    </td>
+
+    <td align="left" valign="middle">
+		<table border="0" cellpadding="0" cellspacing="0"><tr>
+			<td background="/templates/default/images/iconStart.gif">&nbsp;</td>
+					<td><div style="padding: 8px; background-image: url(/templates/default/images/iconTile.gif);"><a href="/forums/rss/topicPosts/378647"><img src="/templates/default/images/rss.png" border="0" alt="RSS feed" title="RSS feed"/></a></div></td>
+				<script>insertSocialBookmarkLinks(null,null,"/templates/default/images/");</script>
+			<td background="/templates/default/images/iconEnd.gif">&nbsp;</td>
+		</tr></table>
+    </td>
+
+    <td valign="middle" align="right">
+      
+    </td>
+
+    <td align="right">
+      <a href="/forums/jforum;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B?module=posts&amp;action=insert&amp;forum_id=1" rel="nofollow"><img alt="New topic" src="/templates/default/images/en_US/post.gif" width="82px" height="25px" />
+      </a>
+    </td>    
+  </tr>
+</table>
+                  
+			<table id="postTable" class="forumline" cellspacing="0" cellpadding="0" width="100%" border="0">
+                                <a name="1653679">
+				</a><tr>
+					<th class="author" nowrap="nowrap" width="18%">Author</th>
+					<th class="subject"><h1>convert long to byte array and back</h1></th>
+				</tr>
+                                </a>
+				<!-- POST LISTING --> 
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row1 userPostInfo" valign="top" align="left" rowspan="2">
+							<a name="1653679"></a>
+<span class="authorName"><b><a href="/forums/user/profile/113661;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">reinout korbee</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	Greenhorn
+	<br />
+
+<br /> 
+
+
+	Joined: Dec 17, 2005<br />
+	Messages: 2 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row1" valign="top">
+<div class="postinfo row1">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653679">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 17, 2005 20:29:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 17, 2005 13:29:00</span></noscript></span>                
+
+		<a href="/forums/pm/sendTo/113661;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img alt="private message" src="/templates/default/images/en_US/icon_pm.gif" width="59px" height="18px" /></a>
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653679;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row1 postbody" valign="top" id="post_text_1653679">
+							<span class="postbody">
+									I want to store a long in a byte array, transfer it over a network, then convert it back to a long. I do this:<br /> <textarea name="code" class="java" cols="60" rows="10">
+byte [] b = new byte[4];
+for(int i= 0; i &lt; 4; i++){
+   b[3 - i] = (byte)(l &gt;&gt;&gt; (i * 8));
+}
+</textarea><br /> and then back:<br /> <textarea name="code" class="java" cols="60" rows="10">
+for(int i =0; i &lt; 4; i++){    
+   l &lt;&lt;= 8;
+   l ^= (long)b[i] & 0xFF;    
+}
+</textarea><br /> But this only works for integers, even though I use longs or cast to longs. How is this possible? How do I get my long back?
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+
+					<tr>
+						<td class="spacerow row1" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row2 userPostInfo" valign="top" align="left" rowspan="2">
+							<a name="1653680"></a>
+<span class="authorName"><b><a href="/forums/user/profile/105469;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Scott Johnson</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	Ranch Hand
+	<br />
+
+<br /> 
+
+
+	Joined: Aug 24, 2005<br />
+	Messages: 518 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row2" valign="top">
+<div class="postinfo row2">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653680">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 18, 2005 01:48:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 17, 2005 18:48:00</span></noscript></span>                
+
+		<a href="/forums/pm/sendTo/105469;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img alt="private message" src="/templates/default/images/en_US/icon_pm.gif" width="59px" height="18px" /></a>
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653680;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row2 postbody" valign="top" id="post_text_1653680">
+							<span class="postbody">
+									In <a href="http://www.javaranch.com" class="faq" title="A Friendly Place for Java Greenhorns" target="_new">Java</a>, a long is 8 bytes not 4.
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+
+					<tr>
+						<td class="spacerow row2" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row1 userPostInfo" valign="top" align="left" rowspan="2">
+							<a name="1653681"></a>
+<span class="authorName"><b><a href="/forums/user/profile/53052;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Ken Blair</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	Ranch Hand
+	<br />
+
+<br /> 
+
+
+	Joined: Jul 15, 2003<br />
+	Messages: 1064 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row1" valign="top">
+<div class="postinfo row1">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653681">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 18, 2005 02:25:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 17, 2005 19:25:00</span></noscript></span>                
+
+		<a href="/forums/pm/sendTo/53052;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img alt="private message" src="/templates/default/images/en_US/icon_pm.gif" width="59px" height="18px" /></a>
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653681;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row1 postbody" valign="top" id="post_text_1653681">
+							<span class="postbody">
+									Why reinvent the wheel?  The wrapper classes such as <a href="http://java.sun.com/javase/6/docs/api/java/lang/Long.html" class="api" title="Java API" target="_new" rel="nofollow">java.lang.Long</a> provide a byteValue() method to get it as a byte and the <a href="http://java.sun.com/javase/6/docs/api/java/lang/Byte.html" class="api" title="Java API" target="_new" rel="nofollow">java.lang.Byte</a> wrapper provides longValue(), intValue(), etc. methods to convert back.  I've never had reason to use these so I apologize if it's a stupid suggestion.
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+
+					<tr>
+						<td class="spacerow row1" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row2 userPostInfo" valign="top" align="left" rowspan="2">
+							<a name="1653682"></a>
+<span class="authorName"><b><a href="/forums/user/profile/107317;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Maximilian Xavier Stocker</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	Ranch Hand
+	<br />
+
+<br /> 
+
+
+	Joined: Sep 20, 2005<br />
+	Messages: 381 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row2" valign="top">
+<div class="postinfo row2">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653682">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 18, 2005 03:07:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 17, 2005 20:07:00</span></noscript></span>                
+
+		<a href="/forums/pm/sendTo/107317;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img alt="private message" src="/templates/default/images/en_US/icon_pm.gif" width="59px" height="18px" /></a>
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653682;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row2 postbody" valign="top" id="post_text_1653682">
+							<span class="postbody">
+									<blockquote class="uncited">
+			<div>Originally posted by Ken Blair:<br /> Why reinvent the wheel?  The wrapper classes such as <a href="http://java.sun.com/javase/6/docs/api/java/lang/Long.html" class="api" title="Java API" target="_new" rel="nofollow">java.lang.Long</a> provide a byteValue() method to get it as a byte and the <a href="http://java.sun.com/javase/6/docs/api/java/lang/Byte.html" class="api" title="Java API" target="_new" rel="nofollow">java.lang.Byte</a> wrapper provides longValue(), intValue(), etc. methods to convert back.  I've never had reason to use these so I apologize if it's a stupid suggestion.</div>
+		</blockquote><br />  <br /> Those methods are of some use but not for this. From the API byteValue of Long <br />  <br /> "the numeric value represented by this object after conversion to type byte."<br />  <br /> The keyword there being conversion. So you are turning an 8 byte number into 1 byte number and as such losing 7 bytes worth of data.<br />  <br /> As the previous poster mentioned longs are 8 bytes not 4. A useful class to look at is <a href="http://java.sun.com/javase/6/docs/api/java/io/DataInputStream.html" class="api" title="Java API" target="_new" rel="nofollow">java.io.DataInputStream</a> which has methods for creating primitives from bytes.<br />  <br /> For example for readLong<br />  <br /> <textarea name="code" class="java" cols="60" rows="10">public final long readLong() throws IOException {
+InputStream in = this.in;
+return ((long)(readInt()) &lt;&lt; 32) + (readInt() & 0xFFFFFFFFL);
+}</textarea><br /> Which as you can see uses readInt which in turns reads each byte and does it's think with them.<br />  <br /> Anyway the <a href="http://java.sun.com/javase/6/docs/api/org/omg/CORBA/DataInputStream.html" class="api" title="Java API" target="_new" rel="nofollow">DataInputStream</a> and <a href="http://java.sun.com/javase/6/docs/api/org/omg/CORBA/DataOutputStream.html" class="api" title="Java API" target="_new" rel="nofollow">DataOutputStream</a> classes give you full working source for all the primitive conversions. But in fact you don't have to do it on your own at all.<br />  <br /> If you want to store primitives as bytes like that do this...<br />  <br /> <textarea name="code" class="java" cols="60" rows="10">ByteArrayOutputStream bos = new ByteArrayOutputStream();
+DataOutputStream dos = new DataOutputStream(bos);
+dos.writeLong(10L);
+dos.writeInt(-4);
+// etc.
+dos.flush();
+byte[] data = bos.toByteArray();</textarea><br />  <br /> and basically everything flipped to read it back in....<br />  <br /> <textarea name="code" class="java" cols="60" rows="10">ByteArrayInputStream bis = new ByteArrayInputStream(data);
+...</textarea>
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+
+					<tr>
+						<td class="spacerow row2" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row1 userPostInfo" valign="top" align="left" rowspan="3">
+							<a name="1653683"></a>
+<span class="authorName"><b><a href="/forums/user/profile/57677;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Tony Morris</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	Ranch Hand
+	<br />
+
+<br /> 
+
+
+	Joined: Sep 24, 2003<br />
+	Messages: 1608 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row1" valign="top">
+<div class="postinfo row1">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653683">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 18, 2005 04:36:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 17, 2005 21:36:00</span></noscript></span>                
+
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653683;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row1 postbody" valign="top" id="post_text_1653683">
+							<span class="postbody">
+									Use the java.nio buffers for this kind of data conversion.
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+						<tr>
+							<td colspan="2" class="row1" width="100%" height="28"><hr/><span class="userSignature"><a class="snap_shots" href="http://www.tmorris.net/" target="_new" rel="nofollow">Tony Morris</a>
+<br /><a class="snap_shots" href="http://jqa.tmorris.net/" target="_new" rel="nofollow">Java Q&A (FAQ, Trivia)</a></span></td>
+						</tr>
+
+					<tr>
+						<td class="spacerow row1" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row2 userPostInfo" valign="top" align="left" rowspan="2">
+							<a name="1653684"></a>
+<span class="authorName"><b><a href="/forums/user/profile/107317;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Maximilian Xavier Stocker</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	Ranch Hand
+	<br />
+
+<br /> 
+
+
+	Joined: Sep 20, 2005<br />
+	Messages: 381 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row2" valign="top">
+<div class="postinfo row2">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653684">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 18, 2005 04:43:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 17, 2005 21:43:00</span></noscript></span>                
+
+		<a href="/forums/pm/sendTo/107317;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img alt="private message" src="/templates/default/images/en_US/icon_pm.gif" width="59px" height="18px" /></a>
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653684;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row2 postbody" valign="top" id="post_text_1653684">
+							<span class="postbody">
+									<blockquote class="uncited">
+			<div>Originally posted by Tony Morris:<br /> Use the java.nio buffers for this kind of data conversion.</div>
+		</blockquote><br />  <br /> Why would that be better than using <a href="http://java.sun.com/javase/6/docs/api/java/io/DataInputStream.html" class="api" title="Java API" target="_new" rel="nofollow">java.io.DataInputStream</a> for this purpose?
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+
+					<tr>
+						<td class="spacerow row2" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row1 userPostInfo" valign="top" align="left" rowspan="2">
+							<a name="1653685"></a>
+<span class="authorName"><b><a href="/forums/user/profile/53052;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Ken Blair</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	Ranch Hand
+	<br />
+
+<br /> 
+
+
+	Joined: Jul 15, 2003<br />
+	Messages: 1064 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row1" valign="top">
+<div class="postinfo row1">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653685">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 18, 2005 04:44:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 17, 2005 21:44:00</span></noscript></span>                
+
+		<a href="/forums/pm/sendTo/53052;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img alt="private message" src="/templates/default/images/en_US/icon_pm.gif" width="59px" height="18px" /></a>
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653685;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row1 postbody" valign="top" id="post_text_1653685">
+							<span class="postbody">
+									I actually wondered how it could convert a long which is greater than one byte to a single byte, but I guess I assumed the lack of a toByteArray() or equivalent meant that it must be able to convert them somehow.
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+
+					<tr>
+						<td class="spacerow row1" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+
+					<tr class="firstRowOfPost">
+						<!-- Username -->
+
+
+						<td class="row2 userPostInfo" valign="top" align="left" rowspan="3">
+							<a name="1653686"></a>
+<span class="authorName"><b><a href="/forums/user/profile/290;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Jim Yingst</a></b></span>
+<br />
+
+
+<span class="gensmall">
+	wanderer
+	<br />
+	Sheriff
+	<br />
+
+<br /> 
+
+
+	Joined: Jan 30, 2000<br />
+	Messages: 18569 
+<br />
+
+	
+</span>
+<br />
+						</td>
+
+						<td colspan="2" class="row2" valign="top">
+<div class="postinfo row2">
+	<div class="date">
+		<a href="/forums/posts/list/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B#1653686">
+		<img src="/templates/default/images/icon_minipost_new.gif" alt="[Post New]" /></a><span class="postdetails">posted <script>"Dec 18, 2005 07:10:00".toLocaleDateTime();</script><noscript><span class="lastPostTime">Dec 18, 2005 00:10:00</span></noscript></span>                
+
+		<a href="/forums/pm/sendTo/290;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"><img alt="private message" src="/templates/default/images/en_US/icon_pm.gif" width="59px" height="18px" /></a>
+
+
+
+        </div>
+	<div class="action">		
+			<a href="/forums/posts/quote/0/1653686;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow"><img alt="Quote" src="/templates/default/images/en_US/icon_quote.gif" width="59" height="18px" /></a>
+
+
+
+		<a class="nav" href="#top"><img src="/templates/default/images/icon_up.gif" alt="[Up]" /></a>
+	</div>
+</div>
+						</td>
+					</tr>
+
+					<tr class="messageRow">
+
+						<!-- Message -->
+						<td class="row2 postbody" valign="top" id="post_text_1653686">
+							<span class="postbody">
+									<b>[Maximilian]: Why would that be better than using <a href="http://java.sun.com/javase/6/docs/api/java/io/DataInputStream.html" class="api" title="Java API" target="_new" rel="nofollow">java.io.DataInputStream</a> for this purpose?</b><br />  <br /> Generally using NIO <i>can</i> lead to significantly better performance.  Though in some cases there's no difference - and occasionally the performance is worse.  More to the point though, most people seem to find the NIO classes  harder to understand than the IO classes.   Especially for people new to NIO, or to IO for that matter.  If Reinout is currently using IO classes, the simplest solution will probably be to use a <a href="http://java.sun.com/javase/6/docs/api/org/omg/CORBA/DataOutputStream.html" class="api" title="Java API" target="_new" rel="nofollow">DataOutputStream</a>, sticking with IO classes.  But if the performance needs improvement, it may be helpful to replace most (or all) of the IO classes with NIO classes.
+							</span>
+
+							<!-- Attachments -->
+
+						</td>
+					</tr>
+
+						<tr>
+							<td colspan="2" class="row2" width="100%" height="28"><hr/><span class="userSignature">"I'm not back." - Bill Harding, <i>Twister</i></span></td>
+						</tr>
+
+					<tr>
+						<td class="spacerow row2" colspan="2" height="1"><img src="/templates/default/images/spacer.gif" alt="" width="1" height="1" /></td>
+					</tr>
+				<!-- END OF POST LISTING -->
+<!-- google_ad_section_end -->                  
+			 <tr>
+			   <td width="18%" bgcolor="#DEC7A4"><img src="/images/bunkhouse_smoke.gif"/></td>
+			   <td width="82%" align="left" valign="top"  bgcolor="#DEC7A4">
+				   &nbsp;<BR>
+					<div align="left" class="shngl">
+						<script type="text/javascript"><!--
+google_ad_client = "pub-4768842087373098";
+/* 125x125, created 11/23/09 */
+google_ad_slot = "1014833847";
+google_ad_width = 125;
+google_ad_height = 125;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-4768842087373098";
+/* 125x125, created 11/23/09 */
+google_ad_slot = "1014833847";
+google_ad_width = 125;
+google_ad_height = 125;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+					</div>
+				  &nbsp;<BR>
+				 </td>
+				</tr>
+  
+				<tr align="center">
+					<td class="catbottom" colspan="2" height="28">
+						<table cellspacing="0" cellpadding="0" border="0">
+							<tr>
+								<td align="center"><span class="gensmall">&nbsp;</span></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+<!--  NOTE - A MOBILE VERSION OF THIS PAGE EXISTS -->
+
+<table cellspacing="2" cellpadding="2" width="100%" border="0" class="threadbar">
+  <tr>
+    <td align="left" valign="middle">
+                <a href="/forums/posts/reply/0/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B" rel="nofollow" class="nav"><img alt="Reply" src="/templates/default/images/en_US/reply.gif" width="82px" height="25px" /></a>
+	    <a href="javascript:addBookmark(2, 378647);"><img src="/templates/default/images/en_US/bookmark_it.gif" alt='Bookmark it!' width="82" height="25" /></a>
+			<a class="toggleWatchLink"
+				href="/forums/forums/posts/watch/0/378647;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B"
+				onClick="turnOn=true; toggleWatch(); return false">
+		  <img class="toggleWatchImage"
+		  	src="/templates/default/images/en_US/watch_topic_start.gif"
+			alt="Watch this topic" width="82" height="25" /></a>
+		<span class="nav">
+			<a class="maintitle" href="http://www.javaranch.com/">Java</a><a class="maintitle" href="http://www.javaranch.com/">Ranch</a> &raquo;
+			<a class="maintitle" href="/forums/forums/list;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Forums</a> &raquo;
+			<a class="maintitle" href="/forums/c/1/java;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Java</a> &raquo;
+			<a class="maintitle" href="/forums/f-1/Java-General;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B">Java in General</a>
+		</span>
+    </td>
+
+    <td align="left" valign="middle">
+		<table border="0" cellpadding="0" cellspacing="0"><tr>
+			<td background="/templates/default/images/iconStart.gif">&nbsp;</td>
+					<td><div style="padding: 8px; background-image: url(/templates/default/images/iconTile.gif);"><a href="/forums/rss/topicPosts/378647"><img src="/templates/default/images/rss.png" border="0" alt="RSS feed" title="RSS feed"/></a></div></td>
+				<script>insertSocialBookmarkLinks(null,null,"/templates/default/images/");</script>
+			<td background="/templates/default/images/iconEnd.gif">&nbsp;</td>
+		</tr></table>
+    </td>
+
+    <td valign="middle" align="right">
+      
+    </td>
+
+    <td align="right">
+      <a href="/forums/jforum;jsessionid=9BB0B9012E289D1EB2088B39CD630A0B?module=posts&amp;action=insert&amp;forum_id=1" rel="nofollow"><img alt="New topic" src="/templates/default/images/en_US/post.gif" width="82px" height="25px" />
+      </a>
+    </td>    
+  </tr>
+</table>
+			<table width="100%" align="center">
+
+
+
+			</table>
+
+		</td>
+	</tr>
+</table>
+
+<a name="quick"></a>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	limitURLSize();
+});
+</script>
+
+		</td>
+	</tr>
+</table>
+<div class="gensmall center">
+<script>
+document.write("All times above are in your local time zone & format.");  
+document.write("The current ranch time (not your local time) is ");
+document.write("Feb 05, 2010 13:51:52".bold() + ".");
+</script><noscript>All times are in JavaRanch time: GMT-6 in summer, GMT-7 in winter</noscript> 
+</div>
+
+    <div align="center" class="shngl">
+        <a rel="nofollow" href="/forums/banner/redirect/138" target="_blank"><img src="http://www.coderanch.com/shingles/aspose.gif"  border="0" alt="aspose coverage" width="468" height="60"/></a>
+    </div>
+
+ <script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ?  "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+ <script type="text/javascript">
+	if (typeof _gat !== "undefined") {
+		var pageTracker = _gat._getTracker("UA-2371260-2");
+		pageTracker._trackPageview();
+
+		dt = new Date();
+		pageTracker._setVar("hour: " + dt.getHours());
+	}
+</script>
+
+<br />
+<div class="float-divider"></div>
+<div id="footer">
+ <div class="footerLinksDiv">
+  <a href="http://faq.javaranch.com/java/ContactUs">Contact Us</A> | Visit our <a href="http://www.javaranch.com/">Java</A> home page!
+  <br />
+  <span class="copyrightOwner">Copyright &copy; 1998-2010 <a href=http://faq.javaranch.com/java/BioPaulWheaton>Paul Wheaton</a></span>
+ </div>
+ <div class="copyrightDiv copyright">   
+	Powered by <a href="http://www.jforum.net/" target="_blank" rel="nofollow">JForum 2.1.8</a> &copy; <a href="http://www.jforum.net/team.jsp" rel="nofollow" target="_blank">JForum Team</a>
+ </div>
+</div>
+<div class="float-divider"></div>
+
+<!-- SyntaxHighlighter 1.5.1 -->
+<script type="text/javascript" src="/templates/default/js/shCore.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushCss.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushJava.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushCpp.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushJScript.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushPython.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushRuby.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushSql.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushXml.js"></script>
+<script type="text/javascript" src="/templates/default/js/shBrushPlain.js"></script>
+                                                
+<!--
+  Don't bother to download these!
+  <script type="text/javascript" src="/templates/default/js/shBrushCSharp.js"></script>
+  <script type="text/javascript" src="/templates/default/js/shBrushDelphi.js"></script>
+  <script type="text/javascript" src="/templates/default/js/shBrushPhp.js"></script>
+  <script type="text/javascript" src="/templates/default/js/shBrushVb.js"></script>
+-->
+
+<script type="text/javascript">
+<!--
+dp.sh.ClipboardSwf = '/templates/default/js/clipboard.swf';
+dp.sh.HighlightAll('code');
+-->
+</script>
+
+<!-- For adsense "Bleeder" ads. -->
+<div align="center" class="shngl">
+                <div style="font-size:x-small; background-color:#FAF7F1; height:125px; width:125px;">
+            trailboss links:<br><br>
+            <a href="http://www.permies.com/permaculture-forums">permaculture</a><br>
+            <a href="http://www.richsoil.com/diatomaceous-earth.jsp">diatomaceous earth</a><br>
+            <a href="http://www.richsoil.com/sepp-holzer/sepp-holzer-permaculture.jsp">Sepp Holzer</a><br>
+            <a href="http://www.richsoil.com/rocket-stove-mass-heater.jsp">rocket mass heater</a><br>
+            <a href="http://www.richsoil.com/chickens.jsp">raising chickens</a><br>
+            <a href="http://www.richsoil.com/cast-iron.jsp">cast iron</a><br>
+            <a href="http://www.richsoil.com/lawn-care.jsp">lawn care</a><br>
+            </div>
+
+</div>
+
+</body>
+</html>

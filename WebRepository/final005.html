@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Java theory and practice: Is that your final answer?</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="The final keyword is often misused -- it is overused when declaring classes and methods, and underused when declaring instance fields. This month, Java practitioner Brian Goetz explores some guidelines for the effective use of final."/>
+<meta name="Description" content="The final keyword is often misused -- it is overused when declaring classes and methods, and underused when declaring instance fields. This month, Java practitioner Brian Goetz explores some guidelines for the effective use of final."/>
+<meta name="Keywords" content="Brian Goetz Java Theory and Practice final field class method read-only read only immutable, tttjca"/>
+<meta name="DC.Date" scheme="iso8601" content="2002-10-01"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCJVAZZ" />
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2002"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2002-10-01"/>
+<meta name="title" content="Java theory and practice: Is that your final answer?"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Java theory and practice: Is that your final answer?</h1><p><em>Guidelines for the effective use of the final keyword</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Brian Goetz</a> (<a href="mailto:brian@quiotix.com?subject=Is that your final answer?">brian@quiotix.com</a>), Principal Consultant, Quiotix Corp</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print">Brian Goetz is a software consultant and has been a professional software developer for the past 15 years. He is a Principal Consultant at Quiotix, a software development and consulting firm located in Los Altos, California. See Brian's <a href="http://www.briangoetz.com/pubs.html">published and upcoming articles</a> in popular industry publications. 
+</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; The <code>final</code> keyword is often misused -- it is overused when declaring classes and methods, and underused when declaring instance fields.  This month, Java practitioner Brian Goetz explores some guidelines for the effective use of <code>final</code>.</p>
+<p class="ibm-no-print"><a href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=practice:">View more content in this series</a></p>
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 01 Oct  2002
+<br /><b>Level: </b>&nbsp;Intermediate
+
+<br /><b>Activity:</b>&nbsp; 15454 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>
+Like its cousin, the <code>const</code> keyword in C, <code>final</code> means several different things depending on the context. The <code>final</code> keyword can be applied to classes, methods, or fields.  When applied to a class, it means that the class cannot be subclassed.  When applied to a method, it means that the method cannot be overridden by a subclass. When applied to a field, it means that the field's value must be assigned <i>exactly</i> once in each constructor and can never change after that.
+</p>
+
+            <p>
+Most Java texts properly describe the usage and consequences of using the <code>final</code> keyword, but offer little in the way of guidance as to when, and how often, to use <code>final</code>.  In my experience, <code>final</code> is vastly overused for classes and methods (generally because developers mistakenly believe it will enhance performance), and underused where it will do the most good -- in declaring class instance variables.
+</p>
+            <p><a name="heading1"><span class="atitle">Why is this class final?</span></a></p>
+
+            <p>
+
+It is very common, especially in open source projects, for a developer to declare a class as <code>final</code>, but not give any indication as to why this decision was made.  Some time later, especially if the original developer is no longer involved in the maintenance of the code, other developers will invariably start asking
+"Why was class X declared <code>final</code>?"  Often, nobody knows, and when someone does know, or is willing to guess, the answer is almost always "because it makes it faster."  The common perception is that declaring classes or methods <code>final</code> makes it easier for the compiler to inline method calls, but this perception is incorrect (or at the very least, greatly overstated).
+</p>
+            <p>
+                <code>final</code> classes and methods can be a significant inconvenience when programming -- they limit your options for reusing existing code and extending the functionality of existing classes.  While sometimes a class is made <code>final</code> for a good reason, such as to enforce immutability, the benefits of using <code>final</code> should outweigh the inconvenience.  Performance enhancement is almost always a bad reason to compromise good object-oriented design
+principles, and when the performance enhancement is small or nonexistent, this is a bad trade-off indeed.
+</p>
+            <p><a name="heading2"><span class="smalltitle">Premature optimization</span></a></p>
+            <p>
+
+Declaring methods or classes as <code>final</code> in the early stages of a project for performance reasons is a bad idea for several reasons.  First, early stage design is the wrong time to think about cycle-counting performance optimizations, especially when such decisions can constrain your design the way using <code>final</code> can.  Second, the performance benefit gained by declaring a method or class as <code>final</code> is usually zero.  And declaring complicated, stateful classes as <code>final</code> discourages object-oriented design and leads to bloated, kitchen-sink classes because they cannot be easily refactored into smaller, more coherent classes.
+</p>
+
+            <p>
+Like many myths about Java performance, the erroneous belief that declaring classes or methods as <code>final</code> results in better performance is widely held but rarely examined.  The argument goes that declaring a method or class as <code>final</code> means that the compiler can inline method calls more aggressively, because it knows that at run time this is definitely the version of the method that's going to be called. But this is simply not true.  Just because class X is compiled against <code>final</code> class Y doesn't mean that the same version of class Y will be loaded at run time.  So the compiler cannot inline such cross-class method calls safely, <code>final</code> or not.  Only if
+a method is <code>private</code> can the compiler inline it freely, and in that case, the <code>final</code> keyword would be redundant.
+</p>
+
+            <p>
+On the other hand, the run-time environment and JIT compiler have more information about what classes are actually loaded, and can make much better optimization decisions than the compiler can.  If the run-time environment knows that no classes are loaded that extend Y, then it can safely inline calls to methods of Y, regardless of whether Y is <code>final</code> (as long as it can invalidate such JIT-compiled code if a subclass of Y is later loaded).  So the reality is that while <code>final</code> might be a useful hint to a dumb run-time optimizer that doesn't perform any global dependency analysis, its use doesn't actually enable very many compile-time optimizations, and is not needed by a smart JIT to perform run-time optimizations.
+</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="heading3"><span class="atitle">Deja vu -- The register keyword all over again</span></a></p>
+            <p>
+
+The use of <code>final</code> for optimization decisions is very similar to the deprecated <code>register</code> keyword in C.  The <code>register</code> keyword was motivated by the desire to let the programmer help the optimizer, but in reality this turned out not to be very helpful.  As much as we'd like to believe otherwise, compilers are generally better than humans at making code optimization decisions, especially on modern RISC processors.  In fact, most C compilers ignore the <code>register</code> keyword entirely.  Early C compilers ignored it because they did no optimization at all; present-day compilers ignore it because they can make better optimization decisions without it.  In either case, the <code>register</code> keyword adds little performance benefit, much like the <code>final</code> keyword when applied to Java classes or methods. If you want to optimize your code, stick to optimizations that will make a big difference, like using efficient algorithms and not
+performing redundant calculations -- and leave the cycle-counting optimizations to the compiler and JVM.
+</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="heading4"><span class="atitle">Use final to preserve immutability</span></a></p>
+
+            <p>
+
+While performance is not a good reason to declare a class or method as <code>final</code>, there are still good reasons to sometimes write <code>final</code> classes.  The most common is that <code>final</code> guarantees that classes intended to be immutable <i>stay</i> immutable.  Immutable classes are very useful for simplifying the design of object-oriented programs -- immutable objects require less defensive coding and offer relaxed synchronization requirements.  You wouldn't want to build the assumption into your code that a class is immutable and then have someone extend it in a way that makes it mutable.  Declaring immutable classes as <code>final</code> guarantees that errors of this type
+don't creep into your program.
+</p>
+            <p>
+Another reason to use <code>final</code> for classes or methods is to prevent linkages between methods from being broken.  For example, suppose that the implementation of some method of class X assumes that method M will behave in a certain way.  Declaring X or M as <code>final</code> will prevent derived classes from redefining M in such a way as to cause X to behave incorrectly.  While it might be better to implement X without these internal dependencies,
+it's not always practical, and using <code>final</code> prevents such incompatible modifications in the future.
+</p>
+            <p><a name="heading5"><span class="smalltitle">If you must use final classes or methods, document why</span></a></p>
+
+            <p>
+
+In any event, when you do choose to declare a method or class <code>final</code>, document the reasons why.
+Otherwise, future maintainers will likely be confused about whether there was a good reason (since there often isn't) and will be constrained by your decision without the benefit of your motivation. In many cases, it makes sense to defer the decision to declare a class or method as <code>final</code> until later in the development process, when you have better information about how your classes interact and might be extended. You may find you don't need to make the class <code>final</code> at all, or you might be able to refactor your classes so as to apply <code>final</code> to a smaller, simpler class.
+</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="heading6"><span class="atitle">Final fields</span></a></p>
+            <p>
+                <code>final</code> fields are so different from <code>final</code> classes or methods that it's almost unfair to make them share the same keyword.  A <code>final</code> field is a read-only field, whose value is guaranteed to be set exactly once at construction time (or at class initialization time for <code>static final</code> fields.)  As discussed earlier, with <code>final</code> classes and methods you should always ask yourself if you really <i>need</i> to use <code>final</code>.  With <code>final</code> fields, you should ask yourself the opposite question -- does this field really <i>need</i> to be mutable?  You might be surprised at how often the answer is no.
+</p>
+            <p><a name="heading7"><span class="smalltitle">Documentation value</span></a></p>
+            <p>
+                <code>final</code> fields have several benefits.  Declaring fields as <code>final</code> has valuable documentation benefits for developers who want to use or extend your class -- not only does it help explain how the class works, but it enlists the compiler's help in enforcing your design decisions.  Unlike with <code>final</code> methods, declaring a <code>final</code> field helps the optimizer make better optimization decisions, because if the compiler knows the field's value will not change, it can safely cache the value in a register.  <code>final</code> fields also provide an extra level of safety by having the compiler enforce
+that a field is read-only.
+</p>
+            <p>
+In the extreme case, a class whose fields are all <code>final</code> primitives or <code>final</code> references to immutable objects, the class becomes immutable itself -- a very convenient situation indeed.  Even if the class is not wholly immutable, making certain portions of its state immutable can greatly simplify development -- you don't have to synchronize to guarantee that you are seeing the current value of a <code>final</code> field or to ensure that no one else is changing that portion of the object's state.
+</p>
+            <p>
+So why are <code>final</code> fields so underused? One reason is because they can be a bit cumbersome to use correctly, especially for object references whose constructors can throw exceptions.  Because a <code>final</code> field must be initialized exactly once in every constructor, if the construction of a <code>final</code> object reference may throw an exception, the compiler may complain that the field might not be initialized.  The compiler is generally smart enough to realize that initialization in each of two
+exclusive code branches, such as in an <code>if...else</code> block, constitutes exactly one initialization, but is often less forgiving with <code>try...catch</code> blocks.  For example, most Java compilers won't accept the code in Listing 1:
+</p>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+public class Foo { 
+  private final Thingie thingie;
+
+  public Foo() {
+    try { 
+      thingie = new Thingie();
+    }
+    catch (ThingieConstructionException e) {
+      thingie = Thingie.getDefaultThingie();
+    }
+  }
+}
+</pre></td></tr></table><br />
+            <p>
+But they would accept the code in Listing 2, which is equivalent:
+</p>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+public class Foo { 
+  private final Thingie thingie;
+
+  public Foo() {
+    Thingie tempThingie;
+    try { 
+      tempThingie = new Thingie();
+    }
+    catch (ThingieConstructionException e) {
+      tempThingie = Thingie.getDefaultThingie();
+    }
+    thingie = tempThingie;
+  }
+}
+</pre></td></tr></table><br />
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="limitations"><span class="atitle">Limitations of final fields</span></a></p>
+            <p>
+                <code>final</code> fields still have some serious limitations.  While an array reference can be declared as <code>final</code>, the elements of the array cannot.  This means that classes that expose <code>public final</code> array fields or return references to those fields through their methods such as the <code>DangerousStates</code> class shown in Listing 3, are not immutable. Similarly, while an object reference may be declared as a <code>final</code> field, the object to which it refers may still be mutable. If you wish to create immutable objects using <code>final</code> fields, you must prevent references to arrays or mutable objects from escaping from your class.  One easy way to do this without cloning the array repeatedly is to turn arrays into <code>List</code>s, such as in the <code>SafeStates</code> class shown in Listing 3.
+</p>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+// Not immutable -- the states array could be modified by a malicious 
+caller
+public class DangerousStates {
+  private final String[] states = new String[] { "Alabama", "Alaska", ... };
+
+  public String[] getStates() { 
+    return states;
+  }
+}
+
+
+// Immutable -- returns an unmodifiable List instead
+public class SafeStates {
+  private final String[] states = new String[] { "Alabama", "Alaska", ... };
+  private final List statesAsList 
+    = new AbstractList() {
+        public Object get(int n) { 
+          return states[n];
+        }
+
+        public int size() {
+          return states.length;
+        }
+      };
+        
+  public List getStates() {
+    return statesAsList;
+  }
+}
+</pre></td></tr></table><br />
+            <p>
+Why was <code>final</code> not extended to apply to arrays and referenced objects, similar to the use of <code>const</code> in C and C++?  The semantics and use of <code>const</code> in C++ are quite confusing, meaning different things depending on where in the expression it appears.  The Java architects were trying to save us from this confusion, but unfortunately they created some new confusion in the process.
+</p>
+            <div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="final"><span class="atitle">Some final words</span></a></p>
+
+            <p>
+
+There are a few basic guidelines you can follow to use <code>final</code> effectively with classes, methods,
+and fields.  In particular, don't try to use <code>final</code> as a performance management tool; there are
+much better, less constraining ways to enhance your program's performance.  Use <code>final</code> where it reflects the fundamental semantics of your program: to indicate that classes are intended to be immutable or that fields are intended to be read-only.  If you choose to create <code>final</code> classes or methods, make sure you clearly document why you did -- your colleagues will thank you.
+</p>
+        <!-- CMA ID: 10720 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br />
+<p><a name="resources"><span class="atitle">Resources</span></a></p>
+            <ul><li>Josh Bloch's <a href="http://www.amazon.com/exec/obidos/ASIN/0201310058/none0b69/104-1464220-8871162">
+                        <i>Effective Java Programming Language Guide</i>
+                    </a> contains a wealth of useful hints and guidelines for writing better code.<br />
+                    <br />
+                <br /><br /></li><li>Jack Shirazi's Java Performance Tuning Web site has a wealth of performance tuning tips, including <a href="http://www.javaperformancetuning.com/tips/final.shtml">tips related to the use of <code>final</code>
+
+                    </a>. <i>Caveat emptor</i>: Many of the older tips give incorrect advice about the performance implications of <code>final</code>.<br />
+                    <br />
+                <br /><br /></li><li>Renaud Waldura offers some situations in which <code>final</code> is useful in "<a href="http://renaud.waldura.com/doc/java/final-keyword.shtml">The Final Word on the final keyword.</a>"<br />
+                    <br />
+                <br /><br /></li><li>The EarthWeb code guru offers some <a href="http://www.codeguru.com/java/tij/tij0071.shtml">meditations on 
+<code>final</code>
+                    </a>.<br />
+                    <br />
+                <br /><br /></li><li>The semantics of <code>final</code> fields will change somewhat (to provide stronger initialization safety guarantees) when <a href="http://jcp.org/jsr/detail/133.jsp">JSR 133</a> is implemented.<br />
+                    <br />
+                <br /><br /></li><li>Find hundreds of Java technology-related resources at the <i>developerWorks</i>
+                    <a href="http://www.ibm.com/developerworks/java/">Java technology zone</a>.<br /><br /></li></ul>
+<p><a name="author"><span class="atitle">About the author</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><p><a name="author1"></a>Brian Goetz is a software consultant and has been a professional software developer for the past 15 years. He is a Principal Consultant at Quiotix, a software development and consulting firm located in Los Altos, California. See Brian's <a href="http://www.briangoetz.com/pubs.html">published and upcoming articles</a> in popular industry publications. 
+</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java technology</div><div class="metavalue">ArticleID=10720</div><div class="metavalue">ArticleTitle=Java theory and practice: Is that your final answer?</div><div class="metavalue">publish-date=10012002</div><div class="metavalue">author1-email=brian@quiotix.com</div><div class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#heading1">Why is this class final?</a></li><li><a class="ibm-feature-link" href="#heading3">The register keyword all over again</a></li><li><a class="ibm-feature-link" href="#heading4">Use final to preserve immutability</a></li><li><a class="ibm-feature-link" href="#heading6">Final fields</a></li><li><a class="ibm-feature-link" href="#limitations">Limitations of final fields</a></li><li><a class="ibm-feature-link" href="#final">Some final words</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the author</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/spot-nextsteps.jpg"/><p>Spring, JRuby, and Ajax development is easier with WebSphere Application Server - a smart Java 5 and J2EE Web services-based application server.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/ws/wasce/learn.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Try: The no-charge WebSphere Application Server Community Edition is a pre-integrated, lightweight Java 5 application server built on Apache Tomcat and other best-of-breed open source software such as OpenEJB, Apache Axis, and Apache Derby.</a></li><li><a href="http://www.ibm.com/developerworks/websphere/library/techarticles/0810_asplund/0810_asplund.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: The article leverage the Spring Framework and the WebSphere Application Server to improve your J2EE project productivity.</a></li><li><a href="http://www.ibm.com/developerworks/edu/x-dw-x-jrorajax.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Tutorial: See how the free WebSphere Application Server and XML can improve the efficiency of your JRuby on Rails and Ajax development.</a></li><li><a href="http://www.ibm.com/software/dre/h2b/buildh2bpage.wss?synkey=G394201N28809H35&amp;S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: WebSphere Application Server - Express</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Java on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/java/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/java/newto/" class="ibm-forward-link">New to Java programming</a></li><li><a href="http://www.ibm.com/developerworks/views/java/downloads.jsp" class="ibm-forward-link">Downloads and products</a></li><li><a href="http://www.ibm.com/developerworks/views/java/projects.jsp" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/views/java/standards.jsp" class="ibm-forward-link">Standards</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/java/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/views/java/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY02&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/websphere/zones/was/security/?S_CMP=TILE&amp;ca=dti-tilewassecurity&amp;ca=dth-w"><img src="//www.ibm.com/developerworks/i/tile_v16_secure.gif" width="158" height="50" border="0" alt="Securing WebSphere Application Server environments" /></a></p><p class="dw-special-offers"><a href="http://www-01.ibm.com/software/data/cognos/products/cognos-express/demo.html?S_CMP=TILE&amp;ca=dti-tilecognosexpdemos&amp;ca=dth-i"><img src="//www.ibm.com/developerworks/i/tile_v16_express.gif" width="158" height="50" border="0" alt="Cognos Express online demos" /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/downloads/soasandbox/reuse/index.html?S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tilesoawaseclipse&amp;ca=dth-soa"><img src="//www.ibm.com/developerworks/i/tile_v16_sandboxeclipse.gif" width="158" height="50" border="0" alt="SOA Sandbox for WAS CE and Eclipse" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '10720';
+			contentAreas = 'java';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[16],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

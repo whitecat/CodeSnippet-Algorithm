@@ -1,0 +1,1109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script type="text/javascript">
+  // <![CDATA[
+  var eeTimerStart = new Date().getTime();
+  var eeTimerCnt = 0;
+  var eeAdsLoaded = 0;
+  var ourMs = 0;
+  var adMs = 0;
+  
+  function eeEncode(str)
+  {
+     str = escape(str);
+     str = str.replace('+', '%2B');
+     str = str.replace('%20', '+');
+     str = str.replace('*', '%2A');
+     str = str.replace('/', '%2F');
+     str = str.replace('@', '%40');
+     return str;
+  }
+  
+  function endEETimer()
+  {
+      if (++eeTimerCnt == 4) {
+         ourMs = (new Date().getTime() - eeTimerStart);
+         eeTimerStart = new Date().getTime();
+      
+      } 
+      if (eeTimerCnt == 5 && eeAdsLoaded == 1) {
+         adMs = (new Date().getTime() - eeTimerStart);
+         eeTimerStart = new Date().getTime();
+      }
+      if (eeTimerCnt == 6) {
+         var omnitureMs = (new Date().getTime() - eeTimerStart);
+         var img = document.createElement("img");
+         img.src="/pageLoaded.jsp?url=" + eeEncode(document.location.href) + 
+                 "&isNew=1" +
+                 "&adMs=" + adMs + "&ourMs=" + ourMs + "&omnitureMs=" + omnitureMs + 
+                 "&isSecure=0" + 
+                 "&isExpertSkin=0" + 
+                 "&isVS=1" + 
+                 "&isUsingOptVS1=0" + 
+                 "&isUsingCDN=0" +
+                 "&isUsingEELevel3CDN=1" +
+                 "&isUsingEEDigitalWestCDN=0" +
+                 "&isConsolidatedCSS=1"; 
+         
+
+         document.body.appendChild(img)
+ 
+
+      }
+  }
+ 
+  // ]]>
+  </script>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="canonical" href="http://www.experts-exchange.com/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html" /><link rel="shortcut icon" href="/images/ee.ico" type="image/x-icon" />
+
+<style type="text/css">@import "http://images.experts-exchange.com/getCSS?key=/ee_NS|--base,xp--base,--component,xp--component,--formFactory,xp--formFactory,xp--button,xp-include-infoBox&t=1265310600000";</style>
+<style type="text/css">@import "http://images.experts-exchange.com/getCSS?key=/ee_NS|xp-jsp-viewQuestion,-include-customEEple,xp-include-customEEple,-include-suggestedResults,xp-include-zoneHeader,-include-question,xp-include-question,-include-collapsibleList2,xp-include-collapsibleList2,xp-include-allZones,xp-include-rootTAHeader,-include-questionList,xp-include-questionList,xp-include-ranks,-include-zoneAd2,-include-eeAd,xp-include-outsideBookmarks,xp-include-codeSnippet,-include-fileUpload,xp-include-fileUpload,xp-include-addSnippet,-include-addAttachments,xp-include-addAttachments,-include-richtext,xp-include-zoneTAHeader,xp-include-questionScore,xp-include-actionBox,xp-include-viewQuestionPage20,xp-include-questionStats,xp-include-viewQuestionPage32,xp-include-viewQuestionPage92,xp-include-viewQuestionPage103,-include-remoteAssistanceDisclaimer,xp-include-remoteAssistanceDisclaimer,-include-createFilterOverlay,xp-include-createFilterOverlay,xp-include-searchConvMessageAds,-include-mobileAdOverlay&t=1265310601000";</style>
+<script src="http://images.experts-exchange.com/scripts/eeSubs_4c04a32a5008337bc2f026b5198d5882.js" type="text/javascript"></script>
+  <script src="http://images.experts-exchange.com/scripts/translationOptions_a68cdae2b8b8d6456dc55afdb130e251.js" type="text/javascript"></script>
+<title>What is the size of INT in java? : java, int, size</title>
+<meta name="description" content="If i have an int counter that counts the number of rows retrieved from an SQL query... would it be ok if the counter is an int if the maximum number of rows is 500,000? What is the size of 'int'..." />
+<meta name="keywords" content="java, int, size, Sun Java System Web Server, Java Programming Language, New to Java Programming" />
+<script src="http://images.experts-exchange.com/scripts/s_code_bc873925a5d35e2bf96b4ae5f5cc3c8f.js" type="text/javascript"></script> </head>
+<body style="height: 100%;" class="" >
+
+ <div id="minWidth"></div>
+<div class="ontopBanner" id="navTopBanner">
+  <div id="headerAdvertisementDivNoJump">
+<div id="headerAdvertisementDiv">
+  <script type="text/javascript">
+    document.write('<p>loading advertisement ...</p>');
+  </script>
+  </div>
+</div>
+</div>
+<div class="outerBodyWrap viewQuestionJSP">
+  <div class="bodyWrap">
+  <div id="outerWrap">
+   <div id="innerWrap" class="innerWrap">
+   <div id="pageHeader" class="lo">
+        <!-- top options -->
+        <ul class="navTopOptions">
+  <li class="navTopOptButton">
+    <span class="ntoR">
+      <a href="https://secure.unicefusa.org/site/Donation2?df_id=6680&6680.donation=form1" style="color: red;" target="new">
+        DONATE TO HAITI
+      </a>
+    </span>
+  </li>
+  <li class="navTopOptButton">
+    <span class="ntoR">
+      <a href="https://secure.experts-exchange.com/register.jsp?rsid=60&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html">
+        Start FREE Trial</a>
+    </span>
+  </li>
+  <li class="navTopOptButton">
+    <span class="ntoR">
+      <a href="/whyItWorks.jsp">
+        Why It Works</a>
+    </span>
+  </li>
+  <li class="navTopOptButton" id="navLoginLink">
+    <span class="ntoR">
+      <a href="javascript:toggleLoginBox();" rel="nofollow noindex">Member Login</a>
+    </span>
+  </li>
+</ul>
+<div id="loginPopup">
+<form method="post" action="/login.jsp" onsubmit="return submitOnce();" name="loginPopupForm">
+  <input type="hidden" name="msuLoginSubmit" value="1" />
+  <div><label for="lpumsuLoginName">Username or Email:</label></div>
+  <div><input type="text" id="lpumsuLoginName" name="msuLoginName" value="" class="text" tabindex="1" /></div>
+  <div><label for="lpumsuPassword">Password:</label><a href="/forgotPassword.jsp" rel="nofollow" style="margin-left: 48px; text-decoration: none;">Forgot your password?</a></div>
+  <div><input type="password" id="lpumsuPassword" name="msuPassword" value="" class="text" tabindex="2"  /></div>
+  <div class="rMeBox">
+    <div class="rMeInput">
+      <label for="lpumsuRememberMe">Remember Me</label>
+      <input type="checkbox" id="lpumsuRememberMe" name="msuRememberMe" class="checkbox" tabindex="3" />
+    </div>
+    <div class="rMeShared">Do not use on any shared computer</div>
+  </div>
+  <div class="clear"></div>
+  <div class="nvpButtons">
+   <input type="hidden" name="redirectURL" value="/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html" />
+<div class="nvCancel"><a href="javascript:toggleLoginBox();" tabindex="5">Cancel</a></div>
+   <button type="submit" class="lpbSubmit" tabIndex="4">Login</button>
+   <div class="clear"></div>
+  </div>
+</form>
+</div>
+<script type="text/javascript">
+var loginVisible = false;
+
+function toggleLoginBox()
+{
+   var loginLink = document.getElementById("navLoginLink");
+   var loginBox = document.getElementById("loginPopup");
+   
+   if (loginVisible)
+   {
+      closeLoginPopup();
+      loginLink.className = "navTopOptButton";
+      loginVisible = false;
+   }
+   else
+   {
+      showLoginPopup(loginLink);
+      loginLink.className = "navTopOptButtonL";
+      loginVisible = true;
+      document.getElementById('lpumsuLoginName').focus();
+   }    
+}
+</script><div id="compPgHrLo"><a href="/"  style="background-image:url(/xp/images/newNavLogo.png);">Experts Exchange</a></div>
+<div class="clear"></div><div id="compPgHrNav"><ul class="ulloggedOut">
+<li class="compPgHrNavAsk"><a href="/newQuestionWizard.jsp">Ask</a></li>
+<li class="compPgHrNavSol"><a href="/solutions.jsp">Solutions</a></li>
+<li class="compPgHrNavArt"><a href="/articles/">Articles</a></li>
+<li class="compPgHrNavT"><a href="/testimonials.jsp">Testimonials</a></li>
+<li class="compPgHrNavHlp"><a href="/help.jsp"><span>Help</span></a></li>
+</ul>
+<div class="clearLeft"></div>
+<div id="compPgHrSrch" class="LO">
+     <form class="formFactory" action="/simpleSearch.jsp" method="get" id="topSearchbox" onsubmit="postAsycOmnitureGoogleSearch('gSearch_1');">
+<div id="srchToggleLabel">Google</div>
+       <a href="javascript:void();" onClick="toggleSearchType(document.getElementById('topSearchbox')); return false;" id="srchToggleButton">A</a>
+       <input type="hidden" name="gSearch" value="1" id="gSearch_1" />
+<input type="hidden" name="sfFreshSearch" value="1" />
+       <input type="hidden" name="omnitureSearchType" value="Google Search" />
+       <input type="hidden" name="cid" value="315" />
+       <input type="hidden" name="redirectURL" value="/" />
+       <input type="text" name="q" value="Enter Your Search Terms" class="textInput" id="gsearchBox" onfocus="clearSearchBoxRecolor(gsearchBox, 'Enter Your Search Terms', '#667B8A');" />
+<input type="submit" class="tsSubmit" value="1" name="searchSubmit" />
+</form>
+</div>
+ <div class="clear"></div>
+</div>
+<div id="compZnNav"><ul>
+<li class="first" id="znBrowseAll"><a href="/allTopics.jsp">Browse All</a></li>
+<li id="znMicroSoft"><a href="/Microsoft/" onClick="createNavMenu(this, 14466); return false;">Microsoft</a></li>
+<li id="znApple"><a href="/Apple/" onClick="createNavMenu(this, 14554); return false;">Apple</a></li>
+<li id="znDigiLiv"><a href="/Digital_Living/" onClick="createNavMenu(this, 14718); return false;">Digital Living</a></li>
+<li id="znHardware"><a href="/Hardware/" onClick="createNavMenu(this, 15284); return false;">Hardware</a></li>
+<li class="znC" id="znSoftware"><a href="/Software/" onClick="createNavMenu(this, 12771); return false;">Software</a></li>
+<li id="znOs"><a href="/OS/" onClick="createNavMenu(this, 14725); return false;">OS</a></li>
+<li id="znStorage"><a href="/Storage/" onClick="createNavMenu(this, 14724); return false;">Storage</a></li>
+<li id="znDatabase"><a href="/Database/" onClick="createNavMenu(this, 14726); return false;">Database</a></li>
+<li id="znSecurity"><a href="/Security/" onClick="createNavMenu(this, 14727); return false;">Security</a></li>
+<li id="znProg"><a href="/Programming/" onClick="createNavMenu(this, 15287); return false;">Programming</a></li>
+<li id="znWebDev"><a href="/Web_Development/" onClick="createNavMenu(this, 14728); return false;">Web Development</a></li>
+<li id="znNetwork"><a href="/Networking/" onClick="createNavMenu(this, 15285); return false;">Networking</a></li>
+<li id="znOther"><a href="/Other/" onClick="createNavMenu(this, 15286); return false;">Other</a></li>
+</ul><div class="clear"></div></div>
+<div id="navMenuViewport" class="navMenuViewport" onMouseOut="setHidNavMenu();" onMouseOver="zoneNavSlideMenu.dontHide();"><div id="navMenuSlider" class="navMenuSlider"></div></div>
+<script type="text/JavaScript">
+var zoneNavSlideMenu = null;
+var currNavA = null;
+function createNavMenu(obj, zoneID)
+{
+   if (zoneNavSlideMenu &&
+       zoneNavSlideMenu.menuLevels[0] != zoneID)
+   {
+      zoneNavSlideMenu.destroy();
+      currNavA.className = "";
+      zoneNavSlideMenu = null;
+   }
+   
+   if (zoneNavSlideMenu == null)
+   {
+      zoneNavSlideMenu = new slidingMenuObject('navMenuViewport', 'navMenuSlider', 'zoneNavSlideMenu', 200, 20, zoneID, '/shared/async/navigationMenu.jsp?menuName=', 'N');
+      zoneNavSlideMenu.anchorObj = obj;
+   }
+   zoneNavSlideMenu.show(obj, true);
+   obj.className = "znM";
+   currNavA = obj;
+}
+
+function setHidNavMenu()
+{
+   zoneNavSlideMenu.delayHide(currNavA);
+}
+</script></div>
+<div class="bodyContentWrap" id="bodyContentWrap">
+
+   
+
+<div id="breadCrumb">
+         <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/Software/">Software</a></li>
+<li><a href="/Software/Server_Software/">Server Software</a></li>
+<li><a href="/Software/Server_Software/Web_Servers/">Web Servers</a></li>
+<li><a href="/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/">Sun Java System Web Server</a></li>
+<li class="currentPage">What is the size of INT in java?</li>
+</ul>
+</div>
+<div id="pageRight"><div id="compSignUpNowVQP81"><a href="https://secure.experts-exchange.com/register.jsp?rsid=130&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html&cid=1981" rel="nofollow">Sign Up Now</a></div>
+<div class="c cnh aboutEE" id="aboutEE" >
+<table class="h"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+<div class="bc"><div class="b">
+<div id="meetAnExpert" >
+      <ul id="maeList" >
+         <li id="maeEntry0"></li>
+         <li id="maeEntry1" class="maeEntries">
+            <div>
+               <a href="/M_388333.html" onclick="stopSlideshow();"></a>
+            </div>
+         </li>
+         <li id="maeEntry2" class="maeEntries"></li>
+         <li id="maeEntry3" class="maeEntries">
+            <div>
+               <a href="/M_302115.html" onclick="stopSlideshow();"></a>
+            </div>
+         </li>
+         <li id="maeEntry4" class="maeEntries"></li>
+         <li id="maeEntry5" class="maeEntries">
+            <div>
+               <a href="/M_152751.html" onclick="stopSlideshow();"></a>
+            </div>
+         </li>
+         <li id="maeEntry6" class="maeEntries"></li>
+         <li id="maeEntry7" class="maeEntries">
+            <div>
+               <a href="/M_3693836.html" onclick="stopSlideshow();"></a>
+            </div>
+         </li>
+         <li id="maeEntry8" class="maeEntries"></li>
+         <li id="maeEntry9" class="maeEntries">
+            <div>
+               <a href="/M_1508232.html" onclick="stopSlideshow();"></a>
+            </div>
+         </li>
+         <li id="maeEntry10" class="maeEntries"></li>
+         <li id="maeEntry11" class="maeEntries"></li>
+         <li id="maeEntry12" class="maeEntries"></li>
+      </ul>
+   </div>
+   <div class="meetAnExpertNav">
+      <a id="aeeNextInfo" class="aboutEEComponent" onclick="doNothing()" rel="nofollow"></a>
+      <a id="aeePrevInfo" class="aboutEEComponent" onclick="doNothing()" rel="nofollow"></a>
+   </div>
+   <div class="clear"></div>
+   <div id="aeeCorps" >
+      <ul id="corpClients">
+         <li id="client0"></li>
+         <li id="client1" class="ccEntries"></li>
+         <li id="client2" class="ccEntries"></li>
+         <li id="client3" class="ccEntries"></li>
+         <li id="client4" class="ccEntries"></li>
+      </ul>
+   </div>
+   <div class="aeeCorpsNav">
+      <a id="aeeNextCorp" onclick="doNothing()" class="aboutEEComponent " rel="nofollow"></a>
+      <a id="aeePrevCorp" onclick="doNothing()" class="aboutEEComponent " rel="nofollow"></a>
+   </div>
+   <div class="clear"></div>
+</div></div>
+<table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+</div>
+<script src="http://images.experts-exchange.com/scripts/slideshow.js" type="text/javascript"></script>
+  <script type="text/javascript">
+   var transitionTime = 1000 ;
+   var levelInc = 0.01
+  
+
+   expertSlideShow = new slideShow;
+   expertSlideShow.buildSlideshow("maeList", "aeePrevInfo", "aeeNextInfo", 
+         { transition: transitionTime, wait: 10000 });
+   
+   var adSlideShow = new slideShow;
+   window.setTimeout(function() { adSlideShow.buildSlideshow("corpClients", "aeePrevCorp", "aeeNextCorp", 
+         { levelIncrement: levelInc, transition: transitionTime, wait: 10000 }); }, 5000);
+
+   function doNothing()
+   {
+   }
+   
+   function stopSlideshow()
+   {
+      expertSlideShow.stopSlideshow();
+   };
+
+  </script>
+<div id="compNwQst">
+   <div class="signUpCorp">
+      <div class="bTypeA bGlowLarge bGlowLargeBlue"><a class="bTextCorporateAccounts" href="/subscribeCorporateAccount.jsp?cid=665"><div class="glowLeft"></div><div class="glowMiddle" style="padding-left: 23px; padding-right: 24px;"><div class="t2i" style="background: url(http://t2i.experts-exchange.com/t/421784-50.png) no-repeat;width:132px;height:18px;"></div></div><div class="glowRight"></div></a></div></div>
+</div>
+
+<div class="c cnh" id="compSky" >
+<table class="h"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+<div class="bc"><div class="b">
+<p>Advertisement</p>
+<div id="componentSkyScraperAdDiv"></div></div></div>
+<table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+</div>
+<div class="c cbk compTEVQP92" id="compTE" >
+<table class="h"><tr><td class="l"></td><td>Hall of Fame</td><td class="r"></td></tr></table>
+<div class="bc"><div class="b">
+<div class="timeframe yearly">
+    <div class="t2i" style="background: url(http://images.experts-exchange.com/t/67-50.png) no-repeat;width:29px;height:12px;"></div></div>
+<ol>
+<li><div class="summary"><span class="name lo">1. gurvinder...</span><span class="rank ">6,600</span></div></li>
+<li><div class="summary"><span class="name lo">2. mwvisa1</span><span class="rank ">2,100</span></div></li>
+<li><div class="summary"><span class="name lo">3. rrz@87...</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">3. objects</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">3. elf_bin</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">3. woolmilkp...</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">3. smwolke</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">3. Paranorm...</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">3. paulsolov</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">3. JonasLedel</span><span class="rank ">2,000</span></div></li>
+<li><div class="summary"><span class="name lo">11. Jan-Martijn</span><span class="rank ">1,500</span></div></li>
+<li><div class="summary"><span class="name lo">12. ioanton</span><span class="rank ">1,332</span></div></li>
+<li><div class="summary"><span class="name lo">13. jwhite1</span><span class="rank ">1,250</span></div></li>
+<li><div class="summary"><span class="name lo">14. sompol_k...</span><span class="rank ">1,000</span></div></li>
+<li><div class="summary"><span class="name lo">14. arevuri</span><span class="rank ">1,000</span></div></li>
+<li><div class="summary"><span class="name lo">14. technicas...</span><span class="rank ">1,000</span></div></li>
+<li><div class="summary"><span class="name lo">14. Lazycoder</span><span class="rank ">1,000</span></div></li>
+<li><div class="summary"><span class="name lo">14. kiran6014</span><span class="rank ">1,000</span></div></li>
+<li><div class="summary"><span class="name lo">19. alanpeter...</span><span class="rank ">668</span></div></li>
+<li><div class="summary"><span class="name lo">20. afibarra</span><span class="rank ">500</span></div></li>
+</ol>
+<div class="timeframe overall">
+    <div class="t2i" style="background: url(http://images.experts-exchange.com/t/65-50.png) no-repeat;width:34px;height:12px;"></div></div>
+<ol>
+<li><div class="summary"><span class="name lo">1. objects</span><span class="rank ">71,622</span></div></li>
+<li><div class="summary"><span class="name lo">2. CEHJ</span><span class="rank ">44,110</span></div></li>
+<li><div class="summary"><span class="name lo">3. mayankea...</span><span class="rank ">18,843</span></div></li>
+<li><div class="summary"><span class="name lo">4. yuzh</span><span class="rank ">16,750</span></div></li>
+<li><div class="summary"><span class="name lo">5. mwvisa1</span><span class="rank ">15,775</span></div></li>
+<li><div class="summary"><span class="name lo">6. girionis</span><span class="rank ">13,408</span></div></li>
+<li><div class="summary"><span class="name lo">7. bloodredsun</span><span class="rank ">10,800</span></div></li>
+<li><div class="summary"><span class="name lo">8. Ajay-Singh</span><span class="rank ">10,712</span></div></li>
+<li><div class="summary"><span class="name lo">9. suprapto45</span><span class="rank ">10,350</span></div></li>
+<li><div class="summary"><span class="name lo">10. rama_kri...</span><span class="rank ">10,200</span></div></li>
+<li><div class="summary"><span class="name lo">11. TimYates</span><span class="rank ">9,140</span></div></li>
+<li><div class="summary"><span class="name lo">12. ksivananth</span><span class="rank ">8,972</span></div></li>
+<li><div class="summary"><span class="name lo">13. Javatm</span><span class="rank ">8,380</span></div></li>
+<li><div class="summary"><span class="name lo">14. Venabili</span><span class="rank ">8,320</span></div></li>
+<li><div class="summary"><span class="name lo">15. rrz@87...</span><span class="rank ">8,000</span></div></li>
+<li><div class="summary"><span class="name lo">15. gurvinder...</span><span class="rank ">8,000</span></div></li>
+<li><div class="summary"><span class="name lo">17. zzynx</span><span class="rank ">7,305</span></div></li>
+<li><div class="summary"><span class="name lo">18. Kelvin_King</span><span class="rank ">5,400</span></div></li>
+<li><div class="summary"><span class="name lo">19. heyhey_</span><span class="rank ">5,160</span></div></li>
+<li><div class="summary"><span class="name lo">20. Giant2</span><span class="rank ">5,080</span></div></li>
+<li><div class="summary"><span class="name lo">21. KeremE</span><span class="rank ">5,000</span></div></li>
+<li><div class="summary"><span class="name lo">22. mbvvsatish</span><span class="rank ">4,950</span></div></li>
+<li><div class="summary"><span class="name lo">23. aozarov</span><span class="rank ">4,939</span></div></li>
+<li><div class="summary"><span class="name lo">24. ravindra76</span><span class="rank ">4,920</span></div></li>
+<li><div class="summary"><span class="name lo">25. ahoffmann</span><span class="rank ">4,900</span></div></li>
+</ol>
+</div></div>
+<table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+</div>
+</div><div id="pageMain">
+        <div id="minWidthMain"></div>
+
+<div class="infoBox eeText" id="eeMobileInfoBox">
+  <table class="infoBoxTable">
+    <tr>
+      <td class="infoBoxUL"></td>
+      <td class="infoBoxUM">
+        <a class="closeButtonTiny" href="javascript:void(0);" onclick="hideInfoBox('eeMobileInfoBox');">[x]</a>
+        <div class="title">Posted via EE Mobile</div>
+      </td>
+      <td class="infoBoxUR"></td>
+    </tr>
+    <tr>
+      <td class="infoBoxML"></td><td class="infoBoxMM eeText"><p><span>Search</span>, <span>ask</span>, and <span>monitor</span> your questions on the go with EE Mobile. <a href="http://mobile.experts-exchange.com" rel="noindex nofollow">Visit Experts Exchange</a> from your mobile device and never be out of touch again.</p></td>
+      <td class="infoBoxMR"></td>
+    </tr>
+    <tr>
+      <td class="infoBoxBL"></td>
+      <td class="infoBoxBM"></td>
+      <td class="infoBoxBR"></td>
+    </tr>
+  </table>
+</div>
+<a name="questionTop"></a>
+<div class="question">
+<div class="s shFFF5 sbk expGray sectionTwo question VQP-103 sQuestion"><table class="h rootH hQuestion"><tr><td class="l lQuestion"></td><td><span class="text">Question</span></td><td class="r"></td></tr></table><div class="bl blQuestion"><div class="br brQuestion"><div class="bbg bbgQuestion"><div class="empty"></div><div class="bc bcQuestion"><div class="infoBox eeText" id="attachmentDetails">
+  <table class="infoBoxTable">
+    <tr>
+      <td class="infoBoxUL"></td>
+      <td class="infoBoxUM">
+        <a class="closeButtonTiny" href="javascript:void(0);" onclick="hideInfoBox('attachmentDetails');">[x]</a>
+        <div class="title">Attachment Details</div>
+      </td>
+      <td class="infoBoxUR"></td>
+    </tr>
+    <tr>
+      <td class="infoBoxML"></td><td class="infoBoxMM eeText"><div id="attachmentDetailsContent"></div></td>
+      <td class="infoBoxMR"></td>
+    </tr>
+    <tr>
+      <td class="infoBoxBL"></td>
+      <td class="infoBoxBM"></td>
+      <td class="infoBoxBR"></td>
+    </tr>
+  </table>
+</div>
+<div class="infoBox eeText infoBoxRight" id="questionScoreInfo">
+  <table class="infoBoxTable">
+    <tr>
+      <td class="infoBoxUL"></td>
+      <td class="infoBoxUM">
+        <a class="closeButtonTiny" href="javascript:void(0);" onclick="hideInfoBox('questionScoreInfo');">[x]</a>
+        <div class="title">The Solution Rating System</div>
+      </td>
+      <td class="infoBoxUR"></td>
+    </tr>
+    <tr>
+      <td class="infoBoxML"></td><td class="infoBoxMM eeText"><p>With so many solutions, how can you tell which solutions are most likely to help you and which ones are not?  To provide you with a tool to use, we rate our solutions based on various elements that most accurately determine if a solution is a quality solution.  To explain what factors affect the solution rating, here are the elements we take into consideration when formulating our solution rating.</p><ul>  <li>The Grade of the Solution</li>  <li>The Zone Rank of the Expert Providing the Solution</li>  <li>The Number of Author and Expert Comments</li>  <li>The Number of Experts Contributing</li>  <li>The Feedback of the Community</li></ul><p>Your Input Matters<br />Because of the way the system is set up, the most important variable in this equation is you.  As a member of <span class="ee">Experts Exchange</span>, you are able to cast your vote on the quality of the solutions in regard to how complete, accurate, helpful and easy to understand each solution is.  When you provide your feedback, each rating is adjusted accordingly.  So, if you see a solution that has a poor rating that you think is a good solution, let us know by rating it.  As you do, the rating will be adjusted and will become more accurate for other members of our site.</p><p>If you have any suggestions that you would like to make for our rating system, please ask a question in the <a href="/Community_Support/Suggestions/" rel="nofollow">Suggestions</a> Zone of Community Support.</p><p>Thank you!</p></td>
+      <td class="infoBoxMR"></td>
+    </tr>
+    <tr>
+      <td class="infoBoxBL"></td>
+      <td class="infoBoxBM"></td>
+      <td class="infoBoxBR"></td>
+    </tr>
+  </table>
+</div>
+<a class="questionScoreLink" href="javascript:void(0);" onClick="showInfoBox(event, 'questionScoreInfo', {right:true});">
+<div class="questionScore">
+<div class="ratingWord">
+            <div class="t2i" style="background: url(http://t2i.experts-exchange.com/t/416884-50.png) no-repeat;width:32px;height:7px;"></div></div>
+<div class="score">7.8</div>
+    <div class="scoreText">
+<div class="t2i" style="background: url(http://t2i.experts-exchange.com/t/416885-50.png) no-repeat;width:50px;height:7px;"></div></div>
+</div>
+</a>
+<div class="qTitle loggedOutQTitle">
+       <h1 class="titleHeader">What is the size of INT in java?</h1>
+    </div>
+<h3 id="cmAskedBy">Asked by <a class="highlight" href="/M_3691880.html">Squadless</a> in Sun Java System Web Server, Java Programming Language, New to Java Programming</h3>
+<h3 id="cmTags">Tags: <span>
+        <a class="tag" rel="tag nofollow noindex" href="http://www.experts-exchange.com/tag/java#allResults">java</a>, <a class="tag" rel="tag nofollow noindex" href="http://www.experts-exchange.com/tag/int#allResults">int</a>, <a class="tag" rel="tag nofollow noindex" href="http://www.experts-exchange.com/tag/size#allResults">size</a></span></h3>
+<div class="qBodyLoggedOut" id="EchoTopic">
+If i have an int counter that counts the number of rows retrieved from an SQL query... would it be ok if the counter is an &quot;int&quot; if the maximum number of rows is 500,000? <br />What is the size of 'int' in java?<div id="startFreeTrialEcho">
+    <a id="startFreeTrialCTA" class="startFreeTrial startFreeTrialVQP51" href="https://secure.experts-exchange.com/register.jsp?rsid=20&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html">View the Solution FREE for 30 Days</a>
+</div>    
+</div>
+  
+<div class="clear"></div>
+    
+<div class="clear"></div>
+  <a id="firstComment"></a><div class="vqpsdBlurredAnswers">
+  <script type="text/javascript" src="http://images.experts-exchange.com/scripts/answerRating.js"></script>
+<script type="text/javascript" src="http://images.experts-exchange.com/scripts/swfobject.js"></script>
+
+<script type="text/javascript">
+var runscroll = new Array;
+var jwplayer = null;
+
+function playerReady(obj) {
+   jwplayer = document.getElementById(obj['id']);
+   addListeners();
+}
+         
+function addListeners() {
+   if (jwplayer) { 
+      jwplayer.addModelListener("STATE", "stateListener");
+   } else {
+      setTimeout("addListeners()",100);
+   }
+}
+
+function stateListener(obj) { //IDLE, BUFFERING, PLAYING, PAUSED, COMPLETED
+   if((obj.oldstate == "IDLE" || obj.oldstate == "BUFFERING") &&  obj.newstate == "PLAYING")
+   {
+      runscroll[obj['id']]();
+   }
+}
+</script><script type="text/javascript">
+function showSelfAccept(aid,experts){
+
+//   showPopupOverlay('selfAccept' + aid, 600, 200, '/shared/async/confirmAction.jsp?action=selfAccept&experts=' + experts + '&aid=' + aid,
+   showPopupOverlay('selfAccept' + aid, 600, 200, '/shared/async/confirmAction.jsp?action=selfAccept&experts=' + experts + '&aid=' + aid ,
+      false, false, "");
+
+   var yWithScroll = 0;
+   if (window.innerHeight && window.scrollMaxY) // Firefox
+      yWithScroll = window.innerHeight + window.scrollMaxY;
+   else if (document.body.scrollHeight > document.body.offsetHeight) // all but Explorer Mac
+      yWithScroll = document.body.scrollHeight;
+   else // works in Explorer 6 Strict, Mozilla (not FF) and Safari
+      yWithScroll = document.body.offsetHeight;  
+
+   document.getElementById(getBackgroundID("selfAccept"+aid)).style.height=yWithScroll;
+   window.scrollTo(0, 0);
+}
+</script>
+
+   <div class="answers VQP-103">
+
+<div class="hasMouseOver" onmouseover="showSignUp(19045981)" onmouseout="removeSignUp(19045981)"><a id="19045981"></a>
+          <a id="a19045981"></a><div class="answerRatingNoInfo" id="answerRatingNoInfo19045981"></div>
+
+<div id="answerSection19045981" class="s shF5FF sg expGreen sectionTwo answer acceptedHeader blurredAnswer"><table class="h"><tr><td class="l"></td><td><a href="javascript:void(0);" class="minMaxButton maximizeButton" onClick="minimize('answerSection19045981', false, true); return false;">[+]</a><a href="javascript:void(0);" class="minMaxButton minimizeButton" onClick="minimize('answerSection19045981', true, true); return false;">[-]</a><span class="sectionHeaderExtra">05/07/07 02:04 PM,<span class="answerID"> ID: 19045981</span></span><span class="text">Accepted Solution</span></td><td class="r"></td></tr></table><div class="bl"><div class="br"><div class="bbg"><div class="empty"></div><div class="bc"><div class="underline"></div>
+<div class="answerBody quoted">
+<p>View this solution now by starting your
+   <a href="https://secure.experts-exchange.com/register.jsp?rsid=20&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html&cid=553" rel="nofollow">30-day free trial</a>.
+   Setting up your free trial is quick, easy, and secure. We will return you to this solution,
+   unlocked, when you're done.</p>
+
+ <div class="acceptedSection">
+ <h4>About this solution</h4>
+ <div><strong>Zones:</strong> Sun Java System Web Server, Java Programming Language, New to Java Programming</div>
+ <div><strong>Tags:</strong> java, int, size</div>
+ <a class="viewThisSolution" href="https://secure.experts-exchange.com/register.jsp?rsid=20&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html&cid=553" rel="nofollow">Sign Up Now!</a>
+ <div><strong>Solution Provided By:</strong> <a class="highlight" href="/M_3746034.html">CPColin</a></div>
+   <div><strong>Participating Experts:</strong> 4</div>
+   <div><strong>Solution Grade:</strong> A</div>
+   <div class="clear"></div>
+
+ </div>
+ </div>
+
+<div class="clear"></div>
+      </div><div class="empty"></div></div></div></div><table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+      </div>
+<a name="relatedSolutions"></a>
+                    <div id="relatedSolutions20X6">
+<div class="s snhF5FF expGray relatedSolutionsContainer"><table class="h"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table><div class="bl"><div class="br"><div class="bbg"><div class="empty"></div><div class="bc"><div class="s shFFFF sg expGray relatedSolutionsNarrow"><table class="h"><tr><td class="l"></td><td><span class="text">Related Solutions</span></td><td class="r"></td></tr></table><div class="bl"><div class="br"><div class="bbg"><div class="empty"></div><div class="bc"><div class="keywords">
+      Keywords: <span>What is the size of INT in java?</span>
+    </div>
+<div class="questionListWhite notIE6orSafari">
+<div class="questionList">
+  <table id="listRelatedSolutions">
+    <tr class="on firstRow">
+      <th class="index number column1"></th>
+      <th class="title column2 last">Title</th>
+    </tr>
+    <tr class=" secondRow">
+      <td class="index number column1">1</td>
+      <td class="title column2 last"><a href="/Programming/Languages/Java/Q_20114669.html?eeSearch=true" title="adding a timeout for a java chat server after period of no clients">adding a timeout for a java chat server â?¦</a></td>
+    </tr>
+    <tr class=" on">
+      <td class="index number column1">2</td>
+      <td class="title column2 last"><a href="/Web_Development/Web_Languages-Standards/Flex/Q_23290959.html?eeSearch=true" title="Actionscript/Flex 3 - Actionscript/Flex 3 - Duplicating datagrid rows (altering a cell during the copy)">Actionscript/Flex 3 - Actionscript/â?¦</a></td>
+    </tr>
+    <tr class="">
+      <td class="index number column1">3</td>
+      <td class="title column2 last"><a href="/Web_Development/Web_Languages-Standards/Flex/Q_23288140.html?eeSearch=true" title="Actionscript/Flex 3 - Right Click Context Menu">Actionscript/Flex 3 - Right Click Conâ?¦</a></td>
+    </tr>
+    <tr class=" on">
+      <td class="index number column1">4</td>
+      <td class="title column2 last"><a href="/Database/Oracle/PL_SQL/Q_23606215.html?eeSearch=true" title="How to optimize this scenario? Four update statements in a loop of more than 67000 records">How to optimize this scenario? Four uâ?¦</a></td>
+    </tr>
+    <tr class="">
+      <td class="index number column1">5</td>
+      <td class="title column2 last"><a href="/Programming/Languages/Java/Q_21206028.html?eeSearch=true" title="Java.nio setting the socket channel output buffer size">Java.nio setting the socket channel oâ?¦</a></td>
+    </tr>
+    <tr class=" lastRow on">
+      <td class="index number column1">6</td>
+      <td class="title column2 last"><a href="/Programming/Languages/Java/New_to_Java/Q_22687730.html?eeSearch=true" title="Fix error message">Fix error message</a></td>
+    </tr>
+  </table>
+</div>
+</div>
+<div id="questionListMoreSolutions" class="questionListMoreSolutions">
+<div class="bTypeA bGlowSmall bGlowSmallBlue"><a class="bTextViewMoreSolutions" href="/simpleSearch.jsp?q=int+OR+java+OR+counter+OR+int+OR+java+OR+row+OR+maximum&searchSubmit=true"><div class="glowLeft"></div><div class="glowMiddle" style="padding-left: 15px; padding-right: 15px;"><div class="t2i" style="background: url(http://t2i.experts-exchange.com/t/412318-50.png) no-repeat;width:109px;height:12px;"></div></div><div class="glowRight"></div></a></div></div>
+  </div><div class="empty"></div></div></div></div><table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+      </div>
+<div id="zoneAdvertisment">
+         <div class="theAdvert">
+<div id="boxAdDiv"><div id="boxAdDivInner">Loading Advertisement...</div></div>
+</div></div>
+<div class="clear"></div>
+</div><div class="empty"></div></div></div></div><table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+      </div>
+</div>
+</div>
+<div class="hasMouseOver" onmouseover="showSignUp(19046417)" onmouseout="removeSignUp(19046417)"><a id="19046417"></a>
+          <a id="a19046417"></a><div class="answerRatingNoInfo" id="answerRatingNoInfo19046417"></div>
+
+<div id="answerSection19046417" class="ms s shF5FF sb expExpBlue sectionTwo answer answerHeader blurredAnswer"><table class="mh h"><tr><td class="l"></td><td><a href="javascript:void(0);" class="minMaxButton maximizeButton" onClick="minimize('answerSection19046417', false, true); return false;">[+]</a><a href="javascript:void(0);" class="minMaxButton minimizeButton" onClick="minimize('answerSection19046417', true, true); return false;">[-]</a><span class="sectionHeaderExtra">05/07/07 03:26 PM,<span class="answerID"> ID: 19046417</span></span><span class="text">Expert Comment</span></td><td class="r"></td></tr></table><div class="bl"><div class="br"><div class="bbg"><div class="empty"></div><div class="bc"><div class="underline"></div>
+<div class="answerBody quoted">
+<p>At Experts Exchange, members can ask their questions to thousands of technology professionals,
+   also known as Experts. Experts compete and collaborate to answer those questions by leaving
+   comments like this one.</p>
+ <p><a href="https://secure.experts-exchange.com/register.jsp?rsid=20&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html&cid=553" rel="nofollow">Start your 30-day free trial</a>
+   to view this Expert Comment or ask the Experts your question.</p>
+ </div>
+
+<div class="clear"></div>
+      </div><div class="empty"></div></div></div></div><table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+      </div>
+</div>
+<div class="hasMouseOver" onmouseover="showSignUp(19046837)" onmouseout="removeSignUp(19046837)"><a id="19046837"></a>
+          <a id="a19046837"></a><div class="answerRatingNoInfo" id="answerRatingNoInfo19046837"></div>
+
+<div id="answerSection19046837" class="ms s shF5FF sb expExpBlue sectionTwo answer answerHeader blurredAnswer"><table class="mh h"><tr><td class="l"></td><td><a href="javascript:void(0);" class="minMaxButton maximizeButton" onClick="minimize('answerSection19046837', false, true); return false;">[+]</a><a href="javascript:void(0);" class="minMaxButton minimizeButton" onClick="minimize('answerSection19046837', true, true); return false;">[-]</a><span class="sectionHeaderExtra">05/07/07 04:57 PM,<span class="answerID"> ID: 19046837</span></span><span class="text">Expert Comment</span></td><td class="r"></td></tr></table><div class="bl"><div class="br"><div class="bbg"><div class="empty"></div><div class="bc"><div class="underline"></div>
+<div class="answerBody quoted">
+<p>At Experts Exchange, members can ask their questions to thousands of technology professionals,
+   also known as Experts. Experts compete and collaborate to answer those questions by leaving
+   comments like this one.</p>
+ <p><a href="https://secure.experts-exchange.com/register.jsp?rsid=20&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html&cid=553" rel="nofollow">Start your 30-day free trial</a>
+   to view this Expert Comment or ask the Experts your question.</p>
+ </div>
+
+<div class="clear"></div>
+      </div><div class="empty"></div></div></div></div><table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+      </div>
+</div>
+<div class="hasMouseOver" onmouseover="showSignUp(19092009)" onmouseout="removeSignUp(19092009)"><a id="19092009"></a>
+          <a id="a19092009"></a><div class="answerRatingNoInfo" id="answerRatingNoInfo19092009"></div>
+
+<div id="answerSection19092009" class="ms s shF5FF sb expExpBlue sectionTwo answer answerHeader blurredAnswer"><table class="mh h"><tr><td class="l"></td><td><a href="javascript:void(0);" class="minMaxButton maximizeButton" onClick="minimize('answerSection19092009', false, true); return false;">[+]</a><a href="javascript:void(0);" class="minMaxButton minimizeButton" onClick="minimize('answerSection19092009', true, true); return false;">[-]</a><span class="sectionHeaderExtra">05/15/07 05:10 AM,<span class="answerID"> ID: 19092009</span></span><span class="text">Expert Comment</span></td><td class="r"></td></tr></table><div class="bl"><div class="br"><div class="bbg"><div class="empty"></div><div class="bc"><div class="underline"></div>
+<div class="answerBody quoted">
+<p>At Experts Exchange, members can ask their questions to thousands of technology professionals,
+   also known as Experts. Experts compete and collaborate to answer those questions by leaving
+   comments like this one.</p>
+ <p><a href="https://secure.experts-exchange.com/register.jsp?rsid=20&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&srid=I9KJzouTaH1bMlEUu7xrow%3D%3D&redirectURL=/Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server/Q_22557627.html&cid=553" rel="nofollow">Start your 30-day free trial</a>
+   to view this Expert Comment or ask the Experts your question.</p>
+ </div>
+
+<div class="clear"></div>
+      </div><div class="empty"></div></div></div></div><table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+      </div>
+</div>
+</div>
+<script type="text/javascript">
+ function showSignUp(id)
+ {
+    var select = document.getElementById("answer"+id);
+    if (select != null)
+       select.className = 'signUpSpaceVisible';
+ }
+
+ function removeSignUp(id)
+ {
+    var select = document.getElementById("answer"+id);
+    if (select != null)
+       select.className = 'signUpSpace';
+ }
+</script>
+
+</div>
+</div><div class="empty"></div></div></div></div><table class="f"><tr><td class="l"></td><td>&nbsp;</td><td class="r"></td></tr></table>
+      </div>
+</div>
+
+<div class="adSense">
+        <div id="btmGoogleAdDiv">
+          <div id="btmGoogleAdDivInner">Loading Advertisement...</div>
+        </div>
+      </div>
+          <div class="qwID">
+20100105-EE-VQP-103</div>
+
+<!-- close the body column -->
+      </div>
+<div id="pageFooter">
+<ul id="compFL">
+  <li><a href="/shortenURL.jsp">Shorten URL</a>|</li>
+  <li><a href="/help.jsp">Help</a>|</li>
+  <li><a href="/aboutUs.jsp">About Us</a>|</li>
+  <li><a href="/contactUs.jsp">Contact Us</a>|</li>
+  <li><a href="/memberAgreement.jsp">Member Agreement</a>|</li>
+  <li><a href="http://www.alexa.com/siteinfo/experts-exchange.com" title="Internet Rank">Internet Rank</a>|</li>
+  <li><a href="/privacyPolicy.jsp">Privacy Policy</a>|</li>
+  <li class="lastInList"><a href="/siteMap.jsp">Site Map</a></li>
+</ul>
+<script type="text/javascript">
+  if (hideCompFLOnCreate == true)
+    document.getElementById('compFL').style.visibility = 'hidden';
+</script><div id="compCpyr">
+<div class="t2i" style="background: url(http://t2i.experts-exchange.com/t/426676-50.png) no-repeat;width:306px;height:11px;"></div></div>
+<div id="compCpyrText"><span class="noWrap">Copyright Â© 1996 - 2010 Experts Exchange, LLC.</span> <span class="noWrap">All rights reserved.</span></div>
+</div><div id="bodyFooterSpacer"></div></div></div></div></div></div>
+
+
+<script type="text/javascript">eeAdsLoaded = 1</script>
+<script type="text/javascript" src="http://images.experts-exchange.com/timer/timer1.js"></script>
+<script type="text/javascript" src="http://images.experts-exchange.com/timer/timer2.js"></script>
+<script type="text/javascript" src="http://images.experts-exchange.com/timer/timer3.js"></script>
+<script type="text/javascript" src="http://images.experts-exchange.com/timer/timer4.js"></script>
+<img src="/timer/timer1.gif" onload="endEETimer()" />
+<img src="/timer/timer2.gif" onload="endEETimer()" />
+<img src="/timer/timer3.gif" onload="endEETimer()" />
+<img src="/timer/timer4.gif" onload="endEETimer()" />
+
+<script type="text/javascript">
+</script>
+
+<script type="text/javascript">
+</script>
+
+<img src="/timer/timer5.gif" onload="endEETimer()" />
+<img src="/timer/timer6.gif" onload="endEETimer()" />
+<script type="text/javascript">
+      // ~JDF The IE7 test was previously comment out. Don't know why.  If things with the footer seem strange
+      // this is a suspect. 
+      resizeFooter(false);
+   </script>
+<!-- SiteCatalyst code version: H.7.
+Copyright 1997-2006 Omniture, Inc. More info available at
+http://www.omniture.com -->
+<script language="JavaScript"><!--
+/* You may give each page an identifying name, server, and channel on
+the next lines. */
+var s = setUpOmnitureVariable();
+s.pageName="LO-20100105-EE-VQP-103";
+s.server="www24.experts-exchange.com";
+s.channel="Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server";
+s.pageType="";
+s.prop1=document.title;
+s.prop2="";
+s.prop3="";
+s.prop4="";
+s.prop5="";
+s.prop6="";
+s.prop7="";
+s.prop8="";
+s.prop9=""; 
+s.prop10="";
+s.prop11="";
+s.prop12="";
+s.prop14="";
+s.prop15="50";
+s.prop16="";
+s.prop17="";
+s.prop18="";
+s.prop19="";
+s.prop20="";
+s.prop21="";
+s.prop22="";
+s.prop23="";
+s.prop24="";
+s.prop25="";
+s.prop26="";
+s.prop27="";
+s.prop28="";
+s.prop29="";
+s.prop30="";
+s.prop31="";
+s.prop32="";
+s.prop33="";
+s.prop34="";
+s.prop35="";
+s.prop36="";
+s.prop37="";
+s.prop38="";
+s.prop39="";
+s.prop40="";
+s.prop41="";
+s.prop42="";
+s.prop43="";
+s.prop44="";
+s.prop45="";
+s.prop46="";
+s.prop47="";
+s.prop48="";
+s.prop49="";
+s.prop50="";
+/* E-commerce Variables */
+s.campaign="";
+s.events="event4";
+s.products="";
+s.state="";
+s.zip="";
+s.purchaseID="";
+s.eVar1=document.title;
+s.eVar2="";
+s.eVar3="";
+s.eVar4="";
+s.eVar5="";
+s.eVar6="Free Trial Guest";
+s.eVar7="";
+s.eVar8="";
+s.eVar9="";
+s.eVar10="";
+s.eVar14="";
+s.eVar15="";
+s.eVar16="";
+s.eVar17="";
+s.eVar18="";
+s.eVar19="";
+s.eVar20="";
+s.eVar21="";
+s.eVar22="";
+s.eVar23="";
+s.eVar24="";
+s.eVar25="control";
+s.eVar26="";
+s.eVar27="";
+s.eVar28="";
+s.eVar29="12PM";
+s.eVar30="Friday";
+s.eVar31="128.195.58.124";
+s.eVar32="";
+s.eVar33="Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server";
+s.eVar34="3";
+s.eVar35="20100105-EE-VQP-103-FREE-TRIAL";
+s.eVar36="Combo TB GS RB AEE";
+s.eVar37=""; 
+s.eVar38="null";
+s.eVar39="";
+s.eVar40="";
+s.eVar41="";
+s.eVar42="";
+s.eVar43="";
+s.eVar44="Accepted Solution";
+s.eVar45="EE_Level3 - 2";
+s.eVar46="";
+s.eVar47="";
+s.eVar48="";
+s.eVar49="rating7.8";
+
+
+/* Hierarchy Variables */
+s.hier1="Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server";
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+<script language="JavaScript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script><noscript><img
+src="http://metrics.experts-exchange.com/b/ss/eexchangeprod/1/H.7--NS/0"
+height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+<!-- End SiteCatalyst code version: H.7. -->
+<script language="JavaScript">
+   function getOmnitureFunction()
+   {
+      var s2 = setUpOmnitureVariable();
+      s2.pageName="LO-20100105-EE-VQP-103"
+      s2.server="www24.experts-exchange.com"
+      s2.channel="Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server"
+      s2.pageType=""
+      s2.prop1=document.title
+      s2.prop2=""
+      s2.prop11=""
+      s2.prop15="50"
+      s2.prop31=""
+      /* E-commerce Variables */
+      s2.campaign=""
+      s2.events="event4"
+      s2.eVar1=document.title
+      s2.eVar6="Free Trial Guest"
+      s2.eVar7=""
+      s2.eVar20=""
+      s2.eVar26=""
+      s2.eVar29="12PM"
+      s2.eVar30="Friday"
+      s2.eVar31="128.195.58.124"
+      s2.eVar33="Software/Server_Software/Web_Servers/Sun_Java_System_Web_Server"
+      s2.eVar34="3"
+      s2.eVar35="20100105-EE-VQP-103-FREE-TRIAL"
+      s2.eVar36="Combo TB GS RB AEE"
+      s2.eVar45="EE_Level3 - 2"
+      s2.eVar47=""
+      
+      return s2;
+   }
+   
+   function postToOmniture(s2)
+   {
+      if (!s2)
+         s2 = getOmnitureFunction();
+      
+      /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+      var s_code=s2.t();
+   }
+   
+   function postAsycOmnitureGoogleSearch(elementID)
+   {
+      var googleRadionButton = document.getElementById(elementID);
+      if ((googleRadionButton.type == 'radio' && googleRadionButton.checked) ||
+          (googleRadionButton.type == 'hidden' && googleRadionButton.value == '1'))
+      {
+         var s2 = getOmnitureFunction();
+         s2.prop39 = 'Google Search';
+         s2.evar14 = 'Google Search';
+         postToOmniture(s2);
+      }
+   }
+
+   function postAsyncOmnitureProp(prop, value)
+   {
+      var s2 = getOmnitureFunction();
+      eval("s2." + prop + " = '" + value + "';");
+      //alert("s2." + prop + " = '" + value + "';");
+      postToOmniture(s2); 
+   }
+
+</script>
+<script type="text/javascript">
+(function()
+   {
+      //alert("1test");
+      //Do this for body, top buttons, then menu with same ids
+      //pageHeader, pageRight
+      var jsDebug = document.getElementById("jsDebug");
+      var divsToAdd = [];
+      var divs = document.getElementsByTagName('div');
+      for (var i = 0; i < divs.length; i++) {
+         if (divs[i]!=null && divs[i].getAttribute('id')!=null && divs[i].getAttribute('id').indexOf("answerSection")!=-1)
+         {
+            divsToAdd.push(divs[i].getAttribute('id'));
+         }
+      }
+      
+      divsToAdd = divsToAdd.concat(["pageHeader","pageRight","pageFooter","startFreeTrialEcho","cmAskedBy","cmTags", "questionListMoreSolutions", "listRelatedSolutions", "breadCrumb"]);
+
+      for (var dcount=0; dcount<divsToAdd.length; dcount++)
+      {
+         
+         if (document.getElementById(divsToAdd[dcount])==null) 
+         {
+           continue;
+         }         
+         var anchorTags = document.getElementById(divsToAdd[dcount]).getElementsByTagName("a"); 
+            //document.getElementById('innerWrap').getElementsByTagName("a");
+         var divStr=divsToAdd[dcount];
+         var isAnswer=false;
+         if (divsToAdd[dcount].indexOf("answerSection")!=-1)
+         {
+            divStr="comment"+dcount;
+         }
+
+         divClass=document.getElementById(divsToAdd[dcount]).getAttribute('class');
+         if (divClass!=null && divClass.indexOf("acceptedHeader")!=-1)
+         {
+            divStr="Accepted"+dcount;
+         }
+         if (divsToAdd[dcount].indexOf("cmAskedBy")!=-1)
+         {
+            divStr="cmAskedBy";
+         }         
+         if (divsToAdd[dcount].indexOf("cmTags")!=-1)
+         {
+            divStr="cmTags";
+         }   
+         if (divsToAdd[dcount].indexOf("pageFooter")!=-1)
+         {
+            divStr="pageFooter";
+         } 
+
+         for (var i = 0; i < anchorTags.length ; i++)
+         {
+            var obj=anchorTags[i];
+            var oldFunc=anchorTags[i].onclick;
+            
+            if (obj.href.indexOf("java")!=-1)
+            {
+               anchorTags[i].onclick=
+                  (function(x, old, obj, currDiv) {
+                  return function(event) {
+                     s_objectID='PAQ_VQP103_'+currDiv+'_ID'+x;
+                     // alert('Doing an async post ' + s_objectID);
+                     var s2 = getOmnitureFunction();
+                     s2.tl(obj,"link","linkNAME");
+                     
+                     if (typeof old=='function')
+                     {
+                       return old.call(obj,event);
+                     }
+                  }
+               })(i, oldFunc, obj, divStr);               
+            }
+            else
+            {
+               anchorTags[i].onclick=
+                  (function(x, old, obj, currDiv) {
+                  return function(event) {
+                     s_objectID='PAQ_VQP103_'+currDiv+'_ID'+x;
+                     // alert(s_objectID);
+      
+                     if (typeof old=='function')
+                     {
+                       return old.call(obj,event);
+                     }
+                  }
+               })(i, oldFunc, obj, divStr);
+            }//end if
+         }//end for
+      }
+
+   }
+)();
+</script>
+<script type="text/javascript">
+// <![CDATA[
+
+addCookie('EECC_0', 'SCMESS=0&EESESSIONS=1&MEC3V=TB_GS_RB_AEEv&EEPAGES=1&CORPFUNNEL=2&CLOAD=2', 2147483647);
+
+addCookie('EETEMPA', '4d52e804e1235f55a6476aa8054bc7b3d5cd3fa9', 86400);
+
+addCookie('DLC', '', 2147483647);
+
+// ]]>
+</script>
+
+<script type="text/javascript">
+  var fakeLocations = new Array();
+  var realLocations = new Array();
+</script>
+<div id="headerAdvertisementDivTemp" style="display: none;">
+    <script type="text/javascript">
+      fakeLocations[fakeLocations.length] = 'headerAdvertisementDivTemp';
+      realLocations[realLocations.length] = 'headerAdvertisementDiv';
+      document.write('<scr'+'ipt type="text/javascript">\n//<![CDATA[\nord = window.ord || Math.floor(Math.random()*1E16);\ndocument.write( \'<scri\'+\'pt type="text/javascript" src="http://ad2.netshelter.net/adj/ns.expertsexchange/software;kw=;tile=1;dcopt=ist;sz=728x90;ord= \' + ord + \'?"></scr\'+\'ipt>\');\n//]]>\n</scr'+'ipt>');
+    </script>
+  </div>
+
+<div id="componentSkyScraperAdDivTemp" style="display: none;">
+    <script type="text/javascript">
+      fakeLocations[fakeLocations.length] = 'componentSkyScraperAdDivTemp';
+      realLocations[realLocations.length] = 'componentSkyScraperAdDiv';
+      document.write('<scr'+'ipt type="text/javascript">\n//<![CDATA[\nord = window.ord || Math.floor(Math.random()*1E16);\ndocument.write( \'<scri\'+\'pt type="text/javascript" src="http://ad2.netshelter.net/adj/ns.expertsexchange/software;kw=;tile=1;dcopt=ist;sz=120x600,160x600;ord= \' + ord + \'?"></scr\'+\'ipt>\');\n//]]>\n</scr'+'ipt>');
+    </script>
+  </div>
+
+<div id="boxAdDivTemp" style="display: none;">
+    <script type="text/javascript">
+      fakeLocations[fakeLocations.length] = 'boxAdDivTemp';
+      realLocations[realLocations.length] = 'boxAdDiv';
+      document.write('<scr'+'ipt type="text/javascript">\n//<![CDATA[\nord = window.ord || Math.floor(Math.random()*1E16);\ndocument.write( \'<scri\'+\'pt type="text/javascript" src="http://ad2.netshelter.net/adj/ns.expertsexchange/software;kw=;tile=1;dcopt=ist;sz=300x250,336x280;ord= \' + ord + \'?"></scr\'+\'ipt>\');\n//]]>\n</scr'+'ipt>');
+    </script>
+  </div>
+
+<div id="btmGoogleAdDivTemp" style="display: none;">
+    <script type="text/javascript">
+      fakeLocations[fakeLocations.length] = 'btmGoogleAdDivTemp';
+      realLocations[realLocations.length] = 'btmGoogleAdDiv';
+      document.write('<scr'+'ipt type="text/javascript">\n//<![CDATA[\nord = window.ord || Math.floor(Math.random()*1E16);\ndocument.write( \'<scri\'+\'pt type="text/javascript" src="http://ad2.netshelter.net/adj/ns.expertsexchange/software;kw=;tile=1;dcopt=ist;sz=728x90;ord= \' + ord + \'?"></scr\'+\'ipt>\');\n//]]>\n</scr'+'ipt>');
+    </script>
+  </div>
+
+<script type="text/javascript">
+for (var i=0; i<fakeLocations.length; i++)
+{
+   var fakeLocation = document.getElementById(fakeLocations[i]);
+   var realLocation = document.getElementById(realLocations[i]);
+
+   if (fakeLocation && realLocation)
+   {
+      for (index = fakeLocation.childNodes.length - 1; index >= 0; index--)
+      {
+         var element = fakeLocation.childNodes[index];
+         if ((element.nodeName == 'SCRIPT') || (element.nodeName == 'NOSCRIPT'))
+            fakeLocation.removeChild(element);
+      }
+   
+      fakeLocation.parentNode.removeChild(fakeLocation);
+      realLocation.parentNode.replaceChild(fakeLocation, realLocation);
+      fakeLocation.style.display = 'block';
+   }
+}
+</script>
+
+<input type="hidden" name="refresh" value="1" />
+<!-- Begin Tribal Fusion Text Links -->	
+<link href="http://ctxt.tribalfusion.com/ctxt/textlinks.css" type="text/css" rel="stylesheet">
+	<script>
+		var tf_pubSiteId=2;
+		var tf_maxKeywords=7;
+	</script>
+	<script src="http://ctxt.tribalfusion.com/ctxt/textlinks.js" type="text/javascript"></script>
+<!-- _End_ Tribal Fusion Text Links -->	
+</body>
+
+</html>
+
+<!-- www24.experts-exchange.com:80 -->

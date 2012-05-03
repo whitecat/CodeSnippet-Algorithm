@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "../xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sld="http://namespaces.cafeconleche.org/slides/" xmlns:html="http://www.w3.org/1999/xhtml"><head><title>Logical Operators in Java</title><!--Only sunsites are allowed to mirror this page and then
+only with explicit, prior permission.--><script type="text/javascript"><!--
+if (location.protocol.toLowerCase().indexOf("file") != 0 ) { 
+  if (0 > location.host.toLowerCase().indexOf("cafeaulait.org") 
+  && 0 > location.host.toLowerCase().indexOf("ibiblio.org")) {
+    location.href="http://www.cafeaulait.org/course/week2/45.html";
+  }
+}
+     // --></script><script language="JAVASCRIPT"><!--
+              var isnav
+              
+              if (parseInt(navigator.appVersion) >= 4) {
+                if (navigator.appName == "Netscape") {
+                  isNav = true
+                  document.captureEvents(Event.KEYPRESS)
+                }
+                else {
+                  isNav = false
+                }
+              }
+              document.onkeypress = flipslide
+
+              function flipslide(evt) {
+                var key = isNav ? evt.which : window.event.keyCode
+                if (key == 32 || key == 29 || key == 30 || key == 11) {
+                  
+                    location.href="46.html"
+                  
+                }
+                else if (key == 28 || key == 31 || key == 12) {
+                  
+                    location.href="44.html"
+                  
+                }
+                else if (key == 1) {
+                  location.href="index.html";
+                }
+              } // --></script></head><body>
+  <h1 align="center">Logical Operators in Java</h1>
+<p>
+The relational operators you've learned so far (<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>,
+<code>&gt;=</code>, <code>!=</code>, <code>==</code>) are sufficient when you only need to check one
+condition. However what if a particular action is to be taken only
+if several conditions are true? You can use a sequence of <code>if</code> statements to test the conditions, as follows:
+</p>
+
+
+
+<pre xml:space="preserve"><code>if (x == 2) {
+  if (y != 2) {
+     System.out.println("Both conditions are true.");
+   }
+}
+</code></pre>
+
+<p>
+This, however, is hard to write and harder to read. It only gets
+worse as you add more conditions. Fortunately, Java provides an
+easy way to handle multiple conditions: the logic operators. There
+are three logic operators, <code>&amp;&amp;</code>, <code>||</code>
+and <code>!</code>. 
+</p>
+
+<p><code>&amp;&amp;</code> is logical and. <code>&amp;&amp;</code>
+combines two boolean values and returns a boolean which is true if
+and only if both of its operands are true. For instance</p>
+
+
+
+<pre xml:space="preserve"><code>boolean b;
+b = 3 &gt; 2 &amp;&amp; 5 &lt; 7; // b is true
+b = 2 &gt; 3 &amp;&amp; 5 &lt; 7; // b is now false
+</code></pre>
+
+<p>
+<code>||</code> is logical or. <code>||</code> combines two boolean
+variables or expressions and returns a result that is true if
+either or both of its operands are true. For instance
+</p>
+
+
+
+<pre xml:space="preserve"><code>boolean b;
+b = 3 &gt; 2 || 5 &lt; 7; // b is true
+b = 2 &gt; 3 || 5 &lt; 7; // b is still true
+b = 2 &gt; 3 || 5 &gt; 7; // now b is false
+</code></pre>
+
+<p>
+The last logic operator is <code>!</code> which means not. It
+reverses the value of a boolean expression. Thus if <code>b</code>
+is true <code>!b</code> is false. If <code>b</code> is false 
+<code>!b</code> is true. 
+</p>
+
+
+
+<pre xml:space="preserve"><code>boolean b;
+b = !(3 &gt; 2); // b is false
+b = !(2 &gt; 3); // b is true
+</code></pre>
+
+<p>
+These operators allow you to test multiple conditions more easily.
+For instance the previous example can now be written as
+</p>
+
+
+<pre xml:space="preserve"><code>if (x == 2 &amp;&amp; y != 2) {
+  System.out.println("Both conditions are true.");
+}
+</code></pre>
+
+<p>
+That's a lot clearer.
+</p>
+
+
+
+
+
+<hr/><div align="center"><a href="44.html">Previous</a> 
+                 | <a href="46.html">Next</a> 
+                 | <a href="index.html">Top</a> 
+                 | <a href="http://www.cafeaulait.org/">Cafe au Lait</a></div><hr/><div style="font-size: x-small">
+              Copyright 
+              1997, 2002 Elliotte Rusty Harold<br/><a href="mailto:elharo@metalab.unc.edu">elharo@metalab.unc.edu</a><br/>
+              Last Modified 
+              September 12, 2002</div></body></html>

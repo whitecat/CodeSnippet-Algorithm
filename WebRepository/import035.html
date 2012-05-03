@@ -1,0 +1,850 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+
+
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta name="Description" content="Java Specialists" />
+  <meta name="Keywords" content="java,design patterns course,java course,advanced,dynamic proxy,newsletter,bruce eckel,john vlissides,cay horstmann" />
+  <title>[JavaSpecialists 051] - Java Import Statement Cleanup</title>
+  <link rel="stylesheet" type="text/css" href="/skin/maximum2.css">
+  <style type="text/css">
+  </style>
+  <link href="http://www.javaspecialists.eu/archive/tjsn.rss" rel="alternate"
+        type="application/rss+xml" title="rss"/>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="/favicon.ico"
+        type="image/x-icon"/>
+  <script type="text/javascript"
+          src="/skin/mootools.js"></script>
+  <script type="text/JavaScript">
+    <!--
+    function MM_swapImgRestore() { //v3.0
+      var i,x,a = document.MM_sr;
+      for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++) x.src = x.oSrc;
+    }
+
+    function MM_preloadImages() { //v3.0
+      var d = document;
+      if (d.images) {
+        if (!d.MM_p) d.MM_p = new Array();
+        var i,j = d.MM_p.length,a = MM_preloadImages.arguments;
+        for (i = 0; i < a.length; i++)
+          if (a[i].indexOf("#") != 0) {
+            d.MM_p[j] = new Image;
+            d.MM_p[j++].src = a[i];
+          }
+      }
+    }
+
+    function MM_findObj(n, d) { //v4.01
+      var p,i,x;
+      if (!d) d = document;
+      if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+        d = parent.frames[n.substring(p + 1)].document;
+        n = n.substring(0, p);
+      }
+      if (!(x = d[n]) && d.all) x = d.all[n];
+      for (i = 0; !x && i < d.forms.length; i++) x = d.forms[i][n];
+      for (i = 0; !x && d.layers && i < d.layers.length; i++) x = MM_findObj(n, d.layers[i].document);
+      if (!x && d.getElementById) x = d.getElementById(n);
+      return x;
+    }
+
+    function MM_swapImage() { //v3.0
+      var i,j = 0,x,a = MM_swapImage.arguments;
+      document.MM_sr = new Array;
+      for (i = 0; i < (a.length - 2); i += 3)
+        if ((x = MM_findObj(a[i])) != null) {
+          document.MM_sr[j++] = x;
+          if (!x.oSrc) x.oSrc = x.src;
+          x.src = a[i + 2];
+        }
+    }
+    //-->
+
+//-vertical
+    window.addEvent('domready', function(){
+      var mySlide = new Fx.Slide('toggletext1').hide();
+      $('toggle1').addEvent('click', function(e){
+        e = new Event(e);
+        mySlide.toggle();
+        e.stop();
+      });
+
+      var mySlide2 = new Fx.Slide('toggletext2').hide();
+      $('toggle2').addEvent('click', function(e){
+        e = new Event(e);
+        mySlide2.toggle();
+        e.stop();
+      });
+
+      var mySlide3 = new Fx.Slide('toggletext3').hide();
+      $('toggle3').addEvent('click', function(e){
+        e = new Event(e);
+        mySlide3.toggle();
+        e.stop();
+      });
+
+      var mySlide4 = new Fx.Slide('toggletext4').hide();
+      $('toggle4').addEvent('click', function(e){
+        e = new Event(e);
+        mySlide4.toggle();
+        e.stop();
+      });
+
+      var mySlide5 = new Fx.Slide('toggletext5').hide();
+      $('toggle5').addEvent('click', function(e){
+        e = new Event(e);
+        mySlide5.toggle();
+        e.stop();
+      });
+    });
+  </script>
+</head>
+
+
+
+
+<body>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+<tr>
+<td height="764" class="left"></td>
+<td valign="top" class="main">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td align="center"><center><a href="http://www.javaspecialists.eu"><img border="0" src="/skin/images2/top_banner_01.jpg" alt="Java Specialists' Java Training Europe" width="438" height="101" /><img border="0" src="/skin/images2/top_banner_02.jpg" alt="home of the java specialists' newsletter" width="437" height="101" /></a></center></td>
+</tr>
+<tr>
+<td height="25" align="center" valign="top">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr>
+<td width="190" class="nav_bg"> </td>
+<td align="center" width="120" height="26" class="nav"><a href="http://www.javaspecialists.eu/index.jsp">Home</a></td>
+<td align="center" width="120" class="nav"><a href="http://www.javaspecialists.eu/archive/archive.jsp">Newsletter</a></td>
+<td align="center" width="120" class="nav"><a href="http://www.javaspecialists.eu/courses/inhouse.jsp">Java Training</a></td>
+<td align="center" width="120" class="nav"><a href="http://www.javaspecialists.eu/courses.jsp">Java Courses</a></td>
+<td align="center" width="120" class="nav"><a href="http://www.javaspecialists.eu/services/code_review.jsp">Code Reviews</a></td>
+<td align="center" width="120" class="nav"><a href="http://www.javaspecialists.eu/archive/resources.jsp">Java Resources</a></td>
+<td align="center" width="120" class="nav2"><center><a href="http://www.javaspecialists.eu/contact.jsp">Contact</a></td>
+<td align="center" width="190" class="nav_bg"> </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td height="638" valign="top">
+<table width="909" border="0" align="center" cellpadding="0" cellspacing="0" class="top_bg">
+<tr>
+<td></td>
+</tr>
+</table>
+<table width="909" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr>
+<td width="706" height="575" valign="top" class="main_bg">
+
+  <table width="660" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+
+  <script src="/skin/fade.js" language="JavaScript" type="text/javascript"></script>
+
+  <?xml version="1.0" encoding="iso-8859-1"?>
+<p class="newsinfo" align="center"><span class="bigheading">
+      The Java Specialists' Newsletter
+    </span><br/><img src="/skin/images2/arrow_orange2.jpg" height="10" width="30"/>
+    Issue 051<img src="/skin/images2/arrow_orange2.jpg" height="10" width="30"/>2002-06-18<img src="/skin/images2/arrow_orange2.jpg" height="10" width="30"/>
+    Category:
+    <a href="newsletters.jsp?category=Software Engineering&amp;locale=en_US">Software Engineering</a><img src="/skin/images2/arrow_orange2.jpg" height="10" width="30"/>
+    Java version: </p><form name="print" method="post" action="/print.do"><input name="issue" type="hidden" value="051"/><input name="locale" type="hidden" value="en_US"/><p class="newsinfo" align="center"><img src="/skin/images2/icon_email.jpg" height="14" width="20"/><a href="mailto:subscribe@javaspecialists.eu?subject=Subscribe">
+      Subscribe Free
+    </a><img src="/skin/images2/icon_rss.jpg" height="14" width="15"/><a href="/archive/tjsn.rss">
+      RSS Feed
+    </a><input submit="issue" type="submit" value="Print"/></p></form><center><h1>Java Import Statement Cleanup</h1></center><center>by Dr. Cay S. Horstmann</center><div align="center"><img src="/skin/images2/pixle_gr.jpg" height="1" width="90%"/></div>
+
+<p>
+Welcome to the 51st edition of <b>The Java(tm) Specialists'
+Newsletter</b> sent to over 3800 readers in <a href="/countries.jsp">84 countries</a>,
+with latest additions of Chile and <b>Kenya</b>.  I always get excited
+when I see an African name on my new subscriber list, since
+at the moment I only have subscribers in Africa from:
+Egypt, Ghana, Kenya, Mauritius, Morocco, Namibia, Nigeria,
+South Africa and Zimbabwe.  I say "umkelekile" (welcome in
+Xhosa) to my new subscriber from Kenya.
+</p>
+
+<p>
+This newsletter attracts the elite of Java programmers, since
+we cover things that are not usually mentioned on Java
+newsletters.  If you are a subscriber to this newsletter, it
+makes you part of the "elite" :-)  A relatively new subscriber
+to my newsletter is <a href="http://horstmann.com" target="_blank">Dr. Cay S.
+Horstmann</a>, famous Java author in the "Core Java"
+series.  Cay very kindly pointed me to an article that he wrote
+about a tool he created for cleaning up <code><b><FONT COLOR="#000080">import</FONT></b></code> statements.
+Seeing that I am an amateur writer, I did not dare "edit" the
+article in case I completely messed it up, so I am sending it
+to you as is, with just the syntax highlighting added and font changed
+(almost like some students [and lecturers] do at universities).
+</p>
+
+<p>
+Before we listen to what Dr. Horstmann has to say about the topic,
+I would like to make a few of my own comments about the subject.
+Having code with unnecessary <code><b><FONT COLOR="#000080">import</FONT></b></code>
+statements looks unprofessional, but how do you keep them 
+up-to-date?  An IDE which does this very nicely is 
+<a href="http://www.eclipse.org" target="_blank">Eclipse</a>.  You click
+on the class and say "Organize Imports", and <b>bang!</b> it 
+beautifies your import statements.  I am sure there are other 
+IDEs out there that can do the same.  However, if you don't have
+such an IDE, the technique described in this newsletter is a
+great way of solving this problem.
+</p>
+
+<p>
+After my last <a href="/courses/dpc.jsp">Design
+Patterns Course</a>, one of my students sent me the following note:
+<i>"I really enjoyed the course. I origionally thought it was going to be 
+about learning to draw UML diagrams. I was pleasantly surprised to 
+discover the course was actually about different programming strategies.  
+I learnt some very cool tricks and new way of aproaching the problems of 
+designing a system. A must for those who wish to design maintainable 
+systems."</i>  Please <a href="/contact.jsp">send
+me an email</a> if your company would like to
+receive training in Design Patterns.
+</p>
+
+<p><b><FONT COLOR="#FF0000">Upcoming <a href="/courses/master.jsp">Java Specialist Master Courses:</a></FONT></b><br/><br/><small><center><i>"This course embodies my Java knowledge and experience gained publishing 178 advanced Java newsletters, teaching hundreds of seminars and writing hundreds of thousands of lines of Java code." Heinz Kabutz, The Java Specialists Newsletter</i></center></small><b>Baltimore, MD, Jan 25-28 2010, $3500</b> - <a href="/enquiry.jsp?code=master">click to sign up.</a><br/><b>Paris, France, Feb 9-12 2010, &#8364;2500</b> - <a href="http://www.zenika.com/formation_java_specialiste.php?fg=10003">click to sign up.</a><br/><b>Düsseldorf, Germany (in German), Mar 2-5 2010, &#8364;2500</b> - <a href="http://www.meettheexperts.de/jsp/schulungen-anmeldung.jsp?utm_source=webseite&amp;utm_medium=link&amp;utm_content=anmeldung&amp;utm_campaign=heinz-kabutz">click to sign up.</a><br/><b>San Jose CA, Mar 16-19 2010, $3500</b> - <a href="/enquiry.jsp?code=master">click to sign up.</a><br/><b>Oslo, Norway, Apr 13-16 2010, Kr 24500</b> - <a href="/enquiry.jsp?code=master">click to sign up.</a><br/><br/>
+In-house courses if these dates or locations do not suit you - <a href="/courses/inhouse.jsp">click here for more information.</a></p><h3>Java Import Statement Cleanup</h3>
+ 
+<h4>Background</h4>
+ 
+<p>
+In the Java programming language, the names of classes that are defined 
+inside packages always start with the package name. For example, the class 
+name
+</p>
+ 
+<pre>
+java.awt.Rectangle
+</pre>
+ 
+<p>
+starts with the name of the package <code>java.awt</code>. As a convenience 
+to programmers, the <code><b><FONT COLOR="#000080">import</FONT></b></code> mechanism can be used to reference classes 
+without the package name. For example, it is tedious to write
+</p>
+ 
+<pre>
+java.awt.Rectangle box = <b><FONT COLOR="#000080">new</FONT></b> java.awt.Rectangle(<b><FONT COLOR="#008000">5</FONT></b>, <b><FONT COLOR="#008000">10</FONT></b>, <b><FONT COLOR="#008000">20</FONT></b>, <b><FONT COLOR="#008000">30</FONT></b>);
+</pre>
+ 
+<p>
+You can use the more convenient form
+</p>
+ 
+<pre>
+Rectangle box = <b><FONT COLOR="#000080">new</FONT></b> Rectangle(<b><FONT COLOR="#008000">5</FONT></b>, <b><FONT COLOR="#008000">10</FONT></b>, <b><FONT COLOR="#008000">20</FONT></b>, <b><FONT COLOR="#008000">30</FONT></b>);
+</pre>
+ 
+<p>
+provided you <i>import</i> the class.
+</p>
+ 
+<p>
+Classes in the same package are automatically imported, as are the classes 
+in the <code>java.lang</code> package. For all other classes, you must supply 
+an import statement to either import a specific class
+</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.Rectangle;
+</pre>
+ 
+<p>
+or to import all classes in a package, using the <i>wildcard</i> notation
+</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.*;
+</pre>
+ 
+<p>
+Importing classes can lead to <i>ambiguities</i>. A class name is ambiguous 
+if it occurs in two packages that are imported by wildcards. For example, 
+suppose a program contains the imports
+</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.*;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.*;
+</pre>
+ 
+<p>The class name <code>List</code> is now ambiguous because there are two classes 
+<code>java.awt.List</code> and <code>java.util.List</code>. You can resolve the ambiguity 
+by adding a specific import of the class name:</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.*;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.*;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.List;
+</pre>
+ 
+<p>
+However, if you need to refer to both <code>java.awt.List</code> and 
+<code>java.util.List</code> in the same source file, then you have crossed the limits of the import 
+mechanism. You can use an <code><b><FONT COLOR="#000080">import</FONT></b></code> statement to shorten one of the 
+names to <code>List</code>, but you need to reference the other by its full name 
+whenever it occurs in the source text.
+</p>
+ 
+<h4>The Problem</h4>
+ 
+<p>
+Ambiguities are unpleasant because they can arise over time, as libraries 
+expand. For example, in JDK 1.1, there was no <code>java.util.List</code> class. 
+Consider a program that imports <code>java.awt.* </code>and <code>java.util.*</code>
+and uses the name <code>List</code> as a shortened form of <code>java.awt.List</code>.
+That program compiles without errors under JDK1.1 but fails to compile in Java 2.
+</p>
+ 
+<p>
+Therefore, the use of wildcards for imports is somewhat dangerous. However, 
+importing each class can lead to long import lists that are tedious to manage, 
+especially as code is moved from one class to another during development.
+</p>
+ 
+<p>
+To illustrate this, consider the import list in one of my recent files.
+</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.*;
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.geom.*;
+<b><FONT COLOR="#000080">import</FONT></b> java.io.*;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.*;
+</pre>
+ 
+<p>
+It turned out that I really needed
+</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.Graphics2D;
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.Rectangle;
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.geom.Point2D;
+<b><FONT COLOR="#000080">import</FONT></b> java.awt.geom.Rectangle2D;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.ArrayList;
+</pre>
+ 
+<p>
+(Apparently, the need for importing <code>java.io.*</code> had gone away at 
+some point during the program's evolution)
+</p>
+ 
+<p>
+Thus, a problem that Java programmers face is how to keep import lists 
+up-to-date when programs change.
+</p>
+ 
+<h4>Potential Solutions</h4>
+ 
+<p>
+One time-honored solution of checking import lists is to comment out one 
+line at a time until compiler errors go away. Naturally, that is tedious. 
+</p>
+ 
+<p>
+Another solution is to stop using import lists altogether and referencing 
+the full class names at all times. Naturally, that too is tedious.
+</p>
+ 
+<p>
+Several compilers emit lists of classes that they load as they compile 
+a program. For example, if you run the compiler in the Sun J2SE SDK 1.4 with 
+the <code>-verbose</code> option, you get a list such as
+</p>
+ 
+<pre>
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/Font.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/Graphics2D.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/Stroke.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/font/FontenderContext.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/geom/Line2D.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/geom/Point2D.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/geom/Rectangle2D.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/util/ArrayList.class)]
+[loading ./AbstractEdge.class]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/lang/Object.class)]
+[loading ./Edge.class]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/io/Serializable.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/lang/Cloneable.class)]
+[loading ./LineStyle.class]
+[loading ./ArrowHead.class]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/lang/String.class)]
+[checking SegmentedLineEdge]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/Graphics.class)]
+[loading ./SerializableEnumeration.class]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/util/AbstractList.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/util/AbstractCollection.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/geom/Line2D$Double.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/Shape.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/text/CharacterIterator.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/lang/Comparable.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/lang/CharSequence.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/geom/Point2D$Double.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/awt/geom/RectangularShape.class)]
+[loading /usr/local/j2sdk1.4.0/jre/lib/rt.jar(java/text/AttributedCharacterIterator.class)]
+</pre>
+
+<p>
+It would be an easy matter to write a script that transforms this output 
+into a set of import statements. However, the output contains classes that 
+don't actually need to be imported (such as <code>CharSequence</code> and 
+<code>AttributedCharacterIterator</code>). These classes are loaded because 
+some of the loaded classes depend on them. It is not clear (at least 
+to me) how one can weed out the unneeded classes.</p>
+ 
+<p>I used a different approach. I wrote a utility that harvests the <i>class 
+file</i>. Unlike source files, class files never contain shortened class files.
+Even standard classes such as <code>java.lang.String</code> are referenced by
+their full names.</p>
+ 
+<p>Class files contain the names of classes as well as field and method descriptors 
+that contain class names (in an odd format, such as <code>Ljava/lang/String;</code>
+ ). To harvest the class names, one must know the layout of the constant
+pool and the field and method descriptors. The class file format is well-documented--see 
+the references at the end of this document--and only moderately complex. </p>
+ 
+<h4>The <code>ImportCleaner</code> Program</h4>
+ 
+<p>
+The <code>ImportCleaner</code> program parses one or more class files, harvests 
+the class names, removes the unnecessary ones, sorts the remaining ones, and
+prints out a list of import statements to <code>System.out</code>.
+</p>
+ 
+<p>
+Since <code>ImportCleaner</code> parses class files, your source file must 
+first be compiled (presumably with a less-than-optimal import statement set). 
+Then run <code>ImportCleaner</code> on the class file, capture the output, and 
+paste the import lines into your source file.</p>
+ 
+<p>
+For example, to run <code>ImportCleaner</code> on its own class files, you use
+</p>
+ 
+<pre>
+java -jar importcleaner.jar ImportCleaner
+</pre>
+ 
+<p>(You can find the <code>ImportCleaner</code> class files by unzipping <code>
+ importcleaner.jar</code>).</p>
+ 
+<p>
+The result is this list of imports, printed to <code>System.out</code>:
+</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">import</FONT></b> java.io.DataInput;
+<b><FONT COLOR="#000080">import</FONT></b> java.io.DataInputStream;
+<b><FONT COLOR="#000080">import</FONT></b> java.io.File;
+<b><FONT COLOR="#000080">import</FONT></b> java.io.FileInputStream;
+<b><FONT COLOR="#000080">import</FONT></b> java.io.FilenameFilter;
+<b><FONT COLOR="#000080">import</FONT></b> java.io.IOException;
+<b><FONT COLOR="#000080">import</FONT></b> java.io.PrintStream;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.Iterator;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.Set;
+<b><FONT COLOR="#000080">import</FONT></b> java.util.TreeSet;
+</pre>
+ 
+<p>
+Typically, your next step is to capture that list of imports and paste 
+it into your source file.
+</p>
+ 
+<p>
+If your source file contains multiple top-level classes, then you need 
+to list all of them on the command line. For example,
+</p>
+ 
+<pre>
+java -jar importcleaner.jar MyClass MyHelperClassThatIsDefinedInTheSameFile
+</pre>
+ 
+<p>
+However, inner classes are located automatically.
+</p>
+ 
+<p>
+You can supply the name of a class in any of the following forms:
+</p>
+ 
+
+ <li>without suffix: <code>MyClass</code></li>
+ <li>with <code>.class</code> suffix: <code>MyClass.class</code></li>
+ <li>with <code>.java</code> suffix: <code>MyClass.java</code></li>
+
+ 
+<p>
+The <code>ImportCleaner</code> program strips off the suffixes and then looks 
+for the file <code>MyClass.class</code> and all files of the
+form <code>MyClass$*.class</code> (for inner classes).
+</p>
+ 
+<p>
+If your class file is located in a package, you need to invoke <code>ImportCleaner</code>
+from the base directory. For example, if you use the package <code>com.mycompany.myproject</code>,
+invoke <code>ImportCleaner</code> from the directory that contains the <code>com</code>
+directory. You can supply the package name in either of the following 
+forms:
+</p>
+ 
+
+ <li>using periods as separators: <code>com.mycompany.myproject.MyClass</code></li>
+ <li>using the separator of your file system: <code>com/mycompany/myproject/MyClass</code>
+(or \ on Windows)</li>
+
+ 
+<p>
+Capturing the output is very easy if you use the shell mode in Emacs. Other
+good programming editors have similar features. Alternatively, you can redirect
+the output to a file:
+</p>
+ 
+<pre>
+java -jar importcleaner.jar <i>class(es)</i> <b>&gt; <i>outputfile</i></b>
+</pre>
+ 
+<p>
+The program takes the following options:
+</p>
+ 
+
+ <li><code>-wildcard</code>: This option produces an import list with wildcards 
+instead of individual class names.</li>
+ <li><code>-keepall:</code> This option keeps all imports, including the ones 
+from <code>java.lang</code> and the current package. The default is to suppress 
+the <code>java.lang</code> package and the current package
+ </li>
+ <li><code>-usecalls</code>: This option harvests method calls, which is sometimes 
+beneficial to guess local variable types (see the Limitations section below). 
+On the other hand, method calls can lead to spurious imports. This happens 
+when you supply a parameter of a subclass type or catch a return value in 
+a variable of a superclass type. For example, your code may call the constructor 
+  <code>java.io.DataInputStream(java.io.InputStream)</code> and pass a parameter 
+of type <code>java.io.FileInputStream</code>, like this: 
+   
+<pre>
+DataInputStream in = <b><FONT COLOR="#000080">new</FONT></b> DataInputStream(<b><FONT COLOR="#000080">new</FONT></b> FileInputStream(file));
+</pre>
+
+Harvesting the method call yields the spurious <code><b><FONT COLOR="#000080">import</FONT></b> java.io.InputStream</code>.
+Such spurious imports are generally harmless but unsightly.
+ </li>
+ 
+
+
+<h4>Limitations</h4>
+ 
+<p>Unfortunately, <i>constants</i> are not included in the class files, so 
+this utility will miss them. Typical examples are:</p>
+ 
+<pre>
+BorderLayout.NORTH
+Color.red
+</pre>
+ 
+<p>Also, the types of <i>local variables</i> are not included in the class 
+file. This sounds like a big problem, but fortunately, the same class or interface
+name is often used in a method or field descriptor as well. To illustrate
+the issue, consider this code:</p>
+ 
+<pre>
+<b><FONT COLOR="#000080">public void</FONT></b> draw(Graphics2D g2) {
+  Stroke oldStroke = g2.getStroke();
+  g2.setStroke(<b><FONT COLOR="#000080">new</FONT></b> BasicStroke());
+  <i><FONT COLOR="808080">// . . .</FONT></i>
+  g2.setStroke(oldStroke);
+} 
+</pre>
+ 
+<p>
+<code>ImportCleaner</code> includes <code>java.awt.Graphics2D</code> because it 
+appears in the method signature of the processed class. It includes <code>java.awt.BasicStroke</code>
+because of the constructor call. But by default it won't include <code>java.awt.Stroke</code>
+since there is no guaranteed reference for it in the source file.
+ </p>
+ 
+<p>A remedy is to recompile after pasting in the <code>ImportCleaner</code> output. 
+Then look at the error messages and manually insert the missing imports. It
+sounds bad, but in actual practice it doesn't seem to be all that bothersome.
+</p>
+ 
+<p>Another remedy would be to use fully qualified class names in this situation.</p>
+ 
+<p>You may also wish to use the <code>-usecalls</code> option. That option harvests 
+method calls. In our example, that option finds the <code>java.awt.Stroke</code>
+class from the <code>()Ljava/awt/Stroke;</code> method descriptor of the <code>
+ Graphics2D.getStroke</code> method. Harvesting method descriptors is not the 
+default because it can lead to spurious imports. (See the description of the
+<code>-usecalls</code> option for more information.)
+</p>
+ 
+<h4>References</h4>
+ 
+
+ <li>The class file format is documented as part of the Java Virtual Machine 
+specification (<a href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/VMSpecTOC.doc.html" target="_blank">
+ http://java.sun.com/docs/books/vmspec/2nd-edition/html/VMSpecTOC.doc.html</a>
+ ). I found the source code at <a href="http://www.mcmanis.com/chuck/java/" target="_blank">http://www.mcmanis.com/chuck/java/</a>
+helpful to gain a clearer understanding of the class file format.</li>
+ <li>ImportScrubber (<a href="http://importscrubber.sourceforge.net/" target="_blank">http://importscrubber.sourceforge.net/</a>
+) seems to follow a similar approach as my <code>ImportCleaner</code>, and
+it has a GUI. BCEL (<a href="http://jakarta.apache.org/bcel/" target="_blank">http://jakarta.apache.org/bcel/</a>
+) is a library for reading and modifying class files used by ImportScrubber.</li>
+ <li>
+   Importifier is yet another tool for the same purpose, but it
+   can't handle default packages.
+ </li>
+ <li>A tool available at <a href="http://www.componative.com" target="_blank">
+ http://www.componative.com</a>
+ harvests the output of the <a href="http://oss.software.ibm.com/developerworks/opensource/jikes/" target="_blank">Jikes</a>
+ compiler.</li>
+ <li>TIM is a commercial program for import management.
+</li>
+ 
+
+ 
+<hr/>
+
+<p>
+That's it for this week.
+</p>
+
+<p>
+Kind regards
+</p>
+
+<p>
+Heinz
+</p>
+
+<p>
+P.S. Even though my newsletter template says that Maximum Solutions, South Africa, has the copyright on this newsletter,
+the copyright of the content of the article belongs to Dr. Cay S. Horstmann.  Please
+<a href="http://horstmann.com" target="_blank">contact him</a> if you would like to publish this article anywhere.
+</p>
+
+
+
+  
+
+
+<DIV id="fadeinbox" style="filter:progid:DXImageTransform.Microsoft.Fade(duration=1) progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135) ; -moz-opacity:0">
+  <table width="300" border="0" cellpadding="0" cellspacing="0" class="popup">
+    <tr>
+      <td valign="top" width="100%">
+        <form action="http://burst.sparklist.com/scripts/submany.pl" method="post">
+          <input type="hidden" name="redirect" value="http://www.javaspecialists.eu/archive/Issue051.html"/>
+          <input type="hidden" name="list" Value="join-thejavaspecialists@burst.sparklist.com"/>
+          <table cellpadding="" cellspacing="5">
+            <tr>
+              <td colspan="2" height="30">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                  30,000 top Java programmers swear by <i>The Java Specialists'
+                  Newsletter</i>, with some already 160 ideas ahead of you.
+                  <b>Isn't it time you joined?</b>
+              </td>
+            </tr>
+            <tr>
+              <td>Email:</td>
+              <td><input name="email" type="text" class="search" size="15" maxlength="100"/></td>
+            </tr>
+            <tr>
+              <td>Name:</td>
+              <td><input name="name" type="text" class="search" size="15" maxlength="100"/></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <center>
+                  <input name="submit" type="submit" class="search"
+                         id="submit" value=" Send it to Me"/>
+                  &nbsp;&nbsp;
+                  <a href="#" onClick="hidefadebox();return false">Close</a>
+                </center>
+              </td>
+            </tr>
+          </table>
+      </form>
+    </td>
+  </tr>
+</table>
+
+</DIV>
+
+
+<p class="newsinfo">
+  <img src="/skin/images2/arrow_orange2.jpg" height="10" width="30">
+  <a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Software Engineering&amp;locale=en_US">Software Engineering Articles</a>
+  <img src="/skin/images2/arrow_orange2.jpg" height="10" width="30">
+  <a href="http://www.javaspecialists.eu/courses/j2se.jsp">Related Java Course</a>
+  <img src="/skin/images2/arrow_orange2.jpg" height="10" width="30">
+  <!-- AddThis Bookmark Button BEGIN -->
+  <a href="http://www.addthis.com/bookmark.php"
+     onclick="addthis_url = location.href; addthis_title = document.title; return addthis_click(this);"
+     target="_blank"><img src="http://s9.addthis.com/button0-bm.gif"
+                          alt="AddThis Social Bookmark Button"
+                          border="0" height="16" width="83"></a>
+  <script type="text/javascript">var addthis_pub = 'KC6CYTPNXGXRBKJQ';</script><script
+    type="text/javascript" src="http://s9.addthis.com/js/widget.php?v=10"></script>
+  <!-- AddThis Bookmark Button END -->
+</p>
+
+
+
+
+
+
+
+
+</td>
+</tr>
+</table>
+
+
+</th>
+<th width="203" valign="top" class="rightcol_bg" scope="col">
+  
+
+
+
+
+
+
+
+
+
+  
+    <div id="coursebox"><img src="/skin/images2/rightnav_news_top.jpg" height="36" width="140"></div>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="150">
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Book Review&amp;locale=en_US">Book Review</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Concurrency&amp;locale=en_US">Concurrency</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Exceptions&amp;locale=en_US">Exceptions</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=GUI&amp;locale=en_US">GUI</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Inspirational&amp;locale=en_US">Inspirational</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Language&amp;locale=en_US">Language</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Performance&amp;locale=en_US">Performance</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Software Engineering&amp;locale=en_US">Software Engineering</a></td></tr>
+      
+        <tr><td class="rightnav"><img src="/skin/images2/nav_arrow_gn.jpg"><a href="http://www.javaspecialists.eu/archive/newsletters.jsp?category=Tips and Tricks&amp;locale=en_US">Tips and Tricks</a></td></tr>
+      
+    </table>
+
+    <div id="coursebox"><a href="http://www.javaspecialists.eu/courses.jsp" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image9','','/skin/images2/courses_box_dn.jpg',1)"><img src="/skin/images2/courses_box.jpg" name="Image9" width="145" height="190" border="0" id="Image9" /></a><a href="/courses.jsp"></a></div>
+    
+  
+  
+
+
+
+
+<div id="banner">
+
+
+
+
+
+
+
+
+
+<a href="/banner.do?id=4" target="_blank"><img border="0"
+          src="/advertise/ads/javaspecialists01.jpg"
+          alt="Advertising opportunities on The Java Specialists Newsletter" width="120"
+          height="240"/></a>
+
+</div>
+
+</td>
+</th>
+
+</tr>
+</table>
+<table width="909" border="0" align="center" cellpadding="0" cellspacing="0" class="bot_bg">
+<tr>
+<th scope="col"> </th>
+</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr class="footbar">
+<th width="13%" class="footbar" scope="col"> </th>
+<th width="24%" height="26" class="footbar" scope="col">&copy; 2009 Heinz Kabutz - All Rights Reserved</th>
+<th width="8%" class="footbar" scope="col"><a href="http://www.javaspecialists.eu/sitemap.jsp">Sitemap</a></th>
+
+<th width="14%" class="footbar" scope="col"> </th>
+<th width="21%" class="footbar" scope="col"><a href="http://www.catch22marketing.com/" target="_blank">seo web design</a> Catch22 Marketing</th>
+<th width="12%" class="footbar" scope="col"> </th>
+</tr>
+</table>
+</th>
+</tr>
+</table>
+</th>
+<th class="right" scope="col"> </th>
+</tr>
+</table>
+
+
+    <!-- rendered in 503 ms -->
+
+</td></tr>
+</table>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-9888810-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+
+

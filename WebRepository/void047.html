@@ -1,0 +1,954 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" dir="ltr">
+  <head>
+    <title>
+      Code Style: Java command line frequently asked questions (FAQ)
+    </title>
+        <meta http-equiv="pics-label" content='(pics-1.1 "http://www.icra.org/ratingsv02.html" comment "ICRAonline EN v2.0" l gen true for "http://www.codestyle.org/" r (nz 1 vz 1 lz 1 oz 1 cz 1) "http://www.rsac.org/ratingsv01.html" l gen true for "http://www.codestyle.org/" r (n 0 s 0 v 0 l 0))' />
+    <link rel="schema.DC" href="http://purl.org/DC/elements/1.0/" title="The Dublin Core metadata Element Set" />
+    <meta name="DC.Creator" content="Shaw, Philip" />
+    <meta name="DC.Publisher" content="Philip Shaw" />
+    <meta name="DC.Type" scheme="DCMIType" content="Text" />
+    <meta name="DC.Format" scheme="IMT" content="text/html" />
+    <meta name="DC.Language" scheme="RFC1766" content="en-GB" />
+    <meta name="DC.Coverage.spatial" scheme="TGN" content="World" />
+    <meta name="DC.Coverage.temporal" scheme="Period" content="start=1990;scheme=W3CDTF" />
+    <link rel="DC.Rights" href="http://www.codestyle.org/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="home" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="shortcut icon" href="/favicon.ico" title="Code Style shortcut icon" type="image/x-icon" />
+    <link rel="copyright" href="/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="appendix" href="/codestyle/SiteMap.shtml" title="Code Style site map" type="text/html" />
+    <link rel="appendix" href="/SubjectIndex.shtml" title="Code Style subject index" type="text/html" />
+    <link rel="help" href="/faq/index.shtml" title="Help and FAQ section" type="text/html" />
+    <link rel="P3Pv1" href="http://www.codestyle.org/w3c/p3p.xml" title="Privacy Policy" type="text/xml" />
+    <link rel="meta" href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-CommandLine.shtml" title="RDF Metadata" />
+    <link rel="alternate" href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-CommandLine.shtml" type="application/rss+xml" title="RSS news feed" />
+    <meta name="DC.Title" content="Java command line FAQ" />
+    <meta name="DCTERMS.created" scheme="W3CDTF" content="2007-02-11T10:20:48Z" />
+    <meta name="DCTERMS.issued" scheme="W3CDTF" content="2007-02-11T10:22:13Z" />
+    <meta name="DCTERMS.modified" scheme="W3CDTF" content="2009-12-09T16:27:22Z" />
+    <meta name="DC.Identifier" scheme="URI" content="http://www.codestyle.org/java/faq-CommandLine.shtml" />
+    <meta name="DCTERMS.abstract" content="FAQs about the Java command line interface, CLI, command line arguments, options and main method invocation." />
+    <meta name="description" content="FAQs about the Java command line interface, CLI, command line arguments, options and main method invocation." />
+        <meta name="keywords" content="java commands, java cli, main method, command line argument, java main arguments, command line, java command line program, java command line examples, argument of main method is string array why, how can we use comandline argument in java, java command line programs, how many main methods used in java, can we main method be overloaded, command line argument program, change name of main method" />
+    <meta name="DC.Description.tableOfContents" scheme="URI" content="http://www.codestyle.org/java/Contents.shtml" />
+    <meta name="DC.Subject" scheme="DDC" content="006" />
+    <meta name="DC.Subject" lang="en-GB" xml:lang="en-GB" content="Java" />
+    <link rel="help" href="/java/FAQ.shtml" title="Java Programming FAQ" type="text/html" />
+    <link rel="up" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="index section chapter start bookmark" href="/java/index.shtml" title="Java &amp; servlets section" type="text/html" />
+    <link rel="contents toc" href="/java/Contents.shtml" title="Java &amp; servlets contents" type="text/html" />
+    <link rel="appendix" href="/java/AnchorPoints.shtml" title="Anchor Points: Java servlets" type="text/html" />
+    <link rel="appendix" href="/java/FAQ.shtml" title="Java programming FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Threads.shtml" title="Java threads FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Inheritance.shtml" title="Java inheritance FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-CommandLine.shtml" title="Java command line FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Interface.shtml" title="Java interface design FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Language.shtml" title="Java language FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-API.shtml" title="Java API FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Strings.shtml" title="Java strings FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-JDBC.shtml" title="JDBC FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Objects.shtml" title="Java objects FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Static.shtml" title="Java static context FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Abstract.shtml" title="Java abstract classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Compiler.shtml" title="Java compiler FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-UtilityClasses.shtml" title="Java utility classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-IO.shtml" title="Java I/O FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Networking.shtml" title="Java networking FAQ" type="text/html" />
+    <link rel="stylesheet" type="text/css" href="/styles/section-Java.css" />        <link rel="stylesheet" type="text/css" href="/styles/CSPersistent.xcss" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSAlternate.css"  title="Blue, sans-serif" />
+    <link rel="stylesheet" type="text/css" href="/styles/CSStandard.xcss"  title="Standard" />
+<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="/styles/CSStdLayoutIE6.css" title="Standard" />
+<![endif]-->
+    <link rel="stylesheet" type="text/css" href="/styles/CSPrint.css" media="print" title="Standard" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSStandard.xcss" media="all" title="Print preview" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSPrint.css" media="all" title="Print preview" />
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      try {
+        _uacct = "UA-1503486-1";
+        urchinTracker();
+      }
+      catch(err) {}
+    </script>
+    <script type="text/javascript" src="/scripts/StandardFunctions.xjs"></script>
+  </head>
+  <body>
+    <div id="TopBar">
+  <a href="http://www.codestyle.org/"><img src="/images/logo-EurostileLozenge168x61.png" width="168" height="61" alt="Code Style - Vital source since 2000" class="Logo" title="Go to the Code Style home page - accesskey 0" /></a>
+  <div class="URI">
+    CSS font stacks, media style sheets &amp; web standards
+  </div>
+  <div id="SiteSearch">
+    <form action="http://www.google.com/cse" id="site-search-box">
+      <div>
+        <label for="search-input">
+          Site search:
+        </label>
+        <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input type="text" name="q" id="search-input" size="16" maxlength="255"  value="search words" onfocus="if(this.value=='search words') this.value='';" alt="Enter a search query in this field (accesskey 9) then tab to the search button that follows and activate" accesskey="9" /><input type="submit" name="sa" id="search-submit" value="Go" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+      </div>
+    </form>
+  </div>
+</div>
+
+    <div id="Header">
+            <h1 class="Title">
+        Java command line FAQ
+      </h1>
+    </div>
+    <div id="Content">
+      <div class="LocalNav">
+      <div class="SponsorZone">
+        <p>
+          <script type="text/javascript">
+Vertical1238757 = false;
+ShowAdHereBanner1238757 = false;
+RepeatAll1238757 = false;
+NoFollowAll1238757 = false;
+BannerStyles1238757 = new Array(
+    "a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+    "img{border:0;clear:right;}",
+    "a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+    "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+);
+document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1238757/1238757.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+        </p>
+        <p>
+          <a href="http://buysellads.com/buy/detail/5795" onclick="urchinTracker('/SponsorFAQ');" title="Your 180 by 150 pixel banner on all pages of the Code Style site">Your banner ad here</a>
+        </p>
+      </div>
+      <div class="RgtBox">
+  <h2>
+    Questions answered
+  </h2>
+  <ul>
+    <li>
+      <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">Site help</a>
+    </li>
+    <li>
+      <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+    </li>
+    <li>
+      <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+    </li>
+    <li>
+      <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+    </li>
+    <li>
+      <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+    </li>
+    <li>
+      <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+    </li>
+    <li>
+      <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+    </li>
+    <li>
+      <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+    </li>
+    <li>
+      <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+    </li>
+    <li>
+      <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+    </li>
+    <li>
+      <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+    </li>
+    <li>
+      <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+    </li>
+    <li>
+      <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+    </li>
+    <li>
+      <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+    </li>
+    <li>
+      <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+    </li>
+    <li>
+      <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+    </li>
+  </ul>
+  <h3>
+    Terms explained
+  </h3>
+  <ul>
+    <li>
+       <a href="/css/Glossary.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+       <a href="/css/media/Glossary.shtml" class="SectionCSS">Media style sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/Glossary.shtml" class="SectionCSS">Font family</a>
+    </li>
+  </ul>
+<h3>
+  Text ad service
+</h3>
+<p>
+  Put your <a href="/codestyle/advertise/index.shtml"  title="Text ad service information">text ad</a> here <img src="/images/icon-TextAdBelow.png" alt="Down arrow icon" width="12" height="16" />
+</p>
+</div>
+    <!-- *** Start FAQ service area *********************** -->
+      <div class="TextAd">
+        <p>
+          <a href="http://www.westnic.net" onclick="urchinTracker('/TextAdWestNIC');">WestNIC</a> provides reliable <a href="http://www.westnic.net/web-hosting/" onclick="urchinTracker('/TextAdWestNIC');">web hosting</a> services
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          <a href="http://www.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">Free software downloads</a> and <a href="http://drivers.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">drivers download</a> resources
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          25% off cpanel <a href="http://www.ahosting.biz/web/index.html" onclick="urchinTracker('/TextAdAhosting-WebHosting-FAQ');">web hosting</a> and <a href="http://www.ahosting.biz/reseller/index.html" onclick="urchinTracker('/TextAdAhosting-ResellerHosting-FAQ');">reseller hosting</a> deals. Promo:&nbsp;<strong>codestyle25off</strong>
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          Top <a href="http://www.topcanadianhotels.com/" onclick="urchinTracker('/TextAdTopCanadianHotels');">Canadian Hotels</a> no booking fees from <a href="http://www.topcanadianhotels.com/victoria-bc-hotels.html" onclick="urchinTracker('/TextAdTopCanadianHotels');">Victoria BC</a> to Nova Scotia
+        </p>
+      </div>
+<!-- *** End FAQ service area ************************* -->
+      </div>
+            <div class="WideNav">
+        <a href="#sitenav">Site navigation below</a>
+      </div>
+      <p class="Standfirst">
+        This FAQ is part of the <span class="CS">Code Style</span> <a href="/faq/index.shtml">Help and FAQ</a> section. Join our <a href="/codestyle/premium/index.shtml">premium content service</a> for full access all FAQ answers.
+      </p>
+      <ul>
+        <li>
+          <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-CommandLine.shtml">News feed for this FAQ</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-CommandLine.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+<!-- *** Start Java service area ********************** -->
+        <li>
+          <a href="/java/RSS.shtml">All Java news feeds</a> <a href="/java/RSS.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+        <li>
+          <a href="/java/Newsletters.shtml">All Java newsletters</a> <a href="/java/Newsletters.shtml"><img src="/images/icon-Email.png" alt="Email newsletter icon" width="16" height="15" /></a>
+        </li>
+<!-- *** End Java service area ************************ -->
+        <li>
+          <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');">Twitter feed</a> <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');"><img src="/images/icon-Twitter.png" width="16" height="16" alt="Twitter icon" /></a>
+        </li>
+      </ul>
+            <div class="FAQSearchBox">
+        <form action="http://www.google.com/cse" id="faq-search-box">
+          <h2>
+            FAQ search
+          </h2>
+          <p>
+            <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+            <input type="hidden" name="ie" value="UTF-8" />
+            <input type="text" name="q" id="faq-search-input" size="48" maxlength="255"  value="intitle:FAQ " alt="Enter a search query after intitle:FAQ, then tab to the search button that follows and activate"  />
+            <input type="submit" name="sa" id="faq-search-submit" value="Search" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+          </p>
+        </form>
+      </div>
+      <div class="MenuBox">
+  <h2>
+    The static main method
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainargsinput">How can I write a program that takes command line input?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainkeywords">Why is the <code>main</code> method declared <code>public static void</code>?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainmean">What does <code>public static void main(String[])</code> mean?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainhostclass">In which class is the <code>main()</code> method declared?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainnameconvention">Why do we only use the <code>main</code> method to start a program?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainoverload">Can the <code>main</code> method be overloaded?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#egmainoverload">Can you give an example of overloading the <code>main()</code>?</a>
+    </li>
+  </ul>
+  <h2>
+    Main method arguments
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#main-args-mean">What do the arguments in the main method mean?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#main-method-signature">Which is the right syntax for the main method?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainargsstring">Why are command line arguments passed as a <code>String</code>?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainarguments">Why doesn't the <code>main</code> method throw an error with no arguments?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#main-arg-reverse">How can I print the main method arguments in reverse order?</a>
+    </li>
+  </ul>
+  <h2>
+    Main method modifiers
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#staticfinalmain">Can the <code>main</code> method be declared final?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#staticmainconvention">I get an exception if I remove the <code>static</code> modifier from <code>main</code>!</a>
+    </li>
+  </ul>
+  <h2>
+    Calling the main method
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainargtype">Can I call the <code>main()</code> method with a <code>String</code> argument?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#argslimit">How many arguments can be passed on the command line?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#wildcardarg">When I pass <code>*.java</code> as an argument I get a list of all my source files!</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#interactive-cli">How can I make an interactive command line interface?</a>
+    </li>
+  </ul>
+  <h2>
+    Application start up
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#maininstance">How can the static <code>main</code> method use instance variables?</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml#mainhost">Can I invoke the <code>main</code> method from another class?</a>
+    </li>
+  </ul>
+</div>
+      <h2 class="NewSection">
+        The static main method
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="mainargsinput" id="mainargsinput">How can I write a program that takes command line input?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Java programs that take input from the command line declare a special static method called <code>main</code>, which takes a <code>String</code> array as an argument and returns void. The example program below loops through any arguments passed to the program on the command line and lists their values.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/MainArgsInput.shtml">How can I write a program that takes command line input?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsinput">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsinput">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsinput">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsinput">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainkeywords" id="mainkeywords">Why is the <code>main</code> method declared <code>public static void</code>?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>main</code> method is declared <code>public</code> so that it is accessible as part of the public interface of the program. It is <code>static</code> because it must be called before the class that hosts the method is instantiated. It returns <code>void</code> because the Java interpreter does not expect to receive or process any output from the class; any output intended for end users will normally be sent to the system output and error streams, or via a graphical user interface or supplementary logging systems.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainkeywords">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainkeywords">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainkeywords">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainkeywords">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainmean" id="mainmean">What does <code>public static void main(String[])</code> mean?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> This is a special static method signature that is used to run Java programs from a command line interface (CLI). There is nothing special about the method itself, it is a standard Java method, but the Java interpreter is designed to call this method when a class reference is given on the command line, as below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/MainMean.shtml">What does <code>public static void main(String[])</code> mean?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainmean">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainmean">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainmean">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainmean">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainhostclass" id="mainhostclass">In which class is the <code>main()</code> method declared?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>static void main(String[])</code> method can be declared in any Java class to create a running Java application. Where you choose to place the main method will depend on the nature and structure of your application. It is possible for numerous classes to have their own main entry point methods, but only one entry point can be used to start the program. An application will typically have a top level application class, an &quot;Editor&quot;, &quot;Viewer&quot;, &quot;Server&quot; or &quot;Monitor&quot; type that will be used to start and run the program, for example.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainhostclass">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainhostclass">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainhostclass">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainhostclass">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainnameconvention" id="mainnameconvention">Why do we only use the <code>main</code> method to start a program?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The entry point method <code>main</code> is used to the provide a standard convention for starting Java programs. The choice of the method name is somewhat arbitrary, but is partly designed to avoid clashes with the <code>Thread</code> <code>start()</code> and <code>Runnable</code> <code>run()</code> methods, for example.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainnameconvention">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainnameconvention">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainnameconvention">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainnameconvention">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainoverload" id="mainoverload">Can the <code>main</code> method be overloaded?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> Yes, any Java method can be overloaded including the <code>main()</code> method. The Java interpreter will only invoke the standard entry point signature for the <code>main</code> method, with a string array argument, but your application can call its own <code>main()</code> method as required.
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainoverload">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainoverload">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainoverload">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainoverload">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="egmainoverload" id="egmainoverload">Can you give an example of overloading the <code>main()</code>?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> To overload the <code>main()</code> method you would have the same <code>public</code> visibility modifier, <code>static</code> method type, <code>void</code> return type and <code>main</code> method name but the type or number of arguments must vary.
+      </p>
+      <p>
+        Overloaded methods can provide versatility in a class and group similar behaviour with a common name. You may want to chain the standard <code>main()</code> method with an overloaded version that takes a conditional variable, key value or reference to signal further processing. This approach breaks down the program logic and indicates the overloaded <code>main()</code> method is associated with the standard version. The example below passes the original <code>String[]</code> arguments to an overloaded <code>main(String[], int)</code> method where the <code>int</code> argument is a key value for further processing.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/EgMainOverload.shtml">Can you give an example of overloading the <code>main()</code>?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=egmainoverload">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=egmainoverload">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=egmainoverload">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=egmainoverload">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Main method arguments
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="main-args-mean" id="main-args-mean">What do the arguments in the main method mean?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> You can think of the arguments in the main method as a special set of variables that are fed into the program at start-up. The main arguments can be used to pass runtime configuration values for the program, such as the path to a properties file, or input values for the program to process. The arguments may also serve as commands to the application that invoke different operations.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=main-args-mean">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=main-args-mean">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=main-args-mean">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=main-args-mean">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="main-method-signature" id="main-method-signature">Which is the right syntax for the main method?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The way the Java compiler interprets the syntax for the main method is evidently quite loose. The main method takes a <code>String</code> array as an argument, which is written as <code>String[]</code>. The name of the argument is usually given as <code>args</code>, so the proper method declaration is:
+      </p>
+      <pre class="Wide">
+public static void main(String[] args)
+      </pre>
+      <p>
+        However, you will often see this method written with the square brackets next to the argument name <code>main(String args[])</code> and this is also accepted by the compiler. And <code>main(String []args)</code> is also accepted by the Sun Java compiler, which has been written to be fault tolerant.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=main-method-signature">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=main-method-signature">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=main-method-signature">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=main-method-signature">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainargsstring" id="mainargsstring">Why are command line arguments passed as a <code>String</code>?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Command line arguments are passed to the application's main method by the Java runtime system before the application class or any supporting objects are instantiated. It would be much more complex to define and construct arbitrary object types to pass to the main method and primitive values alone are not versatile enough to provide the range of input data that strings can. String arguments can be parsed for primitive values and can also be used for arbitrary text input, file and <abbr title="Uniform Resource Locator">URL</abbr> references.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsstring">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsstring">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsstring">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainargsstring">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainarguments" id="mainarguments">Why doesn't the <code>main</code> method throw an error with no arguments?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> When you invoke the Java Virtual Machine on a class without any arguments, the class' <code>main</code> method receives a <code>String</code> array of zero length. Thus, the method signature is fulfilled. Provided the main method does not make any reference to elements in the array, or checks the array length before doing so, no exception will occur.
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainarguments">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainarguments">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainarguments">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainarguments">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="main-arg-reverse" id="main-arg-reverse">How can I print the main method arguments in reverse order?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Command line arguments are passed to the main method as a string array, each argument is an item in the array. To print the submitted arguments in reverse order, use a <code>for</code> loop but start from the highest index and decrement the index value, as below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/MainArgReverse.shtml">How can I print the main method arguments in reverse order?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=main-arg-reverse">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=main-arg-reverse">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=main-arg-reverse">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=main-arg-reverse">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Main method modifiers
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="staticfinalmain" id="staticfinalmain">Can the <code>main</code> method be declared final?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Yes, the <code>static void main(String[])</code> method can be declared final.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=staticfinalmain">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=staticfinalmain">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=staticfinalmain">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=staticfinalmain">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="staticmainconvention" id="staticmainconvention">I get an exception if I remove the <code>static</code> modifier from <code>main</code>!</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>static void main(String[])</code> method is a basic convention of the Java programming language that provides an entry point into the runtime system. The <code>main</code> method must be declared static because no objects exist when you first invoke the Java Virtual Machine (JVM), so there are no references to instance methods. The JVM creates the initial runtime environment in which this static method can be called, if you remove the <code>static</code> modifier, it will throw a <code>NoSuchMethodException</code>.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=staticmainconvention">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=staticmainconvention">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=staticmainconvention">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=staticmainconvention">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Calling the main method
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="mainargtype" id="mainargtype">Can I call the <code>main()</code> method with a <code>String</code> argument?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> It is possible to change the <em>name</em> of the argument in the <code>public static void main(String[])</code> method, but the argument type must be a string array.  If you declare a <code>String</code> argument, it will make a valid method, but it cannot not be used as the standard entry point for your program, the Java runtime system would report an error.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainargtype">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainargtype">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainargtype">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainargtype">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="argslimit" id="argslimit">How many arguments can be passed on the command line?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The number of arguments that may be passed to a Java program will vary from one interpreter to another and will also be affected by the operating system's command interpreter. In a simple test, 169 arguments were passed to the Sun Java interpreter via a Windows batch script before it reported &quot;The input line is too long&quot;. If your program requires a great number of input parameters, it would be better to pass a reference to a Java properties file on the command line and extract the input from that, as below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/ArgsLimit.shtml">How many arguments can be passed on the command line?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=argslimit">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=argslimit">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=argslimit">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=argslimit">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="wildcardarg" id="wildcardarg">When I pass <code>*.java</code> as an argument I get a list of all my source files!</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The behaviour you are seeing is a consequence of the way the system shell interprets the asterisk as a so called &quot;wildcard&quot; operator that represents a set of files. This is intended as a convenience because it is an easy way to pass a series of file names as arguments to a program such as the Java interpreter. Putting a partial file path before the asterisk, or a file extension after it makes the file listing more specific, but you cannot alter the fundamental behaviour.
+      </p>
+      <p>
+        To limit this behaviour, enclose any argument that contains an asterisk in double quotes, to ensure it is not expanded to a series of file names. An alternative is to omit the asterisk in the command line and write your program in such a way that the asterisk is implicit and add it to the input arguments where applicable.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=wildcardarg">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=wildcardarg">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=wildcardarg">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=wildcardarg">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="interactive-cli" id="interactive-cli">How can I make an interactive command line interface?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The key to creating an interactive command line interface in Java is to set up a continuous loop that reads the system input one line at a time. The example below captures the system input stream in an <code>InputStreamReader</code> and wraps that in a <code>BufferedReader</code> to read the input lines. It uses <code>System.out</code> to create a prompt and watches for a &quot;quit&quot; message to exit the loop.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/InteractiveCli.shtml">How can I make an interactive command line interface?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=interactive-cli">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=interactive-cli">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=interactive-cli">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=interactive-cli">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Application start up
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="maininstance" id="maininstance">How can the static <code>main</code> method use instance variables?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> For very simple programs it is possible to write a <code>main</code> method that only uses static variables and methods. For more complex systems, the <code>main</code> method is used to create an instance of itself, or another primary class, as the basis of the application. The primary application object reference uses instance methods to create and interact with other objects, do the work and return when the application terminates.
+          </p>
+          <pre class="Wide">
+public class SimpleClass {
+
+  public void doSomething() {
+
+    // Instance method statements
+  }
+
+  public static main(final String[] args) {
+
+    SimpleClass instance = new SimpleClass();
+
+    instance.doSomething();
+  }
+}
+          </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=maininstance">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=maininstance">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=maininstance">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=maininstance">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="mainhost" id="mainhost">Can I invoke the <code>main</code> method from another class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Yes, the <code>main</code> method can be called from a separate class. First you must prepare the string array of arguments to pass to the method, then call the method through a static reference to the host class, MaxFactors in the example below.
+      </p>
+      <pre class="Wide">
+String[] arguments = new String[] {&quot;123&quot;};
+
+MaxFactors.main(arguments);
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+command+line%20FAQ&amp;id=mainhost">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+command+line%20FAQ&amp;id=mainhost">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+command+line%20FAQ&amp;id=mainhost">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+command+line%20FAQ&amp;id=mainhost">new question</a>.</p>
+        </dd>
+      </dl>
+      <div class="MenuBox">
+  <table width="100%" summary="Code Style FAQ section classification with front-end, back-end and learning Java categories">
+    <col width="33%" />
+    <col width="33%" />
+    <col width="33%" />
+    <tbody>
+      <tr>
+        <th>
+          Front-end FAQs
+        </th>
+        <th>
+          Back-end FAQs
+        </th>
+        <th>
+          Learning Java
+        </th>
+      </tr>
+      <tr>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+              <ul>
+                <li>
+                  <a href="/css/faq-Problems.shtml" class="SectionCSS">CSS problems</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Survey.shtml" class="SectionFontSampler">Web font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-LinuxSurvey.shtml" class="SectionFontSampler">Linux font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Windows.shtml" class="SectionFontSampler">Windows fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Mac.shtml" class="SectionFontSampler">Mac fonts</a>
+                </li>
+                <li>
+                  <a href="/css/media/FAQ.shtml" class="SectionMediaMonitor">Media style sheets</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+            </li>
+            <li>
+              <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+              <ul>
+                <li>
+                  <a href="/javascript/faq-Browser.shtml" class="SectionJavascript">Javascript browser</a>
+                </li>
+                <li>
+                  <a href="/javascript/faq-HowTo.shtml" class="SectionJavascript">Javascript &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/FAQ.shtml" class="SectionJavascript">Document Object Model</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/FAQ.shtml" class="SectionJavascript">Drop-down menus</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/faq-CustomMenu.shtml" class="SectionJavascript">DOM menu customisation</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+              <ul>
+                <li>
+                  <a href="/java/servlets/faq-HowTo.shtml" class="SectionJava">Java servlet &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-JSP.shtml" class="SectionJava">Java Server Pages</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-API.shtml" class="SectionJava">Java servlet API</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Lifecycle.shtml" class="SectionJava">Servlet lifecycle</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Sessions.shtml" class="SectionJava">Servlet sessions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Threads.shtml" class="SectionJava">Servlet threads</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Exceptions.shtml" class="SectionJava">Servlet exceptions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Tags.shtml" class="SectionJava">JSP tags &amp; libraries</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+              <ul>
+                <li>
+                  <a href="/java/servers/faq-Tomcat.shtml" class="SectionJava">Apache Tomcat</a>
+                </li>
+                <li>
+                  <a href="/java/servers/faq-TomcatConfig.shtml" class="SectionJava">Tomcat configuration</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+              <ul>
+                <li>
+                  <a href="/sitemanager/design/FAQ.shtml" class="SectionSiteManager">Site design</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+              <ul>
+                <li>
+                  <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+                </li>
+                <li>
+                  <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+                </li>
+                <li>
+                  <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+                </li>
+                <li>
+                  <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+                </li>
+                <li>
+                  <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>About us:</strong> <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">site help</a>, <a href="/codestyle/advertise/FAQ.shtml" class="SectionCodeStyle">text ads</a>, <a href="/codestyle/sponsor/FAQ.shtml" class="SectionCodeStyle">sponsored links</a> and <a href="/codestyle/premium/FAQ.shtml" class="SectionCodeStyle">premium content</a> FAQs.
+  </p>
+</div>          </div>
+        <div id="Sidebar">
+      <div class="Top">
+        <div class="TopLeft"></div>
+        <div class="TopRight"></div>
+      </div>
+      <h3 class="Options">
+        <a name="sitenav" id="sitenav"><span class="NoStyle">Navigation</span>Topics &amp; tools</a>
+      </h3>
+      <ul class="Menu">
+        <li>
+          <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home page</a>
+        </li>
+        <li>
+          <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS style guide</a>
+          <ul>
+            <li>
+              <a href="/css/font-family/index.shtml" title="The most common fonts on Windows, Mac and Unix systems - accesskey 2" accesskey="2" class="SectionFontSampler">Web font sampler</a>
+            </li>
+            <li>
+              <a href="/css/media/index.shtml" title="Media dependent stylesheet test suite and conformance guides for key browsers - accesskey 3" accesskey="3" class="SectionMediaMonitor">CSS media monitor</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="/java/index.shtml" title="Configuration guides and references on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java &amp; servlets</a>
+        </li>
+        <li>
+          <a href="/javascript/index.shtml" title="Drop down menu script and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript &amp; DOM</a>
+        </li>
+        <li>
+          <a href="/html/index.shtml" title="HTML &amp; XHTML - accesskey 6" accesskey="6" class="SectionHTML">HTML &amp; XHTML</a>
+        </li>
+        <li>
+          <a href="/faq/index.shtml" title="Site help and answers to frequently asked questions - accesskey 7" accesskey="7" class="SectionFAQ">Help and FAQs</a>
+        </li>
+        <li>
+          <a href="/codestyle/log/index.shtml" title="A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Site log</a>
+        </li>
+      </ul>
+      <div class="Bottom">
+        <div class="BotLeft"></div>
+        <div class="BotRight"></div>
+      </div>
+    </div>
+    <div id="LinkShare">
+      <script type="text/javascript">
+        var addthis_pub             = 'codestyle';
+        var addthis_logo            = 'http://www.codestyle.org/images/logo-EurostileLozenge168x61.png';
+        var addthis_logo_background = 'FFFFFF';
+        var addthis_logo_color      = '003399';
+        var addthis_brand           = 'Code Style';
+        var addthis_options         = 'google,facebook,favorites,delicious,live,reddit,technorati,slashdot,newsvine,stumbleupon,fark,digg,more';
+      </script>
+      <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto();"><img src="http://s9.addthis.com/button1-addthis.gif" width="125" height="16" alt="Add this page to your chosen social bookmarking service" /></a>
+      <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+    </div>
+    <div class="AdButtonBar">
+      <script type="text/javascript">
+        Vertical1243396 = false;
+        ShowAdHereBanner1243396 = true;
+        RepeatAll1243396 = false;
+        NoFollowAll1243396 = false;
+        BannerStyles1243396 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243396/1243396.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        Vertical1243397 = false;
+        ShowAdHereBanner1243397 = true;
+        RepeatAll1243397 = true;
+        NoFollowAll1243397 = false;
+        BannerStyles1243397 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243397/1243397.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+    </div>
+            <h3 class="NoStyle">
+      <em><a href="/css/Warning.shtml">Style warning - please read</a></em>
+    </h3>
+    <div id="Footbar">
+      <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home</a> &middot;
+      <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS</a> &middot;
+      <a href="/java/index.shtml" title="How-to articles on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java</a> &middot;
+      <a href="/javascript/index.shtml" title="Javascript &amp; DOM: Code samples and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript</a> &middot;
+      <a href="/html/index.shtml" title="HTML - accesskey 6" accesskey="6" class="SectionHTML">HTML</a> &middot;
+      <a href="/faq/index.shtml" title="Help and frequently asked questions about the Code Style Web site - accesskey 7" accesskey="7" class="SectionFAQ">Help</a> &middot;
+      <a href="/codestyle/log/index.shtml" title="Site log: A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Log</a>
+    </div>    <div id="Footer">
+      Copyright &copy; 2000-2010 <a href="/codestyle/PhilipShaw.shtml">Philip Shaw</a>, all rights reserved, <a href="/codestyle/Copyright.shtml">terms and conditions apply</a>.<br />
+      <a href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0, follow this link to validate the markup for this page">Valid XHTML</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Correct CSS, follow this link to check the stylesheet for this page">correct CSS</a>. Last updated 22 January 2010 at 07:03:34 AM UTC.<br />
+      <abbr title="Uniform Resource Identifier">URI</abbr>: <a href="http://www.codestyle.org/java/faq-CommandLine.shtml" title="This is the full URI of the current page, follow this link to reload">http://www.codestyle.org/java/faq-CommandLine.shtml</a> Metadata: <a href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-CommandLine.shtml" title="RDF Metadata">RDF</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-CommandLine.shtml" rel="alternate" type="application/rss+xml" title="RSS news feed">RSS 1.0</a>
+    </div>  </body>
+</html>

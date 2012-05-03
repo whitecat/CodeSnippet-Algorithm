@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+<title>Java Design Patterns Abstract Factory -  FluffyCat.com</title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<meta name="description"    content="The Abstract Factory Programming Design Pattern Tutorial and Example in Java" />
+<link rel="stylesheet" title="FluffyCatStyle"  href="http://www.FluffyCat.com/FluffyCat.css"  type="text/css" />
+<link rel="shortcut icon" href="http://www.FluffyCat.com/favicon.ico" />
+</head>
+<body>
+<div style="width: 800px;">
+<p style="padding-left: 5px;"><script type="text/javascript"><!--
+google_ad_client = "pub-5193510673100289";
+//728x90, created 12/13/07
+google_ad_slot = "7353930198";
+google_ad_width = 728;
+google_ad_height = 90;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></p><div class="main"><div style="font-size: .65em; font-weight: normal; background-color: #DDEEDD; padding: 3px;">
+ . <a href="http://www.FluffyCat.com/Java-Design-Patterns/">Java Design Patterns</a> . <span style="font-weight: bold;">Java Design Patterns Abstract Factory</span>
+</div>
+
+<h1>Java Design Patterns Abstract Factory</h1>
+<div class="article">
+<h3>Abstract Factory (AKA Kit) Overview</h3>
+<div class="articletext">An abstract factory has sets of methods to make families of various objects.
+<br /><br />
+
+In this example the AbstractSoupFactory defines the method names and return types to make various kinds of soup. 
+<br /><br />
+
+The BostonConcreteSoupFactory and the HonoluluConcreteSoupFactory both extend the AbstractSoupFactory. 
+<br /><br />
+
+An object can be defined as an AbstractSoupFactory, and instantiated as either a BostonConcreteSoupFactory (BCSF) or a HonoluluConcreteSoupFactory (HCSF). Both BCSF or HCSF have the makeFishChowder method, and both return a FishChowder type class. However, the BCSF returns a FishChowder subclass of BostonFishChowder, while the HCSF returns a FishChowder subclass of HonoluluFishChowder.</div>
+<script src="http://rumba.sourcemaking.com/DPSC/scr.php?a=5527&v1=1&pad=5&lcolr=0000FF"></script>
+<h3>AbstractSoupFactory.java - An Abstract Factory</h3>
+<div style="font-size: .875em; background-color: #F0F0F0;"><pre class="code">
+abstract class AbstractSoupFactory {
+    String factoryLocation;
+    public String getFactoryLocation() {
+        return factoryLocation;
+    }
+    
+    public ChickenSoup makeChickenSoup() {
+        return new ChickenSoup();
+    }
+    public ClamChowder makeClamChowder() {
+        return new ClamChowder();
+    }
+    public FishChowder makeFishChowder() {
+        return new FishChowder();
+    }     
+    public Minnestrone makeMinnestrone() {
+        return new Minnestrone();
+    }
+    public PastaFazul makePastaFazul() {
+        return new PastaFazul();
+    }
+    public TofuSoup makeTofuSoup() {
+        return new TofuSoup();
+    }
+    public VegetableSoup makeVegetableSoup() {
+        return new VegetableSoup();
+    }
+}
+</pre></div>
+
+<div style="font-size: .75em; background-color: #F0F0F0;">
+download <a href="http://www.fluffycat.com//javasource/javapatterns/AbstractSoupFactory.txt" target="sourcecode">source</a>,   use right-click and "Save Target As..." to save with a .java extension.
+</div>
+
+<h3>BostonConcreteSoupFactory.java - One of Two concrete factories extending the abstract factory</h3><div style="font-size: .875em; background-color: #F0F0F0;"><pre class="code">
+class BostonConcreteSoupFactory extends AbstractSoupFactory {
+    public BostonConcreteSoupFactory() {
+        factoryLocation = &quot;Boston&quot;;
+    }
+    public ClamChowder makeClamChowder() {
+        return new BostonClamChowder();
+    }
+    public FishChowder makeFishChowder() {
+        return new BostonFishChowder();
+    }
+}<br /><br />
+class BostonClamChowder extends ClamChowder {
+    public BostonClamChowder() {
+        soupName = &quot;QuahogChowder&quot;;
+        soupIngredients.clear();        
+        soupIngredients.add(&quot;1 Pound Fresh Quahogs&quot;);
+        soupIngredients.add(&quot;1 cup corn&quot;);    
+        soupIngredients.add(&quot;1/2 cup heavy cream&quot;);
+        soupIngredients.add(&quot;1/4 cup butter&quot;);    
+        soupIngredients.add(&quot;1/4 cup potato chips&quot;);
+    }
+}<br /><br />
+class BostonFishChowder extends FishChowder {
+    public BostonFishChowder() {
+        soupName = &quot;ScrodFishChowder&quot;;
+        soupIngredients.clear();        
+        soupIngredients.add(&quot;1 Pound Fresh Scrod&quot;);
+        soupIngredients.add(&quot;1 cup corn&quot;);    
+        soupIngredients.add(&quot;1/2 cup heavy cream&quot;);
+        soupIngredients.add(&quot;1/4 cup butter&quot;);    
+        soupIngredients.add(&quot;1/4 cup potato chips&quot;);
+    }
+}
+</pre></div>
+<div style="font-size: .75em; background-color: #F0F0F0;">
+download <a href="http://www.fluffycat.com//javasource/javapatterns/BostonConcreteSoupFactory.txt" target="sourcecode">source</a>,   use right-click and "Save Target As..." to save with a .java extension.
+</div>
+
+<h3>HonoluluConcreteSoupFactory.java - Two of Two concrete factories extending the abstract factory</h3>
+<div style="font-size: .875em; background-color: #F0F0F0;"><pre class="code">
+class HonoluluConcreteSoupFactory extends AbstractSoupFactory {
+    public HonoluluConcreteSoupFactory() {
+        factoryLocation = &quot;Honolulu&quot;;
+    }
+    public ClamChowder makeClamChowder() {
+       return new HonoluluClamChowder();
+    }
+    public FishChowder makeFishChowder() {
+       return new HonoluluFishChowder();
+    }
+}<br /><br />
+class HonoluluClamChowder extends ClamChowder {
+    public HonoluluClamChowder() {
+        soupName = &quot;PacificClamChowder&quot;;
+        soupIngredients.clear();        
+        soupIngredients.add(&quot;1 Pound Fresh Pacific Clams&quot;);
+        soupIngredients.add(&quot;1 cup pineapple chunks&quot;);
+        soupIngredients.add(&quot;1/2 cup coconut milk&quot;);
+        soupIngredients.add(&quot;1/4 cup SPAM&quot;);
+        soupIngredients.add(&quot;1/4 cup taro chips&quot;);
+    }
+}<br /><br />
+class HonoluluFishChowder extends FishChowder {
+    public HonoluluFishChowder() {
+        soupName = &quot;OpakapakaFishChowder&quot;;
+        soupIngredients.clear();
+        soupIngredients.add(&quot;1 Pound Fresh Opakapaka Fish&quot;);
+        soupIngredients.add(&quot;1 cup pineapple chunks&quot;);
+        soupIngredients.add(&quot;1/2 cup coconut milk&quot;);
+        soupIngredients.add(&quot;1/4 cup SPAM&quot;);
+        soupIngredients.add(&quot;1/4 cup taro chips&quot;);
+    }
+}
+</pre></div>
+
+<div style="font-size: .75em; background-color: #F0F0F0;">
+download <a href="http://www.fluffycat.com//javasource/javapatterns/HonoluluConcreteSoupFactory.txt" target="sourcecode">source</a>,   use right-click and "Save Target As..." to save with a .java extension.
+</div>
+
+<div class="articlespacer"></div><script type="text/javascript"><!--
+google_ad_client = "pub-5193510673100289";
+//336x280, created 12/13/07
+google_ad_slot = "2713786578";
+google_ad_width = 336;
+google_ad_height = 280;
+//--></script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<h3>TestAbstractSoupFactory.java - Testing the abstract factory</h3>
+<div style="font-size: .875em; background-color: #F0F0F0;"><pre class="code">
+import java.util.Calendar;<br /><br />
+class TestAbstractSoupFactory { 
+   public static Soup MakeSoupOfTheDay(AbstractSoupFactory 
+                                       concreteSoupFactory)
+   { 
+       Calendar todayCalendar = Calendar.getInstance();
+       //int dayOfWeek = todayCalendar.get(Calendar.DAY_OF_WEEK);
+       
+       int dayOfWeek = Calendar.TUESDAY;
+       
+       if (dayOfWeek == Calendar.MONDAY) {
+           return concreteSoupFactory.makeChickenSoup();
+       } else if (dayOfWeek == Calendar.TUESDAY) {
+           return concreteSoupFactory.makeClamChowder();
+       } else if (dayOfWeek == Calendar.WEDNESDAY) {
+           return concreteSoupFactory.makeFishChowder();
+       } else if (dayOfWeek == Calendar.THURSDAY) {
+           return concreteSoupFactory.makeMinnestrone();
+       } else if (dayOfWeek == Calendar.TUESDAY) {
+           return concreteSoupFactory.makePastaFazul();
+       } else if (dayOfWeek == Calendar.WEDNESDAY) {
+           return concreteSoupFactory.makeTofuSoup();
+       } else {
+           return concreteSoupFactory.makeVegetableSoup();
+       }
+   }        <br /><br />
+   public static void main(String[] args) 
+   {
+       AbstractSoupFactory concreteSoupFactory = 
+         new BostonConcreteSoupFactory();
+       Soup soupOfTheDay = 
+         MakeSoupOfTheDay(concreteSoupFactory);
+       System.out.println(&quot;The Soup of the day &quot; + 
+                          concreteSoupFactory.getFactoryLocation() + 
+                          &quot; is &quot; + 
+                          soupOfTheDay.getSoupName());
+ 
+       concreteSoupFactory = 
+         new HonoluluConcreteSoupFactory();
+       soupOfTheDay = 
+         MakeSoupOfTheDay(concreteSoupFactory);
+       System.out.println(&quot;The Soup of the day &quot; + 
+                          concreteSoupFactory.getFactoryLocation() + 
+                          &quot; is &quot; + 
+                          soupOfTheDay.getSoupName());
+   }
+}
+</pre></div>
+
+<div style="font-size: .75em; background-color: #F0F0F0;">
+download <a href="http://www.fluffycat.com//javasource/javapatterns/TestAbstractSoupFactory.txt" target="sourcecode">source</a>,   use right-click and "Save Target As..." to save with a .java extension.
+</div>
+
+<h3>Test Results (if run on a Tuesday)</h3><div style="font-size: .875em; background-color: #F0F0F0;"><pre class="code">The Soup of the day in Boston is QuahogChowder
+The Soup of the day in Honolulu is PacificClamChowder
+</pre></div>
+
+<h3>UML</h3>
+<div class="articletext"><a href="http://www.fluffycat.com/javasource/javapatterns/UML/AbstractFactory.jpg">UML for Abstract Factory</a>
+</div>
+<h3>References</h3>
+<div class="articletext">
+<h4>online</h4>
+<a href="http://c2.com/cgi-bin/wiki?PortlandPatternRepository">Portland Pattern Repository</a>
+<h4>Books</h4>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0201633612/larrysbookreview">Design Patterns by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides </a>
+<br />
+
+<a href="http://www.amazon.com/exec/obidos/ASIN/0201485397/larrysbookreview">Java Design Patterns - A Tutorial by James W. Cooper</a>
+<br />
+
+</div>
+
+</div>
+<div>
+<table width="100%" class="smalltext">
+<tr><td valign="top" class="table_label">
+<span style="float: left; font-size: 1.2em; font-weight: bold;">Comments</span>
+<span style="float: right; font-size: 0.70em;">Comments are left by visitors to FluffyCat.com, are not endorsed by FluffyCat.com, and may or may not be accurate.</span>
+</td></tr>
+<tr><td valign="top" class="table_label">
+<span style="float: left;">Comment by vnraju</span>
+<span style="float: right;"><a href="http://www.FluffyCat.com/member-comment-rating/228/" rel="nofollow">Rate this Comment</a></span>
+</td></tr>
+<tr><td valign="top" style="padding-top: 7px; padding-bottom: 7px;"><p style="font-size: 0.87em;">Abstract Factory design pattern explanation is not enough,It would be better if you explain little bit more and clear. 
+<br />The above example missing the below listed classes : 
+<br />1.ChickenSoup , 2. ClamChowder 3. FishChowder 4. Minnestrone 
+<br />5. PastaFazul , 6. TofuSoup 
+<br />and finally 7. Soup 
+<br />Soup class is the super class for all the 1 to 6 classes and it must implement the method getSoupName() defined in the Soup class. 
+<br />Implementation of the Soup Class : 
+<br />public class Soup { 
+<br />public String getSoupName(){ 
+<br />return &quot;Soup&quot;; 
+<br />} 
+<br />} 
+<br /></p></td></tr>
+<tr><td valign="top" class="table_label">
+<span style="float: left;">Comment by ayer</span>
+<span style="float: right;"><a href="http://www.FluffyCat.com/member-comment-rating/212/" rel="nofollow">Rate this Comment</a></span>
+</td></tr>
+<tr><td valign="top" style="padding-top: 7px; padding-bottom: 7px;"><p style="font-size: 0.87em;">this is great, but...did I mis something?  I couldn&#039;t find the definitions for FishChowder and ClamChowder classes...</p></td></tr>
+<tr><td valign="top" class="table_label">
+<span style="float: left;">Comment by Sunny</span>
+<span style="float: right;"><a href="http://www.FluffyCat.com/member-comment-rating/153/" rel="nofollow">Rate this Comment</a></span>
+</td></tr>
+<tr><td valign="top" style="padding-top: 7px; padding-bottom: 7px;"><p style="font-size: 0.87em;">Thanks for your efforts.
+<br />I believe soup.java should be add to this page to make this example completed.</p></td></tr>
+<tr><td valign="top" class="table_label">
+<span style="float: left;">Comment by Boris</span>
+<span style="float: right;"><a href="http://www.FluffyCat.com/member-comment-rating/19/" rel="nofollow">Rate this Comment</a></span>
+</td></tr>
+<tr><td valign="top" style="padding-top: 7px; padding-bottom: 7px;"><p style="font-size: 0.87em;">I just found this site, and I believe that is great. A way that might help to make this cod/design clearer would be:
+<br />- Reduce the number of classes (soups) - 2 is enough to understand the idea
+<br />- use more generic objects, such as &quot;products&quot; (instead of soups), as too much details can be distracting;
+<br />- code could be available for download all at once per pattern, in a zip file for instance - this would allow us to then use our UML tools to see the design aspect of this implementation. I understand that some UML diagrams are being used, but these are not exactly UML compliant, and sometimes can be difficult to understand the degree of relationship between objects.
+<br />Apart from this comments, I believe that is good that fact that it provides implementation examples for all the gof4 patterns.
+<br /></p></td></tr>
+<tr><td valign="top" class="table_label">
+<a href="http://www.FluffyCat.com/Member-Sign-In/">Sign In</a>
+</td></tr>
+<tr><td valign="top">
+ to add your own comment</td></tr>
+<tr><td valign="top" class="table_label">&nbsp;</td></tr>
+</table>
+</div>
+<div class="block">
+<script type="text/javascript"><!--
+google_ad_client = "pub-5193510673100289";
+google_ad_width = 468;
+google_ad_height = 15;
+google_ad_format = "468x15_0ads_al";
+//2007-03-28: adslink468x15x4
+google_ad_channel = "3664623125";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000CC";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+</div>
+<div class="banner">
+<a href="http://www.FluffyCat.com/Java-Design-Patterns/"><img src="http://www.fluffycat.com/cat.gif" width="50" height="44" alt="FluffyCat Java Design Patterns" /></a>
+<form action="http://www.google.com/cse" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-5193510673100289:6md242-wgb7" />
+    <input type="hidden" name="ie" value="ISO-8859-1" />
+    <input type="text" name="q" size="15" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script><div><ul class="banner_text"><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Abstract-Factory/">Abstract Factory</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Builder/">Builder</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Factory-Method/">Factory Method</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Prototype/">Prototype</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Singleton/">Singleton</a></li><li></li>
+<li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Adapter/">Adapter</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Bridge/">Bridge</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Composite/">Composite</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Decorator/">Decorator</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Facade/">Facade</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Flyweight/">Flyweight</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Proxy/">Proxy</a></li><li></li>
+<li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Chain-of-Responsibility/">Chain of Responsibility</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Command/">Command</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Interpreter/">Interpreter</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Iterator/">Iterator</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Mediator/">Mediator</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Memento/">Memento</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Observer/">Observer</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/State/">State</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Strategy/">Strategy</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Template/">Template</a></li><li><a href="http://www.FluffyCat.com/Java-Design-Patterns/Visitor/">Visitor</a></li></ul></div>
+
+<ul class="banner_text"><li style="font-weight: bold; margin-top: 10px;">More Resources from <a href="http://www.FluffyCat.com/">www.FluffyCat.com</a></li>
+<li><a href="http://www.FluffyCat.com/Java/">Java</a></li>
+<li><a href="http://www.FluffyCat.com/Java-Design-Patterns/">Java Design Patterns</a></li>
+<li><a href="http://www.FluffyCat.com/PHP-Design-Patterns/">PHP Design Patterns</a></li>
+<li><a href="http://www.FluffyCat.com/SQL/">SQL</a></li>
+</ul>
+<ul class="banner_text">
+<li><a href="http://www.FluffyCat.com/mailtoafriend/">Email this Page</a></li>
+<li></li><li></li>
+<li><a href="http://www.FluffyCat.com/Member-Sign-In/">Member Sign In</a></li>
+<li><a href="http://www.FluffyCat.com/About-This-Site/">About This Site</a></li>
+<li><a href="http://www.FluffyCat.com/Privacy-Policy/">Privacy Policy</a></li><li><a href="http://www.FluffyCat.com/Terms-and-Conditions/">Terms and Conditions</a></li><li>&nbsp;</li><li>&nbsp;</li><li style="font-size: .70em;">Copyright 2003 - 2010 Larry Truett</li>
+<ul class="banner_text">
+<li><script type="text/javascript"><!--
+google_ad_client = "pub-5193510673100289";
+google_ad_width = 120;
+google_ad_height = 90;
+google_ad_format = "120x90_0ads_al";
+//2007-10-10: adslink120x90x4
+google_ad_channel = "4713162259";
+google_color_border = "DDEEDD";
+google_color_bg = "DDEEDD";
+google_color_link = "000000";
+google_color_text = "000000";
+google_color_url = "000000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></li></ul>
+</ul>
+</div>
+</div>
+</body>
+</html>

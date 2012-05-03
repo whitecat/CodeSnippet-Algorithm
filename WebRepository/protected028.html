@@ -1,0 +1,1735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>developerWorks : Java technology : Improve Your Java Code Quality : How to mock protected method in Java ...</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta http-equiv="Expires" content="0"/>
+<meta name="Keywords" content="java, forums, newsgroups, discussion, community" />
+	<meta name="Abstract" content="Get involved in the developerWorks community by participating in discussion forums." />
+	<meta name="Description" content="Get involved in the developerWorks community by participating in discussion forums." />
+	
+    
+    <link rel="alternate" type="application/rss+xml" title="RSS"
+          href="http://www.ibm.com/developerworks/forums/rss/rssmessages.jspa?threadID=266001" />
+<meta name="DC.DATE" scheme="iso8601" content="2004-12-01"/>
+<meta name="Source" content="Based on v15 Template Generator, Template 14.0"/>
+<meta name="Owner" content="dW Information/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+
+<meta name="Security" content="Public"/>
+<meta name="DC.Rights" content="&#169; Copyright IBM Corporation 2004"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2004-12-01"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=109,100"/>
+
+
+
+        
+<script type="text/javascript" src="//code.jquery.com/jquery-latest.js">//</script>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT908" />
+        
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300" />
+ 
+<meta name="IBM.WTMCategory" scheme="IBM_WTMCategory" content="SOFDCJVA" />
+		
+<meta name="IBM.WTMCategory.Locale" scheme="IBM_WTMCategory_Locale" content="ZZ" />
+         
+                     
+                         
+         
+
+<!-- Stylesheets -->
+<link rel="stylesheet" type="text/css" href="style/style.jsp?tstart=0&amp;threadID=266001" title="Forum Styles" />
+<script language="JavaScript" src="//www.ibm.com/developerworks/js/dwcss14.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="//www.ibm.com/common/v15/main.css" />
+<link rel="stylesheet" type="text/css" media="screen,print" href="//www.ibm.com/common/v15/table.css" /> 
+<link rel="stylesheet" type="text/css" media="all" href="//www.ibm.com/common/v15/screen.css" />
+<link rel="stylesheet" type="text/css" media="print" href="//www.ibm.com/common/v15/print.css" />
+<link rel="stylesheet" type="text/css" media="screen,print" href="//www.ibm.com/developerworks/css/dw-lc/dw-lc-forums.css" />
+
+<script language="JavaScript" src="//www.ibm.com/common/v15/detection.js" type="text/javascript"></script>
+<script src="//www.ibm.com/common/js/ibmcommon.js" type="text/javascript"></script>
+<script src="//www.ibm.com/common/js/dynamicnav.js" type="text/javascript"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/tactcodes.js"></script>
+
+</head>
+
+<body>
+<!-- MASTHEAD_BEGIN -->
+<div id="ibm-top" class="ibm-liquid">
+<div class="ibm-access"><a href="#main">Skip to main content</a></div>
+
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img width="110" src="//www.ibm.com/i/v16/t/ibm-logo.gif" height="50" alt="IBM&reg;"/></a></div>
+
+<ul id="ibm-geo">
+<li class="ibm-first" id="ibm-country">Country/region</li>
+<li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li>
+</ul>
+
+<form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select class="input-local" name="searchScope" id="sn" size="1">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;&nbsp;Lotus</option>
+<option value="rdd">&nbsp;&nbsp;Rational</option>
+<option value="tivoli">&nbsp;&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="archZ">&nbsp;&nbsp;Architecture</option>
+<option value="acZ">&nbsp;&nbsp;Autonomic computing</option>
+<option value="javaZ">&nbsp;&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;&nbsp;Linux</option> 
+<option value="paZ">&nbsp;&nbsp;Multicore acceleration</option>
+<option value="opensrcZ">&nbsp;&nbsp;Open source</option>
+<option value="webservZ">&nbsp;&nbsp;SOA &amp; Web services</option>
+<option value="webarchZ">&nbsp;&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+
+<div id="ibm-universal-nav">
+<ul>
+<li class="ibm-first" id="ibm-unav-home"><a href="http://www.ibm.com/">Home</a></li>
+<li id="ibm-unav-solutions"><a href="http://www.ibm.com/businesssolutions/">Business solutions</a></li>
+<li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">IT services</a></li>
+<li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li>
+<li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li>
+<li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li>
+</ul>
+</div>
+
+</div>
+
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/common/v15/pmh.js">
+</script>
+
+<!-- MASTHEAD_END -->
+
+<!-- MAIN_TABLE_BEGIN -->
+<table width="100%" cellspacing="0" cellpadding="0" border="0" id="v15-body-table">
+<tr valign="top">
+
+<!-- CONTENT_AREA_BEGIN -->
+<td width="5">
+        <img src="//www.ibm.com/developerworks/i/c.gif" border="0" width="5" height="1" alt="" />
+</td>
+<td width="100%" valign="top"><a name="main"><!--Main Content Begin--></a>
+
+<div id="jive-flatpage">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr valign="top">
+        <td width="99%">
+			
+
+
+
+
+
+
+
+
+
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr valign="top">
+		<td width="10" height="18"><img src="//www.ibm.com/developerworks/i/c.gif" width="10" height="18" alt="" /></td>
+		<td width="100%">
+		
+		
+		
+		    
+		    
+		    
+	   		    <a class="bctl" href="http://www.ibm.com/developerworks">developerWorks</a><span class="bct">&nbsp;&gt;&nbsp;</span>
+			
+			
+		
+
+	    
+	        <a class="bctl" href="http://www.ibm.com/developerworks/java">Java technology</a>
+		    <span class="bct">&nbsp;&gt;&nbsp;</span>	        
+	    				
+	    
+			
+		
+			
+						
+			<a class="bctl" href="dw_jforums.jspa">Forums</a>
+			<span class="bct">&nbsp;&gt;&nbsp;</span>	
+		
+	
+	    
+	        <a class="bctl" href="forum.jspa?forumID=812&amp;start=0">Improve Your Java Code Quality</a>
+		    <span class="bct">&nbsp;&gt;&nbsp;</span>
+		
+		</td>
+		
+		<td width="192">		
+			
+			<img src="//www.ibm.com/developerworks/i/dw14.gif" width="192" height="18" alt="developerWorks" />
+		
+		</td>		
+	</tr>
+</table>        
+            <h1>
+                How to mock protected method in Java
+                &nbsp;&nbsp;
+	            
+	          <a href="rss/rssmessages.jspa?threadID=266001"
+                       title="Point your RSS reader here for a feed of the latest messages in this thread">
+	            	<img src="//www.ibm.com/developerworks/i/rssicon.gif" height="15" width="36" border="0" alt="Point your RSS reader here for a feed of the latest messages in this thread" />
+	            </a>
+	             
+            </h1>
+            
+
+
+
+
+    
+        
+        
+
+        
+        
+
+
+        </td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tbody>
+		<tr valign="top">
+			<td width="99%">
+				
+				<script type="text/javascript" src="/developerworks/dwtagg/js/scriptaculous/prototype.js"></script>
+<script src="/developerworks/dwtagg/js/dwmastertag.js" language="javascript" type="text/javascript"></script>
+
+
+
+<script language="javascript"  type="text/javascript">
+Event.observe(window, 'load', showCurrentTags, false);
+</script>
+
+
+<script language="javascript" type="text/javascript">
+
+function jQueryBasicInt()
+{
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwbasic').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: true,
+		dropShadow: false,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+}
+ </script>
+
+<!-- CONTENT_BODY -->
+<br />
+<div style="position: relative; clear: both;overflow:hidden">
+
+<!-- MAIN_CONTENT_COLUMN_BEGIN -->
+<div  id="currentTagMessage" style="position: relative; float: left"><strong>Tags for this thread:</strong>&nbsp;</div><div class="lotusAction" id="currentTags"></div>    
+<!-- CONTENT_BODY_END -->
+</div>
+
+ 	
+				
+				
+				
+	            
+<!-- BEGIN SEARCH TABLE -->
+<table cellspacing="0" cellpadding="0" border="0" width="99%">
+	<tr valign="top"><td colspan="2"><img alt="" style="vertical-align:bottom; padding-bottom: 0" height="1" src="//www.ibm.com/i/v14/rules/blue_rule.gif" width="100%" /></td></tr>
+		
+	<form action="search.jspa" method="post" name="searchform" style="padding:0px; margin:0px">
+	<input type="hidden" name="search" style="padding:0px; margin:0px" value="true" />
+	<input type="hidden" name="dateRange" style="padding:0px; margin:0px" value="all" />
+	<tr valign="top"><td align="left" class="vlgray" nowrap="true"><img src="//www.ibm.com/i/c.gif" border="0" height="8" width="1" alt="" /><br />
+	<span><img src="//www.ibm.com/i/c.gif" border="0" height="1" width="8" alt="" />
+			<label for="q1"><b>Search for </b></label>&nbsp;
+
+			
+			
+			
+			<input type="text" name="q" id="q1" class="small" size="20" maxlength="100" value="" />&nbsp;
+				<label for="scope"><b>within</b></label>&nbsp;
+					<select name="objID" id="scope" class="input-scope" size="1" style="position:relative;z-index:1">
+						<option value="f812" >Improve Your Java Code Quality Forums</option>
+<option value="-1">-------------------</option>
+<option value="c2" >dW forums</option>
+<option value="c19" >Information management forums</option>
+<option value="c24" >Rational forums</option>
+<option value="c15" >Tivoli forums</option>
+<option value="c9" >WebSphere forums</option>
+<option value="c41" >Workplace forums</option>
+<option value="-1">-------------------</option>
+<option value="c22" >Autonomic computing forums</option>
+<option value="c52" >Grid computing forums</option>
+<option value="c10" >Java technology forums</option>
+<option value="c5" >Linux forums</option>
+<option value="c51" >Open source forums</option>
+<option value="c46" >Power architecture forums</option>
+<option value="c13" >Sample IT projects forums</option>
+<option value="c7" >SOA &amp; Web services forums</option>
+<option value="c12" >Wireless forums</option>
+<option value="c11" >XML forums</option>
+
+
+					</select>
+		</span>
+		</td> 
+		<td align="left" class="vlgray" width="100%"><img src="//www.ibm.com/i/c.gif" border="0" height="8" width="3" alt="" /><br />&nbsp;<input type="image" src="//www.ibm.com/i/v14/buttons/go.gif" style="padding:0px; margin:0px" value="Go" alt="Go" /></td></tr>
+	</form>
+	<tr valign="top">
+		<td colspan="2"><img style="vertical-align:top; padding-bottom: 0" height="1" width="100%" src="//www.ibm.com/i/v14/rules/blue_rule.gif" alt=""/></td></tr>
+	<tr valign="top">
+		<td colspan="2">&nbsp;</td></tr>
+<tr valign="top"><td colspan="2"><img height="1" width="100%" src="//www.ibm.com/i/v14/rules/blue_rule.gif" alt=""/></td></tr>
+</table>
+<!-- END SEARCH TABLE -->          	
+				<br />
+			</td>
+			<td width="1%" valign="bottom" style="padding-bottom: 10px">
+				
+
+
+
+
+
+
+
+
+
+
+<table cellpadding="0" cellspacing="0" width="151" border="0">
+	<tr>
+		<th class="v14-header-1-small">My developerWorks</th>
+	</tr> 
+</table>
+
+
+                  
+         
+		<table class="v14-gray-table-border" border="0" cellpadding="0" cellspacing="0" width="151">
+			
+				<tr valign="middle">
+				<td colspan="2" width="145" height="18"><span class="small">&nbsp;Welcome, <b>Guest</b></span></td>
+				<td width="5"><img alt="" height="1" width="5" src="//www.ibm.com/i/c.gif" /></td>
+			</tr>
+		  	<tr valign="middle">
+		    		<td colspan="3" height="10" style="vertical-align: middle; padding-bottom: 0"><img alt="" height="1" width="148" src="//www.ibm.com/i/v14/rules/dotted_rule_148.gif" /></td>
+		    		
+			</tr>
+			<tr>
+ 		  		<td align="right" width="17" valign="top" style="vertical-align: top; padding-bottom: 0"><img alt="" border="0" height="16" width="16" src="//www.ibm.com/i/v14/icons/fw.gif" /></td>
+                <td width="128" height="18" style="vertical-align: top; padding-bottom: 0; padding-left: 4px">                             
+	               	<a href="https://www.ibm.com/developerworks/forums/login!withRedirect.jspa"><span class="small">Sign in or register</span></a>
+                </td>
+                <td width="5"><img alt="" height="1" width="8" src="//www.ibm.com/i/c.gif" /></td>
+			</tr>
+      	  	
+	   	</table>
+	   	
+         
+
+
+
+			</td>								
+		</tr>
+    </tbody>
+</table>
+
+
+
+    
+
+
+
+
+    <div id="jive-question-box" class="jive-infobox">
+    <table cellpadding="2" cellspacing="0" border="0">
+    <tbody>
+        <tr valign="top">
+            <td><img src="images/question-resolved-24x24.gif" alt="" border="0" /></td>
+            <td>
+                
+
+                    
+
+                        
+
+                        
+                            
+                            This question is <span class="ans">answered</span>.
+
+                        
+
+                        
+						
+
+
+                    
+
+                
+            </td>
+       </tr>
+    </tbody>
+    </table>
+    </div><br />
+
+
+
+
+
+
+
+
+ 
+
+
+
+    
+	<!-- BEGIN BUTTONS -->
+	
+    <div class="jive-buttons" style="width:85%;margin-top: -12px">
+
+    <table summary="Buttons" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        
+                <td class="jive-icon">
+                    <a href="post!reply.jspa?threadID=266001"
+                     ><img src="//www.ibm.com/developerworks/i/myreply.gif" width="16" height="16" align="middle" border="0" alt="Reply to this Thread"/></a></td>
+                <td class="jive-icon-label">
+                    
+                    <a id="jive-reply-thread" href="post!reply.jspa?threadID=266001"
+                     >Reply to this Thread</a>
+                </td>
+        
+
+		
+		
+		<td class="jive-icon">
+		    <a href="post!default.jspa?forumID=812">
+		    	<img src="//www.ibm.com/developerworks/i/post.gif" width="16" height="16" border="0" align="middle"
+		                  alt="Post New Thread"/>
+		  </a>
+		</td>
+		<td class="jive-icon-label">
+		    
+		    <a id="jive-post-thread" href="post!default.jspa?forumID=812"
+		            >Post New Thread</a>
+		</td>
+		
+		
+
+        
+
+        
+
+        
+
+		<!-- BEGIN WATCH SETTINGS -->
+		
+		<td class="jive-icon">
+		    <a href="editwatches!default.jspa"
+		            ><img src="//www.ibm.com/developerworks/i/mywatchlist.gif" align="middle" width="16" height="16" border="0"
+		                  alt="Watch list"/></a>
+		</td>
+		<td class="jive-icon-label">
+		    <a href="editwatches!default.jspa"
+		            >Watch list</a>
+		</td>
+		
+		<!-- END WATCH SETTINGS -->
+		
+		<!-- BEGIN FORUM SETTINGS -->
+		
+		<td class="jive-icon">
+		    <a href="usersettings!default.jspa"
+		            ><img src="//www.ibm.com/developerworks/i/mysettings.gif" align="middle" width="16" height="16" border="0"
+		                  alt="Forum settings"/></a>
+		</td>
+		<td class="jive-icon-label">
+		    <a href="usersettings!default.jspa"
+		            >Forum settings</a>
+		</td>
+		
+		<!-- END FORUM SETTINGS -->
+
+		
+    
+		<td class="jive-icon">
+		    <a href="index.jspa"
+		            ><img src="//www.ibm.com/developerworks/i/help.gif" align="middle" width="16" height="16" border="0"
+		                  alt="Help"
+		            /></a>
+		</td>
+		<td class="jive-icon-label">
+		    <a href="help.jspa?categoryID=10">Help</a>
+		</td>
+    </tr>
+    </table>
+    </div>
+
+
+
+
+
+ 
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tbody>
+<tr valign="top">
+<td width="99%">
+
+
+
+
+
+
+<div class="jive-message-list">
+<div class="jive-table">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<thead>
+    <tr>
+        <th class="jive-first-last">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <thead>
+                <tr>
+                    <th width="1%">
+                        <a href="thread.jspa?threadID=266001"
+                         title="Permlink"
+                         ><img src="images/permlink-16x16.gif" width="16" height="16" border="0" alt="Permlink"></a>
+                    </th>
+                    <th width="97%">
+
+                        
+                        <nobr>
+                        Replies:
+                        2
+                        </nobr>
+
+                        
+                            -
+                            
+
+                                
+                                <nobr>
+                                Pages:
+                                1
+
+                                
+                                </nobr>
+
+                            
+
+                        
+
+                        
+                        
+                                -
+                                <nobr>
+                                <a href="thread.jspa?threadID=266001&tstart=0&messageID=14262022#14262022"
+                                 title="Last Post By: intelrate"
+                                 >Last Post</a>:
+                                Jun 13, 2009 7:37 AM
+                                Last Post By: intelrate
+                                </nobr>
+
+                        
+
+                    </th>
+                    <th width="1%" nowrap>
+                        
+                            
+                                
+                                Threads:
+                                [
+                                
+                                    
+                                    <a href="thread.jspa?threadID=269683&amp;tstart=-1"
+                                     >Previous</a>
+                                
+                                |
+                                
+                                    
+                                    Next
+                                
+                                ]
+                            
+                        
+                    </th>
+                </tr>
+            </thead>
+            </table>
+        </th>
+    </tr>
+</thead>
+</table>
+</div>
+</div>
+
+
+<div id="jive-message-holder">
+    
+	        
+    <div class="jive-message-list">
+        <div class="jive-table">
+
+            
+
+
+
+
+
+
+
+
+
+<div class="jive-messagebox">
+<table summary="Message" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr id="jive-message-14262017" valign="top" class="jive-even">
+<td width="1%" class="jive-first">
+<table cellpadding="0" cellspacing="0" border="0" width="150">
+<tr>
+<td>
+
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody>
+        <tr valign="top">
+            <td width="1%" style="padding:0px;">
+                <nobr>
+	            	
+		                               
+                    <a href="profile.jspa?userID=240602"
+                       title="intelrate"
+                            >intelrate</a>
+                </nobr>
+            </td>
+            <td width="99%" style="padding:0px;">
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<br />
+
+
+
+            <span class="jive-description">
+
+
+            
+            Posts:
+            3
+            <br />
+
+            
+            
+                Registered:
+             	Jun 13, 2009 04:22:42 AM
+                
+            
+
+            </span>
+
+
+</td>
+</tr>
+</table>
+</td>
+<td width="99%" class="jive-last">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top">
+<td width="1%">
+    
+</td>
+<td width="97%">
+
+                    <span class="jive-subject">
+                    <a name="14262017"></a>
+                    How to mock protected method in Java
+                    </span>
+
+    <br />
+
+    
+                    <span class="jive-description">
+                    Posted:
+                   Jun 13, 2009 04:33:19 AM
+                    
+
+                    
+
+                        
+
+                    </span>
+</td>
+
+    <td width="1%" class="jive-rating-buttons" nowrap="true">
+
+        
+
+        
+
+        &nbsp;
+
+        
+
+    </td>
+
+<td width="1%">
+
+<div class="jive-buttons">
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+
+
+
+
+
+
+
+<td class="jive-icon">
+    <a href="abuse!default.jspa?messageID=14262017"
+       title="Click to report abuse..."
+            ><img src="images/warn-16x16.gif" width="16" height="16" border="0"
+                  alt="Click to report abuse..." /></a>
+</td>
+
+
+
+
+
+
+<td>&nbsp;</td>
+<td class="jive-icon">
+    <a href="post!reply.jspa?messageID=14262017"
+       title="Click to reply to this thread"
+            ><img src="images/reply-16x16.gif" width="16" height="16" border="0"
+                  alt="Click to reply to this thread" /></a>
+</td>
+<td class="jive-icon-label">
+    <a href="post!reply.jspa?messageID=14262017"
+       title="Click to reply to this thread"
+            >Reply</a>
+</td>
+
+
+</tr>
+</table>
+</div>
+
+</td>
+</tr>
+
+<tr>
+    <td colspan="4">
+        <div class="jive-message-body">Here is a question.<br />
+<br />
+I wanted my JUnit tests to be more modular and found <a class="jive-link-external" href="http://intelrate.blogspot.com/2009/05/how-to-mock-protected-method-in-java.html">how to mock protected methods</a> for that purpose. Briefly speaking, we cannot mock and control calls of protected method with JDK dynamic proxy because protected methods are not in any interface but we can create MockInterface with mock method under control and call it from overridden protected method to achieve our goal.<br />
+<br />
+The problem Iâ??m trying to resolve now is that my mock method should have the same number of parameters as protected method I want to mock. It forces me to create several mock methods with different number of parameters which is not elegant. Does anyone know better solution in JMock or other Java framework? Any help would be very appreciated.</div>
+    </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+
+        </div>
+    </div>
+
+    
+	        
+    <div class="jive-message-list">
+        <div class="jive-table">
+
+            
+
+
+
+
+
+
+
+
+
+<div class="jive-messagebox">
+<table summary="Message" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr id="jive-message-14262018" valign="top" class="jive-odd">
+<td width="1%" class="jive-first">
+<table cellpadding="0" cellspacing="0" border="0" width="150">
+<tr>
+<td>
+
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody>
+        <tr valign="top">
+            <td width="1%" style="padding:0px;">
+                <nobr>
+	            	
+		                               
+                    <a href="profile.jspa?userID=224716"
+                       title="Peter_Lawrey"
+                            >Peter_Lawrey</a>
+                </nobr>
+            </td>
+            <td width="99%" style="padding:0px;">
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<br />
+
+
+
+            <span class="jive-description">
+
+
+            
+            Posts:
+            6
+            <br />
+
+            
+            
+                Registered:
+             	Dec 21, 2008 02:22:48 PM
+                
+            
+
+            </span>
+
+
+</td>
+</tr>
+</table>
+</td>
+<td width="99%" class="jive-last">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top">
+<td width="1%">
+    
+</td>
+<td width="97%">
+
+                    <span class="jive-subject">
+                    <a name="14262018"></a>
+                    Re: How to mock protected method in Java
+                    </span>
+
+    <br />
+
+    
+                    <span class="jive-description">
+                    Posted:
+                   Jun 13, 2009 06:03:20 AM
+                    
+
+                    
+                        &nbsp;
+                        <nobr>
+                            <a href="message.jspa?messageID=14262017#14262017"
+                               title="in response to: intelrate"
+                                    ><img src="images/up-10x10.gif" width="10" height="10" border="0"
+                                          alt="in response to: intelrate"
+                                          title="in response to: intelrate" /></a>
+                            
+                            in response to: <a href="message.jspa?messageID=14262017#14262017"
+                               title="Go to message"
+                                    >intelrate's post</a>
+                            </nobr>
+                                
+
+                        
+
+                    </span>
+</td>
+
+    <td width="1%" class="jive-rating-buttons" nowrap="true">
+
+        
+
+        
+
+        &nbsp;
+
+        
+
+    </td>
+
+<td width="1%">
+
+<div class="jive-buttons">
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+
+
+
+
+
+
+
+<td class="jive-icon">
+    <a href="abuse!default.jspa?messageID=14262018"
+       title="Click to report abuse..."
+            ><img src="images/warn-16x16.gif" width="16" height="16" border="0"
+                  alt="Click to report abuse..." /></a>
+</td>
+
+
+
+
+
+
+<td>&nbsp;</td>
+<td class="jive-icon">
+    <a href="post!reply.jspa?messageID=14262018"
+       title="Click to reply to this thread"
+            ><img src="images/reply-16x16.gif" width="16" height="16" border="0"
+                  alt="Click to reply to this thread" /></a>
+</td>
+<td class="jive-icon-label">
+    <a href="post!reply.jspa?messageID=14262018"
+       title="Click to reply to this thread"
+            >Reply</a>
+</td>
+
+
+</tr>
+</table>
+</div>
+
+</td>
+</tr>
+
+<tr>
+    <td colspan="4">
+        <div class="jive-message-body">For more cross-posts<br />
+<a class="jive-link-external" href="http://forums.sun.com/thread.jspa?threadID=5391603&#38;tstart=1">http://forums.sun.com/thread.jspa?threadID=5391603&#38;tstart=1</a><br />
+<a class="jive-link-external" href="http://www.daniweb.com/forums/thread197101.html">http://www.daniweb.com/forums/thread197101.html</a><br />
+<a class="jive-link-external" href="http://www.dreamincode.net/forums/showtopic109484.htm">http://www.dreamincode.net/forums/showtopic109484.htm</a><br />
+<br />
+For more explanation<br />
+<a class="jive-link-external" href="http://intelrate.blogspot.com/2009/05/how-to-mock-protected-method-in-java.html">http://intelrate.blogspot.com/2009/05/how-to-mock-protected-method-in-java.html</a></div>
+    </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+
+        </div>
+    </div>
+
+    
+	        
+    <div class="jive-message-list">
+        <div class="jive-table">
+
+            
+
+
+
+
+
+
+
+
+
+<div class="jive-messagebox">
+<table summary="Message" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr id="jive-message-14262022" valign="top" class="jive-even">
+<td width="1%" class="jive-first">
+<table cellpadding="0" cellspacing="0" border="0" width="150">
+<tr>
+<td>
+
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody>
+        <tr valign="top">
+            <td width="1%" style="padding:0px;">
+                <nobr>
+	            	
+		                               
+                    <a href="profile.jspa?userID=240602"
+                       title="intelrate"
+                            >intelrate</a>
+                </nobr>
+            </td>
+            <td width="99%" style="padding:0px;">
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<br />
+
+
+
+            <span class="jive-description">
+
+
+            
+            Posts:
+            3
+            <br />
+
+            
+            
+                Registered:
+             	Jun 13, 2009 04:22:42 AM
+                
+            
+
+            </span>
+
+
+</td>
+</tr>
+</table>
+</td>
+<td width="99%" class="jive-last">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top">
+<td width="1%">
+    
+</td>
+<td width="97%">
+
+                    <span class="jive-subject">
+                    <a name="14262022"></a>
+                    Re: How to mock protected method in Java
+                    </span>
+
+    <br />
+
+    
+                    <span class="jive-description">
+                    Posted:
+                   Jun 13, 2009 07:37:01 AM
+                    
+
+                    
+                        &nbsp;
+                        <nobr>
+                            <a href="message.jspa?messageID=14262018#14262018"
+                               title="in response to: Peter_Lawrey"
+                                    ><img src="images/up-10x10.gif" width="10" height="10" border="0"
+                                          alt="in response to: Peter_Lawrey"
+                                          title="in response to: Peter_Lawrey" /></a>
+                            
+                            in response to: <a href="message.jspa?messageID=14262018#14262018"
+                               title="Go to message"
+                                    >Peter_Lawrey's post</a>
+                            </nobr>
+                                
+
+                        
+
+                    </span>
+</td>
+
+    <td width="1%" class="jive-rating-buttons" nowrap="true">
+
+        
+
+        
+
+        &nbsp;
+
+        
+
+    </td>
+
+<td width="1%">
+
+<div class="jive-buttons">
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+
+
+
+
+
+
+
+<td class="jive-icon">
+    <a href="abuse!default.jspa?messageID=14262022"
+       title="Click to report abuse..."
+            ><img src="images/warn-16x16.gif" width="16" height="16" border="0"
+                  alt="Click to report abuse..." /></a>
+</td>
+
+
+
+
+
+
+<td>&nbsp;</td>
+<td class="jive-icon">
+    <a href="post!reply.jspa?messageID=14262022"
+       title="Click to reply to this thread"
+            ><img src="images/reply-16x16.gif" width="16" height="16" border="0"
+                  alt="Click to reply to this thread" /></a>
+</td>
+<td class="jive-icon-label">
+    <a href="post!reply.jspa?messageID=14262022"
+       title="Click to reply to this thread"
+            >Reply</a>
+</td>
+
+
+</tr>
+</table>
+</div>
+
+</td>
+</tr>
+
+<tr>
+    <td colspan="4">
+        <div class="jive-message-body">Final solution is there: http://forums.sun.com/thread.jspa?threadID=5391603&#38;tstart=1<br />
+<br />
+At least if somebody don't suggest anything better.<br />
+<br />
+Thanks.</div>
+    </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+<div class="jive-message-list-footer">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tbody>
+            <tr>
+                <td width="1%" nowrap="true">
+
+                    <span class="jive-paginator-bottom">
+                    
+
+                                
+                                <nobr>
+                                Pages:
+                                1
+
+                                
+                                </nobr>
+
+                            
+                    </span>
+
+                </td>
+                <td width="98%" align="center">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td>
+                                <a href="forum.jspa?forumID=812"
+                                        ><img src="images/arrow-left-16x16.gif" width="16" height="16" border="0"
+                                              hspace="6" alt="Go Back" /></a>
+                            </td>
+                            <td>
+                                
+                                <a href="forum.jspa?forumID=812"
+                                        >Back to Thread List</a>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="1%" nowrap="true">
+
+                    
+                            
+                                
+                                Threads:
+                                [
+                                
+                                    
+                                    <a href="thread.jspa?threadID=269683&amp;tstart=-1"
+                                     >Previous</a>
+                                
+                                |
+                                
+                                    
+                                    Next
+                                
+                                ]
+                            
+                        
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</td>
+<td width="1%" valign="top">
+
+
+
+
+
+		 <style type="text/css">
+			@import "/developerworks/dwtagg/css/dijit/dijit.css";
+		.dijit_a11y div.dijitSliderImageHandle, 
+                              .dijitSliderImageHandle {background-image:url(//www.ibm.com/i/v16/ibmlc/tagsliderhandle.gif) !important;}
+
+		.dijitSliderImageHandleH {top:-5px !important;height:16px !important;width:16px
+!important;overflow: hidden;}
+		body {text-align:left !important;}
+
+	        
+		 </style>
+    
+     <style type="text/css">
+			@import "/developerworks/dwtagg/css/nav/defaultTheme.css";
+		.dijitSliderRemainingBar {background-image:url(//www.ibm.com/i/v16/ibmlc/tagsliderbar.gif) !important;}
+
+	        
+	    </style>
+
+	<style type="text/css">
+			@import "/developerworks/dwtagg/css/dijit/digit.css";
+		.dijitSliderBumperH {width:0px !important;height:0px !important;border-width:0px 0 !important;overflow:hidden !important; #z-index:-1 !important;}
+	        
+	    </style>
+
+
+		
+		<link rel="stylesheet" href="/developerworks/dwtagg/css/nav/core.css" type="text/css" />
+		
+		<link rel="stylesheet" href="/developerworks/dwtagg/css/nav/defaultTheme.css" type="text/css" />
+ 		  
+		<!--<link rel="stylesheet" type="text/css" href="/dogear/nav/common/styles/iehacks.css" />-->
+
+ 		<link rel="stylesheet" type="text/css" href="/developerworks/dwtagg/css/h3/dogear.css"/> 
+<link rel="stylesheet" type="text/css" media="all" href="//www.ibm.com/developerworks/js/jquery/cluetipdwtag/jquery.v15cluetip.css" />
+
+<script type="text/javascript" src="/developerworks/dwtagg/js/dwmastertag.js"></script>
+
+<script type="text/javascript">
+			var appName = 'Dogear';// valid values: profile, communities, blogs, Dogear, activities			
+        	var dojoLocale = "en".replace('_','-').toLowerCase();	        	
+//        	var dogearBaseUrl = "http://magma.raleigh.ibm.com:10000/developerworks/mydeveloperworks/dogear"+'/';
+		</script>
+		 
+    		
+    	<script type="text/javascript" src="/developerworks/dwtagg/js/scriptaculous/prototype.js"></script>
+
+		<!-- miscellaneous scripting for dogear; depends on prototype.js! -->
+		<script type="text/javascript" src="/developerworks/dwtagg/js/script/dogear.js"></script> 	
+		<!--<script type="text/javascript" src="/developerworks/dwtagg/js/script/out.js"></script>--> 
+        <!--<script type="text/javascript" src="/developerworks/dwtagg/js/script/tagNavigation.js"></script>-->
+		
+    <script type="text/javascript">
+<!--
+function popupform(myform, windowname)
+{
+if (! window.focus)return true;
+window.open('', windowname, 'scrollbars=yes,resizable=yes');
+myform.target=windowname;
+return true;
+}
+//-->
+</script>	
+
+
+		
+	<script type="text/javascript">
+	var microfmtTagScope = "li,span,div";
+	</script>
+
+	<!--<script type="text/javascript" src="/developerworks/dwtagg/js/script/TagMenu.js"></script>-->
+
+	
+        
+		<!--<script type="text/javascript" language="Javascript" src="/developerworks/dwtagg/js/ibm_semanticTagServlet/semanticTagService.js?lang=en"></script>-->		
+
+	<style type="text/css">
+		/* equal to min-height in IE */
+		.X-person-display-inline {height:expression(documentElement.clientHeight ? (documentElement.clientHeight< 1200 ? "82px": 
+
+documentElement.clientHeight + "px") : "auto" ); background-color: #ffffff; }
+		
+	
+		/* Hack to change settings for non-IE browsers with min-height attribute */
+		html>body .X-person-display-inline { height: auto; min-height: 82px } 
+		
+	</style>
+
+
+<!--div id="lotusFrame" class="lotusDogear"-->
+	<a id="lotusNavigation" name="lotusNavigation"></a>
+	<script type="text/javascript" src="/developerworks/dwtagg/js/dojo/dojo.js" djConfig="parseOnLoad: true, locale:dojoLocale"></script>
+	<script type="text/javascript" src="/developerworks/dwtagg/js/lconn/core.js"></script>
+	<script type="text/javascript" src="/developerworks/dwtagg/js/lconn/dogear.js"></script>
+
+	<!--<script type="text/javascript" src="/developerworks/dwtagg/js/nav/menu.js"></script>-->
+	
+	<script type="text/javascript">
+		(function(){
+ 			dojo.addOnLoad(function(){
+
+ 			dojo.publish("p_dashboard");
+ 			});
+		})();
+  		dojo.require("dojo.i18n");
+		//dojo.require("dojo.date.locale");
+		//dojo.requireLocalization("dojo.cldr","gregorian");
+		//dojo.requireLocalization("lconn.dogear","strings");
+		//dojo.require("dijit.form.Slider");
+		//dojo.require("dijit.Menu");
+		//dojo.require("dijit.MenuItem");
+		//dojo.require("dojo.parser");
+		//dojo.require("lconn.core.Res");
+		//dojo.require("lconn.core.TypeAheadDataStore");
+		//dojo.require("lconn.core.TypeAhead");
+		//dojo.require("lconn.core.PeopleDataStore");
+		//dojo.require("lconn.core.PeopleTypeAhead");
+		//dojo.require("lconn.dogear.SearchBar");
+		//dojo.require("lconn.dogear.DogearPeopleTypeAhead");
+	</script>
+	
+	<script language="Javascript"  type="text/javascript">
+	 			//document.onclick = function () {MenuPopup.hideMenu();};
+				//document.onkeyup = function ( event ) {MenuPopup.hideOnKeypress( event );};
+	 </script>
+	<!--<script type="text/javascript" src="/developerworks/dwtagg/js/script/dateformat.js"></script>-->
+	<!--<script language="Javascript" src="/developerworks/dwtagg/js/script/search.js" type="text/javascript"></script>-->
+	<!--<script type="text/javascript" src="/developerworks/dwtagg/js/script/my-bookmarks.js"></script>-->
+	<!--<script type="text/javascript" src="/developerworks/dwtagg/js/nav/dojoMenu.js"></script>-->
+<!--div id="lotusMain"-->
+
+	<script type="text/javascript" src="/developerworks/dwtagg/js/scriptaculous/effects.js"></script>
+	<script type="text/javascript" src="/developerworks/dwtagg/js/script/sliderDojo.js"></script> 	
+
+
+<script language="Javascript"  type="text/javascript">
+
+Event.observe(window, 'load', setupTagCloud, false);
+ </script>
+
+
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/cluetipdwtag/jquery-1.2.2.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/cluetipdwtag/jquery.dimensions.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/cluetipdwtag/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/cluetipdwtag/jquery.cluetip.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/cluetipdwtag/jquery.cluetip.js"></script>
+<script type="text/javascript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwtip').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/portal/js/jquery/cluetip/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: false,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+
+<script type="text/javascript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwbasic').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/portal/js/jquery/cluetip/i/x.gif" alt="Close" />',
+		arrows: true,
+		dropShadow: false,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+
+
+
+<style type="text/css">
+			@import "/developerworks/dwtagg/css/nav/core.css";
+		h1{font-size:25px;font-weight:normal;margin:0;}
+		.lotusTagCloud a{text-decoration:none;}
+		a.lotusF5, a.lotusF5:link{font-size:135%;color:#5c81a7;}
+		a.lotusF5, a.lotusF5:visited{font-size:135%;color:#996699;}
+		a.lotusF5, a.lotusF5:hover{font-size:135%;color:#996699;}
+		a.lotusF4, a.lotusF4:link{font-size:110%;color:#5c81a7;}
+		a.lotusF4, a.lotusF4:visited{font-size:110%;color:#996699;}
+		a.lotusF4, a.lotusF4:hover{font-size:110%;color:#996699;}
+		a.lotusF3, a.lotusF3:link{font-size:100%;color:#5c81a7;}
+		a.lotusF3, a.lotusF3:visited{font-size:100%;color:#996699;}
+		a.lotusF3, a.lotusF3:hover{font-size:100%;color:#996699;}
+		a.lotusF2, a.lotusF2:link{font-size:90%;color:#5c81a7;}
+		a.lotusF2, a.lotusF2:visited{font-size:90%;color:#996699;}
+		a.lotusF2, a.lotusF2:hover{font-size:90%;color:#996699;}
+		a.lotusF1, a.lotusF1:link{font-size:85%;color:#5c81a7;}
+		a.lotusF1, a.lotusF1:visited{font-size:85%;color:#996699;}
+		a.lotusF1, a.lotusF1:hover{font-size:85%;color:#996699;}
+		.lotusList a, ul.lotusList li.lotusSelected a {border-bottom-style:none;border-bottom-width:1px;}
+	
+		ul{list-style-type:disc;margin-left:0px;margin-top:-2px;padding-left:0}
+		.lotusTags a:hover, .lotusTags a:focus, a.lotusTag:hover, a.lotusTag:focus, a.lotusPerson:hover, a.lotusPerson:focus {border-bottom-style:none;border-bottom-width:1px;text-decoration:underline;}
+            .dijitSliderProgressBar {background-color:#5C81A7;}
+
+
+a.currentdwTags:link{color:#5c81a7;}
+a.currentdwTags:visited{color:#996699;}
+a.currentdwTags:hover{color:#996699;}
+</style>
+
+<style type="text/css"><!--
+.defaultText {color:#999}
+.searchText {color:#000}
+--></style>
+
+
+<div class="jive-portlet-box" style="width: 150px; height:1%">
+    <table width="150" border="0" cellpadding="3" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="v14-header-1-small" colspan="2">&nbsp;<strong>Tags</strong></th>
+            </tr>
+        </thead>
+        
+    </table>
+<!-- <div id="dw-tag-help"><a class="dwauthor" href="#tagginghelp" rel="#tagtip"><img alt="Help" height="13" width="13" align="top" src="//www.ibm.com/developerworks/i/dwtag_forumhelp_icon.gif"/></a></div> -->
+
+
+	<div style="float:right; margin-top: -17px;padding-right:7px"> <a class="dwauthor" 
+href="#tagginghelp" rel="#tagtip"><img alt="Help" height="13" width="13"
+align="top" src="//www.ibm.com/developerworks/i/dwtag_forumhelp_icon.gif"/></a>
+
+   </div>
+
+    <div class="dwtag-onload-state ibm-no-print" id="tagtip"><p>Use the <strong>search field</strong> to
+        find all types of content in My developerWorks with that tag.</p>
+
+<p>Use the slider bar to see more or fewer tags.<br /></p>
+
+
+
+<p><strong>Popular tags</strong> shows the top tags for this particular type of content or application that you're viewing.</p>
+
+<p><strong>My tags</strong> shows your tags for this particular type of content or application that
+you're viewing.</p> </div>
+<a id="lotusSubNavigation" name="lotusSubNavigation"></a>
+
+
+<div class="ibm-container-body">
+
+     <div style="padding-top: 10px;padding-bottom: 3px;margin-left: 6px">
+    <form onsubmit="popupform(this, 'join')" id="actualtagform" method="get" action="/developerworks/mydeveloperworks/bookmarks/html?lang=en">
+<label for="tagfield" title="Enter search term"></label><input class="defaultText" onfocus="eFocus(this)" onblur="eBlur(this)" value="Search all tags" type='text' id="tagfield" name="tag" value='Search all tags' size='20'
+class="defaultText" style='width: 70%; font-size: 0.95em;' align='middle'/>&nbsp;<input align="middle" alt="Search" class="ibm-btn-view" name="ibm-search" value="Search" src="//www.ibm.com/developerworks/i/search_btn.gif" id="searchbutton" type="image"/>
+<input type='hidden' name='lang' value="en"/>
+</form>
+</div>
+<div class="ibm-rule"><hr /></div> 
+
+ <div class="ibm-first" id="dogearTagArea" style="padding-top: 5px;"> 
+
+        <div class="lotusChunk" id="alltags">
+		<ul class="lotusInlinelistNoDivider" style="margin-top: -2px;margin-bottom:3px;">
+		<li class="lotusFirst">
+
+		<span><strong>Popular forum tags</strong></span>&nbsp;&nbsp;<span class="lotusDivider">&nbsp;</span>			 	
+		</li><br />
+		<li>		
+			<strong><a class="lotusAction" href="javascript:;" onclick="setupTagCloud('true')">My forum tags</a></strong>
+		</li>
+			
+		</ul></div>
+
+<div class="lotusChunk" style="" id="mytags">
+		<ul class="lotusInlinelistNoDivider">
+		<li>
+		<strong><a class="lotusAction" href="javascript:;" onclick="setupTagCloud('false')">Popular forum tags</a></strong>&nbsp;&nbsp;<span class="lotusDivider">&nbsp;</span>			 	
+		</li><br />
+		<li class="lotusFirst">
+			<span><strong>My forum tags</strong></span>
+
+		</li>
+		
+		</ul></div>
+<script type="text/javascript">
+			//$('taginput').setAttribute('autocomplete','off');
+			//new DogearAutocompleter('taginput', 'tag_auto_complete', '/developerworks/mydeveloperworks/dogear/tagslike', {method: 'get', paramName: 'prefix', parameters: 'format=json&limit=10', tokens: [' ',  '\n', '\r', '\f', '\t', ',', '\u3000'], frequency: 0.3});
+</script>		
+
+	<div id="dogearSliderDisplay" class="lotusTagCloud">
+	   		 <script type="text/javascript">
+	   		 		var defaultSliderVisVal = getSliderPosition();
+					document.write('<div dojoType="dijit.form.HorizontalSlider" style="width:100%" name="horizontal1" id="slider1"');
+					document.write('maximum="100" minimum="0" showButtons="false" pageIncrement="1" intermediateChanges="true"');
+					document.write('value="' + defaultSliderVisVal + '"'); 
+					//document.write('class="lotusCenter"');
+					document.write('onChange="updateTagVis(arguments[0]);"></div>');
+
+             </script>
+<span style="font-size: .85em;margin-left: 6px"><strong>More</strong></span><img src="//www.ibm.com/i/c.gif" width="87" height="1" border="0" alt="" /><span style="font-size: .85em"><strong>Less</strong>&nbsp;</span>
+ 
+	</div>
+
+</div>
+       
+        
+
+	
+<div id="dogearTagTab" style="margin-left: 6px; margin-right: 5px;font-size: .90em;padding-top: 10px;"></div>
+
+
+          
+
+
+
+	
+</div>
+<div class="ibm-rule" style="margin-top: -20px; margin-bottom: 20px; line-height: 30pt; min-height: 1%"><hr /></div></div>
+<!-- TAGGING END -->
+    
+<script language="javascript" type="text/javascript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: false,
+		cluetipClass: 'dwtagbasic'
+		});   	
+	});
+ </script>
+
+<script language="javascript" type="text/javascript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwbasic').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: false,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+<!-- JQuery end --><!-- SCRIPTS_INCLUDE_END -->
+
+
+<script type="text/javascript"><!--
+function eFocus(field){
+if (field.value == 'Search all tags'){
+field.value ='';
+}
+field.className="searchText"
+}
+function eBlur(field){
+if (field.value == ''){
+field.value ='Search all tags';
+field.className="defaultText";
+}else{
+field.className="searchText";
+}
+}
+// --></script>
+
+
+
+
+   <div class="jive-portlet-box" style="width: 150px">
+       <table cellpadding="3" cellspacing="0" border="0" width="150">
+           <tbody>
+	<tr>
+	<td>
+		<img src="http://www.ibm.com/developerworks/i/hiviz-knowyou-148x64.jpg" alt="" width="148" height="64" />
+<p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/mydeveloperworks?S_TACT=105AGY061&CMP=TILE&ca=dth-mydwhivisprof"><strong>Update your My developerWorks profile and start connecting with others.</a></p>
+	</td>
+	</tr>
+
+           </tbody>
+       </table>
+   </div>
+
+
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<br />
+<a href="rss/rssmessages.jspa?threadID=266001"
+   title="Point your RSS reader here for a feed of the latest messages in this thread"><img src="images/feed-icon-16x16.gif" width="16" height="16" border="0"
+                                                      alt="Point your RSS reader here for a feed of the latest messages in all forums" /></a> <br /><br />
+
+
+
+
+
+
+
+</div>
+</div>
+
+</td>
+</tr>
+</table>
+<!-- MAIN_TABLE_END -->
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+
+</div>
+
+
+<script type="text/javascript" language="JavaScript" src="/developerworks/js/ratingsposttoget.js"></script><script type="text/javascript" language="JavaScript1.2" src="//www.ibm.com/common/stats/stats.js"></script>
+<noscript><img src="//stats.www.ibm.com/rc/images/uc.GIF?R=noscript" width="1" height="1" alt="" border="0" /></noscript>
+<!-- FOOTER_END -->     
+
+<!-- Incremental Profile Support -->
+<script language="JavaScript" src="//www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script type="text/javascript">	
+	function openOver () {
+	var pos = jQuery("#overlaycall").position();
+	var overlay = document.getElementById('dw-lc-overlay');
+	overlay.style.left = pos.left + 15 + 'px';
+	overlay.style.top = pos.top + 15 + 'px';
+	overlay.style.display = 'block';
+	}
+	
+	function closeOver () {
+		document.getElementById('q1').focus();
+		document.getElementById('dw-lc-overlay').style.display = 'none';
+	}	
+</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+
+loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);
+
+
+		jQuery('interestShow').showInterest('812', 
+		'forum', 
+			{'int_top_cat':['ab.tp.jt']}
+
+,
+
+'<a id="intAnonBtn" class="dw-lc-interests dw-lc-interestsupdate" href="">Update My dW interests</a> (<a class="dw-lc-foruumspopuplink" href="' + loginLink + '">Log in</a> | <a class="dw-lc-foruumspopuplink" href="javascript:openOver();void(null);" onmouseover="openOver();" onfocus="openOver();" id="overlaycall">What\'s this?</a>)<div id="dw-lc-overlay"><div><a class="dw-lc-overlay-close" href="javascript:closeOver();void(null);"><img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" /></a><h2>What\'s this?</h2><p>This little timesaver lets you update your My developerWorks profile with just one click! The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it\'s not ther already. you only need to be logged in to My developerWorks.</p><p>And what\'s the point of adding your interests to your profile? That\'s how you find other users with the same interests as yours, and see what they\'re reading and contributing to the community. Your interests also help us recommend relevant developerWorks content to you.</p><br /><table cellspacing="0" cellpadding="0" border="0"><tr><td><img align="middle" alt="" border="0" height="16" src="//www.ibm.com/i/v14/icons/fw.gif" width="16"/></td><td><a class="fbox" href="/developerworks/mydeveloperworks/profiles/html/myProfileView.do">View your My developerWorks profile.</a></td></tr></table></div></div>',
+
+'<a id="intSelectBtn" class="dw-lc-interests dw-lc-interestsadd" href="">Add to My dW interests</a> <a class="dw-lc-foruumspopuplink" href="javascript:openOver();void(null);" onmouseover="openOver();" onfocus="openOver();" id="overlaycall">(What\'s this?)</a><div id="dw-lc-overlay"><div><a class="dw-lc-overlay-close" href="javascript:closeOver();void(null);"><img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" /></a><h2>What\'s this?</h2><p>This little timesaver lets you update your My developerWorks profile with just one click! The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it\'s not ther already. you only need to be logged in to My developerWorks.</p><p>And what\'s the point of adding your interests to your profile? That\'s how you find other users with the same interests as yours, and see what they\'re reading and contributing to the community. Your interests also help us recommend relevant developerWorks content to you.</p><br /><table cellspacing="0" cellpadding="0" border="0"><tr><td><img align="middle" alt="" border="0" height="16" src="//www.ibm.com/i/v14/icons/fw.gif" width="16"/></td><td><a class="fbox" href="/developerworks/mydeveloperworks/profiles/html/myProfileView.do">View your My developerWorks profile.</a></td></tr></table></div></div>',
+
+'<a id="intDeselectBtn" class="dw-lc-interests dw-lc-interestsconfirm" href="">Added to My dW interests</a> (<a class="dw-lc-foruumspopuplink" href="/developerworks/mydeveloperworks/profiles/html/editMyProfileView.do">Edit</a>)'
+
+);
+
+// ]]>
+</script>
+
+   
+
+
+</body>
+</html>

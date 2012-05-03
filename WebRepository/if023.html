@@ -1,0 +1,176 @@
+<html><head>
+<meta name="description" content="Java Tester. Is your web browser Java enabled">
+<meta name="keywords" content="Java, Tester, enabled">
+<title>Java Tester - Is Java Enabled? </title>
+<link rel="stylesheet" type="text/css" media="screen" href="jt4.css" />
+<link rel="stylesheet" type="text/css" media="print"  href="jtprint.css"  />
+</head>
+<body>
+
+<div id="page_header">
+<table  cellpadding="0" cellspacing="0" width="100%" style="border-top:1px solid black;"><tr>
+<td background="pix/tanheader.1020w.jpg">
+    <div style="color:white; font-weight:bold; float:right; text-align:center; font-size:90%;">
+     <br>Website by<br>Michael Horowitz &nbsp; </div>
+     <img border="0" src="pix/javatestertrans.gif" width="332" height="55">
+    </td></tr>
+</table>
+</div>
+
+
+<div id="left_col" class="screenonly">
+<table border="0" cellpadding="4" cellspacing="0" width=99><tr>
+ <td style="background-color:#FFF1E6; vertical-align:top; padding-left:2px; padding-right:2px;">
+ <div align="center"> </div>
+ <div class="nav_button"><a href="index.htm">Home</a></div>
+ <div class="nav_button"><a href="version.html">Java<br>Version</a></div>
+ <div class="nav_button_selected2">Java<br>Enabled?</div>
+ <div class="nav_button"><a href="installing.html">Installing<br>Java</a></div>
+ <div class="nav_button"><a href="othertesters.html">Other<br>Testers</a></div>
+ <div class="nav_button"><a href="javascript.html">JavaScript</a></div>
+ <div class="nav_button"><a href="about.html">About</a></div><br><br><br><br>
+ </td></tr>
+</table>
+</div>
+
+<div id="mid_col">
+<h2 align="center">
+<span style="background-color:#A36E48; text-align:center; padding:4px; color:#FCDABC; font-weight:bold;
+   position: relative; top:-4px; font-size:13pt;">
+   &nbsp; See my <a href="http://blogs.computerworld.com/horowitz"
+   style="text-decoration:none; color:white;" class="head">Defensive Computing blog</a> at Computerworld.com &nbsp; </span><br>
+ Is Your Web Browser Java Enabled?</h2>
+
+<p>Although most current web browsers are capable of running Java applets
+(programs), this support can be disabled. Below are some ways to tell if your browser is Java enabled.
+
+
+<h3>1. HTML Trick</h3>
+
+<p>The HTML test below should indicate if your browser currently supports Java.
+
+<div align="center">
+<table cellSpacing="0" cellPadding="12" >
+<tr><td align="center" nowrap>
+   <font color="#FF0000" size="3"><b>LIVE</b></font></td>
+<td nowrap style="border:2px solid black; background-color:#ffffe7; text-align: center;">
+<p>This web browser can
+
+<applet code="Tiny" codebase="./" height="18" width="60"><param name="text" value="indeed">NOT</applet>
+
+ run Java applets.</p></td></tr>
+</table></div> <br><br>
+
+
+<p>A browser that supports Java displays:&nbsp;&quot;This web browser can indeed run Java
+applets&quot; and it should look like:
+<div align="center">
+<table cellSpacing="0" cellPadding="0" >
+<tr><td nowrap><font color="#FF0000" size="2"><b>sample</b></font>&nbsp;</td>
+<td><img border="0" src="pix/can.indeed.run.applets.gif" width="360" height="52"></td></tr>
+</table></div>
+
+
+<p>A browser that <i>does not</i> support Java displays: &quot;This web browser can NOT
+run Java applets&quot; and should look like:
+<div align="center">
+<table cellSpacing="0" cellPadding="0" >
+<tr><td nowrap><font color="#FF0000" size="2"><b>sample</b></font>&nbsp;</td>
+<td><img border="0" src="pix/ie6nojava.jpg" width="340" height="55"></td></tr>
+</table></div>
+
+<p><b>How this works:</b> Applets are included in a web page with the HTML APPLET tag.
+Web browsers that do not support Java (either because they can not or because a
+configuration option has been set to disable Java) are supposed to display text
+inside the &lt;APPLET&gt; tag. The above test is coded using HTML that looks
+like: &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font face="Courier New" size="3">This
+web browser can &lt;applet ...&gt;NOT&lt;/applet&gt; run Java applets</font></p>
+<p>If the applet can run, it displays the word &quot;indeed&quot; in blue. If it
+can not run, the web browser is supposed to display the word &quot;NOT&quot;.&nbsp;<p><b>Note</b>
+that Firefox 1.0 with Java and the Adblock extension wraps the display on two
+lines (seems to be a Firefox bug). Firefox 1.0 without Java and with no
+extensions, does not correctly display the word &quot;NOT&quot; (another bug).
+Instead it displays a green jigsaw puzzle piece.</p> <br>
+
+
+<h3>2. Manually Checking</h3>
+<p><b>Firefox 3</b> users can check if Java is enabled with Tools -> Options -> Content Panel. There is a checkbox
+ to Enable Java.
+ <br>For more about Java and Firefox see
+ <a href="http://support.mozilla.com/en-US/kb/Java">support.mozilla.com/en-US/kb/Java</a>.</p>
+
+<p><b>Firefox 2</b> users can check if Java is enabled with Tools -> Options -> Content panel. There is a checkbox to
+   Enable Java.
+
+<p><b>Firefox v1.0.4 </b>users can manually check with Tools -&gt; Options -&gt;
+Web features -> checkbox for &quot;Enable Java&quot;. Another approach is to
+enter <font face="Courier New">about:plugins</font> in the address bar.
+ If Java is installed there will be multiple entries labeled &quot;Java Plug-in&quot;. </p>
+
+
+
+<br><h3>3. From JavaScript</h3>
+
+<p>JavaScript is a programming language run by your web browser. If your browser
+supports JavaScript and this support is enabled, then we can use a JavaScript
+function to report on whether Java is enabled or not. This is what JavaScript
+reports about your browser:</p>
+<script language="JavaScript">
+document.write("<div align=center> Is Java enabled? <b>" + navigator.javaEnabled() + "</b></div>" );
+</script>
+<p>This is done with a JavaScript command much like: &nbsp;<br>
+<font face="Courier New">&nbsp;&nbsp; document.write(&quot;Is Java enabled? " + navigator.javaEnabled() );</font>
+
+<p>Note: I've been told more than once that under Windows XP SP2 with IE6 that this test
+reports &quot;True&quot; even if Java is not installed. I haven't confirmed this
+myself. I did notice that on an XP system that just had Sun's Java un-installed
+(prior to installing a newer version), this reported &quot;True&quot; because it
+fell back to using Microsoft's Java.&nbsp;I've also been told that on Windows
+ME, IE 5.5 falsely reports Java as &quot;true&quot; when there is no Java instaled. </p>
+
+
+
+<br><h3>4. From JavaScript&nbsp;Again</h3>
+
+<p>A reader of this page suggested this technique (thanks Ed). If Java is enabled it
+should say &quot;I'm here&quot; in
+between the arrows below.&nbsp;</p>
+<div align="center">Say something in Java ==&gt;<b>
+<script>
+  document.write(new java.lang.String(" I'm here "));
+</script>
+</b>&lt;==&nbsp;</div>
+<p>This is done using the following JavaScript and Java commands:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <font face="Courier New">&lt;script> document.write(new
+java.lang.String(&quot;I'm here&quot;)); &lt;/script></font>
+
+<p>The bad news is that this does not work with Internet Explorer v6 (all
+patches as of May 2005, Windows 2000). It did work, however, with Firefox v1.0.4. (Windows 2000)</p> <br> <br>
+
+
+<br><hr width="80%" size="1" color="orange">
+<p>If Java is installed, but not enabled, Sun has instructions to <a href="http://www.java.com/en/download/help/enable_browser.jsp">Enable the JRE through your Web browser</a>
+and to <a href="http://www.java.com/en/download/help/enable_panel.jsp">Enable the JRE through the "Java? Plug-in Control Panel"</a>.
+&nbsp;Sun also has a <a href="http://www.java.com/en/download/help/testvm.jsp"> Test Java Virtual Machine</a>
+web page that did not work for me. See the <a href="installing.html">Installing page</a> for more on this.</p>
+</div><br>
+
+<iframe width="100%" height="20" frameborder="0" marginwidth="2" marginheight="2" class="screenonly"
+        scrolling=no src="jtfooter/footer.php">
+ Your web browser does not support iFrames, so you can not see the page counters
+</iframe>
+
+<div class="printonly"><hr size="2"></div>
+<div class="footer">
+   <div style="background-color:#FFF1E6; color:#BF5003; padding:3px;">
+   Website created and maintained by <a href="http://www.michaelhorowitz.com" style="text-decoration:none;"
+   class="head">Michael Horowitz</a> &nbsp; &nbsp;  michael @ javatester.org
+   <br> Java and JavaScript are trademarks of Sun Microsystems, Inc. in the US and other countries<br>
+    This site is independent of Sun. </div>
+
+ Page: www.javatester.org/enabled.html &nbsp; &nbsp; Last updated: June 24, 2008
+</div>
+
+</body>
+</html>

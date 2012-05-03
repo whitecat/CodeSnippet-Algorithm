@@ -1,0 +1,1571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<script type="text/javascript">(function() { var a=window;function e(b){this.t={};this.tick=function(c,h,d){d=d?d:(new Date).getTime();this.t[c]=[d,h]};this.tick("start",null,b)}var f=new e;a.jstiming={Timer:e,load:f};try{a.jstiming.pt=a.gtbExternal&&a.gtbExternal.pageT()||a.external&&a.external.pageT}catch(g){};a.tickAboveFold=function(b){b=b;var c=0;if(b.offsetParent){do c+=b.offsetTop;while(b=b.offsetParent)}b=c;b<=750&&a.jstiming.load.tick("aft")};var i=false;function j(){if(!i){i=true;a.jstiming.load.tick("firstScrollTime")}}a.addEventListener?a.addEventListener("scroll",j,false):a.attachEvent("onscroll",j); })();</script>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='true' name='MSSmartTagsPreventParsing'/>
+<meta content='blogger' name='generator'/>
+<link href='http://www.blogger.com/favicon.ico' rel='icon' type='image/vnd.microsoft.icon'/>
+<link href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html' rel='canonical'/>
+<link rel="alternate" type="application/atom+xml" title="Code To Joy - Atom" href="http://codetojoy.blogspot.com/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="Code To Joy - RSS" href="http://codetojoy.blogspot.com/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="Code To Joy - Atom" href="http://www.blogger.com/feeds/5427069094580312550/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=5427069094580312550" />
+<link rel="alternate" type="application/atom+xml" title="Code To Joy - Atom" href="http://codetojoy.blogspot.com/feeds/7230127592397223205/comments/default" />
+<title>Code To Joy: Java Methods: protected is the new private?</title>
+<link type='text/css' rel='stylesheet' href='http://www.blogger.com/static/v1/widgets/1576120009-widget_css_bundle.css' />
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/static/v1/v-css/3727950723-blog_controls.css"/>
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=5427069094580312550&zx=9ff6e56e-c8fd-408b-b656-c4650279267b"/>
+<style type="text/css">#navbar-iframe { display:block }
+</style>
+
+<style id='page-skin-1' type='text/css'><!--
+/*
+-----------------------------------------------
+Blogger Template Style
+Name:     Stretch Denim Light
+Designer: Darren Delaye
+URL:      www.DarrenDelaye.com
+Date:     11 Jul 2006
+-----------------------------------------------
+*/
+/* Variable definitions
+====================
+<Variable name="bgColor" description="Page Background Color"
+type="color" default="#ffffff">
+<Variable name="textColor" description="Text Color"
+type="color" default="#333333">
+<Variable name="linkColor" description="Link Color"
+type="color" default="#336699">
+<Variable name="headerBgColor" description="Page Header Background Color"
+type="color" default="#c4e1ff">
+<Variable name="headerTextColor" description="Page Header Text Color"
+type="color" default="#003366">
+<Variable name="headerCornersColor" description="Page Header Corners Color"
+type="color" default="#c4e1ff">
+<Variable name="mainBgColor" description="Main Background Color"
+type="color" default="#ffffff">
+<Variable name="borderColor" description="Border Color"
+type="color" default="#ffffff">
+<Variable name="dateHeaderColor" description="Date Header Color"
+type="color" default="#999999">
+<Variable name="sidebarTitleBgColor" description="Sidebar Title Background Color"
+type="color" default="#ffffff">
+<Variable name="sidebarTitleTextColor" description="Sidebar Title Text Color"
+type="color" default="#333333">
+<Variable name="bodyFont" description="Text Font"
+type="font" default="normal normal 100% Verdana, Arial, Sans-serif;">
+<Variable name="headerFont" description="Page Header Font"
+type="font" default="normal normal 210% Verdana, Arial, Sans-serif;">
+<Variable name="startSide" description="Start side in blog language"
+type="automatic" default="left">
+<Variable name="endSide" description="End side in blog language"
+type="automatic" default="right">
+*/
+body {
+background: #ffffff;
+margin: 0;
+padding: 0px;
+font: x-small Verdana, Arial;
+text-align: center;
+color: #333333;
+font-size/* */:/**/small;
+font-size: /**/small;
+}
+a:link {
+color: #336699;
+}
+a:visited {
+color: #336699;
+}
+a img {
+border-width: 0;
+}
+#outer-wrapper {
+font: normal normal 100% Verdana, Arial, Sans-serif;;
+}
+/* Header
+----------------------------------------------- */
+#header-wrapper {
+margin:0;
+padding: 0;
+background-color: #c4e1ff;
+text-align: left;
+}
+#header {
+margin: 0 2%;
+background-color: #c4e1ff;
+color: #003366;
+padding: 0;
+font: normal normal 210% Verdana, Arial, Sans-serif;;
+position: relative;
+}
+h1.title {
+padding-top: 38px;
+margin: 0 1% .1em;
+line-height: 1.2em;
+font-size: 100%;
+}
+h1.title a, h1.title a:visited {
+color: #003366;
+text-decoration: none;
+}
+#header .description {
+display: block;
+margin: 0 1%;
+padding: 0 0 40px;
+line-height: 1.4em;
+font-size: 50%;
+}
+/* Content
+----------------------------------------------- */
+.clear {
+clear: both;
+}
+#content-wrapper {
+margin: 0 2%;
+padding: 0 0 15px;
+text-align: left;
+background-color: #ffffff;
+border: 1px solid #ffffff;
+border-top: 0;
+}
+#main-wrapper {
+margin-left: 1%;
+width: 64%;
+float: left;
+background-color: #ffffff;
+display: inline;       /* fix for doubling margin in IE */
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;      /* fix for long non-text content breaking IE sidebar float */
+}
+#sidebar-wrapper {
+margin-right: 1%;
+width: 29%;
+float: right;
+background-color: #ffffff;
+display: inline;       /* fix for doubling margin in IE */
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;      /* fix for long non-text content breaking IE sidebar float */
+}
+/* Headings
+----------------------------------------------- */
+h2, h3 {
+margin: 0;
+}
+/* Posts
+----------------------------------------------- */
+.date-header {
+margin: 1.5em 0 0;
+font-weight: normal;
+color: #999999;
+font-size: 100%;
+}
+.post {
+margin: 0 0 1.5em;
+padding-bottom: 1.5em;
+}
+.post-title {
+margin: 0;
+padding: 0;
+font-size: 125%;
+font-weight: bold;
+line-height: 1.1em;
+}
+.post-title a, .post-title a:visited, .post-title strong {
+text-decoration: none;
+color: #333333;
+font-weight: bold;
+}
+.post div {
+margin: 0 0 .75em;
+line-height: 1.3em;
+}
+.post-footer {
+margin: -.25em 0 0;
+color: #333333;
+font-size: 87%;
+}
+.post-footer .span {
+margin-right: .3em;
+}
+.post img {
+padding: 4px;
+border: 1px solid #ffffff;
+}
+.post blockquote {
+margin: 1em 20px;
+}
+.post blockquote p {
+margin: .75em 0;
+}
+/* Comments
+----------------------------------------------- */
+#comments h4 {
+margin: 1em 0;
+color: #999999;
+}
+#comments h4 strong {
+font-size: 110%;
+}
+#comments-block {
+margin: 1em 0 1.5em;
+line-height: 1.3em;
+}
+#comments-block dt {
+margin: .5em 0;
+}
+#comments-block dd {
+margin: .25em 0 0;
+}
+#comments-block dd.comment-footer {
+margin: -.25em 0 2em;
+line-height: 1.4em;
+font-size: 78%;
+}
+#comments-block dd p {
+margin: 0 0 .75em;
+}
+.deleted-comment {
+font-style:italic;
+color:gray;
+}
+.feed-links {
+clear: both;
+line-height: 2.5em;
+}
+#blog-pager-newer-link {
+float: left;
+}
+#blog-pager-older-link {
+float: right;
+}
+#blog-pager {
+text-align: center;
+}
+/* Sidebar Content
+----------------------------------------------- */
+.sidebar h2 {
+margin: 1.6em 0 .5em;
+padding: 4px 5px;
+background-color: #ffffff;
+font-size: 100%;
+color: #333333;
+}
+.sidebar ul {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.sidebar li {
+margin: 0;
+padding-top: 0;
+padding-right: 0;
+padding-bottom: .5em;
+padding-left: 15px;
+text-indent: -15px;
+line-height: 1.5em;
+}
+.sidebar {
+color: #333333;
+line-height:1.3em;
+}
+.sidebar .widget {
+margin-bottom: 1em;
+}
+.sidebar .widget-content {
+margin: 0 5px;
+}
+/* Profile
+----------------------------------------------- */
+.profile-img {
+float: left;
+margin-top: 0;
+margin-right: 5px;
+margin-bottom: 5px;
+margin-left: 0;
+padding: 4px;
+border: 1px solid #ffffff;
+}
+.profile-data {
+margin:0;
+text-transform:uppercase;
+letter-spacing:.1em;
+font-weight: bold;
+line-height: 1.6em;
+font-size: 78%;
+}
+.profile-datablock {
+margin:.5em 0 .5em;
+}
+.profile-textblock {
+margin: 0.5em 0;
+line-height: 1.6em;
+}
+/* Footer
+----------------------------------------------- */
+#footer {
+clear: both;
+text-align: center;
+color: #333333;
+}
+#footer .widget {
+margin:.5em;
+padding-top: 20px;
+font-size: 85%;
+line-height: 1.5em;
+text-align: left;
+}
+/** Page structure tweaks for layout editor wireframe */
+body#layout #header {
+width: 750px;
+}
+
+--></style>
+<!-- code highlighting -->
+<link href='http://alexgorbatchev.com/pub/sh/2.1.364/styles/shCore.css' rel='stylesheet' type='text/css'/>
+<link href='http://alexgorbatchev.com/pub/sh/2.1.364/styles/shThemeDefault.css' rel='stylesheet' type='text/css'/>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shCore.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushCSharp.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushCss.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushJava.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushJScript.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushPython.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushRuby.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushSql.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushXml.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushGroovy.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushScala.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushBash.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushDiff.js' type='text/javascript'></script>
+<script src='http://alexgorbatchev.com/pub/sh/2.1.364/scripts/shBrushAS3.js' type='text/javascript'></script>
+<script language='javascript'> 
+SyntaxHighlighter.config.bloggerMode = true;
+SyntaxHighlighter.config.clipboardSwf = 'http://alexgorbatchev.com/pub/sh/2.1.364/scripts/clipboard.swf';
+SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</script></head>
+<body>
+<div class='navbar section' id='navbar'><div class='widget Navbar' id='Navbar1'><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener("load",
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<iframe src="http://www.blogger.com/navbar.g?targetBlogID=5427069094580312550&amp;blogName=Code+To+Joy&amp;publishMode=PUBLISH_MODE_BLOGSPOT&amp;navbarType=BLUE&amp;layoutType=LAYOUTS&amp;searchRoot=http%3A%2F%2Fcodetojoy.blogspot.com%2Fsearch&amp;blogLocale=en_US&amp;homepageUrl=http%3A%2F%2Fcodetojoy.blogspot.com%2F&amp;targetPostID=7230127592397223205" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" height="30px" width="100%" id="navbar-iframe" allowtransparency="true" title="Blogger Navigation and Search"></iframe>
+<div></div></div></div>
+<div id='outer-wrapper'><div id='wrap2'>
+<!-- skip links for text browsers -->
+<span id='skiplinks' style='display:none;'>
+<a href='#main'>skip to main </a> |
+      <a href='#sidebar'>skip to sidebar</a>
+</span>
+<div id='header-wrapper'>
+<div class='header section' id='header'><div class='widget Header' id='Header1'>
+<div id='header-inner'>
+<div class='titlewrapper'>
+<h1 class='title'>
+<a href='http://codetojoy.blogspot.com/'>Code To Joy</a>
+</h1>
+</div>
+<div class='descriptionwrapper'>
+<p class='description'><span><i>Code To Joy</i>: putting the thrill back in blog.</span></p>
+</div>
+</div>
+</div></div>
+</div>
+<div id='content-wrapper'>
+<div id='crosscol-wrapper' style='text-align:center'>
+<div class='crosscol section' id='crosscol'></div>
+</div>
+<div id='main-wrapper'>
+<div class='main section' id='main'><div class='widget Blog' id='Blog1'>
+<div class='blog-posts hfeed'>
+<!-- google_ad_section_start(name=default) -->
+<h2 class='date-header'>Wednesday, May 27, 2009</h2>
+<div class='post'>
+<a name='7230127592397223205'></a>
+<h3 class='post-title'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html'>Java Methods: protected is the new private?</a>
+</h3>
+<div class='post-header-line-1'></div>
+<div class='post-body'>
+<p>In code reviews (including my code), when I see a Java method marked as <code>private</code>, I ask if there are any unit tests for it.<br /><br />Since tests are written in other files in parallel packages, the answer, of course, is no.<br /><br />I've recently realized that I've obtained the following habit: my methods are either <code>public</code> or <code>protected</code>. I have no use for <a href="http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html"><code>default</code></a> or <a href="http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html"><code>private</code></a>. I don't like <code>default</code> because I feel compelled to write a comment saying that it is package-level access; I don't like <code>private</code> because of the lack of testing options.<br /><br />Before you start hammering in comments, here are some thoughts:<br /><ul><li>This is not for a formal API to another team or other 3rd party. In that case, I would be more careful and rigid. You may argue there is no distinction, in which case: commence hammering.<br /></li><li>I realize that <code>protected</code> is not <code>default</code> and that it is leaking encapsulation somewhat. I can cheerily say that I don't care. I like scanning a file and seeing either <code>public</code> or <code>protected</code>.<br /></li><li>I'm not trumpeting that I write more unit-tests than others on my team. Just because a method is <code>protected</code> doesn't mean that I've written the tests!</li></ul>What do you think? Has your style changed over the years, with respect to access modifiers on methods?</p>
+<div style='clear: both;'></div>
+</div>
+<div class='post-footer'>
+<p class='post-footer-line post-footer-line-1'><span class='post-author'>
+Posted by
+Michael Easter
+</span>
+<span class='post-timestamp'>
+at
+<a class='timestamp-link' href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html' title='permanent link'>4:32 AM</a>
+</span>
+<span class='post-comment-link'>
+</span>
+<span class='post-icons'>
+<span class='item-action'>
+<a href='http://www.blogger.com/email-post.g?blogID=5427069094580312550&postID=7230127592397223205' title='Email Post'>
+<span class='email-post-icon'>&#160;</span>
+</a>
+</span>
+<span class='item-control blog-admin pid-508535202'>
+<a href='http://www.blogger.com/post-edit.g?blogID=5427069094580312550&postID=7230127592397223205' title='Edit Post'>
+<img alt='' class='icon-action' height='18' src='http://www.blogger.com/img/icon18_edit_allbkg.gif' width='18'/>
+</a>
+</span>
+</span>
+<span class='post-backlinks post-comment-link'>
+</span>
+</p>
+<p class='post-footer-line post-footer-line-2'><span class='post-labels'>
+Labels:
+<a href='http://codetojoy.blogspot.com/search/label/to%20be%20served%20and%20protected' rel='tag'>to be served and protected</a>
+</span>
+</p>
+<p class='post-footer-line post-footer-line-3'></p>
+</div>
+</div>
+<div class='comments' id='comments'>
+<a name='comments'></a>
+<h4>
+13
+comments:
+        
+</h4>
+<dl class='avatar-comment-indent' id='comments-block'>
+<dt class='comment-author ' id='c3879535272082432485'>
+<a name='c3879535272082432485'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://blog.adjective.org/" rel="nofollow" onclick=""><img src="http://img1.blogblog.com/img/blank.gif" width="16" height="16" alt="" title="Tim Vernum">
+
+</a></span></div>
+<a href='http://blog.adjective.org/' rel='nofollow'>Tim Vernum</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>I occasionally find myself making internal methods more accessible, but it's not my norm.<br /><br />My reasons:<br /><br />* I <I>mostly</I> write smaller classes, so the internal methods are small, and rare.<br /><br />* For me a "unit" is not a method, so I'm trying to test a class (or sometimes a set of classes) which doesn't mean testing every method specifically and individually.<br /><br />* I'm typically testing that a class fulfils its contract, and that is defined by the public (or occasionally protected) methods. The internal (private) methods are an implementation detail that don't <I>need</I> to be explicitly tested. I've most likely pulled that code into its own method because either:<br /> (i) It improves readability.<br /> (ii) It's used in more than one place.<br />Neither of those reasons force me to write explicit tests for the method.<br /><br />When I find myself wanting to make an otherwise private methods protected (or public, or default), I treat it as a design smell. Often that means that there's another class (and interface?) in there trying to get out. If the functionality is definable enough to make a method for it, and important enough to want to write a test for it, then it's probably important enough to be a class of its own.<br /><br />As I said, I do it sometimes (including yesterday), but not as a matter of course.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243429611501#c3879535272082432485' title='comment permalink'>
+May 27, 2009 6:06 AM
+</a>
+<span class='item-control blog-admin pid-1567942213'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=3879535272082432485' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c3754925003175845806'>
+<a name='c3754925003175845806'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/12122726676526536126" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1-12122726676526536126"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="JacobM">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/12122726676526536126' rel='nofollow'>JacobM</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>One of the points of unit testing, for me, is to have a set of tests that enforce, as Tim says, the contract that the class provides.  This allows me to be able to refactor the class as much as I want, without worrying that I'm breaking something (since the tests still pass).  That refactoring will almost certainly involve pulling some code into private methods; that's a good thing.  The point is that my tests are hopefully good enough that the functioning of those private methods are being tested by testing the class.<br /><br />I also think that someday, someone else is going to interact with your code, even if it isn't intended as a third party API.  It might even be you, two years from now (having forgotten what you had in mind).  How will this person know which methods are supposed to be called from other classes?  Making a method public or protected is, aside from the security and encapsulation effects, a way of making a statement about your intentions for how that method will be used.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243430077868#c3754925003175845806' title='comment permalink'>
+May 27, 2009 6:14 AM
+</a>
+<span class='item-control blog-admin pid-122174449'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=3754925003175845806' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c4905080374307569363'>
+<a name='c4905080374307569363'></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/10513845445987963053" rel="nofollow" onclick="" class="avatar-hovercard" id="av-2-10513845445987963053"><img src="http://img1.blogblog.com/img/blank.gif" width="35" height="35" alt="" class="delayLoad" style="display: none;" longdesc="http://2.bp.blogspot.com/_l7KA7bsADOc/Sat3Oe8_mGI/AAAAAAAAABM/rVGB8ZDaD5c/S45/DSC03454-sm.JPG" title="mike">
+
+<noscript><img src="http://2.bp.blogspot.com/_l7KA7bsADOc/Sat3Oe8_mGI/AAAAAAAAABM/rVGB8ZDaD5c/S45/DSC03454-sm.JPG" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href='http://www.blogger.com/profile/10513845445987963053' rel='nofollow'>mike</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>I am not saying that I do this, but one good consequence of TDD is that you won't end up with these private methods.  When you refactor the original location of the method that got too big, you would have to move it to it's protected location and put the test in place.<br /><br />private methods are functional decomposition by definition, which is an antipattern for the many reasons.  But it is hard to know what the class should be for just helper methods.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243431037268#c4905080374307569363' title='comment permalink'>
+May 27, 2009 6:30 AM
+</a>
+<span class='item-control blog-admin pid-1425735140'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=4905080374307569363' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c1842567438994532382'>
+<a name='c1842567438994532382'></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/15749195880217321441" rel="nofollow" onclick="" class="avatar-hovercard" id="av-3-15749195880217321441"><img src="http://img1.blogblog.com/img/blank.gif" width="35" height="35" alt="" class="delayLoad" style="display: none;" longdesc="http://2.bp.blogspot.com/_nG66Meyzz64/SaRNHtCBI4I/AAAAAAAACx0/ACmDKo_zCHs/S45/avatar_100x100.png" title="Eric Burke">
+
+<noscript><img src="http://2.bp.blogspot.com/_nG66Meyzz64/SaRNHtCBI4I/AAAAAAAACx0/ACmDKo_zCHs/S45/avatar_100x100.png" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href='http://www.blogger.com/profile/15749195880217321441' rel='nofollow'>Eric Burke</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>I make things as private as possible. After consulting at the same site for many years and actually supporting a lot of my own legacy software, the lesson is -- if a method is visible, programmers WILL call it. And once other apps start using your code, it's damn hard, if not impossible, to take things away.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243432237415#c1842567438994532382' title='comment permalink'>
+May 27, 2009 6:50 AM
+</a>
+<span class='item-control blog-admin pid-501651948'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=1842567438994532382' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c4700096434517034374'>
+<a name='c4700096434517034374'></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/17659001534221131143" rel="nofollow" onclick="" class="avatar-hovercard" id="av-4-17659001534221131143"><img src="http://img1.blogblog.com/img/blank.gif" width="35" height="35" alt="" class="delayLoad" style="display: none;" longdesc="http://3.bp.blogspot.com/_NrRapXmblSY/SapBwYANWHI/AAAAAAAABWs/AwLvgM9CV8A/S45/277001636_c52e65c63f_m.jpg" title="Bob">
+
+<noscript><img src="http://3.bp.blogspot.com/_NrRapXmblSY/SapBwYANWHI/AAAAAAAABWs/AwLvgM9CV8A/S45/277001636_c52e65c63f_m.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href='http://www.blogger.com/profile/17659001534221131143' rel='nofollow'>Bob</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>+1 for package-private. Embrace the brevity! Use /*package*/ if you're that worried about being explicit, but using protected is too distasteful.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243437749281#c4700096434517034374' title='comment permalink'>
+May 27, 2009 8:22 AM
+</a>
+<span class='item-control blog-admin pid-1885868357'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=4700096434517034374' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c8222595461310410584'>
+<a name='c8222595461310410584'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/14288776529019137279" rel="nofollow" onclick="" class="avatar-hovercard" id="av-5-14288776529019137279"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Jeegar">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/14288776529019137279' rel='nofollow'>Jeegar</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Not sure if you have looked at Mocking frameworks that help you work around language restrictions for testing purposes like <I>JMockit</I>, <I>Powermock</I> (there are others too).<br /><br />Their homepages explain why private, static methods/fields are useful for design purposes and I agree with that. Ofcourse, with great power comes ...</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243445484978#c8222595461310410584' title='comment permalink'>
+May 27, 2009 10:31 AM
+</a>
+<span class='item-control blog-admin pid-1330832252'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=8222595461310410584' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c2402389487503077757'>
+<a name='c2402389487503077757'></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/14799771593145201161" rel="nofollow" onclick="" class="avatar-hovercard" id="av-6-14799771593145201161"><img src="http://img1.blogblog.com/img/blank.gif" width="35" height="35" alt="" class="delayLoad" style="display: none;" longdesc="http://1.bp.blogspot.com/_lfuDZjhLbAM/Savyt8bA8pI/AAAAAAAAATU/K9nfG5seNIY/S45/MVC-006F.JPG" title="Michael Easter">
+
+<noscript><img src="http://1.bp.blogspot.com/_lfuDZjhLbAM/Savyt8bA8pI/AAAAAAAAATU/K9nfG5seNIY/S45/MVC-006F.JPG" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href='http://www.blogger.com/profile/14799771593145201161' rel='nofollow'>Michael Easter</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Thanks for the responses, everyone...<br /><br />Certainly, the answer to the post is a resounding no.<br /><br />re: use smaller classes. I should have mentioned that I deal regularly with large, legacy classes. IMO, it is easy to criticize the premise of the question ("well don't have private methods") but that is unavoidable in practice.<br /><br />re: mocking. Having recently been seduced by Mockito, I thought that this might be a great point but my understanding is that we should not mock a class under test (versus a collaborator). I think mocking definitely allows interesting 'bending' of access modifiers for collaborators; I'm not convinced for the class under test.<br /><br />re: brevity. I wanted to mention this point: Groovy and other languages celebrate the 'low ceremony' of brevity and convention. It is interesting to me that people rarely mention the default modifier in that context.<br /><br />The upshot is that I should re-evaluate my habit with this feedback. To be candid, it may well become a mumpsimus in certain contexts. (I'm not proud of that, but there you have it.)</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243480029747#c2402389487503077757' title='comment permalink'>
+May 27, 2009 8:07 PM
+</a>
+<span class='item-control blog-admin pid-508535202'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=2402389487503077757' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c8771290642951992820'>
+<a name='c8771290642951992820'></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/10513845445987963053" rel="nofollow" onclick="" class="avatar-hovercard" id="av-7-10513845445987963053"><img src="http://img1.blogblog.com/img/blank.gif" width="35" height="35" alt="" class="delayLoad" style="display: none;" longdesc="http://2.bp.blogspot.com/_l7KA7bsADOc/Sat3Oe8_mGI/AAAAAAAAABM/rVGB8ZDaD5c/S45/DSC03454-sm.JPG" title="mike">
+
+<noscript><img src="http://2.bp.blogspot.com/_l7KA7bsADOc/Sat3Oe8_mGI/AAAAAAAAABM/rVGB8ZDaD5c/S45/DSC03454-sm.JPG" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href='http://www.blogger.com/profile/10513845445987963053' rel='nofollow'>mike</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>This has made me think.  Too many user stories and thoughts of TDD push you down the road of top down decomposition which leads you to refactor code into private methods.<br /><br />What happened to Object Orientation?  Design Patterns are resorted to only when "justified".  So I am going to try to think differently about problem solving, instead of drilling down, I am going to let the solution bubble up and compose the objects instead of decompose the functionality.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243515980491#c8771290642951992820' title='comment permalink'>
+May 28, 2009 6:06 AM
+</a>
+<span class='item-control blog-admin pid-1425735140'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=8771290642951992820' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c8223390162364565423'>
+<a name='c8223390162364565423'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/14271936727802875963" rel="nofollow" onclick="" class="avatar-hovercard" id="av-8-14271936727802875963"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Jared">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/14271936727802875963' rel='nofollow'>Jared</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Sorry, I'm not getting it.<br /><br />If a method is private, doesn't that mean that it's essentially inlined in at least one package/protected/public method that is already being tested?<br /><br />As mentioned by another commenter, private methods do have a smell, but I think if you're using one, and everything else is being tested properly, you are also implicitly testing your private method.<br /><br />Private methods, for me at least, are just a way to avoid copy-paste coding (if the method is called more than once ... ) and/or make the code slightly more legible. I don't use them often, but when I do I know they're already being tested.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243523476836#c8223390162364565423' title='comment permalink'>
+May 28, 2009 8:11 AM
+</a>
+<span class='item-control blog-admin pid-4664685'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=8223390162364565423' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c8539282815052692549'>
+<a name='c8539282815052692549'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/12689416577856305650" rel="nofollow" onclick="" class="avatar-hovercard" id="av-9-12689416577856305650"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Giorgio">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/12689416577856305650' rel='nofollow'>Giorgio</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>I will look for a deeper analysis that let me factor out private methods which contain logic in other classes. However, the reasons are a bit long to be written here. I have just put them in an article on my blog:<br />http://ossigeno.sourceforge.net/blog/content/article/respect-my-privacy-please</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243634696876#c8539282815052692549' title='comment permalink'>
+May 29, 2009 3:04 PM
+</a>
+<span class='item-control blog-admin pid-1681572068'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=8539282815052692549' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c641706059037359497'>
+<a name='c641706059037359497'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://overtheline.myopenid.com/" rel="nofollow" onclick="" class="avatar-hovercard" id="av-10-06033475482626505622"><img src="http://img1.blogblog.com/img/openid16-rounded.gif" width="16" height="16" alt="" title="overtheline">
+
+</a></span></div>
+<a href='http://overtheline.myopenid.com/' rel='nofollow'>overtheline</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Go back to C++, clearly you miss friend classes.<br /><br />And you are obsessed with testing mechanisms but not enough to know private methods can be tested if you know how to do it.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243654914173#c641706059037359497' title='comment permalink'>
+May 29, 2009 8:41 PM
+</a>
+<span class='item-control blog-admin pid-428941000'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=641706059037359497' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c1198192930653440598'>
+<a name='c1198192930653440598'></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/10229228897201330840" rel="nofollow" onclick="" class="avatar-hovercard" id="av-11-10229228897201330840"><img src="http://img1.blogblog.com/img/blank.gif" width="35" height="35" alt="" class="delayLoad" style="display: none;" longdesc="http://2.bp.blogspot.com/_y0gHsrXaBc4/SaLWRQlonII/AAAAAAAAAFU/7M04zdEk26g/S45/creighton.PNG" title="Morgan Creighton">
+
+<noscript><img src="http://2.bp.blogspot.com/_y0gHsrXaBc4/SaLWRQlonII/AAAAAAAAAFU/7M04zdEk26g/S45/creighton.PNG" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href='http://www.blogger.com/profile/10229228897201330840' rel='nofollow'>Morgan Creighton</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Michael, I love you but I'm not on the same page with you on this one.<br /><br />Speaking as a Scala-ist, I find even private to be too open at times.  Java private grants access to other instances of the same class.  This is great if you're defining a "plus" method on a Complex number class for example.<br /><br />But if I'm a private method on an object, I seldom want other objects to call me, even if they are the same type.  I exist to serve my own unique instance.  (Sorry for the anthropomorphizing.)<br /><br />When I code in Scala, I've noticed that I start out making things <I>private[this]</I>, which is even more restrictive than Java's private.  As I discover I need to, I will loosen the access qualifiers.  The "correct" amount of privacy/protectedness seems to emerge naturally over time.<br /><br />But if I start out with a loose access qualifier, it's very difficult to tighten it back up later on, even if I really want to.<br /><br />By the way, I'm intrigued that some find private methods a code smell.  I'm also going to think and rethink about this, because to me they smell like roses.<br /><br />Well named private methods support SLAP (Single Layer of Abstraction Principle), which greatly improves the readability of the code.  For me, SLAP is a far more compelling reason to have private methods even than avoiding code duplication.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243731616294#c1198192930653440598' title='comment permalink'>
+May 30, 2009 6:00 PM
+</a>
+<span class='item-control blog-admin pid-416593751'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=1198192930653440598' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c7715552462808255035'>
+<a name='c7715552462808255035'></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/14799771593145201161" rel="nofollow" onclick="" class="avatar-hovercard" id="av-12-14799771593145201161"><img src="http://img1.blogblog.com/img/blank.gif" width="35" height="35" alt="" class="delayLoad" style="display: none;" longdesc="http://1.bp.blogspot.com/_lfuDZjhLbAM/Savyt8bA8pI/AAAAAAAAATU/K9nfG5seNIY/S45/MVC-006F.JPG" title="Michael Easter">
+
+<noscript><img src="http://1.bp.blogspot.com/_lfuDZjhLbAM/Savyt8bA8pI/AAAAAAAAATU/K9nfG5seNIY/S45/MVC-006F.JPG" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href='http://www.blogger.com/profile/14799771593145201161' rel='nofollow'>Michael Easter</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Folks,<br /><br />Thanks for the comments... Just FYI, I moved locally this weekend and have been offline. I hope to comment again soon. I've definitely been mulling over the feedback... good stuff.<br /><br />M.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html?showComment=1243862810493#c7715552462808255035' title='comment permalink'>
+June 1, 2009 6:26 AM
+</a>
+<span class='item-control blog-admin pid-508535202'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=5427069094580312550&postID=7715552462808255035' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+</dl>
+<p class='comment-footer'>
+<a href='https://www.blogger.com/comment.g?blogID=5427069094580312550&postID=7230127592397223205' onclick=''>Post a Comment</a>
+</p>
+<div id='backlinks-container'>
+<div id='Blog1_backlinks-container'>
+</div>
+</div>
+</div>
+<!-- google_ad_section_end -->
+</div>
+<div class='blog-pager' id='blog-pager'>
+<span id='blog-pager-newer-link'>
+<a class='blog-pager-newer-link' href='http://codetojoy.blogspot.com/2009/05/beware-of-mumpsimus.html' id='Blog1_blog-pager-newer-link' title='Newer Post'>Newer Post</a>
+</span>
+<span id='blog-pager-older-link'>
+<a class='blog-pager-older-link' href='http://codetojoy.blogspot.com/2009/05/case-for-clojure.html' id='Blog1_blog-pager-older-link' title='Older Post'>Older Post</a>
+</span>
+<a class='home-link' href='http://codetojoy.blogspot.com/'>Home</a>
+</div>
+<div class='clear'></div>
+<div class='post-feeds'>
+<div class='feed-links'>
+Subscribe to:
+<a class='feed-link' href='http://codetojoy.blogspot.com/feeds/7230127592397223205/comments/default' target='_blank' type='application/atom+xml'>Post Comments (Atom)</a>
+</div>
+</div>
+</div></div>
+</div>
+<div id='sidebar-wrapper'>
+<div class='sidebar section' id='sidebar'><div class='widget HTML' id='HTML2'>
+<h2 class='title'>Q &amp; A on Stack Overflow</h2>
+<div class='widget-content'>
+<script src="http://stackoverflow.com/users/flair/12704.js?theme=clean" type="text/javascript"></script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=HTML&widgetId=HTML2&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target='configHTML2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget LinkList' id='LinkList4'>
+<h2>Greatest Hits</h2>
+<div class='widget-content'>
+<ul>
+<li><a href='http://codetojoy.blogspot.com/2008/08/groovy-file-io-staying-at-ritz.html'>Groovy File IO: Staying at the Ritz</a></li>
+<li><a href='http://codetojoy.blogspot.com/2007/07/seven-wonders-of-programming-languages.html'>Seven Wonders of Programming Languages</a></li>
+<li><a href='http://codetojoy.blogspot.com/2007/11/las-vegas-lobbies-for-java-6-on-leopard.html'>Las Vegas Lobbies for Java 6 (spoof)</a></li>
+<li><a href='http://codetojoy.blogspot.com/2008/04/open-source-group-announces-jjava.html'>jJava (spoof)</a></li>
+</ul>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=LinkList&widgetId=LinkList4&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("LinkList4"));' target='configLinkList4' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget Text' id='Text1'>
+<h2 class='title'>About The Name</h2>
+<div class='widget-content'>
+As described in the <a href="http://codetojoy.blogspot.com/2007/01/tale-of-two-themes.html">first post</a>, composing software has much in common with composing music: both require talent and skill, and both have a spectrum from apprentice to virtuoso.  At times, when composing software, there is the palpable <i>sense of beauty</i> -- the comp sci equivalent of hearing the chorus of <a href="http://en.wikipedia.org/wiki/Beethoven%27s_Ninth_Symphony">Beethoven's Ninth</a>.  That feeling is <i style="font-weight: bold;">Code To Joy</i>.<br/><br/>(Here is a <a href="http://codetojoy.blogspot.com/2008/04/code-to-joy-users-guide.html">user's guide</a> that explains some of the recurring themes on this site.)<br/>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=Text&widgetId=Text1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Text1"));' target='configText1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget BlogArchive' id='BlogArchive1'>
+<h2>Blog Archive</h2>
+<div class='widget-content'>
+<div id='ArchiveList'>
+<div id='BlogArchive1_ArchiveList'>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/search?updated-min=2010-01-01T00%3A00%3A00-08%3A00&updated-max=2011-01-01T00%3A00%3A00-08%3A00&max-results=5'>2010</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2010_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2010/01/rossetta-stone-for-java-build-tools.html'>Rosetta Stone for Java Build Tools</a></li>
+<li><a href='http://codetojoy.blogspot.com/2010/01/syntax-highlighting-on-blogger.html'>Syntax Highlighting on Blogger</a></li>
+<li><a href='http://codetojoy.blogspot.com/2010/01/5-words-on-test-organization.html'>5 Words on Test Organization</a></li>
+<li><a href='http://codetojoy.blogspot.com/2010/01/easters-eggs-for-groovy.html'>Easter&#39;s Eggs for Groovy</a></li>
+<li><a href='http://codetojoy.blogspot.com/2010/01/grails-tip-for-internet-connections.html'>Grails tip for internet connections</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>&#9660;&#160;</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/search?updated-min=2009-01-01T00%3A00%3A00-08%3A00&updated-max=2010-01-01T00%3A00%3A00-08%3A00&max-results=48'>2009</a>
+<span class='post-count' dir='ltr'>(48)</span>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/12/friday_19.html'>Friday</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/12/on-analogies-mozart-mondrian-kandel.html'>On Analogies: Mozart, Mondrian, Kandel</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(1)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/11/career-cultivation-and-creativity.html'>Career Cultivation and Creativity</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(3)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/10/random-walk-on-strange-loop-day-2.html'>A Random Walk On A Strange Loop: Day 2</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/10/random-walk-on-strange-loop-day-1.html'>A Random Walk On A Strange Loop: Day 1</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/10/ignorance-is-bliss.html'>Ignorance is Bliss</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_09_01_archive.html'>September</a>
+<span class='post-count' dir='ltr'>(4)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/09/emperors-new-prose-duct-tape-blogging.html'>The Emperor&#39;s New Prose: Duct Tape Blogging</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/09/stm-and-clojure-article-recommendation.html'>STM and Clojure: An Article Recommendation</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/09/postgresql-and-unicode.html'>PostgreSQL and Unicode</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/09/vending-machine-dsl-in-groovy.html'>Vending Machine: A DSL in Groovy</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/08/groovy-console-app-and-wide.html'>Groovy Console App and WIDE</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/08/ide-as-browser-neuroscience-and.html'>The IDE is a Browser: Neuroscience and Language De...</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/08/understated-feature-in-groovy.html'>An Understated Feature in Groovy</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/08/case-for-grails.html'>The Case for Grails</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/08/vending-machine-modest-groovy-example.html'>Vending Machine: A Modest Groovy Example</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_07_01_archive.html'>July</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/07/more-on-code-reviews.html'>More On Code Reviews</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/07/strange-loop-why-you-need-to-be-in-st.html'>The Strange Loop (Why You Need To Be In St Louis, ...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/06/case-for-groovy.html'>The Case for Groovy</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/06/haskell-and-macruby-at-lamba-lounge.html'>Haskell and MacRuby at Lambda Lounge</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>&#9660;&#160;</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/05/beware-of-mumpsimus.html'>Beware Of Mumpsimus</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html'>Java Methods: protected is the new private?</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/05/case-for-clojure.html'>The Case for Clojure</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/05/mandatory-listening-michael-nygard-on.html'>Mandatory Listening: Michael Nygard on SE-Radio</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/05/language-shootout-at-lambda-lounge.html'>Language Shootout At Lambda Lounge</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(9)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/04/what-is-this-developers-version-of.html'>What is this, the developer&#39;s version of The Onion...</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/top-ten-reasons-java-developers-fear.html'>Top Ten Reasons Java Developers Fear The Oracle Bu...</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/historical-footnote-on-design-patterns.html'>Historical Footnote on Design Patterns</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/trimming-string-column-in-postgresql.html'>Trimming a string column in PostgreSQL</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/monads-102-using-haskell-online-or.html'>Monads 102: using Haskell online (or &#39;Finding your...</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/i-love-deep-fried-bytes-man.html'>I love the Deep Fried Bytes, man!</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/dear-speaker-10-thoughts-beyond-make.html'>Dear Speaker: 10 Thoughts Beyond &#39;Make Eye-Contact...</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/cult-attacks-openjdk-demands-deified.html'>Cult attacks OpenJDK, demands deified generics in ...</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/04/conficker-inspires-f-team-to-release.html'>Conficker inspires F# team to release immutable br...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(8)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/03/monads-are-burritos.html'>Monads are Burritos</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/03/applying-project-coin-to-agile.html'>Applying Project Coin to Agile Development</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/03/ada-lovelace-day-grace-hopper.html'>Ada Lovelace Day: Grace Hopper</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/03/no-fluff-just-stuff-st-louis-review.html'>No Fluff Just Stuff St Louis: A Review</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/03/make-money-with-tonights-stl-jug.html'>Make Money with tonight&#39;s StL JUG</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/03/get-gregarious-grok-griffon-at-gateway.html'>Get Gregarious: Grok Griffon at Gateway Groovy Gro...</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/03/faces-of-gateway-nfjs-2009.html'>The Faces of Gateway NFJS 2009</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/03/beyond-tgif-tgi-nfjs.html'>Beyond TGIF: TGI NFJS</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(4)</span>
+<ul class='posts'>
+<li><a href='http://codetojoy.blogspot.com/2009/02/brilliance-of-type-signatures-in.html'>The Brilliance of Type Signatures in Haskell</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/02/best-invite-acceptance-of-2009.html'>Best Invite Acceptance of 2009</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/02/keep-alive-post.html'>A Keep-Alive Post</a></li>
+<li><a href='http://codetojoy.blogspot.com/2009/02/thursday-nights-alright-for-byting.html'>Thursday Night&#39;s Alright for Byting</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2009_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/search?updated-min=2008-01-01T00%3A00%3A00-08%3A00&updated-max=2009-01-01T00%3A00%3A00-08%3A00&max-results=50'>2008</a>
+<span class='post-count' dir='ltr'>(88)</span>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(9)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(5)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_09_01_archive.html'>September</a>
+<span class='post-count' dir='ltr'>(9)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_07_01_archive.html'>July</a>
+<span class='post-count' dir='ltr'>(5)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(10)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(12)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2008_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/search?updated-min=2007-01-01T00%3A00%3A00-08%3A00&updated-max=2008-01-01T00%3A00%3A00-08%3A00&max-results=50'>2007</a>
+<span class='post-count' dir='ltr'>(117)</span>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(10)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_09_01_archive.html'>September</a>
+<span class='post-count' dir='ltr'>(14)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(16)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_07_01_archive.html'>July</a>
+<span class='post-count' dir='ltr'>(13)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(13)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(10)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(11)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://codetojoy.blogspot.com/2007_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=BlogArchive&widgetId=BlogArchive1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target='configBlogArchive1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget Profile' id='Profile1'>
+<h2>About The Author</h2>
+<div class='widget-content'>
+<a href='http://www.blogger.com/profile/14799771593145201161'><img alt='My Photo' class='profile-img' height='60' src='http://bp2.blogger.com/_lfuDZjhLbAM/SGrshXfZyfI/AAAAAAAAAMY/LOJXUL8B4us/S220/MVC-006F.JPG' width='80'/></a>
+<dl class='profile-datablock'>
+<dt class='profile-data'>Michael Easter</dt>
+<dd class='profile-textblock'>I am a computer scientist, part-time philosopher, and part-time cyber-scriber.  I live in St Louis, MO, USA, and currently work on an agile dev team. Java pays the bills; Groovy provides the thrills.
+
+I am not a musical composer, but play guitar and am learning piano (on/off). I'm fairly literate with musical theory, structures, etc. That said, my main hobby these days is running with some (indoor) triathlon.
+Alma Maters: <a href="http://welcome.upei.ca/">UPEI</a> and <a href="http://www.uwaterloo.ca/">University of Waterloo</a></dd>
+</dl>
+<a class='profile-link' href='http://www.blogger.com/profile/14799771593145201161'>View my complete profile</a>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=Profile&widgetId=Profile1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Profile1"));' target='configProfile1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget LinkList' id='LinkList2'>
+<h2>More Sites</h2>
+<div class='widget-content'>
+<ul>
+<li><a href='http://codepad.org/'>Codepad</a></li>
+<li><a href='http://weblog.dangertree.net/'>dangertree techblog</a></li>
+<li><a href='http://java7.tumblr.com/'>Java 7 Links</a></li>
+<li><a href='http://ociweb.com/jnb'>Java News Brief</a></li>
+<li><a href='http://javajeff.blogspot.com/'>Jeff's Groovy Web Log</a></li>
+<li><a href='http://kylecordes.com/'>Kyle Cordes</a></li>
+<li><a href='http://marioaquino.blogspot.com/'>Mario Aquino</a></li>
+<li><a href='http://youtube.com/ocitv'>OCItv</a></li>
+<li><a href='http://onlinetasklist.com/'>Online Task List</a></li>
+<li><a href='http://tech.puredanger.com/'>Pure Danger Tech</a></li>
+<li><a href='http://stuffthathappens.com/blog'>Stuff That Happens</a></li>
+<li><a href='http://www.weiqigao.com/blog/'>Weiqi Gao's Observations</a></li>
+</ul>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=LinkList&widgetId=LinkList2&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("LinkList2"));' target='configLinkList2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget Text' id='Text3'>
+<h2 class='title'>Contact</h2>
+<div class='widget-content'>
+codetojoy @t G mail
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=Text&widgetId=Text3&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Text3"));' target='configText3' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Text' id='Text2'>
+<h2 class='title'>Disclaimer</h2>
+<div class='widget-content'>
+<br/>All posts are solely mine and do not represent the views of my employer.  Nor do they represent the views of Apple, Google, Sun, or Microsoft (since I have no affiliation with these companies, that probably isn't surprising).<br/><br/>All photos of people with stickers are taken with permission, with a full explanation for their use.<br/>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=Text&widgetId=Text2&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Text2"));' target='configText2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</div>
+<!-- spacer for skins that want sidebar and main to be the same height-->
+<div class='clear'>&#160;</div>
+</div>
+<!-- end content-wrapper -->
+<div id='footer-wrapper'>
+<div class='footer section' id='footer'><div class='widget HTML' id='HTML1'>
+<div class='widget-content'>
+<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script>
+
+<!-- Site Meter XHTML Strict 1.0 -->
+<script src="http://s30.sitemeter.com/js/counter.js?site=s30codetojoy" type="text/javascript">
+</script>
+<!-- Copyright (c)2006 Site Meter -->
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1923616-1";
+urchinTracker();
+</script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5427069094580312550&widgetType=HTML&widgetId=HTML1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target='configHTML1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</div>
+</div></div>
+<!-- end outer-wrapper -->
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</script><script type="text/javascript" src="http://www.blogger.com/static/v1/widgets/4030489368-widgets.js"></script>
+<script type='text/javascript'>
+_WidgetManager._Init('http://www.blogger.com/rearrange?blogID=5427069094580312550', 'http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html','5427069094580312550');
+_WidgetManager._SetPageActionUrl('http://www.blogger.com/display?blogID=5427069094580312550', 'j51KAY6-CrfwEkGW4BMy8xwBKAE:1265210243089');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'title': 'Code To Joy', 'pageType': 'item', 'url': 'http://codetojoy.blogspot.com/2009/05/java-methods-protected-is-new-private.html', 'homepageUrl': 'http://codetojoy.blogspot.com/', 'enabledCommentProfileImages': true, 'searchLabel': '', 'searchQuery': '', 'pageName': 'Java Methods: protected is the new private?', 'pageTitle': 'Code To Joy: Java Methods: protected is the new private?', 'encoding': 'UTF-8', 'locale': 'en-US', 'isPrivate': false, 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Code To Joy - Atom\42 href\75\42http://codetojoy.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42Code To Joy - RSS\42 href\75\42http://codetojoy.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42Code To Joy - Atom\42 href\75\42http://www.blogger.com/feeds/5427069094580312550/posts/default\42 /\76\n\74link rel\75\42EditURI\42 type\75\42application/rsd+xml\42 title\75\42RSD\42 href\75\42http://www.blogger.com/rsd.g?blogID\0755427069094580312550\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Code To Joy - Atom\42 href\75\42http://codetojoy.blogspot.com/feeds/7230127592397223205/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var a\75window;function e(b){this.t\75{};this.tick\75function(c,h,d){d\75d?d:(new Date).getTime();this.t[c]\75[d,h]};this.tick(\42start\42,null,b)}var f\75new e;a.jstiming\75{Timer:e,load:f};try{a.jstiming.pt\75a.gtbExternal\46\46a.gtbExternal.pageT()||a.external\46\46a.external.pageT}catch(g){};a.tickAboveFold\75function(b){b\75b;var c\0750;if(b.offsetParent){do c+\75b.offsetTop;while(b\75b.offsetParent)}b\75c;b\74\075750\46\46a.jstiming.load.tick(\42aft\42)};var i\75false;function j(){if(!i){i\75true;a.jstiming.load.tick(\42firstScrollTime\42)}}a.addEventListener?a.addEventListener(\42scroll\42,j,false):a.attachEvent(\42onscroll\42,j); })();\74/script\076'}}]);
+_WidgetManager._SetSystemMarkup({'layout': {'varName': '', 'template': '\74div class\75\47widget-wrap1\47\76\n\74div class\75\47widget-wrap2\47\76\n\74div class\75\47widget-wrap3\47\76\n\74div class\75\47widget-content\47\76\n\74div class\75\47layout-title\47\76\74data:layout-title\76\74/data:layout-title\76\74/div\76\n\74a class\75\47editlink\47 expr:href\75\47data:widget.quickEditUrl\47 expr:onclick\75\47\46quot;return _WidgetManager._PopupConfig(document.getElementById(\\\46quot;\46quot; +       data:widget.instanceId + \46quot;\\\46quot;));\46quot;\47 target\75\47chooseWidget\47\76\74data:edit-link\76\74/data:edit-link\76\74/a\76\n\74/div\76\n\74/div\76\n\74/div\76\n\74/div\076'}, 'quickedit': {'varName': '', 'template': '\74div class\75\47clear\47\76\74/div\76\n\74span class\75\47widget-item-control\47\76\n\74span class\75\47item-control blog-admin\47\76\n\74a class\75\47quickedit\47 expr:href\75\47data:widget.quickEditUrl\47 expr:onclick\75\47\46quot;return _WidgetManager._PopupConfig(document.getElementById(\\\46quot;\46quot; +       data:widget.instanceId + \46quot;\\\46quot;));\46quot;\47 expr:target\75\47\46quot;config\46quot; + data:widget.instanceId\47 expr:title\75\47data:edit-link\47\76\n\74img alt\75\47\47 height\75\04718\47 src\75\47http://img1.blogblog.com/img/icon18_wrench_allbkg.png\47 width\75\04718\47/\76\n\74/a\76\n\74/span\76\n\74/span\76\n\74div class\75\47clear\47\76\74/div\076'}, 'all-head-content': {'varName': 'page', 'template': '\74data:blog.latencyHeadScript\76\74/data:blog.latencyHeadScript\76\n\74meta expr:content\75\47\46quot;text/html; charset\75\46quot; + data:page.encoding\47 http-equiv\75\47Content-Type\47/\76\n\74meta content\75\47true\47 name\75\47MSSmartTagsPreventParsing\47/\76\n\74meta content\75\47blogger\47 name\75\47generator\47/\76\n\74link href\75\47http://www.blogger.com/favicon.ico\47 rel\75\47icon\47 type\75\47image/vnd.microsoft.icon\47/\76\n\74link expr:href\75\47data:blog.url\47 rel\75\47canonical\47/\76\n\74data:blog.feedLinks\76\74/data:blog.feedLinks\76\n\74data:blog.meTag\76\74/data:blog.meTag\76\n\74data:blog.openIdOpTag\76\74/data:blog.openIdOpTag\076'}});
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'footer',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LinkListView', new _WidgetInfo('LinkList4', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\74h2\76\74data:title\76\74/data:title\76\74/h2\76\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74ul\76\n\74b:loop values\75\47data:links\47 var\75\47link\47\76\n\74li\76\74a expr:href\75\47data:link.target\47\76\74data:link.name\76\74/data:link.name\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('LinkList4'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text1', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('Text1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\n\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74div id\75\47ArchiveList\47\76\n\74div expr:id\75\47data:widget.instanceId + \46quot;_ArchiveList\46quot;\47\76\n\74b:if cond\75\47data:style \75\75 \46quot;HIERARCHY\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47interval\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:style \75\75 \46quot;FLAT\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47flat\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:style \75\75 \46quot;MENU\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47menu\47\76\74/b:include\76\n\74/b:if\76\n\74/div\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}, 'flat': {'varName': 'data', 'template': '\74ul\76\n\74b:loop values\75\47data:data\47 var\75\47i\47\76\n\74li class\75\47archivedate\47\76\n\74a expr:href\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76\74/a\76 (\74data:i.post-count\76\74/data:i.post-count\76)\n      \74/li\76\n\74/b:loop\76\n\74/ul\076'}, 'menu': {'varName': 'data', 'template': '\74select expr:id\75\47data:widget.instanceId + \46quot;_ArchiveMenu\46quot;\47\76\n\74option value\75\47\47\76\74data:title\76\74/data:title\76\74/option\76\n\74b:loop values\75\47data:data\47 var\75\47i\47\76\n\74option expr:value\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76 (\74data:i.post-count\76\74/data:i.post-count\76)\74/option\76\n\74/b:loop\76\n\74/select\076'}, 'interval': {'varName': 'intervalData', 'template': '\74b:loop values\75\47data:intervalData\47 var\75\47i\47\76\n\74ul\76\n\74li expr:class\75\47\46quot;archivedate \46quot; + data:i.expclass\47\76\n\74b:include data\75\47i\47 name\75\47toggle\47\76\74/b:include\76\n\74a class\75\47post-count-link\47 expr:href\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76\74/a\76\n\74span class\75\47post-count\47 dir\75\47ltr\47\76(\74data:i.post-count\76\74/data:i.post-count\76)\74/span\76\n\74b:if cond\75\47data:i.data\47\76\n\74b:include data\75\47i.data\47 name\75\47interval\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:i.posts\47\76\n\74b:include data\75\47i.posts\47 name\75\47posts\47\76\74/b:include\76\n\74/b:if\76\n\74/li\76\n\74/ul\76\n\74/b:loop\076'}, 'toggle': {'varName': 'interval', 'template': '\74b:if cond\75\47data:interval.toggleId\47\76\n\74b:if cond\75\47data:interval.expclass \75\75 \46quot;expanded\46quot;\47\76\n\74a class\75\47toggle\47 href\75\47javascript:void(0)\47\76\n\74span class\75\47zippy toggle-open\47\76\46#9660;\46#160;\74/span\76\n\74/a\76\n\74b:else\76\74/b:else\76\n\74a class\75\47toggle\47 href\75\47javascript:void(0)\47\76\n\74span class\75\47zippy\47\76\n\74b:if cond\75\47data:blog.languageDirection \75\75 \46quot;rtl\46quot;\47\76\n          \46#9668;\46#160;\n        \74b:else\76\74/b:else\76\n          \46#9658;\46#160;\n        \74/b:if\76\n\74/span\76\n\74/a\76\n\74/b:if\76\n\74/b:if\076'}, 'posts': {'varName': 'posts', 'template': '\74ul class\75\47posts\47\76\n\74b:loop values\75\47data:posts\47 var\75\47i\47\76\n\74li\76\74a expr:href\75\47data:i.url\47\76\74data:i.title\76\74/data:i.title\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\076'}}, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ProfileView', new _WidgetInfo('Profile1', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74b:if cond\75\47data:team \75\75 \46quot;true\46quot;\47\76\n\74ul\76\n\74b:loop values\75\47data:authors\47 var\75\47i\47\76\n\74li\76\74a expr:href\75\47data:i.userUrl\47\76\74data:i.display-name\76\74/data:i.display-name\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:photo.url !\75 \46quot;\46quot;\47\76\n\74a expr:href\75\47data:userUrl\47\76\74img class\75\47profile-img\47 expr:alt\75\47data:photo.alt\47 expr:height\75\47data:photo.height\47 expr:src\75\47data:photo.url\47 expr:width\75\47data:photo.width\47/\76\74/a\76\n\74/b:if\76\n\74dl class\75\47profile-datablock\47\76\n\74dt class\75\47profile-data\47\76\74data:displayname\76\74/data:displayname\76\74/dt\76\n\74b:if cond\75\47data:showlocation \75\75 \46quot;true\46quot;\47\76\n\74dd class\75\47profile-data\47\76\74data:location\76\74/data:location\76\74/dd\76\n\74/b:if\76\n\74b:if cond\75\47data:aboutme !\75 \46quot;\46quot;\47\76\74dd class\75\47profile-textblock\47\76\74data:aboutme\76\74/data:aboutme\76\74/dd\76\74/b:if\76\n\74/dl\76\n\74a class\75\47profile-link\47 expr:href\75\47data:userUrl\47\76\74data:viewProfileMsg\76\74/data:viewProfileMsg\76\74/a\76\n\74/b:if\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('Profile1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LinkListView', new _WidgetInfo('LinkList2', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\74h2\76\74data:title\76\74/data:title\76\74/h2\76\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74ul\76\n\74b:loop values\75\47data:links\47 var\75\47link\47\76\n\74li\76\74a expr:href\75\47data:link.target\47\76\74data:link.name\76\74/data:link.name\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('LinkList2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text3', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('Text3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text2', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('Text2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main',{'main': {'varName': 'top', 'template': '\74div class\75\47blog-posts hfeed\47\76\n\74b:include data\75\47top\47 name\75\47status-message\47\76\74/b:include\76\n\74data:defaultAdStart\76\74/data:defaultAdStart\76\n\74b:loop values\75\47data:posts\47 var\75\47post\47\76\n\74b:if cond\75\47data:post.dateHeader\47\76\n\74h2 class\75\47date-header\47\76\74data:post.dateHeader\76\74/data:post.dateHeader\76\74/h2\76\n\74/b:if\76\n\74b:include data\75\47post\47 name\75\47post\47\76\74/b:include\76\n\74b:if cond\75\47data:blog.pageType \75\75 \46quot;static_page\46quot;\47\76\n\74b:include data\75\47post\47 name\75\47comments\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:blog.pageType \75\75 \46quot;item\46quot;\47\76\n\74b:include data\75\47post\47 name\75\47comments\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:post.includeAd\47\76\n\74b:if cond\75\47data:post.isFirstPost\47\76\n\74data:defaultAdEnd\76\74/data:defaultAdEnd\76\n\74b:else\76\74/b:else\76\n\74data:adEnd\76\74/data:adEnd\76\n\74/b:if\76\n\74div class\75\47inline-ad\47\76\n\74data:adCode\76\74/data:adCode\76\n\74/div\76\n\74data:adStart\76\74/data:adStart\76\n\74/b:if\76\n\74b:if cond\75\47data:post.trackLatency\47\76\n\74data:post.latencyJs\76\74/data:post.latencyJs\76\n\74/b:if\76\n\74/b:loop\76\n\74data:adEnd\76\74/data:adEnd\76\n\74/div\76\n\74b:include name\75\47nextprev\47\76\74/b:include\76\n\74b:include name\75\47feedLinks\47\76\74/b:include\76\n\74b:if cond\75\47data:top.showStars\47\76\n\74script src\75\47http://www.google.com/jsapi\47 type\75\47text/javascript\47\76\74/script\76\n\74script type\75\47text/javascript\47\76\n      google.load(\46quot;annotations\46quot;, \46quot;1\46quot;, {\46quot;locale\46quot;: \46quot;\74data:top.languageCode\76\74/data:top.languageCode\76\46quot;});\n      function initialize() {\n        google.annotations.setApplicationId(\74data:top.blogspotReviews\76\74/data:top.blogspotReviews\76);\n        google.annotations.createAll();\n        google.annotations.fetch();\n      }\n      google.setOnLoadCallback(initialize);\n    \74/script\76\n\74/b:if\076'}, 'nextprev': {'varName': '', 'template': '\74div class\75\47blog-pager\47 id\75\47blog-pager\47\76\n\74b:if cond\75\47data:newerPageUrl\47\76\n\74span id\75\47blog-pager-newer-link\47\76\n\74a class\75\47blog-pager-newer-link\47 expr:href\75\47data:newerPageUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_blog-pager-newer-link\46quot;\47 expr:title\75\47data:newerPageTitle\47\76\74data:newerPageTitle\76\74/data:newerPageTitle\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:if cond\75\47data:olderPageUrl\47\76\n\74span id\75\47blog-pager-older-link\47\76\n\74a class\75\47blog-pager-older-link\47 expr:href\75\47data:olderPageUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_blog-pager-older-link\46quot;\47 expr:title\75\47data:olderPageTitle\47\76\74data:olderPageTitle\76\74/data:olderPageTitle\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:if cond\75\47data:blog.homepageUrl !\75 data:blog.url\47\76\n\74a class\75\47home-link\47 expr:href\75\47data:blog.homepageUrl\47\76\74data:homeMsg\76\74/data:homeMsg\76\74/a\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:newerPageUrl\47\76\n\74a class\75\47home-link\47 expr:href\75\47data:blog.homepageUrl\47\76\74data:homeMsg\76\74/data:homeMsg\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/div\76\n\74div class\75\47clear\47\76\74/div\076'}, 'post': {'varName': 'post', 'template': '\74div class\75\47post\47\76\n\74a expr:name\75\47data:post.id\47\76\74/a\76\n\74b:if cond\75\47data:post.title\47\76\n\74h3 class\75\47post-title\47\76\n\74b:if cond\75\47data:post.link\47\76\n\74a expr:href\75\47data:post.link\47\76\74data:post.title\76\74/data:post.title\76\74/a\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:post.url\47\76\n\74a expr:href\75\47data:post.url\47\76\74data:post.title\76\74/data:post.title\76\74/a\76\n\74b:else\76\74/b:else\76\n\74data:post.title\76\74/data:post.title\76\n\74/b:if\76\n\74/b:if\76\n\74/h3\76\n\74/b:if\76\n\74div class\75\47post-header-line-1\47\76\74/div\76\n\74div class\75\47post-body\47\76\n\74p\76\74data:post.body\76\74/data:post.body\76\74/p\76\n\74div style\75\47clear: both;\47\76\74/div\76\n\74/div\76\n\74div class\75\47post-footer\47\76\n\74p class\75\47post-footer-line post-footer-line-1\47\76\74span class\75\47post-author\47\76\n\74b:if cond\75\47data:top.showAuthor\47\76\n\74data:top.authorLabel\76\74/data:top.authorLabel\76\n\74data:post.author\76\74/data:post.author\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-timestamp\47\76\n\74b:if cond\75\47data:top.showTimestamp\47\76\n\74data:top.timestampLabel\76\74/data:top.timestampLabel\76\n\74b:if cond\75\47data:post.url\47\76\n\74a class\75\47timestamp-link\47 expr:href\75\47data:post.url\47 title\75\47permanent link\47\76\74data:post.timestamp\76\74/data:post.timestamp\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-comment-link\47\76\n\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.addCommentUrl\47 expr:onclick\75\47data:post.addCommentOnclick\47\76\74b:if cond\75\47data:post.numComments \75\75 1\47\0761 \74data:top.commentLabel\76\74/data:top.commentLabel\76\74b:else\76\74/b:else\76\74data:post.numComments\76\74/data:post.numComments\76\n\74data:top.commentLabelPlural\76\74/data:top.commentLabelPlural\76\74/b:if\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-icons\47\76\n\74b:if cond\75\47data:post.emailPostUrl\47\76\n\74span class\75\47item-action\47\76\n\74a expr:href\75\47data:post.emailPostUrl\47 expr:title\75\47data:top.emailPostMsg\47\76\n\74span class\75\47email-post-icon\47\76\46#160;\74/span\76\n\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:include data\75\47post\47 name\75\47postQuickEdit\47\76\74/b:include\76\n\74/span\76\n\74span class\75\47post-backlinks post-comment-link\47\76\n\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:post.showBacklinks\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.url + \46quot;#links\46quot;\47\76\74data:top.backlinkLabel\76\74/data:top.backlinkLabel\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74/p\76\n\74p class\75\47post-footer-line post-footer-line-2\47\76\74span class\75\47post-labels\47\76\n\74b:if cond\75\47data:post.labels\47\76\n\74data:postLabelsLabel\76\74/data:postLabelsLabel\76\n\74b:loop values\75\47data:post.labels\47 var\75\47label\47\76\n\74a expr:href\75\47data:label.url\47 rel\75\47tag\47\76\74data:label.name\76\74/data:label.name\76\74/a\76\74b:if cond\75\47data:label.isLast !\75 \46quot;true\46quot;\47\76,\74/b:if\76\n\74/b:loop\76\n\74/b:if\76\n\74/span\76\n\74/p\76\n\74p class\75\47post-footer-line post-footer-line-3\47\76\74/p\76\n\74/div\76\n\74/div\076'}, 'postQuickEdit': {'varName': 'post', 'template': '\74b:if cond\75\47data:post.editUrl\47\76\n\74span expr:class\75\47\46quot;item-control \46quot; + data:post.adminClass\47\76\n\74a expr:href\75\47data:post.editUrl\47 expr:title\75\47data:top.editPostMsg\47\76\n\74img alt\75\47\47 class\75\47icon-action\47 height\75\04718\47 src\75\47http://www.blogger.com/img/icon18_edit_allbkg.gif\47 width\75\04718\47/\76\n\74/a\76\n\74/span\76\n\74/b:if\076'}, 'commentDeleteIcon': {'varName': 'comment', 'template': '\74span expr:class\75\47\46quot;item-control \46quot; + data:comment.adminClass\47\76\n\74a expr:href\75\47data:comment.deleteUrl\47 expr:title\75\47data:top.deleteCommentMsg\47\76\n\74img src\75\47http://www.blogger.com/img/icon_delete13.gif\47/\76\n\74/a\76\n\74/span\076'}, 'backlinkDeleteIcon': {'varName': 'backlink', 'template': '\74span expr:class\75\47\46quot;item-control \46quot; + data:backlink.adminClass\47\76\n\74a expr:href\75\47data:backlink.deleteUrl\47 expr:title\75\47data:top.deleteBacklinkMsg\47\76\n\74img src\75\47http://www.blogger.com/img/icon_delete13.gif\47/\76\n\74/a\76\n\74/span\076'}, 'comments': {'varName': 'post', 'template': '\74div class\75\47comments\47 id\75\47comments\47\76\n\74a name\75\47comments\47\76\74/a\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74h4\76\n\74b:if cond\75\47data:post.numComments \75\75 1\47\76\n          1 \74data:commentLabel\76\74/data:commentLabel\76:\n        \74b:else\76\74/b:else\76\n\74data:post.numComments\76\74/data:post.numComments\76\n\74data:commentLabelPlural\76\74/data:commentLabelPlural\76:\n        \74/b:if\76\n\74/h4\76\n\74b:if cond\75\47data:post.commentPagingRequired\47\76\n\74span class\75\47paging-control-container\47\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.oldestLinkUrl\47\76\74data:post.oldestLinkText\76\74/data:post.oldestLinkText\76\74/a\76\n          \46#160;\n          \74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.olderLinkUrl\47\76\74data:post.olderLinkText\76\74/data:post.olderLinkText\76\74/a\76\n          \46#160;\n          \74data:post.commentRangeText\76\74/data:post.commentRangeText\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newerLinkUrl\47\76\74data:post.newerLinkText\76\74/data:post.newerLinkText\76\74/a\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newestLinkUrl\47\76\74data:post.newestLinkText\76\74/data:post.newestLinkText\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74dl expr:class\75\47data:post.avatarIndentClass\47 id\75\47comments-block\47\76\n\74b:loop values\75\47data:post.comments\47 var\75\47comment\47\76\n\74dt expr:class\75\47\46quot;comment-author \46quot; + data:comment.authorClass\47 expr:id\75\47data:comment.anchorName\47\76\n\74b:if cond\75\47data:comment.favicon\47\76\n\74img expr:src\75\47data:comment.favicon\47 height\75\04716px\47 style\75\47margin-bottom:-2px;\47 width\75\04716px\47/\76\n\74/b:if\76\n\74a expr:name\75\47data:comment.anchorName\47\76\74/a\76\n\74b:if cond\75\47data:blog.enabledCommentProfileImages\47\76\n\74data:comment.authorAvatarImage\76\74/data:comment.authorAvatarImage\76\n\74/b:if\76\n\74b:if cond\75\47data:comment.authorUrl\47\76\n\74a expr:href\75\47data:comment.authorUrl\47 rel\75\47nofollow\47\76\74data:comment.author\76\74/data:comment.author\76\74/a\76\n\74b:else\76\74/b:else\76\n\74data:comment.author\76\74/data:comment.author\76\n\74/b:if\76\n\74data:commentPostedByMsg\76\74/data:commentPostedByMsg\76\n\74/dt\76\n\74dd class\75\47comment-body\47\76\n\74b:if cond\75\47data:comment.isDeleted\47\76\n\74span class\75\47deleted-comment\47\76\74data:comment.body\76\74/data:comment.body\76\74/span\76\n\74b:else\76\74/b:else\76\n\74p\76\74data:comment.body\76\74/data:comment.body\76\74/p\76\n\74/b:if\76\n\74/dd\76\n\74dd class\75\47comment-footer\47\76\n\74span class\75\47comment-timestamp\47\76\n\74a expr:href\75\47data:comment.url\47 title\75\47comment permalink\47\76\n\74data:comment.timestamp\76\74/data:comment.timestamp\76\n\74/a\76\n\74b:include data\75\47comment\47 name\75\47commentDeleteIcon\47\76\74/b:include\76\n\74/span\76\n\74/dd\76\n\74/b:loop\76\n\74/dl\76\n\74b:if cond\75\47data:post.commentPagingRequired\47\76\n\74span class\75\47paging-control-container\47\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.oldestLinkUrl\47\76\n\74data:post.oldestLinkText\76\74/data:post.oldestLinkText\76\n\74/a\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.olderLinkUrl\47\76\n\74data:post.olderLinkText\76\74/data:post.olderLinkText\76\n\74/a\76\n          \46#160;\n          \74data:post.commentRangeText\76\74/data:post.commentRangeText\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newerLinkUrl\47\76\n\74data:post.newerLinkText\76\74/data:post.newerLinkText\76\n\74/a\76\n\74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newestLinkUrl\47\76\n\74data:post.newestLinkText\76\74/data:post.newestLinkText\76\n\74/a\76\n\74/span\76\n\74/b:if\76\n\74p class\75\47comment-footer\47\76\n\74b:if cond\75\47data:post.embedCommentForm\47\76\n\74b:if cond\75\47data:post.allowNewComments\47\76\n\74b:include data\75\47post\47 name\75\47comment-form\47\76\74/b:include\76\n\74b:else\76\74/b:else\76\n\74data:post.noNewCommentsText\76\74/data:post.noNewCommentsText\76\n\74/b:if\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74a expr:href\75\47data:post.addCommentUrl\47 expr:onclick\75\47data:post.addCommentOnclick\47\76\74data:postCommentMsg\76\74/data:postCommentMsg\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/p\76\n\74/b:if\76\n\74div id\75\47backlinks-container\47\76\n\74div expr:id\75\47data:widget.instanceId + \46quot;_backlinks-container\46quot;\47\76\n\74b:if cond\75\47data:post.showBacklinks\47\76\n\74b:include data\75\47post\47 name\75\47backlinks\47\76\74/b:include\76\n\74/b:if\76\n\74/div\76\n\74/div\76\n\74/div\076'}, 'comment-form': {'varName': 'post', 'template': '\74div class\75\47comment-form\47\76\n\74a name\75\47comment-form\47\76\74/a\76\n\74h4 id\75\47comment-post-message\47\76\74data:postCommentMsg\76\74/data:postCommentMsg\76\74/h4\76\n\74p\76\74data:blogCommentMessage\76\74/data:blogCommentMessage\76\74/p\76\n\74data:blogTeamBlogMessage\76\74/data:blogTeamBlogMessage\76\n\74a expr:href\75\47data:post.commentFormIframeSrc\47 id\75\47comment-editor-src\47\76\74/a\76\n\74iframe allowtransparency\75\47true\47 class\75\47blogger-iframe-colorize blogger-comment-from-post\47 frameborder\75\0470\47 height\75\047410\47 id\75\47comment-editor\47 name\75\47comment-editor\47 src\75\47\47 width\75\047100%\47\76\74/iframe\76\n\74data:post.friendConnectJs\76\74/data:post.friendConnectJs\76\n\74data:post.cmtfpIframe\76\74/data:post.cmtfpIframe\76\n\74script type\75\47text/javascript\47\76\n      BLOG_CMT_createIframe(\46#39;\74data:post.appRpcRelayPath\76\74/data:post.appRpcRelayPath\76\46#39;, \46#39;\74data:post.communityId\76\74/data:post.communityId\76\46#39;);\n    \74/script\76\n\74/div\076'}, 'backlinks': {'varName': 'post', 'template': '\74a name\75\47links\47\76\74/a\76\74h4\76\74data:post.backlinksLabel\76\74/data:post.backlinksLabel\76\74/h4\76\n\74b:if cond\75\47data:post.numBacklinks !\75 0\47\76\n\74dl class\75\47comments-block\47 id\75\47comments-block\47\76\n\74b:loop values\75\47data:post.backlinks\47 var\75\47backlink\47\76\n\74div class\75\47collapsed-backlink backlink-control\47\76\n\74dt class\75\47comment-title\47\76\n\74span class\75\47backlink-toggle-zippy\47\76\46#160;\74/span\76\n\74a expr:href\75\47data:backlink.url\47 rel\75\47nofollow\47\76\74data:backlink.title\76\74/data:backlink.title\76\74/a\76\n\74b:include data\75\47backlink\47 name\75\47backlinkDeleteIcon\47\76\74/b:include\76\n\74/dt\76\n\74dd class\75\47comment-body collapseable\47\76\n\74data:backlink.snippet\76\74/data:backlink.snippet\76\n\74/dd\76\n\74dd class\75\47comment-footer collapseable\47\76\n\74span class\75\47comment-author\47\76\74data:post.authorLabel\76\74/data:post.authorLabel\76\n\74data:backlink.author\76\74/data:backlink.author\76\74/span\76\n\74span class\75\47comment-timestamp\47\76\74data:post.timestampLabel\76\74/data:post.timestampLabel\76\n\74data:backlink.timestamp\76\74/data:backlink.timestamp\76\74/span\76\n\74/dd\76\n\74/div\76\n\74/b:loop\76\n\74/dl\76\n\74/b:if\76\n\74p class\75\47comment-footer\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.createLinkUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_backlinks-create-link\46quot;\47 target\75\47_blank\47\76\74data:post.createLinkLabel\76\74/data:post.createLinkLabel\76\74/a\76\n\74/p\076'}, 'feedLinks': {'varName': '', 'template': '\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:feedLinks\47\76\n\74div class\75\47blog-feeds\47\76\n\74b:include data\75\47feedLinks\47 name\75\47feedLinksBody\47\76\74/b:include\76\n\74/div\76\n\74/b:if\76\n\74b:else\76\74/b:else\76\n\74div class\75\47post-feeds\47\76\n\74b:loop values\75\47data:posts\47 var\75\47post\47\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74b:if cond\75\47data:post.feedLinks\47\76\n\74b:include data\75\47post.feedLinks\47 name\75\47feedLinksBody\47\76\74/b:include\76\n\74/b:if\76\n\74/b:if\76\n\74/b:loop\76\n\74/div\76\n\74/b:if\076'}, 'feedLinksBody': {'varName': 'links', 'template': '\74div class\75\47feed-links\47\76\n\74data:feedLinksMsg\76\74/data:feedLinksMsg\76\n\74b:loop values\75\47data:links\47 var\75\47f\47\76\n\74a class\75\47feed-link\47 expr:href\75\47data:f.url\47 expr:type\75\47data:f.mimeType\47 target\75\47_blank\47\76\74data:f.name\76\74/data:f.name\76 (\74data:f.feedType\76\74/data:f.feedType\76)\74/a\76\n\74/b:loop\76\n\74/div\076'}, 'status-message': {'varName': '', 'template': '\74b:if cond\75\47data:navMessage\47\76\n\74div class\75\47status-msg-wrap\47\76\n\74div class\75\47status-msg-body\47\76\n\74data:navMessage\76\74/data:navMessage\76\n\74/div\76\n\74div class\75\47status-msg-border\47\76\n\74div class\75\47status-msg-bg\47\76\n\74div class\75\47status-msg-hidden\47\76\74data:navMessage\76\74/data:navMessage\76\74/div\76\n\74/div\76\n\74/div\76\n\74/div\76\n\74div style\75\47clear: both;\47\76\74/div\76\n\74/b:if\076'}}, document.getElementById('Blog1'), {}, 'displayModeFull'));
+</script>
+</body>
+</html>

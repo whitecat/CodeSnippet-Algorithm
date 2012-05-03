@@ -1,0 +1,668 @@
+
+
+<html>
+  <head>
+    <title>Java Reflection: Dynamic Class Loading and Reloading</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheet.jsp" >
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds2.feedburner.com/jenkov-com?format=xml" />
+    <meta name="blogcatalog" content="9BC9362114" /> 
+
+    
+<META NAME="Title" CONTENT="Java Reflection - Dynamic Class Loading and Reloading">
+<META NAME="Description" CONTENT="This text explains how to load and reload classes dynamically in Java.">
+<META NAME="Keywords" CONTENT="java reflection tutorial dynamic class loading reloading ClassLoader">
+<META NAME="Robots" CONTENT="ALL">
+
+<META NAME="DC.Title" CONTENT="Java Reflection - Dynamic Class Loading and Reloading">
+<META NAME="DC.Description" CONTENT="This text explains how to load and reload classes dynamically in Java.">
+<META NAME="DC.Subject" CONTENT="Java Reflection - Dynamic Class Loading and Reloading">
+<LINK REL="schema.dc" HREF="http://purl.org/metadata/dublin_core_elements">
+  </head>
+
+  
+  <body topmargin="0" leftmargin="0" bgcolor="#999999" rightmargin="0" bottommargin="0">
+  
+  <script type="text/javascript">
+  window.google_analytics_uacct = "UA-4036229-3";
+  </script>
+  
+   <table cellspacing="0" cellpadding="0" border="0" width="900" height="100%" align="center" bgcolor="#ffffff">
+     
+
+<tr><td width="21"><img src="/images/layout/top-bar-left-edge2.png"/></td>
+    <td width="55" background="/images/layout/top-bar-mid-stripes.png">&nbsp;</td>
+    <td width="345" background="/images/layout/top-bar-mid.png" style="padding-top: 2px;">
+       <span class="topmenu"><nobr>
+          &nbsp;&nbsp;&nbsp;
+   
+   <a href="http://tutorials.jenkov.com" class="topmenu">TUTORIALS</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+   <a href="http://butterfly.jenkov.com" class="topmenu">BUTTERFLY COMPONENTS</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+   <a href="http://jenkov.com/about/index.html" class="topmenu">ABOUT</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+   <a href="http://feeds2.feedburner.com/jenkov-com" class="topmenu">RSS</a>&nbsp;&nbsp;&nbsp;
+    </nobr>
+</span> 
+
+    </td>
+    <td width="106" background="/images/layout/top-bar-mid-stripes.png">&nbsp;</td>
+    <td width="298" background="/images/layout/top-bar-logo.png" align="right"><a href="http://jenkov.com"><img src="/images/transparent.gif" width="298" height="45" border="0"></a>
+        <a href="http://jenkov.com"><span style="color: #ffffff; padding-right: 8px; font-weight: normal;">A Voice in the Buzz on Software</span></a>
+    </td>
+    <td width="4"><img src="/images/layout/top-bar-mid.png" width="4" height="65"/></td>
+    <td width="50"><img src="/images/layout/top-bar-mid-stripes.png" width="50" height="65"/></td>
+    <td width="21"><img src="/images/layout/top-bar-right-edge2.png"/></td>
+</tr>
+
+<tr><td height="18"><img src="/images/layout/divider-left-edge.png" width="21" height="18"/></td>
+    <td background="/images/layout/divider-mid.png" colspan="6"></td>
+    <td><img src="/images/layout/divider-right-edge.png"/></td>
+</tr>
+
+
+
+      <!-- boxes -->
+     <tr><td height="100%"><img src="/images/layout/body-left-edge.png" width="21" height="100%"/></td>
+         <td colspan="6" valign="top" style="padding-left: 10px; padding-top:0px;">
+             <table cellspacing="0" cellpadding="0" border="0" width="830">
+                 <tr>
+
+                 
+                 <td valign="top" style="padding-left: 20px; padding-top:10px; padding-right:20px">
+                     
+                         
+                     
+                     <br/>    
+                     
+
+<h1>Dynamic Class Loading and Reloading in Java</h1>
+
+
+<table cellpadding="0" width="100%" border="0" cellspacing="0">
+    <tr><td width="5" height="20"></td>
+        <td>
+            <table cellspacing="2" cellpadding="0">
+                <tr><td><img src="http://jenkov.com/images/20081123-20081123-3E1W7902-small-portrait.jpg"></td>
+                    <td width="26"></td>
+                    <td align="center" valign="top">
+                    <script type="text/javascript">var dzone_style = '1';</script>
+                    <script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script>
+                    </td>
+                </tr>
+                <tr><td><span class="author">By <a target="jakob-jenkov" href="http://jakob.jenkov.com">Jakob Jenkov</a></span></td>
+                </tr>
+            </table>
+        </td>
+        <td align="right" rowspan="4" valign="top" id="Ads-1">
+             
+                <script type="text/javascript"><!--
+                google_ad_client = "pub-5569543489255665";
+                /* tutorials-reflection-1 */
+                google_ad_slot = "1069432440";
+                google_ad_width = 300;
+                google_ad_height = 250;
+                //-->
+                </script>
+                <script type="text/javascript"
+                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                </script>
+            
+        </td>
+    </tr>
+    <tr ><td valign="top">
+        </td>
+    </tr>
+    <tr><td height="10"></td></tr>
+    <tr><td valign="top" colspan="2"><table cellspacing="0" cellpadding="0" border="0" widthx="180">
+    <tr>
+    
+        <td valign="bottom" align="left">
+            <a href="javascript:window.location = 'http://www.socialmarker.com/?link='+encodeURIComponent (location.href)+'&title='+encodeURIComponent( document.title);"><img src= "http://www.socialmarker.com/bookmark.gif" border="0" /></a>
+            <br/>
+        </td>
+    </tr>
+<tr><td height="2" colspan="2"></td></tr>
+<tr><td colspan="2"><a href="http://feeds2.feedburner.com/~r/jenkov-com/~6/5"><img src="http://feeds2.feedburner.com/jenkov-com.5.gif" alt="Jenkov.com - News" style="border:0"></a></td></tr>
+</table>
+
+</td></tr>
+</table>
+
+<p>
+    It is possible to load and reload classes at runtime in Java, though it is not as straightforward
+    as one might have hoped. This text will explain when and how you can load and reload classes
+    in Java.
+</p>
+<p>
+    You can argue whether Java's dynamic class loading features are really part of Java Reflection,
+    or a part of the core Java platform. Anyways, the article has been put in the Java Reflection
+    trail in lack of a better place to put it.
+</p>
+
+<p>
+    Here is a list of the topics covered in this text:
+</p>
+
+<ol>
+    <li><a href="#classloader">The ClassLoader</a></li>
+    <li><a href="#classloaderHierarchy">The ClassLoader Hierarchy</a></li>
+    <li><a href="#loading">Class Loading</a></li>
+    <li><a href="#dynamicloading">Dynamic Class Loading</a></li>
+    <li><a href="#dynamicreloading">Dynamic Class Reloading</a></li>
+    <li><a href="#designing">Designing your Code for Class Reloading</a></li>
+    <li><a href="#example">ClassLoader Load / Reload Example</a></li>
+</ol>
+
+
+
+<a name="classloader"></a>
+<br/>
+<h2>The ClassLoader</h2>
+
+<p>
+    All classes in a Java application are loaded using some subclass of <code>java.lang.ClassLoader</code>.
+    Loading classes dynamically must therefore also be done using a <code>java.lang.ClassLoader</code> subclass.
+</p>
+
+<p>
+    When a class is loaded, all classes it references are loaded too. This class loading pattern happens recursively,
+    until all classes needed are loaded. This may not be all classes in the application. Unreferenced classes are
+    not loaded until the time they are referenced.
+</p>
+
+
+<a name="classloaderHierarchy"></a>
+<br/>
+<h2>The ClassLoader Hierarchy</h2>
+
+<p>
+    Class loaders in Java are organized into a hierarchy. When you create a new standard Java <code>ClassLoader</code>
+    you must provide it with a parent <code>ClassLoader</code>. If a <code>ClassLoader</code> is asked to
+    load a class, it will ask its parent class loader to load it. If the parent class loader can't find
+    the class, the child class loader then tries to load it itself.
+</p>
+
+<a name="loading"></a>
+<br/>
+<h2>Class Loading</h2>
+<p>
+    The steps a given class loader uses when loading classes are:
+</p>
+
+<ol>
+    <li>Check if the class was already loaded.</li>
+    <li>If not loaded, ask parent class loader to load the class.</li>
+    <li>If parent class loader cannot load class, attempt to load it in this class loader.</li>
+</ol>
+
+<p>
+    When you implement a class loader that is capable of reloading classes you will need
+    to deviate a bit from this sequence. The classes to reload should not be requested
+    loaded by the parent class loader. More on that later.
+</p>
+
+
+<a name="dynamicloading"></a>
+<br/>
+<h2>Dynamic Class Loading</h2>
+<p>
+    Loading a class dynamically is easy. All you need to do is to obtain a <code>ClassLoader</code>
+    and call its <code>loadClass()</code> method. Here is an example:
+</p>
+
+<pre class="codeBox">
+
+public class MainClass {
+
+  public static void main(String[] args){
+
+    ClassLoader classLoader = MainClass.class.getClassLoader();
+
+    try {
+        Class aClass = classLoader.loadClass("com.jenkov.MyClass");
+        System.out.println("aClass.getName() = " + aClass.getName());
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+
+}
+</pre>
+
+
+<a name="dynamicreloading"></a>
+<br/>
+<h2>Dynamic Class Reloading</h2>
+
+<p>
+    Dynamic class reloading is a bit more challenging. Java's builtin Class loaders always checks if a class
+    is already loaded before loading it. Reloading the class is therefore not possible using Java's builtin
+    class loaders. To reload a class you will have to implement your own <code>ClassLoader</code> subclass.
+</p>
+
+<p>
+    Even with a custom subclass of <code>ClassLoader</code> you have a challenge.
+    Every loaded class
+    needs to be linked. This is done using the <code>ClassLoader.resolve()</code> method. This method
+    is final, and thus cannot be overridden in your <code>ClassLoader</code> subclass. The <code>resolve()</code>
+    method will not allow any given <code>ClassLoader</code> instance to link the same class twice.
+    Therefore, everytime you want to reload a class you must use a new instance of your
+    <code>ClassLoader</code> subclass. This is not impossible, but necessary to know when designing
+    for class reloading.
+</p>
+
+<a name="designing"></a>
+<br/>
+<h2>Designing your Code for Class Reloading</h2>
+
+<p>
+    As stated earlier you cannot reload a class using
+    a <code>ClassLoader</code> that has already loaded that class once. Therefore you will have to reload
+    the class using a different <code>ClassLoader</code> instance. But this poses som new challenges.
+</p>
+
+<p>
+    Every class loaded in a Java application is identified by its fully qualified name (package name + class name),
+    and the <code>ClassLoader</code> instance that loaded it. That means, that a class <code>MyObject</code> loaded
+    by class loader A, is not the same class as the <code>MyObject</code> class loaded with class loader B.
+    Look at this code:
+</p>
+
+<pre class="codeBox">
+MyObject object = (MyObject)
+    myClassReloadingFactory.newInstance("com.jenkov.MyObject");
+</pre>
+
+<p>
+    Notice how the <code>MyObject</code> class is referenced in the code, as the type
+    of the <code>object</code> variable. This causes the <code>MyObject</code> class
+    to be loaded by the same class loader that loaded the class this code is residing in.
+</p>
+
+<p>
+    If the <code>myClassReloadingFactory</code> object factory reloads the <code>MyObject</code>
+    class using a different class loader than the class the above code resides in, you cannot
+    cast the instance of the reloaded <code>MyObject</code> class to the <code>MyObject</code>
+    type of the <code>object</code> variable. Since the two <code>MyObject</code> classes were
+    loaded with different class loaders, the are regarded as different classes, even if they
+    have the same fully qualified class name. Trying to cast an object of the one class to a
+    reference of the other will result in a <code>ClassCastException</code>.
+</p>
+
+<p>
+    It is possible to work around this limitation but you will have to change your code in either
+    of two ways:
+</p>
+
+<ol>
+    <li>Use an interface as the variable type, and just reload the implementing class.</li>
+    <li>Use a superclass as the variable type, and just reload a subclass.</li>
+</ol>
+
+<p>Here are two coresponding code examples:</p>
+
+<pre class="codeBox">
+<b>MyObjectInterface</b> object = <b>(MyObjectInterface)</b>
+    myClassReloadingFactory.newInstance("com.jenkov.MyObject");
+</pre>
+
+<pre class="codeBox">
+<b>MyObjectSuperclass</b> object = <b>(MyObjectSuperclass)</b>
+    myClassReloadingFactory.newInstance("com.jenkov.MyObject");
+</pre>
+
+<p>
+    Either of these two methods will work if the type of the variable, the interface
+    or superclass, is not reloaded when the implementing class or subclass is reloaded.
+</p>
+<p>
+    To make this work you will of course need to implement your class loader to let the interface
+    or superclass be loaded by its parent. When your class loader is asked to load the <code>MyObject</code>
+    class, it will also be asked to load the <code>MyObjectInterface</code> class, or the
+    <code>MyObjectSuperclass</code> class, since these are referenced from within the <code>MyObject</code>
+    class.
+
+    Your class loader must delegate the loading of
+    those classes to the same class loader that loaded the class containing the interface or superclass typed
+    variables.
+</p>
+
+
+<a name="example"></a>
+<br/>
+<h2>ClassLoader Load / Reload Example</h2>
+
+<p>
+    The text above has contained a lot of talk. Let's look at a simple example.
+    Below is an example of a simple <code>ClassLoader</code> subclass. Notice
+    how it delegates class loading to its parent except for the one class it
+    is intended to be able to reload. If the loading of this class is delegated
+    to the parent class loader, it cannot be reloaded later. Remember, a class
+    can only be loaded once by the same <code>ClassLoader</code> instance.
+</p>
+
+<p>
+    As said earlier, this is just an example that serves to show you the
+    basics of a <code>ClassLoader</code>'s behaviour. It is not a production
+    ready template for your own class loaders.
+    Your own class loaders should probably not be limited to a single class, but
+    a collection of classes that you know you will need to reload. In addition,
+    you should probably not hardcode the class paths either. 
+</p>
+
+<pre class="codeBox">
+public class MyClassLoader extends ClassLoader{
+
+    public MyClassLoader(ClassLoader parent) {
+        super(parent);
+    }
+
+    public Class<?> loadClass(String name) throws ClassNotFoundException {
+        if(!"reflection.MyObject".equals(name))
+                return super.loadClass(name);
+
+        try {
+            String url = "file:C:/data/projects/tutorials/web/WEB-INF/" +
+                            "classes/reflection/MyObject.class";
+            URL myUrl = new URL();
+            URLConnection connection = myUrl.openConnection();
+            InputStream input = connection.getInputStream();
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            int data = input.read();
+
+            while(data != -1){
+                buffer.write(data);
+                data = input.read();
+            }
+
+            input.close();
+
+            byte[] classData = buffer.toByteArray();
+
+            return defineClass("reflection.MyObject",
+                    classData, 0, classData.length);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace(); 
+        }
+
+        return null;
+    }
+
+}
+</pre>
+
+<p>
+    <br/>
+    Below is an example use of the <code>MyClassLoader</code>. 
+</p>
+
+<pre class="codeBox">
+public static void main(String[] args) throws
+    ClassNotFoundException,
+    IllegalAccessException,
+    InstantiationException {
+
+    ClassLoader parentClassLoader = MyClassLoader.class.getClassLoader();
+    MyClassLoader classLoader = new MyClassLoader(parentClassLoader);
+    Class myObjectClass = classLoader.loadClass("reflection.MyObject");
+
+    AnInterface2       object1 =
+            (AnInterface2) myObjectClass.newInstance();
+
+    MyObjectSuperClass object2 =
+            (MyObjectSuperClass) myObjectClass.newInstance();
+
+    //create new class loader so classes can be reloaded.
+    classLoader = new MyClassLoader(parentClassLoader);
+    myObjectClass = classLoader.loadClass("reflection.MyObject");
+
+    object1 = (AnInterface2)       myObjectClass.newInstance();
+    object2 = (MyObjectSuperClass) myObjectClass.newInstance();
+    
+}
+</pre>
+
+<p>
+   <br/>
+   Here is the <code>reflection.MyObject</code> class that is loaded using
+    the class loader. Notice how it both extends a superclass and implements
+    an interface. This is just for the sake of the example. In your own
+    code you would only have to one of the two - extend or implement.
+</p>
+
+<pre class="codeBox">
+public class MyObject extends MyObjectSuperClass implements AnInterface2{
+    //... body of class ... override superclass methods
+    //    or implement interface methods
+}
+</pre>
+
+
+                     <br/><br/>
+                     <a href="#top"><img src="/images/top.png" border="0"/> Back to Top</a>
+                     <br/><br/>
+
+                     <script type="text/javascript"><!--
+google_ad_client = "pub-5569543489255665";
+/* tutorials-reflection-3 */
+google_ad_slot = "6707172570";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+                 </td>
+                 
+                     <td valign="top" align="center" width="250" bgcolor="#eeeeee" style="border-left: 1px solid #dddddd; border-right: 1px solid #dddddd;"><table cellspacing="2" border="0" style="padding-right: 10px;" bgcolor="#ffffff" style="border-bottomx: 1px solid #dddddd; border-left-x: 1px solid #dddddd;" width="100%">
+    <tr>
+        <!--<td colspan="2"><img src="/images/toc.png" alt="Table of Contents"/></td>-->
+        <td colspan="3" style="padding-top:10px;"><span class="trailhead">Java Reflection</span></td>
+    </tr>
+    <tr><td height="5"></td></tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="index.html">Introduction to Java Reflection</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="classes.html">Classes</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="constructors.html">Constructors</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="fields.html">Fields</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="methods.html">Methods</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="getters-setters.html">Getters and Setters</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="private-fields-and-methods.html">Private Fields and Methods</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="annotations.html">Annotations</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="generics.html">Generics</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="arrays.html">Arrays</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="dynamic-proxies.html">Dynamic Proxies</a></td>
+    </tr>
+    <tr>
+        <td width="10"></td>
+        <td style="padding-right: 4px;" valign="top"><img src="/images/arrow-right-light-medium.png" alt=""></td>
+        <td style="padding-top: 2px;"><a href="dynamic-class-loading-reloading.html">Dynamic Class Loading and Reloading</a></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    
+</table>
+
+
+                 
+
+
+
+
+               
+                         <style>
+                         .signupframe {
+                           border: 1px solid #000000;
+                           background: #ffffff;
+                           color: #002d62;
+                           font-family: Arial, Helvetica, sans-serif;
+                         }
+                         </style>
+                         <form method=post action="http://app.icontact.com/icp/signup.php" name="icpsignup" accept-charset="UTF-8" onsubmit="return verifyRequired();" >
+                         <input type=hidden name=redirect value="http://jenkov.com/about/sign-up-thank-you.html" />
+                         <input type=hidden name=errorredirect value="http://www.icontact.com//www/signup/error.html" />
+                         <script type="text/javascript">
+                         function verifyRequired() {
+                           if (document.icpsignup["fields_fname"].value == "") {
+                             document.icpsignup["fields_fname"].focus();
+                             alert("The First Name field is required.");
+                             return false;
+                           }
+                           if (document.icpsignup["fields_lname"].value == "") {
+                             document.icpsignup["fields_lname"].focus();
+                             alert("The Last Name field is required.");
+                             return false;
+                           }
+                           if (document.icpsignup["fields_email"].value == "") {
+                             document.icpsignup["fields_email"].focus();
+                             alert("The Email field is required.");
+                             return false;
+                           }
+
+
+                         return true;
+                         }
+                         </script>
+                         <div id="SignUp">
+                         <table width="100%" class="signupframe" border="0" cellspacing="0" cellpadding="5">
+                             <tr><td colspan="2"><font color="red"><b>Jakob Jenkov's Free Tips & Tutorials!</b></font></td></tr>
+                             <tr><td colspan="2" valign="top"><img src="http://jenkov.com/images/20081123-20081123-3E1W7902-small-portrait.jpg" align="right">
+                                 Sign up for my news letter or <a href="http://feeds2.feedburner.com/jenkov-com" target="_blank">RSS feed</a>, and I'll personally be providing you with quality tutorials relevant to Java and Flex developers
+                                 and help you uncover the little tips and tricks that makes a developers life easier and more fun.
+                                 Sign up today, and start learning right away!
+                                 </td></tr>
+                             <tr>
+                               <td valign=top align=right>
+                                 <font size="1" face="Arial,Helvetica, sans-serif">*</font> <font size="2">First Name</font>
+                               </td>
+                               <td align=left>
+                                 <input type=text name="fields_fname">
+                               </td>
+                             </tr>
+                             <tr>
+                               <td valign=top align=right>
+                                 <font size="1" face="Arial,Helvetica, sans-serif">*</font> <font size="2">Last Name</font>
+                               </td>
+                               <td align=left>
+                                 <input type=text name="fields_lname">
+                               </td>
+                             </tr>
+                             <tr>
+                               <td valign=top align=right>
+                                 <font size="1" face="Arial,Helvetica, sans-serif">*</font> <font size="2">Email</font>
+                               </td>
+                               <td align=left>
+                                 <input type=text name="fields_email">
+                               </td>
+                             </tr>
+                             <input type=hidden name="listid" value="9579">
+                             <input type=hidden name="specialid:9579" value="SW15">
+
+                             <input type=hidden name=clientid value="435086">
+                             <input type=hidden name=formid value="587">
+                             <input type=hidden name=reallistid value="1">
+                             <input type=hidden name=doubleopt value="1">
+                             <tr>
+                               <td> </td>
+                               <td><input type="submit" name="Submit" value="Yes, give me tips!"></td>
+                             </tr>
+                             <tr><td colspan="2" align="center"><a href="http://feeds2.feedburner.com/jenkov-com"><img src="http://feeds2.feedburner.com/~fc/jenkov-com?bg=FF9900&amp;fg=000000&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a></td></tr>
+                             <tr><td colspan="2" align="center"><a href='http://www.twitter.com/jjenkov'><img border=0 src='http://www.languageisavirus.com/twitterbuttons/small-twitter-buttons/twitter-button-999-x12-languageisavirusdotcom.gif' alt='Follow Me on Twitter'></a></td></tr>
+                             </table>
+                         </div>
+                         </form>
+
+
+                          
+                     <script type="text/javascript"><!--
+google_ad_client = "pub-5569543489255665";
+/* tutorials-reflection-2 */
+google_ad_slot = "0434862597";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+                        <br/><br/>
+                     <script type="text/javascript"><!--
+google_ad_client = "pub-5569543489255665";
+/* tutorials-reflection-2-2 */
+google_ad_slot = "5849865902";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+                 </td>
+                 </tr>
+             </table>
+         </td>
+         <td><img src="/images/layout/body-right-edge.png" width="21"  height="100%"/></td>
+     </tr>
+
+     <tr><td height="18"><img src="/images/layout/footer-left-edge.png" width="21" height="50"/></td>
+         <td background="/images/layout/footer-mid-strips.png" colspan="6"></td>
+         <td><img src="/images/layout/footer-right-edge.png"/></td>
+     </tr>
+
+   </table>
+  </body>
+    
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-4036229-3");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+    </script>
+
+</html>

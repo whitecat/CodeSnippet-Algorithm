@@ -1,0 +1,1105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" dir="ltr">
+  <head>
+    <title>
+      Code Style: Java interface design frequently asked questions (FAQ)
+    </title>
+        <meta http-equiv="pics-label" content='(pics-1.1 "http://www.icra.org/ratingsv02.html" comment "ICRAonline EN v2.0" l gen true for "http://www.codestyle.org/" r (nz 1 vz 1 lz 1 oz 1 cz 1) "http://www.rsac.org/ratingsv01.html" l gen true for "http://www.codestyle.org/" r (n 0 s 0 v 0 l 0))' />
+    <link rel="schema.DC" href="http://purl.org/DC/elements/1.0/" title="The Dublin Core metadata Element Set" />
+    <meta name="DC.Creator" content="Shaw, Philip" />
+    <meta name="DC.Publisher" content="Philip Shaw" />
+    <meta name="DC.Type" scheme="DCMIType" content="Text" />
+    <meta name="DC.Format" scheme="IMT" content="text/html" />
+    <meta name="DC.Language" scheme="RFC1766" content="en-GB" />
+    <meta name="DC.Coverage.spatial" scheme="TGN" content="World" />
+    <meta name="DC.Coverage.temporal" scheme="Period" content="start=1990;scheme=W3CDTF" />
+    <link rel="DC.Rights" href="http://www.codestyle.org/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="home" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="shortcut icon" href="/favicon.ico" title="Code Style shortcut icon" type="image/x-icon" />
+    <link rel="copyright" href="/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="appendix" href="/codestyle/SiteMap.shtml" title="Code Style site map" type="text/html" />
+    <link rel="appendix" href="/SubjectIndex.shtml" title="Code Style subject index" type="text/html" />
+    <link rel="help" href="/faq/index.shtml" title="Help and FAQ section" type="text/html" />
+    <link rel="P3Pv1" href="http://www.codestyle.org/w3c/p3p.xml" title="Privacy Policy" type="text/xml" />
+    <link rel="meta" href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Interface.shtml" title="RDF Metadata" />
+    <link rel="alternate" href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Interface.shtml" type="application/rss+xml" title="RSS news feed" />
+    <meta name="DC.Title" content="Java interface design FAQ" />
+    <meta name="DCTERMS.created" scheme="W3CDTF" content="2007-03-03T13:33:33Z" />
+    <meta name="DCTERMS.issued" scheme="W3CDTF" content="2007-03-03T13:34:59Z" />
+    <meta name="DCTERMS.modified" scheme="W3CDTF" content="2010-01-28T07:29:57Z" />
+    <meta name="DC.Identifier" scheme="URI" content="http://www.codestyle.org/java/faq-Interface.shtml" />
+    <meta name="DCTERMS.abstract" content="FAQs about Java interface design, interface varibles class implementations and multiple inheritance in Java." />
+    <meta name="description" content="FAQs about Java interface design, interface varibles class implementations and multiple inheritance in Java." />
+        <meta name="keywords" content="interface in java, why interface in java, interface design java, java interface questions, code of interface in java, can we define interface inside class, what is use of interface in java applications, can we write an interface with in a class, use and sample programs on java interface, what is the use of serializable interface in java, java interface instantiation, marker interface usage" />
+    <meta name="DC.Description.tableOfContents" scheme="URI" content="http://www.codestyle.org/java/Contents.shtml" />
+    <meta name="DC.Subject" scheme="DDC" content="006" />
+    <meta name="DC.Subject" lang="en-GB" xml:lang="en-GB" content="Java" />
+    <link rel="help" href="/java/FAQ.shtml" title="Java Programming FAQ" type="text/html" />
+    <link rel="up" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="index section chapter start bookmark" href="/java/index.shtml" title="Java &amp; servlets section" type="text/html" />
+    <link rel="contents toc" href="/java/Contents.shtml" title="Java &amp; servlets contents" type="text/html" />
+    <link rel="appendix" href="/java/AnchorPoints.shtml" title="Anchor Points: Java servlets" type="text/html" />
+    <link rel="appendix" href="/java/FAQ.shtml" title="Java programming FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Threads.shtml" title="Java threads FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Inheritance.shtml" title="Java inheritance FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-CommandLine.shtml" title="Java command line FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Interface.shtml" title="Java interface design FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Language.shtml" title="Java language FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-API.shtml" title="Java API FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Strings.shtml" title="Java strings FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-JDBC.shtml" title="JDBC FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Objects.shtml" title="Java objects FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Static.shtml" title="Java static context FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Abstract.shtml" title="Java abstract classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Compiler.shtml" title="Java compiler FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-UtilityClasses.shtml" title="Java utility classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-IO.shtml" title="Java I/O FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Networking.shtml" title="Java networking FAQ" type="text/html" />
+    <link rel="stylesheet" type="text/css" href="/styles/section-Java.css" />        <link rel="stylesheet" type="text/css" href="/styles/CSPersistent.xcss" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSAlternate.css"  title="Blue, sans-serif" />
+    <link rel="stylesheet" type="text/css" href="/styles/CSStandard.xcss"  title="Standard" />
+<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="/styles/CSStdLayoutIE6.css" title="Standard" />
+<![endif]-->
+    <link rel="stylesheet" type="text/css" href="/styles/CSPrint.css" media="print" title="Standard" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSStandard.xcss" media="all" title="Print preview" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSPrint.css" media="all" title="Print preview" />
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      try {
+        _uacct = "UA-1503486-1";
+        urchinTracker();
+      }
+      catch(err) {}
+    </script>
+    <script type="text/javascript" src="/scripts/StandardFunctions.xjs"></script>
+  </head>
+  <body>
+    <div id="TopBar">
+  <a href="http://www.codestyle.org/"><img src="/images/logo-EurostileLozenge168x61.png" width="168" height="61" alt="Code Style - Vital source since 2000" class="Logo" title="Go to the Code Style home page - accesskey 0" /></a>
+  <div class="URI">
+    CSS font stacks, media style sheets &amp; web standards
+  </div>
+  <div id="SiteSearch">
+    <form action="http://www.google.com/cse" id="site-search-box">
+      <div>
+        <label for="search-input">
+          Site search:
+        </label>
+        <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input type="text" name="q" id="search-input" size="16" maxlength="255"  value="search words" onfocus="if(this.value=='search words') this.value='';" alt="Enter a search query in this field (accesskey 9) then tab to the search button that follows and activate" accesskey="9" /><input type="submit" name="sa" id="search-submit" value="Go" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+      </div>
+    </form>
+  </div>
+</div>
+
+    <div id="Header">
+            <h1 class="Title">
+        Java interface design FAQ
+      </h1>
+    </div>
+    <div id="Content">
+      <div class="LocalNav">
+      <div class="SponsorZone">
+        <p>
+          <script type="text/javascript">
+Vertical1238757 = false;
+ShowAdHereBanner1238757 = false;
+RepeatAll1238757 = false;
+NoFollowAll1238757 = false;
+BannerStyles1238757 = new Array(
+    "a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+    "img{border:0;clear:right;}",
+    "a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+    "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+);
+document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1238757/1238757.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+        </p>
+        <p>
+          <a href="http://buysellads.com/buy/detail/5795" onclick="urchinTracker('/SponsorFAQ');" title="Your 180 by 150 pixel banner on all pages of the Code Style site">Your banner ad here</a>
+        </p>
+      </div>
+      <div class="RgtBox">
+  <h2>
+    Questions answered
+  </h2>
+  <ul>
+    <li>
+      <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">Site help</a>
+    </li>
+    <li>
+      <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+    </li>
+    <li>
+      <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+    </li>
+    <li>
+      <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+    </li>
+    <li>
+      <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+    </li>
+    <li>
+      <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+    </li>
+    <li>
+      <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+    </li>
+    <li>
+      <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+    </li>
+    <li>
+      <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+    </li>
+    <li>
+      <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+    </li>
+    <li>
+      <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+    </li>
+    <li>
+      <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+    </li>
+    <li>
+      <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+    </li>
+    <li>
+      <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+    </li>
+    <li>
+      <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+    </li>
+    <li>
+      <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+    </li>
+  </ul>
+  <h3>
+    Terms explained
+  </h3>
+  <ul>
+    <li>
+       <a href="/css/Glossary.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+       <a href="/css/media/Glossary.shtml" class="SectionCSS">Media style sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/Glossary.shtml" class="SectionCSS">Font family</a>
+    </li>
+  </ul>
+<h3>
+  Text ad service
+</h3>
+<p>
+  Put your <a href="/codestyle/advertise/index.shtml"  title="Text ad service information">text ad</a> here <img src="/images/icon-TextAdBelow.png" alt="Down arrow icon" width="12" height="16" />
+</p>
+</div>
+    <!-- *** Start FAQ service area *********************** -->
+      <div class="TextAd">
+        <p>
+          <a href="http://www.westnic.net" onclick="urchinTracker('/TextAdWestNIC');">WestNIC</a> provides reliable <a href="http://www.westnic.net/web-hosting/" onclick="urchinTracker('/TextAdWestNIC');">web hosting</a> services
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          <a href="http://www.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">Free software downloads</a> and <a href="http://drivers.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">drivers download</a> resources
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          25% off cpanel <a href="http://www.ahosting.biz/web/index.html" onclick="urchinTracker('/TextAdAhosting-WebHosting-FAQ');">web hosting</a> and <a href="http://www.ahosting.biz/reseller/index.html" onclick="urchinTracker('/TextAdAhosting-ResellerHosting-FAQ');">reseller hosting</a> deals. Promo:&nbsp;<strong>codestyle25off</strong>
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          Top <a href="http://www.topcanadianhotels.com/" onclick="urchinTracker('/TextAdTopCanadianHotels');">Canadian Hotels</a> no booking fees from <a href="http://www.topcanadianhotels.com/victoria-bc-hotels.html" onclick="urchinTracker('/TextAdTopCanadianHotels');">Victoria BC</a> to Nova Scotia
+        </p>
+      </div>
+<!-- *** End FAQ service area ************************* -->
+      </div>
+            <div class="WideNav">
+        <a href="#sitenav">Site navigation below</a>
+      </div>
+      <p class="Standfirst">
+        This FAQ is part of the <span class="CS">Code Style</span> <a href="/faq/index.shtml">Help and FAQ</a> section. Join our <a href="/codestyle/premium/index.shtml">premium content service</a> for full access all FAQ answers.
+      </p>
+      <ul>
+        <li>
+          <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Interface.shtml">News feed for this FAQ</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Interface.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+<!-- *** Start Java service area ********************** -->
+        <li>
+          <a href="/java/RSS.shtml">All Java news feeds</a> <a href="/java/RSS.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+        <li>
+          <a href="/java/Newsletters.shtml">All Java newsletters</a> <a href="/java/Newsletters.shtml"><img src="/images/icon-Email.png" alt="Email newsletter icon" width="16" height="15" /></a>
+        </li>
+<!-- *** End Java service area ************************ -->
+        <li>
+          <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');">Twitter feed</a> <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');"><img src="/images/icon-Twitter.png" width="16" height="16" alt="Twitter icon" /></a>
+        </li>
+      </ul>
+            <div class="FAQSearchBox">
+        <form action="http://www.google.com/cse" id="faq-search-box">
+          <h2>
+            FAQ search
+          </h2>
+          <p>
+            <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+            <input type="hidden" name="ie" value="UTF-8" />
+            <input type="text" name="q" id="faq-search-input" size="48" maxlength="255"  value="intitle:FAQ " alt="Enter a search query after intitle:FAQ, then tab to the search button that follows and activate"  />
+            <input type="submit" name="sa" id="faq-search-submit" value="Search" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+          </p>
+        </form>
+      </div>
+      <div class="MenuBox">
+  <h2>
+    Interface concepts
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Interface.shtml#interfacedesign">Why use interfaces to develop Java applications?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#getinterfaces">I still don't get why I should use interfaces!</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#abstractinterface">What is the difference between abstract classes and interfaces?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#interfaceapi">What's the difference between an interface and an API?</a>
+    </li>
+  </ul>
+  <h2>
+    Marker interfaces
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Interface.shtml#markerinterface">What is a marker interface?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#markerbehaviour">How do marker interfaces affect the behaviour of classes?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#markerbeing">Are there any marker interfaces that have methods?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#whyserializable">Why do we need to implement the <code>Serializable</code> interface?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#markerexample">Can you show an example marker interface?</a>
+    </li>
+  </ul>
+  <h2>
+    Interface usage
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Interface.shtml#when-interface">When should I use an interface?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#abstractusage">When should I use abstract classes rather than interfaces?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#multiinheritanceexample">Can you give an example of multiple inheritance with interfaces?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#methodargumentcast">What are the rules for passing subclasses for method arguments?</a>
+    </li>
+  </ul>
+  <h2>
+    How to define an interface
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Interface.shtml#publicinterfacemethods">Should I use a <code>public</code> access modifier for interface methods?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#interfaceextension">Can an interface extend an abstract class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#interfacefinal">Can an interface be declared <code>final</code>?</a>
+    </li>
+  </ul>
+  <h2>
+    Interface constants
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Interface.shtml#interfacemembers">Do interfaces have member variables?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#whyinterfaceconstant">Why are interface variables <code>public static final</code>?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#constantoverride">Interface variables can be overridden, right?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#constantstyle">What style should I use to declare a member variable in an interface?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#interface-constant-eg">Is this interface constant declaration correct?</a>
+    </li>
+  </ul>
+  <h2>
+    How to implement an interface
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Interface.shtml#interfaceimpl">Can we create an object for an interface?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#anonymousinlinetype">This code seems to be instantiating an interface!</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml#interfaceclash">What if two interface methods clash in implementation?</a>
+    </li>
+  </ul>
+</div>
+      <h2 class="NewSection">
+        Interface concepts
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="interfacedesign" id="interfacedesign">Why use interfaces to develop Java applications?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> It is advisable to design relatively large applications using interfaces because it makes the whole system easier to modify, extend and integrate new features. To start with, you may only have one implementation of a given interface, but if you find you need slightly different behaviour in special circumstances, you only need write a class that conforms to one of the existing interfaces and it will drop in place without major modifications.
+          </p>
+          <p>
+            Interfaces also allow you to adapt a class from a different hierarchy to work in an existing application. The class only needs to declare it implements the interface, provide the necessary methods and it can be integrated directly as if it were created for the job.
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacedesign">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacedesign">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacedesign">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacedesign">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="getinterfaces" id="getinterfaces">I still don't get why I should use interfaces!</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> When you first start working with Java interfaces it may seem like extra work without much pay-back, you have to write an &quot;empty&quot; interface definition and also write concrete methods to implement them. There is no great advantage when you are working with relatively small scale, stand-alone applications for a single purpose.
+      </p>
+      <p>
+        Most people first recognise the need for interfaces when they work with Java <abbr title="Application Programming Interface">API</abbr> packages that require interface implementations to work effectively, particularly the old-style Abstract Windowing Toolkit (AWT), Swing and Java threads. With Swing you must implement the <code>ActionListener</code> interface to respond to button clicks for example. The more you implement Java API interfaces for specific purposes the more you will recognise when interfaces are appropriate in your own applications and start to appreciate the benefits.
+      </p>
+      <p>
+        AWT and Swing are strong examples of Java interface use because Graphical User Interface (GUI) classes can implement listener interfaces to handle their own click or status events. In this case, the use of an interface means no extra class definition. 
+      </p>
+      <pre>
+public class ListeningFrameExample extends JFrame implements WindowListener {
+
+  // Application methods
+
+  // Example WindowListener method
+  public void windowIconified(WindowEvent e) {
+  
+    // Handle window minimised events
+  }
+
+  // Other WindowListener methods
+}
+      </pre>
+      <p>
+        AWT and Swing event handler interfaces like <code>ActionListener</code> only have one method, so can easily be implemented by anonymous inline class definitions, split over several lines in the example below. 
+      </p>
+      <pre>
+JButton button = new JButton(&quot;Example Button&quot;);
+
+button.addActionListener(
+  new ActionListener() {
+    actionPerformed(ActionEvent ae) {
+
+      // Handle the action
+    }
+  }
+);
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=getinterfaces">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=getinterfaces">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=getinterfaces">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=getinterfaces">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstractinterface" id="abstractinterface">What is the difference between abstract classes and interfaces?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> A Java interface is a definition of a class type without any concrete implementation. Typically, an interface consists of one or more method signatures that a subclass must fulfil to conform to the type. In effect, all their methods are abstract, and interfaces cannot be instantiated.
+          </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/AbstractInterface.shtml">What is the difference between abstract classes and interfaces?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractinterface">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractinterface">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractinterface">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractinterface">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="interfaceapi" id="interfaceapi">What's the difference between an interface and an API?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> An application programming interface (API) is the collection of all the public methods and fields that belong to a set of classes, including its interface types. The API defines the way that developers can use the classes in their own Java program, just by importing the relevant classes and writing statements that instantiate the classes and call their methods public fields.
+      </p>
+      <p>
+        A Java interface declares a type of Java object without a concrete implementation. Interfaces are defined in a compilation unit like a standard Java class, and the methods they declare are implicitly part of an application programming interface. Interfaces are used to help define generic structural elements in an API, a reference type for concrete implementations, and an extension mechanism for programmers who use the API.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceapi">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceapi">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceapi">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceapi">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Marker interfaces
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="markerinterface" id="markerinterface">What is a marker interface?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> Marker interfaces are those which do not declare any required methods, but signify their compatibility with certain operations. The <code>java.io.Serializable</code> interface is a typical marker interface. It does not contain any methods, but classes must implement this interface in order to be serialized and de-serialized.
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=markerinterface">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=markerinterface">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=markerinterface">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=markerinterface">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="markerbehaviour" id="markerbehaviour">How do marker interfaces affect the behaviour of classes?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Marker interfaces do not affect the classes that implement them through their behaviour, they cannot since there are no required methods, they only mark the class by identifying it as a Java type that conforms to the interface. In the classic example, methods that serialize data can check that a class can be serialized by its implementation of the <code>Serializable</code> interface.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbehaviour">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbehaviour">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbehaviour">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbehaviour">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="markerbeing" id="markerbeing">Are there any marker interfaces that have methods?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> No, the definition of a marker interface is that it contains no behavioural definitions, so there can be no marker interface with methods. Marker interfaces are concerned with <em>being</em> a certain type rather than <em>behaving</em> as a type does.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbeing">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbeing">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbeing">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=markerbeing">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="whyserializable" id="whyserializable">Why do we need to implement the <code>Serializable</code> interface?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> In some respects marker interfaces such as <code>Serializable</code> are like a prompt or reminder to programmers that we must implement the interface to get the results we need; most importantly we must ensure that the class is truly serializable.
+      </p>
+      <p>
+        A class must implement the <code>Serializable</code> interface else any attempt to serialize an instance will throw a <code>NotSerializableException</code>. However, it is the programmer's responsibility to ensure that an instance can physically be serialized and de-serialized in a meaningful way, so that the object's original state can be fully restored. That can be a complex task, especially when a class has field types that are final and do not implement the <code>Serializable</code> interface, hence the interface is a marker that special measures need to be taken.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=whyserializable">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=whyserializable">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=whyserializable">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=whyserializable">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="markerexample" id="markerexample">Can you show an example marker interface?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> An interface typically represents something that is &quot;Processable&quot; in a particular way, an example would be a <code>Soluble</code> type that has an interface method <code>void dissolve(Solvent)</code>. Marker interfaces don't have any interface methods, they usually signify a property or state that any Java class may have that cannot be defined by a method signature. An example would be an <code>Immutable</code> interface, since a fundamental characteristic of immutable classes is the absence of mutator methods, as below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/MarkerExample.shtml">Can you show an example marker interface?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=markerexample">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=markerexample">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=markerexample">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=markerexample">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Interface usage
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="when-interface" id="when-interface">When should I use an interface?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> If you are not used to using interfaces in your Java programs you are most likely to recognise the need when you are refactoring an existing application to add a new feature or support a new input or output format. When you think about how to re-organise the program it may be difficult to see where to make the changes, the class hierarchy may seem tangled, or it feels like a new format doesn't fit in neatly. A strong sign that you need to introduce an interface is that you have very similar code in separate classes and you can't re-arrange the classes to inherit this behaviour from a common superclass.
+      </p>
+      <p>
+        When you recognise these characteristics in a system, you should list the behaviour the problem objects need to have so that the main path of the program can process them in the same way. Separate this &quot;Processable&quot; behaviour in an interface and keep the type-specific behaviour in the classes that need to be processed. Where you see duplicate code in the processable classes, move it up the hierarchy and perhaps head it with an <code>AbstractProcessable</code> class. That should leave the type-specific classes to implement the <code>Processable</code> interface, possibly extend the <code>AbstractProcessable</code> class, and focus the main content of the class on its core, distinct behaviour.
+      </p>
+      <p>
+        The main path of your application will need to be adapted to declare and cast these objects as <code>Processable</code> types, but that will mean any other <code>Processable</code> type can more easily be added to the system in future.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=when-interface">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=when-interface">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=when-interface">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=when-interface">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstractusage" id="abstractusage">When should I use abstract classes rather than interfaces?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> Abstract classes are often used to provide methods that will be common to a range of similar subclasses, to avoid duplicating the same code in each case. Each subclass adds its own features on top of the common abstract methods.
+          </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/AbstractUsage.shtml">When should I use abstract classes rather than interfaces?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractusage">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractusage">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractusage">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=abstractusage">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="multiinheritanceexample" id="multiinheritanceexample">Can you give an example of multiple inheritance with interfaces?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> To illustrate multiple inheritance, consider a bat, which is a mammal that flies. We might have two interfaces: <code>Mammal</code>, which has a method <code>suckleInfant(Mammal)</code>, and <code>Flyer</code>, which has a method <code>fly()</code>. These types would be declared in interfaces as below...
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/MultiInheritanceExample.shtml">Can you give an example of multiple inheritance with interfaces?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=multiinheritanceexample">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=multiinheritanceexample">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=multiinheritanceexample">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=multiinheritanceexample">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="methodargumentcast" id="methodargumentcast">What are the rules for passing subclasses for method arguments?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> It may help to discuss an example using birds: an interface called <code>Avian</code>, a superclass <code>FlyingBird</code> that implements <code>Avian</code> and two concrete classes: <code>Parrot</code> and <code>Penguin</code>. <code>Parrot</code> extends <code>FlyingBird</code>, so is implicitly an <code>Avian</code> type, but <code>Penguin</code> does not, it only implements <code>Avian</code>. The examples below work through all possibilities, passing references to methods <code>soundBirdCall(FlyingBird)</code> and <code>displayPlumage(Avian)</code>.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/MethodArgumentCast.shtml">What are the rules for passing subclasses for method arguments?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=methodargumentcast">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=methodargumentcast">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=methodargumentcast">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=methodargumentcast">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        How to define an interface
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="publicinterfacemethods" id="publicinterfacemethods">Should I use a <code>public</code> access modifier for interface methods?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Java interface methods are always implicitly public, even if they belong to nested interfaces. Non-public modifiers are not valid or necessary for interface methods, so the compiler should fail and warn you in this case. Nested interfaces may be declared <code>protected</code> or <code>private</code>, but the methods they define must still follow this rule.
+      </p>
+      <pre>
+public class NestedInterfaces {
+
+    private interface PrivateI {
+
+        // Allowed, implicit
+        public void doSomethingPublic();
+
+        // Not allowed
+        // protected void doSomethingProtected();
+
+        // Not allowed
+        // private void doSomethingPrivate();
+    }
+
+    protected interface ProtectedI {
+
+        // Allowed, implicit
+        public void doSomethingPublic();
+
+        // Not allowed
+        // protected void doSomethingProtected();
+
+        // Not allowed
+        // private void doSomethingPrivate();
+    }
+
+    public interface PublicI {
+
+        // Allowed, implicit
+        public void doSomethingPublic();
+
+        // Not allowed
+        // protected void doSomethingProtected();
+
+        // Not allowed
+        // private void doSomethingPrivate();
+    }
+
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=publicinterfacemethods">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=publicinterfacemethods">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=publicinterfacemethods">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=publicinterfacemethods">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="interfaceextension" id="interfaceextension">Can an interface extend an abstract class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> In Java an interface cannot extend an abstract class. An interface may only extend a super-interface. And an abstract class may implement an interface. It may help to think of interfaces and classes as separate lines of inheritance that only come together when a class implements an interface, the relationship cannot be reversed.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceextension">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceextension">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceextension">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceextension">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="interfacefinal" id="interfacefinal">Can an interface be declared <code>final</code>?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> It is not permitted to declare an interface as <code>final</code>, it will cause a compilation error. This is a Java language design decision; interface types are intended to be implemented and can be extended without restriction. Some regard this free extensibility as a flaw in the language design because there are cases where it would be useful to restrict the broader use of an interface. In the current scheme, it does not make sense to declare an interface final because it would mean it could not be implemented or extended; since interfaces cannot be instantiated in their own right a final interface would be a functional dead end.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacefinal">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacefinal">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacefinal">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacefinal">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Interface constants
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="interfacemembers" id="interfacemembers">Do interfaces have member variables?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> No, interfaces may have fields but they are implicitly <code>final</code> and <code>static</code>, so they are class variables. Interface variables are inherited by any class that implements the interface and are also available as public, static variables of the interface. In effect interface variables are constants that are available to all implementations and may be used as key references for method arguments for example.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacemembers">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacemembers">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacemembers">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interfacemembers">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="whyinterfaceconstant" id="whyinterfaceconstant">Why are interface variables <code>public static final</code>?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The short answer is that interface variables are intended to be Java constants, which means they must have these universal and un-changable properties. Interface variables are implicitly <code>public</code> because interfaces are intended to provide an application programming interface (API) that is fully accessible to Java programmers to reference and implement in their own applications. Since an interface may be used in Java packages that are different from their own, <code>public</code> visibility ensures that program code can access the variable.
+      </p>
+      <p>
+        Interface variables are <code>static</code> because Java interfaces cannot be instantiated in their own right; the value of the variable must be assigned in a static context in which no instance exists. The <code>final</code> modifier ensures the value assigned to the interface variable is a true constant that cannot be re-assigned by program code.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=whyinterfaceconstant">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=whyinterfaceconstant">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=whyinterfaceconstant">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=whyinterfaceconstant">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="constantoverride" id="constantoverride">Interface variables can be overridden, right?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> No, interface variables are constants that cannot be overridden. They are inherited by any class that implements an interface.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=constantoverride">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=constantoverride">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=constantoverride">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=constantoverride">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="constantstyle" id="constantstyle">What style should I use to declare a member variable in an interface?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The way that interface constants are declared is arbitrary, whether you use the full <code>public static final</code> modifiers or none at all the compiled code will be the same. Strictly the modifiers are redundant and the <a href="http://java.sun.com/docs/books/jls/" onclick="urchinTracker('http://java.sun.com/docs/books/jls/');" class="External">Java Language Specification</a> states that it is &quot;strongly discouraged as a matter of style, to redundantly specify the <code>public</code> modifier for interface methods&quot;.
+      </p>
+      <p>
+        Java code style is intended to help the reader without stopping to think too hard. The convention of setting constant variable names in upper case letters with underscore separators, <code>CONSTANT_NAME</code>, is recommended and likely to be a stronger guide to the nature of the constant.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=constantstyle">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=constantstyle">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=constantstyle">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=constantstyle">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="interface-constant-eg" id="interface-constant-eg">Is this interface constant declaration correct?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Your interface constant declaration is wrong for two reasons. Firstly, the keyword <code>interface</code> cannot be used in variable declarations, only in the enclosing interface declaration itself.
+      </p>
+      <pre>
+public <strong>interface</strong> Example {
+
+  // API declarations
+}
+      </pre>
+      <p>
+        Secondly, the type of the variable must match that of the value that is assigned to it; an <code>int</code> cannot be assigned a <code>String</code> value. Standard Java code style is to give your interface constant an uppercase variable name with words separated by underscores.
+      </p>
+      <pre class="Wide">
+public static final String EXAMPLE = &quot;Constant example&quot;;
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interface-constant-eg">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interface-constant-eg">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interface-constant-eg">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interface-constant-eg">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        How to implement an interface
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="interfaceimpl" id="interfaceimpl">Can we create an object for an interface?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Yes, it is always necessary to create an object implementation for an interface. Interfaces cannot be instantiated in their own right, so you must write a class that implements the interface and fulfil all the methods defined in it.
+      </p>
+      <pre class="Wide">
+public class Concrete implements ExampleInterface {
+
+  ...
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceimpl">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceimpl">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceimpl">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceimpl">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="anonymousinlinetype" id="anonymousinlinetype">This code seems to be instantiating an interface!</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The code you are looking at declares an inline anonymous class that implements an interface, which has a similar effect. This declaration does not instantiate the interface, but defines the type of the anonymous class, which has no name of its own. This approach is often used in <abbr title="Abstract Windowing Toolkit">AWT</abbr> or Swing applications where a class is required to fulfil a minimal interface and it is not necessary to retain a reference to it by assignment.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/AnonymousInlineType.shtml">This code seems to be instantiating an interface!</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=anonymousinlinetype">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=anonymousinlinetype">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=anonymousinlinetype">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=anonymousinlinetype">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="interfaceclash" id="interfaceclash">What if two interface methods clash in implementation?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> If two interfaces have the same method signature, they effectively declare the same method, regardless of any other intentions. Any concrete class that implements both interfaces can only provide one implementation of a given method signature, so there is no ambiguity about how the Java compiler deals with this case, only a potentially difficult design decision.
+      </p>
+      <p>
+        If two interface methods have a clash over their method signatures and intended behaviour, it would preferable to rename one of the interface methods to indicate a more distinct purpose.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceclash">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceclash">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceclash">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+interface+design%20FAQ&amp;id=interfaceclash">new question</a>.</p>
+        </dd>
+      </dl>
+      <div class="MenuBox">
+  <table width="100%" summary="Code Style FAQ section classification with front-end, back-end and learning Java categories">
+    <col width="33%" />
+    <col width="33%" />
+    <col width="33%" />
+    <tbody>
+      <tr>
+        <th>
+          Front-end FAQs
+        </th>
+        <th>
+          Back-end FAQs
+        </th>
+        <th>
+          Learning Java
+        </th>
+      </tr>
+      <tr>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+              <ul>
+                <li>
+                  <a href="/css/faq-Problems.shtml" class="SectionCSS">CSS problems</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Survey.shtml" class="SectionFontSampler">Web font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-LinuxSurvey.shtml" class="SectionFontSampler">Linux font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Windows.shtml" class="SectionFontSampler">Windows fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Mac.shtml" class="SectionFontSampler">Mac fonts</a>
+                </li>
+                <li>
+                  <a href="/css/media/FAQ.shtml" class="SectionMediaMonitor">Media style sheets</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+            </li>
+            <li>
+              <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+              <ul>
+                <li>
+                  <a href="/javascript/faq-Browser.shtml" class="SectionJavascript">Javascript browser</a>
+                </li>
+                <li>
+                  <a href="/javascript/faq-HowTo.shtml" class="SectionJavascript">Javascript &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/FAQ.shtml" class="SectionJavascript">Document Object Model</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/FAQ.shtml" class="SectionJavascript">Drop-down menus</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/faq-CustomMenu.shtml" class="SectionJavascript">DOM menu customisation</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+              <ul>
+                <li>
+                  <a href="/java/servlets/faq-HowTo.shtml" class="SectionJava">Java servlet &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-JSP.shtml" class="SectionJava">Java Server Pages</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-API.shtml" class="SectionJava">Java servlet API</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Lifecycle.shtml" class="SectionJava">Servlet lifecycle</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Sessions.shtml" class="SectionJava">Servlet sessions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Threads.shtml" class="SectionJava">Servlet threads</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Exceptions.shtml" class="SectionJava">Servlet exceptions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Tags.shtml" class="SectionJava">JSP tags &amp; libraries</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+              <ul>
+                <li>
+                  <a href="/java/servers/faq-Tomcat.shtml" class="SectionJava">Apache Tomcat</a>
+                </li>
+                <li>
+                  <a href="/java/servers/faq-TomcatConfig.shtml" class="SectionJava">Tomcat configuration</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+              <ul>
+                <li>
+                  <a href="/sitemanager/design/FAQ.shtml" class="SectionSiteManager">Site design</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+              <ul>
+                <li>
+                  <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+                </li>
+                <li>
+                  <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+                </li>
+                <li>
+                  <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+                </li>
+                <li>
+                  <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+                </li>
+                <li>
+                  <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>About us:</strong> <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">site help</a>, <a href="/codestyle/advertise/FAQ.shtml" class="SectionCodeStyle">text ads</a>, <a href="/codestyle/sponsor/FAQ.shtml" class="SectionCodeStyle">sponsored links</a> and <a href="/codestyle/premium/FAQ.shtml" class="SectionCodeStyle">premium content</a> FAQs.
+  </p>
+</div>          </div>
+        <div id="Sidebar">
+      <div class="Top">
+        <div class="TopLeft"></div>
+        <div class="TopRight"></div>
+      </div>
+      <h3 class="Options">
+        <a name="sitenav" id="sitenav"><span class="NoStyle">Navigation</span>Topics &amp; tools</a>
+      </h3>
+      <ul class="Menu">
+        <li>
+          <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home page</a>
+        </li>
+        <li>
+          <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS style guide</a>
+          <ul>
+            <li>
+              <a href="/css/font-family/index.shtml" title="The most common fonts on Windows, Mac and Unix systems - accesskey 2" accesskey="2" class="SectionFontSampler">Web font sampler</a>
+            </li>
+            <li>
+              <a href="/css/media/index.shtml" title="Media dependent stylesheet test suite and conformance guides for key browsers - accesskey 3" accesskey="3" class="SectionMediaMonitor">CSS media monitor</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="/java/index.shtml" title="Configuration guides and references on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java &amp; servlets</a>
+        </li>
+        <li>
+          <a href="/javascript/index.shtml" title="Drop down menu script and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript &amp; DOM</a>
+        </li>
+        <li>
+          <a href="/html/index.shtml" title="HTML &amp; XHTML - accesskey 6" accesskey="6" class="SectionHTML">HTML &amp; XHTML</a>
+        </li>
+        <li>
+          <a href="/faq/index.shtml" title="Site help and answers to frequently asked questions - accesskey 7" accesskey="7" class="SectionFAQ">Help and FAQs</a>
+        </li>
+        <li>
+          <a href="/codestyle/log/index.shtml" title="A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Site log</a>
+        </li>
+      </ul>
+      <div class="Bottom">
+        <div class="BotLeft"></div>
+        <div class="BotRight"></div>
+      </div>
+    </div>
+    <div id="LinkShare">
+      <script type="text/javascript">
+        var addthis_pub             = 'codestyle';
+        var addthis_logo            = 'http://www.codestyle.org/images/logo-EurostileLozenge168x61.png';
+        var addthis_logo_background = 'FFFFFF';
+        var addthis_logo_color      = '003399';
+        var addthis_brand           = 'Code Style';
+        var addthis_options         = 'google,facebook,favorites,delicious,live,reddit,technorati,slashdot,newsvine,stumbleupon,fark,digg,more';
+      </script>
+      <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto();"><img src="http://s9.addthis.com/button1-addthis.gif" width="125" height="16" alt="Add this page to your chosen social bookmarking service" /></a>
+      <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+    </div>
+    <div class="AdButtonBar">
+      <script type="text/javascript">
+        Vertical1243396 = false;
+        ShowAdHereBanner1243396 = true;
+        RepeatAll1243396 = false;
+        NoFollowAll1243396 = false;
+        BannerStyles1243396 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243396/1243396.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        Vertical1243397 = false;
+        ShowAdHereBanner1243397 = true;
+        RepeatAll1243397 = true;
+        NoFollowAll1243397 = false;
+        BannerStyles1243397 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243397/1243397.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+    </div>
+            <h3 class="NoStyle">
+      <em><a href="/css/Warning.shtml">Style warning - please read</a></em>
+    </h3>
+    <div id="Footbar">
+      <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home</a> &middot;
+      <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS</a> &middot;
+      <a href="/java/index.shtml" title="How-to articles on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java</a> &middot;
+      <a href="/javascript/index.shtml" title="Javascript &amp; DOM: Code samples and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript</a> &middot;
+      <a href="/html/index.shtml" title="HTML - accesskey 6" accesskey="6" class="SectionHTML">HTML</a> &middot;
+      <a href="/faq/index.shtml" title="Help and frequently asked questions about the Code Style Web site - accesskey 7" accesskey="7" class="SectionFAQ">Help</a> &middot;
+      <a href="/codestyle/log/index.shtml" title="Site log: A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Log</a>
+    </div>    <div id="Footer">
+      Copyright &copy; 2000-2010 <a href="/codestyle/PhilipShaw.shtml">Philip Shaw</a>, all rights reserved, <a href="/codestyle/Copyright.shtml">terms and conditions apply</a>.<br />
+      <a href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0, follow this link to validate the markup for this page">Valid XHTML</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Correct CSS, follow this link to check the stylesheet for this page">correct CSS</a>. Last updated 28 January 2010 at 07:28:57 AM UTC.<br />
+      <abbr title="Uniform Resource Identifier">URI</abbr>: <a href="http://www.codestyle.org/java/faq-Interface.shtml" title="This is the full URI of the current page, follow this link to reload">http://www.codestyle.org/java/faq-Interface.shtml</a> Metadata: <a href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Interface.shtml" title="RDF Metadata">RDF</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Interface.shtml" rel="alternate" type="application/rss+xml" title="RSS news feed">RSS 1.0</a>
+    </div>  </body>
+</html>

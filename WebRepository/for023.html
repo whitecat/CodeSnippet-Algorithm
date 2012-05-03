@@ -1,0 +1,1404 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        
+        
+        
+        
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    
+    
+    <title>Java for Business  </title>
+    
+
+    <meta name="keywords" content="Java for Business,J4B,Java SE,Java SE 6,Java SE 5.0,Java SE 1.1.4" />
+    <meta name="description" content="Java for Business is a new product based on Sun's Java SE that offers customers faster access to critical fixes, a longer roadmap for support, and enterprise features designed to reduce the cost of deployment."/>
+    <meta http-equiv="content-language" content="en-US" />
+    <meta name="generator" content="Starlight" />
+    <meta name="venue" content="www.sun.com" />
+    <meta name="locale" content="en-US" />
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+
+
+
+
+
+        
+
+
+     
+            
+            
+                 <meta name="robots" content="index,follow" />
+            
+
+    <meta name="venue" content="www.sun.com" />
+    <meta name="date" content="2008-04-07" />
+    
+    
+    
+    
+    
+    
+        
+    
+    
+        <meta name="puuid" content="e3fe728b-e4b1-11dc-ac55-080020a9ed93" />
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>
+			<style>
+				.lightbox_overlay {
+					display: none;
+					position: absolute;
+					background-color: black;
+					z-index:1001;
+					-moz-opacity: 0.6;
+					opacity:.60;
+					filter: alpha(opacity=60);
+					overflow:auto;
+					top: 0px;
+					left: 0px;
+					height:expression(document.body.clientHeight < document.body.scrollHeight ? document.body.scrollHeight : document.body.clientHeight);
+					width:expression(document.body.clientWidth);}
+			</style>
+		<![endif]-->
+<!--[if IE 7]>
+		<style>
+			.lightbox_overlay {
+				display: none;
+				position: absolute;
+				background-color: black;
+				z-index:1001;
+				-moz-opacity: 0.6;
+				opacity:.60;
+				filter: alpha(opacity=60);
+				overflow:auto;
+				top: 0px;
+				left: 0px;
+				height:expression(document.body.clientHeight < document.body.scrollHeight ? document.body.scrollHeight : document.body.clientHeight);
+				width:expression(document.body.clientWidth);}
+		</style>
+<![endif]-->
+
+<link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/css/default.css" type="text/css" media="screen" />
+
+<script type="text/javascript" charset="utf-8" src="/js/libs.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/classes.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/app.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/hp.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/sniff.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/content.js"></script>
+<script type="text/javascript" language="javascript">
+	function change(){
+		document.getElementById("light").innerHTML = "<div id='load' style='margin-right:250px; margin-top:50px;'><img src='http://www.oracle.com/admin/images/sitefinder/sitefinder_loader.gif' width='32' height='32' alt='' /></div><iframe src='/sitefinder.html' frameborder='0' width='624' height='455' scrolling='no' allowtransparency='true' id='siteid' ></iframe>";
+	}
+	
+	var OracleandSun = new Array()
+	OracleandSun[0] = '/im/oracle-sun_btn.png'
+	OracleandSun[1] = '/im/oracle-sun_btn_on.png'
+	
+	function trim(value){
+		s = new String(value);
+		if (value != null) {
+			var beginIndex = -1;
+			var endIndex   = s.length;
+			for (var i = 0; i < s.length; i++){
+				if (s.charAt(i) != " "){
+					beginIndex = i;
+					break;
+				}
+			}
+		if (beginIndex == -1) return "";
+		for (var j = s.length -1; j > beginIndex; j--){
+			if (s.charAt(j) != " ") {
+				endIndex = j;
+				break;
+			}
+		}
+		if (endIndex != s.length) return s.substring(beginIndex, endIndex);
+		else return s.charAt(beginIndex);
+		}
+		return value;
+	}
+
+	// Serach validation Global value
+	// Modified isNotNull() on 25th April by Girish
+	var isUserInput = false ;
+	function isNotNull(value){
+		if (value == null || trim(value).length == 0  || value == "search site" || value =="Search OPN"){
+			alert('You did not enter a search term.  Please try again.');
+			document.searchForm.keyword.value='';
+			isUserInput = true;
+			document.searchForm.keyword.focus();
+			return false;
+		}else if (isSplCharsExist(value)){
+			if (trim(splCharsInKeyword).length > 1){
+				splCharsInKeyword = 'Special characters ' + splCharsInKeyword + ' are ';
+			}else{
+				splCharsInKeyword = 'Special character ' + splCharsInKeyword + ' is ';
+			}
+			alert (splCharsInKeyword +"not allowed.\n");
+			document.searchForm.keyword.focus();
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function checkSearch(value){
+		if (document.searchForm && document.searchForm.datasetId && typeof(langDataSetId) != 'undefined' && langDataSetId){
+			document.searchForm.datasetId.value = langDataSetId;
+		}
+		
+		if (value == null || trim(value).length == 0){
+			alert('Please enter the keyword(s) to search for');
+			return false;
+		}else{
+			if (document.searchForm) document.searchForm.submit();
+			return true;
+		}
+	}
+	
+	function checkGlobalSearch(value){
+		return checkSearch(value);
+	}
+</script>
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div class="ra0 a0v0" id="a0v0">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--stopindex-->
+<a name="top"></a>
+
+
+
+
+
+
+
+
+
+  
+  
+	<!--googleoff: index-->
+	
+		<div class="header ra1">
+	<div class="logo"> <a href="http://www.oracle.com/index.html" ><img src="/im/ora_logo_small.gif" border="0" alt="" /></a> </div>
+	<div id="oraclesunmenu">
+		<a href="javascript:void(0)" onClick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';change();return false;"><img src="/im/oracle-websites_btn.png" style="margin-right:8px;" alt="Sitefinder" width="93" height="21" border="0" /></a><a href="http://www.oracle.com/sun/index.html"><img src="/im/oracle-sun_btn.png" alt="Oracle and Sun" width="101" height="21" border="0" onMouseOver="mvqMOva();this.src=OracleandSun[1];" onMouseOut="mvqMOua();this.src=OracleandSun[0];" /></a>
+	
+			<!-- ORACLE & SUN menu -->
+			<script language="JavaScript" type="text/javascript">oracleAndsun()</script>
+			<!-- /ORACLE & SUN menu -->
+	</div>
+
+	<div class="secureSearch">
+		<form name="searchForm" label="Secure Search" onSubmit="javascript: return isNotNull(this.keyword.value)" action="http://search.oracle.com/search/search" style="padding:0px;margin:0px;" method="get" target="_top">
+		<input name="start" value="1" type="hidden" />
+		<input name="nodeid" value="" type="hidden" />
+		<input name="fid" value="" type="hidden" />
+		<input onkeydown="javascript:isUserInput=true;" onclick="javascript: if(!isUserInput) { document.searchForm.keyword.value ='';}" name="keyword" size="30" value="secure search" title="Secure Search" id="Secure Search" class="formFieldStyle" />
+		<select id="group" name="group" onkeydown="javascript:callSubmit(document.searchForm.keyword.value,searchForm,event.keyCode)" onChange="javascript: setFormValues(document.searchForm,document.searchForm.group.value)" class="formFieldStyle" size="1">
+			<option value="All">All</option>
+			<option value="Blogs">Blogs</option>
+			<option value="CRM On Demand">CRM On Demand</option>
+			<option value="Discussion Forums">Discussion Forums</option>
+			<option value="Documentation">Documentation</option>
+			<option value="Education">Education</option>
+			<option value="Oracle.com" selected="selected">Oracle.com</option>
+			<option value="Oracle PartnerNetwork (Public)">PartnerNetwork (Public Only)</option>
+			<option value="Oracle Technology Network">Technology Network</option>
+			<option value="Video and Multimedia">Video and Multimedia</option>
+		</select>
+		<a onClick="javascript: return isNotNull(document.searchForm.keyword.value)" href="javascript:document.searchForm.submit()"><img src="/im/search_go.gif" alt="Secure Search" align="absmiddle" border="0" height="18" vspace="0" width="20" /></a>
+		</form>
+	</div>
+</div>
+
+	
+	<!--googleon: index-->
+	<!--googleoff: index-->
+	
+		<div class="ra2">
+<ul id="navigation" class="menu">
+    <li><p><a href="http://www.oracle.com/index.html"><span>Home</span></a></p></li>
+    <li><p><a href="http://www.oracle.com/us/products/index.htm"><span>Products and Services</span></a></p></li>
+    <li><p><a href="http://www.oracle.com/us/industries/index.htm"><span>Industries</span></a></p></li>
+    <li><p><a href="http://www.oracle.com/us/support/index.htm"><span>Support</span></a></p></li>
+    <li><p><a href="http://www.oracle.com/us/store/index.html"><span>Store</span></a></p></li>
+    <li><p><a href="http://www.oracle.com/us/partnerships/index.htm"><span>Partners</span></a></p></li>
+    <li><p><a href="http://www.oracle.com/us/community/index.htm"><span>Communities</span></a></p></li>
+    <li><p><a href="http://www.oracle.com/us/corporate/index.htm"><span>About</span></a></p></li>
+    <li class="special"><p>&#160;</p></li>
+</ul>
+</div>
+
+<div class="scontent">
+
+	
+	<!--googleon: index-->
+	<!--googleoff: index-->
+	
+		
+
+
+
+
+
+
+<!-- BEGIN BREADCRUMB -->
+
+
+	<div id="breadcrumb">
+	<a href="/index.xml">Home</a>&nbsp;&gt;
+	
+	<a href="/products/">Products</a>&nbsp;&gt;
+	
+	<a href="/software/">Software</a>&nbsp;&gt;
+	
+	<a href="http://wwws.sun.com/software/index.jsp?cat=Java%20%26%20Technologies&tab=3">Java & Technologies</a>&nbsp;&gt;
+	
+	<a href="/software/index.jsp?cat=Java%20Technologies&tab=3&subcat=Java%20Products">Java Products</a>&nbsp;&gt;
+	</div><br />
+
+
+
+
+
+<!-- END BREADCRUMB -->
+
+
+	
+	<!--googleon: index-->
+  
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
+
+
+
+
+<!--googleoff: snippet-->
+
+
+
+
+<!-- BEGIN PAGETITLE ONE LINE -->
+<div class="pagetitle"><h1>Java for Business</h1></div>
+<!-- END PAGETITLE ONE LINE -->
+
+
+<!--googleon: snippet--> 
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+    
+     
+    
+        
+     <!-- returned from cache dated Wed Mar 17 11:46:39 PDT 2010--> 
+        
+        
+    
+         
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+ 
+
+    
+    
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+       <!-- BEGIN L0 COMPONENT V.3 -->
+       <!-- BEGIN CAMPAIGN NAME -->
+       <div class="l0v3">
+       <img src="/images/l0/l0_j4b_banner.jpg" border="0" alt="Java for Business Overview" />
+       <div class="l0overlay">
+      	
+          <p class="l0action"><span class="hotbutton"><a href="/software/javaforbusiness/getit.jsp">Get It</a></span></p>
+        
+        <p class="l0price"></p>
+		
+		
+		
+			
+			
+								
+				
+			
+		
+       </div>
+       </div>
+       <!-- END CAMPAIGN NAME -->
+       <!-- END L0 COMPONENT V.3 -->
+       
+    
+
+    
+    
+
+
+
+    
+    
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- BEGIN WRAPPER TABLE, 2 COLUMN, MAIN/RIGHT -->
+<table border="0" cellpadding="0" cellspacing="10" width="100%">
+<tr><td width="100%" valign="top">
+<!-- BEGIN CENTRAL COLUMN COMPONENTS -->
+
+<!--startindex-->
+
+<!-- ============ -->
+<!-- MAIN CONTENT -->
+<!-- ============ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+      
+    
+    
+  
+
+
+
+	
+
+
+
+
+
+
+    
+      
+      
+      
+         
+      
+      
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+			<!-- BEGIN D7 COMPONENT V.0 -->
+			<div class="d7v0">
+			<div class="skip"><a href="#content-of-tab"><img src="/im/a.gif" width="0" height="0" border="0" alt="Skip over tab links" /></a></div>
+			<table border="0" cellpadding="0" cellspacing="0"> 
+			<tr valign="bottom">
+
+			
+				
+				 
+					<td nowrap="nowrap" class="suntabactive"><div><img src="/im/a.gif" width="0" height="0" border="0" alt="Active Tab " />
+          
+            
+            
+          
+          
+          Overview
+        </div></td>
+				 
+				 
+				
+			
+				
+				 
+				 
+					<td nowrap="nowrap" class="suntab"><div><a href="/software/javaforbusiness/features.jsp">
+          
+          
+          Features
+        </a></div></td>
+				 
+				
+			
+				
+				 
+				 
+					<td nowrap="nowrap" class="suntab"><div><a href="/software/javaforbusiness/specs.jsp">
+          
+          
+          Tech Specs
+        </a></div></td>
+				 
+				
+			
+				
+				 
+				 
+					<td nowrap="nowrap" class="suntab"><div><a href="/software/javaforbusiness/perspectives.jsp">
+          
+          
+          Perspectives
+        </a></div></td>
+				 
+				
+			
+				
+				 
+				 
+					<td nowrap="nowrap" class="suntab"><div><a href="/software/javaforbusiness/support.jsp">
+          
+          
+          Support
+        </a></div></td>
+				 
+				
+			
+				
+				 
+				 
+					<td nowrap="nowrap" class="suntab"><div><a href="/software/javaforbusiness/getit.jsp">
+          
+          
+          Get It
+        </a></div></td>
+				 
+				
+			
+
+			</tr>
+			</table>
+			</div>
+			<!-- END D7 COMPONENT V.0 -->	
+
+
+			
+			
+			
+			<!-- BEGIN D7 COMPONENT V.1 -->
+			<div class="d7v1">
+			<div class="suntabbg">
+			<div class="suntabsubrow">
+			<img src="/im/a.gif" width="0" height="0" border="0" alt="Begin Product Tab Sub Links" />
+			
+				
+				
+				 
+				 					
+						<span><img src="/im/a.gif" width="0" height="0" border="0" alt="Active Sub Link " /><b>At a Glance</b></span>
+					
+				 
+				 
+				
+				
+			
+				
+				
+				 
+				 
+				 		
+				 		<span><a href="/software/javaforbusiness/companion_products.jsp">Companion Products</a></span>
+					
+				 
+				
+				
+			
+				
+				
+				 
+				 
+				 		
+				 		<span><a href="/software/javaforbusiness/faq.jsp">FAQ</a></span>
+					
+				 
+				
+				
+			
+				
+				
+				 
+				 
+				 					 
+				 		<span class="lastitem"><a href="/software/javaforbusiness/solution_providers.jsp">Licensed Solution Providers</a></span>
+					
+				 
+				
+				
+			
+			</div>
+			</div>
+			</div>
+			<!-- END D7 COMPONENT V.1 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- BEGIN D7 COMPONENT V.9 -->
+<div class="d7"><div class="d7v9">
+<div class="cornerBL"><div class="cornerBR">
+<a name="content-of-tab"></a>
+<!-- END D7 COMPONENT V.9 -->
+
+<!-- BEGIN G14 COMPONENT V.7 -->
+<p class="intro">Java for Business gives customers immediate access to critical fixes, a longer roadmap for support, and enterprise features that greatly reduce the cost of deployment.</p>
+<!-- END G14 COMPONENT V.7 -->
+
+
+<!-- BEGIN GREYLINE -->
+<hr class="light" />
+<!-- END GREYLINE -->
+
+
+
+
+<!-- BEGIN G18 COMPONENT V.0 -->
+<div class="g18"><div class="g18v0">
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr valign="top">
+<td width="50%" class="col1">
+<!-- END G18 COMPONENT V.0 -->
+
+<!-- BEGIN PC00 COMPONENT V.0 -->
+<!-- BEGIN PC0 COMPONENT V.0 -->
+<div class="pc0"><div class="pc0v0">
+<h3>The Java For Business Advantage</h3>
+</div></div>
+<!-- END PC0 COMPONENT V.0 -->
+
+<!-- BEGIN PC00 COMPONENT V.9 -->
+<div class="pc0" style="background: transparent url(/images/pc3/pc3_java_for_biz_support.jpg) no-repeat scroll left top; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<div class="pc0v9">
+<h5><a href="/software/javaforbusiness/support.jsp">Up to 15 Years of Support</a></h5>
+<p>Run your Java applications 2x longer with up to 15 years of support per release family.</p>
+</div>
+</div>
+<!-- END PC00 COMPONENT V.9 -->
+
+<!-- BEGIN PC00 COMPONENT V.9 -->
+<div class="pc0" style="background: transparent url(/images/pc3/pc3_java_for_biz_fast.jpg) no-repeat scroll left top; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<div class="pc0v9">
+<h5><a href="/software/javaforbusiness/features.jsp">Faster access to critical fixes</a></h5>
+<p>Receive a fix in weeks rather than months.</p>
+</div>
+</div>
+<!-- END PC00 COMPONENT V.9 -->
+
+<!-- BEGIN PC00 COMPONENT V.9 -->
+<div class="pc0" style="background: transparent url(/images/pc3/pc3_java_for_biz_custom.jpg) no-repeat scroll left top; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+<div class="pc0v9">
+<h5><a href="/software/javaforbusiness/features.jsp">Mission-critical support with custom revisions</a></h5>
+<p>Get the fix you need on the version and update you need it on when you need it.</p>
+</div>
+</div>
+<!-- END PC00 COMPONENT V.9 -->
+
+<ul class="bluearrows">
+<li><a href="/software/javaforbusiness/features.jsp" title="See All Features">See More</a></li> 
+</ul>
+
+
+
+
+<!-- BEGIN G18 COMPONENT V.2 -->
+</td><td class="col2">
+<!-- END G18 COMPONENT V.2 -->
+
+<!-- BEGIN K2 COMPONENT V.0 -->
+<div class="k2 k2v4 altv4" id="EOL">
+<div class="k2v4x1"></div>
+<div class="k2v4w1">
+
+<p>
+On October 30, J2SE 5.0 will reach the end of its service life (EOL).  This means that updates  and security fixes will no longer be available on a regular basis via the Java websites.  However, you can preserve and extend your Java investment with fast access to critical fixes and a much longer support roadmap (out to 2015 and beyond) by subscribing to Java for Business (JFB).</p>
+
+<p>The JFB program offers ongoing access to the regular security releases Sun creates. JFB also enables you to engage with Sun's Java experts to help resolve any problems that may arise.  The Sun Java experts continue to expand support for new Operating Systems and browsers over time so that you can continue to use your J2SE 5.0 applications even as your underlying environment evolves.  JFB also offers enterprise-level services, tools, tips and access to our world-renowned Java experts.</p>
+
+<p>Take your Java performance to the max. Increase the return on the investment you made in your J2SE 5.0 application by keeping it safe, current with the latest platforms like Windows 7 and IE 8, and able to file bugs and receive fixes for up to 15 years.</p>
+
+<p>We know that building a serious business around Java requires confidence, expertise, and sometimes a little help.   For more information, visit us at: <a href="/software/javaforbusiness/">http://www.sun.com/software/javaforbusiness/</a>  or <a href="https://dct.sun.com/dct/forms/reg_xj_1604_759_0.jsp" class="popup 500x600 centerpop">contact us</a>.
+</p>
+
+</div>
+<div class="k2v4x2"></div>
+</div>
+<!-- END K2 COMPONENT V.0 -->
+
+
+<!-- BEGIN PC00 COMPONENT V.6 -->
+<div class="pc0"><div class="pc0v0">
+
+<h3>Recent Updates</h3>
+</div></div>
+
+<div class="pc0"><div class="pc0v6">
+
+<div class="bluearrows">
+<h6 class="k2over EOL vTop hLeft x100 y-28">J2SE 5.0 has EOL'd</h6>
+<p>To ensure uninterrupted and immediate access to critical fixes, a license for Java for Business is highly recommended.</p>
+</div>
+</div></div>
+
+<div class="pc0"><div class="pc0v6">
+<div class="bluearrows">
+<h6><a href="/software/javaforbusiness/faq.jsp#c1q41">Updated support for Solaris customers</a></h6>
+<p>Solaris customers seeking support for their Java applications and access to binaries not included with their version of Solaris must sign up separately for Java for Business support.</p>
+</div>
+</div></div>
+
+<div class="pc0"><div class="pc0v6">
+ 
+
+
+</div></div>
+<!-- END PC00 COMPONENT V.6 -->
+
+<!-- BEGIN GREYLINE -->
+<div class="hr"><hr /></div>
+<!-- END GREYLINE -->
+ 
+<!-- BEGIN PC00 COMPONENT V.0 -->
+<div class="pc0"><div class="pc0v0">
+<h3>Get it</h3>
+<ul>
+<li><a href="/software/javaforbusiness/getit.jsp" title="Which Option is Right for You?">Learn more about which option is be right for you</a></li>
+<li>Talk to a sales representative<br />
+1-888-516-9362 (US &amp; Canada)
+<br />
+1-650-960-1300 (International)
+<br />
+<a href="/sales/wwsales.jsp" title="Find a Local Sales Office">Find a Local Sales Office</a></li>
+</ul>
+<ul class="bluearrows">
+<li><a href="/software/javaforbusiness/getit_download.jsp" title="Download Java for Business">Download Java for Business</a></li>
+</ul>
+
+</div></div>
+<!-- END PC00 COMPONENT V.0 -->
+
+<!-- BEGIN G18 COMPONENT V.3 -->
+</td></tr></table>
+</div></div>
+<!-- END G18 COMPONENT V.3 -->
+
+
+<!-- BEGIN D7 COMPONENT V.5 -->
+</div></div></div></div>
+<!-- END D7 COMPONENT V.5 -->
+
+<!-- BEGIN L2 SECONDARY CONTENT BANNER COMPONENT -->
+
+<!-- END L2 SECONDARY CONTENT BANNER COMPONENT -->
+
+ <!-- =================== -->
+<!-- END OF MAIN CONTENT -->
+<!-- =================== -->
+
+<!--stopindex-->
+
+<!-- END CENTRAL COLUMN COMPONENTS -->
+</td><td valign="top">
+<!-- BEGIN RIGHT COLUMN COMPONENTS -->
+<!--googleoff: index-->
+
+
+
+
+
+
+
+
+
+
+
+    <!-- BEGIN E4 COMPONENT V.3 -->
+<div class="e4 e4v3">
+<div class="e4w1">
+<h6 class="e4x1"><span>Talk to Sun Now</span></h6>
+</div>
+
+<div class="e4w2">
+<img src="/images/e4/e4_callcenter_b.jpg"  alt=" " border="0">   
+<ul>
+<li class="e4-chat"><a href="https://ssl1.taggingserver.netmining.com/script/sun/chat/" class="popup 350x450 centerpop">Chat Now</a></li>
+<li class="e4-phone"><a href="https://ssl1.taggingserver.netmining.com/script/sun/call/" class="popup 350x450 centerpop">Call Me Now</a></li>
+<li class="e4-contact"><a href="https://dct.sun.com/dct/forms/reg_xj_1604_759_0.jsp" class="popup 500x600 centerpop">Email Me</a></li>
+<li class="e4-phone"><a href="/beforeyoubuy/" class="popup 350x450 centerpop">Call Sun Toll Free</a></li>
+</ul>
+      
+</div>
+</div>
+<!-- END E4 COMPONENT V.3 -->
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+
+    
+        
+        
+        
+        
+
+
+
+
+<!-- BEGIN E10 COMPONENT V.0 -->
+<div class="e10 e10v0">
+<div class="e10w1"><div class="e10w2">
+<ul class="icons">
+
+    
+        
+        
+        
+            <li class="printicon">
+            <a href="/software/javaforbusiness/index.jsp?printFriendly=true" class="popup yes_110000">
+            
+                  
+                  Print-friendly Page
+                </a></li>
+        
+        
+    
+
+</ul>
+</div></div>
+</div>
+<!-- END E10 COMPONENT V.0 -->
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+      
+<!-- BEGIN E9 COMPONENT V.0 -->
+	
+        
+            
+            
+            
+                        <script type="text/javascript">showSMILEElement('E9','122');</script>
+                    
+        
+		
+		
+		<!-- END E9 COMPONENT V.0 -->
+		
+		
+		
+		
+	
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <!-- BEGIN E8 COMPONENT V.0 -->
+    
+        
+        
+        
+	
+
+<script language='JavaScript' type='text/javascript'>
+<!--
+   if (!document.phpAds_used) document.phpAds_used = ',';
+   phpAds_random = new String (Math.random()); phpAds_random = phpAds_random.substring(2,11);
+   
+   document.write ("<" + "script language='JavaScript' type='text/javascript' src='");
+   document.write ("http://ads.sun.com/ads/adjs.php?n=" + phpAds_random);
+   document.write ("&what=zone:121&block=1&blockcampaign=1");
+   document.write ("&exclude=" + document.phpAds_used);
+   if (document.referer)
+      document.write ("&referer=" + escape(document.referer));
+   document.write ("'><" + "/script>");
+//-->
+</script><noscript><a href='http://ads.sun.com/ads/adclick.php?n=ab5b9a49' target='_blank'><img src='http://ads.sun.com/ads/adview.php?what=zone:121&n=ab5b9a49' border='0' alt=''></a></noscript>
+
+
+
+        
+	<!-- END E8 COMPONENT V.0 -->
+        
+    
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- BEGIN E12 COMPONENT V.0 -->
+<!-- BEGIN CAMPAIGN NAME -->
+<div class="e12v0">
+	<a href="/solutions/midsize/index.jsp">
+		<img src="/images/e12/e12_smb.jpg"
+			
+			
+			 width="170"
+			
+			
+			
+			 height="70"
+			
+	border="0" alt="Give your business a boost"></a>
+</div>
+<!-- END CAMPAIGN NAME -->
+<!-- END E12 COMPONENT V.0 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+<!--googleon: index-->
+<!-- END RIGHT COLUMN COMPONENTS -->
+</td></tr>
+<!-- BEGIN SPACER ROW -->
+<tr><td><img src="/im/a.gif" width="570" height="1" border="0" alt="" /></td>
+<td><img src="/im/a.gif" width="170" height="1" border="0" alt="" /></td></tr>
+<!-- END SPACER ROW -->
+</table>
+<!-- END WRAPPER TABLE, 2 COLUMN, MAIN/RIGHT -->
+
+  
+
+	
+  
+
+
+    
+    
+        
+		<!-- BEGIN PC1 COMPONENT V.2 -->
+<div class="pc1 pc1v2" style="margin:0 10px">
+<div class="pc1w1"><div class="pc1w2"><div class="pc1w3 cornerBL"><div class="pc1w4">
+<p>Oracle is reviewing the Sun product roadmap and will provide guidance to customers in accordance with Oracle's standard product communication policies. Any resulting features and timing of release of such features as determined by Oracle's review of roadmaps, are at the sole discretion of Oracle. All product roadmap information, whether communicated by Sun Microsystems or by Oracle, does not represent a commitment to deliver any material, code, or functionality, and should not be relied upon in making purchasing decisions. It is intended for information purposes only, and may not be incorporated into any contract.</p>
+</div></div></div></div>
+</div>
+<!-- END PC1 COMPONENT V.2 -->
+
+<br /><br />
+
+<!-- BEGIN G9 VARIATION 0 -->
+<script language="javascript" type="text/javascript" charset="UTF-8" src="/share/op/oo_engine.js"></script>
+<script language="javascript" type="text/javascript" charset="UTF-8" src="/share/op/oo_conf_en-US.js"></script>
+<!-- END G9 VARIATION 0 -->
+
+
+	
+    
+	<!--googleoff: index-->
+	
+        
+		<!-- START SITECATALYST -->
+<!--stopindex-->
+<script language="JavaScript" src="/share/omniture/s_code_remote.js"></script>
+<!--startindex-->
+<!-- END SITECATALYST -->
+</div>
+<div class="ra5">
+	<div class="greybarhomebot"><!--footer--></div>
+	<div style="float:left; padding:10px;"> <a href="http://www.oracle.com/us/corporate/index.htm"><img height="11" border="0" width="234" alt="Oracle - The Information Company" src="/im/software_hardware_complete.gif" /></a> </div>
+	<div class="footerLinks">
+	 <a href="http://www.oracle.com/us/corporate/index.htm" class="footerLinks">About Oracle</a> |
+	 <a href="http://www.oracle.com/sun/index.html" class="footerLinks">Oracle and Sun</a> |
+	 <a href="http://www.oracle.com/rss/index.html"> <img height="14" border="0" align="absmiddle" width="14" style="margin-bottom: 1px;" alt="Oracle RSS Feeds" src="/im/feed-icon-14x14.png" /></a> |
+	 <a href="http://www.oracle.com/subscribe/index.html" class="footerLinks">Subscribe</a> |
+	 <a href="http://www.oracle.com/corporate/employment/index.html" class="footerLinks">Careers</a> |
+	 <a href="http://www.oracle.com/corporate/contact/index.html" class="footerLinks">Contact Us</a><span class="br"> | </span><a href="http://www.oracle.com/sitemaps/sitemaps.html" class="footerLinks">Site Maps</a> |
+	 <a href="http://www.oracle.com/html/copyright.html" class="footerLinks">Legal Notices</a> |
+	 <a href="http://www.oracle.com/html/terms.html" class="footerLinks">Terms of Use</a> |
+	 <a href="http://www.oracle.com/html/privacy.html" class="footerLinks">Your Privacy Rights</a>
+	</div>
+</div>
+
+	
+	<!--googleon: index-->
+
+  
+
+ 
+
+
+
+
+
+</div>
+
+
+
+<!-- Lightbox Divs -->
+<div style="display: none; margin-right:105px; margin-top:10px; width:624px;" id="light" class="sitefinder_content" align="right"><!--spacer--></div>
+<div style="display: none;" id="fade" class="lightbox_overlay"><!--spacer-->&#160;</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="keywords" content="Java, java tutorial, instance variable, class variable">
+<link rel="stylesheet" type="text/css" href="../lang.css">
+<title>The â??staticâ?? Keyword In Java</title>
+</head>
+<body>
+
+<div class="donate253586027">If you enjoyed this site, please consider donating $3. Any amount is appreciated. <a href="http://xahlee.org/thanks.html">Thanks!</a><form action="https://www.paypal.com/cgi-bin/webscr" method="post"><div><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8127788"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit"><img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"></div></form></div>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<h1>The â??staticâ?? Keyword In Java</h1>
+
+<p>Xah Lee, 2005-02, 2006-11</p>
+
+<h2>Instance Variables vs Class Variables</h2>
+
+<p>Variables can be declared with the â??staticâ?? keyword. Example:</p>
+
+<pre class="java">
+<span class="keyword">static</span> <span class="type">int</span> <span class="variable-name">y</span>=0;
+</pre>
+
+<p>When a variable is declared with the static keyword, its called a â??class variableâ??. All instances share the same copy of the variable. A class variable can be accessed directly with the class, without the need to creat a instance.</p>
+
+<p>Without the â??staticâ?? keyword, it's called â??instance variableâ??, and each instance of the class has its own copy of the variable.</p>
+
+<p>In the following code, the class t2 has two variables x and y. The y
+is declared with the static keyword. In the main class t1, we try to
+manipulate the variables x and y in t2, showing the differences of
+instance variable and class variable.
+</p>
+
+<pre class="java">
+<span class="keyword">class</span> <span class="variable-name">t2</span> {
+    <span class="type">int</span> <span class="variable-name">x</span> = 0; <span class="comment-delimiter">// </span><span class="comment">instance variable
+</span>    <span class="keyword">static</span> <span class="type">int</span> <span class="variable-name">y</span>=0; <span class="comment-delimiter">// </span><span class="comment">class variable
+</span>
+    <span class="type">void</span> <span class="function-name">setX</span> (<span class="type">int</span> <span class="variable-name">n</span>) { x = n;}
+    <span class="type">void</span> <span class="function-name">setY</span> (<span class="type">int</span> <span class="variable-name">n</span>) { y = n;}
+
+    <span class="type">int</span> <span class="function-name">getX</span> () { <span class="keyword">return</span> x;}
+    <span class="type">int</span> <span class="function-name">getY</span> () { <span class="keyword">return</span> y;}
+}
+
+<span class="keyword">class</span> <span class="variable-name">t1</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="function-name">main</span>(<span class="type">String</span>[] arg) {
+        t2 x1 = <span class="keyword">new</span> <span class="type">t2</span>();
+        t2 x2 = <span class="keyword">new</span> <span class="type">t2</span>();
+
+        x1.setX(9);
+        x2.setX(10);
+
+        <span class="comment-delimiter">// </span><span class="comment">each x1 and x2 has separate copies of x
+</span>        <span class="type">System</span>.out.println( x1.getX() );
+        <span class="type">System</span>.out.println( x2.getX() );
+
+        <span class="comment-delimiter">// </span><span class="comment">class variable can be used directly without a instance of it.
+</span>        <span class="comment-delimiter">//</span><span class="comment">(if changed to t2.x, it won't compile)
+</span>        <span class="type">System</span>.out.println( t2.y );
+        t2.y = 7;
+        <span class="type">System</span>.out.println( t2.y );
+
+        <span class="comment-delimiter">// </span><span class="comment">class variable can be manipulated thru methods as usual
+</span>        x1.setY(t2.y+1);
+        <span class="type">System</span>.out.println( x1.getY() );
+    }
+}
+</pre>
+
+<h2>Instance Method vs Class Methods</h2>
+
+<p>Methods can also be declared with the static keyword.
+
+When a method is declared static, it can be called/used
+without having to create a object first.
+For example, you can define a collection
+of math functions in a class, all static, using them like functions. Example:
+</p>
+
+<pre class="java">
+<span class="comment-delimiter">// </span><span class="comment">A class with a static method
+</span><span class="keyword">class</span> <span class="variable-name">t2</span> { <span class="keyword">static</span> <span class="type">int</span> <span class="function-name">triple</span> (<span class="type">int</span> <span class="variable-name">n</span>) {<span class="keyword">return</span> 3*n;}}
+
+<span class="keyword">class</span> <span class="variable-name">t1</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="function-name">main</span>(<span class="type">String</span>[] arg) {
+
+        <span class="comment-delimiter">// </span><span class="comment">calling static methods without creating a instance
+</span>        <span class="type">System</span>.out.println( t2.triple(4) );
+
+        <span class="comment-delimiter">// </span><span class="comment">calling static methods thru a instance is also allowed
+</span>        t2 x1 = <span class="keyword">new</span> <span class="type">t2</span>();
+        <span class="type">System</span>.out.println( x1.triple(5) );
+    }
+}
+</pre>
+
+<p>Methods declared with â??staticâ?? keyword are called â??class methodsâ??. Otherwise they are â??instance methodsâ??.</p>
+
+<hr>
+
+<p>Methods declared with static cannot access variables declared without static. The following gives a compilation error, unless x is also static.
+</p>
+
+<pre class="java">
+<span class="keyword">class</span> <span class="variable-name">t2</span> {
+    <span class="type">int</span> <span class="variable-name">x</span> = 3;
+    <span class="keyword">static</span> <span class="type">int</span> <span class="function-name">returnIt</span> () { <span class="keyword">return</span> x;}
+}
+
+<span class="keyword">class</span> <span class="variable-name">t1</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="function-name">main</span>(<span class="type">String</span>[] arg) {
+        <span class="type">System</span>.out.println( t2.returnIt() );
+    }
+}
+</pre>
+
+<p>Note: There's no such thing as static classses. â??staticâ?? in front of class creates compilation error. However, there's a similar idea called abstract classes, with the keyword â??abstractâ??. Abstract classes cannot be initialized.
+See: <a href="abstract_class.html">The â??abstractâ?? Keyword In Java</a>.
+</p>
+
+<p><span class="ref"><a href="http://java.sun.com/docs/books/tutorial/java/javaOO/classvars.html">Java Tutorial: classvars</a></span></p>
+<p><span class="ref"><a href="http://java.sun.com/docs/books/jls/third_edition/html/classes.html#8.3.1">Java Lang Spec: classes</a></span></p>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<div class="dstp">2005-02</div>
+<div class="cpr">Â© 2005 by <a href="http://xahlee.org/PageTwo_dir/more.html">Xah Lee</a>.</div>
+
+<div class="xsig"></div>
+
+<script type="text/javascript"> var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); </script> <script type="text/javascript"> try { var pageTracker = _gat._getTracker("UA-10884311-2"); pageTracker._trackPageview(); } catch(err) {}</script>
+</body>
+</html>

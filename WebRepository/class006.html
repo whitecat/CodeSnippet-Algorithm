@@ -1,0 +1,927 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>IBM Cloudscape: Understanding Java class path</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="IBM Cloudscape is a small-footprint Java database that doesn't require any installation or administration. However, since Cloudscape is implemented entirely in Java, understanding the Java class path is the key to a trouble free installation. This article explains what Java class path is, how to set it for different versions of Cloudscape, and how to troubleshoot any problems that might occur."/>
+<meta name="Description" content="IBM Cloudscape is a small-footprint Java database that doesn't require any installation or administration. However, since Cloudscape is implemented entirely in Java, understanding the Java class path is the key to a trouble free installation. This article explains what Java class path is, how to set it for different versions of Cloudscape, and how to troubleshoot any problems that might occur."/>
+<meta name="Keywords" content="Derby, Cloudscape, CLASSPATH, Java class path, class path, Cloudscape class path, Jean Anderson, Susan Cline, Java, ddddmca, tttosca"/>
+<meta name="DC.Date" scheme="iso8601" content="2004-09-15"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="BA.007H"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCIMTZZ" />  
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2004"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2004-09-15"/>
+<meta name="title" content="IBM Cloudscape: Understanding Java class path"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/data/">Information Management</a></li><li><a href="http://www.ibm.com/developerworks/views/data/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>IBM Cloudscape: Understanding Java class path</h1><p/>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Jean Anderson</a> (<a href="mailto:jander@us.ibm.com?subject=IBM Cloudscape: Understanding Java class path&amp;cc=clines@us.ibm.com">jander@us.ibm.com</a>), Cloudscape Community Architect, IBM</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print">Jean Anderson and Susan Cline work together to develop technical content for Cloudscape developers and users.</div><div class="author"><a class="dwauthor" rel="#authortip2" href="#author2">Susan Cline</a> (<a href="mailto:clines@us.ibm.com?subject=IBM Cloudscape: Understanding Java class path&amp;cc=jander@us.ibm.com">clines@us.ibm.com</a>), Cloudscape Community Developer, IBM</div><div id="authortip2" class="dwauthor-onload-state ibm-no-print">Susan Cline works in Cloudscape to develop technical content for Cloudscape developers and users.</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; IBM&#174; Cloudscape&#8482; is the commercial version of Derby, which is a small-footprint Java&#8482; database that doesn't require any installation or administration. However, since it is implemented entirely in Java, understanding the Java class path is the key to a trouble free -- and not a troublesome! -- installation. This article explains what Java class path is, how to set it for different versions of Cloudscape and Derby, and how to troubleshoot any problems that might occur.</p>
+
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 15 Sep  2004
+<br /><b>Level: </b>&nbsp;Introductory
+
+<br /><b>Activity:</b>&nbsp; 5600 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p><a name="N10061"><span class="atitle">IBM Cloudscape &amp; Derby</span></a></p>
+
+<p>
+IBM contributed a copy of IBM Cloudscape 10.0 to the Apache Software
+Foundation in August 2004, 
+which the ASF accepted into the incubator as
+<a href="http://incubator.apache.org/derby">Derby</a>.
+Moving forward, Derby is the base relational database management system (RDBMS) engine,
+and IBM Cloudscape is the commercial product 
+that distributes Derby with additional
+features for developers, such as the sample databases, examples, and
+scripts mentioned in this technical article.
+</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N1006E"><span class="atitle">Java class path</span></a></p>
+
+<p>
+The Java class path tells the 
+<code>java</code> interpreter
+and the <code>javac</code> compiler
+where to find the classes they need to execute or import.
+Classes 
+(those <code>*.class</code> files you might have noticed) 
+can be stored in directories or in jar files, 
+or in a combination of both,
+but the Java compiler or interpreter won't be able to find them unless 
+they are somewhere in your class path.
+</p>
+
+
+<p>
+Multiple entries in the class path are separated by 
+a semicolon on Windows&#174; (<b>;</b>) and by a colon on UNIX&#174; (<b>:</b>).
+In the example below, the class path includes two Derby jar files
+(<code>derby.jar</code> and <code>derbytools.jar</code>),
+and a directory location 
+(<code>myDevDir</code>) that stores
+<code>*.class</code> files:
+</p>
+<p>
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+Windows class path:
+C:\Derby\lib\derby.jar;C:\Derby\lib\derbytools.jar;C:\myPath\myDevDir
+
+UNIX class path:
+/Derby/lib/derby.jar:/Derby/lib/derbytools.jar:/myPath/myDevDir
+</pre></td></tr></table><br />
+</p>
+<p>
+The rest of the examples in this technical article use Windows syntax.
+So, if you are on a UNIX machine, please adjust the syntax accordingly.
+</p>
+
+
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N100AC"><span class="atitle">Derby class path</span></a></p>
+
+<p>
+The Derby class path lets you store jar files in the database itself.
+</p>
+
+<p>
+In Derby,
+the <code>sqlj.install_jar()</code> procedure
+installs a jar file into the database and the
+<code>SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY</code> procedure
+sets the
+<code>derby.database.classpath</code> property.
+Derby first looks in your Java class path for a class, 
+then it looks in the database class path.
+</p>
+
+<p>
+We mention Derby class path to make you aware of the capability,
+but the rest of this article focuses on the Java class path.
+</p>
+
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N100C7"><span class="atitle">Setting Java class path</span></a></p>
+
+
+<p>
+There are three ways to set the Java class path:
+</p>
+
+<ul>
+  <li> Permanently by setting the <code>CLASSPATH</code> 
+       environment variable at the system level.
+  </li>
+  <li> Temporarily by setting the <code>CLASSPATH</code> 
+       environment variable in a command window or shell.
+  </li>
+  <li> At runtime by specifying the class path each time you start your 
+       Java application and the JVM.
+  </li>
+</ul>
+
+<p>
+Examples for setting class path each way are in the sections below
+and assume you have installed the IBM Cloudscape 10.0 distribution and set
+the <code>CLOUDSCAPE_INSTALL</code> environment variable
+to the root location for that installation; for example:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;set CLOUDSCAPE_INSTALL=C:\Derby</pre></td></tr></table><br />
+
+<p>
+If you have installed just the base Derby software,
+not the IBM Cloudscape 10.0 distribution,
+this technical article will still have good tips for you, 
+but you won't have the sample programs that are referenced.
+For readability in this technical article, 
+commands are often broken across several lines.
+Also, remember that
+the Java class path is composed of one or more entries,
+separated by a semicolon on Windows (<b>;</b>) 
+and by a colon on UNIX (<b>:</b>).
+The examples show Windows syntax, which you must adjust for UNIX.
+</p>
+
+
+<p><a name="N100F8"><span class="smalltitle">Setting class path permanently</span></a></p>
+
+<p>
+<a href="#fig1">Figure 1</a> sets the Windows environment variable permanently, 
+using the Control Panel's System Settings to add a new variable called 
+<code>CLASSPATH.</code>
+</p>
+
+
+   <br /><a name="fig1"><b>Figure 1. Setting the CLASSPATH environment variable permanently in Windows via System Settings</b></a><br />
+   <img alt="Windows CLASSPATH environment variable" height="150" src="classpath_win_env.gif" width="350"/>
+<br />
+
+<p>
+A UNIX user can set the class path permanently by adding the
+<code>CLASSPATH</code> variable to his or her
+<code>.profile</code> or
+<code>.cshrc</code> file.
+</p>
+
+<p><a name="N10129"><span class="smalltitle">Setting class path temporarily</span></a></p>
+
+<p>
+The <code>SimpleApp</code> client class is included in
+the IBM Cloudscape 10.0 software distribution in
+<code>%CLOUDSCAPE_INSTALL%\demo\programs\simple</code>.
+The <code>%CLOUDSCAPE%\lib\derby.jar</code> 
+file is required to run this class in embedded mode. 
+Listing 1 shows how to temporarily set
+<code>CLASSPATH</code> 
+in a Windows command window to include
+<code>derby.jar</code> and the current working directory
+before running 
+<code>SimpleApp</code>.
+</p>
+
+<br /><a name="listing1"><b>Listing 1. Set Java CLASSPATH temporarily</b></a><br />
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;set CLASSPATH=%CLOUDSCAPE_INSTALL%\lib\derby.jar;.
+C:\&gt;cd %CLOUDSCAPE_INSTALL%\demo\programs\simple
+C:\Derby\demo\programs\simple&gt;java SimpleApp
+SimpleApp starting in embedded mode.
+Loaded the appropriate driver.
+Connected to and created database derbyDB
+Created table derbyDB
+Inserted 1956 Webster
+Inserted 1910 Union
+Updated 1956 Webster to 180 Grand
+Updated 180 Grand to 300 Lakeshore
+Verified the rows
+Dropped table derbyDB
+Closed result set and statement
+Committed transaction and closed connection
+Database shut down normally
+SimpleApp finished </pre></td></tr></table><br />
+
+<p>
+If you set the class path temporarily, 
+each time you open a new command window you need to set it again.  
+</p>
+
+<p><a name="N10157"><span class="smalltitle">Setting class path at runtime</span></a></p>
+
+<p>
+<a href="#listing2">Listing 2</a> shows how to use the <code>-cp </code> option
+to specify the class path at runtime, 
+which is when the application is launched and the JVM is started.
+</p>
+
+<br /><a name="listing2"><b>Listing 2. Set Java class path at runtime with the -cp option</b></a><br />
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\Derby\demo\programs\simple&gt;java -cp 
+         %CLOUDSCAPE_INSTALL%\lib\derby.jar; SimpleApp
+SimpleApp starting in embedded mode.
+Loaded the appropriate driver.
+Connected to and created database derbyDB
+Created table derbyDB
+Inserted 1956 Webster
+Inserted 1910 Union
+Updated 1956 Webster to 180 Grand
+Updated 180 Grand to 300 Lakeshore
+Verified the rows
+Dropped table derbyDB
+Closed result set and statement
+Committed transaction and closed connection
+Database shut down normally
+SimpleApp finished </pre></td></tr></table><br />
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10172"><span class="atitle">An 'ij' example</span></a></p>
+
+<p>
+Now let's look at a complete example that shows how to set your class path to
+run <code>ij</code>, the Derby SQL scripting tool.
+<a href="#listing3">Listing 3</a> sets the
+<code>CLASSPATH</code> environment variable
+to the bare minimum required by Derby to run
+<code>ij</code>.
+</p>
+
+<br /><a name="listing3"><b>Listing 3. Set Java CLASSPATH</b></a><br />
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;set CLOUDSCAPE_INSTALL=C:\Derby
+C:\&gt;set CLASSPATH=%CLOUDSCAPE_INSTALL%\lib\derby.jar;
+     %CLOUDSCAPE_INSTALL%\lib\derbytools.jar
+C:\&gt;echo %CLASSPATH%
+C:\Derby\lib\derby.jar;C:\Derby\lib\derbytools.jar</pre></td></tr></table><br />
+
+<p>
+If <code>CLASSPATH</code> is set correctly and the software 
+really is installed in
+<code>C:\Derby</code>,
+the command shown in <a href="#listing4">Listing 4</a> reports useful version information:
+</p>
+
+<br /><a name="listing4"><b>Listing 4. Output Derby version information</b></a><br />
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;java org.apache.derby.tools.sysinfo
+------------------ Java Information ------------------
+Java Version:    1.4.2_05
+Java Vendor:     Sun Microsystems Inc.
+Java home:       C:\Program Files\Java\j2re1.4.2_05
+Java classpath:  C:\Derby\lib\derby.jar;C:\Derby\lib\derbytools.jar
+OS name:         Windows XP
+OS architecture: x86
+OS version:      5.1
+Java user name:  jander
+Java user home:  C:\Documents and Settings\Administrator
+Java user dir:   C:\
+--------- Derby Information --------
+[C:\Derby\lib\derby.jar] 10.0.2.0 - (30301)
+[C:\Derby\lib\derbytools.jar] 10.0.2.0 - (30301)
+------------------------------------------------------
+----------------- Locale Information -----------------
+------------------------------------------------------</pre></td></tr></table><br />
+
+
+<p>
+And with the Java class path set correctly, 
+we should be able to successfully start
+<code>ij</code>, as shown below:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;java org.apache.derby.tools.ij
+ij version 10.0 (C) Copyright IBM Corp. 1997, 2004.
+ij&gt; </pre></td></tr></table><br />
+
+<p>
+However, if the class path is set incorrectly, 
+the command that should output version information instead
+outputs a frustrating 
+<code>NoClassDefFoundError</code>
+error:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;java org.apache.derby.tools.sysinfo
+Exception in thread "main" java.lang.NoClassDefFoundError: 
+               org/apache/derby/tools/sysinfo</pre></td></tr></table><br />
+
+<p>
+The 
+<code>ClassNotFoundException</code> 
+and
+<code>NoClassDefFoundError</code> 
+errors are common
+when the class path is not set properly. 
+The first means the class itself can't be found.
+The second means the class was found, 
+but a class that it imports wasn't.
+For more information, see the section titled
+<a href="#classpath_err">Common Class Path Errors</a>.
+</p>
+
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N101D3"><span class="atitle">Derby / Cloudscape library and package names</span></a></p>
+
+<p>
+The names of various objects --
+such as libraries, packages, drivers, and tools --
+change between product releases.
+<a href="#table1">Table 1</a> below summarizes Derby and
+Cloudscape names for several versions.
+For complete information about names, consult the
+documentation in your software distribution.
+</p>
+
+
+<p><a name="table1"><span class="smalltitle">Table 1. Derby/Cloudscape libraries and packages</span></a></p>
+<table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table"><tr valign="top"><th>
+             <b>Name</b>
+           </th><th> <b>Derby &amp; Cloudscape 10.0 </b> </th><th> <b>Cloudscape 10.0 Beta</b> </th><th> <b>5.1</b> </th><th> <b>4.0</b> </th></tr><tr><td> RDBMS engine : embedded databases</td><td> derby.jar </td><td> cs.jar </td><td> db2j.jar </td><td> cloudscape.jar</td></tr><tr><td> Tools </td><td> derbytools.jar      </td><td> cstools.jar      </td><td> db2jtools.jar    </td><td> cloudutil.jar </td></tr><tr><td> <b>Cview</b></td><td> - </td><td> - </td><td> db2jcview.jar </td><td> cloudview.jar </td></tr><tr><td> <b>Cview</b>'s help system</td><td> - </td><td> - </td><td> jh.jar </td><td> jh.jar </td></tr><tr><td> Network Server functions</td><td> derbynet.jar </td><td> csnet.jar </td><td> db2jnet.jar </td><td> - </td></tr><tr><td> DB2 JDBC Universal Driver <b>(no name change)</b></td><td> db2jcc.jar </td><td> db2jcc.jar </td><td> db2jcc.jar </td><td> - </td></tr><tr><td valign="top">License Files</td><td valign="top">db2jcc_license_c.jar</td><td valign="top">db2jcc_license_c.jar</td><td>db2jcc_license_c.jar,<br />
+               db2jcc_license_cu.jar,<br /> 
+               <b>or</b> db2jcc_license_cisuz.jar</td><td> - </td></tr><tr><td valign="top"> Package name </td><td valign="top"> org.apache.derby </td><td valign="top"> com.ihost.cs </td><td valign="top"> com.ibm.db2j </td><td valign="top"> COM.cloudscape </td></tr></table>
+
+<p>
+Listings <a href="#listing1">1</a> and <a href="#listing2">2</a> 
+showed how to run the
+<code>%CLOUDSCAPE_INSTALL%\demo\programs\simple\SimpleApp</code>
+in embedded mode.
+Embedded mode is very simple and only requires including
+<code>derby.jar</code> in the class path.
+</p>
+<p>
+You can also run the <code>SimpleApp</code>
+example in network server mode. 
+To start the network server,
+include the libraries listed below in your class path:
+</p>
+
+<ul>
+  <li> <code>derby.jar</code> </li>
+  <li> <code>derbynet.jar</code> </li>
+</ul>
+
+<p>
+Next, to run <code>SimpleApp</code> in network server mode,
+include the libraries listed below in your class path:
+</p>
+
+<ul>
+  <li> <code>derbytools.jar</code> (optional, for example to use 'ij') </li>
+  <li> <code>db2jcc.jar</code> </li>
+  <li> <code>db2jcc_license_c.jar</code> </li>
+</ul>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10301"><span class="atitle">Troubleshooting problems</span></a></p>
+
+<p><a name="classpath_err"><span class="smalltitle">Common class path errors</span></a></p>
+
+<p>
+There are two major types of class path problems.
+The first occurs when a Java class you are trying 
+to use is not found in the class path, so it throws a
+<code>java.lang.ClassNotFoundException</code> 
+exception.
+The second problem occurs when the class you are trying to use is found, 
+but one of the classes it imports is not found.  
+In this case, at compile time the imported classes were present, but at run time
+the imported class was not part of the class path.  
+This will throw a 
+<code>java.lang.NoClassDefFoundError</code>
+exception.  
+Another way to think of the 
+<code>NoClassDefFoundError</code> is to say that the 
+searched-for class definition existed when the currently executing class was compiled, 
+but the definition can no longer be found at runtime.
+</p>
+
+<p>
+How can you fix this?  
+Check your class path and verify that the libraries really are where you
+think they are. 
+For example, on Windows use this command to output your class path:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;echo %CLASSPATH%
+C:\Derby\lib\derby.jar;C:\Derby\lib\derbytools.jar
+</pre></td></tr></table><br />
+
+<p>
+Look at each entry in the 
+<code>CLASSPATH</code> variable and check with the
+<code>dir</code> (Windows) or
+<code>ls</code> (UNIX) command
+to see if those files exist.
+</p>
+
+<p>
+If you don't know which jar file the class is in you can check with this command:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+jar -tvf cs.jar | more
+</pre></td></tr></table><br />
+
+<p>
+That produces a lot of output.
+If you are using Linux or Unix, or UNIX utilities on Windows,
+you can use <code>grep</code> to filter out for the class
+you're looking for.
+For example, the command below looks 
+for the <code>org.apache.derby.tools.sysinfo</code> class:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\Derby\lib&gt;jar tvf derby.jar | grep -i org.apache.derby.tools.sysinfo
+  1550 Thu Aug 12 14:04:16 PDT 2004 org/apache/derby/tools/sysinfo.class</pre></td></tr></table><br />
+
+<p>
+Another way to search for a class using the
+<code>sysinfo</code> utility is described in the next section.
+</p>
+
+<p><a name="N1034F"><span class="smalltitle">Verify you have everything you really need</span></a></p>
+
+<p>
+Derby includes a 
+<code>sysinfo</code> tool with 
+a <code>-cp</code> option that verifies the class path.
+For complete information, see the <b>Tools and Utilities Guide</b> in your
+software distribution.
+</p>
+
+<p>
+Used without additional arguments, the
+<code>-cp</code> option tests for all Derby libraries,
+outputting the libraries it can find as well as the ones it cannot, 
+as shown below:
+</p>
+
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\&gt;java org.apache.derby.tools.sysinfo -cp
+Testing for presence of all Derby-related libraries; typically, 
+only some are needed.  For a list of possible arguments, type 
+java org.apache.derby.tools.sysinfo -cp args
+
+FOUND IN CLASS PATH:
+
+   Derby embedded engine library (derby.jar)
+
+
+   Derby tools library (derbytools.jar)
+
+
+NOT FOUND IN CLASS PATH:
+
+   Derby Network Server library (derbynet.jar)
+    (org.apache.derby.drda.NetworkServerControl not found.)
+
+
+   Cloudscape Client libraries (db2jcc.jar)
+    (com.ibm.db2.jcc.DB2Driver not found.)
+</pre></td></tr></table><br />
+
+<p>
+Optional arguments to the <code>-cp</code> option include:
+</p>
+
+<ul>
+   <li> embedded </li>
+   <li> tools </li>
+   <li> sampleApp </li>
+   <li> anyClass.class </li>
+</ul>
+
+<p>
+The example below looks for the <code>SimpleApp</code> 
+class in the class path:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\Derby\demo\programs\simple&gt;java org.apache.derby.tools.sysinfo 
+    -cp SimpleApp.class
+
+FOUND IN CLASS PATH:
+
+
+NOT FOUND IN CLASS PATH:
+
+   user-specified class (SimpleApp)
+    (SimpleApp not found.)
+</pre></td></tr></table><br />
+
+<p>
+Remember to include your current working directory in your path if
+you want to run a class in it:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+C:\Derby\demo\programs\simple&gt;set CLASSPATH=%CLASSPATH%;.
+
+C:\Derby\demo\programs\simple&gt;echo %CLASSPATH%
+C:\Derby\lib\derby.jar;C:\Derby\lib\derbytools.jar;.
+
+C:\Derby\demo\programs\simple&gt;java org.apache.derby.tools.sysinfo 
+     -cp SimpleApp.class
+
+FOUND IN CLASS PATH:
+
+   user-specified class (SimpleApp)
+
+
+SUCCESS: All Derby related classes found in class path.
+</pre></td></tr></table><br />
+
+<p>
+Finally, to test your class path for Cloudscape 5.1,
+use the 5.1 package name instead, for example:
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+java com.ibm.db2j.tools.sysinfo -cp 
+</pre></td></tr></table><br />
+
+
+<!-- CMA ID: 14537 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br />
+
+<p><a name="author"><span class="atitle">About the authors</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><p><a name="author1"></a>Jean Anderson and Susan Cline work together to develop technical content for Cloudscape developers and users.</p></div><div class="ibm-container-body"><p><a name="author2"></a>Susan Cline works in Cloudscape to develop technical content for Cloudscape developers and users.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Information Management, Open source</div><div class="metavalue">ArticleID=14537</div><div class="metavalue">ArticleTitle=IBM Cloudscape: Understanding Java class path</div><div class="metavalue">publish-date=09152004</div><div class="metavalue">author1-email=jander@us.ibm.com</div><div class="metavalue">author1-email-cc=clines@us.ibm.com</div><div class="metavalue">author2-email=clines@us.ibm.com</div><div class="metavalue">author2-email-cc=jander@us.ibm.com</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#N10061">IBM Cloudscape &amp; Derby</a></li><li><a class="ibm-feature-link" href="#N1006E">Java class path</a></li><li><a class="ibm-feature-link" href="#N100AC">Derby class path</a></li><li><a class="ibm-feature-link" href="#N100C7">Setting Java class path</a></li><li><a class="ibm-feature-link" href="#N10172">An 'ij' example</a></li><li><a class="ibm-feature-link" href="#N101D3">Derby / Cloudscape library and package names</a></li><li><a class="ibm-feature-link" href="#N10301">Troubleshooting problems</a></li><li><a class="ibm-feature-link" href="#author">About the authors</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/spot-nextsteps.jpg"/><p>Spring, JRuby, and Ajax development is easier with WebSphere Application Server - a smart Java 5 and J2EE Web services-based application server.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/ws/wasce/learn.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Try: The no-charge WebSphere Application Server Community Edition is a pre-integrated, lightweight Java 5 application server built on Apache Tomcat and other best-of-breed open source software such as OpenEJB, Apache Axis, and Apache Derby.</a></li><li><a href="http://www.ibm.com/developerworks/websphere/library/techarticles/0810_asplund/0810_asplund.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: The article leverage the Spring Framework and the WebSphere Application Server to improve your J2EE project productivity.</a></li><li><a href="http://www.ibm.com/developerworks/edu/x-dw-x-jrorajax.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Tutorial: See how the free WebSphere Application Server and XML can improve the efficiency of your JRuby on Rails and Ajax development.</a></li><li><a href="http://www.ibm.com/software/dre/h2b/buildh2bpage.wss?synkey=G394201N28809H35&amp;S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: WebSphere Application Server - Express</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Information Management on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/data/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/data/newto/" class="ibm-forward-link">New to Information Management</a></li><li><a href="http://www.ibm.com/developerworks/data/products/" class="ibm-forward-link">Products</a></li><li><a href="http://www.ibm.com/developerworks/data/downloads/" class="ibm-forward-link">Downloads</a></li><li><a href="http://www.ibm.com/developerworks/views/data/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/data/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/data/support/" class="ibm-forward-link">Support</a></li><li><a href="http://www.ibm.com/developerworks/data/community/" class="ibm-forward-link">Forums and community</a></li><li><a href="http://www.ibm.com/developerworks/views/data/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY11&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/downloads/soasandbox/reuse/index.html?S_TACT=105AGX11&amp;S_CMP=TILE&amp;ca=dti-tilesoawaseclipse&amp;ca=dth-soa"><img src="//www.ibm.com/developerworks/i/tile_v16_sandboxeclipse.gif" width="158" height="50" border="0" alt="SOA Sandbox for WAS CE and Eclipse" /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/offers/lp/demos/summary/tiv-dandaa.html?S_CMP=TILE&amp;ca=dti-tiletividaccessdemo&amp;ca=dth-t"><img src="//www.ibm.com/developerworks/i/tile_v16_assurance.gif" width="158" height="50" border="0" alt="Tivoli Identity and Access Assurance demo" /></a></p><p class="dw-special-offers"><a href="https://www14.software.ibm.com/webapp/iwm/web/signup.do?source=dw-c-wcsdp&amp;S_PKG=102909&amp;S_TACT=105AGX11&amp;S_CMP=TILE&amp;ca=dti-tile5bpcloud&amp;ca=dth-r"><img src="//www.ibm.com/developerworks/i/tile_v16_best5.gif" width="158" height="50" border="0" alt="5 best practices for developing in a cloud" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '14537';
+			contentAreas = 'data,opensource';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[41,9,622,624,627],'int_prods':[296], 'int_prod_fam':[24],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

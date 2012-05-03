@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>How to calculate monetary values in Java &#8211; double vs BigDecimal | Java</title>
+
+<meta name="generator" content="WordPress 2.8.5" />
+
+<!-- fav icon -->
+<link rel="shortcut icon" href="http://www.mkyong.com/picture/favicon.ico" type="image/x-icon" />
+<!-- ping back list -->
+<link rel="pingback" href="http://www.mkyong.com/xmlrpc.php" />
+
+<!-- enable the comment reply -->
+
+<!-- functions.php delete uncessary info -->
+<link rel='stylesheet' id='contact-form-7-css'  href='http://www.mkyong.com/wp-content/plugins/contact-form-7/styles.css?ver=2.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.mkyong.com/wp-includes/js/comment-reply.js?ver=20090102'></script>
+<script type='text/javascript' src='http://www.mkyong.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<meta name="generator" content="WordPress 2.8.5" />
+
+<!-- All in One SEO Pack 1.6.10 by Michael Torbert of Semper Fi Web Design[282,377] -->
+<meta name="description" content="Monetary values usually program in financial application. When we deal with money, it's always come to a question , should i use double or float variable to" />
+<meta name="keywords" content="bigdecimal,calculate monetary,double,java" />
+<link rel="canonical" href="http://www.mkyong.com/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/" />
+<!-- /all in one seo pack -->
+<script type="text/javascript">
+//<![CDATA[
+var _wpcf7 = { cached: 1 };
+//]]>
+</script>
+<link rel="stylesheet" href="http://www.mkyong.com/wp-content/plugins/digg-digg/diggdigg-style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://www.mkyong.com/wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+
+<!-- CSS style -->
+<link rel="stylesheet" href="http://www.mkyong.com/wp-content/themes/mkyong/style.css" type="text/css" media="screen" />
+
+</head>
+<!-- end of the html header -->
+
+<body>
+
+<!-- start of header top --> 
+<div id="top"></div>
+<!-- end of header top -->
+
+<!-- start of page #wrapper -->
+<div id="page">
+ 
+<!-- start of header -->
+<div id="header">
+	
+	<!-- start of header left -->
+	<div id="header-left">
+		<div id="logo">
+			<a href="http://www.mkyong.com/">
+		    	Mkyong Dot Com		    </a>
+	    </div>
+	
+	  	<div id="tagline">
+	    	Thoughts on Java / J2EE / Ajax web development	  	</div>
+	</div>
+	<!-- end of header left -->
+  	
+	<!-- start of header right -->
+	<div id="header-right">
+	</div>
+	<!-- end of header right -->
+	
+</div>
+<!-- end of header div -->
+
+<!-- start of menu div -->
+<div id="menu">
+	<div id="menu-left">
+
+<script type="text/javascript"><!--
+
+google_ad_client = "pub-2836379775501347";
+
+/* 468x15, created 4/18/09 */
+
+google_ad_slot = "1266586824";
+
+google_ad_width = 468;
+
+google_ad_height = 15;
+
+//-->
+
+</script>
+
+<script type="text/javascript"
+
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+
+</script>
+
+	</div>
+	<div id="menu-right">
+			<form action="http://www.mkyong.com/search-results/" id="cse-search-box">
+			  <div>
+			    <input type="hidden" name="cx" value="partner-pub-2836379775501347:xgx7h4-n730" />
+			    <input type="hidden" name="cof" value="FORID:11" />
+			    <input type="hidden" name="ie" value="ISO-8859-1" />
+			    <input type="text" name="q" size="31" />
+			    <input type="submit" name="sa" value="Search" />
+			  </div>
+			</form>
+			<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+	</div>
+</div>
+<!-- end of menu div -->
+<!--INFOLINKS_ON-->
+
+	<!-- start of content -->
+	<div id="content">
+	
+		<!-- start of left-content -->
+		<div id="left-content">
+	
+		<!-- 
+		<div id="feed">
+			<div class="rss"><span/>
+				<a href="http://feeds.feedburner.com/FeedForMkyong">RSS</a>
+			</div>
+		</div>
+	 	-->
+	 	
+			<!-- start of if -->
+		    		    
+		        <!-- start of while loop -->
+			    			    
+				    <!-- start of post loop -->
+				    <div class="post" id="post-935">
+				
+				      	<!-- start of post header -->
+				      	<div class="post-header">
+				        	<div class="post-title">
+				            	How to calculate monetary values in Java &#8211; double vs BigDecimal				        	</div>
+				
+				        	<small class="post-author">Written on
+				           		January 31, 2009 at 8:36 am by 
+				           		mkyong				           						        	</small>
+				      	</div>
+					  	<!-- end of post header -->
+	
+						<!-- start of post content -->
+				      	<div class="post-content">
+				        	<div> <center>
+<div class="content-up-ads">
+<script type="text/javascript"><!--
+google_ad_client = "pub-2836379775501347";
+/* 336x280, created 12/29/08 */
+google_ad_slot = "2541584370";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+</center></div><p>Monetary values usually program in financial application. When we deal with &#8220;money&#8221;, it&#8217;s always come to a question , should i use double or float variable to represent the monetary values in Java?</p>
+<h3>Here is an example to use double to represent the monetary values in Java</h3>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.math.BigDecimal</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">class</span> PrintChangeAmount <span style="color: #009900;">&#123;</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #000066; font-weight: bold;">void</span> main<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> argv<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;--- Normal Print-----&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.1</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.2</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.3</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.4</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.5</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.6</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.7</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.8</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">1.9</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">2.00</span> <span style="color: #339933;">-</span> <span style="color: #cc66cc;">2</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+&nbsp;
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<h3>Output</h3>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #339933;">---</span> Normal Print<span style="color: #339933;">-----</span>
+<span style="color: #cc66cc;">0.8999999999999999</span>
+<span style="color: #cc66cc;">0.8</span>
+<span style="color: #cc66cc;">0.7</span>
+<span style="color: #cc66cc;">0.6000000000000001</span>
+<span style="color: #cc66cc;">0.5</span>
+<span style="color: #cc66cc;">0.3999999999999999</span>
+<span style="color: #cc66cc;">0.30000000000000004</span>
+<span style="color: #cc66cc;">0.19999999999999996</span>
+<span style="color: #cc66cc;">0.10000000000000009</span>
+<span style="color: #cc66cc;">0.0</span></pre></div></div>
+
+<p>Output is not what we expected. Generally, Java cannot calculate all double decimals precisely. This is the internal design of Java. So to avoid this kind of problem, we always use BigDecimal in monetary values calculation to avoid any precision loss.</p>
+<h3>Here is an example to use BigDecimal to represent the monetary values in Java</h3>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">&nbsp;
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.math.BigDecimal</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">class</span> PrintChangeAmount <span style="color: #009900;">&#123;</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #000066; font-weight: bold;">void</span> main<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> argv<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;--- BigDecimal-----&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.1&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.2&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.3&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.4&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.5&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.6&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.7&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.8&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;1.9&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2.00&quot;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">subtract</span><span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">BigDecimal</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;2&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+&nbsp;
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<h3>Output</h3>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;"><span style="color: #339933;">---</span> BigDecimal<span style="color: #339933;">-----</span>
+<span style="color: #cc66cc;">0.90</span>
+<span style="color: #cc66cc;">0.80</span>
+<span style="color: #cc66cc;">0.70</span>
+<span style="color: #cc66cc;">0.60</span>
+<span style="color: #cc66cc;">0.50</span>
+<span style="color: #cc66cc;">0.40</span>
+<span style="color: #cc66cc;">0.30</span>
+<span style="color: #cc66cc;">0.20</span>
+<span style="color: #cc66cc;">0.10</span>
+<span style="color: #cc66cc;">0.00</span></pre></div></div>
+
+<p>BigDecimal performs exact decimal arithmetic. The output is what we expected.</p>
+<h2>Conclusion</h2>
+<p><b>BigDecimal should be used rather than doubles, especially for monetary calculations in Java</b>. However BigDecimal calculations are slower than those with primitive data type calculations, which may be an issue for some heavy use of decimal calculations program, but there&#8217;s should be no consequence for most programs.</p>
+<p><b><font color=red>Caution!</font></b><br />
+Always use the BigDecimal(&#8221;String&#8221;) constructor, and never BigDecimal(double) for monetary calculation, please visit document below.</p>
+<p><a href="http://java.sun.com/javase/6/docs/api/java/math/BigDecimal.html#BigDecimal(double)" target="_blank">http://java.sun.com/javase/6/docs/api/java/math/BigDecimal.html#BigDecimal(double)<br />
+</a></p>
+<!-- Generated by Digg Digg plugin, 
+    Author : Yong Mook Kim
+    Website : http://www.mkyong.com/blog/digg-digg-wordpress-plugin/ -->				      	</div>
+						<!-- start of post content -->
+	
+						<!--start of ads-->
+						<!-- 
+						<div class="post_meta">
+							<h4>Tire of Programming?</h4>
+							Go watch thousands of TV channels on your computer.
+							<div class="box-silver-tv">
+						         <a target="_blank" href="http://00c03isw29mwdz365nmbwocwfe.hop.clickbank.net/?tid=TVSATELITE">            
+						           <img src="http://www.mkyong.com/image/satelitedirect.gif" alt='satelite' />
+						         </a>
+							</div>
+						</div>
+						 -->
+						<!--end of ads-->
+						
+						<!-- start of social bookmark button -->
+						<div class="post_meta">
+						
+							<h4>Share It</h4>
+							<div class="box-silver">
+							
+					          <div class="dd_style_button">
+					            <iframe src='http://digg.com/api/diggthis.php?w=new&amp;u=http://www.mkyong.com/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/&amp;t=How+to+calculate+monetary+values+in+Java+-+double+vs+BigDecimal&amp;s=normal' height='80' width='52' frameborder='0' scrolling='no'></iframe>					          </div>
+					          <div class="dd_style_button">
+					            <iframe src='http://widgets.dzone.com/links/widgets/zoneit.html?url=http://www.mkyong.com/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/&amp;title=How+to+calculate+monetary+values+in+Java+-+double+vs+BigDecimal&amp;t=1' height='80' width='52' frameborder='0' scrolling='no'></iframe>					          </div>
+					          <div class="dd_style_button">
+					            <iframe src='http://api.tweetmeme.com/button.js?url=http://www.mkyong.com/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/&amp;source=mkyong&amp;style=normal' height='61' width='50' frameborder='0' scrolling='no'></iframe>					          </div>
+					          <div class="dd_style_button">
+					            <script type='text/javascript'> var fbShare = {url: 'http://www.mkyong.com/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/',size:'large'}</script> <script type='text/javascript' src='http://widgets.fbshare.me/files/fbshare.js'></script>					          </div>
+					          <div class="dd_style_button">
+					            <a href='http://www.stumbleupon.com/submit?url=http://www.mkyong.com/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/&amp;title=How+to+calculate+monetary+values+in+Java+-+double+vs+BigDecimal'><img src='http://www.mkyong.com/wp-content/plugins/digg-digg/image/stumbleupon.png' width='56' height='56' alt='Stumbleupon' /></a>					          </div> 
+					          <div class="dd_style_button">
+					            <a href='http://delicious.com/save' onclick="window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent('http://www.mkyong.com/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/')+'&amp;title='+encodeURIComponent('How+to+calculate+monetary+values+in+Java+-+double+vs+BigDecimal'),'delicious', 'toolbar=no,width=550,height=550'); return false;"><img src='http://www.mkyong.com/wp-content/plugins/digg-digg/image/delicious.png' width='54' height='54' alt='Delicious' /></a>					          </div> 
+							      
+							  <div class="clearboth" ></div>
+							</div>
+						</div>
+						<!-- end of social bookmark button -->
+	
+	
+						<!--start of related post -->
+						<div class="post_meta">
+						 
+							<h4>Related Posts</h4>
+							<div class="box-silver">
+					        <ul class="related_post"><li><a href="http://www.mkyong.com/java/how-to-read-an-image-from-file-or-url/" title="How to read an image from file or URL">How to read an image from file or URL</a></li><li><a href="http://www.mkyong.com/java/how-to-decompress-serialized-object-from-a-gzip-file/" title="How to decompress serialized object from a Gzip file">How to decompress serialized object from a Gzip file</a></li><li><a href="http://www.mkyong.com/java/how-to-compress-serialized-object-into-file/" title="How to compress serialized object into file">How to compress serialized object into file</a></li><li><a href="http://www.mkyong.com/java/how-to-decompress-file-from-gzip-file/" title="How to decompress file from GZIP file">How to decompress file from GZIP file</a></li><li><a href="http://www.mkyong.com/java/how-to-compress-a-file-in-gzip-format/" title="How to compress a file in GZIP format ">How to compress a file in GZIP format </a></li></ul>							</div>
+							
+						</div>
+						<!--end of related post -->
+						
+						<!--  start of comments -->
+						<!-- You can start editing here. -->
+<!-- If comments are open, but there are no comments. -->
+<div id="respond">
+    <h3>
+        Leave a Reply    </h3>
+    <div class="cancel-comment-reply"> <small>
+        <a rel="nofollow" id="cancel-comment-reply-link" href="/java/how-do-calculate-monetary-values-in-java-double-vs-bigdecimal/#respond" style="display:none;">Click here to cancel reply.</a>        </small> </div>
+        <form action="http://www.mkyong.com/wp-comments-post.php" method="post" id="commentform">
+                <p>
+            <input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+            <label for="author"><small>Name                (required)                </small></label>
+        </p>
+        <p>
+            <input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+            <label for="email"><small>Mail (will not be published)                (required)                </small></label>
+        </p>
+        <p>
+            <input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+            <label for="url"><small>Website</small></label>
+        </p>
+                <!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; &lt;pre lang=&quot;&quot; line=&quot;&quot; escaped=&quot;&quot;&gt; </code></small></p>-->
+        <p>
+            <textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea>
+        </p>
+        <p>
+            <input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+            <input type='hidden' name='comment_post_ID' value='935' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+        </p>
+            </form>
+    </div>
+<div style="clear: both;"></div>
+						<!--  end of comments -->
+		
+				     </div>
+					 <!-- end of post loop -->
+	
+								<!-- end of while loop -->
+	
+				        <!-- end of if -->
+	
+		</div>
+		<!-- end of left-content -->
+	
+		
+
+
+	    <!-- start of sidebar -->
+		<!--INFOLINKS_OFF-->
+<!-- start of sidebar -->
+<div id="sidebar">
+	<!-- start of sidebar top-->
+	<div id="sidebar-top">
+	
+			       
+   		<div class="sidebar-top-ads">
+
+   			<script type="text/javascript"><!--
+
+google_ad_client = "pub-2836379775501347";
+
+/* 300x250, created 10/23/09 */
+
+google_ad_slot = "7146814087";
+
+google_ad_width = 300;
+
+google_ad_height = 250;
+
+//-->
+
+</script>
+
+<script type="text/javascript"
+
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+
+</script>
+
+   		</div>
+  	</div>
+	<!-- end of sidebar top-->
+
+  	<div style="clear:both;" ></div>
+
+	<!-- start of sidebar left-->
+  	<div id="sidebar-left">
+  	
+		
+				
+		<div class="sidebar-left-gg-ads">	
+<script type="text/javascript"><!--
+
+google_ad_client = "pub-2836379775501347";
+
+/* 160x600, created 12/25/08 */
+
+google_ad_slot = "0382211546";
+
+google_ad_width = 160;
+
+google_ad_height = 600;
+
+//-->
+
+</script>
+
+<script type="text/javascript"
+
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+
+</script>
+		</div>
+		  
+<h2>Books Reviewed</h2>
+		<div class="sidebar-left-ads">
+		<a href="http://www.mkyong.com/book-review/review-apache-maven-2-effective-implementation/" target="_blank">
+		<img src="http://www.mkyong.com/book-reviewed/images/review-Maven-2-effective-implementation.jpg" alt="review-Maven-2-effective-implementation" title="review-Maven-2-effective-implementation" width="120" height="140" />
+		</a>
+		</div>
+
+
+  			    	    
+	    <!-- 
+  		<h2>Articles left</h2>
+		<div class="sidebar-box">
+			<div class="box-content">
+				This is testing
+			</div>
+		</div>
+		-->
+		
+	</div>
+	<!-- end of sidebar left-->
+
+	<!-- start of sidebar right -->
+  	<div id="sidebar-right">
+  		
+  		<div class="sidebar-blogads">
+			<link rel="stylesheet" type="text/css" href="http://cache.blogads.com/78664566/feed.css" />
+			<script language="javascript" type="text/javascript" src="http://cache.blogads.com/78664566/feed.js"></script><br/><a href="http://www.blogads.com">blog advertising</a> is good for you
+		</div>
+
+		<div id="sidebar-right-ul-line">
+  		<h2>Categories</h2>		<ul>
+	<li class="cat-item cat-item-305"><a href="http://www.mkyong.com/category/apache/" title="View all posts filed under Apache">Apache</a> (8)
+</li>
+	<li class="cat-item cat-item-528"><a href="http://www.mkyong.com/category/applet/" title="View all posts filed under Applet">Applet</a> (16)
+</li>
+	<li class="cat-item cat-item-76"><a href="http://www.mkyong.com/category/blog/" title="View all posts filed under Blog">Blog</a> (11)
+</li>
+	<li class="cat-item cat-item-606"><a href="http://www.mkyong.com/category/book-review/" title="View all posts filed under Book review">Book review</a> (1)
+</li>
+	<li class="cat-item cat-item-601"><a href="http://www.mkyong.com/category/bookmark-link/" title="View all posts filed under Bookmark-link">Bookmark-link</a> (12)
+</li>
+	<li class="cat-item cat-item-225"><a href="http://www.mkyong.com/category/boring/" title="View all posts filed under Boring">Boring</a> (11)
+</li>
+	<li class="cat-item cat-item-211"><a href="http://www.mkyong.com/category/c/" title="View all posts filed under C / C++">C / C++</a> (2)
+</li>
+	<li class="cat-item cat-item-583"><a href="http://www.mkyong.com/category/collection/" title="View all posts filed under Collection">Collection</a> (1)
+</li>
+	<li class="cat-item cat-item-64"><a href="http://www.mkyong.com/category/computer-tips/" title="View all posts filed under Computer Tips">Computer Tips</a> (15)
+</li>
+	<li class="cat-item cat-item-482"><a href="http://www.mkyong.com/category/css/" title="View all posts filed under CSS">CSS</a> (2)
+</li>
+	<li class="cat-item cat-item-303"><a href="http://www.mkyong.com/category/design-pattern/" title="View all posts filed under Design Pattern">Design Pattern</a> (1)
+</li>
+	<li class="cat-item cat-item-69"><a href="http://www.mkyong.com/category/game/" title="View all posts filed under Game">Game</a> (8)
+</li>
+	<li class="cat-item cat-item-383"><a href="http://www.mkyong.com/category/hibernate/" title="View all posts filed under Hibernate">Hibernate</a> (31)
+</li>
+	<li class="cat-item cat-item-61"><a href="http://www.mkyong.com/category/html/" title="View all posts filed under Html">Html</a> (4)
+</li>
+	<li class="cat-item cat-item-336"><a href="http://www.mkyong.com/category/hudson/" title="View all posts filed under Hudson">Hudson</a> (2)
+</li>
+	<li class="cat-item cat-item-209"><a href="http://www.mkyong.com/category/hyper-estraier/" title="View all posts filed under Hyper Estraier">Hyper Estraier</a> (2)
+</li>
+	<li class="cat-item cat-item-55"><a href="http://www.mkyong.com/category/java/" title="View all posts filed under Java">Java</a> (107)
+</li>
+	<li class="cat-item cat-item-637"><a href="http://www.mkyong.com/category/java-best-practices/" title="View all posts filed under Java Best Practices">Java Best Practices</a> (2)
+</li>
+	<li class="cat-item cat-item-247"><a href="http://www.mkyong.com/category/javascript/" title="View all posts filed under Javascript">Javascript</a> (15)
+</li>
+	<li class="cat-item cat-item-351"><a href="http://www.mkyong.com/category/jquery/" title="View all posts filed under JQuery">JQuery</a> (6)
+</li>
+	<li class="cat-item cat-item-631"><a href="http://www.mkyong.com/category/logging/" title="View all posts filed under Logging">Logging</a> (1)
+</li>
+	<li class="cat-item cat-item-431"><a href="http://www.mkyong.com/category/maven/" title="View all posts filed under Maven">Maven</a> (21)
+</li>
+	<li class="cat-item cat-item-562"><a href="http://www.mkyong.com/category/mysql/" title="View all posts filed under MySQL">MySQL</a> (6)
+</li>
+	<li class="cat-item cat-item-448"><a href="http://www.mkyong.com/category/news/" title="View all posts filed under News">News</a> (3)
+</li>
+	<li class="cat-item cat-item-93"><a href="http://www.mkyong.com/category/database/" title="View all posts filed under PostgreSQL">PostgreSQL</a> (21)
+</li>
+	<li class="cat-item cat-item-530"><a href="http://www.mkyong.com/category/python/" title="View all posts filed under Python">Python</a> (1)
+</li>
+	<li class="cat-item cat-item-597"><a href="http://www.mkyong.com/category/regular-expressions/" title="View all posts filed under Regular Expressions">Regular Expressions</a> (12)
+</li>
+	<li class="cat-item cat-item-487"><a href="http://www.mkyong.com/category/review/" title="View all posts filed under Review">Review</a> (13)
+</li>
+	<li class="cat-item cat-item-84"><a href="http://www.mkyong.com/category/security/" title="View all posts filed under Security">Security</a> (4)
+</li>
+	<li class="cat-item cat-item-610"><a href="http://www.mkyong.com/category/servlet/" title="View all posts filed under Servlet">Servlet</a> (13)
+</li>
+	<li class="cat-item cat-item-464"><a href="http://www.mkyong.com/category/spring/" title="View all posts filed under Spring">Spring</a> (1)
+</li>
+	<li class="cat-item cat-item-402"><a href="http://www.mkyong.com/category/swt/" title="View all posts filed under SWT">SWT</a> (12)
+</li>
+	<li class="cat-item cat-item-255"><a href="http://www.mkyong.com/category/tomcat/" title="View all posts filed under Tomcat">Tomcat</a> (9)
+</li>
+	<li class="cat-item cat-item-511"><a href="http://www.mkyong.com/category/unittest/" title="View all posts filed under unittest">unittest</a> (15)
+</li>
+	<li class="cat-item cat-item-135"><a href="http://www.mkyong.com/category/linux/" title="View all posts filed under Unix / Linux">Unix / Linux</a> (30)
+</li>
+	<li class="cat-item cat-item-330"><a href="http://www.mkyong.com/category/web/" title="View all posts filed under Web">Web</a> (3)
+</li>
+	<li class="cat-item cat-item-495"><a href="http://www.mkyong.com/category/web-development/" title="View all posts filed under Web Development">Web Development</a> (7)
+</li>
+	<li class="cat-item cat-item-435"><a href="http://www.mkyong.com/category/wicket/" title="View all posts filed under Wicket">Wicket</a> (15)
+</li>
+		</ul>
+<h2>Friends &amp; Links</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.chankelwin.com/" title="My personal views on Malaysia and the world around me" target="_blank">ChanKelwin</a></li>
+<li><a href="http://www.dhgate.com" title="China wholesale" target="_blank">China Wholesale</a></li>
+<li><a href="http://findicons.com" title="Free Icons Search Engine" target="_blank">Find Free Icons</a></li>
+<li><a href="http://www.ebloggy.net" target="_blank">Internet Blogger</a></li>
+<li><a href="http://www.tuneprofit.com/" target="_blank">Investment Life</a></li>
+<li><a href="http://www.adamsinfo.com/php-mysql-developer/" target="_blank">MySQL Tutorials</a></li>
+<li><a href="http://www.videophpblog.com" target="_blank">PHP Tutorials</a></li>
+<li><a href="http://tanwanmei.blogspot.com/" title="TanWanMei Blog" target="_blank">TanWanMei</a></li>
+<li><a href="http://www.tenthofmarch.com/" title="Technology, Reviews, Tutorials, Make Money Online" target="_blank">TenthOfMarch</a></li>
+<li><a href="http://www.web2secure.com" title="Web Security Weblog" target="_blank">Web Security Weblog</a></li>
+<li><a href="http://www.lovingtech.net/webmaster-forum/" target="_blank">Webmaster Forum</a></li>
+
+	</ul>
+
+	    </div>
+	   
+	</div>
+	<!-- end of sidebar right-->
+
+	<div style="clear:both;" ></div>
+
+</div>
+<!-- end of sidebar -->
+		<!-- end of sidebar -->
+	
+	</div>
+	<!-- end of content -->
+
+</div>
+<!-- end of page #wrapper -->
+
+<!-- start of footer -->
+
+<!-- start of wp_footer -->
+<script type='text/javascript' src='http://www.mkyong.com/wp-includes/js/jquery/jquery.form.js?ver=2.02m'></script>
+<script type='text/javascript' src='http://www.mkyong.com/wp-content/plugins/contact-form-7/scripts.js?ver=2.1'></script>
+<!-- end of wp_footer -->
+
+<div class="clearboth" ></div>
+
+<!-- start of footer -->
+<div id="footer">
+
+<div id="footer-container">
+
+	<div class="footer-container-box-left">
+					<h2>Recent Posts</h2>		<ul>
+				<li><a href="http://www.mkyong.com/hibernate/different-between-cascade-and-inverse/" title="Different between cascade and inverse">Different between cascade and inverse </a></li>
+				<li><a href="http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/" title="Different between session.get() and session.load()">Different between session.get() and session.load() </a></li>
+				<li><a href="http://www.mkyong.com/hibernate/hibernate-one-to-one-relationship-example/" title="Hibernate â?? One-to-one relationship example">Hibernate â?? One-to-one relationship example </a></li>
+				<li><a href="http://www.mkyong.com/hibernate/hibernate-cascade-example-save-update-delete-and-delete-orphan/" title="Hibernate &#8211; Cascade example (save, update, delete and delete-orphan)">Hibernate &#8211; Cascade example (save, update, delete and delete-orphan) </a></li>
+				<li><a href="http://www.mkyong.com/hibernate/hibernate-one-to-many-relationship-example/" title="Hibernate &#8211; One-to-many relationship example">Hibernate &#8211; One-to-many relationship example </a></li>
+				</ul>
+			</div>
+	
+	<div class="footer-container-box">
+						<h2>Recent Comments</h2>			<ul id="recentcomments"><li class="recentcomments">zazuge on <a href="http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/comment-page-1/#comment-5439">Different between session.get() and session.load()</a></li><li class="recentcomments"><a href='http://javabg.eu/2010/02/hibernate-%e2%80%93-one-to-one-relationship-example/' rel='external nofollow' class='url'>Hibernate â?? One-to-one relationship example | Java Bulgaria</a> on <a href="http://www.mkyong.com/mysql/how-to-define-one-to-one-relationship-in-mysql/comment-page-1/#comment-5437">How to define one-to-one relationship in MySQL</a></li><li class="recentcomments">pan on <a href="http://www.mkyong.com/unittest/testng-parameter-testing-example/comment-page-1/#comment-5436">TestNG parameter testing example</a></li><li class="recentcomments"><a href='http://www.mkyong.com/hibernate/different-between-cascade-and-inverse/' rel='external nofollow' class='url'>Different between cascade and inverse | Hibernate</a> on <a href="http://www.mkyong.com/hibernate/inverse-true-example-and-explanation/comment-page-1/#comment-5434">inverse = &#8220;true&#8221; example and explanation</a></li><li class="recentcomments"><a href='http://www.mkyong.com/hibernate/hibernate-one-to-one-relationship-example/' rel='external nofollow' class='url'>Hibernate â?? One-to-one relationship example | Hibernate</a> on <a href="http://www.mkyong.com/mysql/how-to-define-one-to-one-relationship-in-mysql/comment-page-1/#comment-5430">How to define one-to-one relationship in MySQL</a></li></ul>
+			</div>
+	
+	<div class="footer-container-box">
+			
+		<h2>About Mkyong Dot Com</h2>
+        <p>Focus on Java web development, providing Java, Hibernate, Spring tutorials, tips and examples.</p>
+      
+	</div>
+
+</div>
+
+<div class="clearboth" ></div>
+
+<div id="footer-link">
+Copyright &copy; 2008-2010 <a href="http://www.mkyong.com/">Mkyong Dot Com</a> | 
+<a href="http://feeds.feedburner.com/FeedForMkyong">RSS Feed</a> | 
+<a href="http://www.mkyong.com/privacy-policy/">Privacy Policy</a> | 
+<a href="http://www.mkyong.com/advertise-on-mkyong/">Advertise with Us</a> | 
+<a href="http://www.mkyong.com/contact-mkyong/"> Contact Us</a>
+</div>
+
+
+</div>
+<!-- end of footer -->
+
+
+<!-- start of google analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-752408-5");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<!-- end of google analytics -->
+
+</body>
+<!-- end of body -->
+
+</html><!-- end of footer -->

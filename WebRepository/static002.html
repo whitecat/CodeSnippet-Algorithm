@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../basics.css"/>
+
+  <title>Java Basics: Lesson 10.3 - Defining a static method</title>
+</head>
+<body>
+
+<div id="content">
+<!-- nav --><div class="nav"><a href="../index.html">Java Basics Contents</a> - Prev: <a href="methods-15-arguments.html">2 - Actual arguments (parameters)</a> - Next: <a href="methods-22-local-variables.html">4 - Local variables</a></div>
+
+
+<h1>Methods 3 - Defining a static method</h1>
+
+<!-- index "method definition -->
+<!-- index "method header syntax -->
+
+<div class="purpose">
+<b>Purpose of this lesson</b>:
+<ul>
+<li>Show how to define a method.</li>
+<li>Explain parts of method header.</li>
+<li>Term: formal parameter = variable in method which gets the argument value.</li>
+</ul>
+<b>New Java language features</b>
+<ul>
+<li>Syntax of method header</li>
+</ul>
+</div>
+
+
+<h2>Method header syntax</h2>
+<p>A method header is the part of the method definition that occurs at the 
+beginning.  The following definition leaves out a few obscure features, but gives the 
+syntax of ordinary method headers.</p>
+
+<p>See <a href="../appendix/10-syntax-notation.html">Syntax Notation</a> 
+to understand how to read the following.</p>
+   
+
+<div class="syntax">
+<table>
+<tr><td><i>methodHeader</i> </td><td>=</td><td>[<i>visibility</i>] ["<code>static</code>"] <i>returnType</i> <i>methodName</i> "(" [<i>parameterList</i>] ")" .</td></tr>
+<tr><td><i>visibility</i>   </td><td>=</td><td>"<code>public</code>" | "<code>private</code>" | "<code>protected</code>" .</td></tr>
+<tr><td><i>parameterList</i></td><td>=</td><td><i>parameterDeclaration</i> {"," <i>parameterList</i>} .</td></tr>
+<tr><td><i>parameterDeclaration</i></td><td>=</td><td><i>type</i> <i>ParameterName</i> .</td></tr>
+<tr><td><i>returnType</i>   </td><td>=</td><td>"void" | <i>type</i></td></tr>
+</table>
+</div>
+
+
+
+<h2>How to define your own method</h2>
+<p>The previous program is rewritten below to define a method to 
+convert from kilometers to miles.  
+</p>
+
+<p>The method call, and the first line (header) of the method definition are highlighted.
+</p>
+
+<table border='0' summary=''><tr><td valign='top'><pre class='example2'>
+  1 
+  2 
+  3 
+  4 
+  5 
+  6 
+  7 
+  8 
+  9 
+ 10 
+ 11 
+ 12 
+ 13 
+ 14 
+ 15 
+ 16 
+ 17 
+ 18 
+ 19 
+ 20 
+ 21 
+ 22 
+ 23 
+ 24 
+ 25 
+ 26 
+ 27 
+ 28 
+ 29 
+ 30 
+ 31 
+ 32 
+ 33 
+ 34 
+ 35 
+ 36 
+ 37 
+</pre></td><td valign='top'>
+<div class="file"><pre>
+// File   : methods/KmToMilesMethod.java
+// Purpose: Convert kilometers to miles using a method.  JOptionPane IO.
+//          Highlight call and method definition header.
+// Author : Fred Swartz
+// Date   : 22 Apr 2006
+
+import javax.swing.*;
+
+public class KmToMilesMethod {
+    //============================================================ constants
+    private static final double MILES_PER_KILOMETER = 0.621;    
+
+    //================================================================= main
+    public static void main(String[] args) {
+        //... Local variables
+        String kmStr;    // String km before conversion to double.
+        double km;       // Number of kilometers.
+        double mi;       // Number of miles.
+
+        //... Input
+        kmStr = JOptionPane.showInputDialog(null, "Enter kilometers.");
+        km = Double.parseDouble(kmStr);
+
+        //... Computation
+        mi = <span class="hiliteu">convertKmToMi(km)</span>;                                      //Note 1
+
+        //... Output
+        JOptionPane.showMessageDialog(null, km + " kilometers is "
+                                          + mi + " miles.");
+    }
+
+    //========================================================= convertKmToMi
+    <span class="hiliteu">private static double convertKmToMi(double kilometers)</span> {        //Note 2
+        double miles = kilometers * MILES_PER_KILOMETER;
+        return miles;
+    }
+}
+</pre></div>
+</td></tr></table>
+
+<h3>Notes</h3>
+<ol>
+<li>Call our own method below to do the conversion.  We could have qualified the name with our class name, KmToMilesMethod.convertKmToMi(km), but this is unnecessary when calling a static method in the same class.</li>
+<li>Altho this method is trivial, just a multiplication, it is good practice to separate the "model", or "logic", from the user interface.  As programs become larger, this separation becomes essential.</li>
+</ol>
+
+
+
+
+<h2>Anatomy of the <code>convertKmToMi</code> method header</h2>
+<p>We'll take a look at each of the parts of the method header in order.</p>
+<dl>
+<dt>Visibility - <code>public</code>, <code>private</code>, or package</dt>
+    <dd>
+    <pre class="fragment">
+<span class="hiliteu">private</span> static double convertKmToMi(double kilometers) {
+    double miles = kilometers * MILES_PER_KILOMETER;
+    return miles;
+}</pre>
+
+
+<p>For greatest reliability and flexibility in your programs, you should 
+always give methods the lowest visibility to others that you can.
+</p>
+
+<p>When you define a method, you should think about who can use it.
+Generally you want to choose the lowest level of visibility 
+that makes your program usable, either <code>private</code> or the 
+default (<i>package</i>).
+Here are the four options, from least visible to most visible.</p>
+<ul>
+<li><code>private</code> - If you don't want any other class to use it, 
+                           declare it private.  This is a good choice.</li>
+<li><i>None</i> (package) - If you don't specify anything, the default visibility allows
+                     only classes in the same package (directory) to
+                     see it.  This is a common choice.  It's common to use
+                     <code>public</code> visibility when <i>package</i> visibility
+                     is more appropriate -- I do it myself.  The lack of a keyword
+                     for package visibility makes it a little harder to read.
+                     </li>
+<li><code>protected</code> - 
+                     Don't use this <code>protected</code>, except in certain cases 
+                     to let a child class see it.  Even then, its use is controversial.</li>
+<li><code>public</code> - Let's anyone see it.  Choose this if you've defined
+                      a method that will be used by others outside of your project.  
+                      Note that <code>main</code> must be 
+                      declared <code>public</code> so the run-time system
+                      can call it.</li>
+</ul>
+</dd>
+
+
+<dt>Class (static) or instance method</dt>
+<dd>
+    <pre class="fragment">
+private <span class="hiliteu">static</span> double convertKmToMi(double kilometers) {
+    double miles = kilometers * MILES_PER_KILOMETER;
+    return miles;
+}</pre>
+<p>A method should be declared <code>static</code> if it doesn't user instance variables or methods.
+   A static method must use only only parameters, local variables, and static constants, and other static methods in
+   the same class.  
+   If the <code>static</code> keyword is omitted, the
+   method will be an <i>instance</i> method.  This example uses static, but soon
+   you will learn about instance methods too.
+   </p>
+</dd>
+
+<dt>Return type</dt>
+<dd>
+    <pre class="fragment">
+private static <span class="hiliteu">double</span> convertKmToMi(double kilometers) {
+    double miles = kilometers * MILES_PER_KILOMETER;
+    return miles;
+}</pre>
+</dd>
+
+<dt>Method name</dt>
+<dd>
+    <pre class="fragment">
+private static double <span class="hiliteu">convertKmToMi</span>(double kilometers) {
+    double miles = kilometers * MILES_PER_KILOMETER;
+    return miles;
+}</pre>
+<p>Method names should begin with a lowercase letter.  Method names are typically
+verbs, whereas variable names are usually nouns.
+</p>
+</dd>
+
+<dt>Parameter(s)</dt>
+<dd>
+    <pre class="fragment">
+private static double convertKmToMi(<span class="hiliteu">double kilometers</span>) {
+    double miles = kilometers * MILES_PER_KILOMETER;
+    return miles;
+}</pre>
+<p>Parameters are enclosed in parentheses following the method name.  They are also called <i>formal parameters</i>).  
+There is only one parameter in this example - <code>kilometers</code>, but if there
+are more, they must be separated by commas.  
+The <i>type</i> of each parameter is specified before the name (eg, <code>double</code>).
+Parameters are local variables that only exist inside the method.  They are
+assigned initial values from the arguments when the method is called.
+</p>
+</dd>
+
+
+<dt>Method body</dt>
+<dd>
+    <pre class="fragment">
+private static double convertKmToMi(double kilometers) {
+    <span class="hiliteu">double miles = kilometers * MILES_PER_KILOMETER;</span>
+    <span class="hiliteu">return miles;</span>
+}</pre>
+<p>The <i>body</i> of a method is the statements which are executed when the method is called 
+are enclosed in braces following the the method header.
+Additional local variables may be defined (eg, <code>miles</code>).</p>
+</dd>
+
+
+<dt>Return statement</dt>
+<dd>
+<pre class="fragment">
+private static double convertKmToMi(double kilometers) {
+    double miles = kilometers * MILES_PER_KILOMETER;
+    <span class="hiliteu">return miles;</span>
+}</pre>
+<p>A method returns to the caller after it has done what it wants.
+If the method returns a value (not a void method), it must contain
+a <code>return</code> statement that specifies a value to return.
+When execution reaches the <code>return</code> statement, control
+transfers back to the calling method, passing a return value to it.
+</p>
+</dd>
+
+<dt>Returning an expression</dt>
+<dd>
+<p>The above example returns the value in the local variable <i>miles</i>.
+The return statement can be followed by any expression of the appropriate type, not just 
+a single value.  For example, this method body could have been written as
+a single return statement.
+</p>
+<pre class="fragment">
+private static double convertKmToMi(double kilometers) {
+    <span class="hiliteu">return kilometers * MILES_PER_KILOMETER;</span>
+}</pre>
+</dd>
+
+</dl>
+
+
+<h2>Order of method definitions doesn't matter</h2>
+<p>If you define multiple methods in a class, you don't have to worry about
+the order of the definitions, unlike some other languages.
+</p>
+
+
+<h2>Review Questions</h2>
+<p>[TODO]</p>
+
+<div class="footer">2006</div>
+
+</div>
+</body>
+</html>
+

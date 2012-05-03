@@ -1,0 +1,1850 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="generator" content="Roller Weblogger 4.0.1.1 (BSC)"/>
+               <link rel="EditURI"   type="application/rsd+xml" title="RSD" href="http://blogs.sun.com/ldemichiel/rsd"/>
+        
+            <link rel="alternate" type="application/atom+xml" title="Recent Entries (Atom)"  href="http://blogs.sun.com/ldemichiel/feed/entries/atom" />
+    <link rel="alternate" type="application/rss+xml"  title="Recent Entries (RSS)"   href="http://blogs.sun.com/ldemichiel/feed/entries/rss" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Comments (Atom)" href="http://blogs.sun.com/ldemichiel/feed/comments/atom" />
+    <link rel="alternate" type="application/rss+xml"  title="Recent Comments (RSS)"  href="http://blogs.sun.com/ldemichiel/feed/comments/rss" />
+
+    
+        <title>Java Persistence 2.0 Public Draft: Criteria API : Linda DeMichiel's Blog</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/ldemichiel/page/sunpacifico-custom.css"/>
+</head>
+
+<body>
+<div class="pagewrap">
+<div class="innerpagewrap">
+
+
+<!-- BEGIN A2 COMPONENT V.7 -->
+<div class="a2" id="a2v7">
+<div class="cornerTL">
+<div class="cornerTR">
+<div class="cornerBL">
+<div class="cornerBR">
+<div id="image1" class="image1">
+
+    <h1>
+    <span class="descrip"></span>
+    <span class="titlehead"><a href="http://blogs.sun.com/ldemichiel/">Linda DeMichiel's Blog</a></span>
+    </h1>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END A2 COMPONENT V.7 -->
+
+<!-- BEGIN CONTENT -->
+<div class="container">
+
+<div class="rWeblogCategoryChooser">
+                                <ul class="rCategory">
+                   <li class="selected">All</li>
+                                            <li><a href="http://blogs.sun.com/ldemichiel/category/Persistence">Persistence</a></li>
+                                                <li><a href="http://blogs.sun.com/ldemichiel/category/Personal">Personal</a></li>
+                                                <li><a href="http://blogs.sun.com/ldemichiel/category/Sun">Sun</a></li>
+                            </ul>
+    </div>
+
+<div class="next-previous">
+<p>
+                                    &laquo; <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public">Java Persistence 2.0...</a> |  
+                <a href="/ldemichiel/">Main</a>
+                | <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_proposed">Java Persistence 2.0...</a> &raquo;
+    </p>
+</div>
+
+<div class="entries">
+
+                <div class="day">
+<div class="dayheader">
+<h2>Tuesday Nov 25, 2008</h2>
+</div>
+
+   <div class="entry">
+   <div class="entryheader">
+   <h3 id="java_persistence_2_0_public1"><a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1">Java Persistence 2.0 Public Draft: Criteria API</a></h3>
+   </div>
+   <div class="entrybody">
+                    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Java Persistence 2.0 Public Draft (Part II)</title>
+</head>
+<body>
+Probably the most significant of the new features introduced in the JPA
+2.0 Public Draft is the Criteria API.&nbsp; This is a
+non-string-based API for the dynamic construction of object-based
+queries.<br>
+<br>
+Criteria queries are constructed in terms of query definition
+objects.&nbsp; As with JPQL static and dynamic queries, criteria
+query definition objects are passed to the EntityManager <span
+ style="font-family: monospace;">createQuery</span>
+method to create Query objectsâ??and then executed using the methods of
+the Query API.<br>
+<br>
+Loosely speaking, a QueryDefinition object can be thought of as a set
+of nodes corresponding to the semantic constructs of the query:<br>
+<ul>
+  <li>domain objects, which correspond to the range variables and
+other identification variables of the JPQL FROM clause</li>
+  <li>where clause predicates, which comprise one or more
+conditional expression objects</li>
+  <li>select clauses, which comprise one or more "select item"
+objects</li>
+  <li>order-by and group-by items</li>
+  <li>subqueries</li>
+  <li>and so on...</li>
+</ul>
+<br style="text-decoration: underline; font-weight: bold;">
+<span style="text-decoration: underline; font-weight: bold;">Constructing
+a Query Definition</span><br>
+<br>
+The QueryBuilder interface is the factory for QueryDefinition
+objects.&nbsp; A QueryBuilder instance is obtained&nbsp;from
+either the
+EntityManager or the EntityManagerFactory. &nbsp;For example,<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">EntityManager
+em = ... ;&nbsp; </span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">QueryBuilder
+queryBuilder = em.getQueryBuilder();</span><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">QueryDefinition
+qdef = queryBuilder.createQueryDefinition();</span><br>
+<br>
+Using the query builder, you can create either an "empty"
+QueryDefinition object or a QueryDefinition object with a root entity
+class. &nbsp;The specification of query roots is the first step in
+constructing a query definition. &nbsp;Query roots correspond to
+the range variables of SQL. &nbsp;They specify the domain objects
+on which the query is based and which are not reachable by navigation
+or join. Query root are instances of the DomainObject interface.
+&nbsp;In the simple case a query definition has a single root, so
+the QueryBuilder interface has a convenience method to support this.<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+customer = queryBuilder.createQueryDefinition(Customer.class);</span><br>
+<br>
+This
+method returns the DomainObject instance corresponding to the root.
+&nbsp;It is
+semantically equivalent to the following in which the <span
+ style="font-family: monospace;">addRoot</span> method
+is used to add a query root to an empty QueryDefinition object:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">QueryDefinition
+qdef = queryBuilder.createQueryDefinition();</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+customer = qdef.addRoot(Customer.class);</span><br>
+<br>
+The DomainObject interface extends the QueryDefinition
+interface, and QueryDefinition operations applied to domain objects
+operate on the query definition
+as a whole. &nbsp;Thus, for example, if you invoke the <span
+ style="font-family: monospace;">where</span> method on
+a
+domain object, the query definition is modified to include the
+specified restriction predicate.<br>
+<br>
+A query with a single root entity is assumed to select entities of that
+type, unless the <span style="font-family: monospace;">select</span>
+method of the QueryDefinition interface is used to specify otherwise.
+&nbsp;Thus, the DomainObject <span
+ style="font-family: monospace;">customer</span> in the
+query above represents a complete query definition. &nbsp;We can
+pass it to the <span style="font-family: monospace;">createQuery</span>
+method and execute the resulting query, causing all instances of the
+Customer class to be returned:<br>
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">Query
+q = em.createQuery(customer);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">List
+myCustomers = q.getResultList();<br>
+</span><br>
+The addition of further query roots, like additional range variables in
+JPQL, has the effect of inducing a cartesian product.<br>
+<br>
+Given one or more query roots, a query domain can be further refined by
+the addition of other domain objects through join operations.
+&nbsp; The argument to the <span style="font-family: monospace;">join</span>
+method is the name of the attribute in the referencing class.
+&nbsp;The result is the added DomainObject instance.
+&nbsp;This, like the domain objects that are roots, again
+references the underlying query definition object.<br>
+<br>
+For example, to modify the above query definition to operate over
+customers and their orders, we would add:<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+order = customer.join("orders");</span><br>
+<br>
+When executed, this query returns all customers that have orders.
+&nbsp;Note further that because the variables <span
+ style="font-family: monospace;">order</span> and <span
+ style="font-family: monospace;">customer</span> are
+referencing the same underlying query definition, the following calls
+to the EntityManager <span style="font-family: monospace;">createQuery</span>
+method are semantically equivalent:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">em.createQuery(customer);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">em.createQuery(order);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br>
+<br>
+<span style="font-weight: bold; text-decoration: underline;">Defining
+the SELECT and WHERE Clauses</span><br>
+<br>
+Assume we have the following classes:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">@Entity
+public class Customer {</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@Id int custId;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+String name;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+...</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@OneToMany(mappedBy="customer") Set&lt;Order&gt; orders;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+...</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">}</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">@Entity
+public class Order {</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@Id int orderId;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+...</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@ManyToOne Customer customer;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@OneToMany(mappedBy="order") Set&lt;LineItem&gt; items;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+...</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">}</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">@Entity
+public class LineItem {</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@Id int id;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@ManyToOne Order order;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@ManyToOne Product product;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+...</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">}</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">@Entity
+public class Product {</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+@Id int productId;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+String name;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+String productType;</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+...</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">}</span><br>
+<br>
+Using JPQL, a query to return all customers ordering products of type
+'printer' would look something like this:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+c.name</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Customer c JOIN c.orders o JOIN o.items i</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+i.product.productType = 'printer'</span><br>
+<br>
+To construct a semantically equivalent query using the Criteria API, we
+proceed as follows:<br>
+<br>
+1)&nbsp; Create a query definition object.&nbsp; This query is
+rooted in the Customer class, so we again write:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+customer =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Customer.class);</span><br>
+<br>
+2)&nbsp; Join Customer to Order and Order to LineItem.&nbsp;
+Since the result of the <span style="font-family: monospace;">join</span>
+method is also a DomainObject, we chain the method invocations:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+item = customer.join("orders").join("items");</span><br>
+<br>
+3)&nbsp; Define the select list of the query and the restrictions
+over the results.
+&nbsp;These modify the underlying query definition object, and can
+thus be defined in either order.&nbsp; Let's assume we're defining
+the restrictions first:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">customer.where(item.get("productType").equal("printer"));</span><br>
+<br>
+The argument to the <span style="font-family: monospace;">where</span>
+method is a conditional predicate.&nbsp; In this example, the
+arguments to the condition are a PathExpression instance (derived from
+invoking&nbsp;<span style="font-family: monospace;">get("productType")</span>
+on the <span style="font-family: monospace;">item</span>
+DomainObject) and the string <span style="font-family: monospace;">"printer"</span>.
+&nbsp;The <span style="font-family: monospace;">where</span>
+method returns <span style="font-family: monospace;">this</span>,
+so it supports method chaining.<br>
+<br>
+The <span style="font-family: monospace;">select</span>
+method of the QueryDefinition interface modifies the query definition
+to specify the query result. &nbsp;It also returns <span
+ style="font-family: monospace;">this</span>:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">customer.select(customer.get("name"));</span><br>
+<br>
+Putting it all together, and using method chaining we have:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+customer =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Customer.class)</span>;<br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+item = customer.join("orders").join("items");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">customer.where(item.get("productType").equal("printer"))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.select(customer.get("name"));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br>
+While this example of course just illustrates the basics, the Criteria
+API provides support for all the functionality of JPQL.<br>
+<br>
+In the following sections we examine how we might rewrite the JPQL
+examples in part I of this blog.&nbsp; I'm just going to reproduce
+the JPQL queries here.&nbsp; To see the entity classes, please
+refer to <a
+ href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public">part
+I</a>.<br>
+<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Navigation</span><br>
+<br>
+Using JPQL:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+DISTINCT p.billedTo</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee e JOIN e.contactInfo.phones p</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+e.contactInfo.address.zipcode = '95054'</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+&nbsp; AND p.phonetype = PhoneType.OFFICE</span><br>
+<br>
+Or, equivalently:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+DISTINCT p.billedTo</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee e JOIN e.contactInfo c JOIN c.phones p</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+e.contactInfo.address.zipcode = '95054'</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+&nbsp; AND p.phonetype = PhoneType.OFFICE</span><br>
+<br>
+This query navigates through the <span
+ style="font-family: monospace;">contactInfo</span>
+embeddable in the FROM clause and again in the WHERE clause.&nbsp;
+Because navigation in the FROM clause has the semantics of inner join,
+the Criteria API requires the use of the <span
+ style="font-family: monospace;">join</span> method to
+construct the query domain. &nbsp;The <span
+ style="font-family: monospace;">where</span> method
+uses a compound predicate.<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+e = queryBuilder.createQueryDefinition(Employee.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+p = e.join("contactInfo").join("phones");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">e.where(e.get("contactInfo").get("address").get("zipcode").equal("95054")</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.and(p.get("phonetype").equal(PhoneType.OFFICE)))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;.selectDistinct(p.get("billedTo"));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Maps</span><br>
+<br>
+Here's the first query over maps:<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+p</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+PictureCategory
+c JOIN c.photos p</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+c.name =
+'birds' AND KEY(p) LIKE '%egret%'<br>
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+c = queryBuilder.createQueryDefinition(PictureCategory.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+p = c.join("photos");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">p.where(c.get("name").equal("birds").and(p.key().like("%egret%")))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;.select(p);</span><br>
+<br>
+Note that, as in the JPQL query, a variable referring to a map type
+corresponds to the map <span style="font-style: italic;">value</span>.<br>
+<br>
+Here are the next two queries:<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+v.location.street</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+VideoStore v
+JOIN v.videoInventory i</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+v.location.zipcode = '95054' AND KEY(i).title = 'Vertigo'</span><span
+ style="color: rgb(0, 0, 153);"> </span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">AND
+VALUE(i) &gt; 0 </span><br style="color: rgb(0, 0, 153);">
+<br>
+and<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+v.location.street, ENTRY(i)</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+VideoStore v
+JOIN v.videoInventory i</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+v.location.zipcode = '95054' AND KEY(i).director = 'Hitchcock'</span><span
+ style="color: rgb(0, 0, 153);">
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">AND
+VALUE(i)
+&gt; 0 <br>
+</span><br>
+Using the Criteria API, these queries are written as follows:<br>
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+v =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(VideoStore.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+i = v.join("videoInventory");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">v.where(v.get("location").get("zipcode").equal("95054")</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.and(i.key().get("title").equal("Vertigo"))</span><br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.and(i.value().greaterThan(0)))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;.select(v.get("location").get("street"));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+</span>and<span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+v =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(VideoStore.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+i = v.join("videoInventory");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">v.where(v.get("location").get("zipcode").equal("95054")</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.and(i.key().get("director").equal("Hitchcock"))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.and(i.value().greaterThan(0)))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+.select(v.get("location").get("street"), i.entry());</span><br>
+&nbsp;<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Ordered
+Lists</span><br>
+<br>
+Here's the query over ordered lists:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+e</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee e JOIN
+e.dept d</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+d.name='Marketing' AND INDEX(e) &lt; 5</span><br
+ style="color: rgb(0, 0, 153);">
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+e =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Employee.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+d = e.join("dept");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">e.where(d.get("name").equal("Marketing").and(e.index().lessThan(5)));</span><br>
+<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Non-polymorphic
+Queries</span><br>
+<br>
+The following two examples illustrate non-polymorphic queries:<br>
+<br>
+Example 1:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+e</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee e JOIN
+e.dept d</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+d.name =
+'Marketing' AND TYPE(e) IN (PartTimeEmployee, Contractor)<br>
+<br>
+</span>In the criteria query, entity class objects are used to
+specify entity type arguments to the <span
+ style="font-family: monospace;">in </span>method:<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+e =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Employee.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+d = e.join("dept");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">e.where(d.get("name").equal("Marketing")<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;.and(e.type().in(PartTimeEmployee.class,
+Contractor.class)));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br>
+Example 2:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+e</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee e</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+TYPE(e) IN
+:empTypes<br>
+</span><br>
+In the criteria query below, the <span
+ style="font-family: monospace;">param</span> method of
+the QueryDefinition interface defines the parameter name. &nbsp;As
+with JPQL, this parameter must be bound to a collection of entity class
+objects for the query execution. &nbsp;Note that in a criteria
+query the parameter name is not prefixed with a colon (<span
+ style="font-family: monospace;">:</span>).<br>
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+e =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Employee.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">e.where(e.type().in(e.param("empTypes")));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+Example 3:<br>
+<br>
+This query uses a TYPE expression to return the entity class:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+TYPE(e),
+e.name</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee e JOIN
+e.dept d</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+d.name='Marketing'</span><br style="color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br>
+As in the JPQL query, the entity class object is returned in the result
+of the criteria query:<br>
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+e =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Employee.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+d = e.join("dept");</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">e.where(d.get("name").equal("Marketing"))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;.select(e.type(),
+e.get("name"));</span><br>
+<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Case
+Expressions</span><br>
+<br>
+These are the case expression examples.&nbsp; The Criteria API does
+not currently support update and delete operations.<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+c, CASE WHEN c.annualSpending &gt; 10000 THEN 'Premier'</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+WHEN c.annualSpending &gt;&nbsp; 5000 THEN 'Gold'</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+WHEN c.annualSpending &gt;&nbsp; 2000 THEN 'Silver'</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ELSE 'Bronze'</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+END </span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Customer c<br>
+<br>
+</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+c =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Customer.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">c.select(c,
+c.case().when(c.get("annualSpending").greaterThan(10000))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; .then("Premier")</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp;
+.when(c.get("annualSpending").greaterThan(5000))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; .then("Gold")</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; .when(c.get("annualSpending").greaterThan(2000))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; .then("Silver")</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; .else("Bronze"));<br>
+<br>
+</span>This one uses a NULLIF expression:<span
+ style="color: rgb(0, 0, 153);"></span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"><br>
+<br>
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+AVG(NULLIF(e.salary, -99999))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee e</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);"></span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);"></span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+e =&nbsp;</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">queryBuilder</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">.createQueryDefinition(Employee.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">e.select(e.avg(e.nullif(e.get("salary"),
+-999999)));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br>
+<br>
+<span style="text-decoration: underline; font-weight: bold;">Subqueries</span><br>
+<br>
+The criteria API supports the use of both correlated and non-correlated
+subqueries, as does JPQL.&nbsp;&nbsp; Like a top-level query, a
+subquery is constructed through the creation and modification of a
+QueryDefinition object.<br>
+<br>
+The following JPQL query returns those customers whose unpaid balance
+is less than half of the average:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+goodCustomer</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Customer goodCustomer</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+goodCustomer.balanceOwed &lt; (</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; SELECT
+AVG(c.balanceOwed)/2.0 FROM Customer c)</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br>
+Using the criteria API, the corresponding query can be written as shown
+below. &nbsp;There are QueryDefinition objects for both
+the subquery and the containing query.<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+goodCustomer = queryBuilder.createQueryDefinition(Customer.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+customer = queryBuilder.createQueryDefinition(Customer.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">goodCustomer.where(goodCustomer.get("balanceOwed)<br>
+</span><span
+ style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;
+&nbsp;.lessThan(customer.select(customer.get("balancedOwed")<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;&nbsp; .dividedBy(2.0)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;.avg())));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br>
+In a correlated subquery, the subquery and the containing query share
+variables.<br>
+<br>
+The following JPQL query selects those employees that make more than
+all of the managers in their department:<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">SELECT
+emp</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">FROM
+Employee emp</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">WHERE
+emp.salary &gt; ALL (</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+&nbsp; SELECT m.salary</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+&nbsp; FROM Manager m</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;
+&nbsp; WHERE m.department = emp.department)</span><br>
+<br>
+<br>
+Here's the criteria API equivalent.&nbsp; I'm using QueryDefinition
+variables to make this very explicit, although like the earlier
+queries, this query can be written without them.<br>
+<br>
+<span style="font-family: monospace; color: rgb(0, 0, 153);">QueryDefinition
+qOuter = queryBuilder.createQueryDefinition();</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+emp = qOuter.addRoot(Employee.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">QueryDefinition
+qSubq = queryBuilder.createQueryDefinition();</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">DomainObject
+mgr = qSubq.addRoot(Manager.class);</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">qSubq.select(mgr.get("salary"))</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">&nbsp;&nbsp;&nbsp;&nbsp;
+.where(mgr.get("department").equal(emp.get("department")));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-family: monospace; color: rgb(0, 0, 153);">qOuter.where(emp.get("salary").greaterThan(qSubq.all()));</span><br
+ style="font-family: monospace; color: rgb(0, 0, 153);">
+<br style="font-family: monospace; color: rgb(0, 0, 153);">
+<span style="font-weight: bold; text-decoration: underline;"><br>
+Current Status</span><br>
+<br>
+Our work in the Expert Group in designing the Criteria API involved
+numerous iterations and considerable debate as to the best approach,
+and we welcome your feedback on the results.
+&nbsp;Not yet reflected in the draft is our intention to provide
+additional and/or alternative ways to obtain QueryBuilder objects to
+support the construction of QueryDefinition objects without the need
+for an entity manager or entity manager factory in order to support
+disconnected usage scenarios. &nbsp;Since the provider's
+implementation of the QueryDefinition object is required to be
+serializable, this would also allow for QueryDefinition objects to be
+passed from a remote tier. <br>
+<br>
+When you download the draft and review the spec, you'll notice that it
+flags a number of open issues and items that are in need of developer
+feedback.&nbsp;&nbsp; Please feel free to send me and the
+expert group your thoughts at&nbsp;
+jsr<faketag></faketag>-317-pdr-feedback<faketag></faketag>@sun.com.&nbsp;&nbsp;&nbsp;
+Thanks!<br>
+<br>
+<br>
+<br>
+</body>
+</html>
+
+           </div>
+   <div class="entryfooter">
+   <p>
+            Posted at 12:23PM Nov 25, 2008
+            by Linda DeMichiel in <span class="category">Persistence</span>
+                                         | <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comments" class="commentsLink">Comments[27]</a>
+                        | <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1">Permalink</a>
+   </p>
+   </div>
+   </div>
+
+
+</div>
+    
+        <!-- Begin SiteCatalyst code version: G.5. -->
+<script type="text/javascript" language="JavaScript">
+<!--
+if(typeof s_channel=='undefined'){var s_channel="ldemichiel";}
+//--></script>
+<script type="text/javascript" language="JavaScript" src="/omniture/s_code_remote.js"></script>
+<!-- End SiteCatalyst code version: G.5. -->
+</div>
+
+    <a name="comments"></a>
+    <div class="comments" id="comments">
+
+            <div class="comments-head">Comments:</div>
+            
+    <br/>
+                        <a name="comment-1227712124000" id="comment-1227712124000"></a>
+            <div class="comment odd" id="comment1">
+
+                
+<p>Linda,</p>
+
+
+<p>Excellent blog.  Do you think that support for disconnected QueryDefinition objects will make JPA 2.0 or do you think this will be JPA.next?</p>
+
+
+<p>Regards<br/>
+Lance</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Lance Andersen</b>
+                
+                on November 26, 2008 at 07:08 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1227712124000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1227743532000" id="comment-1227743532000"></a>
+            <div class="comment even" id="comment2">
+
+                
+<p>Thanks, Lance.  Our plans are to try to add this support in this release.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Linda DeMichiel</b>
+                
+                on November 26, 2008 at 03:52 PM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1227743532000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1227976418000" id="comment-1227976418000"></a>
+            <div class="comment odd" id="comment3">
+
+                
+<p>Nice work. I am particularly happy to see that disconnected QueryDefinition objects will be supported.</p>
+
+
+<p>Ismael</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://blog.juma.me.uk"><b>Ismael Juma</b></a>
+                
+                on November 29, 2008 at 08:33 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1227976418000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1227982259000" id="comment-1227982259000"></a>
+            <div class="comment even" id="comment4">
+
+                [Trackback] Good Lord, i&#65533;m happy to see this
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.codesmell.org/confluence/display/codesmell/2008/11/29/Criteria+API"><b>Confluence: codesmell</b></a>
+                
+                on November 29, 2008 at 10:10 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1227982259000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1227982272000" id="comment-1227982272000"></a>
+            <div class="comment odd" id="comment5">
+
+                [Trackback] Good Lord, i&#65533;m happy to see this
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.codesmell.org/confluence/display/codesmell/2008/11/29/Criteria+API"><b>Confluence: codesmell</b></a>
+                
+                on November 29, 2008 at 10:11 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1227982272000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1228063759000" id="comment-1228063759000"></a>
+            <div class="comment even" id="comment6">
+
+                
+<p>+1 for building QueryDefinition in client side. Great jobs!</p>
+
+
+<p>Alexandre Garino</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Alexandre Garino</b>
+                
+                on November 30, 2008 at 08:49 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1228063759000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1228221650000" id="comment-1228221650000"></a>
+            <div class="comment odd" id="comment7">
+
+                
+<p>Nice, this is the reason I am still on the hibernate session camp. I am a BIG fan of criteria queries and I am very happy to see them getting standardized.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Marcelo Morales</b>
+                
+                on December 02, 2008 at 04:40 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1228221650000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1228230536000" id="comment-1228230536000"></a>
+            <div class="comment even" id="comment8">
+
+                
+<p>I guess I must be missing something but isn't this a string? - &quot;orders&quot;</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Mark</b>
+                
+                on December 02, 2008 at 07:08 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1228230536000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1228234117000" id="comment-1228234117000"></a>
+            <div class="comment odd" id="comment9">
+
+                
+<p>finally! looks great!..... just a question, will there be a more type-safe version of the criteria API? Just read about LiquidForm ond <a href="http://www.theserverside.com/news/thread.tss?thread_id=52054." rel="nofollow">http://www.theserverside.com/news/thread.tss?thread_id=52054.</a> A type safe library for cretaing JPA queries.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>kristian marinkovic</b>
+                
+                on December 02, 2008 at 08:08 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1228234117000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1228477874000" id="comment-1228477874000"></a>
+            <div class="comment even" id="comment10">
+
+                
+<p>Excellent work!</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://parafarmaciamasbarata.es"><b>Pablo</b></a>
+                
+                on December 05, 2008 at 03:51 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1228477874000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1229388654000" id="comment-1229388654000"></a>
+            <div class="comment odd" id="comment11">
+
+                
+<p>Very important issue !! My congratulations to all of you, it is a very important improvement !! ... but ... FlushMode=MANUAL is missing from new spec too !! </p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Maximiliano</b>
+                
+                on December 15, 2008 at 04:50 PM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1229388654000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1229443566000" id="comment-1229443566000"></a>
+            <div class="comment even" id="comment12">
+
+                
+<p>Exactly. What happened to FlushMode=MANUAL? Mike, you were going to write a blog entry about why this approach was broken?</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Manuel</b>
+                
+                on December 16, 2008 at 08:06 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1229443566000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1229596201000" id="comment-1229596201000"></a>
+            <div class="comment odd" id="comment13">
+
+                
+<p>For a more typesafe way to use Hibernate you might also want to check out Querydsl : <a href="http://source.mysema.com/display/querydsl/Querydsl" rel="nofollow">http://source.mysema.com/display/querydsl/Querydsl</a></p>
+
+
+<p>JPA 2 :<br/>
+DomainObject customer = queryBuilder.createQueryDefinition(Customer.class);<br/>
+DomainObject item = customer.join(&quot;orders&quot;).join(&quot;items&quot;);<br/>
+customer.where(item.get(&quot;productType&quot;).equal(&quot;printer&quot;))<br/>
+        .select(customer.get(&quot;name&quot;));</p>
+
+
+<p>Querydsl :<br/>
+Query q = new HqlQuery(session); // or new JpaqlQuery(em);<br/>
+List&lt;String&gt; customerNames = q.from(customer).innerJoin(customer.orders.as(order))<br/>
+  .innerJoin(order.items.as(item))<br/>
+  .where(item.productType.eq(&quot;printer&quot;)).list(customer.name);</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://source.mysema.com/display/querydsl/Querydsl"><b>Timo Westk&auml;mper</b></a>
+                
+                on December 18, 2008 at 02:30 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1229596201000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1229609168000" id="comment-1229609168000"></a>
+            <div class="comment even" id="comment14">
+
+                
+<p>Hi,<br/>
+Congrats on the improvements on the API. However, I'm still worried about the string literals one needs to use, as that implies errors that won't be detected at compile time.<br/>
+I'm talking about the get(&quot;field_name&quot;) and join.(&quot;fk_name&quot;) that are still written as strings.</p>
+
+
+<p>LiquidForm solves that in a smart way, using CGLIB proxies to get the compile-safe methods to return the strings, and that means fields are verified at compile time, you can use autocomplete in IDEs.. You can see it here: <a href="http://code.google.com/p/liquidform/" rel="nofollow">http://code.google.com/p/liquidform/</a><br/>
+Would that be possible to be added?</p>
+
+
+<p>Cheers!<br/>
+PD: Just to clarify, I'm not related in anyway to that project, but if we are going to get rid of unsafe strings, let's get rid of the them completely. Else there's no point to complicate the code to still find runtime errors even when the descriptors are correct.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Daniel Lopez</b>
+                
+                on December 18, 2008 at 06:06 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1229609168000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1229913299000" id="comment-1229913299000"></a>
+            <div class="comment odd" id="comment15">
+
+                
+<p>A number of folks have commented on the typesafety issue, which I'm also very concerned by.</p>
+
+
+<p>I've proposed a solution to the EG, described here:</p>
+
+
+<p><a href="http://in.relation.to/Bloggers/ATypesafeCriteriaQueryAPIForJPA" rel="nofollow">http://in.relation.to/Bloggers/ATypesafeCriteriaQueryAPIForJPA</a><br/>
+<a href="http://in.relation.to/Bloggers/Java6CompilerPluginsAndTypesafeCriteriaQueries" rel="nofollow">http://in.relation.to/Bloggers/Java6CompilerPluginsAndTypesafeCriteriaQueries</a></p>
+
+
+<p>Take a look, and tell us what you think.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://in.relation.to/Bloggers/Gavin"><b>Gavin King</b></a>
+                
+                on December 21, 2008 at 06:34 PM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1229913299000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1229952850000" id="comment-1229952850000"></a>
+            <div class="comment even" id="comment16">
+
+                
+<p>I had not thought about the problems with requiring getters/setters, good to know. I like your second proposal, not only the complete type safety but also the syntax, using the SQL idioms for the method names (select, where...) makes it more natural to read for those trained to read SQL.<br/>
+I'm not in the &quot;against code generation&quot; camp, so it looks pretty good to me, as far as Java is able to go now. Even though writing queries that way is more verbose, I think the benefits one can get from it make it a worth addition to the bag of tools. It can come specially handy for building dynamic queries, where string concatenation to prevent dummy queries can become quite a nightmare.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Daniel Lopez</b>
+                
+                on December 22, 2008 at 05:34 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1229952850000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1229984145000" id="comment-1229984145000"></a>
+            <div class="comment odd" id="comment17">
+
+                
+<p>Great work on the Criteria API.</p>
+
+
+<p>Count me in as one who likes the typesafe model Gavin is proposing.</p>
+
+
+<p>I especially like the whole idea of a JPA metamodel in general as a way to problematically reflect upon the Entity Model.  I would love in JPA, for example, to determine the PK of an entity without having to do my own orm.xml parsing and annotation reading.  I believe a meta model would be a great boon for JPA addon libraries and frameworks.  I think Gavin's typesafe criteria API is simply one excellent example of what could be done with a JPA metamodel.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Mike Youngstrom</b>
+                
+                on December 22, 2008 at 02:15 PM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1229984145000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1230117875000" id="comment-1230117875000"></a>
+            <div class="comment even" id="comment18">
+
+                
+<p>Hi,</p>
+
+
+<p>DomainObject p = e.join(&quot;contactInfo&quot;).join(&quot;phones&quot;);</p>
+
+
+<p>Why join is needed? We are not working with tables, but objects. Joins?<br/>
+The needed joins can be deduced from condition.</p>
+
+
+<p> e.where(e.get(&quot;contactInfo&quot;).get(&quot;address&quot;).get(&quot;zipcode&quot;).equal(&quot;95054&quot;)<br/>
+        .and(p.get(&quot;phonetype&quot;).equal(PhoneType.OFFICE)))<br/>
+ .selectDistinct(p.get(&quot;billedTo&quot;));</p>
+
+
+<p>It's really ugly (at least for me) and not very readable. Also it's not typesafe, you are using strings. Where is the advantage?</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.openxava.org/"><b>Javier Paniza</b></a>
+                
+                on December 24, 2008 at 03:24 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1230117875000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1231618880000" id="comment-1231618880000"></a>
+            <div class="comment odd" id="comment19">
+
+                
+<p>&gt; The Criteria API does not currently support update and delete operations.</p>
+
+
+<p>Linda, will the final release of JSR317 provide these features?</p>
+
+
+<p>Frank</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Frank Schwarz</b>
+                
+                on January 10, 2009 at 12:21 PM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1231618880000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1242579192000" id="comment-1242579192000"></a>
+            <div class="comment even" id="comment20">
+
+                
+<p>Is there any news about Flushmode in Manual ? </p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Maximiliano Carrizo</b>
+                
+                on May 17, 2009 at 09:53 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1242579192000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1243350940000" id="comment-1243350940000"></a>
+            <div class="comment odd" id="comment21">
+
+                
+<p>As a consumer of a domain model, I should not need to know that another object must be &quot;joined&quot; to the object on which I'm basing my query criteria.</p>
+
+
+<p>In other words, I should be able to say customer.get(&quot;items&quot;).get(&quot;product&quot;), navigating those fields like any others; if a &quot;join&quot; (a relational database term) needs to happen, it should be the framework that realizes this based on my calls to .get and does whatever is necessary to ensure that the query works.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Nick Johnson</b>
+                
+                on May 26, 2009 at 08:15 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1243350940000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1243351696000" id="comment-1243351696000"></a>
+            <div class="comment even" id="comment22">
+
+                
+<p>You're getting hung up on words. You see the word &quot;join&quot;, and think it must mean something about relational databases because the word is also a keyword in SQL. Instead, you should try to actually understand the real semantic difference between &quot;join&quot; and &quot;get&quot; in the query language, which has nothing to do with the SQL. Hint: they *both* (usually) result in relational database joins.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://in.relation.to/Bloggers/Gavin"><b>Gavin King</b></a>
+                
+                on May 26, 2009 at 08:28 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1243351696000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1244737854000" id="comment-1244737854000"></a>
+            <div class="comment odd" id="comment23">
+
+                
+<p>That's not the point.  Why should I need to know whether something needs to be joined to something else, relational or otherwise?  The ORM knows when a join is required, so why should I, as a consumer of a domain model, need to know?</p>
+
+
+<p>Why can't I just navigate the domain model naturally, like I would if it weren't even attached to relational storage, or if I were looking at any other fields of the same object (versus fields that happen to 'join' to something else)?</p>
+
+
+<p>The Toplink guys got this right eons ago with their ExpressionBuilder and Expression classes.  You don't have to tell it when you need a &quot;join&quot; because it already knows... and you shouldn't have to.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Nick Johnson</b>
+                
+                on June 11, 2009 at 09:30 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1244737854000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1250170956000" id="comment-1250170956000"></a>
+            <div class="comment even" id="comment24">
+
+                
+<p>Hi, Is there a way to create &quot;SELECT COUNT() from..&quot; with criteria api? searching the web I found some request to add such call to hibernate, but I can't fin it neither in jpa 2.0 specification nor in current jps 2.0 reference implementation. May be I just miss it. Thanks.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Sergey</b>
+                
+                on August 13, 2009 at 06:42 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1250170956000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1250852948000" id="comment-1250852948000"></a>
+            <div class="comment odd" id="comment25">
+
+                
+<p>Hi Linda,</p>
+
+
+<p>Coming back to the disconnected query topic again.</p>
+
+
+<p>Our use case is to be able to create the query on the client and then pass this to the server into a dao, which then runs the query.</p>
+
+
+<p>We would also like to be able to persist the query and retrieve it later.</p>
+
+
+<p>Can the criteria be inspected so that a query builder form can then be presented to the user from the saved query.</p>
+
+
+<p>Just a few topics.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <b>Darren</b>
+                
+                on August 21, 2009 at 04:09 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1250852948000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1255794143000" id="comment-1255794143000"></a>
+            <div class="comment even" id="comment26">
+
+                
+<p>Whew! This is going to be a much needed addition to JPA. Thanks a lot.</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://twitter.com/AnjanBanerjee"><b>Anjan Banerjee</b></a>
+                
+                on October 17, 2009 at 08:42 AM PDT
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1255794143000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                                <a name="comment-1259572065000" id="comment-1259572065000"></a>
+            <div class="comment odd" id="comment27">
+
+                
+<p>The implementation of the Criteria API is already available ?</p>
+
+
+<p>how can I configure Maven 2 to use the JPA 2.0 with Criteria ?</p>
+
+
+
+                <p class="comment-details">
+                Posted by
+                                    <a rel="nofollow" href="http://www.java.net/blogs/felipegaucho/"><b>Felipe Ga&uacute;cho</b></a>
+                
+                on November 30, 2009 at 01:07 AM PST
+
+                <a href="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1#comment-1259572065000"
+                   class="entrypermalink" title="comment permalink">#</a>
+                </p>
+
+            </div>
+
+                </div>
+
+    <div class="comments-form">
+    <div class="comments-head">Post a Comment:</div>
+    <a name="comment-form"></a>
+
+
+    
+    <form method="post" action="http://blogs.sun.com/ldemichiel/entry/java_persistence_2_0_public1" focus="name" 
+        name="commentForm" onsubmit="fixURL(this); return validateComments(this)">    
+        <input type="hidden" name="method" value="post" />
+
+        <ul>
+            <li>
+                <label class="desc">Name:</label>
+                <input type="text" name="name" class="text large" value="" size="50" maxlength="255" />
+            </li>
+
+            <li><label class="desc">E-Mail:</label>
+                <input type="text" name="email" class="text large" value="" size="50" maxlength="255" />
+            </li>
+
+            <li><label class="desc">URL:</label>
+                <input type="text" name="url" class="text large" value="" size="50" maxlength="255" />
+            </li>
+
+                    <li><input type="checkbox" class="checkbox" id="notify" name="notify" />
+                <label for="notify" class="choice">Notify me by email of new comments</label>
+            </li>
+                    <li>
+                <input type="checkbox" class="checkbox" id="rememberInfo" name="rememberInfo" />
+                <label for="rememberInfo" class="choice">Remember Information?</label>
+            </li>
+            <li>
+                <label class="desc">Your Comment:</label>
+             
+            <textarea name="content" class="textarea large" cols="40" rows="10"></textarea>
+
+            </li>
+            <li class="info">
+                <span class="comments-syntax-indicator">
+                HTML Syntax:
+                                    <span class="disabled">NOT allowed</span>
+                                </span>
+            </li>
+            <li class="info">
+               <script type="text/javascript" src="/theme/scripts/clientSideInclude.js"></script>
+               <div id="commentAuthenticator"></div>
+            </li>
+            <li>
+               <input type="button" class="button" name="post" value="&nbsp;Preview&nbsp;"
+                  onclick="this.form.method.value='preview';this.form.submit()" />
+               <input type="submit" class="button" name="post" value="&nbsp;Post&nbsp;" />
+            </li>
+        </ul>
+
+    </form>
+
+    <script type="text/javascript" src="/theme/scripts/roller.js"></script>
+    <script type="text/javascript">
+    clientSideInclude('commentAuthenticator', '/CommentAuthenticatorServlet');
+
+    var author = getCookie("commentAuthor");
+    var email = getCookie("commentEmail");
+    var url = getCookie("commentUrl");
+    // check each field - IE will render "null"
+    if (author) {
+        document.forms['commentForm'].name.value = author;
+    }
+    if (email) {
+        document.forms['commentForm'].email.value = email;
+    }
+    if (url) {
+        document.forms['commentForm'].url.value = url;
+    }
+
+    if (author || email || url) {
+        document.forms['commentForm'].rememberInfo.checked = true;
+    }
+
+    function fixURL(theForm) {
+        if (theForm.url.value != "" &&
+            theForm.url.value.indexOf("http://") == -1) { //prepend http://
+            theForm.url.value = "http://"+theForm.url.value;
+        }
+        saveUserInformation(theForm);
+    }
+
+    function saveUserInformation(theForm) {
+        if (theForm.rememberInfo.checked) {
+            rememberUser(theForm);
+        } else {
+            forgetUser(theForm);
+        }
+    }
+
+    function validateComments(theForm) {
+        if (theForm.content.value == "") {
+            alert("Please enter a comment.");
+            theForm.content.focus();
+            return false;
+        }
+    }
+    </script>
+
+
+    </div>
+
+           <!-- BEGIN RIGHT NAV -->
+<div class="nav">
+
+
+
+
+
+
+<div class="navcol">
+<div class="innernavcol">
+
+<div class="about navsect">
+<div class="navhead">
+<h2>About This Weblog</h2>
+</div>
+<div class="navbody">
+<!-- weblog about setting -->
+<p>Linda DeMichiel is the Specification Lead for Java Persistence 2.0 and former Spec Lead for EJB 3.0.  She is a senior architect in the Java Platform, Enterprise Edition team at Sun Microsystems.</p>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<!-- BANNERS -->
+
+<div class="banners">
+<script type="text/javascript">
+<!--
+   if (!document.phpAds_used) document.phpAds_used = ',';
+   phpAds_random = new String (Math.random()); phpAds_random = phpAds_random.substring(2,11);
+   document.write ("<" + "script language='JavaScript' type='text/javascript' src='");
+   document.write ("http://ads.sun.com/ads/adjs.php?n=" + phpAds_random);
+   document.write ("&amp;what=zone:44");
+   document.write ("&amp;exclude=" + document.phpAds_used);
+   if (document.referer) { document.write ("&amp;referer=" + escape(document.referer)); }
+   document.write ("'><" + "/script>");
+//-->
+</script><noscript><a href="http://ads.sun.com/ads/adclick.php?n=ad99629f" target="_blank"><img src="http://ads.sun.com/ads/adview.php?what=zone:44&amp;n=ad99629f" border="0" alt=""></a></noscript>
+</div>
+
+
+
+
+
+<div class="navcol">
+<div class="innernavcol">
+
+
+
+
+
+<!-- ARCHIVES -->
+
+<div class="navsect">
+<div class="navhead">
+<h2>Archives</h2>
+</div>
+<div class="navbody">
+<div class="hCalendarTable"><table cellspacing="0" border="0"  summary="Blog Archive Calendar" class="hCalendarTable"><tr><td colspan="7" align="center" class="hCalendarMonthYearRow"><a href="/ldemichiel/date/200912" title="Prev" class="hCalendarNavBar">&laquo;</a> January 2010</td></tr><tr><th class="hCalendarDayNameRow" align="center">Sun</th><th class="hCalendarDayNameRow" align="center">Mon</th><th class="hCalendarDayNameRow" align="center">Tue</th><th class="hCalendarDayNameRow" align="center">Wed</th><th class="hCalendarDayNameRow" align="center">Thu</th><th class="hCalendarDayNameRow" align="center">Fri</th><th class="hCalendarDayNameRow" align="center">Sat</th></tr><tr><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDay"><div class="hCalendarDayTitle">1</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">2</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">3</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">4</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">5</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">6</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">7</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">8</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">9</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">10</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">11</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">12</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">13</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">14</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">15</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">16</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">17</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">18</div></td><td class="hCalendarDayCurrent"><div class="hCalendarDayTitle">19</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">20</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">21</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">22</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">23</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">24</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">25</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">26</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">27</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">28</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">29</div></td><td class="hCalendarDay"><div class="hCalendarDayTitle">30</div></td></tr><tr><td class="hCalendarDay"><div class="hCalendarDayTitle">31</div></td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td><td class="hCalendarDayNotInMonth">&nbsp;</td></tr><tr class="hCalendarNextPrev"><td colspan="7" align="center"><a href="/ldemichiel/" class="hCalendarNavBar">Today</a></td></tr></table>
+</div>
+</div>
+</div>
+
+
+
+
+
+<!-- FEED -->
+
+<div class="feeds navsect">
+<div class="navhead">
+<h2>Feeds</h2>
+</div>
+<div class="navbody">
+    <ul class="rFeeds">
+    <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom">All</a></li>
+                <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom?cat=%2FPersistence">/Persistence</a></li>
+            <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom?cat=%2FPersonal">/Personal</a></li>
+            <li><a href="http://blogs.sun.com/ldemichiel/feed/entries/atom?cat=%2FSun">/Sun</a></li>
+        <li><a href="http://blogs.sun.com/ldemichiel/feed/comments/atom">Comments</a></li>
+    </ul>
+</div>
+</div>
+
+
+
+
+
+<!-- SEARCH -->
+
+<div class="navsect">
+<div class="navhead">
+<h2>Search</h2>
+</div>
+<div class="navbody">
+    <form id="searchForm" method="get" action="http://search.sun.com/blogs/index.jsp" style="margin: 0; padding: 0" >
+        <input type="hidden" name="weblog" value="ldemichiel">
+        <p>
+          <input type="text" name="qt" size="10" maxlength="255" />
+          <input type="submit" value="Search" />
+        </p>
+    </form>
+</div>
+</div>
+
+
+
+
+
+<!-- BOOKMARKS -->
+
+    <div class="navsect">
+    <div class="navhead">
+    <h2>Bookmarks</h2>
+    </div>
+    <div class="navbody">
+    <ul class="rFolder">
+                    <li class="rFolderItem">
+                                <a href="http://blogs.sun.com"
+               title=""
+               class="rBookmark0">blogs.sun.com</a>
+                </li>
+            <li class="rFolderItem">
+                                <a href="http://java.com"
+               title=""
+               class="rBookmark0">java.com</a>
+                </li>
+            <li class="rFolderItem">
+                                <a href="http://java.net"
+               title=""
+               class="rBookmark0">java.net</a>
+                </li>
+            <li class="rFolderItem">
+                                <a href="http://www.opensolaris.org"
+               title=""
+               class="rBookmark0">opensolaris.org</a>
+                </li>
+                    </ul>
+	</div>
+	</div>
+
+
+
+
+
+<!-- LINKS -->
+
+<div class="navsect">
+<div class="navhead">
+<h2>Other Blog Links</h2>
+</div>
+<div class="navbody">
+    <ul class="rNavigationBar">
+        <li class="rNavItem">
+            <a href="/"><span>blogs.sun.com</span></a>
+        </li>
+        <li class="rNavItem">
+            <a href="http://blogs.sun.com/ldemichiel/"><span>Weblog</span></a>
+        </li>
+                                                                                                                                                                                        <li class="rNavItem">
+                    <a href="/roller-ui/login-redirect.rol"><span>Login</span></a>
+                </li>
+                        </ul>
+  
+    
+</div>
+</div>
+
+
+
+
+
+<!-- AFFINITY -->
+<div class="affinity"></div>
+
+
+
+
+
+<!-- REFERRERS -->
+
+<div class="navsect">
+<div class="navbody">
+<div class="rFolderitem">
+    <p>Today's Page Hits: 146</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+</div>
+<!-- END RIGHT NAV -->
+    
+</div>
+</div>
+</div>
+</body>
+</html>

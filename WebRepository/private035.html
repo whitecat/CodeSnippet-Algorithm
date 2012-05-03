@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="keywords" content="Java,tutorial">
+<link rel="stylesheet" type="text/css" href="../lang.css">
+<title>Java's Access Specifiers</title>
+</head>
+<body>
+
+<div class="donate253586027">If you enjoyed this site, please consider donating $3. Any amount is appreciated. <a href="http://xahlee.org/thanks.html">Thanks!</a><form action="https://www.paypal.com/cgi-bin/webscr" method="post"><div><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8127788"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit"><img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"></div></form></div>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<h1>Java's Access Specifiers</h1>
+
+<p>Xah Lee, 2005-02, 2007-12</p>
+
+<p>In Java code, class and variable and method and constructor declarations can have â??access specifiersâ??, that is one of: private, protected, public. (or none.)</p>
+
+<p>(Note: it is important to remember that constructors in Java are
+treated differently than methods.
+Class members consists of the class's variables and methods. 
+Constructors are NOT considerd a class member.
+
+And, constructors are distinguished from methods by
+the Java compiler by the absence/presence of a return value
+declaration. (secondarily, the requirement that constructors must have
+the same name as the class.))</p>
+
+<p>The purpose of access specifiers is to declare which entity can not be accessed from where. Its effect has different consequences when used on a class, class member (variable or method), constructor.</p>
+
+<h2>Access Specifiers for Class Variables and Methods</h2>
+
+<p>Below is a table showing the effects of access specifiers for <b>class members</b>. â??Yâ?? means yes. Blank means No.</p>	
+
+<table class="nrm">
+<tr><th>Specifier</th><th>class</th><th>subclass</th><th>package</th><th>world</th></tr>
+<tr><td>private</td><td>Y</td><td></td><td></td><td></td></tr>
+<tr><td>protected</td><td>Y</td><td>Y</td><td>Y</td><td></td></tr>
+<tr><td>public</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr>
+<tr><td>(none)</td><td>Y</td><td></td><td>Y</td><td> </td></tr>
+</table>
+
+<p>For example, if a variable is declared protected, then the class itself can access it, its subclass can access it, and any class in the same package can also access it, but otherwise a class cannot access it.</p>
+
+<p>If a class memeber doesn't have any access specifier (the â??noneâ?? row in above), its access level is sometimes known as â??packageâ??.</p>
+
+<p>Here's a example.</p>
+
+<pre class="java">
+<span class="keyword">class</span> <span class="variable-name">P</span> {
+    <span class="type">int</span> <span class="variable-name">x</span> = 7;
+}
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="variable-name">AS</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="function-name">main</span>(<span class="type">String</span>[] args) {
+        P p = <span class="keyword">new</span> <span class="type">P</span>();
+        <span class="type">System</span>.out.println(p.x);
+    }
+}</pre>
+
+<p>The code compiles and runs. But, if you add â??privateâ?? in front of â??int xâ??, then you'll get a compiler error: â??x has private access in Pâ??. This is because when a member variable is private, it can only be accessed within that class.</p>
+
+<h2>Access Specifiers for Constructors</h2>
+
+<p>Constructors can have the same access specifiers used for variables and methods. Their meaning is the same.  For example, when a constructor has â??privateâ?? declared, than, only the class itself can create a instance of it. (kind of like self-instance) Other class in the same package (file) can not create a instance of that class. Nor any subclass of that class. Nor any other class outside of this package (file).</p>
+
+<p>Here is a sample code.</p>
+
+<pre class="java">
+<span class="keyword">class</span> <span class="variable-name">Q</span> {
+    <span class="keyword">public</span> <span class="type">int</span> <span class="variable-name">x</span>;
+    <span class="keyword">private</span> Q (<span class="type">int</span> <span class="variable-name">n</span>) {
+        x=n;
+        <span class="type">System</span>.out.println(<span class="string">"i'm born!"</span>);
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="variable-name">ASS</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="function-name">main</span>(<span class="type">String</span>[] args) {
+        Q q = <span class="keyword">new</span> <span class="type">Q</span>(3);
+        <span class="type">System</span>.out.println(q.x);
+    }
+}</pre>
+
+<p>In the above code, it won't compile because Q's contructer is â??privateâ?? but it is being created outside of itself. If you delete the â??privateâ?? keyword in front of Q's constructor, then it compiles.</p>
+
+<p>Remember that a class can have more than one constructors, each with different parameters. The constructors needs not all have the same access specifier.</p>
+
+<p>In the following example, the class Q has two constructors, one takes a int argument, the other takes a double argument. One is declared private, while the other with no access specifier (default package level access).</p>
+
+<pre class="java"><span class="keyword">class</span> <span class="variable-name">Q</span> {
+    Q (<span class="type">int</span> <span class="variable-name">n</span>) {
+        <span class="type">System</span>.out.println(<span class="string">"i'm born int!"</span>);
+    }
+    <span class="keyword">private</span> Q (<span class="type">double</span> <span class="variable-name">d</span>) {
+        <span class="type">System</span>.out.println(<span class="string">"i'm born double!"</span>);
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="variable-name">ASS2</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="function-name">main</span>(<span class="type">String</span>[] args) {
+        Q q1 = <span class="keyword">new</span> <span class="type">Q</span>(3);
+        <span class="comment-delimiter">//</span><span class="comment">Q q2 = new Q(3.3);
+</span>    }
+}</pre>
+
+<p>The fact that there can be constructors with different access specifiers means that in Java, the ability to create a object also depends on which constructor is called to create the object.</p>
+
+<h2>Access Specifiers for Classes</h2>
+
+<p>For classes, only the â??publicâ?? access specifier can be used on
+classes. Basically, Java has this â??One Class Per Fileâ?? paradigm. That
+is, in every java source code file, only one class in the file is
+public accessible, and that class must have the same name as the
+file. (For Example, if the file is â??xyz.javaâ??, then there must be a
+class named â??xyzâ?? in it, and that is the class that's public.)
+Optionally, the class can be declared with â??publicâ?? keyword.</p>
+
+<p>If you use any other access specifier on classes, or declare more than one class â??publicâ?? in a file, the compiler will complain. For detail, see
+<a href="package.html">Packages in Java</a>.
+</p>
+
+<h2>The Complexity of Access Specifiers in OOP</h2>
+<p>
+The rise of the elaborate access specifiers and their different consequences in Java entities is a complexity out of OOP and its machinery.</p>
+
+<p>Note that the concept of access specifiers such as â??privateâ?? is not at all related to issues of secrecy or the all-important aspect of cryptography in computing. Compiled Java code can relatively easily be decompiled by compiler specialists.</p>
+
+<p>The concept of access specifiers is arisen out of the perceived need of good engineering practices. More specifically: to provide a way in the language of OOP paradigm to specify and control what items can not be accessed.</p>
+
+<p>This concept and scheme, is not relevant to some 95% of programing in the real world. In writing Java code, one doesn't have to fret over them. Nothing's gonna happen if you declare everything public. Just about every other programing language are all â??publicâ?? and babies are still born every second.</p>
+
+<p>As we've seen above, these â??access specifiersâ?? has different meanings when used on different Java entities. When used on class variables or methods, they control where these variable/methods can not be used. When used on constructors, they control where a class can not be instantiated. And when applied to classes, they declare which class cannot be seen.
+How exactly did these complexities arise?
+</p>
+
+<p>To find the answer, we realize that all these differences, including the concept of access specifiers, is a immediate consequence of OOP. As we've seen in the article <a href="../Periodic_dosage_dir/t2/oop.html">What are OOP's Jargons and Complexities?</a>, classes and methods are really just subroutines and inner-subroutines. And, a instance of a class (objects), are really just variables assigned with such super-subroutines as values. Naturally, when one deals with super-subroutines and execute commands by assigning them to variables and calling inner-subroutines thru these variables, complexity ensues.</p>
+
+<p>
+Normally, the scoping of variables can be classified as one of dynamic or lexical, or that of global and local.
+
+Now with OOP ways, a variable in a class has a scope, while the same variable when the class is instantiated (a objet) is a different scoping issue.
+
+Also, the scope concept applicable to variables is now broadened to methods (inner-subroutines) and constructors (specialized inner-subroutines).
+
+All in all, the scoping complexities of OOP as applied to different OOP entities is manifested as access specifiers in Java.</p>
+
+<p><span class="ref"><a href="http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html">Java Tutorial: accesscontrol</a></span></p>
+<p><span class="ref"><a href="http://java.sun.com/docs/books/jls/third_edition/html/names.html#104285">Java Lang Spec: names</a></span></p>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<div class="dstp">2005-01</div>
+<div class="cpr">Â© 2005 by <a href="http://xahlee.org/PageTwo_dir/more.html">Xah Lee</a>.</div>
+
+<div class="xsig"></div>
+
+<script type="text/javascript"> var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); </script> <script type="text/javascript"> try { var pageTracker = _gat._getTracker("UA-10884311-2"); pageTracker._trackPageview(); } catch(err) {}</script>
+</body>
+</html>

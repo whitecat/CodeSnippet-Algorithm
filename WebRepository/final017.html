@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Final Classes in Java(tm)</title>
+</head>
+<body background="./bg.jpg" bgcolor="#ffffff" text="#0000df" link="#ff0000" vlink="#000000">
+<h1>Final Classes in Java(tm)</h1>
+<p>
+In Java, a class organization such as:
+<br>
+<pre>
+        class A {}
+
+        class B extends A {}
+</pre>
+<p>
+results in a superclass (A) and a subclass (B).  References to B objects
+may be assigned to A references, and if an A reference "really" refers
+to a B, then B's methods will be called in preference to A's.  All of
+this is a standard part of the object-oriented programming paradigm
+offered by Java.
+<br>
+<p>
+But there is a way to modify this type of organization, by declaring a
+class to be final.  If I say:
+<br>
+<pre>
+        final class A {}
+</pre>
+<p>
+then that means that A cannot be further extended or subclassed.
+<br>
+<p>
+This feature has a couple of big implications.  One is that it allows
+control over a class, so that no one can subclass the class and possibly
+introduce anomalous behavior.  For example, java.lang.String is a final
+class.  This means, for example, that I can't subclass String and
+provide my own length() method that does something very different from
+returning the string length.
+<br>
+<p>
+There is also a big performance issue with final classes.  If a class is
+final, then all of its methods are implicitly final as well, that is,
+the method is guaranteed not be overridden in any subclass.  A Java
+compiler may be able to inline a final method.  For example, this
+program:
+<br>
+<pre>
+        final class A {
+                private int type;
+                public int getType() {return type;}
+        }
+
+        public class test {
+                public static void main(String args[])
+                {
+                        int N = 5000000;
+                        int i = N;
+                        int t = 0;
+                        A aref = new A();
+                        while (i-- &gt; 0)
+                                t = aref.getType();
+                }
+        }
+</pre>
+<p>
+runs about twice as fast when the class is declared final.
+<br>
+<p>
+Of course, much of the time it's desirable to use the superclass /
+subclass paradigm to the full, and not worry about wringing out the last
+bit of speed.  But sometimes you have heavily used methods that you'd
+like to have expanded inline, and a final class is one way of achieving
+that.
+<br>
+<br>
+<br>
+<br>
+<br>
+<a href="./brochure.htm">Our Services</a><br><br>
+<a href="./index.htm">Back to Home Page</a>
+<br>
+<br>
+<br>
+<p>
+<font size="-2">
+Java and all Java-based marks are trademarks or registered trademarks of
+Sun Microsystems, Inc. in the United States and other countries.
+Throughout this document, when the Java trademark appears alone it is a
+reference to the Java programming language.  When the JDK trademark
+appears alone it is a reference to the Java Development Kit.
+</body>
+</html>

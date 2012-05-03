@@ -1,0 +1,6142 @@
+
+
+
+
+
+	
+		
+		
+
+
+ 
+
+
+
+
+
+	
+
+
+
+
+
+
+
+	
+	
+	  	
+		
+			
+		
+	
+	
+	
+	
+	  	
+		
+			
+		
+	
+	
+
+
+
+   
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+<style>
+.note-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: .95em;
+		margin-left: .75em; margin-right: .75em;}
+</style> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 	
+	
+	
+		
+		
+		
+        
+	
+	
+	
+	
+	
+	
+		
+	
+	
+		
+		
+		
+					
+			
+				
+				  	
+				
+			
+			
+			
+			
+				
+		    
+			
+			
+
+
+
+	
+
+
+			
+			
+		
+		
+		
+		
+		
+		
+		
+	 
+
+
+
+	
+
+  	
+	
+	  	
+	
+
+
+
+
+
+
+
+	
+	
+	
+	
+	  	
+	
+	
+	
+		
+  
+
+
+	
+	
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 	
+ 	
+	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+
+<link rel="STYLESHEET" type="text/css" href="css/dl.css" />
+
+
+<title>Extended static checking for Java</title>
+<style type="text/css"><!--
+    body {margin-left: 0em; margin-top: 0}
+    a:link {text-decoration: underline; 	Color: #006699;}
+    a:visited  { color: #990033; text-decoration: underline;}
+    a:hover {color: red; text-decoration: none}
+    a.dLink1:link {color:#336699}
+    a.dLink1:visited {color:#666666}
+	a.isblack:link {text-decoration: underline; 	Color: #000000;}
+    a.isblack:visited  { color: #000000; text-decoration: underline;}
+    a.isblack:hover {color: #000000; text-decoration: none}
+    h1 {font-size: 140%; margin-bottom: 0}
+	ul {margin-top: .25em; list-style-type: disc}
+	ol {margin-top: .25em;}
+	li {padding-bottom: .25em}
+    h2 {color: white; background-color: #069; 
+        font-size: 100%; padding-left: 1em;
+		margin: 0}
+	h3 {color: black; background-color: yellow; 
+    	font-size: 100%;
+		margin: 0}
+	 h4 {color: black; background-color: #99c5e8; 
+        font-size: 100%;
+		margin: 0}
+    hr {color: #39176d;}
+    form {margin-top: 10}
+    form.xrs {margin-top: 0}
+	
+	a {text-decoration: none; }
+	
+	input {font-size: 1em;}
+	.chevron {color: #ff0000;}
+	.light-blue {color:#336699;}
+	.black {color:#000000;}
+	
+	/* ### standard text styles, smallest to largest ### */
+	
+	.footer-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#336699; font-size: .75em; line-height: 1.33em;
+		text-indent: -.75 em; margin-left: 2em; margin-right: .75em;}
+		
+	.footer-copy-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .75em; line-height: 1.3em;
+		margin-left: .75em; margin-right: .75em;}
+		
+	.small-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; padding-bottom : 2px;
+	  	padding-top : 2px;}
+
+	.smallerer-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .65em;}
+	.smaller-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .75em;}		
+	.small-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em;}
+	.small-textb {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; font-weight: bold;}
+	.medium-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1em;}
+	.mediumb-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1em; font-weight: bold;}
+	.large-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1.3em;}		
+	.instr-text {font-family: Arial, Helvetica, sans-serif;
+		color:#666666; font-size: .83em;}
+		
+	.list-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#336699; font-size: .83em; line-height: 1.3em;}
+	.list-link-btext {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; line-height: 1.3em;}
+	
+	.searchbox-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold;}
+	.footer-header-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold;
+		margin-left: .75em; margin-right: .75em;}
+	.medium-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold; line-height: 1em;
+		text-indent: -1.25em; margin-left: 2em; margin-right: .75em;}
+	
+	
+	.small-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: .75em; line-height: 1.2em;
+		margin-left: .75em; margin-right: .75em;}
+
+	.medium-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: 1em; line-height: 1.2em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.large-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: 1.3em; line-height: 1.5em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.medium-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: 1em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.large-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: 1.5em;
+		margin-left: .75em; margin-right: .75em;}
+
+		#side {
+			width: 10px;
+			float: left;
+			margin-left: -1px;
+			padding: 2px;
+			}
+							
+		#content {
+			padding: 2px;
+			margin-left: 25px;
+			
+		        
+		        }
+  --></style>
+ 
+<script language="JavaScript">
+ /* <!-- Begin
+	if(document.layers || document.all) {
+	a = 1;
+	setInterval("Jump()", 10);
+	}
+	function Jump() {
+	a = a + 1;
+	//self.moveBy((Math.random() * a * 2 - a), (Math.random() * a * 2) - a);
+	}
+//  End --> */
+</script>
+
+
+
+
+
+
+
+
+	
+	
+		
+ 		
+			
+				
+				
+			
+				
+				
+			
+				
+				
+				  	
+					
+		
+	
+  
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+	 
+	
+	
+	
+	
+	
+	
+
+
+
+ 
+ 
+
+
+
+
+
+	
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+</head>
+
+<body bgcolor="#ffffff" onload="window.focus(); ">
+<div align="center">
+<a name="CIT"></a>
+<table border="0" width="85%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+
+
+	
+		
+				
+				
+					
+				  
+		
+	 
+
+
+
+
+
+
+
+
+
+	
+		
+	  
+		
+
+	
+
+
+
+	
+
+
+	
+
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr valign="top">
+		<td width="1%" class="small-link-text" align="center"  background="http://portal.acm.org/images/horiz-bar.jpg"><img src="http://portal.acm.org/images/logo_acm_portal2.jpg" alt="ACM Portal" width="263" height="54" border="0" usemap="#PORT">
+			
+				<font color="white">
+				
+					California Digital Library:&nbsp;UC Irvine
+				  
+				</font>
+			  
+		</td>
+		<td width="99%" align="left" class="small-link-text">
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>&nbsp;</td>
+				
+					<td class="small-link-text"><a href="https://campus.acm.org/Public/login_genpubqj.cfm?rdr=http://portal.acm.org/citation.cfm?id=512558&promo=QJPUB&offering=200&form_type=PUB&CFID=74711003&CFTOKEN=92540064" class="small-link-text">Subscribe</a><span class="small-link-text">&nbsp;(Full Service)</span>&nbsp;&nbsp;&nbsp;</td>
+					<td class="small-link-text"><a href="https://portal.acm.org/poplogin.cfm?dl=GUIDE&coll=GUIDE&want_href=citation%2Ecfm%3Fid%3D512558%26CFID%3D74711003%26CFTOKEN%3D92540064&CFID=74711003&CFTOKEN=92540064" class="small-link-text">Register</a><span class="small-link-text">&nbsp;(Limited Service, <font color="Red">Free</font>)</span>&nbsp;&nbsp;&nbsp;</td>
+				
+				<td class="small-link-text" valign="bot">
+					
+					
+		 					<a href="https://portal.acm.org/poplogin.cfm?dl=GUIDE&coll=GUIDE&want_href=citation%2Ecfm%3Fid%3D512558%26CFID%3D74711003%26CFTOKEN%3D92540064&CFID=74711003&CFTOKEN=92540064" class="small-link-text">Login</a>
+					
+				</td>			
+			</tr>
+			</table>
+			
+			
+			
+			<table border="0" width="100%" cellspacing="0" cellpadding="0">
+				
+					
+					
+					     
+					
+					<form name="qiksearch" action="results.cfm?coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" method="post">
+					<tr>
+						<td height="5"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+					</tr>
+					<input type="hidden" name="parser" value="Internet">
+					<tr>
+						<td class="small-link-text">&nbsp;</td>
+						<td class="small-link-text">
+							 
+							  	
+							
+							
+							
+							<b>Search:</b>&nbsp;&nbsp;&nbsp;<input type="Radio" name="whichDL" value="acm" >The ACM Digital Library&nbsp;&nbsp;&nbsp;<input type="Radio" name="whichDL" value="guide" checked>The Guide
+
+							
+							<br><input class="pubdescr" type="Text" name="query" size="60" value=" ">&nbsp;&nbsp;
+							<input type="Image" alt="Search" name=Go src="http://portal.acm.org/images/search_small.jpg" border="0">
+<script type="text/javascript" src="js/wz_tooltip/wz_tooltip.js"></script> 
+
+
+						</td>
+					</tr>
+
+					</form>
+				
+			</table>
+
+			
+		</td>
+	<!-- top nav END -->
+	</tr>
+	</table>
+	
+
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td height="12"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	</table>
+
+<map name="PORT" > 
+  <area shape="rect" coords="1,1,55,60" href="http://www.acm.org/" alt="ACM Home Page">
+  <area shape="rect" coords="65,1,300,78" href="portal.cfm?coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064">
+</map>
+
+	
+
+<table border="0" width="100%" align="left">
+	<col width="40%">
+	<col width="60%">
+	<tr>
+		<td>
+			
+				<a href="guide.cfm?coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064"><img src="http://portal.acm.org/images/acm_guide_bar_large2.jpg" width=350 height=25 alt="" border="0"></a>
+			
+		</td>
+ 		<td class="small-text" align="center">
+			<img src="http://portal.acm.org/images/feedback.gif" width="20" height="19" alt="Please provide us with feedback." border="0">&nbsp;<a href="feedback.cfm?CFID=74711003&CFTOKEN=92540064">Feedback</a>
+		</td>
+	</tr>
+	<tr>
+		<td height="6" colspan="2" class="medium-text" style="padding-top:20px; padding-bottom:20px;">
+         <a title="beta version" href="beta/citation.cfm?id=512558"><img style="vertical-align:middle" src="img/ACMDL_Symbol_new.jpg" alt="Digital Library logo" border="0" /></a>Take a look at the new version of this page: [ <a title="beta version" href="beta/citation.cfm?id=512558">beta version</a> ].</a> 
+        Tell us what you think.
+		</td>
+	</tr>
+</table>
+</td>
+</tr>
+
+
+ 	
+
+
+
+
+<tr>
+	<td colspan="3" valign="top" height="1" background="http://portal.acm.org/images/horiz-bar-long.jpg"></td>
+</tr>
+
+
+
+
+
+<tr>
+<td class="small-text">
+	<table border="0" width="100%"  cellpadding="2">
+		<col width="1%">
+		<col width="8%">
+		<col width="91%">
+	<tr>
+		<td class="medium-text" colspan="3"><strong>Extended static checking for Java</strong></td>
+	</tr>
+			
+	
+		<tr valign="top">
+			
+			
+		</tr>
+		
+		
+		
+			<tr valign="top">
+				
+					<td class="small-text"><strong>Full text</strong></td>
+				 
+				<td class="smaller-text" colspan="2" >
+						
+						
+							
+									 
+									<A NAME="FullText" title="Pdf" HREF="ft_gateway.cfm?id=512558&type=pdf&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_blank">
+									<img src="http://portal.acm.org/imagetypes/pdf_logo.gif" alt="Pdf" border="0" align="middle" style="margin-right: 2px">Pdf</A>
+									 (258&nbsp;KB)
+							
+						   
+					    
+					   
+					   
+					   
+						<br />
+						
+						
+						
+						
+				</td>
+			</tr>
+		
+		
+		<tr valign="top">
+			
+            
+            
+            
+            
+            
+		</tr>
+
+		<tr valign="top">
+			<td class="small-text"><strong>Source</strong>
+				
+				
+						
+				
+				
+					
+
+					
+				
+				
+			</td>
+			<td class="small-text" colspan="2">
+			
+								
+										
+											
+											
+												
+										
+											
+											
+											
+											
+											
+											
+												
+												
+												
+													
+													
+												
+											
+											
+											
+											    
+												
+												
+												
+												
+													
+													
+														
+												
+													
+													
+													
+														
+														
+														
+														
+														
+														<SPAN class="mediumb-text">Conference on Programming Language Design and Implementation</span>
+																			<a href="toc.cfm?id=SERIES363&type=series&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self" class="small-link-text">archive</a><br>
+													  
+													<SPAN class="mediumb-text">Proceedings of the ACM SIGPLAN 2002 Conference on Programming language design and implementation </span>
+										 								 <a href="toc.cfm?id=512529&type=proceeding&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064"  target="_self" class="small-link-text">table of contents</a><br>
+												  
+												<DIV class="small-text">
+													 Berlin, Germany 
+												</div>
+											   
+										
+								
+		
+
+		
+		<div class="medium-text">
+			
+					
+						
+						
+						
+					
+									
+					
+						 
+						 	
+						 	
+						 	
+									
+					
+				   
+				    
+					
+					
+			 	SESSION: Analysis of Object-Oriented Programs
+				
+						<a href="toc.cfm?id=512529&type=proceeding&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064#512557" target="_self" class="small-text">table of contents</a><br>
+				
+			  
+			
+		</div>
+		
+		
+		    
+			
+			
+		
+
+			
+			
+			<div class="small-text">
+				 Pages: 234 - 245&nbsp;&nbsp;
+			</div>
+					
+			
+			
+			
+				<div class="small-text">
+					Year of Publication:&nbsp;2002
+				</div>
+			
+					
+			
+				<div class="small-text">
+					
+						
+						
+							
+							
+						  
+					  
+					ISBN:1-58113-463-0
+				</div>
+				
+
+			
+			
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+					  
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+			
+			
+					<a href="citation.cfm?id=512558#opub" class="small-link-text">Also published in ...</a>
+			
+		
+			 
+			  	
+			 
+			 
+		
+		
+		
+			
+				
+			</td>
+		</tr>
+		
+		
+		
+			<tr valign="top">
+				<td class="small-text">							
+										  	<strong>Authors</strong>
+										
+				</td>
+				
+				
+					
+					
+				<td colspan="2">
+				<div class="authors">
+					<table cellpadding="0" cellspacing="0">		
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81100538763&coll=GUIDE&dl=GUIDE&trk=0&CFID=74711003&CFTOKEN=92540064" target="_self">Cormac Flanagan</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Microsoft Research, Redmond, WA</small>
+										
+								</td>
+							</tr>
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81100225265&coll=GUIDE&dl=GUIDE&trk=0&CFID=74711003&CFTOKEN=92540064" target="_self">K. Rustan M. Leino</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Microsoft Research, Redmond, WA</small>
+										
+								</td>
+							</tr>
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81100001867&coll=GUIDE&dl=GUIDE&trk=0&CFID=74711003&CFTOKEN=92540064" target="_self">Mark Lillibridge</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Compaq Systems Research, Palo Alto, CA</small>
+										
+								</td>
+							</tr>
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81100407919&coll=GUIDE&dl=GUIDE&trk=0&CFID=74711003&CFTOKEN=92540064" target="_self">Greg Nelson</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Compaq Systems Research, Palo Alto, CA</small>
+										
+								</td>
+							</tr>
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81100392578&coll=GUIDE&dl=GUIDE&trk=0&CFID=74711003&CFTOKEN=92540064" target="_self">James B. Saxe</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Compaq Systems Research, Palo Alto, CA</small>
+										
+								</td>
+							</tr>
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81332529385&coll=GUIDE&dl=GUIDE&trk=0&CFID=74711003&CFTOKEN=92540064" target="_self">Raymie Stata</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Compaq Systems Research, Palo Alto, CA</small>
+										
+								</td>
+							</tr>
+					
+					</table>	
+				</div>
+				</td>
+			</tr>
+			
+		
+		
+		
+	    
+
+		
+		
+		
+		
+			
+				<tr valign="top">
+					<td class="small-text"><strong>Sponsor </strong></td>
+					<td colspan="2">
+						<div class="sponsors">
+							
+								
+								
+								
+									
+									
+									
+										<a href=" http://www.acm.org/sigplan/" target="sponsor" title="Sponsor">SIGPLAN</a>:
+									  								
+									 ACM Special Interest Group on Programming Languages <br>
+								
+							
+								
+								
+								
+							
+								
+								
+								
+							
+						</div>
+					 </td>
+				</tr>
+			
+		
+		
+		
+		
+			
+					<tr valign="top">
+						<td class="small-text"><strong>Publisher</strong></td>
+						<td colspan="2">
+							<div class="publishers">
+									
+										<a href="http://www.acm.org/publications" target="publisher" title="Publisher">
+										ACM</a>&nbsp;
+									  
+									
+										<small>New York, NY, USA</small>
+									
+							</div>
+						</td>
+					</tr>
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+					<tr valign="top">
+						<td class="small-text"><strong>Bibliometrics</strong></td>
+						<td colspan="2">
+							<div class="publishers">
+									Downloads (6 Weeks): n/a,&nbsp;&nbsp;  Downloads (12 Months): n/a,&nbsp;&nbsp;  Citation Count: 198
+							</div>
+						</td>
+					</tr>
+			
+		
+		
+		
+		
+		</table>
+	
+ 
+ 
+  
+ 		
+</td>
+</tr>
+
+
+<tr>
+<td>
+
+<!-- third main table: main content START -->
+	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	<tr>
+		<td colspan="4" valign="top" height="1" background="http://portal.acm.org/images/horiz-bar-long.jpg"></td>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+
+	
+
+	<tr valign="top">
+	<!-- buttons -->
+		<td width="100%" colspan="4">
+	    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+		<col width="22%">
+	    <col width="78%">
+		<tr>
+			<td class="small-text"><b>Additional Information:</b></td>
+			<td>
+			<p class="small-text">
+				
+				
+				
+					<a href="citation.cfm?id=512558#abstract">abstract</a>&nbsp;&nbsp;
+				
+				
+				  
+					<a href="citation.cfm?id=512558#references">references</a>&nbsp;&nbsp;
+				    
+				
+				
+				
+					<a href="citation.cfm?id=512558#citedby">cited by</a>&nbsp;&nbsp;
+				
+				
+				
+					<a href="citation.cfm?id=512558#IndexTerms">index terms</a>&nbsp;&nbsp;
+				
+				
+				
+						<a href="citation.cfm?id=512558#collab">collaborative colleagues</a>&nbsp;&nbsp;
+				
+				
+				</p>
+			</td>
+		</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	
+	<tr valign="top">
+	<!-- buttons -->
+		<form name="popbinder">
+		<td width="100%" colspan="4">
+		
+		<table border="0" cellspacing="0" cellpadding="2" width="100%" >
+		  <col width="22%">
+		  <col width="78%">
+		  <tr valign="top">
+		  	<td class="small-text" style="padding-top: .75em"><b>Tools and Actions:</b></td>
+			<td style="padding-top: .75em">
+			
+				
+					
+					
+					 
+					 
+					 
+				
+				
+							
+				
+			  
+			
+			
+			
+
+			
+			
+		    
+				
+				<a href="rightslink.cfm?id=512558&parent_id=512529" class="small-link-text" title="Request Permissions" target ="_blank"><img src="images/RL_Reprint_2.gif" width="17" height="16" border="0" alt="Request Permissions" /> Request Permissions</a>&nbsp;&nbsp;&nbsp;
+				
+			
+			
+			<a href="http://www.reviews.com/reviewer/quickreview/frameset_toplevel.cfm?bib_id=512558" target="reviews" class="small-link-text">Review this Article</a>&nbsp;&nbsp;
+			<div style="margin-top: .5em; margin-bottom: 0">
+			
+			 	<a href="citation.cfm?id=512558#" onClick="window.alert('To use this Feature, you must login with your personal ACM Web Account.');" class="small-link-text">
+				Save this Article to a Binder</a><img src="http://portal.acm.org/images/blanks.gif" border="0" name="saved">
+			
+			&nbsp;&nbsp;
+			<span class="small-text">Display Formats:</span>
+			<a href="citation.cfm?id=512558#" onClick="window.open('popBibTex.cfm?id=512558&ids=SERIES363.512529.512557.512558&types=series.proceeding.section.article&reqtype=article&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064','BibTex','width=800,height=100,top=100,left=100,scrollbars=Yes,resizable=yes');" class="small-link-text">
+			BibTeX</a>&nbsp;
+
+			<a href="citation.cfm?id=512558#" onClick="window.open('testpopendnotes.cfm?id=512558&ids=SERIES363.512529.512557.512558&types=series.proceeding.section.article&reqtype=article&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064','BibTex','width=800,height=100,top=100,left=100,scrollbars=Yes,resizable=yes');" class="small-link-text">
+			EndNote</a>
+
+			
+			 
+				<a href="citation.cfm?id=512558#" onClick="window.open('popacmref.cfm?id=512558&ids=SERIES363.512529.512557.512558&types=series.proceeding.section.article&reqtype=article&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064','BibTeX','width=800,height=100,top=100,left=100,scrollbars=Yes,resizable=yes');" class="small-link-text">
+			ACM Ref</a>
+			
+			
+			&nbsp;&nbsp;				
+			
+			</div>
+			
+			
+			
+				
+				  	
+				
+				
+				
+			
+			
+			</td>
+		</tr>
+		<tr>
+			<td height="10"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+		</tr>
+		
+		<tr valign="top">
+			<td class="small-text"><b>DOI Bookmark:</b></td>
+			<td class="small-text">
+				<small>Use this link to bookmark this Article:&nbsp;</small><a href="http://doi.acm.org/10.1145/512529.512558">http://doi.acm.org/10.1145/512529.512558</a><br><small><a href="http://www.doi.org/">What is a DOI?</a></small>
+			    
+			</td>
+		</tr> 
+		
+		</table>
+		
+		</td>
+		</form>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	<tr>
+		<td colspan="4" valign="top" height="1" background="http://portal.acm.org/images/horiz-bar-long.jpg"></td>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	</table>
+<!-- third main table: main content END -->
+	
+
+		
+		
+
+
+
+		
+		
+		  	<div class="abstract">
+			
+			
+			  	
+			 
+			 
+			
+			</div>
+		
+		
+		
+
+		
+			<br>
+			<div class="abstract">
+			
+			<A HREF="citation.cfm?id=512558#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="abstract">ABSTRACT</A></span>
+			
+			  	
+			 
+			 
+			
+				<p class="abstract">
+				
+					 Software development and maintenance are costly endeavors. The cost can be reduced if more software defects are detected earlier in the development cycle. This paper introduces the Extended Static Checker for Java (ESC/Java), an experimental compile-time program checker that finds common programming errors. The checker is powered by verification-condition generation and automatic theorem-proving techniques. It provides programmers with a simple annotation language with which programmer design decisions can be expressed formally. ESC/Java examines the annotated software and warns of inconsistencies between the design decisions recorded in the annotations and the actual code, and also warns of potential runtime errors in the code. This paper gives an overview of the checker architecture and annotation language and describes our experience applying the checker to tens of thousands of lines of Java programs.
+					 
+				 
+				</p>
+			
+			
+			</div>
+		  
+			
+		
+			<br>
+			<div class="abstract">
+			
+			<A HREF="citation.cfm?id=512558#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="references">REFERENCES</A></span>
+			<p class="abstract"><font color="Red">Note: OCR errors may be found in this Reference List extracted from the full text article.  ACM has opted to expose the complete List rather than only correct and linked references.</font></p>
+			
+			
+			  	
+					
+					
+					 
+					 
+					 
+				
+				
+								
+			  
+			
+			
+				
+				<table border="0" cellpadding="5">
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									1
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=380932&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Thomas Ball , Sriram K. Rajamani, Automatically validating temporal safety properties of interfaces, Proceedings of the 8th international SPIN workshop on Model checking of software, p.103-122, May 2001, Toronto, Ontario, Canada
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									2
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=162046&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									J. R. Burch , E. M. Clarke , K. L. McMillan , D. L. Dill , L. J. Hwang, Symbolic model checking: 10<supscrpt>20</supscrpt> states and beyond, Information and Computation, v.98 n.2, p.142-170, June 1992
+									</a>
+
+									&nbsp;[doi><a href="http://dx.doi.org/10.1016/0890-5401(92)90017-A">10.1016/0890-5401(92)90017-A</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									3
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=348428&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									William R. Bush , Jonathan D. Pincus , David J. Sielaff, A static analyzer for finding dynamic programming errors, Software&mdash;Practice &amp; Experience, v.30 n.7, p.775-802, June 2000
+									</a>
+
+									&nbsp;[doi><a href="http://dx.doi.org/10.1002/(SICI)1097-024X(200006)30:7<775::AID-SPE309>3.0.CO;2-H">10.1002/(SICI)1097-024X(200006)30:7<775::AID-SPE309>3.0.CO;2-H</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									4
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									N. Cata&#241;o and M. Huisman. Formal specification of Gemplus' electronic purse case study. In Proc. of Formal Methods Europe (FME 2002). Springer-Verlag, 2002. To Appear
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									5
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=337234&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									James C. Corbett , Matthew B. Dwyer , John Hatcliff , Shawn Laubach , Corina S. P&#259;s&#259;reanu , Robby , Hongjun Zheng, Bandera: extracting finite-state models from Java source code, Proceedings of the 22nd international conference on Software engineering, p.439-448, June 04-11, 2000, Limerick, Ireland
+									</a>
+
+									&nbsp;[doi><a href="http://doi.acm.org/10.1145/337180.337234">10.1145/337180.337234</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									6
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=512973&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Patrick Cousot , Radhia Cousot, Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints, Proceedings of the 4th ACM SIGACT-SIGPLAN symposium on Principles of programming languages, p.238-252, January 17-19, 1977, Los Angeles, California
+									</a>
+
+									&nbsp;[doi><a href="http://doi.acm.org/10.1145/512950.512973">10.1145/512950.512973</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									7
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=378811&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Robert DeLine , Manuel F&#228;hndrich, Enforcing high-level protocols in low-level software, Proceedings of the ACM SIGPLAN 2001 conference on Programming language design and implementation, p.59-69, June 2001, Snowbird, Utah, United States
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									8
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									D. L. Detlefs, K. R. M. Leino, G. Nelson, and J. B. Saxe. Extended static checking. Research Report 159, Compaq SRC, Dec. 1998
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									9
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									D. L. Detlefs, G. Nelson, and J. B. Saxe. A theorem prover for program checking. Research Report 178, Compaq SRC, 2002. In preparation
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									10
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=550359&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Edsger Wybe Dijkstra, A  Discipline of Programming, Prentice Hall PTR, Upper Saddle River, NJ, 1997
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									11
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									M. Dwyer, J. Hatcliff, and R. Howell. CIS 771: Software specification. Kansas State Univ., Dept. of Comp. and Inf. Sciences, Spring 2001
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									12
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=502041&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Dawson Engler , David Yu Chen , Seth Hallem , Andy Chou , Benjamin Chelf, Bugs as deviant behavior: a general approach to inferring errors in systems code, Proceedings of the eighteenth ACM symposium on Operating systems principles, October 21-24, 2001, Banff, Alberta, Canada
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									13
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=302467&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Michael D. Ernst , Jake Cockrell , William G. Griswold , David Notkin, Dynamically discovering likely program invariants to support program evolution, Proceedings of the 21st international conference on Software engineering, p.213-224, May 16-22, 1999, Los Angeles, California, United States
+									</a>
+
+									&nbsp;[doi><a href="http://doi.acm.org/10.1145/302405.302467">10.1145/302405.302467</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									14
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									Escher Technologies, Inc. Getting started with Perfect. Available from www.eschertech.com, 2001
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									15
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=195297&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									David Evans , John Guttag , James Horning , Yang Meng Tan, LCLint: a tool for using specifications to check code, Proceedings of the 2nd ACM SIGSOFT symposium on Foundations of software engineering, p.87-96, December 06-09, 1994, New Orleans, Louisiana, United States
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									16
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=375471&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Cormac Flanagan , Rajeev Joshi , K. Rustan M. Leino, Annotation inference for modular checkers, Information Processing Letters, v.77 n.2-4, p.97-108, Feb. 1, 2001
+									</a>
+
+									&nbsp;[doi><a href="http://dx.doi.org/10.1016/S0020-0190(00)00196-4">10.1016/S0020-0190(00)00196-4</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									17
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=730008&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Cormac Flanagan , K. Rustan M. Leino, Houdini, an Annotation Assistant for ESC/Java, Proceedings of the International Symposium of Formal Methods Europe on Formal Methods for Increasing Software Productivity, p.500-517, March 12-16, 2001
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									18
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=503291&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Cormac Flanagan , Shaz Qadeer, Predicate abstraction for software verification, Proceedings of the 29th ACM SIGPLAN-SIGACT symposium on Principles of programming languages, p.191-202, January 16-18, 2002, Portland, Oregon
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									19
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=360220&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Cormac Flanagan , James B. Saxe, Avoiding exponential explosion: generating compact verification conditions, Proceedings of the 28th ACM SIGPLAN-SIGACT symposium on Principles of programming languages, p.193-205, January 2001, London, United Kingdom
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									20
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=733618&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Susanne Graf , Hassen Sa&#239;di, Construction of Abstract State Graphs with PVS, Proceedings of the 9th International Conference on Computer Aided Verification, p.72-83, June 22-25, 1997
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									21
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=598733&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Allan Heydon , Marc Najork, Mercator: A scalable, extensible Web crawler, World Wide Web, v.2 n.4, p.219-229, 1999
+									</a>
+
+									&nbsp;[doi><a href="http://dx.doi.org/10.1023/A:1019213109274">10.1023/A:1019213109274</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									22
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									C. A. R. Hoare. Proof of correctness of data representations. Acta Inf., 1(4):271--81, 1972
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									23
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									S. C. Johnson. Lint, a C program checker. Comp. Sci. Tech. Rep. 65, Bell Laboratories, 1978
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									24
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									B. W. Lampson, J. J. Horning, R. L. London, J. G. Mitchell, and G. J. Popek. Report on the programming language Euclid. Technical Report CSL-81-12, Xerox PARC, Oct. 1981
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									25
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									G. T. Leavens, A. L. Baker, and C. Ruby. Preliminary design of JML: A behavioral interface specification language for Java. Technical Report 98-06f, Dept. of Comp. Sci., Iowa State Univ., July 1999
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									26
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=367996&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Gary T. Leavens , Clyde Ruby , K. Rustan , M. Leino , Erik Poll , Bart Jacobs, JML (poster session): notations and tools supporting detailed design in Java, Addendum to the 2000 proceedings of the conference on Object-oriented programming, systems, languages, and applications (Addendum), p.105-106, January 2000, Minneapolis, Minnesota, United States
+									</a>
+
+									&nbsp;[doi><a href="http://doi.acm.org/10.1145/367845.367996">10.1145/367845.367996</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									27
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									K. R. M. Leino. Ecstatic: An object-oriented programming language with an axiomatic semantics. In FOOL 4, 1997
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									28
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=286953&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									K. Rustan M. Leino, Data groups: specifying the modification of extended state, Proceedings of the 13th ACM SIGPLAN conference on Object-oriented programming, systems, languages, and applications, p.144-153, October 18-22, 1998, Vancouver, British Columbia, Canada
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									29
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=718292&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									K. Rustan M. Leino, Applications of Extended Static Checking, Proceedings of the 8th International Symposium on Static Analysis, p.185-193, July 16-18, 2001
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									30
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=724454&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									K. Rustan M. Leino, Extended Static Checking: A Ten-Year Perspective, Informatics  - 10 Years Back. 10 Years Ahead., p.157-175, January 2001
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									31
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=298142&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									K. Rustan M. Leino , Rajit Manohar, Joining specification statements, Theoretical Computer Science, v.216 n.1-2, p.375-394, March 11, 1999
+									</a>
+
+									&nbsp;[doi><a href="http://dx.doi.org/10.1016/S0304-3975(98)00165-0">10.1016/S0304-3975(98)00165-0</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									32
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									K. R. M. Leino and G. Nelson. Data abstraction and information hiding. Research Report 160, Compaq SRC, Nov. 2000
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									33
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									K. R. M. Leino, G. Nelson, and J. B. Saxe. ESC/Java user's manual. Tech. Note 2000-002, Compaq SRC, Oct. 2000
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									34
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=512559&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									K. Rustan M. Leino , Arnd Poetzsch-Heffter , Yunhong Zhou, Using data groups to specify and check side effects, Proceedings of the ACM SIGPLAN 2002 Conference on Programming language design and implementation, June 17-19, 2002, Berlin, Germany
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									35
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									K. R. M. Leino, J. B. Saxe, and R. Stata. Checking Java programs via guarded commands. In B. Jacobs et al., editor, Formal Techniques for Java Programs, Tech. Report 251. Fernuniversit&#228;t Hagen, May 1999
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									36
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									K. R. M. Leino and R. Stata. Checking object invariants. Tech. Note 1997-007, DEC SRC, Jan. 1997
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									37
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=534929&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Bertrand Meyer, Object-Oriented Software Construction, Prentice-Hall, Inc., Upper Saddle River, NJ, 1988
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									38
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									T. Millstein. Toward more informative ESC/Java warning messages. In J. Mason, editor, Selected 1999 SRC summer intern reports, Tech. Note 1999-003. Compaq SRC, 1999
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									39
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									P. M&#252;ller, A. Poetzsch-Heffter, and G. T. Leavens. Modular specification of frame properties in JML. Technical Report 02-02, Dept. of Comp. Sci., Iowa State Univ., Feb. 2002. To appear in Concurrency, Practice and Experience
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									40
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									J. W. Nimmer and M. D. Ernst. Automatic generation and checking of program specifications. Technical Report 823, MIT Lab for Computer Science, Aug. 2001
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									41
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=735995&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Sam Owre , S. Rajan , John M. Rushby , Natarajan Shankar , Mandayam K. Srivas, PVS: Combining Specification, Proof Checking, and Model Checking, Proceedings of the 8th International Conference on Computer Aided Verification, p.411-414, August 03, 1996
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									42
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=366268&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Erik Poll , Joachim van den Berg , Bart Jacobs, Specification of the Javacard API in JML, Proceedings of the fourth working conference on smart card research and advanced applications on Smart card research and advanced applications, p.135-154, February 2001, Bristol, United Kingdom
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									43
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									N. Sterling. WARLOCK --- a static data race analysis tool. In Proc. Winter 1993 USENIX Conf., pages 97--106. USENIX Assoc., Jan. 1993
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									44
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									M. Turin, A. Deutsch, and G. Gonthier. La verification des programmes d'ariane. Pour la Science, 243:21--22, Jan. 1998. (In French)
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									45
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=694447&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Joachim van den Berg , Bart Jacobs, The LOOP Compiler for Java and JML, Proceedings of the 7th International Conference on Tools and Algorithms for the Construction and Analysis of Systems, p.299-312, April 02-06, 2001
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									46
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=786967&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Willem Visser , Klaus Havelund , Guillaume Brat , SeungJoon Park, Model Checking Programs, Proceedings of the 15th IEEE international conference on Automated software engineering, p.3, September 11-15, 2000
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									47
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=889910&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									J. M. Wing, A TWO-TIERED APPROACH TO SPECIFYING PROGRAMS, Massachusetts Institute of Technology, Cambridge, MA, 1983
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									48
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=248491&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									J. B. Wordsworth, Software engineering with B, Addison-Wesley Longman Publishing Co., Inc., Boston, MA, 1996
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									49
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=789021&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Hongwei Xi, Imperative Programming with Dependent Types, Proceedings of the 15th Annual IEEE Symposium on Logic in Computer Science, p.375, June 26-29, 2000
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									50
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=292560&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+									
+									Hongwei Xi , Frank Pfenning, Dependent types in practical programming, Proceedings of the 26th ACM SIGPLAN-SIGACT symposium on Principles of programming languages, p.214-227, January 20-22, 1999, San Antonio, Texas, United States
+									</a>
+
+									&nbsp;[doi><a href="http://doi.acm.org/10.1145/292540.292560">10.1145/292540.292560</a>]									
+								</div>
+							</td>
+						</tr>
+					
+				</table>
+				
+			  
+			
+			</div>
+		
+		
+		
+			<br>
+			<div class="abstract">
+			
+			<A HREF="citation.cfm?id=512558#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="citings">CITED BY</A><A NAME="citedby"></A>&nbsp;&nbsp;<i>198</i></span>
+			
+			
+			  	
+					
+					
+					 
+					 
+					 
+				
+				
+									
+				
+			  
+			
+			<table cellpadding="5">
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=512531&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Jeffrey S. Foster , Tachio Terauchi , Alex Aiken, Flow-sensitive type qualifiers, ACM SIGPLAN Notices, v.37 n.5, May 2002
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=586109&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Dean F. Sutherland , Aaron Greenhouse , William L. Scherlis, The code of many colors: relating threads to code and shared state, ACM SIGSOFT Software Engineering Notes, v.28 n.1, January 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=604176&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Shaz Qadeer, Types for atomicity, ACM SIGPLAN Notices, v.38 n.3, March 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=512559&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						K. Rustan M. Leino , Arnd Poetzsch-Heffter , Yunhong Zhou, Using data groups to specify and check side effects, ACM SIGPLAN Notices, v.37 n.5, May 2002
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1168018&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Peter Schmitt , Isabel Tonin , Claus Wonnemann , Eric Jenn , St&#233;phane Leriche , James J. Hunt, A case study of specification and verification using JML in an avionics application, Proceedings of the 4th international workshop on Java technologies for real-time and embedded systems, October 11-13, 2006, Paris, France
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=586097&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Benjamin Chelf , Dawson Engler , Seth Hallem, How to write system-specific, static checkers in metal, ACM SIGSOFT Software Engineering Notes, v.28 n.1, p.51-60, January 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=604177&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Dan Grossman, Type-safe multithreading in cyclone, ACM SIGPLAN Notices, v.38 n.3, March 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1029909&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ted Kremenek , Ken Ashcraft , Junfeng Yang , Dawson Engler, Correlation exploitation in error ranking, ACM SIGSOFT Software Engineering Notes, v.29 n.6, November 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1119480&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Martin Abadi , Cormac Flanagan , Stephen N. Freund, Types for safe locking: Static race detection for Java, ACM Transactions on Programming Languages and Systems (TOPLAS), v.28 n.2, p.207-255, March 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=964023&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Stephen N Freund, Atomizer: a dynamic atomicity checker for multithreaded programs, ACM SIGPLAN Notices, v.39 n.1, p.256-267, January 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=781156&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sorin Lerner , Todd Millstein , Craig Chambers, Automatically proving the correctness of compiler optimizations, ACM SIGPLAN Notices, v.38 n.5, May 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=781169&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Shaz Qadeer, A type and effect system for atomicity, ACM SIGPLAN Notices, v.38 n.5, May 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=781153&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Bruno Blanchet , Patrick Cousot , Radhia Cousot , J&#233;rome Feret , Laurent Mauborgne , Antoine Min&#233; , David Monniaux , Xavier Rival, A static analyzer for large safety-critical software, ACM SIGPLAN Notices, v.38 n.5, May 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=781152&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Glenn Ammons , David Mandelin , Rastislav Bod&#237;k , James R. Larus, Debugging temporal specifications with concept analysis, ACM SIGPLAN Notices, v.38 n.5, May 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=940115&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Yichen Xie , Andy Chou , Dawson Engler, ARCHER: using symbolic, path-sensitive analysis to detect memory access errors, ACM SIGSOFT Software Engineering Notes, v.28 n.5, September 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=965681&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Aaron Greenhouse , T. J. Halloran , William L. Scherlis, Using Eclipse to demonstrate positive static assurance of Java program concurrency design intent, Proceedings of the 2003 OOPSLA workshop on eclipse technology eXchange, p.99-103, October 27-27, 2003, Anaheim, California
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=964021&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Thomas A. Henzinger , Ranjit Jhala , Rupak Majumdar , Kenneth L. McMillan, Abstractions from proofs, ACM SIGPLAN Notices, v.39 n.1, p.232-244, January 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1007515&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Nurit Dor , Stephen Adams , Manuvir Das , Zhe Yang, Software validation via scalable path-sensitive value flow analysis, ACM SIGSOFT Software Engineering Notes, v.29 n.4, July 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1065098&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						C.-B. Breunesse , N. Cata&#241;o , M. Huisman , B. Jacobs, Formal methods for smart cards: an experience report, Science of Computer Programming, v.55 n.1-3, p.53-80, March 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1066102&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David Detlefs , Greg Nelson , James B. Saxe, Simplify: a theorem prover for program checking, Journal of the ACM (JACM), v.52 n.3, p.365-473, May 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=988679&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Yao-Wen Huang , Fang Yu , Christian Hang , Chung-Hung Tsai , Der-Tsai Lee , Sy-Yen Kuo, Securing web application code by static analysis and runtime protection, Proceedings of the 13th international conference on World Wide Web, May 17-20, 2004, New York, NY, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=996845&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Shaz Qadeer , Dinghao Wu, KISS: keep it simple and sequential, ACM SIGPLAN Notices, v.39 n.6, May 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1040335&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sorin Lerner , Todd Millstein , Erika Rice , Craig Chambers, Automated soundness proofs for dataflow analyses and transformations via local rules, ACM SIGPLAN Notices, v.40 n.1, p.364-377, January 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1007543&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Stephen N. Freund , Shaz Qadeer, Exploiting purity for atomicity, ACM SIGSOFT Software Engineering Notes, v.29 n.4, July 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1151393&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						&#218;lfar Erlingsson , John MacCormick, Ad hoc extensibility and access control, ACM SIGOPS Operating Systems Review, v.40 n.3, July 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=996846&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Eran Yahav , G. Ramalingam, Verifying safety properties using separation and heterogeneous abstractions, ACM SIGPLAN Notices, v.39 n.6, May 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=981016&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Patrick Lam , Viktor Kuncak , Martin Rinard, Generalized typestate checking using set interfaces and pluggable analyses, ACM SIGPLAN Notices, v.39 n.3, March 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1040292&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Matthew B. Dwyer , Lori A. Clarke , Jamieson M. Cobleigh , Gleb Naumovich, Flow analysis for verifying properties of concurrent software systems, ACM Transactions on Software Engineering and Methodology (TOSEM), v.13 n.4, p.359-430, October 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1030122&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Hao Chen , Jonathan S. Shapiro, Using build-integrated static checking to preserve correctness invariants, Proceedings of the 11th ACM conference on Computer and communications security, October 25-29, 2004, Washington DC, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1057390&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Atsushi Igarashi , Naoki Kobayashi, Resource usage analysis, ACM Transactions on Programming Languages and Systems (TOPLAS), v.27 n.2, p.264-313, March 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=512538&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Manuvir Das , Sorin Lerner , Mark Seigle, ESP: path-sensitive program verification in polynomial time, ACM SIGPLAN Notices, v.37 n.5, May 2002
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1057388&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Radu Rugina , Martin C. Rinard, Symbolic bounds analysis of pointers, array indices, and accessed memory regions, ACM Transactions on Programming Languages and Systems (TOPLAS), v.27 n.2, p.185-235, March 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=989788&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan, Automatic software model checking via constraint logic, Science of Computer Programming, v.50 n.1-3, p.253-270, March 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1057391&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Thomas Ball , Todd Millstein , Sriram K. Rajamani, Polymorphic predicate abstraction, ACM Transactions on Programming Languages and Systems (TOPLAS), v.27 n.2, p.314-343, March 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1066421&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						K. Rustan M. Leino, Efficient weakest preconditions, Information Processing Letters, v.93 n.6, p.281-288, 31 March 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1052895&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David Hovemeyer , William Pugh, Finding bugs is easy, ACM SIGPLAN Notices, v.39 n.12, December 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1085150&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Yoonsik Cheon , Gary T. Leavens, A contextual interpretation of undefinedness for runtime assertion checking, Proceedings of the sixth international symposium on Automated analysis-driven debugging, p.149-158, September 19-21, 2005, Monterey, California, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1081741&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Kevin Bierhoff , Jonathan Aldrich, Lightweight object specification with typestates, ACM SIGSOFT Software Engineering Notes, v.30 n.5, September 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1111046&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Torben Amtoft , Sruthi Bandhakavi , Anindya Banerjee, A logic for information flow in object-oriented programs, ACM SIGPLAN Notices, v.41 n.1, p.91-102, January 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1081755&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Zhenmin Li , Yuanyuan Zhou, PR-Miner: automatically extracting implicit programming rules and detecting violations in large software code, ACM SIGSOFT Software Engineering Notes, v.30 n.5, September 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1081749&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Nikolai Tillmann , Wolfram Schulte, Parameterized unit tests, ACM SIGSOFT Software Engineering Notes, v.30 n.5, September 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1065103&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						K. Rustan M. Leino , Todd Millstein , James B. Saxe, Generating error traces from verification-condition counterexamples, Science of Computer Programming, v.55 n.1-3, p.209-226, March 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1081745&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Nikolai Tillmann , Wolfram Schulte, Parameterized unit tests with unit meister, ACM SIGSOFT Software Engineering Notes, v.30 n.5, September 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1062533&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Christoph Csallner , Yannis Smaragdakis, Check 'n' crash: combining static checking and testing, Proceedings of the 27th international conference on Software engineering, May 15-21, 2005, St. Louis, MO, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1085266&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Stephen N. Freund , Shaz Qadeer , Sanjit A. Seshia, Modular verification of multithreaded programs, Theoretical Computer Science, v.338 n.1-3, p.153-183, 10 June 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1065022&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Brian Chin , Shane Markstrum , Todd Millstein, Semantic type qualifiers, ACM SIGPLAN Notices, v.40 n.6, June 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1094866&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Martin Rinard , Cristian Cadar , Huu Hai Nguyen, Exploring the acceptability envelope, Companion to the 20th annual ACM SIGPLAN conference on Object-oriented programming, systems, languages, and applications, October 16-20, 2005, San Diego, CA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1111048&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Shuvendu K. Lahiri , Shaz Qadeer, Verifying properties of well-founded linked lists, ACM SIGPLAN Notices, v.41 n.1, p.115-126, January 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1052913&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Patrick Lam , Viktor Kuncak , Martin Rinard, Crosscutting techniques in program specification and analysis, Proceedings of the 4th international conference on Aspect-oriented software development, p.169-180, March 14-18, 2005, Chicago, Illinois
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1108817&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sarfraz Khurshid , Yuk Lai Suen, Generalizing symbolic execution to library classes, ACM SIGSOFT Software Engineering Notes, v.31 n.1, January 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1086378&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Michael F. Ringenburg , Dan Grossman, AtomCaml: first-class atomicity via rollback, ACM SIGPLAN Notices, v.40 n.9, September 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1101943&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Alex Blewitt , Alan Bundy , Ian Stark, Automatic verification of design patterns in Java, Proceedings of the 20th IEEE/ACM international Conference on Automated software engineering, November 07-11, 2005, Long Beach, CA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1108813&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Mike Barnett , K. Rustan M. Leino, Weakest-precondition of unstructured programs, ACM SIGSOFT Software Engineering Notes, v.31 n.1, January 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1108808&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Hari Hampapuram , Yue Yang , Manuvir Das, Symbolic path simulation in path-sensitive dataflow analysis, ACM SIGSOFT Software Engineering Notes, v.31 n.1, January 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1062500&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Wei-Ngan Chin , Siau-Cheng Khoo , Shengchao Qin , Corneliu Popeea , Huu Hai Nguyen, Verifying safety policies with size properties and alias controls, Proceedings of the 27th international conference on Software engineering, May 15-21, 2005, St. Louis, MO, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1111059&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan, Hybrid type checking, ACM SIGPLAN Notices, v.41 n.1, p.245-256, January 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1115645&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						J. Field , D. Goyal , G. Ramalingam , E. Yahav, Typestate verification: abstraction techniques and complexity results, Science of Computer Programming, v.58 n.1-2, p.57-82, October 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1069767&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Stephen N. Freund , Shaz Qadeer, Exploiting Purity for Atomicity, IEEE Transactions on Software Engineering, v.31 n.4, p.275-291, April 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=512566&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Rajeev Joshi , Greg Nelson , Keith Randall, Denali: a goal-directed superoptimizer, ACM SIGPLAN Notices, v.37 n.5, May 2002
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1069784&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Aaron Tomb , Cormac Flanagan, Automatic type inference via partial evaluation, Proceedings of the 7th ACM SIGPLAN international conference on Principles and practice of declarative programming, p.106-116, July 11-13, 2005, Lisbon, Portugal
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=940110&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Stephen McCamant , Michael D. Ernst, Predicting problems caused by component upgrades, ACM SIGSOFT Software Engineering Notes, v.28 n.5, September 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1065102&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Gary T. Leavens , Yoonsik Cheon , Curtis Clifton , Clyde Ruby , David R. Cok, How the design of JML accommodates both runtime assertion checking and formal verification, Science of Computer Programming, v.55 n.1-3, p.185-208, March 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=949332&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Manuel F&#228;hndrich , K. Rustan M. Leino, Declaring and checking non-null types in an object-oriented language, ACM SIGPLAN Notices, v.38 n.11, November 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1127043&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						James Rose , Nikhil Swamy , Michael Hicks, Dynamic inference of polymorphic lock types, Science of Computer Programming, v.58 n.3, p.366-383, December 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1140706&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cees Pierik , Frank S. de Boer, A proof outline logic for object-oriented programming, Theoretical Computer Science, v.343 n.3, p.413-442, 17 October 2005
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1134325&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Jinlin Yang , David Evans , Deepali Bhardwaj , Thirumalesh Bhat , Manuvir Das, Perracotta: mining temporal API rules from imperfect traces, Proceeding of the 28th international conference on Software engineering, May 20-28, 2006, Shanghai, China
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1122569&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Douglas Gregor , Sibylle Schupp, STLlint: lifting static checking from languages to libraries, Software&mdash;Practice &amp; Experience, v.36 n.3, p.225-254, March 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=944725&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Yitzhak Mandelbaum , David Walker , Robert Harper, An effective theory of type refinements, ACM SIGPLAN Notices, v.38 n.9, p.213-225, September 2003
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1244957&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Diomidis Spinellis , Panagiotis Louridas, A framework for the static verification of api calls, Journal of Systems and Software, v.80 n.7, p.1156-1168, July, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1390664&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Raymond P.L. Buse , Westley R. Weimer, Automatic documentation inference for exceptions, Proceedings of the 2008 international symposium on Software testing and analysis, July 20-24, 2008, Seattle, WA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1375624&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Karen Zee , Viktor Kuncak , Martin Rinard, Full functional verification of linked data structures, ACM SIGPLAN Notices, v.43 n.6, June 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1370093&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Frank Otto , Thomas Moschny, Finding synchronization defects in java programs: extended static analyses and code patterns, Proceedings of the 1st international workshop on Multicore software engineering, May 11-11, 2008, Leipzig, Germany
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1362918&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David Brumley , Juan Caballero , Zhenkai Liang , James Newsome , Dawn Song, Towards automatic discovery of deviations in binary implementations with applications to error detection and fingerprint generation, Proceedings of 16th USENIX Security Symposium on USENIX Security Symposium, p.1-16, August 06-10, 2007, Boston, MA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1348255&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Stephen J. Fink , Eran Yahav , Nurit Dor , G. Ramalingam , Emmanuel Geay, Effective typestate verification in the presence of aliasing, ACM Transactions on Software Engineering and Methodology (TOSEM), v.17 n.2, p.1-34, April 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1375704&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Christian Hammer , R&#252;diger Schaade , Gregor Snelting, Static path conditions for Java, Proceedings of the third ACM SIGPLAN workshop on Programming languages and analysis for security, June 07-13, 2008, Tucson, AZ, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1368127&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Christoph Csallner , Nikolai Tillmann , Yannis Smaragdakis, DySy: dynamic symbolic execution for invariant inference, Proceedings of the 30th international conference on Software engineering, May 10-18, 2008, Leipzig, Germany
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1038950&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Pin Zhou , Wei Liu , Long Fei , Shan Lu , Feng Qin , Yuanyuan Zhou , Samuel Midkiff , Josep Torrellas, AccMon: Automatically Detecting Memory-Related Bugs via Program Counter-Based Invariants, Proceedings of the 37th annual IEEE/ACM International Symposium on Microarchitecture, p.269-280, December 04-08, 2004, Portland, Oregon
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1167481&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Tal Cohen , Joseph (Yossi) Gil , Itay Maman, JTL: the Java tools language, ACM SIGPLAN Notices, v.41 n.10, October 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1173734&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Westley Weimer, Patches as better bug reports, Proceedings of the 5th international conference on Generative programming and component engineering, October 22-26, 2006, Portland, Oregon, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1180445&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cristian Cadar , Vijay Ganesh , Peter M. Pawlowski , David L. Dill , Dawson R. Engler, EXE: automatically generating inputs of death, Proceedings of the 13th ACM conference on Computer and communications security, October 30-November 03, 2006, Alexandria, Virginia, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1218571&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Clint Morgan , Kris De Volder , Eric Wohlstadter, A static aspect language for checking design rules, Proceedings of the 6th international conference on Aspect-oriented software development, March 12-16, 2007, Vancouver, British Columbia, Canada
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1273478&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Aaron Tomb , Guillaume Brat , Willem Visser, Variably interprocedural program analysis for runtime error detection, Proceedings of the 2007 international symposium on Software testing and analysis, July 09-12, 2007, London, United Kingdom
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1181789&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Deepak Kapur , Rupak Majumdar , Calogero G. Zarba, Interpolation for data structures, Proceedings of the 14th ACM SIGSOFT international symposium on Foundations of software engineering, November 05-11, 2006, Portland, Oregon, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1173725&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ewen Denney , Bernd Fischer, A generic annotation inference algorithm for the safety certification of automatically generated code, Proceedings of the 5th international conference on Generative programming and component engineering, October 22-26, 2006, Portland, Oregon, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1167504&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Paul T. Darga , Chandrasekhar Boyapati, Efficient software model checking of data structure properties, ACM SIGPLAN Notices, v.41 n.10, October 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1134438&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Panagiotis Manolios , Daron Vroon, Integrating static analysis and general-purpose theorem proving for termination analysis, Proceeding of the 28th international conference on Software engineering, May 20-28, 2006, Shanghai, China
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1134319&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Brian Hackett , Manuvir Das , Daniel Wang , Zhe Yang, Modular checking for buffer overflows in the large, Proceeding of the 28th international conference on Software engineering, May 20-28, 2006, Shanghai, China
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1134320&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Magiel Bruntink , Arie van Deursen , Tom Tourw&#233;, Discovering faults in idiom-based exception handling, Proceeding of the 28th international conference on Software engineering, May 20-28, 2006, Shanghai, China
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1146251&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Greg Dennis , Felix Sheng-Ho Chang , Daniel Jackson, Modular verification of code with SAT, Proceedings of the 2006 international symposium on Software testing and analysis, July 17-20, 2006, Portland, Maine, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1134019&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Polyvios Pratikakis , Jeffrey S. Foster , Michael Hicks, LOCKSMITH: context-sensitive correlation analysis for race detection, ACM SIGPLAN Notices, v.41 n.6, June 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1146267&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Christoph Csallner , Yannis Smaragdakis, DSD-Crasher: a hybrid analysis tool for bug finding, Proceedings of the 2006 international symposium on Software testing and analysis, July 17-20, 2006, Portland, Maine, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1181781&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sunghun Kim , Kai Pan , E. E. James Whitehead, Jr., Memories of bug fixes, Proceedings of the 14th ACM SIGSOFT international symposium on Foundations of software engineering, November 05-11, 2006, Portland, Oregon, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1186635&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Jeffrey S. Foster , Robert Johnson , John Kodumal , Alex Aiken, Flow-insensitive type qualifiers, ACM Transactions on Programming Languages and Systems (TOPLAS), v.28 n.6, p.1035-1087, November 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1181210&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David R. Cok, Specifying java iterators with JML and Esc/Java2, Proceedings of the 2006 conference on Specification and verification of component-based systems, November 10-11, 2006, Portland, Oregon
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1181201&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Patrice Chalin, Early detection of JML specification errors using ESC/Java2, Proceedings of the 2006 conference on Specification and verification of component-based systems, November 10-11, 2006, Portland, Oregon
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1189259&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Junfeng Yang , Paul Twohey , Dawson Engler , Madanlal Musuvathi, Using model checking to find serious file system errors, ACM Transactions on Computer Systems (TOCS), v.24 n.4, p.393-423, November 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1217943&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Thomas Ball , Ella Bounimova , Byron Cook , Vladimir Levin , Jakob Lichtenberg , Con McGarvey , Bohus Ondrusek , Sriram K. Rajamani , Abdullah Ustuner, Thorough static analysis of device drivers, ACM SIGOPS Operating Systems Review, v.40 n.4, October 2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1251187&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Madanlal Musuvathi , Dawson R. Engler, Model checking large network protocol implementations, Proceedings of the 1st conference on Symposium on Networked Systems Design and Implementation, p.12-12, March 29-31, 2004, San Francisco, California
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1251273&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Junfeng Yang , Paul Twohey , Dawson Engler , Madanlal Musuvathi, Using model checking to find serious file system errors, Proceedings of the 6th conference on Symposium on Opearting Systems Design & Implementation, p.19-19, December 06-08, 2004, San Francisco, CA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1255347&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Karl Mazurak , Steve Zdancewic, A<scp>BASH</scp>: finding bugs in bash scripts, Proceedings of the 2007 workshop on Programming languages and analysis for security, June 14-14, 2007, San Diego, California, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1270012&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Richard B. Kieburtz, Programmed Strategies for Program Verification, Electronic Notes in Theoretical Computer Science (ENTCS), v.174 n.10, p.3-38, July, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1328452&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Wei-Ngan Chin , Cristina David , Huu Hai Nguyen , Shengchao Qin, Enhancing modular OO verification with separation logic, ACM SIGPLAN Notices, v.43 n.1, January 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1368118&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Domagoj Babic , Alan J. Hu, Calysto: scalable and precise extended static checking, Proceedings of the 30th international conference on Software engineering, May 10-18, 2008, Leipzig, Germany
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1298471&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ted Kremenek , Paul Twohey , Godmar Back , Andrew Ng , Dawson Engler, From uncertainty to belief: inferring the specification within, Proceedings of the 7th symposium on Operating systems design and implementation, November 06-08, 2006, Seattle, Washington
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1159763&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Stefan Wagner, A literature survey of the quality economics of defect-detection techniques, Proceedings of the 2006 ACM/IEEE international symposium on International symposium on empirical software engineering, September 21-22, 2006, Rio de Janeiro, Brazil
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1159849&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Dana N. Xu, Extended static checking for haskell, Proceedings of the 2006 ACM SIGPLAN workshop on Haskell, September 17-17, 2006, Portland, Oregon, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1287634&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Lingxiao Jiang , Zhendong Su , Edwin Chiu, Context-based detection of clone-related bugs, Proceedings of the the 6th joint meeting of the European software engineering conference and the ACM SIGSOFT symposium on The foundations of software engineering, September 03-07, 2007, Dubrovnik, Croatia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1328287&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Janaki T. Madhavan , E. James Whitehead, Jr., Predicting buggy changes inside an integrated development environment, Proceedings of the 2007 OOPSLA workshop on eclipse technology eXchange, p.36-40, October 21-21, 2007, Montreal, Quebec, Canada
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1268147&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Bart Jacobs , Jan Smans , Frank Piessens , Wolfram Schulte, A Simple Sequential Reasoning Approach for Sound Modular Verification of Mainstream Multithreaded Programs, Electronic Notes in Theoretical Computer Science (ENTCS), v.174 n.9, p.23-47, June, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1390665&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Yamini Kannan , Koushik Sen, Universal symbolic execution and its application to likely data structure invariant generation, Proceedings of the 2008 international symposium on Software testing and analysis, July 20-24, 2008, Seattle, WA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1370761&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sangeetha Sudakrishnan , Janaki Madhavan , E. James Whitehead, Jr. , Jose Renau, Understanding bug fix patterns in verilog, Proceedings of the 2008 international working conference on Mining software repositories, May 10-11, 2008, Leipzig, Germany
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1240377&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David A. Naumann, Observational purity and encapsulation, Theoretical Computer Science, v.376 n.3, p.205-224, May, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1250784&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Isil Dillig , Thomas Dillig , Alex Aiken, Static error detection using semantic inconsistency inference, ACM SIGPLAN Notices, v.42 n.6, June 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1250769&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Dirk Beyer , Thomas A. Henzinger , Rupak Majumdar , Andrey Rybalchenko, Path invariants, ACM SIGPLAN Notices, v.42 n.6, June 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1324019&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						M. Pistoia , S. Chandra , S. J. Fink , E. Yahav, A survey of static analysis methods for identifying security vulnerabilities in software systems, IBM Systems Journal, v.46 n.2, p.265-288, April 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1016956&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David J. Pearce , Paul H. J. Kelly , Chris Hankin, Online Cycle Detection and Difference Propagation: Applications to Pointer Analysis, Software Quality Control, v.12 n.4, p.311-337, December 2004
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1248836&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Patrice Chalin, A Sound Assertion Semantics for the Dependable Systems Evolution Verifying Compiler, Proceedings of the 29th International Conference on Software Engineering, p.23-33, May 20-26, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1248871&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Gary T. Leavens , Peter Muller, Information Hiding and Visibility in Interface Specifications, Proceedings of the 29th International Conference on Software Engineering, p.385-395, May 20-26, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1248851&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Chris Tucker , David Shuffelton , Ranjit Jhala , Sorin Lerner, OPIUM: Optimal Package Install/Uninstall Manager, Proceedings of the 29th International Conference on Software Engineering, p.178-188, May 20-26, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1254714&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Matthew B. Dwyer , John Hatcliff , Robby Robby , Corina S. Pasareanu , Willem Visser, Formal Software Analysis Emerging Trends in Software Model Checking, 2007 Future of Software Engineering, p.120-136, May 23-25, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1265118&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Mana Taghdiri , Daniel Jackson, Inferring specifications to detect errors in code, Automated Software Engineering, v.14 n.1, p.87-121, March     2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1287633&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sunghun Kim , Michael D. Ernst, Which warnings should I fix first?, Proceedings of the the 6th joint meeting of the European software engineering conference and the ACM SIGSOFT symposium on The foundations of software engineering, September 03-07, 2007, Dubrovnik, Croatia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1275503&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ajay Chander , David Espinosa , Nayeem Islam , Peter Lee , George C. Necula, Enforcing resource bounds via static verification of dynamic checks, ACM Transactions on Programming Languages and Systems (TOPLAS), v.29 n.5, p.28-es, August 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1196585&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Andrew Ireland , Bill J. Ellis , Andrew Cook , Roderick Chapman , Janet Barnes, An Integrated Approach to High Integrity Software Verification, Journal of Automated Reasoning, v.36 n.4, p.379-410, April     2006
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1275501&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Xavier Rival , Laurent Mauborgne, The trace partitioning abstract domain, ACM Transactions on Programming Languages and Systems (TOPLAS), v.29 n.5, p.26-es, August 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1298469&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Junfeng Yang , Can Sar , Dawson Engler, EXPLODE: a lightweight, general system for finding serious storage system errors, Proceedings of the 7th symposium on Operating systems design and implementation, November 06-08, 2006, Seattle, Washington
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1292320&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						&#193;d&#225;m Darvas , Peter M&#252;ller, Faithful mapping of model classes to mathematical structures, Proceedings of the 2007 conference on Specification and verification of component-based systems: 6th Joint Meeting of the European Conference on Software Engineering and the ACM SIGSOFT Symposium on the Foundations of Software Engineering, p.31-38, September 03-04, 2007, Dubrovnik, Croatia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1279449&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ralf Sasse , Jos&#233; Meseguer, Java+ITP: A Verification Tool Based on Hoare Logic and Algebraic Semantics, Electronic Notes in Theoretical Computer Science (ENTCS), v.176 n.4, p.29-46, July, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1378538&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Olatunji Ruwase , Phillip B. Gibbons , Todd C. Mowry , Vijaya Ramachandran , Shimin Chen , Michael Kozuch , Michael Ryan, Parallelizing dynamic information flow tracking, Proceedings of the twentieth annual symposium on Parallelism in algorithms and architectures, June 14-16, 2008, Munich, Germany
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1390656&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Matthew M. Papi , Mahmood Ali , Telmo Luis Correa, Jr. , Jeff H. Perkins , Michael D. Ernst, Practical pluggable types for java, Proceedings of the 2008 international symposium on Software testing and analysis, July 20-24, 2008, Seattle, WA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1496736&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Gang Tan , Jason Croft, An empirical security study of the native code in the JDK, Proceedings of the 17th conference on Security symposium, p.365-377, July 28-August 01, 2008, San Jose, CA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1466723&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						R. S. Zybin , V. V. Kuliamin , A. V. Ponomarenko , V. V. Rubanov , E. S. Chernov, Automation of broad sanity test generation, Programming and Computing Software, v.34 n.6, p.351-363, November  2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1496655&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Bruno Dufour, Blended analysis for improving the quality of framework-intensive applications, Proceedings of the 2008 Foundations of Software Engineering Doctoral Symposium, p.5-8, November 10-10, 2008, Atlanta, Georgia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1377495&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Stephen N. Freund , Marina Lifshin , Shaz Qadeer, Types for atomicity: Static checking and inference for Java, ACM Transactions on Programming Languages and Systems (TOPLAS), v.30 n.4, p.1-53, July 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1371287&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Micha&#322; Moskal , Jakub &#321;opusza&#324;ski , Joseph R. Kiniry, E-matching for Fun and Profit, Electronic Notes in Theoretical Computer Science (ENTCS), v.198 n.2, p.19-35, May, 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1297031&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Gang Tan , Greg Morrisett, Ilea: inter-language analysis across java and c, ACM SIGPLAN Notices, v.42 n.10, October 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1287653&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Julian Dolby , Mandana Vaziri , Frank Tip, Finding bugs efficiently with a SAT solver, Proceedings of the the 6th joint meeting of the European software engineering conference and the ACM SIGSOFT symposium on The foundations of software engineering, September 03-07, 2007, Dubrovnik, Croatia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1368096&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Mark Gabel , Zhendong Su, Symbolic mining of temporal specifications, Proceedings of the 30th international conference on Software engineering, May 10-18, 2008, Leipzig, Germany
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1297057&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Michael D. Bond , Nicholas Nethercote , Stephen W. Kent , Samuel Z. Guyer , Kathryn S. McKinley, Tracking bad apples: reporting the origin of null and undefined value errors, ACM SIGPLAN Notices, v.42 n.10, October 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1363592&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cormac Flanagan , Stephen N. Freund, Atomizer: A dynamic atomicity checker for multithreaded programs, Science of Computer Programming, v.71 n.2, p.89-109, April, 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1290524&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David J. Pearce , Paul H.J. Kelly , Chris Hankin, Efficient field-sensitive pointer analysis of C, ACM Transactions on Programming Languages and Systems (TOPLAS), v.30 n.1, p.4-es, November 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1280354&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Hermann Lehner , Peter M&#252;ller, Formal Translation of Bytecode into BoogiePL, Electronic Notes in Theoretical Computer Science (ENTCS), v.190 n.1, p.35-50, July, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1353533&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Edward Aftandilian , Samuel Z. Guyer, GC assertions: using the garbage collector to check heap properties, Proceedings of the 2008 ACM SIGPLAN workshop on Memory systems performance and correctness: held in conjunction with the Thirteenth International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS '08), March 02-02, 2008, Seattle, Washington
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1297050&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Kevin Bierhoff , Jonathan Aldrich, Modular typestate checking of aliased objects, ACM SIGPLAN Notices, v.42 n.10, October 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1297053&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Steve M. Shaner , Gary T. Leavens , David A. Naumann, Modular verification of higher-order methods with mandatory calls specified by model programs, ACM SIGPLAN Notices, v.42 n.10, October 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1345174&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Graham Hughes , Tevfik Bultan, Extended interface grammars for automated stub generation, Proceedings of the second workshop on Automated formal methods, p.41-50, November 06-06, 2007, Atlanta, Georgia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1348254&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Christoph Csallner , Yannis Smaragdakis , Tao Xie, DSD-Crasher: A hybrid analysis tool for bug finding, ACM Transactions on Software Engineering and Methodology (TOSEM), v.17 n.2, p.1-37, April 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1328461&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Shuvendu Lahiri , Shaz Qadeer, Back to the future: revisiting precise program verification using SMT solvers, ACM SIGPLAN Notices, v.43 n.1, January 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1321800&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Michael D. Ernst , Jeff H. Perkins , Philip J. Guo , Stephen McCamant , Carlos Pacheco , Matthew S. Tschantz , Chen Xiao, The Daikon system for dynamic detection of likely invariants, Science of Computer Programming, v.69 n.1-3, p.35-45, December, 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1596565&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Adam Chlipala , Gregory Malecha , Greg Morrisett , Avraham Shinnar , Ryan Wisnesky, Effective interactive proofs for higher-order imperative programs, ACM SIGPLAN Notices, v.44 n.9, September 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1390657&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Alexey Loginov , Eran Yahav , Satish Chandra , Stephen Fink , Noam Rinetzky , Mangala Nanda, Verifying dereference safety via expanding-scope analysis, Proceedings of the 2008 international symposium on Software testing and analysis, July 20-24, 2008, Seattle, WA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1382153&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Shimin Chen , Michael Kozuch , Theodoros Strigkos , Babak Falsafi , Phillip B. Gibbons , Todd C. Mowry , Vijaya Ramachandran , Olatunji Ruwase , Michael Ryan , Evangelos Vlachos, Flexible Hardware Acceleration for Instruction-Grain Program Monitoring, ACM SIGARCH Computer Architecture News, v.36 n.3, p.377-388, June 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1449800&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Nathaniel Nystrom , Vijay Saraswat , Jens Palsberg , Christian Grothoff, Constrained types for object-oriented languages, ACM SIGPLAN Notices, v.43 n.10, September 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1409733&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Chris Parnin , Carsten G&#246;rg , Ogechi Nnadi, A catalogue of lightweight visualizations to support code smell inspection, Proceedings of the 4th ACM symposium on Software visuallization, September 16-17, 2008, Ammersee, Germany
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1498082&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Zhenbang Chen , Zhiming Liu , Anders P. Ravn , Volker Stolz , Naijun Zhan, Refinement and verification in component-based model-driven design, Science of Computer Programming, v.74 n.4, p.168-196, February, 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1453111&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Bruno Dufour , Barbara G. Ryder , Gary Sevitsky, A scalable technique for characterizing the usage of temporaries in framework-intensive Java applications, Proceedings of the 16th ACM SIGSOFT International Symposium on Foundations of software engineering, November 09-14, 2008, Atlanta, Georgia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1416240&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Jean-Baptiste Voron , Fabrice Kordon, Transforming sources to petri nets: a way to analyze execution of parallel programs, Proceedings of the 1st international conference on Simulation tools and techniques for communications, networks and systems & workshops, March 03-07, 2008, Marseille, France
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1453150&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Mark Gabel , Zhendong Su, Javert: fully automatic mining of general temporal properties from dynamic traces, Proceedings of the 16th ACM SIGSOFT International Symposium on Foundations of software engineering, November 09-14, 2008, Atlanta, Georgia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1480379&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Francesco Logozzo, Class invariants as abstract interpretation of trace semantics, Computer Languages, Systems and Structures, v.35 n.2, p.100-142, July, 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1455522&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cristian Cadar , Vijay Ganesh , Peter M. Pawlowski , David L. Dill , Dawson R. Engler, EXE: Automatically Generating Inputs of Death, ACM Transactions on Information and System Security (TISSEC), v.12 n.2, p.1-38, December 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1452045&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Bart Jacobs , Frank Piessens , Jan Smans , K. Rustan M. Leino , Wolfram Schulte, A programming model for concurrent object-oriented programs, ACM Transactions on Programming Languages and Systems (TOPLAS), v.31 n.1, p.1-48, December 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1480889&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Dana N. Xu , Simon Peyton Jones , Koen Claessen, Static contract checking for Haskell, Proceedings of the 36th annual ACM SIGPLAN-SIGACT symposium on Principles of programming languages, January 21-23, 2009, Savannah, GA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1480921&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Jeremy Condit , Brian Hackett , Shuvendu K. Lahiri , Shaz Qadeer, Unifying type checking and property checking for low-level code, Proceedings of the 36th annual ACM SIGPLAN-SIGACT symposium on Principles of programming languages, January 21-23, 2009, Savannah, GA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1480885&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Tayfun Elmas , Shaz Qadeer , Serdar Tasiran, A calculus of atomic actions, Proceedings of the 36th annual ACM SIGPLAN-SIGACT symposium on Principles of programming languages, January 21-23, 2009, Savannah, GA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1480952&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Cristina David , Cristian Gherghina , Wei-Ngan Chin, Translation and optimization for a core calculus with exceptions, Proceedings of the 2009 ACM SIGPLAN workshop on Partial evaluation and program manipulation, January 19-20, 2009, Savannah, GA, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1529705&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						David Briggs , Suad Alagi&#263;, Algebraic specification techniques for parametric types with logic-based constraints, Proceedings of the 2009 ACM symposium on Applied Computing, March 08-12, 2009, Honolulu, Hawaii
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1512490&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Haihao Shen , Sai Zhang , Jianjun Zhao , Jianhong Fang , Shiyuan Yao, XFindBugs: eXtended FindBugs for AspectJ, Proceedings of the 8th ACM SIGPLAN-SIGSOFT workshop on Program analysis for software tools and engineering, November 09-10, 2008, Atlanta, Georgia
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1512764&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Danhua Shao , Sarfraz Khurshid , Dewayne E. Perry, Whispec: white-box testing of libraries using declarative specifications, Proceedings of the 2007 Symposium on Library-Centric Software Design, p.11-20, October 21-21, 2007, Montreal, Canada
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1512763&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ciera Jaspan , Jonathan Aldrich, Checking semantic usage of frameworks, Proceedings of the 2007 Symposium on Library-Centric Software Design, p.1-10, October 21-21, 2007, Montreal, Canada
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1554341&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Avik Chaudhuri, Language-based security on Android, Proceedings of the ACM SIGPLAN Fourth Workshop on Programming Languages and Analysis for Security, June 15-21, 2009, Dublin, Ireland
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1542517&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Satish Chandra , Stephen J. Fink , Manu Sridharan, Snugglebug: a powerful approach to weakest preconditions, ACM SIGPLAN Notices, v.44 n.6, June 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1522587&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sunae Seo , Youil Kim , Hyun-Goo Kang , Taisook Han, A Static Bug Detector for Uninitialized Field References in Java Programs, IEICE - Transactions on Information and Systems, v.E90-D n.10, p.1663-1671, October 2007
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1529410&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Perry R. James , Patrice Chalin, Extended static checking in JML4: benefits of multiple-prover support, Proceedings of the 2009 ACM symposium on Applied Computing, March 08-12, 2009, Honolulu, Hawaii
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1558992&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Junfeng Yang , Tisheng Chen , Ming Wu , Zhilei Xu , Xuezheng Liu , Haoxiang Lin , Mao Yang , Fan Long , Lintao Zhang , Lidong Zhou, MODIST: transparent model checking of unmodified distributed systems, Proceedings of the 6th USENIX symposium on Networked systems design and implementation, p.213-228, April 22-24, 2009, Boston, Massachusetts
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1542489&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Pallavi Joshi , Chang-Seo Park , Koushik Sen , Mayur Naik, A randomized dynamic program analysis technique for detecting real deadlocks, ACM SIGPLAN Notices, v.44 n.6, June 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1542514&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Karen Zee , Viktor Kuncak , Martin C. Rinard, An integrated proof language for imperative programs, ACM SIGPLAN Notices, v.44 n.6, June 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1555029&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Mangala Gowri Nanda , Saurabh Sinha, Accurate Interprocedural Null-Dereference Analysis for Java, Proceedings of the 2009 IEEE 31st International Conference on Software Engineering, p.133-143, May 16-24, 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1553603&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Kai Pan , Sunghun Kim , E. James Whitehead, Jr., Toward an understanding of bug fix patterns, Empirical Software Engineering, v.14 n.3, p.286-315, June      2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1639632&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Tayfun Elmas , Ali Sezgin , Serdar Tasiran , Shaz Qadeer, An annotation assistant for interactive debugging of programs with common synchronization idioms, Proceedings of the 7th Workshop on Parallel and Distributed Systems: Testing, Analysis, and Debugging, p.1-11, July 19-20, 2009, Chicago, Illinois
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1572291&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Saurabh Sinha , Hina Shah , Carsten G&#246;rg , Shujuan Jiang , Mijung Kim , Mary Jean Harrold, Fault localization and repair for Java runtime exceptions, Proceedings of the eighteenth international symposium on Software testing and analysis, July 19-23, 2009, Chicago, IL, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1599011&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Dan Hao , Lu Zhang , Ming-Hao Liu , He Li , Jia-Su Sun, Test-data generation guided by static defect detection, Journal of Computer Science and Technology, v.24 n.2, p.284-293, March 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1625680&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ted Kremenek , Andrew Y. Ng , Dawson Engler, A factor graph model for software bug finding, Proceedings of the 20th international joint conference on Artifical intelligence, p.2510-2516, January 06-12, 2007, Hyderabad, India
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1612739&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						V. V. Kuliamin, Integration of verification methods for program systems, Programming and Computing Software, v.35 n.4, p.212-222, July      2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1570513&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Tobias Wrigstad , Patrick Eugster , John Field , Nate Nystrom , Jan Vitek, Software hardening: a research agenda, Proceedings for the 1st workshop on Script to Program Evolution, p.58-70, July 06-06, 2009, Genova, Italy
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1642946&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Z. Rakamaric , A. J. Hu, Automatic Inference of Frame Axioms Using Static Analysis, Proceedings of the 2008 23rd IEEE/ACM International Conference on Automated Software Engineering, p.89-98, September 15-19, 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1659314&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Hiroshi Ishikawa, An Approach for Refactoring using ESC/Java2 ---A Simple Case Study ---, Proceeding of the 2009 conference on New Trends in Software Methodologies, Tools and Techniques: Proceedings of the Eighth SoMeT_09, p.61-72, July 19, 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1644232&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Yeting Ge , Clark Barrett , Cesare Tinelli, Solving quantified verification conditions using satisfiability modulo theories, Annals of Mathematics and Artificial Intelligence, v.55 n.1-2, p.101-122, February  2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1640051&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Stephen Kell, The mythical matched modules: overcoming the tyranny of inflexible software construction, Proceeding of the 24th ACM SIGPLAN conference companion on Object oriented programming systems languages and applications, October 25-29, 2009, Orlando, Florida, USA
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1557903&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Robby , Patrice Chalin, Preliminary design of a unified JML representation and software infrastructure, Proceedings of the 11th International Workshop on Formal Techniques for Java-like Programs, p.1-7, July 06-06, 2009, Genova, Italy
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1639629&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ehud Trainin , Yarden Nir-Buchbinder , Rachel Tzoref-Brill , Aviad Zlotnick , Shmuel Ur , Eitan Farchi, Forcing small models of conditions on program interleaving for detection of concurrent bugs, Proceedings of the 7th Workshop on Parallel and Distributed Systems: Testing, Analysis, and Debugging, p.1-6, July 19-20, 2009, Chicago, Illinois
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1630460&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Yuusuke Hashimoto , Shin Nakajima, Modular Checking with Model Checking, Electronic Notes in Theoretical Computer Science (ENTCS), 254, p.105-122, October, 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1630455&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Matko Botin&#269;an , Matthew Parkinson , Wolfram Schulte, Separation Logic Verification of C Programs with an SMT Solver, Electronic Notes in Theoretical Computer Science (ENTCS), 254, p.5-23, October, 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1557904&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Radu Grigore , Julien Charles , Fintan Fairmichael , Joseph Kiniry, Strongest postcondition of unstructured programs, Proceedings of the 11th International Workshop on Formal Techniques for Java-like Programs, p.1-7, July 06-06, 2009, Genova, Italy
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1640114&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Mangala Gowri Nanda , Senthil Mani , Vibha Singhal Sinha , Saurabh Sinha, Demystifying model transformations: an approach based on automated rule inference, ACM SIGPLAN Notices, v.44 n.10, October 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1592438&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Ranjit Jhala , Rupak Majumdar, Software model checking, ACM Computing Surveys (CSUR), v.41 n.4, p.1-54, October 2009
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1698206&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Bernhard Scholz , Chenyi Zhang , Cristina Cifuentes, User-input dependence analysis via graph reachability, Sun Microsystems, Inc., Mountain View, CA, 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1670484&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Perry R. James , Patrice Chalin, Faster and More Complete Extended Static Checking for the Java Modeling Language, Journal of Automated Reasoning, v.44 n.1-2, p.145-174, February  2010
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1670481&dl=GUIDE&coll=GUIDE&CFID=74711003&CFTOKEN=92540064">
+						Sascha B&#246;hme , Micha&#322; Moskal , Wolfram Schulte , Burkhart Wolff, HOL-Boogie--An Interactive Prover-Backend for the Verifying C Compiler, Journal of Automated Reasoning, v.44 n.1-2, p.111-144, February  2010
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+			</table>
+			
+			</div>
+		
+
+		
+			
+			
+			  	
+			 
+			 
+			
+		
+		
+		
+		  	<br>
+			<div class="indterms">
+			
+			<A HREF="citation.cfm?id=512558#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="IndexTerms">INDEX TERMS</A></span>
+			
+				
+					<p class="Categories">
+						<SPAN class=heading><A NAME="GenTerms">Primary Classification:</A></span>
+						
+						  	
+						
+						
+						
+							<br>&nbsp;
+							
+							
+								  
+									
+									
+									
+									<b>D.</b>
+									
+									
+									
+									<a href="results.cfm?query=PrimaryCCS%3AD&querydisp=PrimaryCCS%3AD&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">
+									
+									Software</a><br>
+								  
+							
+								  
+									
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									
+									<b>D.2</b>
+									
+									
+									
+									<a href="results.cfm?query=PrimaryCCS%3AD2&querydisp=PrimaryCCS%3AD2&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">
+									
+									 SOFTWARE ENGINEERING</a><br>
+								  
+							
+								  
+									
+									
+										&nbsp;
+									
+										&nbsp;
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									
+									<b>D.2.1</b>
+									
+									
+									
+									<a href="results.cfm?query=PrimaryCCS%3AD21&querydisp=PrimaryCCS%3AD21&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">
+									
+									 Requirements/Specifications</a><br>
+								  
+							
+						
+					 </p>
+				  
+				
+				  <p class="Categories">
+					<SPAN class=heading><A NAME="GenTerms">Additional&nbsp;Classification:</A></span>
+					 
+					  	
+					 
+					 
+					
+							<br>&nbsp;
+							
+							
+								 
+									
+									
+									 
+									<b>D.</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD&querydisp=CCS%3AD&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">									 
+
+									Software</a><br>
+								 
+							
+								 
+									
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									 
+									<b>D.2</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD2&querydisp=CCS%3AD2&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">									 
+
+									 SOFTWARE ENGINEERING</a><br>
+								 
+							
+								 
+									
+									
+										&nbsp;
+									
+										&nbsp;
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									 
+									<b>D.2.4</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD24&querydisp=CCS%3AD24&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">									 
+
+									 Software/Program Verification</a><br>
+								 
+							
+					
+
+					</p>
+				   
+			
+				
+				<br>
+					<p class="GenTerms">
+						<SPAN class=heading><A NAME="GenTerms">General Terms:</A></span>
+						
+						  	
+						
+						
+						<BR>
+						 
+						
+							
+							<a href="results.cfm?query=General%20Terms%3A%22Design%22&querydisp=General%20Terms%3A%22Design%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">
+
+							Design</a>,
+							
+						
+							
+							<a href="results.cfm?query=General%20Terms%3A%22Documentation%22&querydisp=General%20Terms%3A%22Documentation%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">
+
+							 Documentation</a>,
+							
+						
+							
+							<a href="results.cfm?query=General%20Terms%3A%22Verification%22&querydisp=General%20Terms%3A%22Verification%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">
+
+							 Verification</a>
+							
+						
+					</p>
+				  
+				
+				
+				<br>
+					<p class="keywords">
+						<SPAN class=heading><A NAME="Keywords">Keywords:</A></span>
+						
+						  	
+						
+						
+						<BR>
+						 
+						
+							
+							<a href="results.cfm?query=Keywords%3A%22compile%2Dtime%20program%20checking%22&querydisp=Keywords%3A%22compile%2Dtime%20program%20checking%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064" target="_self">							
+
+							compile-time program checking</a>
+							
+												
+					</p>
+				  
+				
+			
+			</div>
+		 
+		
+		
+				
+		
+			<div class="abstract">
+				
+				<A HREF="citation.cfm?id=512558#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="collab">Collaborative Colleagues:</A></span>
+				
+				<table border="0" style="margin-left: 2em" cellpadding="2">
+				
+				
+				
+				
+				
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	Cormac Flanagan: <a href="author_page.cfm?id=81100538763&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=74711003&CFTOKEN=92540064" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	K. Rustan M. Leino: <a href="author_page.cfm?id=81100225265&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=74711003&CFTOKEN=92540064" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	Mark Lillibridge: <a href="author_page.cfm?id=81100001867&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=74711003&CFTOKEN=92540064" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	Greg Nelson: <a href="author_page.cfm?id=81100407919&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=74711003&CFTOKEN=92540064" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	James B. Saxe: <a href="author_page.cfm?id=81100392578&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=74711003&CFTOKEN=92540064" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	Raymie Stata: <a href="author_page.cfm?id=81332529385&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=74711003&CFTOKEN=92540064" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+				
+				</table>
+			</div>
+						
+		
+		
+		
+		
+		
+		
+		
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+				  
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+		
+		
+			<div class="abstract">
+			
+				<A HREF="citation.cfm?id=512558#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="opub">This Article has also been published in:</A></span>
+		
+			<ul type="disc">
+			
+					
+					
+					
+	
+						
+						
+						
+				
+	
+						
+						
+						
+				
+	
+						
+						
+						
+				
+	
+						
+						
+						
+							
+							<li>
+							
+							<a href="citation.cfm?id=543552.512558&coll=GUIDE&dl=GUIDE&CFID=74711003&CFTOKEN=92540064">
+							
+									
+								    
+									
+										
+										
+											
+									
+										
+										
+										
+										<SPAN class="mediumb-text">ACM SIGPLAN Notices </span><br>
+
+										
+ 											 <span class="small-text"> Volume 37 ,&nbsp; Issue 5 &nbsp; May 2002 </span><br>
+										   
+									
+								 
+							<br></a>
+							</li>
+
+						
+				
+	
+						
+						
+						
+				
+	
+						
+						
+						
+				
+	
+						
+						
+						
+				
+	
+						
+						
+						
+				
+	
+						
+						
+						
+				
+					
+			
+			</ul>
+			
+		  </div>
+				
+			
+  	
+
+
+
+
+<br>
+<DIV class=footer-copy-text align="center">
+	
+
+
+
+	The ACM Portal is published by the Association for Computing Machinery. Copyright © 2010 ACM, Inc.<br>
+	<A href="http://www.acm.org/publications/policies/usage">Terms of Usage</A>&nbsp;&nbsp;
+	<A href="http://www.acm.org/about/privacy-policy">Privacy Policy</A>&nbsp;&nbsp;
+	<A href="http://www.acm.org/about/code-of-ethics">Code of Ethics</A>&nbsp;&nbsp;	  
+	<A href="http://www.acm.org/about/contact-us">Contact Us</A>
+
+<br><br>
+Useful downloads: 
+<a href="http://www.adobe.com/products/acrobat/readstep2.html"><img src="http://portal.acm.org/images/pdf_logo.gif" width="16" height="16" alt="" border="0"> Adobe Acrobat</a>
+&nbsp;&nbsp;
+<a href="http://www.apple.com/quicktime/download/" target="_blank"><img src="http://portal.acm.org/images/qtlogo.gif" width="16" height="16" alt="" border="0"> QuickTime</a>
+&nbsp;&nbsp;
+<a href="http://www.microsoft.com/windows/windowsmedia/download/default.asp" target="_blank"><img src="http://portal.acm.org/images/wmv.gif" width="16" height="15" alt="" border="0"> Windows Media Player</a>
+&nbsp;&nbsp;
+<a href="http://www.real.com/" target="_blank"><img src="http://portal.acm.org/images/realplayer.gif" width="20" height="18" alt="" border="0"> Real Player</a>
+
+
+</DIV>
+
+</td>
+</tr>
+</table>
+</div>
+
+</body>
+</html>

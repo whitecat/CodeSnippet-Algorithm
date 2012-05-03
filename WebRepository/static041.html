@@ -1,0 +1,1580 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>jGuru: Why can't I declare a static method in an interface?</title>
+<META NAME="keywords" CONTENT="JavaLanguage">
+
+
+<style>
+<!--
+a{text-decoration:none;}
+a:hover{color:669900; }
+.body{background-color:white;}
+.nav{color:669900;}
+.nav3{color:ff0000;}
+.nav2{color:000000;}
+.pass {FONT-FAMILY: Verdana, Geneva, Arial; FONT-SIZE: 9px; LINE-HEIGHT:9px; FONT-WEIGHT: bold;}
+.dwsmall { font-family: Verdana, sans-serif; font-size: 70%}
+.dwr1 { background-color : #cc6633 }
+.dwinput { font-family: Verdana, sans-serif; font-size: 70%; width: 120;}
+.personal { font-family:Arial,Geneva;color:#666666;font-size:13px; }
+-->
+</style>
+
+<SCRIPT LANGUAGE=JavaScript>
+v_path = location.pathname;
+v_docn = v_path.slice(v_path.lastIndexOf("/"),v_path.length);
+if((v_docn == "/")||(v_docn.indexOf("/index") != -1)){v_docn = "/index"};
+v_path = v_path.slice(0,v_path.lastIndexOf("/"))
+
+OAS_url = 'http://mjxads.internet.com/RealMedia/ads/';
+OAS_sitepage = 'intm/webdev/www.jguru.com' + v_path + v_docn;
+//OAS_sitepage = 'intm/sbc/www.webopedia.com';
+OAS_listpos = '468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10,fl1,fl2,fl3,fl4,fl5';
+OAS_query = '';
+OAS_target = '_top';
+OAS_version = 10;
+OAS_rn = '001234567890'; OAS_rns = '1234567890';
+OAS_rn = new String (Math.random()); OAS_rns = OAS_rn.substring (2, 11);
+function OAS_NORMAL(pos) {
+var_a=('<A HREF="' + OAS_url + 'click_nx.cgi/' + OAS_sitepage );
+var_b=(var_a + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' );
+var_c=(var_b+ OAS_query + '" TARGET=' + OAS_target + '>');
+document.write(var_c);
+var_aa=('<IMG SRC="' + OAS_url + 'adstream_nx.cgi/' + OAS_sitepage ); 
+var_bb=( var_aa + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?');
+var_cc=( var_bb + OAS_query + '" BORDER=0></A>');
+document.write(var_cc);
+}
+
+OAS_version = 11;
+if (navigator.userAgent.indexOf('Mozilla/3') != -1 )
+OAS_version = 10;
+if (navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
+OAS_version = 10;
+if (OAS_version >= 11) {
+var_aaa=('<SCRIPT LANGUAGE=JavaScript1.1 SRC="' + OAS_url); 
+var_bbb=(var_aaa + 'adstream_mjx.ads/' + OAS_sitepage + '/1'); 
+var_ccc=(var_bbb + OAS_rns + '@' + OAS_listpos + '?' + OAS_query );
+var_ddd=(var_ccc + '"><\/SCRIPT>');
+document.write(var_ddd);
+}
+
+document.write('');
+function OAS_AD(pos) {
+if (OAS_version >= 11)
+OAS_RICH(pos);
+else
+OAS_NORMAL(pos);
+}
+</SCRIPT>
+
+</head>
+
+<BODY BGCOLOR="#FFFFFF" link="#003366" vlink="#336699">
+
+<table cellpadding="0" border="0" cellspacing="0" align="center">
+<tr>
+<td>
+	<!-ad--><!-- START TOP BANNER-->
+					
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td align="center" width="100%" colspan="2">
+
+<!------ OAS AD '468x60-1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('468x60-1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!468x60-1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!468x60-1" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '468x60-1' end ------>
+
+	</td>
+</tr>
+</table>
+					<!-- END TOP BANNER--><!-/ad--></td>
+<td><img src="/images/spacer.gif" width="1" height="95" alt="" border="0"></td>
+</tr>
+</table>
+
+<img src="/images/spacer.gif" width="1" height="7" alt="" border="0"><br>
+
+<table cellpadding="0" border="0" cellspacing="0">
+<tr>
+<td rowspan="3"><a href="/"><img src="/images/jguru/logo.gif" width="105" height="103" alt="jGuru" border="0"></a></td>
+
+			<FORM METHOD="POST" ACTION="/misc/process_login.jsp">
+		<td width="100%" valign=middle align=right bgcolor="#eaeaea">
+<table cellpadding=0 cellspacing=0 border=0 bgcolor="#eaeaea"><tr><td bgcolor="#eaeaea">
+		<a href="/misc/register.jsp"><img src="/images/jguru/button-register.gif" width="65" height="13" alt="Register" border="0" align="middle"></a>
+<img src="/images/spacer.gif" width="20" height="1"><img src="/images/jguru/button-email.gif" width="34" height="8" alt="Email">
+		<INPUT type="text" size="10" name="email">
+		&nbsp;&nbsp;&nbsp;
+		<img src="/images/jguru/button-password.gif" width="60" height="8" alt="Password">
+		<INPUT type="password" size="10" name="password">
+		<input type=image src="/images/jguru/button-sm-go.gif" width="23" height="13" alt="go" border="0"><img
+src="/images/spacer.gif" width="10" height="1"></td>
+<td><span class="pass"><a href="/misc/request_password.jsp">Forgot your<br>password?</a></span></td>
+</tr></table>
+		</td>
+		</FORM>
+</tr>
+
+<tr>
+<td>
+			<table border=0 cellspacing=0 cellpadding=4 width="600">
+<tr>
+<td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/index.jsp" class=nav><font color=#669900>HOME</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="http://www.jguru.com/images/premium/zone-bullet.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/faq/index.jsp" class=nav2><font color=#669900>FAQS</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/forums/index.jsp" class=nav><font color=#669900>FORUMS</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/download/index.jsp" class=nav><font color=#669900>DOWNLOADS</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/article/index.jsp" class=nav><font color=#669900>ARTICLES</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/peerscope/index.jsp" class=nav><font color=#669900>PEERSCOPE</font></a></strong>
+</font></td><td width="9" bgcolor="#FFFFFF">
+<img src="/images/premium/zone-bullet-off.gif" width="9" height="9" border="0"></td>
+<td bgcolor="#FFFFFF">
+<font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size=2>
+<strong><a href="/learn/index.jsp" class=nav><font color=#669900>LEARN</font></a></strong>
+</font></td>
+</tr>
+</table>
+
+</td>
+</tr>
+
+<tr>
+<!-- search  begins -->
+<form action="/search/results.jsp" method="POST">
+<INPUT type=hidden NAME=resource VALUE="universe">
+<td valign="middle" width="100%" bgcolor="#EAEAEA">
+<img src="/images/spacer.gif" width="725" height="4" alt="" border="0"><br>	
+<font color="#000000" size="2" face="arial,helvetica">
+&nbsp;&nbsp;<strong>Search</strong></font>
+<input type="text" name="query" size="50" style="width:80%; font-family:geneva,arial; background-color:#ffffff; color:#000000; font-size:10pt;">&nbsp;<input type="image" src="/images/jguru/button-sm-go.gif" width="23" height="13" alt="go" border="0">&nbsp;<a href="/misc/features-search.jsp"><img src="/images/jguru/button-quest.gif" width="13" height="13" alt="jGuru Search Help" border="0"></a></font>
+<INPUT type=hidden NAME=resource VALUE="jGuru:faq/JavaLanguage">
+<INPUT type=hidden NAME=resource VALUE="jGuru:forum/JavaLanguage">
+
+</td>
+</form>
+<!-- search  ends -->
+
+</tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td><img src="/images/spacer.gif" width="1" height="95" alt="" border="0"></td>
+<td>
+<!------ OAS AD 'ciu' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('ciu');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!ciu" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!ciu" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD 'ciu' end ------>
+</td</tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td valign=top width="100%">
+
+<table border="0" width="100%">
+<tr>
+<td valign=top colspan="2" width="50%">
+<br>
+
+<!-- BODY begins -->
+
+
+
+
+<table width=100% cellpadding=1 cellspacing=0 border=0>
+<tr><td align=left bgcolor=#666666>
+<table width=100% bgcolor=#ffffff cellpadding=5 cellspacing=0 border=0>
+      <tr>
+        <td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b>Question</b>
+	</font></td>
+        <td valign="top" colspan=3><small>
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b>Why can't I declare a static method in an interface?</b>
+	</font></td>
+      </tr>
+
+		<tr>
+        <td valign="top" align="right">
+		<font face="Verdana,Arial,Helvetica" size=2>
+		<b>Derived from</b>
+		</font></td>
+        <td valign="top" colspan=3><small>
+		<font face="Verdana,Arial,Helvetica" size=2>
+		A <a href=/forums/view.jsp?EID=87193><b>question</b></a> posed by <a href="/guru/viewfaqs.jsp?EID=68486"><strong>stuart butler</strong></a>
+		</font></td>
+	</tr>
+	
+
+      <tr>
+        <td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b>Topics</b>
+	</font></td>
+        <td valign="top" colspan=3>
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<a href="/faq/subtopic.jsp?topicID=488"><strong>Java:Language</strong></a>, 
+<a href="/faq/subtopic.jsp?topicID=490"><strong>Java:Language:Interfaces</strong></a>, 
+<a href="/faq/subtopic.jsp?topicID=496"><strong>Java:Language:Syntax</strong></a>, 
+<a href="/faq/subtopic.jsp?topicID=497"><strong>Java:Language:Semantics</strong></a>
+	</td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b>Author</b>
+	</font></td>
+        <td valign="top" colspan=3>
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<a href="/guru/viewfaqs.jsp?EID=4"><strong>John Mitchell</strong></a>&nbsp;<font color=#669900>PREMIUM</font>
+	
+
+	</font></td>
+      </tr>
+
+<tr>
+	<td valign="top" align="right">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	<b><em>Created</em></b>
+	</font></td>
+        <td valign="top">
+	<font face="Verdana,Arial,Helvetica" size=2>
+	Jun 27, 2000
+	</font></td>
+
+    	<td valign=top align=right>
+		<font face="Verdana,Arial,Helvetica" size=2>
+		<b><em>Modified</em></b>
+		</font></td>
+	        <td valign=top>
+		<font face="Verdana,Arial,Helvetica" size=2>
+		Jun 27, 2000
+	</font></td>
+    
+</tr>
+
+</table>
+</td></tr></table>
+
+
+
+<br>
+
+<center>
+<table align="center" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td align="center" height="300">
+	<!------ OAS AD '336x280' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('336x280');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!336x280" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!336x280" border=0>
+	</A> 
+	</NOSCRIPT>
+	<!------ OAS AD '336x280' end ------>
+	</td>
+</tr>
+</table>
+</center>
+<br>
+
+<font face="Verdana,Arial,Helvetica" size=2>
+<strong>Answer</strong>
+</font>
+<br>
+
+<font face="Verdana,Arial,Helvetica" size=2>
+Because all methods declared in an <em>interface</em> are (implicitly) also &quot;abstract&quot; methods since, by definition, they do <em>not</em> define the (implementation of) the method.
+</font>
+<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=88225&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=88225&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>2</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+<br><br>
+<font face="Verdana,Arial,Helvetica" size=2>
+<b>Comments and alternative answers</b>
+<br><br>
+<a href="/forums/comment.jsp?op=2&EID=88225"><img src="/images/button-sm-comment.gif" alt="Comment on this FAQ entry" border=0></a>
+<br><br>
+</font>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=378533"><strong>That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=3"><strong>Alex Chaffee</strong></a>&nbsp;<font color=#669900>PREMIUM</font>, Aug 4, 2000&nbsp;&nbsp;[replies:12]<br>
+That's sort of begging the question. The question could be rephrased, &quot;I want to require that all classes implementing interface Foo define a static method Bar(). Why can't I do this by declaring a static method in interface Foo?&quot; The answer is, because of subtle semantics involving the nature of what &quot;static&quot; really means.  Perhaps another guru could be more specific.
+<p>
+OK, now that that's over with, I have another question:<p>
+
+Why can't I <b>define</b> a static method in an interface? <p>
+
+(Declare = spell out the message signature only; Define = provide implementation code too) <p>
+
+Answer: for the same reason you can't declare one: since it would cause problems with multiple inheritance. If object C implemented interfaces A and B, and both A and B defined a static method F, then some method invoked C.F(), then which F() would get invoked? The one from A() or the one from B()? 
+We don't know which, and can't know, so Java doesn't let us complicate matters thus.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=378533&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=378533&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>1</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=3&type=1&EID=378533"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=378533"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=477496"><strong>Re: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=446529"><strong>Debabrata Dash</strong></a>, Aug 15, 2001&nbsp;&nbsp;[replies:2]<br>
+Ok... your last point taken... But the same thing applies to field declaration as well. For example if I have static field F in A and B ... then again there is ambiguity. But this ambiguity is allowed in Java.
+
+-Dash.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=477496&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=477496&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>1</strong>&nbsp;&nbsp;No: <strong>1</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=4&type=1&EID=477496"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=477496"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=478078"><strong>Re: Re: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=4"><strong>John Mitchell</strong></a>&nbsp;<font color=#669900>PREMIUM</font>, Aug 16, 2001&nbsp;&nbsp;[replies:1]<br>
+Actually, there is no ambiguity on this w.r.t. field declarations.  That's because field declarations in Java interfaces are all, by definition, implicitly <code>public static final</code> -- i.e. those "declarations" are really just immutable constants.  Because of that, all of the multiple paths of inheritance of those fields are collapsed/collapsible unambiguously.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=478078&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=478078&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>2</strong>&nbsp;&nbsp;No: <strong>1</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=5&type=1&EID=478078"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=478078"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1379265"><strong>Re[3]: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1379264"><strong>Ping Pong</strong></a>, Mar 20, 2009<br>
+<pre>
+interface A {
+  String X = "foo";
+}
+
+interface B {
+  String X = "bar";
+}
+
+interface C extends A, B {
+
+}
+</pre>
+A.X - ok;
+B.X - ok;
+C.X - ambiguous, compile-time error.
+
+same could easily be applied to static methods. but no. 
+
+<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1379265&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1379265&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=6&type=1&EID=1379265"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1379265"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=478075"><strong>Re: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=4"><strong>John Mitchell</strong></a>&nbsp;<font color=#669900>PREMIUM</font>, Aug 16, 2001<br>
+W.r.t. the first part of your statement, what you're really talking with respect to "static" is really directly due to the funky, wacko way that Java defines inheritance asymmetrically -- single for implementation and multiple for interfaces -- and that Java doesn't truly have classes as first class objects.  For another example, note how static methods are treated in implementation inheritance.
+
+
+
+<p>Your restatement of the question has the same underlying cause.  Interfaces are not even treated like the second class citizens that Java treats its classes. Interfaces in Java are basically just type constructs.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=478075&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=478075&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>1</strong>&nbsp;&nbsp;No: <strong>2</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=7&type=1&EID=478075"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=478075"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=516539"><strong>Re: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=516529"><strong>Darren Abbruzzese</strong></a>, Oct 10, 2001<br>
+The reason why you can't have a static method in an interface lies in the way Java resolves static references.  Java will not bother looking for an instance of a class when attempting to execute a static method.  This is because static methods are not instance dependent and hence can be executed straight from the class file.  Given that all methods in an interface are abstract, the VM would have to look for a particular implementation of the interface in order to find the code behind the static method so that it could be executed.  This then contradicts how static method resolution works and would introduce an inconsistency into the language.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=516539&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=516539&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>5</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=8&type=1&EID=516539"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=516539"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1169986"><strong>Re: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1169964"><strong>Jo Wilkes</strong></a>, May 11, 2004&nbsp;&nbsp;[replies:4]<br>
+Alex Chaffee wrote:
+<table><tr><td bgcolor="#DDDDEE">
+<blockquote><font size="-2">"If object C implemented interfaces A and B, and both A and B defined a static method F, then some method invoked C.F(), then which F() would get invoked? The one from A() or the one from B()?"</font></blockquote></td></tr></table>
+Interfaces do declarations, not definitions. And since they  do not contain code, the static functions in A and B would be abstract, and the implementation C provides would be the only one. 
+There is really no problem with that IMHO.</p><br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1169986&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1169986&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>1</strong>&nbsp;&nbsp;No: <strong>1</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=9&type=1&EID=1169986"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1169986"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1169992"><strong>Answering previous postings, and asking again</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1169964"><strong>Jo Wilkes</strong></a>, May 11, 2004<br>
+I don't think I've seen a good reason yet.
+
+John Mitchell wrote:
+<table><tr><td bgcolor="#DDDDEE"><blockquote><font size="-2">Interfaces in Java are basically just type constructs.</font></blockquote></td></tr></table>
+I agree with your posting, especially this sentence. 
+But that is not a good reason. <em>Especially</em> with a type construct, statics should be possible.
+
+Darren Abbruzzese wrote:
+<table><tr><td bgcolor="#DDDDEE"><blockquote><font size="-2">Given that all methods in an interface are abstract, the VM would have to look for a particular implementation of the interface in order to find the code behind the static method so that it could be executed.
+</font></blockquote></td></tr></table>
+
+I disagree. A static function defined in an interface would only affect the compiler, not the VM. At all.<br/>
+A static function is one that does not depend on the individual instance, but rather the class. The VM calls it with the <code>invokestatic</code> instruction, and for the linker stage, the method signatures allow for interface, abstract and static to coexist.<br/><br/>
+
+What an abstract static method or static interface method would be good for:<br/>
+
+You could define a template what the static function should look like your derived / implementing classes need to define. If they fail to do so, this is detected at compiletime.<br/>
+
+In the current situation, you have to define a static dummy function which does nothing (maybe throwing an exception). But you have no way of checking compiletime whether the derived/implementing classes do actually have own implementations. This is especially a problem when you have projects with several people involved and you design the base class. Abstract static or static interface methods would be <b>very</b> helpful there.<br/>
+<br/>
+And I don't know <em>any</em> good reason yet java does not allow for them.<br/>
+<br/>
+Does anybody?<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1169992&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1169992&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>2</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=10&type=1&EID=1169992"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1169992"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1241013"><strong>Re[2]: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=903052"><strong>Barry Ku</strong></a>, Apr 25, 2005&nbsp;&nbsp;[replies:2]<br>
+If you define a static method, then you would use it w/o referencing the instance, i.e. use the interface/class name directly.  Let's say java allows you to declare a static method bar() for your interface, Foo. You should then be able to call Foo.bar() directly, however, there's no implementation can be resolved for bar() in this case.  Calling FooImpl.bar() will work, but it defeats the purpose of using interface.
+<br><br>
+A possible solution (or a workaround) is declaring bar as a non-static method, and implement it by calling a private static method.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1241013&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1241013&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>1</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=11&type=1&EID=1241013"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1241013"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1242816"><strong>Re[3]: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1242812"><strong>vix waikar</strong></a>, May 5, 2005&nbsp;&nbsp;[replies:1]<br>
+Interesting qustion, but no straight forward answer yet. My guess is static method in an interface is not allowed because say I have interface A { static void foo(); }
+Now I write class B implements A { static void foo{ //code} }
+And class C implemets A { static void foo{// code} )
+
+I call A a; a = new B(); a.foo() -&gt; which method is called ... I guess it must be B.foo() .. 
+
+so there is no ambiguity involved with static keyword in this case. i am not sure if there are more cases where this might confuse the compiler.
+
+So I conclude (with little knowledge ;-) ) that static methods in Java interface MUST be supported.
+
+-Vix<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1242816&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1242816&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=12&type=1&EID=1242816"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1242816"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1279618"><strong>Re[4]: That's sort of begging the question. The question could...</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1279613"><strong>Deepmala Dubey</strong></a>, Jan 19, 2006<br>
+Thanx for nice Information.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1279618&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1279618&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=13&type=1&EID=1279618"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1279618"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1297475"><strong>Java doesn't have class methods, that why.</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1297474"><strong>Ed Warnicke</strong></a>, May 18, 2006&nbsp;&nbsp;[replies:1]<br>
+<p>
+Not quite right.  The reason is because in Java, static is really the same as "global".  In general in OO languages there a three kinds of 'variables/methods':
+</p><p>
+<ol>
+<li>instance</li>
+<li>class</li>
+<li>global</li>
+</ol>
+</p><p>
+Java doesn't really have class variables and methods.  Many people think of 'static' as marking something as class associated, but it doesn't really.  You can see this by trying  the following:
+</p><p>
+<font size=2><pre>
+public class A {
+    public static void printfoo() { System.out.println("A"); }
+
+    public void doIt() { printfoo(); }
+
+}
+
+public class B extends A {
+    public static void printfoo() { System.out.println("B"); }
+
+}
+</pre></font></p>
+<p>
+If you have an instance b of class B, and call b.doIt(), it will print out "A".  Why?  Because printfoo isn't really a class associated method, it's a global, and it's reference in A.doIt() is a reference to that global.
+</p><p>
+So rephrase your question: 'I want to require that all classes implementing interface Foo define a global method Bar(). Why can't I do that by declaringa global method in interface Foo?".  Do you see why that is sort of a silly thing?  I agree with you it would be VERY useful to be able to require all classes that implement an interface to implement a class method Foo, but Java doesn't have class methods, so you can't.
+</p><br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1297475&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1297475&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>1</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=14&type=1&EID=1297475"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1297475"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1298566"><strong>Re: Java doesn't have class methods, that why.</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1186052"><strong>Simon Baker</strong></a>, May 26, 2006<br>
+[quote]Do you see why that is sort of a silly thing?[/quote]
+
+<p> I think your argument can be used against you just as well.  If B provides it's own <code>doit()</code> method, then it would print "B".  So maybe I want to enforce the fact that each class must have it's own static <code>foo()</code> method so it doesn't use the one from the superclass.
+
+<p>Here's more of a real world case, which I'm open to alternative ideas on.
+
+<p>Suppose my top class is A and B extends A and C extends A.  Suppose I want to enforce that every subclass of A provides a static factory method for creating an object of it's own type and returning it cast up to the superclass, when passed some parameters.  In other words;
+
+<p>// Usage:
+
+<p><code>
+<br>B b = B.factory(x, y, z);
+
+<br>C c = C.factory(x, y, z);
+</code>
+
+<p>How do I do that?  It seems I'd like to have B and C implement an interface such as:
+
+<p><code>
+<br>public interface IFactory {
+<br>  public static A factory(string x, string y, string z);
+<br>}<br>
+
+<br>// So it would look kind of like this:
+
+<br>public class A {};<br>
+
+<br>public class B extends A implements IFactory{
+<br>public static A factory(string x, string y, string z) {
+<br>   return new B();
+<br>}<br>
+
+<br>public class C extends A  implements IFactory{
+<br>public static A factory(string x, string y, string z) {
+<br>   return new C();
+<br>}<br>
+</code>
+
+<p>Is that an unreasonable idea?<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1298566&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1298566&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=15&type=1&EID=1298566"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1298566"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1298559"><strong>I don't get this answer</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1186052"><strong>Simon Baker</strong></a>, May 26, 2006&nbsp;&nbsp;[replies:3]<br>
+[quote]Answer: for the same reason you can't declare one: since it would cause problems with multiple inheritance. If object C implemented interfaces A and B, and both A and B defined a static method F, then some method invoked C.F(), then which F() would get invoked? The one from A() or the one from B()? We don't know which, and can't know, so Java doesn't let us complicate matters thus.[/quote]
+
+<p> I don't get the answer given.  Where are the two F() methods to get confused?  I only see one class, C defined.  A and B are just interfaces, which are essentially abstract.  If they both specify the same method, so what?  It is just a contract that C must have a static method F().  Perhaps the poster feels that a static method in an interface could have a body, and that would cause the described conflict, which I agree with, but the original questioner, I don't think, expected that a static interface method would have a body, rather it would just be a "template" for a method which must be static.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1298559&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1298559&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=16&type=1&EID=1298559"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1298559"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1308471"><strong>Re: I don't get this answer</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1308461"><strong>Alex Kinneer</strong></a>, Aug 10, 2006&nbsp;&nbsp;[replies:2]<br>
+<p>The fact that there is only one class C defined here is synthetic, it is completely irrelevant to the (correct) explanation regarding multiple inheritance. An interface is intended to provide an abstraction -- by definition you believe there are multiple implementations that might satisfy the abstraction or you would just be declaring it as a concrete class instead. So if you are using an interface, you would always expect at least the possibility of there being more than one implementation. So what is the implication?</p>
+
+<p>First, a quick refresher on interfaces, since some in this thread seem to have forgotten how they really work. In normal source code using an interface, you would typically write something like the following:</p>
+
+<p><tt>SortingAlgorithm sorter = getSimpleSorter();
+Collection sorted = sorter.sort(myCollection);</tt>
+</p>
+
+<p>The abstraction here is that the interface (SortingAlgorithm) may be satistified by different implementations (say BubbleSort, QuickSort, etc...). The Java compiler encodes this as an INVOKEINTERFACE referencing SortingAlgorithm (*not* any concrete implementation).</p>
+
+<p>Now, by comparison, a call to a static method is compiled as an INVOKESTATIC, which always references the explicit class defining the method. And the VM does *not* use virtual dispatch to resolve static methods. So suppose you have the following classes:</p>
+
+<p><tt>class Shape {
+}</tt></p>
+
+<p><tt>class Rectangle extends Shape {
+   static Rectangle newInstance() { .. }
+}</tt></p>
+
+
+<p><tt>class Square extends Rectangle {
+   static Square newInstance() { .. }
+}</tt></p>
+
+
+<p>Note that the covariant return types are perfectly legal, because Java does not view any of these methods as overriding. Consider the following:</p>
+
+<p><tt>Shape s = new Rectangle();
+Rectangle r = s.newInstance();</tt></p>
+
+<p>The above is illegal, because the compiler cannot bind a valid matching function (this is actually the crux of the matter, it will be revisited in a moment).</p>
+
+<p><tt>Rectangle r = new Square();
+Square s = r.newInstance();</tt></p>
+
+<p>The above is also illegal, because the call will bind to the definition in Rectangle, which returns the wrong type. This is because the compiler can easily determine the type of r. Note that if the methods were virtual, this would be legal (with a cast, of course), because the dynamic dispatch would act on the real receiver object, e.g. one of type Square.</p>
+
+<p>As an aside, these examples demonstrate why it is advised never to call static methods on an object reference. Instead, you should always be explicit, as in:</p>
+
+<p><tt>Rectangle r = Rectangle.newInstance();</tt></p>
+
+<p>because this makes the semantics of what the compiler will do clearly match the source code.</p>
+
+<p>So how does all this relate to an interface? Simple, because any method in an interface in Java has to use virtual dispatch by definition. This is the only sensible semantics to relate an abstraction to multiple concrete implementations, especially in a multiple interface inheritance situation.</p>
+
+<p>Suppose two classes implement the same hypothetical static method from an interface, say for example, trusty old "foo()".</p>
+
+<p><tt>interface FooType {
+   static int foo();
+}</tt></p>
+
+<p><tt>class FooImplOne {
+   static int foo() { .. }
+}</tt></p>
+
+<p><tt>class FooImplTwo {
+   static int foo() { .. }
+}</tt></p>
+
+<p>Now suppose somewhere in your code, you want to invoke the method on a reference to the *interface*:</p>
+
+<p><tt>void someMethod(FooType ft) {
+  int result = ft.foo();
+}</tt></p>
+
+<p>What the compiler wants to do is resolve this to an INVOKESTATIC referencing FooType. But FooType doesn't actually contain any code! So what do to? It has to be resolved to a concrete class implementation. Setting aside the cost of 100% accurate static points-to analysis, the reference "ft" above could potentially reference objects of different types, so it is impossible to resolve this statically at compile time to an INVOKESTATIC in accordance with current Java semantics. You could have the VM search at runtime, but that's virtual dispatch, making it completely inconsistent with static semantics. So the only real solution is to push it back on the developer, by forcing a cast:</p>
+
+<p><tt>int result = ((FooImplOne) ft).foo();</tt></p>
+
+<p>But then you completely undermined the point of using an interface, because you assume that only one possible concrete implementation can reach "ft", or risk a ClassCastException!</p>
+
+<p>I do entirely agree that there might be a potential usefulness to having a very semantically constrained version of static methods in interfaces though. Such a semantics would not permit a static method to be called on a reference to the interface (ever!) but would guarantee that implementors of the interface must define the method, for use in explicitly qualified static calls on the concrete type. An example would be encapsulated deserialization, where it would be nice for a class to know how to deserialize itself from a source and return an instance using a static method. e.g.:</p>
+
+<p><tt>InputStream file;
+MyClass mc = MyClass.deserialize(file);</tt></p>
+
+<p>I think it is additionally worth noting that the claim in this thread that Java does not have true class static members is completely false. The example given with the doIt() methods violates the principle of always qualifying a call to a static method with the desired type. The call to printfoo() is translated by the compiler to A.printfoo(), as a (dubious) convenience. But one could just as easily write B.printfoo() in the doIt() method of class A and get the implementation in class B. This is further underscored by the fact that B's printfoo() could be private, in which case B.printfoo() from A would be illegal. How can it be "global" if it can't be accessed from A? That's just nonsense, resulting from confusion caused by a lazy programming style. The fact that you didn't qualify a static method call with it's class type doesn't mean you should expect dynamic dispatch on the call!</p>
+
+<p>Finally, to touch on the question of fields in interfaces. Problems with multiple inheritance are avoided because the compiler forces you to disambiguate conflicting field names. If a class inherits from more than one interface defining fields with the same name, you must always completely qualify the name of the field in the concrete class or the compiler will complain. A similar disambiguation would be required if static methods were permitted, to avoid concrete multiple inheritance conflicts.</p>
+<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1308471&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1308471&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>3</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=17&type=1&EID=1308471"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1308471"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1323617"><strong>Re[2]: I don't get this answer</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1323616"><strong>Jason G</strong></a>, Dec 30, 2006<br>
+What about generics?  For example, if I had an interface <tt>Sorter</tt> and a class <tt>SortedClass&lt;E extends SortingAlgorithm&gt;</tt>, I would want to be able to call a static method from a method inside the <tt>SortedClass</tt>, say 
+<p><font size=2><pre>
+Collection sorted = E.sort(myCollection);
+</pre></font><p>
+The method <tt>sort</tt> should be static because there is no reason to involve an instance of the class to sort a collection.  Isn't this an example that would be calling a static interface method from an implementing class, without casting or using instances?  Is there a way to do this in Java?<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1323617&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1323617&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=18&type=1&EID=1323617"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1323617"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1325220"><strong>Re[2]: I don't get this answer</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1325219"><strong>Andrzej jonca</strong></a>, Jan 16, 2007<br>
+I have started reading the items in this discussion because I was puzzled by the term 'static interface' that I found in "Java in a Nutshell" book. Obviously I resorted to Google and this page came in. At first I did not quite like the discussion: the entries seemed too fuzzy to my taste. Then I got to this current item by Alex Kinneer. I became thrilled by the clarity and relevance of the text! Thank you for such nice, logical refresher! It arranged some background in the area behing by eyeballs in what it feels like more alert and clearer way.
+
+It was <i>not</i> about 'static interface' but it was so nice to read...<br />
+
+Andrew Jonca<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1325220&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1325220&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=19&type=1&EID=1325220"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1325220"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1333713"><strong>The restriction is arbitrary</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1333712"><strong>Dan Smith</strong></a>, Apr 11, 2007&nbsp;&nbsp;[replies:2]<br>
+<p>What a lot of misguided and confused discussion over a very simple question!
+
+<p>There is no good reason that interfaces must not allow static method declarations.  It was an arbitrary choice made by the designers of the language.
+
+<p>A lot of the confusion here stems from the interpretation of "declare a static method."  What I mean by it, and what I expect the poster meant by it, is to define a method tagged "static" and *not* (implicitly or explicitly) abstract -- naturally, the method would have a body.
+
+<p>Static methods behave just like static fields and static class declarations (both of which are allowed in interface declarations): their presense within a class or interface merely provides a namespace.  They may be *shadowed* (JLS may use slightly different terminology), but not *overridden*.  There is no dynamic dispatch on a static method.  If two parent classes or interfaces define a field or nested class/interface with the same name, an unqualified reference to that name is considered ambiguous, and the same policy could be extended to static methods in interfaces.
+
+<p>Would it be useful to declare a static method inside an interface body?  Sure, for the very same reason that it's useful to declare static fields and static classes there.  It's just a convenient place to put things that would otherwise need a home.  (For example, the methods in java.util.Collections could easily live in the java.util.Collection interface instead, eliminating the need for two class/interface declarations relating to the exact same thing.)<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1333713&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1333713&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>1</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=20&type=1&EID=1333713"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1333713"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td bgcolor=#F6F6F6><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top bgcolor=#F6F6F6><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top bgcolor=#F6F6F6><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1347941"><strong>Re: The restriction is arbitrary</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1347939"><strong>Will Hoover</strong></a>, Sep 26, 2007&nbsp;&nbsp;[replies:1]<br>
+A possible solution to the problem may be:<br /><br />
+<tt>
+public interface IFactory {<br />
+&nbsp;...<br />
+<p>
+&nbsp;public static final class Factory {<br />
+&nbsp;&nbsp;public IFactory getFactory();<br />
+&nbsp;}<br />
+&nbsp;...<br />
+</p>
+}
+</tt><br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1347941&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1347941&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=21&type=1&EID=1347941"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1347941"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+<table width=100% cellpadding=8 cellspacing=0 border=0>
+<tr>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+<td ><img src=/images/spacer.gif height=1 width=7></td>
+
+<td width=7 valign=top ><img src="/images/jguru/bullet.gif" width=7 height=13></td>
+<td width="100%" valign=top ><font face="Verdana,Arial,Helvetica" size=2><a href="/forums/view.jsp?EID=1379267"><strong>Re[2]: The restriction is arbitrary</strong></a><br>
+<a href="/guru/viewforumanswers.jsp?EID=1379264"><strong>Ping Pong</strong></a>, Mar 20, 2009<br>
+totally possible, but ugly. you can have static fields, but you can't have static (not abstract) methods. for no reason whatsoever.<br><br>
+<table align=right cellpadding="1"><tr><td bgcolor="#999999">
+<table cellpadding="5" cellspacing="" border="0"><tr><td
+bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica" size=1 color="#777777"><nobr>Is this item
+helpful?&nbsp;&nbsp;<strong><a href="/misc/process_vote.jsp?EID=1379267&vote=yes">yes</a></strong>&nbsp;&nbsp;<strong><a
+href="/misc/process_vote.jsp?EID=1379267&vote=no">no</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+Previous votes&nbsp;&nbsp; Yes: <strong>0</strong>&nbsp;&nbsp;No: <strong>0</strong></nobr><br></font>
+</td></tr></table>
+</td></tr></table>
+<br>
+
+<br>
+<img src=/images/spacer.gif width=1 height=4><br>
+<a href="/forums/reply.jsp?op=22&type=1&EID=1379267"><img src="/images/sm-reply.gif" border=0 alt="Reply to this answer/comment"></a>&nbsp;&nbsp;<a href="/misc/about_voting.jsp?EID=1379267"><img src="/images/search-help.gif" border=0 alt="Help"></a>&nbsp;&nbsp;</font></td>
+
+</tr>
+</table>
+
+
+<br>
+<!-- END BODY -->
+</td>
+
+</td>
+</tr>
+</table>
+
+</td>
+
+<td valign=top width="20"><img src="/images/spacer.gif" width=20 height=1></td>
+
+<td valign=top>
+<br>
+
+<table border="0" cellspacing="0" cellpadding="10" width="172" align="right">
+    <tr>
+    <td width="145" align=center bgcolor="#666666">
+    <strong><a href="/forums/pick_question_topic.jsp"><img src="/images/jguru/button-ask-question.gif" width="110" height="18" alt="Ask A Question" border="0"></a><br>
+</td>
+</tr>
+</table>
+<br clear="all">
+
+<center>
+<br>
+<div align="center"><!------ OAS AD '125x800' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('125x800');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!125x800" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,house_ribbon,ciu,accessunit,marketplace01,marketplace02,marketplace03,marketplace04,marketplace05,marketplace06,marketplace07,marketplace08,marketplace09,marketplace10!125x800" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '125x800' end ------></div>
+
+<br>
+&nbsp;
+
+<br>
+<table border="0" cellspacing="0" cellpadding="1" width="145">
+       <tr><td width="1" bgcolor="#9999cc">
+        <table border="0" cellspacing="0" cellpadding="10" width="143">
+            <tr>
+            <td width="145" bgcolor="#ffffff">
+            <font face="Verdana,Arial,Helvetica,sans-serif" size=2>
+            <strong>Related Links</strong><br><img src=/images/spacer.gif width=1 height=6><br>
+	    
+		<a href="/faq/home.jsp?topic=JavaLanguage">JavaLanguage FAQ</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="/forums/home.jsp?topic=JavaLanguage">JavaLanguage Forum</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://www.java.sun.com/docs/books/tutorial" target="_blank">Sun's Java Tutorial</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://java.sun.com/nav/whatis" target="_blank">What is the Java Platform</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://www.javaworld.com" target="_blank">JavaWorld Magazine</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://www.ibm.com/developer" target="_blank">IBM developerWorks</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://java.sun.com/j2se/1.3/docs/tooldocs/tools.html" target="_blank">Java 2 SDK Tools and Utilities</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://java.sun.com/products/jdk/1.1/docs/api/packages.html" target="_blank">The official Sun JavaDoc 1.1 documentation</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://java.sun.com/products/jdk/1.2/docs/api/overview-summary.html" target="_blank">The official Sun JavaDoc 1.2 documentation</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://java.sun.com/products/jdk/1.3/docs/api/overview-summary.html" target="_blank">The official Sun JavaDoc 1.3 documentation</a><br><img src=/images/spacer.gif width=1 height=6><br><a href="http://java.sun.com/j2ee/j2sdkee/techdocs/api/overview-summary.html" target="_blank">The official Sun JavaDoc J2EE documentation</a>
+            </font>
+            </td></tr>
+        </table>
+        </td></tr>
+</table>
+
+</center>
+
+<br>
+		<table border=0 cellspacing=0 cellpadding=1 width=172>
+			<tr>
+			<td width=1 bgcolor="#cccccc">
+			<table border=0 cellspacing=0 cellpadding=10 width=170>
+			  <tr>
+				<td bgcolor="#ffffff">
+<font face="Verdana,Arial,Helvetica,Sans-Serif" size="1" color="#999999">
+<strong>
+<a class="nav" href="/misc/wishlist.jsp">Wish List</a><br>
+<a class="nav" href="/misc/features.jsp">Features</a><br>
+<a class="nav" href="/misc/about-overview.jsp">About jGuru</a><br>
+<a class="nav" href="/misc/contact.jsp">Contact Us</a><br>
+
+	</td></tr></table>
+</td></tr></table>
+
+</td>
+
+
+	</tr>
+</table>
+
+<br>
+<!-- breadcrumb /lib/sites/jguru/templates/gutter/page.st -->
+<table align="center">
+<!------ OAS AD 'fl1' begin (Developer Solutions Box)------>
+<tr><td><img src="/images/jw_devsol.gif" border="0"></td></tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl3');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl4');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr>
+<td>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl5');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+</td>
+</tr>
+<tr><td><p>&nbsp;</td></tr>
+<!------ Developer Solutions Box end ------>
+<tr>
+<td>
+<!------ OAS AD '468x60-2' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('468x60-2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.jguru.com@468x60-1,468x60-2,125x125-1,336x280,125x800,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '468x60-2' end ------>
+</td>
+</tr>
+</table>
+<br>
+<!-- Google Analytics -->
+<script src="/icom_includes/footers/scripts/ga.js"  type="text/javascript">
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+delete Array.prototype.itemValidation;
+delete Array.prototype.isArray;
+var superTracker = _gat._getTracker("UA-2838492-1");
+superTracker._initData();
+superTracker._trackPageview();
+
+-->
+</script>
+<script  type="text/javascript" >
+   var site_name =  location.hostname;
+   if ( site_name.indexOf("www.") != 0 ) {
+     site_name  = "www."+site_name ;
+   }
+   document.write("<SCR" + "IPT LANGUAGE='JavaScript1.2' SRC='/icom_includes/footers/sites/"+ site_name +".js' TYPE='text/javascript'><\/SCR" + "IPT>");
+-->
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+   pageTracker._initData();
+   pageTracker._trackPageview();
+   // -->
+</script>
+<!-- End Google Analytics -->
+
+
+<!-- Revenue Science API -->
+<script src="http://js.revsci.net/gateway/gw.js?csid=K08784"></script>
+<script>
+  DM_addEncToLoc("pid","INT");
+  DM_tag();
+
+</script>
+<!-- Revenue Science API -->
+
+
+
+
+<style type="text/css">
+@charset "UTF-8";
+/* CSS Document */
+
+
+/* JOM CSS */
+
+#jomfooter {
+	border: 0;
+	margin: 5px;
+	padding: 5px;
+	}
+
+#jomfooter * {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	margin: 0;
+	}
+
+#jomfooter img {
+	border: 0;
+	behavior: url('/icom_includes/footers/css/iepngfix.htc');
+	padding: 5px;
+	padding: expression('0');
+	}
+
+#jomfooter p {
+	font-size: 11px;
+	line-height: 20px;
+	margin: 10px;
+	}
+
+#jomfooter form b {
+	font-size: 12px;
+	}
+
+#jomfooter a {
+	text-decoration: underline;
+	}
+
+#jomfooter a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter table td {
+	border: 0;
+	}
+
+
+/* GEMS Solutions CSS */
+
+#jomfooter #solsect {
+	margin: 0 auto;
+	padding: 10px 0;
+	width: 720px;
+	}
+
+#jomfooter #solsect .top {
+	background: url('/icom_includes/footers/soltopbg.gif') repeat-x #bbb;
+	height: 26px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .top a {
+	font-size: 16px;
+	font-weight: bold;
+	color:#333;
+	text-decoration:none;
+	margin-left: 5px;
+	padding: 0;
+	line-height: 25px;
+	}
+
+#jomfooter #solsect .top a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter #solsect .solsectpad {
+	background: #fff;
+	}
+
+#jomfooter #solsect .solsectpad .main {
+	background:url('/icom_includes/footers/solmidbg.gif') repeat-x #e7e8e3;
+	padding: 5px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .solsectpad .main h2 {
+	font-size: 12px;
+	color: #000;
+	font-weight: normal;
+	padding-bottom: 3px;
+	}
+
+#jomfooter #solsect a {
+	color: #333;
+	font-size: 10px;
+	text-decoration: none;
+	line-height: 13px;
+	}
+
+#jomfooter #solsect a:hover {
+	text-decoration: underline;
+	}
+</style>
+
+
+
+<!-- Begin JOM Footer -->
+
+
+<div id="jomfooter" align="center">
+<p>
+    <a href="http://www.internet.com/"><img src="http://www.internet.com/icom_includes/footers/img/icom_logo_qsfooter.png" width="240" height="40" hspace="0" /></a>
+
+    <br>
+    The Network for Technology Professionals</p>
+<form method="POST" action="http://search.internet.com/www.jupiterweb.com" target="_top">        
+        <input type="HIDDEN" name="IC_Summary" value="1">
+        <input type="HIDDEN" name="IC_StartNumber" value="0">
+        <input type="HIDDEN" name="IC_BatchSize" value="10">
+        <input type="HIDDEN" name="IC_RelevanceThreshold" value="50">
+        <input type="hidden" name="IC_QueryDatabase" value="all">
+        <b>Search:</b> 
+        <input type="text" name="IC_QueryText" size="45">
+
+        <input type="image" border="0" value="Find" name="SUBMIT" src="/icom_includes/footers/but_find.gif" width="41" height="20" align="absmiddle">
+  </form>
+    <p>
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41188"> About Internet.com</a> 
+        <br>
+      <script type="text/javascript">
+            document.write(' Copyright ');
+            var today = new Date();
+            document.write(  + today.getFullYear());
+            document.write(' QuinStreet Inc. All Rights Reserved.');
+        </script>
+  <noscript>
+        Copyright 2010 QuinStreet Inc. All Rights Reserved.
+  </noscript>
+
+  </p>
+       <p> <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41187">Legal Notices</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Licensing1">Licensing</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Permissions">Permissions</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41186">Privacy  Policy</a>.
+        <br />
+
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/mediakit/">Advertise</a> | <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/">Newsletters</a> |  <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/announcement_list.html">E-mail Offers</a>
+
+  </p>
+
+
+<!-- start solutions links section -->
+    <div id="solsect">
+        <div class="top" align="left"><a href="#">Solutions</a></div>
+        <div class="solsectpad">
+                        <div class="main" align="left">
+				<h2>Whitepapers and eBooks</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40965">Microsoft Personalized Whitepapers and Resources for You</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43201">Articles: Build a More Agile Business with IBM</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41021">Microsoft White Paper Windows Server 2008 R2 Hyper-V Live Migration</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43214">IBM Articles: Virtualization Delivers a Dynamic Infrastructure</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41198">Microsoft Blog: Exchange 2010: Saving Money, Delighting Users, Protecting Communications </a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43173">Articles: IBM Offers Enhanced Measurement and Management for Energy Usage</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41341">Microsoft PDF: Optimizing SharePoint Environments </a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43176">Articles: IBM Helps Transformation to an Information-Based Enterprise</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/VS_2010/Door/43217">Microsoft Articles: Visual Studio 2010</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-Adobe/Article/43031">Adobe Article: Adobe Helps PHP Developers Create Rich Internet Applications</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/hotlist-Adobe/link/42707">Adobe Article: Java Developers Finding a Home at Adobe Flex</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WHITEPAPERS, EBOOKS, AND ARTICLES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Webcasts</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41288">Microsoft Video: Deep Dive into Direct Access and UAG </a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41048">Microsoft Webcast: A PowerPivot Primer </a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MS_PHP/Door/42951">Webcast: Connecting PHP to Microsoft Technologies</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41264">Microsoft Video: Desktop Optimization</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MS_Azure/Door/41806">Video: Windows Azure Debugging Tips</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WEBCASTS, PODCASTS, AND VIDEOS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Downloads and eKits</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.devx.com/MicrosoftSC/Door/43162">Microsoft Free Trials: Windows Server 2008 R2, Exchange Server 2010 and Windows 7</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MSDN/Door/40684">Get the Windows 7 SDK</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/RedGateVS/Door/41829">Free Trial: Red Gate SQL Backup Pro 6</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41019">Download: Windows Server Trial</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IronSpeed/Article/40848">Iron Speed Designer Application Generator</a><br>
+						   						                              <a target="_blank" href="http://clk.atdmt.com/525/go/172033525/direct;at.mrtitp00030818;ct.1/01/">Microsoft Windows Server 2008 R2 comes with Hyper-V and Live Migration built in, to lower third-party software costs and downtime. Check out the top 10 reasons to upgrade to Windows Server 2008 R2.</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE DOWNLOADS, EKITS, AND FREE TRIALS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Tutorials and Demos</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40967">Learn Unified Communications</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/BlackBerry/Door/43805">BlackBerry Application Development Resources</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40968">Learn SQL Server 2008</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40966">Learn Windows Server 2008 R2</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/Link/40644">Internet.com Hot List: Get the Inside Scoop on IT and Developer Products</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40970">Learn Forefront</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40969">Learn System Center</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/ebook/Article/39031">All About Botnets</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40971">Learn SharePoint</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                    </div>
+    </div>
+</div>
+
+<!-- End JOM Footer -->
+
+</body>
+</html>

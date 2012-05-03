@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+ <HEAD>
+   <TITLE> FINAL PROJECT: Closures for Java
+   </TITLE>
+   <LINK REL="Index" HREF="index.html" >
+   <LINK REL="made" HREF="mailto:challenge-discuss%40openjdk.java.net?Subject=FINAL%20PROJECT%3A%20Closures%20for%20Java&In-Reply-To=">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000131.html">
+   <LINK REL="Next"  HREF="000133.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>FINAL PROJECT: Closures for Java</H1>
+    <B>Neal Gafter</B> 
+    <A HREF="mailto:challenge-discuss%40openjdk.java.net?Subject=FINAL%20PROJECT%3A%20Closures%20for%20Java&In-Reply-To="
+       TITLE="FINAL PROJECT: Closures for Java">neal at gafter.com
+       </A><BR>
+    <I>Mon Aug  4 21:56:24 PDT 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000131.html">FINAL PROJECT: Free Software synthesizer implementation for the	OpenJDK project 
+</A></li>
+        <LI>Next message: <A HREF="000133.html">FINAL PROJECT: Common Virtual Machine Interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE style="white-space: pre-wrap">This is a final submission for the Closures for Java project described at
+
+    <A HREF="http://mail.openjdk.java.net/pipermail/challenge-discuss/2008-February/000047.html">http://mail.openjdk.java.net/pipermail/challenge-discuss/2008-February/000047.html</A>
+
+HOW TO ACCESS THE CODE:
+
+The complete implementation may be found in the openjdk Mercurial forest at
+
+    <A HREF="ssh://hg.openjdk.java.net/closures/closures/">ssh://hg.openjdk.java.net/closures/closures/</A>
+
+The forest can also be found on the openjdk mercurial website at
+
+   <A HREF="http://hg.openjdk.java.net/closures/closures/">http://hg.openjdk.java.net/closures/closures/</A>
+
+Most of the changes for this project are found in the langtools tree,
+though there are some changes to supporting libraries in the jdk tree.
+
+A binary build of the project, suitable for use with an existing Java
+SE 5 or Java SE 6 platform implementation, may be found at
+
+    <A HREF="http://www.javac.info/closures.tar.gz">http://www.javac.info/closures.tar.gz</A>
+
+Other resources relating to the project can be found on the website
+
+    <A HREF="http://www.javac.info/">http://www.javac.info/</A>
+
+As an openjdk Project, copyrights in these sources have been
+contributed to Sun Microsystems under the terms of the SCA.
+
+The implementation supports all features described in the
+specification and noted in the project proposal.  Based on community
+feedback, there are some changes reflected in the implementation
+suitable for inclusion in a revision of the prototype, including the
+addition of support for &quot;method references&quot;.  For details of the
+differences from the specification, see
+
+    <A HREF="http://www.javac.info/PrototypeDifferences.html">http://www.javac.info/PrototypeDifferences.html</A>
+
+which is also included, below.
+
+===================
+Differences Between the Prototype and the Spec (v0.5)
+
+Here is a summary of the differences between the current prototype and
+the last published specification (v0.5). These changes reflect
+feedback from the user community and are suitable for inclusion in the
+next revision of the specification.
+
+    * Renamed Unreachable to Nothing
+
+          We adopt the name used by Scala to represent the same concept.
+
+    * Removed support for the type null
+
+          We used null as a placeholder for an exception type when
+none can be thrown. The type Nothing now serves that purpose; null is
+no longer supported as the name of a type.
+
+    * Overhauled restricted versus unrestricted
+
+          In the specification, an interface is considered restricted
+if it extends a marker interface. Unfortunately, the specification
+only provides a syntax for function type interfaces that are
+unrestricted. We modified the syntax so that a function type written
+using the =&gt; token designates a restricted function type, while one
+written using the newly introduced ==&gt; token represents an
+unrestricted function type. This allows programmers to easily write
+APIs that restrict (or don't restrict) the operations of closure
+expressions passed as parameters.
+
+    * Refined restrictions
+
+          We modified the distinction between restricted and
+unrestricted closures. As before, it is not legal to convert an
+unrestricted closure to a restricted interface type, nor is it legal
+to break, continue, or return from inside a restricted closure to a
+target outside the closure. However, a restricted closure is allowed
+to refer to a non-final local variable from an enclosing scope. In
+this case a warning is given unless one of the following conditions
+holds:
+             1. The variable is not the target of any assignment, or
+             2. The variable is annotated @Shared
+
+          It is possible to suppress the warning by annotating some
+enclosing construct @SuppressWarnings(&quot;shared&quot;).
+
+    * Relaxed the closure conversion
+
+          In response to user feedback, we've relaxed the relationship
+between a closure parameter's type and the target interface's
+parameter type. Rather than requiring them to be of the same type,
+they are now allowed to be related by an assignment conversion,
+including boxing or unboxing.
+
+    * for-qualified method declarations
+
+          The for keyword on a method declaration, meant to introduce
+a control abstraction method that works like a loop, is now treated
+syntactically like a modifier rather than appearing immediately before
+the method name. This helps make the declaration site more similar to
+the use site.
+
+    * Added support for method references
+
+          We added extensive support for treating a reference to a
+method as a closure using a newly introduced token #. The syntax is
+borrowed from the FCM proposal. The semantics are as follows:
+
+          A method reference written as
+
+              Primary # Identifier ( TypeList )
+
+          where the Primary designates an expression (as opposed to a
+type) is treated the same as a closure
+
+              { Type x0, Type x1 ... =&gt; tmp.Identifier(x0, x1 ...) }
+
+          or
+
+              { Type x0, Type x1 ... =&gt; tmp.Identifier(x0, x1 ...); }
+
+          Where tmp is a temporary value that holds the computed value
+of the primary expression. The former translation is used when the
+resolved method has a non-void return type, while the latter is used
+when the resolved method has a void return type.
+
+          If the primary resolves to a type, then this is translated to
+
+              { Type x0, Type x1 ... =&gt; Primary.Identifier(x0, x1 ...) }
+
+          or
+
+              { Type x0, Type x1 ... =&gt; Primary.Identifier(x0, x1 ...); }
+
+          when the resolved method is static, or
+
+              { Primary x, Type x0, Type x1 ... =&gt; x.Identifier(x0, x1 ...) }
+
+          or
+
+              { Primary x, Type x0, Type x1 ... =&gt; x.Identifier(x0, x1 ...); }
+
+          when the resolved method is an instance method.
+
+          In addition, optional explicit type arguments, between angle
+brackets, may be placed immediately after the # token. These are used
+directly in the translated method invocation to resolve the method to
+be invoked.
+
+    * Implemented a classfile format for the for qualifier
+
+          We've impleemnted a class file representation of the for
+qualifier to support separate compilation.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000131.html">FINAL PROJECT: Free Software synthesizer implementation for the	OpenJDK project 
+</A></li>
+	<LI>Next message: <A HREF="000133.html">FINAL PROJECT: Common Virtual Machine Interface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="http://mail.openjdk.java.net/mailman/listinfo/challenge-discuss">More information about the challenge-discuss
+mailing list</a><br>
+</body></html>

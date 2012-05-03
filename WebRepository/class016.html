@@ -1,0 +1,561 @@
+<html> <head> <title>JAVA CLASSES</title>
+</head>
+
+<A NAME=top><H1>JAVA CLASSES</H1></A>
+
+<HR>
+<H2>Contents</H2>
+<UL>
+  <LI> <a href="#access">Fields, Methods, and Access Levels</a>
+  <LI> <a href="#simpleEx">Simple Example Java Class</a>
+  <LI> <a href="#static">Static vs Non-Static Fields and Methods</a>
+  <LI> <a href="#final">Final Fields and Methods</a>
+  <LI> <a href="#youTry1">Test Yourself #1</a>
+  <LI> <a href="#builtin">Some Useful Built-in Classes</a>
+  <UL>
+     <LI> <a href="#string">String</a>
+     <LI> <a href="#object">Object</a>
+     <LI> <a href="#boolean">Boolean, Integer, etc.</a>
+  </UL>
+  <LI> <a href="#youTry2">Test Yourself #2</a>
+  <LI> <a href="#answers">Answers to Self-Study Questions</a>
+</UL>
+<HR>
+
+<BODY>
+
+<a name="access">
+<H2>Fields, Methods, and Access Levels</H2></a>
+<LI> Java classes contain <em>fields</em> and <em>methods</em>.
+A field is like a C++ data member, and a method is like a C++
+member function.
+
+<P>
+<LI> Each field and method has an <em>access level</em>:
+<UL>
+  <LI><u>private</U>: accessible only in this class
+  <LI><u>(package)</U>: accessible only in this package
+  <LI><u>protected</U>: accessible only in this package and in all subclasses of this class
+  <LI><u>public</U>: accessible everywhere this class is available
+</UL>
+
+<LI> Similarly, each class has one of two possible access levels:
+<UL>
+  <LI><u>(package)</u>: class objects can only be declared and manipulated
+                        by code in this package
+  <LI><u>public</u>: class objects can be declared and manipulated
+                        by code in any package
+</UL>
+
+Note: for both fields and classes, package access is the default, and
+is used when <em>no</em> access is specified.
+
+<a name="simpleEx">
+<P>
+<H2>Simple Example Class</H2></a>
+<P>
+Here's a (partial) example class; a List is an ordered collection
+of items of any type:
+
+<pre>
+<font color="red">
+class List {
+    // fields
+        private Object [] items;    // store the items in an array
+        private int       numItems; // the current # of items in the list
+    
+    // methods
+        // constructor function
+        public List()
+        {
+            items = new Object[10];
+	    numItems = 0;
+        }
+	
+	// AddToEnd: add a given item to the end of the list
+	public void AddToEnd(Object ob)
+	{ ... }
+}
+</font>
+</pre>
+
+<b>Notes</b>
+<UL>
+  <LI> <u>Object</u>: Object-oriented programming involves
+       <em>inheritance</em>.  In Java, all classes (built-in or user-defined)
+       are (implicitly) subclasses of Object.  Using an array of Object in
+       the List class allows any kind of Object (an instance of any class)
+       to be stored in the list.  However, primitive types (int, char, etc)
+       cannot be stored in the list.
+
+  <P>
+  <LI> <u>Constructor function</u>: As in C++, constructor functions in Java:
+     <UL>
+       <LI> Are used to initialize each instance of a class.
+       <LI> Have no return type (not even void).
+       <LI> Can be overloaded; you can have multiple constructor functions,
+            each with different numbers and/or types of arguments.
+     </UL>
+     If you don't write any constructor functions, a default (no-argument)
+     constructor (that doesn't do anything) will be supplied.  If you write
+     a constructor that takes one or more arguments, no default constructor
+     will be supplied (so an attempt to create a new object without passing
+     any arguments will cause a compile-time error).
+     
+     <P>
+     It is often useful to have one constructor call another (for example, a
+     constructor with no arguments might call a constructor with one
+     argument, passing a default value).
+     The call must be the <em>first</em> statement in the constructor.
+     It is performed using <em>this</em> as if it were the name of
+     the method.  For example:
+     <UL>
+         this( 10 );
+     </UL>
+     is a call to a constructor that expects one integer argument.
+
+  <P>
+  <LI><u>Initialization of fields</u>: If you don't initialize a field
+      (i.e., either you don't write any constructor function, or your
+      constructor function just doesn't assign a value to that field),
+      the field will be given a default value, depending on its type.
+      The values are the same as those used to initialize newly created
+      arrays (see the "Java vs C++" notes).
+
+  <P>
+  <LI> <u>Access Control</u>: Note that the access control must be specified
+       for every field and every method; there is no grouping as in C++.
+       For example, given these declarations:
+       <P>
+       <UL>
+          public
+          <UL>int x;</UL>
+          <UL>int y;</UL>
+       </UL>
+       <P>
+       only x is public; y gets the default, package access.
+</UL>
+
+<P>
+<a name="static">
+<H2>Static Fields and Methods</H2></a>
+<P>
+<LI> Fields and methods can be declared <em>static</em> (this is true in
+     C++, too).  If a field is static, there is only one copy for the
+     entire class, rather than one copy for each instance of the class.
+     (In fact, there is a copy of the field even if there are <em>no</em>
+     instances of the class.)
+     For example, we could add the following field to the List class:
+<UL>
+<pre>
+static int numLists = 0;
+</pre>
+</UL>
+     And the following statement to the List constructor:
+<UL>
+<pre>
+numLists++;
+</pre>
+</UL>
+     Now every time a new List object is created, the numLists variable
+     is incremented; so it maintains a count of the total number of Lists
+     created during program execution.  Every instance of a List could
+     access this variable (could both read it and write into it), and they
+     would all be accessing the <em>same</em> variable, not their own
+     individual copies.
+     
+     <P>
+     A method should be made static when it does not access any of the
+     non-static fields of the class, and does not call any non-static methods.
+     (In fact, a static method <em>cannot</em> access non-static fields
+     or call non-static methods.)  Methods that would be "free" functions
+     in C++ (i.e., not members of any class) should be static methods in
+     Java.  Also, methods that are logically associated with a particular
+     class, but that only manipulate the class's static fields should
+     be static.  For example, if we wanted a function to print the current
+     value of the numLists field defined above, that function should be defined
+     as a static method of the List class.
+
+     <P>
+     A public static field or method can be accessed from outside the class
+     using either the usual notation:
+<UL>
+  <pre>
+  class-object.field-or-method-name
+  </pre>
+</UL>
+     or using the class name instead of the name of the class object:
+<UL>
+<pre>
+class-name.field-or-method-name
+</pre>
+</UL>
+     For example, if the numLists field is public, and there is a
+     variable L of type List, the numLists field can be accessed using
+     either L.numLists or List.numLists.
+     Similarly, if the List class includes a public static method
+     PrintNumLists, then the method
+     can be called using either L.PrintNumLists() or
+     List.PrintNumLists().
+     <P>
+     The <em>preferred</em> way to access a static field or a static method is
+     using the class name (not using a class object).  This is because
+     it makes it clear that the field or method being accessed is
+     static.
+
+<P>
+<a name="final">
+<H2>Final Fields and Methods</H2></a>
+<P>
+<LI> Fields and methods can also be declared <em>final</em>.
+     A final method cannot be overridden in a subclass.
+     A final field is like a constant: once it has been given a value,
+     it cannot be assigned to again.  For example, the constructor
+     function for the List class initializes the "items" field to
+     (point to) an array of size 10.  It would probably be better
+     to use a constant for the initial size of the array.  Only a
+     single copy of the constant is needed for the whole class, not
+     one for every class instance, so it would be appropriate to
+     make the field static as well as final:
+<UL>
+<pre>
+private static final int INITIAL_SIZE = 10;
+</pre>
+</UL>
+     The assignment statement in the constructor function would change to:
+<UL>
+<pre>
+items = new Object[INITIAL_SIZE];
+</pre>
+</UL>
+
+<a name="youTry1">
+<hr>
+<center>
+<u><b>TEST YOURSELF #1</b></u>
+</center></a>
+<P>
+Consider the program defined below.
+<UL>
+<pre>
+class Test {
+  static int x;
+  int k;
+  
+  // constructor with 2 args
+  public Test( int n, int m ) {
+    x = n;
+    k = m;
+  }
+  
+  public static void main(String[] args) {
+    Test t1 = new Test(10, 20);
+    Test t2 = new Test(30, 40);
+    System.out.print(t1.x + " ");
+    System.out.print(t1.k + " ");
+    System.out.print(t2.x + " ");
+    System.out.println(t2.k);
+  }
+}
+</pre>
+</UL>
+Question 1:
+Which of the following is true?
+<UL><pre>
+A. This program must be in a file called Test.java.  Compiling will create one
+   new file called Test.class.
+B. This program can be in any .java file.  Compiling will create one new file
+   called Test.class.
+C. This program must be in a file called Test.java.  Compiling will create two
+   new files called Test.class and main.class.
+D. This program can be in any .java file.  Compiling will create two new files
+   called Test.class and main.class.
+</pre></UL>
+<P>
+<P>
+Question 2:
+Which of the following correctly describes what happens when the program
+is compiled and run?
+<UL><pre>
+A. There will be a compile-time error because there is no constructor with no
+   arguments.
+B. There will be a run-time error because there is no constructor with no
+   arguments.
+C. There will be no errors; the output will be: 10 20 30 40
+D. There will be no errors; the output will be: 30 20 30 40
+E. There will be no errors; the output will be: 30 40 30 40
+</pre>
+</UL>
+
+<p>
+<a href="#ans1">solution</a>
+<hr>
+
+</UL>
+<a name="builtin">
+<P>
+<H2>Some Useful Built-in Classes</H2></a>
+
+<P>
+Note: These classes are not really part of the language; they are provided
+    in the package <em>java.lang</em>.  You can get more information
+    on-line via the <A HREF ="http://www.cs.wisc.edu/~horwitz/java-docs/api/overview-summary.html">Java Packages</A>
+    page.
+
+<a name="string">
+<P>
+<H3><A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/String.html">String</A></H3></a>
+<UL>
+  <LI> to create a String:
+    <pre>
+    String S1 = "hello",              // initialize from a string literal
+           S2 = new String("bye"),    // use new and the String constructor
+	   S3 = new String(S1);       // use new and a different constructor 
+    </pre>
+    There are lots more String constructors, see the
+    <A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/String.html#String()">documentation</A>.
+
+  <P>
+  <LI> to concatenate:
+    <pre>
+      String S1 = "hello" + "bye",
+             S2 = S1 + "!",
+	     S3 = S1 + 10;          // the int 10 will be converted to a String,
+	                            // because the other operand of + is a
+				    // String
+    </pre>
+    Note: in all of the examples above, a <em>new</em> string is created
+    and the variable (S1, S2, or S3) is set to point to that new string.
+    For example, the expression <em>S1 + "!"</em> does not change what
+    S1 points to, it creates a new string that contains "hellobye!".
+
+  <P>
+  <LI>Other methods of the String class:
+    <pre>
+      int length()          // Note: different from arrays, which just use
+                            //       length without parens
+      char charAt(int k)    // return the kth character in the string, starting
+                            // with 0
+                            // runtime error if k < 0 or k >= length()
+      int compareTo(String S) // compare this string with string S
+                              // return:
+			      //   0 if they are the same
+	                      //   a positive int if this string is greater
+		              //   a negative int if this string is less
+      boolean equals(Object S) // return true if S is a non-null String that
+                               // contains the same characters as this String
+      String substring( -- several forms -- )  // see <A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/String.html#substring(int)">documentation</A>
+      toLowerCase()
+      toUpperCase()
+      Lots more -- see <A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/String.html">documentation</A>!
+    </pre>
+</UL>
+
+<P>
+<a name="object">
+<H3>
+<A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/Object.html">Object</A></H3></a>
+<UL>
+  <LI> this is the base class for <em>all</em> Java classes.
+  <P>
+  <LI> methods:
+    <pre>
+      String toString()  // return a string representation of this object
+                         // note: for user-defined classes, the default value
+			 //       is not very useful so you should define your
+			 //       own toString method
+      boolean equals(Object ob)  // return true iff this object is the same as
+                                 // ob
+                                 // note: uses pointer equality for user-
+				 //       defined classes; you may want to
+				 //       redefine this method
+      More -- see <A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/Object.html">documentation</A>!
+    </pre>
+</UL>
+
+<P>
+<a name="boolean">
+<H3><A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/Boolean.html">Boolean</A>,
+    <A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/Integer.html">Integer</A>,
+    <A HREF="http://www.cs.wisc.edu/~horwitz/java-docs/api/java/lang/Double.html">Double</A>,
+    etc</H3></a>
+<P>
+<UL>
+  <LI> One such class for each primitive type.
+  <P>
+  <LI> Use these "wrapper" classes when you need an Object.
+       For example, think about the List class.  Suppose you try this:
+       <pre>
+         List L = new List();
+	 L.AddToEnd( 10 );
+       </pre>
+       You get a compile-time error saying that type int cannot be
+       converted to type Object.  That's because the AddToEnd method
+       takes an Object as its parameter, and a primitive type like int
+       is not an Object.  You can fix this using:
+       <pre>
+         L.AddToEnd( new Integer( 10 ) );
+       </pre>
+       This creates a new Integer object, with the value 10, and passes
+       that object to the AddToEnd method.  Note that if you want to
+       retrieve a particular kind of object from a list, you must use
+       a cast.  For example, assume that the List class also includes
+       methods to allow a user of the class to iterate through the items
+       in a list; i.e., we think of every list as having a "current pointer",
+       and methods are provided to get the current item, and to
+       move the current pointer:
+       <pre>
+       public void firstElement()  // set the current pointer to point to the
+                                   // first item on the list
+       public Object NextElement() // return the item pointed to by the current
+                                   // pointer; also advance the current pointer
+       public boolean hasMoreElements()  // true iff the current pointer has
+                                         // not fallen off the end of the list
+       </pre>
+       If you do this:
+       <pre>
+         L.AddToEnd( new Integer( 10 ) );
+         L.firstElement();
+	 Integer K = L.nextElement();
+       </pre>
+       you'll get a compile-time error saying that you must use an explicit
+       cast to convert an Object to an Integer.  That's because the return
+       type of nextElement is Object, and you're trying to assign that into
+       variable K, which is an Integer.  Here's what you need to do:
+       <pre>
+         Integer K = (Integer)L.nextElement();
+       </pre>
+  <P>
+  <LI> You can get back a (primitive) value from these wrapper classes
+       using the method xxxValue, where xxx is the primitive type.
+       For example:
+       <pre>
+         Integer K = new Integer( 10 );
+	 int     x = K.intValue();
+	 Boolean B = new Boolean( true );
+	 boolean b = B.boolValue();
+       </pre>
+  <P>
+  <LI> These classes also provide some useful constants:
+       Integer.MAX_VALUE (the largest int that can be represented),
+       Integer.MIN_VALUE, Double.MAX_VALUE, Double.MIN_VALUE,
+       Double.POSITIVE_INFINITY, etc.
+</UL>
+
+<a name="youTry2">
+<hr>
+<center>
+<u><b>TEST YOURSELF #2</b></u>
+</center></a>
+<P>
+Question 1:
+Consider the following program.
+<UL>
+<pre>
+class Test {
+    static void Swap(Integer j, Integer k) {
+        int tmp = k.intValue();
+        k = new Integer(j.intValue());
+        j = new Integer(tmp);
+    }
+    
+    public static void main(String[] args) {
+        Integer n = new Integer(5), m = new Integer(6);
+        Swap(n, m);
+        System.out.println("n = " + n + "; m = " + m);
+    }
+}
+</pre>
+</UL>
+The person who wrote this program expected the output to be: n = 6; m = 5.
+However, the actual output is: n = 5; m = 6.
+Explain why.
+
+<P>
+<P>
+Question 2:
+Consider the following function.
+This function was intended to create and return a string that is the
+reverse of its parameter.  (For example, if parameter S = "hello",
+the function should return "olleh".)
+However, there are several problems with the function as written.
+<UL> <pre>
+static String Reverse(String S) {
+    String newS = "";
+    char c = S[0];
+    while (c) {
+        newS = c + newS;
+        c++;
+    }
+    return newS;
+}
+</pre> </UL>
+First, identify each problem (write the bad code and give a brief
+explanation of why it is incorrect).
+Then give a new, correct version of function Reverse.
+
+<p>
+<a href="#ans2">solution</a>
+<hr>
+
+<p>
+<a name = "answers">
+<H2>Solutions to Self-Study Questions</H2>
+<p>
+<a name = "ans1">
+<H3>Test Yourself #1</H3>
+<UL>
+<pre>
+Question 1: 
+
+B. This program can be in any .java file.  Compiling will create one new file
+   called Test.class.  (It does not have to be in Test.java, because class
+   Test is not public.  No file "main.class" is created, because main is a
+   method, not a class.)
+
+Question 2: 
+
+D. There will be no errors; the output will be: 30 20 30 40
+   (There is no need for a constructor with no arguments because there
+   are no uses of "new Test" with no arguments.)
+</pre>
+</UL>
+<p>
+<a name = "ans2">
+<H3>Test Yourself #2</H3>
+<UL>
+<pre>
+Question 1: Why does this program produce the output n = 5; m = 6?
+
+In Java, all parameters are passed by value, so changes to the parameters
+themselves in the function do not affect the values that were passed.
+The Swap function changes its parameters, j and k, making them point to new
+Integers, but that has no effect on the values that were passed (variables n
+and m).
+
+
+Question 2:
+
+       static String Reverse(String S) {
+           String newS = "";
+           char c = S[0];	// can't index Strings in Java
+           while (c) {		// not a boolean loop condition 
+				//   (but this would work in C/C++)
+               newS = c + newS;
+               c++;		// this doesn't help fetch the next char in S
+				//   (increments ascii value of c)
+           }
+           return newS;
+       }
+
+Correct version:
+
+	static String Reverse(String S) {
+	   String newS = "";
+	   for (int i=0; i&lt;S.length(); i++) {
+	      newS = S.charAt(i) + newS;
+	   }
+	   return newS;
+	}
+</pre>
+</UL>

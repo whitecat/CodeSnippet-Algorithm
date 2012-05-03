@@ -1,0 +1,251 @@
+<HTML>
+<HEAD>
+<TITLE>
+Java BLAS Interface)
+</title>
+</HEAD>
+<body bgcolor=#fffffff">
+
+<center>
+<h1> 
+	Draft Proposal for Java BLAS Interface
+
+</h1>
+
+<em><b> Roldan Pozo </b><br>
+National Institute of Standards and Technology <br>
+</em>
+</center>
+
+<p>
+	The Basic Linear Algebra Subprograms (BLAS) library provides computational
+	kernels for several of the fundamental linear algebra operations, such
+	as matrix-multiply, the solution of triangular systems, and simple
+	vector operations.
+
+	<ul>
+	<li> <a href="#conventions">Java BLAS conventions</a>
+	<li> <a href="#memory">Java memory model</a>
+	<li> <a href="#subvectors">Subvectors and 0/1 indexing</a>
+	<li> <a href="#columnvectors">Column vectors</a>
+	<li> <a href="#translation">Fortran -> Java translation rules</a>
+	<li> <a href="#examples">Examples</a>
+	<li> <a href="#references">References</a>
+	</ul>
+
+    <h4>Java BLAS conventions</h4>
+    <a name="conventions">
+
+    The Java BLAS (JBLAS) interface attempts to be similar to
+    the original Fortran interface, except where differences
+    in the Java memory model or charateristics of the language
+    make it impossible or impractical to duplicate.  
+
+	<p>
+	Rather than reproduce the complete BLAS interface here,
+	we describe the translation rules to generate the Java version, based on
+	the Fortran template.  See <a href="http://www.netlib.org/blas">
+	here</a> for the complete Fortran BLAS source code and
+	documentation.
+
+    <h4>Java Memory model</h4>
+    <a name="memory">
+    <p>
+    Most of the differences between the interfaces are due
+    to how Java handles native arrays.  
+    Like C and C++, Java matrices are stored by rows, without any
+    guarantee that the consecutive rows are actually contiguous
+    in memory.   In fact, <b>there is no mechanism to test for this in Java</b>.
+    Furthermore, because there are no
+    capabilties to manipulate pointers directly, one cannot
+    'alias' subvectors,  or reshape vectors into matrices.
+    These considerations are discussed below.
+
+    <p>
+    The alternative possibility is to treat a 1-D Java array (vector)
+    as a matrix by performing indexing computations.  This allows
+    flexibility to use row-major or column-major conventions, but
+    introduces indexing overhead when accessing matrix elements.
+    Instead, we will focus on using native Java arrays wherever
+    possible.
+
+    <h4>Subvectors and 0/1 offset issues</h4>
+    <a name="subvectors">
+
+    <p>
+    The JBLAS are designed to work with submatrices.  This
+    same mechanism allows one to use 0 or 1-based offset
+    conventions.  (To use 1-basd conventions, declare
+    a Java native array to be of size [M+1][N+1] and use
+    the submatrix [1:M][1:N].)
+
+    <p>
+    For example, in Fortran, if the function <b><code>SUM(N, X)</code></b>
+    adds N elements from a given vector X, then calling it as
+    <pre>
+    SUM(N, X(I))
+    </pre>
+    sums the elements x_i, x_i+1, ...,
+        x_i+N.  Because  no analogue exists in Java,
+        we must mention subvectors explicitly by describing
+        the original vector (X) and its offset (i) separately,
+        i.e.
+    <pre>
+    sum(N, x, i)
+    </pre>
+
+    <h4>Column vectors</h4>
+    <a name="column">
+
+
+
+    Because elements in a matrix column are non-contiguous,
+    one cannot treat these directly as a Java vector.
+    (The analogue of this in Fortran is the use of an
+    increment parameter to access matrix rows, but cannot
+    be used here.)
+
+    Instead, explicit mention of the 2D array must be provided.
+    For example, to perform a <code>daxpy</code> on two <b>columns</b>
+    of matrices A and B:
+    <p>
+    <center>
+    <code>A(:,J) = A(:,J) + alpha * B(:,J)</code>.
+    </center>
+    <p>
+    In Fortran we would have
+		<p>
+        <ul>
+        <li> <b>Fortran</b>: DAXPY(N, ALPHA, A(1,J), 1, B(1,J), 1)
+        <li> <b>Java:</b>   BLAS.daxpy(N, alpha, A, 0, j, B, 0, j);  
+        </ul>
+		<p>
+    To perform a <code>daxpy</code> on two <b>rows</b> of
+    A and B, 
+		<p>
+        <ul>
+        <li> <b>Fortran</b>: 
+            <code>DAXPY(N, ALPHA, A(I,1), LDA, B(I,1), LDB)</code>
+
+        <li> <b>Java:</b>
+            <code>BLAS.daxpy(N, alpha, A[i], 0, B[i], 0);</code>
+        </ul>
+
+    <p>
+    Note that Java row vectors are really 1D arrays and can
+    be used with no argument modifications.
+
+    <p>
+    <h4> Fortran -> Java BLAS translation rules </h4>
+    <p>
+    <ul>
+    <li> <b>routine names</b> are lowercase, prefixed with the BLAS 
+            package name:
+        <ul>
+        <li> <b>Fortran</b>:  <code>DAXPY(...)</code>
+        <li> <b>Java</b>:  <code>BLAS.daxpy(...)</code>
+        </ul>
+    <p>
+    <li> routines are <b>0-offset by default</b>, although this
+            can be overriden by using submatrices. (See 
+            <a href="#subvector">above</a>.)
+
+    <p>
+    <li> BLAS <b>arguments appear in same order</b> as the Fortran
+            interface, except as noted below.
+            below.  In particular, <b>leading-dimension (e.g. LDA)
+            and increment parameters are no longer meaningful.</b>
+    <p>
+    <li> <b>Vector</b> arguments:  replace 
+                <ul>
+                <li> <b>Fortran</b><code>(N, ..., X(I), ...)</code>
+                </ul>
+            with  one of the following
+                <ul>
+                <li><b>Java:</b> 
+                    <code>(N, ..., X, i, ... )</code>    (1D array,
+                            X is <code>double[]</code>)
+                <li><b>Java:</b>
+                    <code>(N, ..., A, i, j, ...)</code>  (column vector,
+                            A is <code>double[][]</code>)
+                </ul>
+            <p>
+    <li> <b>Matrix</b> arguments: replace
+                <ul>
+                <li> <b>Fortran:</b><code>(M, N, ..., A(I,J), LDA, ...)</code>
+                </ul>
+            with  
+                <ul>
+                <li> <b>Java:</b>
+                    <code> (M, N, ..., A, i, j, ... )</code>
+                </ul>
+                <p>
+    <li> <b>String</b> arguments are replaced by 'constants' in the
+                    BLAS namespace, e.g. replace
+                <ul>
+                <li> <code>(..., 'NoTranspose', ... )</code>
+                </ul>
+            with
+                <ul>
+                <li> <code>(..., BLAS.NoTranspose, ... )</code>
+                </ul> 
+        <p>
+        Although Java has no support enumerated types, such "constants"
+        can be emulated through a public integers, e.g.
+        <pre>
+        public class BLAS
+        {
+            public final static int Tranpose = 11;
+            public final static int NoTranpose = 12;
+            public final static int UpperTriangular = 13;
+            public final static int LowerTriangular = 14;
+            ...
+        }
+        </pre>
+
+	</ul>
+
+    <h2>Examples</h2>
+	<a name="examples">
+
+            <ul>
+            <li> Multiply two general submatrices A, B, of size
+			 MxK, and KxN, repsectively.  The result is to be stored
+			 in the MxN submatrix of C.   The offests of the given
+			 sumbatrices are (ai,aj), (bi, bj), and (ci, cj).
+			
+			 	<ul>
+			 	<li> <b>Fortran:</b><br>
+			 		<code>DGEMM('No Tranpose', 'No Tranpose', M, N, K,
+						ALPHA,
+						A(AI,AJ), LDA, B(BI,BJ), LDB, BETA, C(CI,CJ), LDC)
+					</code>
+			 	<li> <b>Java:</b><br>
+			 		<code>BLAS.dgemm( BLAS.NoTranpose, BLAS.NoTranspose,
+					M, N, K,  alpha A, ai, aj, B, bi, bj, beta, C, ci, cj);
+					</code>
+				</ul>
+
+			<li> Triangular solves
+				<ul>
+			 	<li> <b>Fortran:</b><br>
+			 		<code>DTRSM('Left', 'Lower', 'No transpose', 'Unit',
+							M, N, ALPHA, A(AI,AJ), LDA, B(BI,BJ), LDB)
+					</code>
+			 	<li> <b>Java:</b><br>
+			 		<code>BLAS.dtsrm(BLAS.Left, BLAS.Lower, 
+						BLAS.NoTranspose, BLAS.UnitTriangular, 
+						M, N, alpha, A, ai, aj, B, bi, bj); 
+					</code>
+				</ul>
+            </ul>
+
+<h2> References </h2>
+<a name="references">
+
+	For the complete Fortran BLAS interface, see the
+	<a href="http://www.netlib.org/blas">BLAS</a> directory at
+		netlib.
+
+</BODY>
+</HTML>

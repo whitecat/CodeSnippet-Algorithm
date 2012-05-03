@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<title>Double-checked locking - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="MediaWiki 1.16alpha-wmf" />
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Double-checked_locking&amp;action=edit" />
+<link rel="edit" title="Edit this page" href="/w/index.php?title=Double-checked_locking&amp;action=edit" />
+<link rel="apple-touch-icon" href="http://en.wikipedia.org/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/rss+xml" title="Wikipedia RSS Feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=rss" />
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom Feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/common/shared.css?257z6" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/common/commonPrint.css?257z6" type="text/css" media="print" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/main.css?257z6" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/chick/main.css?257z6" type="text/css" media="handheld" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE50Fixes.css?257z6" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE55Fixes.css?257z6" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE60Fixes.css?257z6" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE70Fixes.css?257z6" type="text/css" media="screen" /><![endif]-->
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="all" />
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="print" />
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Handheld.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="handheld" />
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="all" />
+<link rel="stylesheet" href="/w/index.php?title=-&amp;action=raw&amp;maxage=2678400&amp;gen=css" type="text/css" media="all" />
+<script type="text/javascript">
+var skin="monobook",
+stylepath="http://bits.wikimedia.org/skins-1.5",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/$1",
+wgScriptPath="/w",
+wgScriptExtension=".php",
+wgScript="/w/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://en.wikipedia.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Double-checked_locking",
+wgTitle="Double-checked locking",
+wgAction="view",
+wgArticleId=164874,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=341373667,
+wgVersion="1.16alpha-wmf",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Wikipedia", "5": "Wikipedia talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Portal", "101": "Portal talk", "108": "Book", "109": "Book talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "wikipedia": 4, "wikipedia_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "portal": 100, "portal_talk": 101, "book": 108, "book_talk": 109, "wp": 4, "wt": 5, "image": 6, "image_talk": 7},
+wgMWSuggestTemplate="http://en.wikipedia.org/w/api.php?action=opensearch\x26search={searchTerms}\x26namespace={namespaces}\x26suggest",
+wgDBname="enwiki",
+wgSearchNamespaces=[0],
+wgMWSuggestMessages=["with suggestions", "no suggestions"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgTrackingToken="e2b0f735e9f38b468453291726c4f617",
+wgClickTrackingIsThrottled=true,
+wgNotice="",
+wgNoticeLocal="";
+</script>
+<script src="http://bits.wikimedia.org/skins-1.5/common/wikibits.js?urid=257z6_1264870003" type="text/javascript"></script>
+<script src="http://bits.wikimedia.org/skins-1.5/common/ajax.js?urid=257z6" type="text/javascript"></script>
+<script src="http://bits.wikimedia.org/skins-1.5/common/mwsuggest.js?urid=257z6" type="text/javascript"></script>
+<script type="text/javascript" src="http://upload.wikimedia.org/centralnotice/wikipedia/en/centralnotice.js?257z6"></script>
+
+<!--[if lt IE 7]><script type="text/javascript" src="http://bits.wikimedia.org/skins-1.5/common/IEFixes.js?257z6"></script>
+	<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+<script src="/w/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook&amp;urid=257z6_336800052" type="text/javascript"></script>
+
+<style type="text/css">/*<![CDATA[*/
+.source-java {line-height: normal;}
+.source-java li, .source-java pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for java
+ * CSS class: source-java, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.java.source-java .de1, .java.source-java .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.java.source-java  {font-family:monospace;}
+.java.source-java .imp {font-weight: bold; color: red;}
+.java.source-java li, .java.source-java .li1 {font-weight: normal; vertical-align:top;}
+.java.source-java .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.java.source-java .li2 {font-weight: bold; vertical-align:top;}
+.java.source-java .kw1 {color: #000000; font-weight: bold;}
+.java.source-java .kw2 {color: #000066; font-weight: bold;}
+.java.source-java .kw3 {color: #003399;}
+.java.source-java .kw4 {color: #000066; font-weight: bold;}
+.java.source-java .co1 {color: #666666; font-style: italic;}
+.java.source-java .co2 {color: #006699;}
+.java.source-java .co3 {color: #008000; font-style: italic; font-weight: bold;}
+.java.source-java .coMULTI {color: #666666; font-style: italic;}
+.java.source-java .es0 {color: #000099; font-weight: bold;}
+.java.source-java .br0 {color: #009900;}
+.java.source-java .sy0 {color: #339933;}
+.java.source-java .st0 {color: #0000ff;}
+.java.source-java .nu0 {color: #cc66cc;}
+.java.source-java .me1 {color: #006633;}
+.java.source-java .me2 {color: #006633;}
+.java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
+.java.source-java span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "/w/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=2678400";
+/*]]>*/
+</style></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Double-checked_locking skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a id="top"></a>
+		<div id="siteNotice"><script type='text/javascript'>if (wgNotice != '') document.writeln(wgNotice);</script></div>		<h1 id="firstHeading" class="firstHeading">Double-checked locking</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From Wikipedia, the free encyclopedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<p>In <a href="/wiki/Software_engineering" title="Software engineering">software engineering</a>, <b>double-checked locking</b> is a <a href="/wiki/Software_design_pattern" title="Software design pattern" class="mw-redirect">software design pattern</a> also known as "double-checked locking optimization<sup id="cite_ref-0" class="reference"><a href="#cite_note-0"><span>[</span>1<span>]</span></a></sup>". The pattern is designed to reduce the overhead of acquiring a <a href="/wiki/Lock_(computer_science)" title="Lock (computer science)">lock</a> by first testing the locking criterion (the "lock hint") in an unsafe manner; only if that succeeds does the actual lock proceed.</p>
+<p>The pattern, when implemented in some language/hardware combinations, can be unsafe. It can therefore sometimes be considered to be an <a href="/wiki/Anti-pattern" title="Anti-pattern">anti-pattern</a>.</p>
+<p>It is typically used to reduce locking overhead when implementing "<a href="/wiki/Lazy_initialization" title="Lazy initialization">lazy initialization</a>" in a multi-threaded environment, especially as part of the <a href="/wiki/Singleton_pattern" title="Singleton pattern">Singleton pattern</a>. Lazy initialization avoids initializing a value until the first time it is accessed.</p>
+<table id="toc" class="toc">
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Usage_in_Java"><span class="tocnumber">1</span> <span class="toctext">Usage in Java</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Usage_in_Microsoft_Visual_C.2B.2B"><span class="tocnumber">2</span> <span class="toctext">Usage in Microsoft Visual C++</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#References"><span class="tocnumber">4</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#External_links"><span class="tocnumber">5</span> <span class="toctext">External links</span></a></li>
+</ul>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } 
+//]]>
+</script>
+<h2><span class="editsection">[<a href="/w/index.php?title=Double-checked_locking&amp;action=edit&amp;section=1" title="Edit section: Usage in Java">edit</a>]</span> <span class="mw-headline" id="Usage_in_Java">Usage in Java</span></h2>
+<p>Consider, for example, this code segment in the <a href="/wiki/Java_(programming_language)" title="Java (programming language)">Java programming language</a> as given by <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html" class="external autonumber" rel="nofollow">[3]</a> (as well as all other Java code segments):</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java" style="font-family:monospace;">
+<pre class="de1">
+<span class="co1">// Single threaded version</span>
+<span class="kw1">class</span> Foo <span class="br0">{</span>
+    <span class="kw1">private</span> <span class="kw1">static</span> Helper helper <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> Helper getHelper<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span>helper <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span>
+            helper <span class="sy0">=</span> <span class="kw1">new</span> Helper<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">return</span> helper<span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="co1">// other functions and members...</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>The problem is that this does not work when using multiple threads. A <a href="/wiki/Lock_(computer_science)" title="Lock (computer science)">lock</a> must be obtained in case two threads call <code>getHelper()</code> simultaneously. Otherwise, either they may both try to create the object at the same time, or one may wind up getting a reference to an incompletely initialized object. This is done by synchronizing, as is shown in the following example.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java" style="font-family:monospace;">
+<pre class="de1">
+<span class="co1">// Correct but possibly expensive multithreaded version</span>
+<span class="kw1">class</span> Foo <span class="br0">{</span>
+    <span class="kw1">private</span> Helper helper <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+    <span class="kw1">public</span> <span class="kw1">synchronized</span> Helper getHelper<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span>helper <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span>
+            helper <span class="sy0">=</span> <span class="kw1">new</span> Helper<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">return</span> helper<span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="co1">// other functions and members...</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>However, the first call to <code>getHelper()</code> will create the object and only the few threads trying to access it during that time need to be synchronized; after that all calls just get a reference to the member variable. Since synchronizing a method can decrease performance by a factor of 100 or higher<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>2<span>]</span></a></sup>, the overhead of acquiring and releasing a lock every time this method is called seems unnecessary: once the initialization has been completed, acquiring and releasing the locks would appear unnecessary. Many programmers have attempted to optimize this situation in the following manner:</p>
+<ol>
+<li>Check that the variable is initialized (without obtaining the lock). If it is initialized, return it immediately.</li>
+<li>Obtain the lock.</li>
+<li>Double-check whether the variable has already been initialized: if another thread acquired the lock first, it may have already done the initialization. If so, return the initialized variable.</li>
+<li>Otherwise, initialize and return the variable.</li>
+</ol>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java" style="font-family:monospace;">
+<pre class="de1">
+<span class="co1">// Broken multithreaded version</span>
+<span class="co1">// "Double-Checked Locking" idiom</span>
+<span class="kw1">class</span> Foo <span class="br0">{</span>
+    <span class="kw1">private</span> Helper helper <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+    <span class="kw1">public</span> Helper getHelper<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span>helper <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span> <span class="br0">{</span>
+            <span class="kw1">synchronized</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">if</span> <span class="br0">(</span>helper <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span> <span class="br0">{</span>
+                    helper <span class="sy0">=</span> <span class="kw1">new</span> Helper<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+                <span class="br0">}</span>
+            <span class="br0">}</span>
+        <span class="br0">}</span>
+        <span class="kw1">return</span> helper<span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="co1">// other functions and members...</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>Intuitively, this algorithm seems like an efficient solution to the problem. However, this technique has many subtle problems and should usually be avoided. For example, consider the following sequence of events:</p>
+<ol>
+<li>Thread <i>A</i> notices that the value is not initialized, so it obtains the lock and begins to initialize the value.</li>
+<li>Due to the semantics of some programming languages, the code generated by the compiler is allowed to update the shared variable to point to a partially constructed object before <i>A</i> has finished performing the initialization.</li>
+<li>Thread <i>B</i> notices that the shared variable has been initialized (or so it appears), and returns its value. Because thread <i>B</i> believes the value is already initialized, it does not acquire the lock. If <i>B</i> uses the object before all of the initialization done by <i>A</i> is seen by <i>B</i> (either because <i>A</i> has not finished initializing it or because some of the initialized values in the object have not yet percolated to the memory <i>B</i> uses (<a href="/wiki/Cache_coherence" title="Cache coherence">cache coherence</a>)), the program will likely crash.</li>
+</ol>
+<p>One of the dangers of using double-checked locking in <a href="/wiki/Java_Platform,_Standard_Edition" title="Java Platform, Standard Edition">J2SE 1.4</a> (and earlier versions) is that it will often appear to work: it is not easy to distinguish between a correct <a href="/wiki/Implementation" title="Implementation">implementation</a> of the technique and one that has subtle problems. Depending on the <a href="/wiki/Compiler" title="Compiler">compiler</a>, the interleaving of threads by the <a href="/wiki/Scheduling_(computing)" title="Scheduling (computing)">scheduler</a> and the nature of other <a href="/wiki/Concurrency_(computer_science)" title="Concurrency (computer science)">concurrent system activity</a>, failures resulting from an incorrect implementation of double-checked locking may only occur intermittently. Reproducing the failures can be difficult.</p>
+<p>As of <a href="/wiki/Java_Platform,_Standard_Edition" title="Java Platform, Standard Edition">J2SE 5.0</a>, this problem has been fixed. The <a href="/wiki/Volatile_variable" title="Volatile variable">volatile</a> keyword now ensures that multiple threads handle the singleton instance correctly. This new idiom is described in <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html" class="external autonumber" rel="nofollow">[4]</a>:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java" style="font-family:monospace;">
+<pre class="de1">
+<span class="co1">// Works with acquire/release semantics for volatile</span>
+<span class="co1">// Broken under Java 1.4 and earlier semantics for volatile</span>
+<span class="kw1">class</span> Foo <span class="br0">{</span>
+    <span class="kw1">private</span> <span class="kw1">volatile</span> Helper helper <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+    <span class="kw1">public</span> Helper getHelper<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span>helper <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span> <span class="br0">{</span>
+            <span class="kw1">synchronized</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">if</span> <span class="br0">(</span>helper <span class="sy0">==</span> <span class="kw2">null</span><span class="br0">)</span>
+                    helper <span class="sy0">=</span> <span class="kw1">new</span> Helper<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+            <span class="br0">}</span>
+        <span class="br0">}</span>
+        <span class="kw1">return</span> helper<span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="co1">// other functions and members...</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>Many versions of the double-checked locking idiom that do not use explicit methods such as volatile or synchronization to communicate the construction of the object have been proposed, and all of them are wrong.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>3<span>]</span></a></sup><sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span>[</span>4<span>]</span></a></sup></p>
+<p>The use of volatile is sometime counter productive since every reference of it (read/write) would invalidate the cache line to maintain cache coherence. Sometime it's better to just use a synchronized block, which invalidates the cache line at the end of the block as part of the memory barrier operation.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Double-checked_locking&amp;action=edit&amp;section=2" title="Edit section: Usage in Microsoft Visual C++">edit</a>]</span> <span class="mw-headline" id="Usage_in_Microsoft_Visual_C.2B.2B">Usage in Microsoft Visual C++</span></h2>
+<p>Double-checked locking can be implemented in <a href="/wiki/Visual_C%2B%2B" title="Visual C++">Visual C++</a> 2005 if the pointer to the resource is declared with the <a href="/wiki/C%2B%2B" title="C++">C++</a> keyword <b>volatile</b>. Visual C++ 2005 guarantees that volatile variables will behave as fences, as in J2SE 5.0, preventing both compiler and CPU arrangement of reads and writes<sup class="Template-Fact" title="This claim needs references to reliable sources from May 2009" style="white-space:nowrap;">[<i><a href="/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed">citation needed</a></i>]</sup>. There is no such guarantee in previous versions of Visual C++. However, marking the pointer to the resource as volatile may harm performance elsewhere, if the pointer declaration is visible elsewhere in code, by forcing the compiler to treat it as a fence elsewhere, even when it is not necessary.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Double-checked_locking&amp;action=edit&amp;section=3" title="Edit section: See also">edit</a>]</span> <span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>The <a href="/wiki/Test_and_Test-and-set" title="Test and Test-and-set">Test and Test-and-set</a> <a href="/wiki/Programming_idiom" title="Programming idiom">idiom</a> for a low-level locking mechanism.</li>
+<li><a href="/wiki/Initialization_on_demand_holder_idiom" title="Initialization on demand holder idiom">Initialization on demand holder idiom</a> for a thread-safe replacement in Java.</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=Double-checked_locking&amp;action=edit&amp;section=4" title="Edit section: References">edit</a>]</span> <span class="mw-headline" id="References">References</span></h2>
+<ol class="references">
+<li id="cite_note-0"><b><a href="#cite_ref-0">^</a></b> Schmidt, D et al. Pattern-Oriented Software Architecture Vol 2, 2000 pp353-363</li>
+<li id="cite_note-1"><b><a href="#cite_ref-1">^</a></b> Boehm, Hans-J. "Threads Cannot Be Implemented As a Library", ACM 2005, p265</li>
+<li id="cite_note-2"><b><a href="#cite_ref-2">^</a></b> <a href="http://jeremymanson.blogspot.com/2007/05/double-checked-locking-and-problem-with.html" class="external autonumber" rel="nofollow">[1]</a></li>
+<li id="cite_note-3"><b><a href="#cite_ref-3">^</a></b> <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html" class="external autonumber" rel="nofollow">[2]</a></li>
+</ol>
+<h2><span class="editsection">[<a href="/w/index.php?title=Double-checked_locking&amp;action=edit&amp;section=5" title="Edit section: External links">edit</a>]</span> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li>Issues with the double checked locking mechanism captured in <a href="http://purevirtuals.com/blog/2006/06/16/son-of-a-bug/" class="external text" rel="nofollow">Jeu George's Blogs</a> <a href="http://purevirtuals.com/blog/2006/06/16/son-of-a-bug/" class="external text" rel="nofollow">Pure Virtuals</a></li>
+<li>Implementation of Various Singleton Patterns including the <a href="http://www.tekpool.com/?p=35" class="external text" rel="nofollow">Double Checked Locking Mechanism</a> at <a href="http://www.tekpool.com/?p=35" class="external text" rel="nofollow">TEKPOOL</a></li>
+<li><a href="http://c2.com/cgi/wiki?DoubleCheckedLocking" class="extiw" title="wiki:DoubleCheckedLocking">"Double Checked Locking" Description from the Portland Pattern Repository</a></li>
+<li><a href="http://c2.com/cgi/wiki?DoubleCheckedLockingIsBroken" class="extiw" title="wiki:DoubleCheckedLockingIsBroken">"Double Checked Locking is Broken" Description from the Portland Pattern Repository</a></li>
+<li>Paper "<a href="http://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf" class="external text" rel="nofollow">C++ and the Perils of Double-Checked Locking</a>" (475 KB) by <a href="/wiki/Scott_Meyers" title="Scott Meyers">Scott Meyers</a> and <a href="/wiki/Andrei_Alexandrescu" title="Andrei Alexandrescu">Andrei Alexandrescu</a></li>
+<li>Article "<a href="http://www.javaworld.com/jw-02-2001/jw-0209-double.html" class="external text" rel="nofollow">Double-checked locking: Clever, but broken</a>" by <a href="/w/index.php?title=Brian_Goetz&amp;action=edit&amp;redlink=1" class="new" title="Brian Goetz (page does not exist)">Brian Goetz</a></li>
+<li><a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html" class="external text" rel="nofollow">The "Double-Checked Locking is Broken" Declaration</a>; David Bacon et al.</li>
+<li><a href="http://www-106.ibm.com/developerworks/java/library/j-dcl.html" class="external text" rel="nofollow">Double-checked locking and the Singleton pattern</a></li>
+<li><a href="http://www.oaklib.org/docs/oak/singleton.html" class="external text" rel="nofollow">Singleton Pattern and Thread Safety</a></li>
+<li><a href="http://msdn2.microsoft.com/en-us/library/12a04hfd.aspx" class="external text" rel="nofollow">volatile keyword in VC++ 2005</a></li>
+<li><a href="http://blogs.sun.com/cwebster/entry/double_check_locking" class="external text" rel="nofollow">Java Examples and timing of double check locking solutions</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 199/1000000
+Post-expand include size: 1171/2048000 bytes
+Template argument size: 351/2048000 bytes
+Expensive parser function count: 1/500
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:164874-0!1!0!default!!en!2 and timestamp 20100203184501 -->
+<div class="printfooter">
+Retrieved from "<a href="http://en.wikipedia.org/wiki/Double-checked_locking">http://en.wikipedia.org/wiki/Double-checked_locking</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/wiki/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/wiki/Category:Anti-patterns" title="Category:Anti-patterns">Anti-patterns</a></span> | <span dir='ltr'><a href="/wiki/Category:Concurrency_control" title="Category:Concurrency control">Concurrency control</a></span> | <span dir='ltr'><a href="/wiki/Category:Programming_constructs" title="Category:Programming constructs">Programming constructs</a></span> | <span dir='ltr'><a href="/wiki/Category:Software_design_patterns" title="Category:Software design patterns">Software design patterns</a></span></div><div id="mw-hidden-catlinks" class="mw-hidden-cats-hidden">Hidden categories: <span dir='ltr'><a href="/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></span> | <span dir='ltr'><a href="/wiki/Category:Articles_with_unsourced_statements_from_May_2009" title="Category:Articles with unsourced statements from May 2009">Articles with unsourced statements from May 2009</a></span></div></div>			<!-- end content -->
+						<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul lang="en" xml:lang="en">
+	
+				 <li id="ca-nstab-main" class="selected"><a href="/wiki/Double-checked_locking" title="View the content page [c]" accesskey="c">Article</a></li>
+				 <li id="ca-talk"><a href="/wiki/Talk:Double-checked_locking" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-edit"><a href="/w/index.php?title=Double-checked_locking&amp;action=edit" title="You can edit this page. &#10;Please use the preview button before saving. [e]" accesskey="e">Edit this page</a></li>
+				 <li id="ca-history"><a href="/w/index.php?title=Double-checked_locking&amp;action=history" title="Past versions of this page [h]" accesskey="h">History</a></li>			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul lang="en" xml:lang="en">
+				<li id="pt-optin-try"><a href="http://en.wikipedia.org/w/index.php?title=Special:UsabilityInitiativeOptIn&amp;from=Double-checked_locking" title="Try out new features" class="no-text-transform">Try Beta</a></li>
+				<li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Double-checked_locking" title="You are encouraged to log in; however, it is not mandatory. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="/wiki/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5 lang="en" xml:lang="en">Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+				<li id="n-contents"><a href="/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+				<li id="n-featuredcontent"><a href="/wiki/Portal:Featured_content" title="Featured content ‚?? the best of Wikipedia">Featured content</a></li>
+				<li id="n-currentevents"><a href="/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+				<li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5 lang="en" xml:lang="en"><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/w/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" title="Search Wikipedia" accesskey="f" value="" name="search" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if one exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search Wikipedia for this text" />
+			</form>
+		</div>
+	</div>
+	<div class='generated-sidebar portlet' id='p-interaction'>
+		<h5 lang="en" xml:lang="en">Interaction</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-aboutsite"><a href="/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+				<li id="n-portal"><a href="/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+				<li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="The list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+				<li id="n-contact"><a href="/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact Wikipedia</a></li>
+				<li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Support_Wikipedia/en" title="Support us">Donate to Wikipedia</a></li>
+				<li id="n-help"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5 lang="en" xml:lang="en">Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Double-checked_locking" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Double-checked_locking" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+<li id="t-upload"><a href="/wiki/Wikipedia:Upload" title="Upload files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="/w/index.php?title=Double-checked_locking&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="/w/index.php?title=Double-checked_locking&amp;oldid=341373667" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-cite"><a href="/w/index.php?title=Special:Cite&amp;page=Double-checked_locking&amp;id=341373667" title="Information on how to cite this page">Cite this page</a></li>			</ul>
+		</div>
+	</div>
+	<div id="p-lang" class="portlet">
+		<h5 lang="en" xml:lang="en">Languages</h5>
+		<div class="pBody">
+			<ul>
+				<li class="interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Double-checked_locking">Fran√ßais</a></li>
+				<li class="interwiki-it"><a href="http://it.wikipedia.org/wiki/Interblocco_ricontrollato">Italiano</a></li>
+				<li class="interwiki-lt"><a href="http://lt.wikipedia.org/wiki/Tikrintas_rakinimas">Lietuvi≈≥</a></li>
+				<li class="interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Blokada_z_podw%C3%B3jnym_zatwierdzeniem_(wzorzec_projektowy)">Polski</a></li>
+				<li class="interwiki-ru"><a href="http://ru.wikipedia.org/wiki/Double_checked_locking">–†—?—?—?–∫–∏–π</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="http://bits.wikimedia.org/skins-1.5/common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+				<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a></div>
+			<ul id="f-list">
+					<li id="lastmod"> This page was last modified on 1 February 2010 at 23:53.<br /></li>
+					<li id="copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.
+See <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> for details.<br/>
+Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.<br /></li><li class="noprint"><a class='internal' href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact us</a></li>
+					<li id="privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+					<li id="about"><a href="/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+					<li id="disclaimer"><a href="/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+</div>
+
+<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served by srv177 in 0.056 secs. --></body></html>

@@ -1,0 +1,2268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+
+<head>
+	<title>Porting Java Public Key Hash to C# .NET - CodeProject</title> 
+	<link type="text/css" rel="stylesheet" href="/App_Themes/NetCommunity/CodeProject.css?dt=2.2.0226">
+<link type="text/css" rel="stylesheet" href="/App_Themes/NetCommunity/ForumClassic.css?dt=2.2.0226">
+<style type="text/css">
+#ATD {position: absolute;top: -90px;left: -5000px;z-index: 200;display: none;white-space:nowrap;background-color:white;padding:10px;border: solid 1px #999;}
+
+</style>
+
+
+	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta name="Description" content="This tutorial is an effort to overcome problems faced by the developers who want to sign data using Java Key Store and want to verify it on .NET platform. The tutorial demonstrates how to export the Public Key using Java to .NET compatible Public Key (XML format).; Author: Shaheryar Ch.; Section: Cryptography &amp; Security; Chapter: General Programming" >
+<meta name="Keywords" content="Win2K, WinXP, Win2003, C#, Java, .NET, Visual-Studio, Dev, Intermediate,Cryptography &amp; Security,General Programming,Free source code, tutorials" >
+<meta name="Author" content="The Code Project" >
+<meta name="Rating" content="General" >
+<meta name="Robots" content="index, follow" >
+<meta name="Revisit-After" content="1 days" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All topics" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=1" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - MFC / C++" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=2" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - C#" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=3" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - ASP.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=4" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - .NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=5" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - VB.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=6" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="http://www.codeproject.com/webservices/LoungeRSS.aspx" >
+<link rel="search" type="application/opensearchdescription+xml" title="CodeProject" href="http://www.codeproject.com/info/OpenSearch.xml" >
+	<base target="_top">
+	<link rel="icon" href="/favicon.ico" type="image/ico" >
+<link rel="shortcut icon" href="/favicon.ico"  type="image/ico" >
+<script type="text/javascript" language="Javascript" src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.3.2.min.js"></script><script type='text/javascript'>//<![CDATA[
+if (typeof jQuery == 'undefined') {
+    document.write(unescape("%3Cscript src='/script/JS/jquery-1.3.2.min.js' type='text/javascript' %3E%3C/script%3E"));
+}//]]></script>
+<script type="text/javascript" language="Javascript" src="/script/Forums/ShortCuts.js"></script>
+<script type="text/javascript" language="Javascript">//<![CDATA[
+if(top!=self)top.location.href=location.href; if(typeof(DemoUrl)!="undefined")document.write(unescape('%3Cme')+'ta http'+'-equiv="re' +'fresh" con'+'tent="1;url='+DemoUrl+unescape('"%3CE'));
+function LK(e) { var lounge  = document.getElementById("ctl00_TopNavBar_Lounge"); var soapbox = document.getElementById("ctl00_TopNavBar_Soapbox"); if (lounge && soapbox) {   lounge.style.display = e.ctrlKey? "none" : "inline";  soapbox.style.display = e.ctrlKey? "inline" : "none"; }}
+function LC(e) {
+ window.location.href = e.ctrlKey ? '/script/Forums/View.aspx?fid=1536756':'/Lounge.aspx';
+ if (document.all) e.returnValue = false; else e.preventDefault();
+}
+function ToggleMenu(itemName)
+{
+	var elm = document.getElementById(itemName);
+	var i,others = document.getElementById('SectionMenu');
+	for(i=0; i < others.childNodes.length; i++)
+	{
+		var other = others.childNodes[i];
+		if ((other.className == 'menu2-dropdown') && (other != elm))
+			other.style.display='none';
+	}
+	if (elm.style.display == 'block') elm.style.display='none';
+	else elm.style.display='block';
+	return false;
+}
+
+function ChkRtctl00_RateArticle(val, objId) {if (val<=2) {$('div[name=RateItem_' + objId + '] .RateComDiv').css("display","");}else $('div[name=RateItem_' + objId + '] .RateComDiv').css("display","none");}
+var Selected = "-1";
+function Pin(elm){
+ CloseMsg(Selected);
+ var wrk=elm.parentNode; if(wrk)wrk=wrk.firstChild;
+ var fc=elm?elm.firstChild:null;
+ if (wrk&&!wrk.pinned) {
+  OpenMsg(wrk.name, true);wrk.pinned=true;fc.src='/script/forums/images/pinned.gif';fc.title='Pinned. Click to unpin'
+ } else {
+  wrk.pinned=false;CloseMsg(wrk.name); fc.src='/script/forums/images/pin.gif';fc.title='Click to pin message'
+ }
+ return false;
+}
+function CloseMsg(msgId) {
+ if(!msgId||(msgId==''))return;
+ var lnk=document.getElementsByName(msgId);
+ if(lnk&&lnk.length>0&&lnk[0].pinned)return;
+ var head=eval("document.getElementById('F" + msgId + "_h0')");
+ if(head) head.className = head.className.replace("Sel", "UnSel");
+ var body=eval("document.getElementById('F" + msgId + "_h1')");
+ if(body) body.style.display = 'none';
+}
+function OpenMsg(msgId, keep) {
+ if(!msgId||(msgId==''))return;
+ var body=eval("document.getElementById('F" + msgId + "_h1')");
+ if(body){
+  var lnk=document.getElementsByName(msgId);
+  if(lnk&&lnk.length>0&&lnk[0].pinned)keep=true;
+  if(keep&&body.style.display!='none')return;
+  if(body.style.display=='none') body.style.display='';
+  else body.style.display = 'none';
+ }
+ var head=eval("document.getElementById('F" + msgId + "_h0')");
+ if (head) head.className = head.className.replace('UnSel', 'Sel');
+ if(body&&head&&body.style.display!='none'){
+  document.body.scrollTop = getRealPos(head, 'Top') - document.body.clientHeight/10;
+  EnsureMessageVisible(msgId, true);
+ }
+}
+
+function SwitchMessage(e, msgId)
+{
+  if (msgId) msgId=msgId.toString();
+  else {
+    if(!e)e=window.event;
+    var target=e.target?e.target:e.srcElement;
+    while(target&&target.id!='DynMessLink')target=target.parentNode;
+    if(!target||target.id!='DynMessLink')return;
+    if(target.pinned){Selected='';return false;}
+    msgId=target.name;
+  }
+  CloseMsg(Selected)
+  if(Selected==msgId) Selected='';
+  else { OpenMsg(msgId, false); Selected=msgId;}
+  if (e){if(e.preventDefault)e.preventDefault;else e.returnValue=false;}
+  return false;
+}
+
+
+//]]>
+</script>
+
+	
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if (typeof(_gat) != "undefined" && _gat)
+{ 
+	var pageTracker = _gat._getTracker("UA-1735123-1");
+	pageTracker._setDomainName("www.codeproject.com");
+	pageTracker._setSessionTimeout("1200"); // 20 mins
+	pageTracker._initData();
+	pageTracker._trackPageview();
+}
+</script>
+</head>	
+
+<body>
+
+<a href="#Main"><img alt="Click here to Skip to main content" class="access-link" 
+	src="/Images/t.gif" /></a>
+
+<div style="width:100%;padding:0px;margin:0px">
+	<div style="width:100%;">
+
+<table cellpadding="5" cellspacing="0" width="100%" class="MemberNavBar">
+<tr>
+<td style="font-weight:bold">6,807,038 members and growing! (19,415 online)</td>
+<td align="right">
+
+
+
+<div id="ctl00_MemberMenu_LoggedOffOptions" class="MemberNavBarText" style="margin:0;padding:0;">
+	<a name="SignUp"></a>
+<form name="subForm" id="subForm" action="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx" 
+	method="post" style="margin:0;padding:0;">
+
+<!-- This hidden field is used for identifying form which has made post request.
+     (This form posts to another page and we need to know which form did the post request) -->
+<input id="FormName" name="FormName" value="MenuBarForm" type="hidden" />
+
+Email    <input class="small-text" type="text" name="Email" id="Email" style="width:100px" />
+Password <input class="small-text" type="password" name="Password" id="Password" style="width:60px" />
+<input type="submit" value="Sign in" class="button" />
+<script type="text/javascript">
+function Join(){document.location.href='/script/Membership/Modify.aspx';return false;}
+document.write('<input type="button" class="button" onclick="return Join();" value="Join"');
+document.write('<input type="hidden" name="fld_quicksign" value="true" />');
+</script>
+<input type="checkbox" checked = "checked" name="RememberMeCheck" id="RememberMeCheck" value="1"/>
+<label for="RememberMeCheck">Remember me?</label>&nbsp;
+<a id="ctl00_MemberMenu_SendPassword" href="/script/Membership/SendPassword.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx"><img align="middle" alt="help" src="/script/Membership/Images/help.gif" width="16px" height="16px" border="0" />Lost your password?</a>
+</form>
+
+</div>
+
+</td>
+</tr>
+</table></div>
+	<table width="100%" cellspacing="0" cellpadding="0" border="0"><tr>
+		<td class="header"><a href="/"><img id="ctl00_Logo" title="The Code Project" src="/App_Themes/Std/Img/logo225x90.gif" border="0" /></a></td>				 
+		<td class="header align-right" width="100%" ><script type="text/javascript">document.write(unescape("%3ca%20href%3d%22http%3a%2f%2fwww.codeproject.com%2fRedir.aspx%3fadid%3d12854%26adcrid%3d12023%26obid%3d6623%26obtid%3d2%26way%3dban%22%20target%3d%22_blank%22%20rel%3d%22nofollow%22%3e%3cimg%20src%3d%22%2fscript%2fAdServe%2fServeImg.aspx%3fFile%3dSyncfusion_ASP.NET_MVC_Studio_728x90_02012010030441.jpg%26C%3dFalse%26adid%3d12854%26adcrid%3d12023%26obid%3d6623%26obtid%3d2%22%20alt%3d%22%22%20border%3d%220%22%20width%3d%22728px%22%20height%3d%2290px%22%3e%3c%2fa%3e"));</script>
+		</td>
+	</tr></table>
+	
+
+<div class="navbar clearfix">
+<ul id="nav">
+
+<li><a href="/">Home</a></li>
+
+
+<li><a id="ctl00_TopNavBar_Art" class="down" href="/script/Articles/Latest.aspx">Articles</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_ArtSearch" class="fly break" href="/info/search.aspx">Search</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestArts" class="fly" href="/script/Articles/Latest.aspx">Latest Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestTips" class="fly" href="/script/Articles/Latest.aspx?at=6">Latest Tips/Tricks</a></li>
+		<li><a id="ctl00_TopNavBar_ArtTop" class="fly" href="/script/Articles/TopArticles.aspx?ta_so=4">Top Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtBeginner" class="fly" href="/info/search.aspx?vidlst=152&amp;sa_us=True">Beginner Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtBlogArticles" class="fly break" href="/script/Articles/BlogArticleList.aspx">Technical Blogs</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostArticle" class="fly" href="/info/Submit.aspx">Post an Article</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostTipTrick" class="fly" href="/script/Answers/Post.aspx?new=tipntrick">Post Tip & Trick</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostBlog" class="fly break" href="/script/Articles/BlogFeed.aspx">Post your Blog</a></li>
+		<li><a id="ctl00_TopNavBar_ArtGuide" class="fly" href="/info/Submit.aspx">Posting/Update Guidelines</a></li>
+		<li><a id="ctl00_TopNavBar_ArtCompetition" class="fly" href="/script/Awards/CurrentCompetitions.aspx?cmpTpId=1">Article Competition</a></li>
+		<li><a id="ctl00_TopNavBar_ArtTopicList" class="fly last" href="/script/Content/SiteMap.aspx">Topic List</a></li>
+	</ul>
+
+</li>
+
+
+
+<li><a id="ctl00_TopNavBar_Answers" href="/script/Answers/List.aspx?tab=latest">Quick Answers</a>
+	<ul>
+		<li><a id="ctl00_TopNavBar_QAAsk" class="fly" href="/script/Answers/Post.aspx?new=question">Ask a Question</a></li>
+		<li><a id="ctl00_TopNavBar_QAUnanswered" class="fly" href="/script/Answers/List.aspx?tab=unanswered">View Unanswered Questions</a></li>
+		<li><a id="ctl00_TopNavBar_QALatest" class="fly" href="/script/Answers/List.aspx?tab=latest">View All Questions</a></li>
+		
+	</ul>
+
+</li>
+
+
+
+<li><a id="ctl00_TopNavBar_MessageBoards" class="down" href="/script/Forums/List.aspx">Message Boards</a>
+
+	<ul>
+		<li><a class="fly" href="/Forums/12076/ASP-NET.aspx">ASP.NET</a></li>
+<li><a class="fly" href="/Forums/4486/ATL-WTL-STL.aspx">ATL /  WTL / STL</a></li>
+<li><a class="fly" href="/Forums/1647/C-Cplusplus-MFC.aspx">C / C++ / MFC</a></li>
+<li><a class="fly" href="/Forums/3785/Managed-Cplusplus-CLI.aspx">Managed C++/CLI</a></li>
+<li><a class="fly" href="/Forums/1649/Csharp.aspx">C#</a></li>
+<li><a class="fly" href="/Forums/1648/COM.aspx">COM</a></li>
+<li><a class="fly" href="/Forums/186301/Hardware-Devices.aspx">Hardware &amp; Devices</a></li>
+<li><a class="fly" href="/Forums/1004117/LINQ.aspx">LINQ</a></li>
+<li><a class="fly" href="/Forums/1650/NET-Framework.aspx">.NET Framework</a></li>
+<li><a class="fly" href="/Forums/1644/System-Admin.aspx">System Admin</a></li>
+<li><a class="fly" href="/Forums/1004257/Silverlight.aspx">Silverlight</a></li>
+<li><a class="fly" href="/Forums/1725/General-Database.aspx">General Database</a></li>
+<li><a class="fly" href="/Forums/1540733/Sharepoint.aspx">Sharepoint</a></li>
+<li><a class="fly" href="/Forums/1646/Visual-Basic.aspx">Visual Basic</a></li>
+<li><a class="fly" href="/Forums/1640/Web-Development.aspx">Web Development</a></li>
+<li><a class="fly" href="/Forums/1004114/WPF-WCF-WF.aspx">WPF / WCF / WF</a></li>
+<li><a class="fly" href="/Forums/3421/XML-XSL.aspx">XML / XSL</a></li>
+<li><a class="fly" href="/Forums/1642/General-IT-Issues.aspx">General IT Issues</a></li>
+<li><a class="fly" href="/Forums/1645/Site-Bugs-Suggestions.aspx">Site Bugs / Suggestions</a></li>
+<li><a class="fly" href="/Forums/1536756/The-Soapbox-2-0.aspx">The Soapbox 2.0</a></li>
+
+		<li><a id="ctl00_TopNavBar_MessageBoardsAll" class="last" href="/script/Forums/List.aspx">All Message Boards...</a></li>
+	</ul>
+
+</li>
+
+
+
+<li><a id="ctl00_TopNavBar_Job" href="/script/Jobs/List.aspx">Job Board</a>
+	<ul>
+		<li><a id="ctl00_TopNavBar_JobLatest" class="fly" href="/script/Jobs/List.aspx">Latest</a></li>
+		<li><a id="ctl00_TopNavBar_JobSearch" class="fly" href="/script/Jobs/Search.aspx">Search</a></li>
+		<li><a id="ctl00_TopNavBar_JobPost" class="fly" href="/script/Jobs/Edit.aspx">Post a Job</a></li>
+		<li><a id="ctl00_TopNavBar_JobFaq" class="fly last" href="/script/Jobs/FAQ.aspx">FAQ and Pricing</a></li>
+	</ul>
+
+</li>
+
+
+
+
+<li><a id="ctl00_TopNavBar_Cat" href="/script/Catalog/List.aspx">Catalog</a>
+	<ul>
+		<li><a id="ctl00_TopNavBar_CatLatest" class="fly" href="/script/Catalog/List.aspx?ctls=DatePostedDescending">Latest</a></li>
+		<li><a id="ctl00_TopNavBar_CatSearch" class="fly" href="/script/Catalog/List.aspx">Search</a></li>
+		<li><a id="ctl00_TopNavBar_CatPost" class="fly" href="/script/Catalog/Edit.aspx">Post a Catalog Item</a></li>
+		<li><a id="ctl00_TopNavBar_CatFaq" class="fly last" href="/script/Catalog/FAQ.aspx">FAQ and Pricing</a></li>
+	</ul>
+
+</li>
+
+
+
+
+
+
+<li><a id="ctl00_TopNavBar_Help" href="/info/FAQ.aspx">Help!</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_HelpWhatIs" class="fly" href="/info/guide.aspx">What is 'The Code Project'?</a></li>
+		<li><a id="ctl00_TopNavBar_HelpGeneral" class="fly" href="/info/FAQ.aspx">General FAQ</a></li>
+		<li><a id="ctl00_TopNavBar_HelpPostQuestion" class="fly" href="/script/Forums/List.aspx">Post a Question</a></li>
+		<li><a id="ctl00_TopNavBar_HelpSiteMap" class="fly" href="/script/Content/SiteMap.aspx">Site Directory</a></li>
+		<li><a id="ctl00_TopNavBar_HelpAboutUs" class="fly last" href="/info/about.aspx">About Us</a></li>
+	</ul>
+
+</li>
+
+
+<li style="float:right">
+<a id="ctl00_TopNavBar_Lounge" href="/Lounge.aspx">Lounge</a>
+<a id="ctl00_TopNavBar_Soapbox" href="javascript:void();" style="display:none">Soapbox</a>
+
+</li>
+
+</ul>
+
+</div>
+	<div style="width:100%;"><a name="_top"></a>
+		<table id="ctl00_ArticleTopHeader_HeaderTable" class="ArticleHeader extended" cellpadding="3">
+	<tr valign="top">
+		<td class="small-text">
+	
+	<a id="ctl00_ArticleTopHeader_ChapterLink" href="/script/Content/Chapter.aspx?chptId=6">General Programming</a> &#187;
+	<a id="ctl00_ArticleTopHeader_SectionLink" href="/KB/security/">Cryptography & Security</a> &#187;
+	<a id="ctl00_ArticleTopHeader_SubsectionLink" href="/KB/security/index.aspx?#Cryptography &amp; Security - Security">Security</a>
+	
+	<span id="ctl00_ArticleTopHeader_SkillLevel" class="ArticleIntermediate">&nbsp;&nbsp;&nbsp; Intermediate</span> 
+	<span id="ctl00_ArticleTopHeader_LicenceTerms"></span>
+	<br />
+	<br />
+	<h1 id="ctl00_ArticleTopHeader_ArticleTitle">Porting Java Public Key Hash to C# .NET</h1>
+	
+		<b>By <a href="/script/Articles/MemberArticles.aspx?amid=542995">Shaheryar Ch.</a></b><br />
+	
+	<br />
+    <span id="ctl00_ArticleTopHeader_ArticleDescr">This tutorial is an effort to overcome problems faced by the developers who want to sign data using Java Key Store and want to verify it on .NET platform. The tutorial demonstrates how to export the Public Key using Java to .NET compatible Public Key (XML format).</span>
+</td>
+		<td style="width:210px;">
+	<span id="ctl00_ArticleTopHeader_ArticleAttributes" class="small-text">C#, Java, .NET, Win2K, WinXP, Win2003, Visual-Studio, Dev</span>
+	<table style="margin:8px 0 0 0;padding:0;" class="small-text">
+	
+	<tr><td>Posted:</td><td><b>6 Apr 2004</b></td></tr>
+	
+	<tr><td>Updated:</td><td><b>26 Oct 2004</b></td></tr>
+	
+	<tr><td>Views:</td><td><b>100,881</b></td></tr>
+	
+	<tr><td>Bookmarked:</td><td><b>39 times</b></td></tr>
+	
+	
+	
+	
+	</table>
+</td>
+	</tr>
+</table>
+
+	</div>
+</div>
+
+<div>
+
+<div id="ctl00_LHNavBar" class="nav-left">
+
+	
+
+<div class="blank-background">
+<div class="announce-header">Announcements</div>
+<div class="announce-content">
+<table cellpadding="2">
+
+
+
+
+
+
+
+
+
+
+<tr valign="middle"><td><img src="/script/awards/images/VSX_24.gif" width="24px" height="24px" alt="Comp" align="middle"/></td>
+<td><a href="/Competitions/376/Visual-Studio-Extension.aspx">Build a VS2010 addin win a Zune</a></td></tr>
+
+
+
+<tr valign="middle"><td><img src="/script/catalog/images/app_24.jpg" width="24px" height="24px" alt="Comp" align="middle"/></td>
+<td><a href="/Competitions/370/Windows-7-Contest.aspx">Windows 7 Comp<br>Win a laptop!</a></td></tr>
+
+
+<tr valign="middle"><td><img src="/script/Awards/images/MonthlyComp.png" width="24px" height="24px" alt="Comp" align="middle"/></td>
+<td><a id="ctl00_Announcements_CompLink" href="/Feature/ArticleCompetition/">Monthly Competition</a></td></tr>
+</table>
+</div>
+</div>
+		
+	
+<div ID="Th">
+<img src="/images/ajax-arrows-green.gif" id="Li" alt="Loading..." width="16px" height="16px" > 
+</div>
+
+	
+	
+	<div id="SectionMenu">
+<div class="menu1">Articles</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=1" onclick="return ToggleMenu('Chapter1');">Desktop Development</a></div>
+<div class="menu2-dropdown" id="Chapter1" style="display:none;">
+<div class="menu3" id="Section1"><a href="/KB/buttons/">Button Controls</a></div>
+<div class="menu3" id="Section15"><a href="/KB/clipboard/">Clipboard</a></div>
+<div class="menu3" id="Section2"><a href="/KB/combobox/">Combo &amp; List Boxes</a></div>
+<div class="menu3" id="Section67"><a href="/KB/dialog/">Dialogs and Windows</a></div>
+<div class="menu3" id="Section107"><a href="/KB/gadgets/">Desktop Gadgets</a></div>
+<div class="menu3" id="Section16"><a href="/KB/docview/">Document / View</a></div>
+<div class="menu3" id="Section4"><a href="/KB/edit/">Edit Controls</a></div>
+<div class="menu3" id="Section17"><a href="/KB/files/">Files and Folders</a></div>
+<div class="menu3" id="Section3"><a href="/KB/grid/">Grid &amp; Data Controls</a></div>
+<div class="menu3" id="Section5"><a href="/KB/list/">List Controls</a></div>
+<div class="menu3" id="Section6"><a href="/KB/menus/">Menus</a></div>
+<div class="menu3" id="Section14"><a href="/KB/miscctrl/">Miscellaneous</a></div>
+<div class="menu3" id="Section18"><a href="/KB/printing/">Printing</a></div>
+<div class="menu3" id="Section95"><a href="/KB/progress/">Progress Controls</a></div>
+<div class="menu3" id="Section11"><a href="/KB/selection/">Selection Controls</a></div>
+<div class="menu3" id="Section19"><a href="/KB/shell/">Shell and IE programming</a></div>
+<div class="menu3" id="Section68"><a href="/KB/smart/">Smart Client</a></div>
+<div class="menu3" id="Section8"><a href="/KB/splitter/">Splitter Windows</a></div>
+<div class="menu3" id="Section9"><a href="/KB/static/">Static &amp; Panel Controls</a></div>
+<div class="menu3" id="Section10"><a href="/KB/statusbar/">Status Bar</a></div>
+<div class="menu3" id="Section7"><a href="/KB/tabs/">Tabs &amp; Property Pages</a></div>
+<div class="menu3" id="Section12"><a href="/KB/toolbars/">Toolbars &amp; Docking windows</a></div>
+<div class="menu3" id="Section13"><a href="/KB/tree/">Tree Controls</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=2" onclick="return ToggleMenu('Chapter2');">Web Development</a></div>
+<div class="menu2-dropdown" id="Chapter2" style="display:none;">
+<div class="menu3" id="Section70"><a href="/KB/ajax/">Ajax and Atlas</a></div>
+<div class="menu3" id="Section27"><a href="/KB/applications/">Applications &amp; Tools</a></div>
+<div class="menu3" id="Section85"><a href="/KB/asp/">ASP</a></div>
+<div class="menu3" id="Section89"><a href="/KB/aspnet/">ASP.NET</a></div>
+<div class="menu3" id="Section28"><a href="/KB/webforms/">ASP.NET Controls</a></div>
+<div class="menu3" id="Section38"><a href="/KB/ATL-Server/">ATL Server</a></div>
+<div class="menu3" id="Section29"><a href="/KB/web-cache/">Caching</a></div>
+<div class="menu3" id="Section91"><a href="/KB/web-image/">Charts, Graphs and Images</a></div>
+<div class="menu3" id="Section25"><a href="/KB/scripting/">Client side scripting</a></div>
+<div class="menu3" id="Section30"><a href="/KB/custom-controls/">Custom Controls</a></div>
+<div class="menu3" id="Section23"><a href="/KB/HTML/">HTML / CSS</a></div>
+<div class="menu3" id="Section24"><a href="/KB/ISAPI/">ISAPI</a></div>
+<div class="menu3" id="Section33"><a href="/KB/server-management/">Site &amp; Server Management</a></div>
+<div class="menu3" id="Section34"><a href="/KB/session/">Session State</a></div>
+<div class="menu3" id="Section113"><a href="/KB/silverlight/">Silverlight</a></div>
+<div class="menu3" id="Section36"><a href="/KB/trace/">Trace and Logs</a></div>
+<div class="menu3" id="Section31"><a href="/KB/user-controls/">User Controls</a></div>
+<div class="menu3" id="Section37"><a href="/KB/validation/">Validation</a></div>
+<div class="menu3" id="Section35"><a href="/KB/viewstate/">View State</a></div>
+<div class="menu3" id="Section26"><a href="/KB/WAP/">WAP / WML</a></div>
+<div class="menu3" id="Section32"><a href="/KB/web-security/">Web Security</a></div>
+<div class="menu3" id="Section20"><a href="/KB/webservices/">Web Services</a></div>
+<div class="menu3" id="Section144"><a href="/KB/PHP/">PHP</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=9" onclick="return ToggleMenu('Chapter9');">Enterprise Systems</a></div>
+<div class="menu2-dropdown" id="Chapter9" style="display:none;">
+<div class="menu3" id="Section98"><a href="/KB/MCMS/">Content Management Server</a></div>
+<div class="menu3" id="Section99"><a href="/KB/biztalk/">Microsoft BizTalk Server</a></div>
+<div class="menu3" id="Section102"><a href="/KB/exchange/">Microsoft Exchange</a></div>
+<div class="menu3" id="Section90"><a href="/KB/office/">Office Development</a></div>
+<div class="menu3" id="Section101"><a href="/KB/sharepoint/">SharePoint Server</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=3" onclick="return ToggleMenu('Chapter3');">Multimedia</a></div>
+<div class="menu2-dropdown" id="Chapter3" style="display:none;">
+<div class="menu3" id="Section42"><a href="/KB/audio-video/">Audio and Video</a></div>
+<div class="menu3" id="Section44"><a href="/KB/directx/">DirectX</a></div>
+<div class="menu3" id="Section46"><a href="/KB/GDI/">GDI</a></div>
+<div class="menu3" id="Section47"><a href="/KB/GDI-plus/">GDI+</a></div>
+<div class="menu3" id="Section43"><a href="/KB/graphics/">General Graphics</a></div>
+<div class="menu3" id="Section45"><a href="/KB/openGL/">OpenGL</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=4" onclick="return ToggleMenu('Chapter4');">Database</a></div>
+<div class="menu2-dropdown" id="Chapter4" style="display:none;">
+<div class="menu3" id="Section66"><a href="/KB/database/">Database</a></div>
+<div class="menu3" id="Section100"><a href="/KB/reporting-services/">SQL Reporting Services</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=8" onclick="return ToggleMenu('Chapter8');">Platforms, Frameworks & Libraries</a></div>
+<div class="menu2-dropdown" id="Chapter8" style="display:none;">
+<div class="menu3" id="Section83"><a href="/KB/atl/">ATL</a></div>
+<div class="menu3" id="Section117"><a href="/KB/MFC/">MFC</a></div>
+<div class="menu3" id="Section88"><a href="/KB/stl/">STL</a></div>
+<div class="menu3" id="Section84"><a href="/KB/wtl/">WTL</a></div>
+<div class="menu3" id="Section49"><a href="/KB/COM/">COM / COM+</a></div>
+<div class="menu3" id="Section76"><a href="/KB/dotnet/">.NET Framework</a></div>
+<div class="menu3" id="Section92"><a href="/KB/winsdk/">Win32/64 SDK &amp; OS</a></div>
+<div class="menu3" id="Section108"><a href="/KB/vista/">Vista API</a></div>
+<div class="menu3" id="Section110"><a href="/KB/vista-security/">Vista Security</a></div>
+<div class="menu3" id="Section82"><a href="/KB/cross-platform/">Cross Platform</a></div>
+<div class="menu3" id="Section69"><a href="/KB/game/">Game Development</a></div>
+<div class="menu3" id="Section73"><a href="/KB/mobile/">Mobile Development</a></div>
+<div class="menu3" id="Section106"><a href="/KB/WC/">Windows CardSpace</a></div>
+<div class="menu3" id="Section103"><a href="/KB/WCF/">Windows Communication Foundation</a></div>
+<div class="menu3" id="Section104"><a href="/KB/WPF/">Windows Presentation Foundation</a></div>
+<div class="menu3" id="Section105"><a href="/KB/WF/">Windows Workflow Foundation</a></div>
+<div class="menu3" id="Section119"><a href="/KB/library/">Libraries</a></div>
+<div class="menu3" id="Section122"><a href="/KB/powershell/">Windows Powershell</a></div>
+<div class="menu3" id="Section123"><a href="/KB/linq/">LINQ</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=5" onclick="return ToggleMenu('Chapter5');">Languages</a></div>
+<div class="menu2-dropdown" id="Chapter5" style="display:none;">
+<div class="menu3" id="Section71"><a href="/KB/cpp/">C / C++ Language</a></div>
+<div class="menu3" id="Section72"><a href="/KB/mcpp/">C++ / CLI</a></div>
+<div class="menu3" id="Section93"><a href="/KB/cs/">C#</a></div>
+<div class="menu3" id="Section78"><a href="/KB/msil/">MSIL</a></div>
+<div class="menu3" id="Section86"><a href="/KB/vbscript/">VBScript</a></div>
+<div class="menu3" id="Section87"><a href="/KB/vb/">VB.NET</a></div>
+<div class="menu3" id="Section115"><a href="/KB/vb-interop/">VB6 Interop</a></div>
+<div class="menu3" id="Section77"><a href="/KB/net-languages/">Other .NET Languages</a></div>
+<div class="menu3" id="Section21"><a href="/KB/XML/">XML</a></div>
+<div class="menu3" id="Section96"><a href="/KB/java/">Java</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=6" onclick="return ToggleMenu('Chapter6');">General Programming</a></div>
+<div class="menu2-dropdown" id="Chapter6">
+<div class="menu3" id="Section57"><a href="/KB/recipes/">Algorithms &amp; Recipes</a></div>
+<div class="menu3" id="Section64"><a href="/KB/bugs/">Bugs &amp; Workarounds</a></div>
+<div class="menu3" id="Section79"><a href="/KB/collections/">Collections</a></div>
+<div class="menu3 selected" id="Section56"><a href="/KB/security/">Cryptography &amp; Security</a></div>
+<div class="menu3" id="Section50"><a href="/KB/datetime/">Date and Time</a></div>
+<div class="menu3" id="Section52"><a href="/KB/DLL/">DLLs &amp; Assemblies</a></div>
+<div class="menu3" id="Section80"><a href="/KB/exception/">Exception Handling</a></div>
+<div class="menu3" id="Section81"><a href="/KB/locale/">Localisation</a></div>
+<div class="menu3" id="Section53"><a href="/KB/macros/">Macros and Add-ins</a></div>
+<div class="menu3" id="Section54"><a href="/KB/tips/">Programming Tips</a></div>
+<div class="menu3" id="Section55"><a href="/KB/string/">String handling</a></div>
+<div class="menu3" id="Section22"><a href="/KB/IP/">Internet / Network</a></div>
+<div class="menu3" id="Section58"><a href="/KB/threads/">Threads, Processes &amp; IPC</a></div>
+<div class="menu3" id="Section59"><a href="/KB/winhelp/">WinHelp / HTMLHelp</a></div>
+<div class="menu3" id="Section141"><a href="/KB/answers/">Uncategorised Quick Answers</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=10" onclick="return ToggleMenu('Chapter10');">Graphics / Design</a></div>
+<div class="menu2-dropdown" id="Chapter10" style="display:none;">
+<div class="menu3" id="Section40"><a href="/KB/expression/">Expression</a></div>
+<div class="menu3" id="Section114"><a href="/KB/usability/">Usability</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=11" onclick="return ToggleMenu('Chapter11');">Development Lifecycle</a></div>
+<div class="menu2-dropdown" id="Chapter11" style="display:none;">
+<div class="menu3" id="Section51"><a href="/KB/debug/">Debug Tips</a></div>
+<div class="menu3" id="Section39"><a href="/KB/architecture/">Design and Architecture</a></div>
+<div class="menu3" id="Section112"><a href="/KB/install/">Installation</a></div>
+<div class="menu3" id="Section41"><a href="/KB/work/">Work Issues</a></div>
+<div class="menu3" id="Section128"><a href="/KB/testing/">Testing and QA</a></div>
+<div class="menu3" id="Section126"><a href="/KB/codegen/">Code Generation</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=7" onclick="return ToggleMenu('Chapter7');">General Reading</a></div>
+<div class="menu2-dropdown" id="Chapter7" style="display:none;">
+<div class="menu3" id="Section60"><a href="/KB/books/">Book Chapters</a></div>
+<div class="menu3" id="Section61"><a href="/KB/book-reviews/">Book Reviews</a></div>
+<div class="menu3" id="Section109"><a href="/KB/hardware-review/">Hardware Reviews</a></div>
+<div class="menu3" id="Section63"><a href="/KB/interviews/">Interviews</a></div>
+<div class="menu3" id="Section62"><a href="/KB/scrapbook/">Scrapbook</a></div>
+<div class="menu3" id="Section48"><a href="/KB/system/">Hardware &amp; System</a></div>
+<div class="menu3" id="Section136"><a href="/KB/Blogs/">Uncategorised Technical Blogs</a></div>
+<div class="menu3" id="Section140"><a href="/KB/mentor/">Author Resources</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=12" onclick="return ToggleMenu('Chapter12');">Third Party Products</a></div>
+<div class="menu2-dropdown" id="Chapter12" style="display:none;">
+<div class="menu3" id="Section65"><a href="/KB/showcase/">Product Showcase</a></div>
+<div class="menu3" id="Section124"><a href="/KB/solution-center/">Solution Center</a></div>
+</div>
+<div class="menu2"><a href="/script/Content/Chapter.aspx?chptId=13" onclick="return ToggleMenu('Chapter13');">Mentor Resources</a></div>
+<div class="menu2-dropdown" id="Chapter13" style="display:none;">
+</div>
+</div>
+<div style="margin-top:5px"></div>
+<div class="menu1">Services</div>
+<div class="menu2"><a href="/script/Catalog/List.aspx">Product Catalog</a></div>
+<div class="menu2"><a href="/services/certificates/index.aspx">Code-signing Certificates</a></div>
+<div class="menu2"><a href="/script/Jobs/List.aspx">Job Board</a></div>
+<div class="menu2"><a href="/Services/Addins/">CodeProject VS2008 Addin</a></div>
+<div style="margin-top:5px"></div>
+<div class="menu1">Feature Zones</div>
+<div class="menu2"><a href="/kb/Showcase/">Product Showcase</a></div>
+<div class="menu2"><a href="/Zones/WhitePapers/">WhitePapers / Webcasts</a></div>
+<div class="menu2"><a href="http://www.codeproject.com/Redir.aspx?adid=13191&obid=0&obtid=0">.NET Dev Library</a></div>
+<div class="menu2"><a href="http://www.codeproject.com/Redir.aspx?adid=12976&obid=0&obtid=0">Cloud Hosting Resources</a></div>
+<div class="menu2"><a href="http://www.codeproject.com/Redir.aspx?adid=12879&obid=0&obtid=0">ASP.NET Web Hosting</a></div>
+<div style="margin-top:5px"></div>
+
+
+	<div style="margin:auto;width:150px"><IFRAME src="/script/AdServe/ServeFlash.aspx?C=False&amp;adcrid=12164&amp;adid=13362&amp;obid=6623&amp;obtid=2" frameborder="0" scrolling="no" width="150px" height="80px"></IFRAME>
+	</div>
+	
+	<div style="margin:auto;width:160px;margin-top:10px"><script type="text/javascript">document.write(unescape("%3ca%20href%3d%22http%3a%2f%2fwww.codeproject.com%2fRedir.aspx%3fadid%3d13095%26adcrid%3d12088%26obid%3d6623%26obtid%3d2%26way%3dban%22%20target%3d%22_blank%22%20rel%3d%22nofollow%22%3e%3cimg%20src%3d%22%2fscript%2fAdServe%2fServeImg.aspx%3fFile%3dxoreax_160x600_2_11012010113551.gif%26C%3dFalse%26adid%3d13095%26adcrid%3d12088%26obid%3d6623%26obtid%3d2%22%20alt%3d%22%22%20border%3d%220%22%20width%3d%22160px%22%20height%3d%22600px%22%3e%3c%2fa%3e"));</script>
+	</div>
+</div>
+
+<div id="ctl00_ArticlePane" class="container-article borders-left-nav">
+
+	
+<table class="nav-search extended" cellspacing="0">
+<tr>
+<td width="100%">&nbsp;</td>
+<td valign="middle" align="right" style="white-space:nowrap;width:60%">
+	<form method="get" action="/info/search.aspx" name="Search" style="margin:0;">
+	<b>Search &nbsp;</b>
+	<input class="small-text" name="artkw" style="width:200px;" />
+	<select class="small-text offblack" style="font-weight:bold;" name="sbo">
+	<option value="kw" selected="true">Articles / Quick Answers</option>
+<option value="fm">Messages</option>
+<option value="s">Jobs</option>
+<option value="ctlk">Product Catalog</option>
+
+	</select>
+	<input type="submit" class="button small-text" value=" Go! " /> &nbsp;
+	</form>
+</td>
+<td class="tiny-text" style="white-space:nowrap;">
+	
+	<a href="/info/search.aspx">Advanced Search</a><br />
+	
+	
+	<a id="ctl00_SearchBarCtrl_AddToIESearchLnk" href="/">Add to IE Search</a>
+</td>
+</tr>
+</table>
+
+	<a name="Main"></a>
+	<span id="ctl00_ResultMessage"></span>
+	
+	
+    
+	<div id="ctl00_ArtDiv">
+	<table cellpadding="0" cellspacing="0" border="0">	
+	<tr valign="top">
+		<td valign="top" width="100%">
+		    
+<table>
+
+</table>
+
+
+
+			
+<div class="small-text">
+<img src="/script/Content/Images/print.gif" width="16px" height="16px" alt="print" 
+style="vertical-align:middle"/><a id="ctl00_ArticleHeaderLinks_PrintLnk" href="/KB/security/porting_java_public_key.aspx?display=Print">Print</a> &nbsp;
+	
+
+
+<span id="SBI"><img src="/script/Content/Images/add.gif" id="ctl00_ArticleHeaderLinks_AddTo_Img" width="16" height="16" alt="add" style="vertical-align:middle" />
+<a href="#">Share</a></span>
+<div id="ATD"></div>
+ &nbsp;
+ &nbsp;
+ &nbsp;
+<img src="/script/Content/Images/discuss.gif" width="15px" height="16px" alt="Discuss" 
+style="vertical-align:middle" /> <a href="#_comments">Discuss</a> &nbsp; 
+
+<img src="/script/Content/Images/report.gif" width="16px" height="16px" alt="Broken Article?" 
+style="vertical-align:middle" /><a id="ctl00_ArticleHeaderLinks_BrokenLnk" href="/script/Articles/Report.aspx?aid=6623">Report</a> &nbsp;
+</div>
+		</td>
+		<td style="text-align:right;white-space:nowrap;width:100px">
+		<table id="ctl00_CurRat" name="CurRat_6623">
+	<tr>
+		<td>
+<table class="">
+<tr>
+	<td id="ctl00_ArticleRating_VL" style="white-space:nowrap" class="small-text" align="right"> 
+		<span id="ctl00_ArticleRating_VoteLabel">23 votes for this article.</span>
+	</td>
+		
+	<td>
+		<table border="1" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left" bgcolor="White" width="20px" height="7px"><img src="/script/Ratings/Images/red.gif" height="7" border="0" width="20" align="middle" /></td>
+				<td align="left" bgcolor="White" width="20px" height="7px"><img src="/script/Ratings/Images/red.gif" height="7" border="0" width="20" align="middle" /></td>
+				<td align="left" bgcolor="White" width="20px" height="7px"><img src="/script/Ratings/Images/red.gif" height="7" border="0" width="20" align="middle" /></td>
+				<td align="left" bgcolor="White" width="20px" height="7px"><img src="/script/Ratings/Images/red.gif" height="7" border="0" width="20" align="middle" /></td>
+				<td align="left" bgcolor="White" width="20px" height="7px" style="white-space:nowrap;padding:0px;"><img src="/script/Ratings/Images/red.gif" height="7" border="0" width="1" align="middle" /><img src="/script/Ratings/Images/white.gif" height="7" border="0" width="19" align="middle" /></td>
+			</tr>
+		</table>
+		
+		<span id="ctl00_ArticleRating_Votes" class="small-text"></span>
+	</td>
+</tr>
+<tr id="ctl00_ArticleRating_PopularityRow">
+			<td colspan="2" align="right" class="small-text">
+		<a id="ctl00_ArticleRating_PopularityLnk" title="Calculated as rating x Log10(# votes)" href="/script/Articles/TopArticles.aspx?ta_so=1">Popularity: 5.54</a>
+		<span id="ctl00_ArticleRating_PopularityLbl"></span>
+		<span id="ratingVal">Rating: <b>4.07</b> out of 5</span>
+		
+	</td>
+		</tr>
+		
+</table>
+</td>
+		<td>            
+<div>
+<table class="HistTable" title="Voting Distribution. Recent data only"><tr><td><img src="/script/Ratings/Images/pollcol.gif" width="10px" height="6px" border="0px" alt="4 votes, 17.4%" title="4 votes, 17.4%" /><br />1</td>
+<td><img src="/Images/t.gif" width="10px" height="1px" border="0px" alt="" title="" /><br />2</td>
+<td><img src="/script/Ratings/Images/pollcol.gif" width="10px" height="1px" border="0px" alt="1 vote, 4.3%" title="1 vote, 4.3%" /><br />3</td>
+<td><img src="/script/Ratings/Images/pollcol.gif" width="10px" height="10px" border="0px" alt="6 votes, 26.1%" title="6 votes, 26.1%" /><br />4</td>
+<td><img src="/script/Ratings/Images/pollcol.gif" width="10px" height="20px" border="0px" alt="12 votes, 52.2%" title="12 votes, 52.2%" /><br />5</td>
+</td></table>
+</div>
+
+
+
+</td>
+	</tr>
+</table>
+
+		</td>
+	</tr>
+	</table>
+	
+	
+	
+	
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div id="contentdiv">
+	
+	<!-- Main Page Contents Start -->
+	
+
+<!-- Article Starts -->
+
+<UL class=download>
+<LI><A 
+href="Porting_Java_Public_Key/Porting_Java_Public_Key_src.zip">Download 
+source - 5.46 Kb</A>
+<LI><A 
+href="Porting_Java_Public_Key/Porting_Java_Public_Key_PDF.zip">Download 
+PDF - 348 Kb</A> </LI></UL>
+<h2>Table of Contents</H2>
+<UL>
+<LI><A href="#abstract">Abstract</A>
+<LI><A href="#sec1">Section 1: Introduction</A>
+<OL>
+<LI><A href="#1_1">Who should read?</A> </LI></OL>
+<LI><A href="#sec2">Section 2: Signature Generation in Java</A>
+<OL>
+<LI><A href="#2_1">Public and Private Key Generation</A>
+<LI><A href="#2_2">Public and Private Key initialization from stored 
+files</A>
+<LI><A href="#2_3">Signing the Data</A>
+<LI><A href="#2_4">Verify data and Signature in Java</A> </LI></OL>
+<LI><A href="#sec3">Section 3: Generating .NET compatible Public Key</A>
+<OL>
+<LI><A href="#3_1">.NET RSA Public Key XML</A>
+<LI><A href="#3_2">Generating .NET XML Public Key from Java</A> </LI></OL>
+<LI><A href="#sec4">Section 4: Reading Public Key and verifying the Data in 
+.NET</A>
+<OL>
+<LI><A href="#4_1">Initialization</A>
+<LI><A href="#4_2">Reading Key</A>
+<LI><A href="#4_3">Verifying the Signature</A> </LI></OL>
+<LI><A href="#ref">References</A> </LI></UL>
+<h2><A name=abstract></A>Abstract</H2>
+<P>There is perhaps no software engineering topic of more timely importance 
+than data security and integrity. Attacks are costly, whether the attack 
+comes from inside or out, and some attacks can expose a software company to 
+liability for damages. Staying on top of the most up-to-date techniques and 
+tools is one key to application security and integrity. Developing cross 
+platform applications to ensure security is a big problem which has been 
+encountered by a number of developers.</p>
+
+<P>This tutorial is an effort to overcome such problems faced by the 
+developers who want to sign the data on one platform and want to verify it 
+on another, using popular public-key digital signature known as RSA.</p>
+
+<P>Starting with a Java program to illustrate how to generate the keys, sign 
+and verify the data using the generated keys, both by breaking down the 
+functions of the application and by viewing the final execution result. 
+Next, the tutorial discusses how to export the public key, generated by 
+Java, to be used later by .NET framework to verify the data in .NET 
+applications. Finally, this tutorial discusses how to read the Public Key 
+generated by Java program in .NET (using C#) and verify the data using this 
+Public Key. In the end of the tutorial, different definitions of terms are 
+also provided to equip the beginners as well.</p>
+
+<h2><A name=sec1></A>Section 1: Introduction</H2>
+<h3><A id=1_1 name=1_1></A>Who should read?</H3>
+<P>The main ideas behind this tutorial revolve around signing a data in Java 
+and then verifying it in .NET using C#. However, readers who are interested 
+to start learning the signing &amp; verifying of data using Java 
+Cryptographic APIs and language can also use this tutorial. This tutorial 
+assumes that reader knows how to read and write basic Java &amp; C# .NET 
+applications.</p>
+
+<P>Before going through this tutorial, it is highly recommended that you 
+should have basic knowledge of terms for Cryptography and Security packages 
+defined in Java and .NET framework. For interested readers, the definitions 
+of terms is provided in the Glossary at the end of the tutorial. Even if you 
+know the terms, just go through them to re-memorize them.</p>
+
+<h2><A name=sec2></A>Section 2: Signature generation in Java</H2>
+<P>The zip file includes the <I>SecurityManager.java</I>. This Java class is 
+responsible for signing the data and verifying the data using private and 
+public keys respectively. It also generates the XML Public key for .NET 
+framework. This class has the following responsibilities.</p>
+
+<UL>
+<LI>Initialize Signature Parameters
+<LI>Generate Public and Private Keys
+<LI>Store/Read generated Public and Private keys
+<LI>Sign the input data
+<LI>Verify the input data
+<LI>Store the Public key in .NET compatible (XML) format </LI></UL>
+<P>Although it is not fair to keep all the things in one class; but just to 
+keep it simple, everything has been kept in one class. Reader may alter the 
+code and may eliminate functions such as storing/reading the keys on/from 
+HDD to some other class.</p>
+
+<P>The code has been well documented with comments, and hopefully, the 
+reader will not find it difficult to understand.</p>
+
+<h3><A name=2_1></A>Public and Private Key Generation</H3>
+<P>Private Key is mandatory for digital signature generation. When you 
+generate the Private Key, the corresponding Public key is automatically 
+generated. For performance, Private / Public Keys are generated only once 
+and stored at physical location of the HDD. The methodology adopted in the 
+current code is to store the public key at some application path. However, 
+for web applications, key may be streamed along with data. See <A 
+href="Porting_Java_Public_Key/key_generation.jpg" 
+target=_blank>figure</A>.</p>
+
+<P>The following function generates the Public and Private Keys and stores 
+them at the specified location. This function also invokes functions to 
+generate the compatible .NET Public Key. It takes the size of the hash 
+algorithm as a parameter and generates the corresponding key.</p>
+
+<P>Now, let's look at the corresponding code:</p>
+<PRE lang=cs><span class="code-comment">/*</span><span class="code-comment">*
+   * Generates the keys for given size.
+   * @param size - Key Size [512|1024]
+   */</span>
+  <span class="code-keyword">public</span> <span class="code-keyword">void</span> generateKeys(<span class="code-keyword">int</span> size) {
+    <span class="code-keyword">try</span> {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">Generating Keys&quot;</span>);
+      keyGen = KeyPairGenerator.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA&quot;</span>);
+      keyGen.initialize(size);
+      keypair = keyGen.genKeyPair();
+      <span class="code-comment">//</span><span class="code-comment">Get the KeyPair for given algorithm and size.
+</span>
+
+      privateKey = keypair.getPrivate(); <span class="code-comment">//</span><span class="code-comment">Extract Private Key
+</span>
+      publicKey = keypair.getPublic();    <span class="code-comment">//</span><span class="code-comment"> Extract Public Key
+</span>
+
+      <span class="code-comment">//</span><span class="code-comment"> Get bytes of the public and private keys
+</span>
+      <span class="code-keyword">byte</span>[] privateKeyBytes = privateKey.getEncoded(); <span class="code-comment">//</span><span class="code-comment">Get the key bytes
+</span>
+      <span class="code-keyword">byte</span>[] publicKeyBytes = publicKey.getEncoded();  <span class="code-comment">//</span><span class="code-comment"> Get the key bytes
+</span>
+
+      <span class="code-comment">//</span><span class="code-comment">write bytes to corresponding files after encoding
+</span>
+      <span class="code-comment">//</span><span class="code-comment">them to Base 64 using Base64Encoder Class.
+</span>
+      writeKeyBytesToFile(<span class="code-keyword">new</span>
+       BASE64Encoder().encode(privateKeyBytes).getBytes(), 
+PRIVATE_KEY_FILE);
+
+      <span class="code-SDKkeyword">String</span> encodedValue = <span class="code-keyword">new</span> BASE64Encoder().encode(publicKeyBytes);
+      writeKeyBytesToFile(encodedValue.getBytes(), PUBLIC_KEY_FILE);
+
+      <span class="code-comment">//</span><span class="code-comment">Generate the Private Key, Public Key and Public Key in XML format.
+</span>
+      PrivateKey privateKey = 
+KeyFactory.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA&quot;</span>).generatePrivate(<span class="code-keyword">new</span>
+          PKCS8EncodedKeySpec(privateKeyBytes));
+
+      PublicKey publicKey = KeyFactory.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA&quot;</span>).generatePublic(<span class="code-keyword">new</span>
+          X509EncodedKeySpec(publicKeyBytes));
+
+      <span class="code-comment">//</span><span class="code-comment">Create and Instance of RSAPublicKey class with X509 encoding
+</span>
+      RSAPublicKey rsaPublicKey =
+       (RSAPublicKey)
+       KeyFactory.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA&quot;</span>).generatePublic(<span class="code-keyword">new</span>
+       X509EncodedKeySpec(publicKeyBytes));
+
+      <span class="code-comment">//</span><span class="code-comment">Get the RSAPublicKey as XML store the public key in XML string
+</span>
+      <span class="code-comment">//</span><span class="code-comment">to make compatible .Net public key
+</span>
+      <span class="code-comment">//</span><span class="code-comment">file. See getRSAPublicKeyAsXMLString() for details
+</span>
+      <span class="code-SDKkeyword">String</span> xml = getRSAPublicKeyAsXMLString(rsaPublicKey);
+
+      <span class="code-comment">//</span><span class="code-comment">Store the XML (Generated .Net public key file) in file
+</span>
+      writeKeyBytesToFile(xml.getBytes(), DOT_NET_PUBLIC_KEY_FILE);
+    }
+    <span class="code-keyword">catch</span> (java.security.NoSuchAlgorithmException e) {
+      System.<span class="code-keyword">out</span>.println(
+          <span class="code-string">&quot;</span><span class="code-string">No such algorithm. Please check the JDK version.&quot;</span>+e.getCause());
+    }
+    <span class="code-keyword">catch</span> (java.security.spec.InvalidKeySpecException ik) {
+      System.<span class="code-keyword">out</span>.println(
+          <span class="code-string">&quot;</span><span class="code-string">Invalid Key Specs. Not valid Key files.&quot;</span>+ ik.getCause());
+    }
+    <span class="code-keyword">catch</span> (UnsupportedEncodingException ex) {
+      System.<span class="code-keyword">out</span>.println(ex);
+    }
+    <span class="code-keyword">catch</span> (ParserConfigurationException ex) {
+      System.<span class="code-keyword">out</span>.println(ex);
+    }
+    <span class="code-keyword">catch</span> (TransformerException ex) {
+      System.<span class="code-keyword">out</span>.println(ex);
+    }
+    <span class="code-keyword">catch</span> (IOException ioe) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">Files not found on specified path. &quot;</span>+
+          ioe.getCause());
+    }
+
+}</PRE>
+<P>Once the keys are generated, they can be stored at specific path in a 
+simple file to avoid re-generation of Private and Public keys. It increases 
+the performance. There may be a requirement to generate new keys each time 
+for each request. If you want to generate the keys each time then invoke 
+this function each time in main function or in your application before 
+signing the data.</p>
+
+<h3><A name=2_2></A>Public and Private Key initialization from stored 
+files</H3>
+<P>Following two functions read the public and private keys. Whenever you 
+have to sign the data, you only require a private key. Therefore, I have 
+provided an additional function to initialize only the private key. The 
+basic work flow of this function is described in the <A 
+href="Porting_Java_Public_Key/key_reading.jpg" 
+target=_blank>figure</A>.</p>
+
+<P>Let's look at the code now. As by name, it is clear the 
+<CODE>initializePrivateKey</CODE> only initializes the private key, but if 
+you wish to initialize both private and public keys, invoke the other 
+function named as <CODE>initializeKeys</CODE>.</p>
+<PRE lang=cs><span class="code-comment">/*</span><span class="code-comment">*
+   * Initialize only the private key.
+   */</span>
+  <span class="code-keyword">private</span> <span class="code-keyword">void</span> initializePrivateKey() {
+    <span class="code-keyword">try</span> {
+      <span class="code-comment">//</span><span class="code-comment">Read key files back and decode them from BASE64
+</span>
+      BASE64Decoder decoder = <span class="code-keyword">new</span> BASE64Decoder();
+      <span class="code-keyword">byte</span>[] privateKeyBytes = decoder.decodeBuffer(<span class="code-keyword">new</span>
+                <span class="code-SDKkeyword">String</span>(readPrivateKeyFile()));
+      <span class="code-comment">//</span><span class="code-comment"> Convert back to public and private key objects
+</span>
+      KeyFactory keyFactory = KeyFactory.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA&quot;</span>);
+      EncodedKeySpec privateKeySpec = <span class="code-keyword">new</span>
+               PKCS8EncodedKeySpec(privateKeyBytes);
+      privateKey = keyFactory.generatePrivate(privateKeySpec);
+
+    }
+    <span class="code-keyword">catch</span> (IOException io) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">Private Key File Not found.&quot;</span>+
+                                           io.getCause());
+    }
+    <span class="code-keyword">catch</span> (InvalidKeySpecException e) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">Invalid Key Specs. Not valid Key files.&quot;</span>
+      + e.getCause());
+    }
+    <span class="code-keyword">catch</span> (NoSuchAlgorithmException e) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">There is no such algorithm.&quot;</span> +
+      <span class="code-string">&quot;</span><span class="code-string"> Please check the JDK ver.&quot;</span>+ e.getCause());
+    }
+
+  }
+
+  <span class="code-comment">/*</span><span class="code-comment">*
+   * Initializes the public and private keys.
+   */</span>
+  <span class="code-keyword">private</span> <span class="code-keyword">void</span> initializeKeys() {
+    <span class="code-keyword">try</span> {
+      <span class="code-comment">//</span><span class="code-comment">Read key files back and decode them from BASE64
+</span>
+      BASE64Decoder decoder = <span class="code-keyword">new</span> BASE64Decoder();
+      <span class="code-keyword">byte</span>[] privateKeyBytes = decoder.decodeBuffer(<span class="code-keyword">new</span>
+         <span class="code-SDKkeyword">String</span>(readPrivateKeyFile()));
+      <span class="code-keyword">byte</span>[] publicKeyBytes = decoder.decodeBuffer(<span class="code-keyword">new</span>
+                            <span class="code-SDKkeyword">String</span>(readPublicKeyFile()));
+
+      <span class="code-comment">//</span><span class="code-comment"> Convert back to public and private key objects
+</span>
+      KeyFactory keyFactory = KeyFactory.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA&quot;</span>);
+      EncodedKeySpec privateKeySpec =
+                     <span class="code-keyword">new</span> PKCS8EncodedKeySpec(privateKeyBytes);
+      privateKey = keyFactory.generatePrivate(privateKeySpec);
+
+      EncodedKeySpec publicKeySpec =
+                    <span class="code-keyword">new</span> X509EncodedKeySpec(publicKeyBytes);
+      publicKey = keyFactory.generatePublic(publicKeySpec);
+
+    }
+    <span class="code-keyword">catch</span> (IOException io) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">Public/ Private Key File Not found.&quot;</span>
+      + io.getCause());
+    }
+    <span class="code-keyword">catch</span> (InvalidKeySpecException e) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">Invalid Key Specs. Not valid Key files.&quot;</span>
+      + e.getCause());
+    }
+    <span class="code-keyword">catch</span> (NoSuchAlgorithmException e) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">There is no such algorithm.&quot;</span> +
+      <span class="code-string">&quot;</span><span class="code-string"> Please check the JDK ver.&quot;</span>+ e.getCause());
+    }
+  }</PRE>
+<h3><A name=2_3></A>Signing the Data</H3>
+<P>As it is evident from the function name, that function is responsible for 
+signing the data sent as bytes. Prior to this function invocation, the 
+private key initialization is must. Either read the existing private key or 
+generate a new private key. See <A 
+href="Porting_Java_Public_Key/signing.jpg" 
+target=_blank>figure</A>.</p>
+<PRE lang=cs><span class="code-comment">/*</span><span class="code-comment">*
+   * Signs the data and return the signature for a given data.
+   * @param toBeSigned Data to be signed
+   * @return byte[] Signature
+   */</span>
+  <span class="code-keyword">public</span> <span class="code-keyword">byte</span>[] signData(<span class="code-keyword">byte</span>[] toBeSigned) {
+    <span class="code-keyword">if</span> (privateKey == <span class="code-keyword">null</span>) {
+      initializePrivateKey();
+    }
+    <span class="code-keyword">try</span> {
+      Signature rsa = Signature.getInstance(<span class="code-string">&quot;</span><span class="code-string">SHA1withRSA&quot;</span>);
+      rsa.initSign(privateKey); <span class="code-comment">//</span><span class="code-comment">initialize the signature with provided key
+</span>
+      rsa.update(toBeSigned); <span class="code-comment">//</span><span class="code-comment">sign the data
+</span>
+      <span class="code-keyword">return</span> rsa.sign(); <span class="code-comment">//</span><span class="code-comment">return the signature in bytes
+</span>
+    }
+    <span class="code-keyword">catch</span> (NoSuchAlgorithmException ex) {
+      System.<span class="code-keyword">out</span>.println(ex);
+    }
+    <span class="code-keyword">catch</span> (InvalidKeyException <span class="code-keyword">in</span>) {
+      System.<span class="code-keyword">out</span>.println(<span class="code-string">&quot;</span><span class="code-string">Invalid Key file.&quot;</span> +
+      <span class="code-string">&quot;</span><span class="code-string">Please chekc the key file path&quot;</span>+ <span class="code-keyword">in</span>.getCause());
+    }
+    <span class="code-keyword">catch</span> (SignatureException se) {
+      System.<span class="code-keyword">out</span>.println(se);
+    }
+    <span class="code-keyword">return</span> <span class="code-keyword">null</span>;
+  }</PRE>
+<h3><A name=2_4></A>Verify data and Signature</H3>
+<P>Verifying the data is fairly simple. The following function is 
+responsible for verifying the signature for corresponding data, sent as 
+bytes. The signature is verified with the Public Key. See <A 
+href="Porting_Java_Public_Key/verifiyinginJava.jpg" 
+target=_blank>figure</A>.</p>
+<PRE lang=cs><span class="code-comment">/*</span><span class="code-comment">*
+   * Verifies the signature for the given bytes using the public key.
+   * @param signature Signature
+   * @param data Data that was signed
+   * @return boolean True if valid signature else false
+   */</span>
+  <span class="code-keyword">public</span> <span class="code-SDKkeyword">boolean</span> verifySignature(<span class="code-keyword">byte</span>[] signature, <span class="code-keyword">byte</span>[] data) {
+    <span class="code-keyword">try</span> {
+      <span class="code-comment">//</span><span class="code-comment"> Initialize the keys before verifying the signature
+</span>
+      initializeKeys();
+      <span class="code-comment">//</span><span class="code-comment">Initialize the signature engine instance with public key
+</span>
+      sign.initVerify(publicKey);
+      <span class="code-comment">//</span><span class="code-comment"> load the data to be verified
+</span>
+      sign.update(data);
+      <span class="code-comment">//</span><span class="code-comment"> verify the data loaded in previous step
+</span>
+      <span class="code-comment">//</span><span class="code-comment"> with given signature and return the
+</span>
+      <span class="code-keyword">return</span> sign.verify(signature);
+         <span class="code-comment">//</span><span class="code-comment">result
+</span>
+    }
+    <span class="code-keyword">catch</span> (SignatureException e) {
+      e.printStackTrace();
+    }
+    <span class="code-keyword">catch</span> (InvalidKeyException e) {
+    }
+
+    <span class="code-keyword">return</span> <span class="code-keyword">false</span>;
+  }</PRE>
+<h2><A name=sec3></A>Section 3: Generating .NET compatible Public Key</H2>
+<h3><A name=3_1></A>.NET RSA Public Key XML </H3>
+<P>.NET RSA Public Key contains Modulus and Exponent which can be extracted 
+from the Java Public key. Before we look into the Java code details, let's 
+look at the XML which can be transformed into the RSAParameters structure. 
+The <CODE>Modulus</CODE> represents the Modulus parameter for the RSA 
+algorithm while <CODE>Exponent</CODE> represents the Exponent parameter for 
+the RSA Algorithm. The RSA algorithm class in .NET is available under the 
+namespace <CODE>System.Security.Cryptography.RSA</CODE>.</p>
+
+<P>The .NET RSA Public XML key structure is given below.</p>
+<PRE 
+lang=xml><span class="code-SummaryComment">&lt;?</span><span class="code-SummaryComment">xml</span> <span class="code-SummaryComment">version</span><span class="code-keyword">=&quot;</span><span class="code-keyword">1.0&quot;</span> <span class="code-SummaryComment">encoding</span><span class="code-keyword">=&quot;</span><span class="code-keyword">UTF-8&quot;</span><span class="code-SummaryComment">?</span><span class="code-SummaryComment">&gt;</span>
+
+<span class="code-keyword">&lt;</span><span class="code-leadattribute">RSAKeyValue</span><span class="code-keyword">&gt;</span>
+<span class="code-keyword">&lt;</span><span class="code-leadattribute">Modulus</span><span class="code-keyword">&gt;</span>uKI+0wG6eILUPRNf6ImqRdez/nLxsV0LHGsuvYR0LDVrXz8Y7sYSlpAkn1HpJI8US8Sx5bJzvBib
+
+vKv0pAa7UQ==
+<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">Modulus</span><span class="code-keyword">&gt;</span>
+<span class="code-keyword">&lt;</span><span class="code-leadattribute">Exponent</span><span class="code-keyword">&gt;</span>AQAB<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">Exponent</span><span class="code-keyword">&gt;</span>
+<span class="code-keyword">&lt;</span><span class="code-keyword">/</span><span class="code-leadattribute">RSAKeyValue</span><span class="code-keyword">&gt;</span></PRE>
+<h3><A name=3_2></A>Generating .NET XML Public Key from Java</H3>
+<P>In this section, we will discuss the methodology adopted to export the 
+Java public key class as .NET compatible public key. The exported XML key 
+will be later loaded in our .NET application and we will verify the 
+signature by using this key.</p>
+
+<P>Let's look at the code.</p>
+
+<P>Recall from our Key Generation process that we invoked some functions to 
+generate the Public key in XML format.</p>
+<PRE lang=cs>      <span class="code-comment">//</span><span class="code-comment">Create and 
+</span>
+Instance of RSAPublicKey <span class="code-keyword">class</span> with X509 encoding key specs
+      RSAPublicKey rsaPublicKey = (RSAPublicKey) 
+KeyFactory.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA&quot;</span>).
+          generatePublic(<span class="code-keyword">new</span> X509EncodedKeySpec(publicKeyBytes));
+
+      <span class="code-comment">//</span><span class="code-comment">Get the RSAPublicKey as XML store the public key
+</span>
+      <span class="code-comment">//</span><span class="code-comment">in XML string to make compatible .Net public key
+</span>
+      <span class="code-comment">//</span><span class="code-comment">file. See getRSAPublicKeyAsXMLString() for details
+</span>
+      <span class="code-SDKkeyword">String</span> xml = getRSAPublicKeyAsXMLString(rsaPublicKey);
+
+      <span class="code-comment">//</span><span class="code-comment">Store the XML (Generated .Net public key file) in file
+</span>
+      writeKeyBytesToFile(xml.getBytes(), DOT_NET_PUBLIC_KEY_FILE);</PRE>
+<P>If you see the first line, <CODE>X509EncodedKeySpec</CODE> has been used. 
+This class represents the ASN.1 encoding of a public key, encoded according 
+to the ASN.1 type <CODE>SubjectPublicKeyInfo</CODE>. The 
+<CODE>SubjectPublicKeyInfo</CODE> syntax is defined in the X.509 standard as 
+follows:</p>
+<PRE lang=cs>SubjectPublicKeyInfo ::= SEQUENCE {
+   algorithm AlgorithmIdentifier,
+   subjectPublicKey BIT <span class="code-SDKkeyword">STRING</span> }</PRE>
+<P>Now, look at the function named as 
+<CODE>getRSAPublicKeyAsXMLString</CODE>:</p>
+<PRE lang=cs><span class="code-comment">/*</span><span class="code-comment">*
+   * Gets the RSA Public key as XML string.
+   * @param key RSAPublicKey
+   * @return String XML representation of RSA Public Key.
+   * @throws UnsupportedEncodingException
+   * @throws ParserConfigurationException
+   * @throws TransformerException
+   */</span>
+  <span class="code-keyword">private</span> <span class="code-SDKkeyword">String</span> getRSAPublicKeyAsXMLString(RSAPublicKey key) throws
+      UnsupportedEncodingException,
+      ParserConfigurationException,
+      TransformerException {
+    Document xml = getRSAPublicKeyAsXML(key);
+    Transformer transformer =
+        TransformerFactory.newInstance().newTransformer();
+    StringWriter sw = <span class="code-keyword">new</span> StringWriter();
+    transformer.transform(<span class="code-keyword">new</span> DOMSource(xml), <span class="code-keyword">new</span> StreamResult(sw));
+    <span class="code-keyword">return</span> sw.getBuffer().toString();
+  }
+
+  <span class="code-comment">/*</span><span class="code-comment">*
+   * Gets the RSA Public Key as XML. The idea is to make the key readable 
+for
+   * .Net platform. The generated key is compatible with .Net key structure.
+   * @param key RSAPublicKey
+   * @return Document XML document.
+   * @throws ParserConfigurationException
+   * @throws UnsupportedEncodingException
+   */</span>
+  <span class="code-keyword">private</span> Document getRSAPublicKeyAsXML(RSAPublicKey key) throws
+      ParserConfigurationException,
+      UnsupportedEncodingException {
+    Document result =
+      
+DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+    Element rsaKeyValue = result.createElement(<span class="code-string">&quot;</span><span class="code-string">RSAKeyValue&quot;</span>);
+    result.appendChild(rsaKeyValue);
+    Element modulus = result.createElement(<span class="code-string">&quot;</span><span class="code-string">Modulus&quot;</span>);
+    rsaKeyValue.appendChild(modulus);
+
+    <span class="code-keyword">byte</span>[] modulusBytes = key.getModulus().toByteArray();
+    modulusBytes = stripLeadingZeros(modulusBytes);
+<span class="code-comment">//</span><span class="code-comment">  KeyManager.write(&quot;c:\\mod.c&quot;,
+</span>
+<span class="code-comment">//</span><span class="code-comment">    new sun.misc.BASE64Encoder().encode(modulusBytes));
+</span>
+<span class="code-comment">//</span><span class="code-comment">    //Stored it for testing purposes
+</span>
+    modulus.appendChild(result.createTextNode(
+        <span class="code-keyword">new</span> <span class="code-SDKkeyword">String</span>(<span class="code-keyword">new</span> sun.misc.BASE64Encoder().encode(modulusBytes))));
+
+    Element exponent = result.createElement(<span class="code-string">&quot;</span><span class="code-string">Exponent&quot;</span>);
+    rsaKeyValue.appendChild(exponent);
+
+    <span class="code-keyword">byte</span>[] exponentBytes = key.getPublicExponent().toByteArray();
+<span class="code-comment">//</span><span class="code-comment">  KeyManager.write(&quot;C:\\exponenet.c&quot;,
+</span>
+<span class="code-comment">//</span><span class="code-comment">   new sun.misc.BASE64Encoder().encode(exponentBytes));
+</span>
+<span class="code-comment">//</span><span class="code-comment">      //stored it for testing purposes
+</span>
+    exponent.appendChild(result.createTextNode(
+        <span class="code-keyword">new</span> <span class="code-SDKkeyword">String</span>(<span class="code-keyword">new</span> sun.misc.BASE64Encoder().encode(exponentBytes))));
+
+    <span class="code-keyword">return</span> result;
+  }</PRE>
+<P>The above mentioned functions allow us to generate the XML file which 
+contains the Public Key Information. We store this file on the hard disk or 
+stream it over the network.</p>
+
+<h2><A name=sec4></A>Section 4: Reading Public Key and verifying the Data in 
+.NET</H2>
+<P>In this section, we will read the Public key which was generated in the 
+previous section by the Java program.</p>
+
+<h3><A name=4_1></A>Initialization</H3>
+<P>In the constructor, initialize <CODE>RSAParameters</CODE> class and 
+<CODE>RSACryptoServiceProvider</CODE>.</p>
+<PRE 
+lang=cs>PUBLIC_KEY=<span class="code-string">&quot;</span><span class="code-string">c:\\netpublic.key&quot;</span>; <span class="code-comment">//</span><span class="code-comment">Generated by Java Program
+</span>
+RSAKeyInfo = <span class="code-keyword">new</span> RSAParameters();
+RSA = <span class="code-keyword">new</span> RSACryptoServiceProvider();</PRE>
+<h3><A name=4_2></A>Reading Public Key in .NET</H3>
+<P>Following function reads the file from the specific path on HDD. One may 
+use network stream to read the XML file. Parse the modulus data and exponent 
+data and assign them to variables. Convert the strings from Base64 and 
+assign them to <CODE>RSAParameters.Modulus</CODE> and 
+<CODE>RSAParameters.Exponent</CODE>. <CODE>ImportParameters</CODE> function 
+of <CODE>RSACryptoServiceProvider</CODE> is used to load the parameters for 
+RSA algorithm.</p>
+<PRE lang=cs><span class="code-keyword">private</span> <span class="code-keyword">void</span> readKey()
+  {
+   <span class="code-comment">//</span><span class="code-comment"> read the XML formated public key
+</span>
+   <span class="code-keyword">try</span>
+   {
+
+    XmlTextReader reader = <span class="code-keyword">new</span> XmlTextReader(PUBLIC_KEY);
+    <span class="code-keyword">while</span>(reader.Read())
+    {
+     <span class="code-keyword">if</span> (reader.NodeType == XmlNodeType.Element)
+     {
+      <span class="code-keyword">if</span>(reader.Name==<span class="code-string">&quot;</span><span class="code-string">Modulus&quot;</span>)
+      {
+       reader.Read();
+       modStr= reader.Value;
+      }
+      <span class="code-keyword">else</span> <span class="code-keyword">if</span>(reader.Name==<span class="code-string">&quot;</span><span class="code-string">Exponent&quot;</span>)
+      {
+       reader.Read();
+       expStr= reader.Value;
+      }
+     }
+    }
+    <span class="code-keyword">if</span>(modStr.Equals(<span class="code-string">&quot;</span><span class="code-string">&quot;</span>) ||expStr.Equals(<span class="code-string">&quot;</span><span class="code-string">&quot;</span>))
+    {
+     <span class="code-comment">//</span><span class="code-comment">throw exception
+</span>
+     <span class="code-keyword">throw</span> <span class="code-keyword">new</span> Exception(<span class="code-string">&quot;</span><span class="code-string">Invalid public key&quot;</span>);
+    }
+    RSAKeyInfo.Modulus = Convert.FromBase64String(modStr);
+    RSAKeyInfo.Exponent = Convert.FromBase64String(expStr);
+    RSA.ImportParameters(RSAKeyInfo);
+   }
+   <span class="code-keyword">catch</span>(Exception e)
+   {
+    <span class="code-keyword">throw</span> <span class="code-keyword">new</span> Exception(<span class="code-string">&quot;</span><span class="code-string">Invalid Public Key.&quot;</span>);
+   }
+  }</PRE>
+<h3><A name=4_3></A>Verifying the Signature in .NET</H3>
+<P>The signature can be verified once the Modulus and Exponent have been 
+parsed from the XML and loaded in <CODE>RSACryptoServiceProvider</CODE>. 
+<CODE>verifySignature</CODE> method is invoked to verify the signature for 
+given data. It verifies the specified signature data by comparing it to the 
+signature computed for the specified data. See <A 
+href="Porting_Java_Public_Key/verifiyinginDotNet.jpg" 
+target=_blank>figure</A>.</p>
+<PRE lang=cs><span class="code-keyword">public</span> <span class="code-keyword">bool</span> verifySignature(<span class="code-keyword">byte</span>[] 
+signature , <span class="code-keyword">string</span> signedData)
+{
+   <span class="code-keyword">byte</span>[] hash = Convert.FromBase64String(signedData);
+   <span class="code-keyword">try</span>
+   {
+    <span class="code-keyword">if</span>(RSA.VerifyData(hash,<span class="code-string">&quot;</span><span class="code-string">SHA1&quot;</span>,signature))
+    {
+     <span class="code-comment">//</span><span class="code-comment">Console.WriteLine(&quot;The signature is valid.&quot;);
+</span>
+     <span class="code-keyword">return</span> <span class="code-keyword">true</span>;
+    }
+    <span class="code-keyword">else</span>
+    {
+     <span class="code-comment">//</span><span class="code-comment">Console.WriteLine(&quot;The signature is not valid.&quot;);
+</span>
+     <span class="code-keyword">return</span> <span class="code-keyword">false</span>;
+    }
+   }
+   <span class="code-keyword">catch</span>(Exception e)
+   {
+    Console.WriteLine(e.Message);
+    <span class="code-keyword">return</span> <span class="code-keyword">false</span>;
+   }
+  }</PRE>
+<h2><A name=ref></A>References</H2>
+<UL>
+<LI><A 
+href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncapi/html/encryptdecrypt2a.asp" 
+target=_blank>MSDN Library</A>
+<LI><A href="http://www.dotnet247.com/247reference/msgs/36/184491.aspx" 
+target=_blank>DotNet247</A>
+<LI><A href="http://pages.istar.ca/~neutron/feature/JKeyNet/" 
+target=_blank>http://pages.istar.ca/~neutron/feature/JKeyNet/</A> </LI></UL>
+<h2>Acknowledgements</H2>
+<P>Special thanks to:</p>
+
+<UL>
+  <LI>Dr. Iman Gholampur
+  <LI>Philip Ross
+  <LI>Mitch Gallant </LI>
+</UL>
+
+
+
+
+
+
+	<!-- Main Page Contents End -->
+	
+	</div>
+	
+	
+	<form name="aspnetForm" method="post" action="displayarticle.aspx" id="aspnetForm" style="margin:0;padding:0">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTAyMTMzODg1Ng9kFgJmD2QWBAIKD2QWBAIDDw8WAh4HVmlzaWJsZWdkZAILDw8WAh8AZ2RkAgsPZBYKAgcPZBYMAgEPZBYCZg8WAh4LXyFJdGVtQ291bnRmZAIDD2QWCGYPDxYCHgtOYXZpZ2F0ZVVybAU3L0tCL3NlY3VyaXR5L3BvcnRpbmdfamF2YV9wdWJsaWNfa2V5LmFzcHg/ZGlzcGxheT1QcmludGRkAgIPDxYCHwBoZGQCAw8PFgIfAGhkZAIEDw8WAh8CBSUvc2NyaXB0L0FydGljbGVzL1JlcG9ydC5hc3B4P2FpZD02NjIzZGQCBQ8WAh4EbmFtZQULQ3VyUmF0XzY2MjMWAmYPZBYCZg9kFgJmD2QWBGYPZBYCAgEPDxYCHgRUZXh0BRoyMyB2b3RlcyBmb3IgdGhpcyBhcnRpY2xlLmRkAgMPZBYCZg9kFgQCAQ8PFgQfBAUQUG9wdWxhcml0eTogNS41NB8CBSkvc2NyaXB0L0FydGljbGVzL1RvcEFydGljbGVzLmFzcHg/dGFfc289MWRkAgUPFgIfBAUcUmF0aW5nOiA8Yj40LjA3PC9iPiBvdXQgb2YgNWQCGQ9kFgoCAQ9kFgQCAQ8WAh4JaW5uZXJodG1sBbECPHA+VGhpcyBhcnRpY2xlIGhhcyBubyBleHBsaWNpdCBsaWNlbnNlIGF0dGFjaGVkIHRvIGl0IGJ1dCBtYXkgY29udGFpbiB1c2FnZSB0ZXJtcyBpbiB0aGUgYXJ0aWNsZSB0ZXh0IG9yIHRoZSBkb3dubG9hZCBmaWxlcyB0aGVtc2VsdmVzLiBJZiBpbiBkb3VidCBwbGVhc2UgY29udGFjdCB0aGUgYXV0aG9yIHZpYSB0aGUgZGlzY3Vzc2lvbiBib2FyZCBiZWxvdy48L3A+PHA+QSBsaXN0IG9mIGxpY2Vuc2VzIGF1dGhvcnMgbWlnaHQgdXNlIGNhbiBiZSBmb3VuZCA8YSBocmVmPSIvaW5mby9MaWNlbnNlcy5hc3B4Ij5oZXJlPC9hPjwvcD5kAgIPZBYCAgEPEGRkFgBkAgUPFgIfAQIBZAIHDxYCHwQF0gc8aDI+T3RoZXIgcG9wdWxhciBDcnlwdG9ncmFwaHkgJiBTZWN1cml0eSBhcnRpY2xlczo8L2gyPjx1bD48bGk+PGEgaHJlZj0iL0tCL3NlY3VyaXR5L1VCX0NBU19ORVQuYXNweCI+VW5kZXJzdGFuZGluZyAuTkVUIENvZGUgQWNjZXNzIFNlY3VyaXR5PC9hPjxkaXYgY2xhc3M9InNtYWxsLXRleHQiPkEgZnVsbCBsZW5ndGggYXJ0aWNsZSBvbiAuTkVUIENvZGUgQWNjZXNzIFNlY3VyaXR5PC9kaXY+PC9saT48bGk+PGEgaHJlZj0iL0tCL3NlY3VyaXR5L0hpZGVJdC5hc3B4Ij5IaWRpbmcgYSB0ZXh0IGZpbGUgaW4gYSBibXAgZmlsZTwvYT48ZGl2IGNsYXNzPSJzbWFsbC10ZXh0Ij5Ib3cgdG8gaGlkZSBhIHRleHQgZmlsZSBpbiBhIGJtcCBmaWxlPC9kaXY+PC9saT48bGk+PGEgaHJlZj0iL0tCL3NlY3VyaXR5L1NpbXBsZUVuY3J5cHRpb24uYXNweCI+Lk5FVCBFbmNyeXB0aW9uIFNpbXBsaWZpZWQ8L2E+PGRpdiBjbGFzcz0ic21hbGwtdGV4dCI+QSBzaW1wbGUsIHN0cmluZy1vcmllbnRlZCBjbGFzcyBmb3Igc3ltbWV0cmljIGVuY3J5cHRpb24sIGFzeW1tZXRyaWMgZW5jcnlwdGlvbiwgYW5kIGhhc2hpbmcuPC9kaXY+PC9saT48bGk+PGEgaHJlZj0iL0tCL3NlY3VyaXR5L3htbGRzaWdsaWMuYXNweCI+VXNpbmcgWE1MIERpZ2l0YWwgU2lnbmF0dXJlcyBmb3IgQXBwbGljYXRpb24gTGljZW5zaW5nPC9hPjxkaXYgY2xhc3M9InNtYWxsLXRleHQiPlVzZSBYTUwgRGlnaXRhbCBTaWduYXR1cmVzIGZvciBhIHJlcXVlc3QtIGFuZCBzaWduaW5nLWJhc2VkIGxpY2Vuc2luZyBtZWNoYW5pc20gZm9yIHlvdXIgYXBwbGljYXRpb25zLjwvZGl2PjwvbGk+PGxpPjxhIGhyZWY9Ii9LQi9zZWN1cml0eS9TdHJvbmdOYW1lRXhwbGFpbmVkLmFzcHgiPlN0cm9uZyBOYW1lcyBFeHBsYWluZWQ8L2E+PGRpdiBjbGFzcz0ic21hbGwtdGV4dCI+Lk5FVCBTdHJvbmcgTmFtZSB0ZWNobm9sb2d5IGV4cGxhaW5lZDwvZGl2PjwvbGk+PC91bD5kAgkPDxYCHwBnZGQCCw9kFgJmD2QWAgIBD2QWAmYPZBYCZg8WBB8DBQ1SYXRlSXRlbV82NjIzHgVjbGFzc2UWBgIEDxYCHwBoFgICAQ8QZGQWAGQCBQ8WAh8AaGQCBg8WAh8AaBYCAgEPD2QWAh4Hb25jbGljawUicmV0dXJuIHJhdGVJdGVtKDY2MjMsMix0cnVlLHRydWUpO2QCGw8PFgIfAGdkZAIhDxYCHwBoZAILDw8WAh8CBSYvc2NyaXB0L0FydGljbGVzL0FydGljbGUuYXNweD9haWQ9NjYyM2RkAhEPFgIfBAULMjYgT2N0IDIwMDRkAhMPDxYEHwQFEU5pc2hhbnQgU2l2YWt1bWFyHwIFJi9zY3JpcHQvTWVtYmVyc2hpcC9WaWV3LmFzcHg/bWlkPTIwMjQ4ZGQCFQ8WAh8EBR9Db3B5cmlnaHQgMjAwNCBieSBTaGFoZXJ5YXIgQ2guZGT08d7Gq7bfb54t8xNtwAltisPv7w==" />
+
+
+	
+	<h2>License</h2>
+	<div id="ctl00_LicenseTerms"><p>This article has no explicit license attached to it but may contain usage terms in the article text or the download files themselves. If in doubt please contact the author via the discussion board below.</p><p>A list of licenses authors might use can be found <a href="/info/Licenses.aspx">here</a></p></div>
+	
+	<h2>About the Author</h2>
+	
+			
+   
+        
+<table cellpadding="0" cellspacing="5" border="0" width="100%">
+<tr valign="top">
+<td id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberPhotoTable" valign="top" style="width:155px;">
+	<b><a id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberProfileLink" href="/Members/Shaheryar-Ch">Shaheryar Ch.</a></b><br /><br />
+	<center></center><br />
+	<span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberType" class="small-text">Member</span>		
+</td>
+
+<td>
+	Shaheryar specializes in architecture, design, development and deployment of J2EE and .Net enterprise applications. He got hooked with enterprise application development during his Masters and has been devoted to it ever since. <br /><br />He was born in Lahore-Pakistan and holds a Bachelors degree in Computer Science (Major in Software Engg.) from Mohammed Ali Jinnah University, Islamabad-Pakistan.<br /><br />Presently he is working as GIS Software Engineer for Client / Server J2EE (Web/Desktop) Applications in Middle East. <br /><br />His skill set includes Java, JSP, Servlet, Massive EJB component development, J2EE essential design patterns, JDBC, JAAS, JMS, Java Help System, Java XML Parsers, web design, symmetric & asymmetric encryption (AES, DES, RSA), JavaScript, PDF417 2D Barcodes, ASP.Net, C#, Visual C++, AWT/Swing, UML, ArcIMS, ArcXML, ESRI Map Objects Java, Coldfusion, JBoss AS, Oracle 10g AS, Tomcat, IIS and JRun. He has successfully developed and deployed cross platform applications on IRIX, Linux and Windows platforms. <br /><br />He usually works late hours with some heavy music and prefers to test and prove everything to his own satisfaction before committing himself and likes to finish what he starts without interruptions. <br /><br />He loves playing guitar, bowling, snooker and cricket.<br />	
+
+	<table>
+	<tr id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_jobTitleRow">
+	<td class="small-text" nowrap="nowrap">Occupation: </td>
+	<td width="100%"><span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberJobTitle" class="small-text">Software Developer (Senior)</span></td>
+</tr>
+
+
+	
+
+	<tr id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_locationRow">
+	<td class="small-text">Location: </td>
+	<td width="100%"><span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberLocation" class="small-text"><img src="/script/Geo/Images/AE.gif" alt="United Arab Emirates" width="16px" height="11px" /> United Arab Emirates</span></td>
+</tr>
+
+	</table>
+	</td>
+	</tr>
+	</table>
+
+
+			<br />
+		
+	
+	<table width="100%" cellpadding="0" cellspacing="0" border="0">	
+	<tr valign="top">			
+		<td style="width:100%;">
+			<h2>Other popular Cryptography & Security articles:</h2><ul><li><a href="/KB/security/UB_CAS_NET.aspx">Understanding .NET Code Access Security</a><div class="small-text">A full length article on .NET Code Access Security</div></li><li><a href="/KB/security/HideIt.aspx">Hiding a text file in a bmp file</a><div class="small-text">How to hide a text file in a bmp file</div></li><li><a href="/KB/security/SimpleEncryption.aspx">.NET Encryption Simplified</a><div class="small-text">A simple, string-oriented class for symmetric encryption, asymmetric encryption, and hashing.</div></li><li><a href="/KB/security/xmldsiglic.aspx">Using XML Digital Signatures for Application Licensing</a><div class="small-text">Use XML Digital Signatures for a request- and signing-based licensing mechanism for your applications.</div></li><li><a href="/KB/security/StrongNameExplained.aspx">Strong Names Explained</a><div class="small-text">.NET Strong Name technology explained</div></li></ul>
+		</td>
+		<td>
+			<script type="text/javascript">document.write(unescape("%3ca%20href%3d%22http%3a%2f%2fwww.codeproject.com%2fRedir.aspx%3fadid%3d13223%26adcrid%3d12133%26obid%3d6623%26obtid%3d2%26way%3dban%22%20target%3d%22_blank%22%20rel%3d%22nofollow%22%3e%3cimg%20src%3d%22%2fscript%2fAdServe%2fServeImg.aspx%3fFile%3dKaramasoft_UltimateSpell_v36_300x250_21012010113945.gif%26C%3dFalse%26adid%3d13223%26adcrid%3d12133%26obid%3d6623%26obtid%3d2%22%20alt%3d%22%22%20border%3d%220%22%20width%3d%22300px%22%20height%3d%22250px%22%3e%3c%2fa%3e"));</script>						 
+		</td>
+	</tr>
+	</table>
+
+	<table id="ctl00_RateArticleRow" class="RatingBar" width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td><a href="#_top">Article Top</a></td>
+		<td align="right"><div id="ctl00_RateArticle_RateItemWrapper" style="display:none" name="RateItem_6623" class="">
+
+<table width="100%" cellpadding="0" cellspacing="0" >
+<tr>
+	
+	
+	<td class="voteTbl" style="white-space:nowrap" align="right">
+		<table class="">
+		<tr valign="middle">
+			<td id="ctl00_RateArticle_SignIn" nowrap="nowrap">
+				<a href="#SignUp">Sign Up</a> to vote for this article
+			</td>
+		
+			
+			
+			
+			
+			
+			<td><span id="ctl00_RateArticle_ErrorMessage"></span></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+
+<div class="RateComDiv" id="RCD" style="display:none">
+	<table width="100%"><tr valign="top"><td align="right" width="100%">Your reason for this vote:</td>
+	<td><textarea class="RateComment" rows="5" cols="60" style="width:285px;float:right"></textarea>
+	</td></tr></table>
+</div>
+
+</div>
+</td>
+	</tr>
+</table>
+
+	</form>
+	
+	<div style="margin-left:40px;padding:10px;white-space:nowrap;overflow:hidden;">		  
+		<script type="text/javascript">document.write(unescape("%3ca%20href%3d%22http%3a%2f%2fwww.codeproject.com%2fRedir.aspx%3fadid%3d13094%26adcrid%3d12087%26obid%3d6623%26obtid%3d2%26way%3dban%22%20target%3d%22_blank%22%20rel%3d%22nofollow%22%3e%3cimg%20src%3d%22%2fscript%2fAdServe%2fServeImg.aspx%3fFile%3dxoreax_808_2_468x60_11012010113339.gif%26C%3dFalse%26adid%3d13094%26adcrid%3d12087%26obid%3d6623%26obtid%3d2%22%20alt%3d%22%22%20border%3d%220%22%20width%3d%22468px%22%20height%3d%2260px%22%3e%3c%2fa%3e"));</script>
+		
+	</div>
+
+	<a name="_comments"></a><!-- Forum Start -->
+<div id="_MessageBoard" onclick="return SwitchMessage(event, null)">
+	<table id="ForumTable" class="box theme3-background theme1-border fixed-layout tight" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="forum-header1 highlight"><b>You must <a href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx%3ffid%3d37199%26df%3d90%26mpp%3d25%26noise%3d3%26sort%3dPosition%26view%3dQuick">Sign In</a> to use this message board.</b></td>
+		</tr><tr>
+			<td><table width="100%" border="0" cellpadding="3px" cellspacing="0">
+				<tr class="forum-header1">
+					<td nowrap="nowrap"><img src="/script/Forums/Images/forum_faq.gif" border="0" width="16px" height="16px" align="middle" alt="FAQ" />&nbsp;<a href="/script/Forums/FAQ.aspx"><b>FAQ</b></a>&nbsp;</td><td colspan="2" nowrap="nowrap" align="right"><form action="/script/Forums/Search.aspx?fid=0" method="get">
+						<input type="hidden" name="fid" value="37199" /><input type="text" class="Frm_Input" name="kw" />&nbsp;<input type="submit" value="Search" name="FrmSrch" class="button" />
+					</form></td>
+				</tr><tr class="forum-header2">
+					<td colspan="3" width="100%"><div align="right">
+						<form action="/script/Forums/SetOptions.aspx?floc=%2fKB%2fsecurity%2fporting_java_public_key.aspx&amp;fid=37199&amp;df=90&amp;mpp=25&amp;noise=3&amp;sort=Position&amp;view=Quick" method="get">
+							<input type="hidden" name="fid" value="37199" /><input type="hidden" name="currentQS" value="?floc=%2fKB%2fsecurity%2fporting_java_public_key.aspx&amp;fid=37199&amp;df=90&amp;mpp=25&amp;noise=3&amp;sort=Position&amp;view=Quick" /><input type="hidden" name="floc" value="/KB/security/porting_java_public_key.aspx" />Noise Tolerance<select size="1" class="Frm_DropDown" name="noise">
+								<option value="1">Very High</option><option value="2">High</option><option selected value="3">Medium</option><option value="4">Low</option><option value="5">Very Low</option>
+							</select>&nbsp;&nbsp;Layout<select size="1" class="Frm_DropDown" name="view">
+								<option value="Expanded">Expand Posts & Replies</option><option value="Thread">Thread View</option><option value="Normal">No Javascript</option><option value="Preview">No JS + Preview</option>
+							</select>&nbsp;&nbsp;Per page<select size="1" class="Frm_DropDown" name="mpp">
+								<option value="10">10</option><option selected value="25">25</option><option value="50">50</option>
+							</select>&nbsp;&nbsp;&nbsp;<input type="submit" value="Update" name="SetOpt" class="button" />
+						</form>
+					</div></td>
+				</tr>
+			</table></td>
+		</tr><tr>
+			<td><a name="xx0xx"></a><table border="0" cellpadding="2px" cellspacing="0" width="100%">
+				<tr class="forum-navbar">
+					<td>&nbsp;</td><td>Msgs 1 to 24 of 24 (Total in Forum: 24) (<a href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;noise=3&amp;sort=Position&amp;view=Quick">Refresh</a>)</td><td align="right" nowrap="nowrap"><span class="toolbar">First</span><span class="toolbar">Prev</span><span class="toolbar">Next</span></td>
+				</tr>
+			</table></td>
+		</tr><tr>
+			<td><table border="0" cellpadding="0" cellspacing="0" width="100%" class="fixed-layout blank-background">
+				<tr>
+					<td><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="5px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd Rt HdUnSel " id="F3012208_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx3012208xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="3012208" href="/Messages/3012208/How-to-decipher-data-in-NET-using-RSA-ECB-PKCS1Pad.aspx">How to decipher data in .NET using "RSA/ECB/PKCS1Padding"?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/group_sm.gif" title="group" alt="group" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=5810562">Jadhav Ajay</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">7:53 21 Apr '09 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F3012208_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hi Shaheryar,<br />Thank you very much for sharing information. This has helped us a lot.<br /><br />However, I am facing problem in decrypting data:<br /><br />Do you know, What will be the equivallent .NET code for follwing Java Code?:<br /><br /><pre><br /><span class="code-SDKkeyword">byte</span>[] tokenBytes = <span class="code-keyword">new</span> BASE64Decoder().decodeBuffer(decodedToken);<br /><br />RSAPrivateKey privateKey = getPrivateKey(keystoreFile, aliasName, password, keyPassword);<br /><br />Cipher cipher = Cipher.getInstance(<span class="code-string">&quot;</span><span class="code-string">RSA/ECB/PKCS1Padding&quot;</span>);<br /><br />cipher.init(Cipher.DECRYPT_MODE, privateKey);<br /><br /><span class="code-SDKkeyword">String</span> plaintext = <span class="code-keyword">new</span> <span class="code-SDKkeyword">String</span>(cipher.doFinal(tokenBytes));</pre><br /><br />Thanks in advance. <br /><br /><div class="ForumSig">-----<br />Ajay Jadhav<br />http://www.divinet.co.in</div><br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=3012208" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/3012208/How-to-decipher-data-in-NET-using-RSA-ECB-PKCS1Pad.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF3012208"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HiVote Rt HdUnSel " id="F2525427_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx2525427xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="2525427" href="/Messages/2525427/PKCSsharp8-and-X-509.aspx">PKCS#8 and X.509</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/mvp_sm.gif" title="mvp" alt="mvp" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=349853">Jeffrey Walton</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">2:31 27 Apr '08 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F2525427_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hi Shaheryar,<br /><br />You might be interested in the following. It uses PKCS#8 and X.509 rather than XML strings. <a href="http://www.codeproject.com/KB/security/CryptoInteropKeys.aspx">Cryptographic Interoperability: Keys</a>[<a href="http://www.codeproject.com/KB/security/CryptoInteropKeys.aspx" target="_blank" title="New Window">^</a>]. I hit Java and C# hard near the end.<br /><br />Jeff <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=2525427" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/2525427/PKCSsharp8-and-X-509.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF2525427">5.00/5 (1 vote) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd LoVote Rt HdUnSel " id="F1619465_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx1619465xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="1619465" href="/Messages/1619465/Excellent-kick-start-for-me.aspx">Excellent kick start for me</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=3260996">pulavas</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">5:08 10 Aug '06 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F1619465_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hi,<br /><br />     I am looking the similar kind of requirement, where i need to generate the keys in java (public and private) and data (some raw text) should be encrypted with public key in java.<br /><br />     Now the respective private key should be loaded in .Net and decrypt the data. Could some one help me in this regard.<br /><br />     Thanks in advance.<br /><br />Regards<br />Satish Kumar Pulavarthy <br /><br /><div class="ForumSig">satish</div><br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=1619465" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/1619465/Excellent-kick-start-for-me.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF1619465">2.00/5 (1 vote) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F2466032_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx2466032xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="2466032" href="/Messages/2466032/Re-Excellent-kick-start-for-me.aspx">Re: Excellent kick start for me</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=4968848">tyrone1528</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">18:57 13 Mar '08 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F2466032_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">same here, this would be good start for my RSA coding.<br /><br />now all i need is a source code to encrypt/decrypt using the keys produced from this code.<br /><br />hope i could find a VB6 sourcecode in encrypting/decrypting. <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=1619465" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/2466032/Re-Excellent-kick-start-for-me.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF2466032"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F2530815_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="52px" class="Frm_MsgIndent"><a name="xx2530815xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="2530815" href="/Messages/2530815/Re-Excellent-kick-start-for-me.aspx">Re: Excellent kick start for me</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/mvp_sm.gif" title="mvp" alt="mvp" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=349853">Jeffrey Walton</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">3:22 30 Apr '08 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F2530815_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="52"><img src="/script/Forums/Images/t.gif" height="1px" width="52px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2"><a href="http://www.codeproject.com/KB/security/CryptoInteropKeys.aspx">Cryptographic Interoperability: Keys</a>[<a href="http://www.codeproject.com/KB/security/CryptoInteropKeys.aspx" target="_blank" title="New Window">^</a>] and <a href="http://www.codeproject.com/KB/security/CryptoInteropSign.aspx">Cryptographic Interoperability: Digital Signatures</a>[<a href="http://www.codeproject.com/KB/security/CryptoInteropSign.aspx" target="_blank" title="New Window">^</a>] <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=1619465" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/2530815/Re-Excellent-kick-start-for-me.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF2530815"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd LoVote Rt HdUnSel " id="F1030705_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx1030705xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="1030705" href="/Messages/1030705/Encrypt-amp-Decrypt-From-JAVA-to-NET-to-JAVA.aspx">Encrypt &amp; Decrypt From JAVA to NET to JAVA</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=1635648">srinivas_temp01@sirigina.com</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">7:42 3 Feb '05 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F1030705_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Excellent article on digital signatures. Can this be easily extended to encrypt and decrypt the data sent between Java & DotNet?<br /> <br /><br />Keep up the good work.<br />Srinivas Sirigina<br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=1030705" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/1030705/Encrypt-amp-Decrypt-From-JAVA-to-NET-to-JAVA.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF1030705">1.00/5 (3 votes) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd LoVote HdUnSel " id="F1653419_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx1653419xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="1653419" href="/Messages/1653419/Re-Encrypt-amp-Decrypt-From-JAVA-to-NET-to-JAVA.aspx">Re: Encrypt &amp; Decrypt From JAVA to NET to JAVA</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=3329494">ashokt82</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">2:24 3 Sep '06 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F1653419_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Sir ,<br /><br />I found that code for readng public key which was generated in java and read by .NET.<br />can u help me.<br />How to decrypt the message with public key generated in .NET using java <br /><br />Ashok<br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=1030705" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/1653419/Re-Encrypt-amp-Decrypt-From-JAVA-to-NET-to-JAVA.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF1653419">1.50/5 (2 votes) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd Rt HdUnSel " id="F968122_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx968122xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="968122" href="/Messages/968122/Usage-of-PEM-format-open-SSL-key-to-encrypt-data-i.aspx">Usage of PEM format open SSL key to encrypt data in .NET</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=1503717">Colorado2004</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">9:38 8 Nov '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F968122_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hello all,<br /><br />I have an existing PEM format public/private key pair that I generated using the libeay32.lib in openssl. Is it possible for me to use the same key with the .NET crypto library to encrypt and decrypt data? <br /><br />I am able to read the modulus and exponent members from the old public key and set them in the RSAParameters struct. I then use the Encrypt function of RSACryptoServiceProvider to encrypt data. However i am unable to decrypt the same data. Whenever i try to set the private exponent members in RSAParameters, i get bad data and decryption fails<br />THis is how i am reading the data members from the openssl RSA struct.<br /><br />        unsigned char* tempChar=new unsigned char[256];<br />         memset(tempChar,0,256);<br />	unsigned char* tempChar1=new unsigned char[256];<br />	memset(tempChar1,0,256);<br />	int iTemp=BN_bn2bin(m_RSAKey->p, tempChar);//this is how i read all the members like p,q,n,e,d etc<br /><br />	Base64Coder b64;<br />	DWORD decodeLen = 0;<br />	b64.Encode((PBYTE)tempChar, iTemp, (PBYTE&) tempChar1, decodeLen);<br /><br />I then take this base64 encoded string , decode it and set it in the relevant member in the RSAParameters struct. For instance in the above case i would set it in the P member of the RSAParameters struct.<br /><br />Is there any other way to approach this problem<br />I would appreciate any help, thoughts or insights on the above problem.<br /><br /><br /> <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=968122" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/968122/Usage-of-PEM-format-open-SSL-key-to-encrypt-data-i.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF968122"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F969643_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx969643xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="969643" href="/Messages/969643/Re-Usage-of-PEM-format-open-SSL-key-to-encrypt-dat.aspx">Re: Usage of PEM format open SSL key to encrypt data in .NET</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=542995">Shaheryar Ch.</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">2:02 10 Nov '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F969643_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hi there, <br /><br />I am highlighting a paragraph from the article by Michel I. Gallant. <br /><br />The link is given below. <br /><br />--------------------------<br />CryptoAPI structures like PUBLICKEYBLOB usually represent data in little-endian order, but because .NET RSAParameters properties are big-endian ordered, the modulus and exponent arrays are reversed<br />--------------------------<br /><br /><br /><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncapi/html/encryptdecrypt2a.asp">http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncapi/html/encryptdecrypt2a.asp</a>[<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncapi/html/encryptdecrypt2a.asp" target="_blank" title="New Window">^</a>]<br /><br /><a href="http://www.jensign.com/index.html">http://www.jensign.com/index.html</a>[<a href="http://www.jensign.com/index.html" target="_blank" title="New Window">^</a>]<br /><br /><br />Hope it will help. <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=968122" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/969643/Re-Usage-of-PEM-format-open-SSL-key-to-encrypt-dat.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF969643"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd LoVote Rt HdUnSel " id="F957884_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx957884xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="957884" href="/Messages/957884/Going-the-other-way.aspx">Going the other way</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=8463">Kerry Sanders</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">19:34 26 Oct '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F957884_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Have you done any digital signature verification going the other way: .NET to Java?  I have been working on a project that digitally signs data in a .NET application and sends it over to a Java servlet which attempts to verify it.  I can never get it to properly verify.  Your article confirms my suspicion that .NET and Java keys are not exactly compatible.  Unfortunately, in my case, I need the private key on the .NET side so that it can sign the data and send it to Java to be verified. <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=957884" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/957884/Going-the-other-way.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF957884">2.00/5 (1 vote) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HiVote HdUnSel " id="F969621_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx969621xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="969621" href="/Messages/969621/Re-Going-the-other-way.aspx">Re: Going the other way</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=542995">Shaheryar Ch.</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">1:31 10 Nov '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F969621_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">I don't think so it's possible to go other way round. As there is Big-Endian and Little-Endian sh*t in bettwen .Net keys and Java keys.<img src="/script/Forums/Images/smiley_frown.gif" align="top" alt="Frown" /> <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=957884" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/969621/Re-Going-the-other-way.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF969621">5.00/5 (1 vote) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F1067316_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx1067316xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="1067316" href="/Messages/1067316/Re-Going-the-other-way.aspx">Re: Going the other way</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img src="/script/Forums/Images/usersuss.gif" width="14px" height="15px" alt="suss" /></td><td class="Frm_MsgAuthor">hieu.nguyez@gmail.com</td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">9:14 24 Mar '05 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F1067316_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">I don't see any problem w/ that. On .NET you have the key pair generated for public & private key in XML format. Give the public key in xml file format to your Java app.  And construct public key on Java like:<br /><br />	byte modulusBytes[] = new BASE64Decoder().decodeBuffer(<br />		new ByteArrayInputStream(modulus));<br />	byte exponentBytes[] = new BASE64Decoder().decodeBuffer(<br />		new ByteArrayInputStream(exponent));<br /><br />	KeyFactory kf = KeyFactory.getInstance("RSA");<br />	RSAPublicKeySpec keyspec = new RSAPublicKeySpec(<br />		new BigInteger(1, modulusBytes),<br />		new BigInteger(1, exponentBytes));<br /><br />	PublicKey pk = kf.generatePublic(keyspec);<br /><br />with modulus & exponent are strings from your public key file. <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=957884" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/1067316/Re-Going-the-other-way.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF1067316"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F2010242_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="52px" class="Frm_MsgIndent"><a name="xx2010242xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="2010242" href="/Messages/2010242/Re-Going-the-other-way.aspx">Re: Going the other way</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=3404536">no_aol</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">9:14 27 Apr '07 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F2010242_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="52"><img src="/script/Forums/Images/t.gif" height="1px" width="52px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Definitely works the other way and is what I've been looking all over for to convert a .net public key received into a form that can be dealt with by an app that uses the openssl library.<br /><br /><br />	byte modBytes[] = new BASE64Decoder().decodeBuffer(new ByteArrayInputStream(mod.getBytes()));<br />	byte expBytes[] = new BASE64Decoder().decodeBuffer(new ByteArrayInputStream(exp.getBytes()));<br />	<br />	BigInteger modBI = new BigInteger(1,modBytes);<br />	BigInteger expBI = new BigInteger(1,expBytes);    	<br />	<br />	KeyFactory kf = KeyFactory.getInstance("RSA");<br />	RSAPublicKeySpec ks = new RSAPublicKeySpec(modBI, expBI);<br />	PublicKey pk = kf.generatePublic (ks);<br />	byte pkbytes [] = pk.getEncoded ();<br />	String b64Key = new String (new BASE64Encoder ().encode (pkbytes)); <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=957884" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/2010242/Re-Going-the-other-way.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF2010242"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F3288781_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="70px" class="Frm_MsgIndent"><a name="xx3288781xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="3288781" href="/Messages/3288781/Re-Going-the-other-way.aspx">Re: Going the other way</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=1038463">Abyshai</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">9:31 30 Nov '09 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F3288781_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="70"><img src="/script/Forums/Images/t.gif" height="1px" width="70px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">And how do you load the privateKeyXml generated in .Net to a PrivateKey Java object ? I need also to sign data in Java using a .Net generated keys.<br /><br />Thx<br />Seb<br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=957884" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/3288781/Re-Going-the-other-way.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF3288781"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HiVote Rt HdUnSel " id="F948594_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx948594xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="948594" href="/Messages/948594/Porting-DSA-Keys.aspx">Porting DSA Keys</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img src="/script/Forums/Images/usersuss.gif" width="14px" height="15px" alt="suss" /></td><td class="Frm_MsgAuthor">Dirk Theune</td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">0:40 15 Oct '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F948594_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Is it also possible to port DSA public keys?<br /><br />In .Net, the xml format contains the <br />G, P, Q, Y, J, Seed and Counter parameters,<br />but the Java DSAPublicKey class does <br />not provide information about J, Seed, and Counter.<br /><br />How can I get the values for these parameters?<br /> <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=948594" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/948594/Porting-DSA-Keys.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF948594">5.00/5 (1 vote) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F952791_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx952791xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="952791" href="/Messages/952791/Re-Porting-DSA-Keys.aspx">Re: Porting DSA Keys</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=542995">Shaheryar Ch.</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">8:08 20 Oct '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F952791_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2"><img src="/script/Forums/Images/smiley_sigh.gif" align="top" alt="Sigh" /> I have not worked with DSA keys. Have to look into this. <img src="/script/Forums/Images/smiley_squeamish.gif" align="top" alt="Unsure" /> <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=948594" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/952791/Re-Porting-DSA-Keys.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF952791"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F952823_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx952823xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="952823" href="/Messages/952823/Re-Porting-DSA-Keys.aspx">Re: Porting DSA Keys</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=542995">Shaheryar Ch.</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">8:59 20 Oct '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F952823_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hi there<br />Well I have gone through some of the articles and found the following about J, Seed & Counter. Hope it will help.<br /><br /><b>For J</b> The DSA parameter J = (P - 1) / Q is optional, and is included solely for efficiency.<br /><br /><b>For Seed</b><br /><br />Create an instance of SecureRandom class. The default constructor automatically creates the seed value. You can get the seed value by calling the secureRandomInstance.getSeed(int bytes);<br /><br />for more information on the secure random see<br /> <br />http://java.sun.com/j2se/1.4.2/docs/api/java/security/SecureRandom.html#getSeed(int)<br /><br />The code for intializing the key pair generator will go like this.<br /><br /><code>KeyPairGenerator keyGen = KeyPairGenerator.getInstance(<span class="code-string">&quot;</span><span class="code-string">DSA&quot;</span>);<br />SecureRandom sr = <span class="code-keyword">new</span> SecureRandom();<br />keyGen.initialize(<span class="code-digit">1024</span>, sr);</code><br /><br /><br /><b>For Counter</b><br />The following default parameter values are used for keysizes of 512, 768, and 1024 bits:<br /><br />512-bit Key Parameters<br />counter = 123<br /><br />768-bit key parameters<br />counter = 263<br /><br />1024-bit key parameters<br />counter = 92<br /><br />For more information on DSA Keys see <br /><br />http://java.sun.com/docs/books/tutorial/security1.1/api/<br />http://tns-www.lcs.mit.edu/manuals/java-1.1.1/guide/security/CryptoSpec.html<br /><br />Hope it will help you out. <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=948594" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/952823/Re-Porting-DSA-Keys.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF952823">3.33/5 (2 votes) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F954547_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="52px" class="Frm_MsgIndent"><a name="xx954547xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="954547" href="/Messages/954547/Re-Porting-DSA-Keys.aspx">Re: Porting DSA Keys</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=1442279">dirk.theune</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">3:52 22 Oct '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F954547_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="52"><img src="/script/Forums/Images/t.gif" height="1px" width="52px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hi Shaheryar,<br /><br />thanks for your advise. I tried out the parameters you proposed, but the DSACryptoServiceProvider still throws a CryptographicException "Bad data.", when importing the parameters.<br /><br />Dirk <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=948594" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/954547/Re-Porting-DSA-Keys.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF954547"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd Rt HdUnSel " id="F851823_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx851823xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="851823" href="/Messages/851823/What-about-certificates-creation.aspx">What about certificates creation?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=65656">DaberElay</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">1:18 16 Jun '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F851823_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Can we use your code to create valid certificates to install on the machine in windows?<br /><br />what can you share on this aspect ?<br /><br />please advise,<br /><br />DaberElay. <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=851823" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/851823/What-about-certificates-creation.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF851823"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F892861_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx892861xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="892861" href="/Messages/892861/Re-What-about-certificates-creation.aspx">Re: What about certificates creation?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=542995">Shaheryar Ch.</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">0:13 8 Aug '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F892861_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hello Daber! <br />I really apologize for such along delay. The article email was pointing to my ex-office email address. <br /><br />Any ways.... <br />Answering your questions. <br /><br />Well Certificate is toally differnt thing than Digital Signatures..  you cannot use this code for certificates.<br /><br />Regards<br /><br />Shaheryar<br /> <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=851823" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/892861/Re-What-about-certificates-creation.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF892861"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd Rt HdUnSel " id="F851600_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx851600xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="851600" href="/Messages/851600/An-very-important-piece-but-glossary-is-missing.aspx">An very important piece - but glossary is missing</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=65656">DaberElay</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">21:08 15 Jun '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F851600_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">A very important article indeed! <br /><br />excellent work. I urge you to elaborate and make this tutrial bigger and more comprehensive, <br />the microsoft's WSE 2.0 completely leans on x.509 certificates, so if you could have shown how to use your code to encrypt and sign web services that would have been a trumendous acheivement and contribution.<br /><br />cheers,<br /><br />DaberElay.<br /><br /> <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=851600" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/851600/An-very-important-piece-but-glossary-is-missing.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF851600"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd HdUnSel " id="F892872_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx892872xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="892872" href="/Messages/892872/Re-An-very-important-piece-but-glossary-is-missing.aspx">Re: An very important piece - but glossary is missing</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=542995">Shaheryar Ch.</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">1:02 8 Aug '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F892872_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Hello Daber,<br /><br />The complete article is attached as PDF document at the top. or you can <a href="http://www.codeproject.com/csharp/Porting_Java_Public_Key/Porting_Java_Public_Key_PDF.zip">click here</a> to download the PDF document. You can find the Glossary at Page 23.<br /><br />Thanks DaberElay for appreciating this effort. I really appreciate your concern and I welcome your suggestions. I am currently working on another article (i.e Certificate Authorities) and will certainly try to cover the areas you have mentioned in future. <br /><br />In the end, I would like to apologize (yet again.) for writing you after such a long delay<img src="/script/Forums/Images/smiley_frown.gif" align="top" alt="Frown" />  <br /><br />Hope you will excuse me for this. <br /><br />Regards<br /><br />Shaheryar<br /> <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=851600" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/892872/Re-An-very-important-piece-but-glossary-is-missing.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF892872"></span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="root msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd LoVote Rt HdUnSel " id="F786213_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="16px" class="Frm_MsgIndent"><a name="xx786213xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="786213" href="/Messages/786213/Where-is-the-source-code.aspx">Where is the source code?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img border="0" src="/script/Membership/Images/member_sm.gif" title="member" alt="member" height="16px" /></td><td class="Frm_MsgAuthor"><a href="/script/Membership/View.aspx?mid=53540">Tony Bermudez</a></td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">8:43 7 Apr '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F786213_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="16"><img src="/script/Forums/Images/t.gif" height="1px" width="16px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Where is the source code to download? <br /><br />Tony<br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=786213" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/786213/Where-is-the-source-code.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF786213">1.00/5 (3 votes) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr class="quick">
+					<td class="msg-divide"><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="1px" alt="" /></td>
+				</tr>
+<!-- Start Message head -->
+
+				<tr class="MsgHd LoVote HdUnSel " id="F786687_h0">
+					<td width="100%"><table class="quickHd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr class="hover-row">
+							<td width="34px" class="Frm_MsgIndent"><a name="xx786687xx"></a><img height="16px" width="16px" align="top" src="/script/Forums/Images/msg_general.gif" alt="General" /></td><td class="Frm_MsgSubject"><a id="DynMessLink" name="786687" href="/Messages/786687/Re-Where-is-the-source-code.aspx">Re: Where is the source code?</a> <a onclick="return Pin(this);" href="#" title="Click to pin message"><img src="/script/Forums/Images/pin.gif" border="0" align="top" alt="Pin" width="13px" height="12px" /></a></td><td width="20" nowrap="nowrap"><img src="/script/Forums/Images/usersuss.gif" width="14px" height="15px" alt="suss" /></td><td class="Frm_MsgAuthor">Shaheryar Ch.</td><td class="Frm_MsgDate" valign="top" nowrap="nowrap">20:56 7 Apr '04 &nbsp;</td>
+						</tr>
+					</table></td>
+				</tr><!-- End Message head -->
+
+				<tr id="F786687_h1" style="display:none;">
+					<td width="100%"><table class="quickBd" border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tr>
+							<td class="Frm_MsgIndent" width="34"><img src="/script/Forums/Images/t.gif" height="1px" width="34px" alt="" /></td><td class="MsgBd BdSel "><table border="0" cellpadding="0" cellspacing="5px" width="100%">
+								<tr>
+									<td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td colspan="2">Oppppssss <img src="/script/Forums/Images/smiley_doh.gif" align="top" alt="D'Oh!" /><br /><br />During editing the source code, I might have deleted the link. <br /><br />Anyways, I have placed it back. It's right up there. <img src="/script/Forums/Images/smiley_smile.gif" align="top" alt="Smile" /><br /><br />Regards<br /><br />Shaheryar <br /></td>
+										</tr><tr valign="middle">
+											<td class="msg-footer"><a class="toolbar" href="/script/Membership/LogOn.aspx?rp=%2fKB%2fsecurity%2fporting_java_public_key.aspx">Sign In</a>·<a class="toolbar" href="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;sort=Position&amp;tid=786213" title="View&nbsp;Thread">View&nbsp;Thread</a>·<a class="toolbar" href="/Messages/786687/Re-Where-is-the-source-code.aspx" title="Get permanent link">PermaLink</a></td><td class="msg-footer" align="right"><span id="MVF786687">2.00/5 (4 votes) </span></td>
+										</tr>
+									</table></td>
+								</tr>
+							</table></td>
+						</tr>
+					</table></td>
+				</tr><tr>
+					<td><img src="/script/Forums/Images/t.gif" border="0" width="1px" height="5px" alt="" /></td>
+				</tr>
+			</table></td>
+		</tr><tr>
+			<td><table width="100%" cellpadding="2px" cellspacing="0">
+				<tr class="forum-footer">
+					<td>Last Visit: 20:22 3 Feb '10  &nbsp; &nbsp; Last Update: 20:22 3 Feb '10 </td><td align="right" nowrap="nowrap"><input id="_mbnUrl" type="hidden" value="/KB/security/porting_java_public_key.aspx?fid=37199&amp;df=90&amp;mpp=25&amp;noise=3&amp;sort=Position&amp;view=Quick&amp;fr=25" /><b>1</b></td>
+				</tr>
+			</table></td>
+		</tr>
+	</table>
+</div><p class="small-text"><img align="top" src="/script/Forums/Images/msg_general.gif" width="16px" height="16px" alt="General" /> General &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_news.gif" width="16px" height="16px" alt="News" /> News &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_question.gif" width="16px" height="16px" alt="Question" /> Question &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_answer.gif" width="16px" height="16px" alt="Answer" /> Answer &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_joke.gif" width="16px" height="16px" alt="Joke" /> Joke &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_rant.gif" width="16px" height="16px" alt="Rant" /> Rant &nbsp;&nbsp; <img align="top" src="/script/Forums/Images/msg_admin.gif" width="16px" height="16px" alt="Admin" /> Admin &nbsp;&nbsp; </p><p class="small-text">Use Ctrl+Left/Right to switch messages, Ctrl+Up/Down to switch threads.</p>
+<!-- Forum End -->
+
+
+
+
+	
+	</div>
+	
+	
+	
+	<table width="100%">
+	<tr valign="top">
+		<td align="left" class="tiny-text">
+		    <a id="ctl00_PermaLink" href="/script/Articles/Article.aspx?aid=6623">PermaLink</a> | 
+			<a id="ctl00_PrivacyLink" href="/info/privacy.aspx">Privacy</a> |
+			<a id="ctl00_TermsOfUseLink" href="/info/TermsOfUse.aspx">Terms of Use</a>
+			<br />Last Updated: 26 Oct 2004<br />
+			Editor: <a id="ctl00_ArticleEditor" href="/script/Membership/View.aspx?mid=20248">Nishant Sivakumar</a><br />
+		</td>
+		<td align="right"  valign="top" class="tiny-text">
+			Copyright 2004 by Shaheryar Ch.<br />Everything else
+			Copyright &copy; <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2010 <br />
+			Web18 |
+			<a id="ctl00_AdvertiseLink" href="/info/MediaKit.aspx">Advertise on the Code Project </a>
+		</td>
+	</tr>
+	
+	</table>
+	
+	<center>
+		
+	</center>
+
+</div>
+</div>	
+	
+<div>
+
+
+</div>
+
+<br />
+<script type="text/javascript" language="Javascript" src="/Script/JS/oncopy.js"></script>
+<script type="text/javascript" language="Javascript" src="/script/JS/TogglePre.js"></script>
+<script type="text/javascript" language="Javascript" src="/script/Jobs/ajax/JobsSummaryRetriever.js"></script>
+<script type="text/javascript" language="Javascript" src="/script/js/addto.js"></script>
+<script type="text/javascript" language="Javascript" src="/script/Ratings/ajax/rateitem.js"></script>
+<script type="text/javascript" language="Javascript">//<![CDATA[
+if (document.all) try {window.attachEvent("oncopy",copyCode);}catch(e){};
+var e=document;
+if(e){if(document.all)try{e.attachEvent('onkeydown',LK);}catch(ex){} 
+else e.addEventListener('keydown',LK, false);}
+
+var e=document;
+if(e){if(document.all)try{e.attachEvent('onkeyup',LK);}catch(ex){} 
+else e.addEventListener('keyup',LK, false);}
+
+var e=document;
+if(e){if(document.all)try{e.attachEvent('onblur',LK);}catch(ex){} 
+else e.addEventListener('blur',LK, false);}
+
+var e=document.getElementById('ctl00_TopNavBar_Lounge');
+if(e){if(document.all)try{e.attachEvent('onclick',LC);}catch(ex){} 
+else e.addEventListener('click',LC, false);}
+
+var e=document.getElementById('ctl00_TopNavBar_Soapbox');
+if(e){if(document.all)try{e.attachEvent('onclick',LC);}catch(ex){} 
+else e.addEventListener('click',LC, false);}
+
+$(document).ready(function() {RetrieveJobsSummary('Th',6623,2,225,"23,24,26,81,97,98,103,118,153");});
+var socialLinks = new social();
+socialLinks.PlaceholderId="ATD";socialLinks.ObjectId=6623;
+socialLinks.ObjectTypeId=2;
+socialLinks.addtoMethod=1;
+socialLinks.Horizontal=false;
+socialLinks.Showname=true;
+socialLinks.setupLinks("socialLinks", document.location.href,escape(document.title), 100, 0, "small-text Bold", "AddTo");
+socialLinks.setupMenu();
+$('#ctl00_RateArticle_RateItemWrapper').css('display', '');
+
+//]]>
+</script>
+
+</body>
+</html>

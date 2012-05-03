@@ -1,0 +1,963 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>AhtiK Ventures &raquo; Java Quiz of The Day &#8211; same private field instance for two classes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="WordPress 2.8.6" /> <!-- leave this for stats -->
+<meta name="description" content="AhtiK Ventures"/>
+<meta name="keywords" content="java,development,eclipse"/>
+<meta name="author" content="Ahti Kitsik"/>
+<style type="text/css" media="screen">
+@import url( http://ahtik.com/blog/wp-content/themes/internet-jobs/style.css );
+</style>
+<meta name="copyright" content="Your Name" />
+<meta name="Author" content="Ahti Kitsik (ahti.kitsik@gmail.com)" />
+<meta name="wp-theme" content="Sreejith R - GFXedit.com" />
+<meta name="generator" content="WordPress 2.8.6" />
+<meta name="robots" content="index,follow" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/ahtik" />
+<link rel="alternate" type="text/xml" title="RSS .92" href="http://feeds.feedburner.com/ahtik" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://feeds.feedburner.com/ahtik" />
+<!-- <link rel="pingback" href="http://ahtik.com/blog/xmlrpc.php" />
+ -->
+	<link rel='archives' title='November 2009' href='http://ahtik.com/blog/2009/11/' />
+	<link rel='archives' title='October 2009' href='http://ahtik.com/blog/2009/10/' />
+	<link rel='archives' title='July 2009' href='http://ahtik.com/blog/2009/07/' />
+	<link rel='archives' title='June 2009' href='http://ahtik.com/blog/2009/06/' />
+	<link rel='archives' title='May 2009' href='http://ahtik.com/blog/2009/05/' />
+	<link rel='archives' title='April 2009' href='http://ahtik.com/blog/2009/04/' />
+	<link rel='archives' title='March 2009' href='http://ahtik.com/blog/2009/03/' />
+	<link rel='archives' title='December 2008' href='http://ahtik.com/blog/2008/12/' />
+	<link rel='archives' title='November 2008' href='http://ahtik.com/blog/2008/11/' />
+	<link rel='archives' title='October 2008' href='http://ahtik.com/blog/2008/10/' />
+	<link rel='archives' title='September 2008' href='http://ahtik.com/blog/2008/09/' />
+	<link rel='archives' title='August 2008' href='http://ahtik.com/blog/2008/08/' />
+	<link rel='archives' title='February 2008' href='http://ahtik.com/blog/2008/02/' />
+	<link rel='archives' title='January 2008' href='http://ahtik.com/blog/2008/01/' />
+	<link rel='archives' title='December 2007' href='http://ahtik.com/blog/2007/12/' />
+	<link rel='archives' title='August 2007' href='http://ahtik.com/blog/2007/08/' />
+	<link rel='archives' title='June 2007' href='http://ahtik.com/blog/2007/06/' />
+	<link rel='archives' title='May 2007' href='http://ahtik.com/blog/2007/05/' />
+	<link rel='archives' title='April 2007' href='http://ahtik.com/blog/2007/04/' />
+	<link rel='archives' title='March 2007' href='http://ahtik.com/blog/2007/03/' />
+	<link rel='archives' title='February 2007' href='http://ahtik.com/blog/2007/02/' />
+	<link rel='archives' title='January 2007' href='http://ahtik.com/blog/2007/01/' />
+	<link rel='archives' title='November 2006' href='http://ahtik.com/blog/2006/11/' />
+	<link rel='archives' title='October 2006' href='http://ahtik.com/blog/2006/10/' />
+	<link rel='archives' title='September 2006' href='http://ahtik.com/blog/2006/09/' />
+	<link rel='archives' title='August 2006' href='http://ahtik.com/blog/2006/08/' />
+	<link rel='archives' title='July 2006' href='http://ahtik.com/blog/2006/07/' />
+	<link rel='archives' title='June 2006' href='http://ahtik.com/blog/2006/06/' />
+	<link rel='archives' title='May 2006' href='http://ahtik.com/blog/2006/05/' />
+<link rel="alternate" type="application/rss+xml" title="AhtiK Ventures &raquo; Java Quiz of The Day &#8211; same private field instance for two classes Comments Feed" href="http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/feed/" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://ahtik.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://ahtik.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='AhtiK Ventures' href='http://ahtik.com/blog' />
+<link rel='start' title='Fixing Eclipse Mylar jira integration' href='http://ahtik.com/blog/2006/05/11/fixing-eclipse-mylar-jira-integration/' />
+<link rel='prev' title='P2 fun: Failed to prepare partial IU' href='http://ahtik.com/blog/2008/11/18/p2-fun-failed-to-prepare-partial-iu/' />
+<link rel='next' title='Ericsson comes out with the Android phone &#8211; mid-2009' href='http://ahtik.com/blog/2008/12/10/ericsson-comes-out-with-android-phone/' />
+<meta name="generator" content="WordPress 2.8.6" />
+	<link href="http://ahtik.com/blog/wp-content/plugins/google-syntax-highlighter/Styles/SyntaxHighlighter.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="http://ahtik.com/blog/wp-content/plugins/wp-recaptcha/recaptcha.css" /><!--[if lt IE 7]>
+<script defer type="text/javascript" src="http://ahtik.com/blog/wp-content/uploads/2006/05/pngfix.js"></script>
+<![endif]-->
+</head>
+	
+	<div id="header">
+		<!--
+<div id="feedicon"><a style="background:none;border:none;margin:0px;padding:0px;text-decoration:none; font-size:9px;" 
+href="http://feeds.feedburner.com/ahtik" title="Subscribe to my feed, AhtiK Ventures" rel="alternate"
+type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="Subscribe to AhtiK Ventures Blog Feed!" style="border:0"/><br/>RSS Feed</a>
+</div>
+-->
+
+<div id="hmenu">
+
+<!--
+<a style="background:none;border:none;margin:0px;padding:0px;"
+href="http://feeds.feedburner.com/ahtik" title="Subscribe to my feed, AhtiK Ventures" rel="alternate"
+type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="Subscribe to AhtiK Ventures Blog Feed!" style="border:0;"/></a>
+-->
+
+<span style="font-size:9px;vertical-align:top;" id="feedhmenu">
+<a style="background:none;border:none;margin:0px;padding:0px;"
+href="http://feeds.feedburner.com/ahtik" title="Subscribe to my feed, AhtiK Ventures" rel="alternate"
+type="application/rss+xml">RSS Feed</a></span>
+
+<a style="background:none;border:none;margin:0px;padding:0px;"
+href="http://feeds.feedburner.com/ahtik" title="Subscribe to my feed, AhtiK Ventures" rel="alternate"
+type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="Subscribe to AhtiK Ventures Blog Feed!" style="border:0;"/></a>
+
+<a href="/blog/">Blog</a><a target="_blank" href="http://www.codehoop.com">Codehoop</a><a href="/blog/eclipse-word-wrap/">Eclipse WordWrap</a><a href="/blog/about/">About</a>
+</div>		<div id="logo">
+			<div style="float: left; top:50px">
+				<h1 title="AhtiK Ventures"><a href="http://ahtik.com/blog">AhtiK Ventures</a></h1>
+			</div>
+		</div>
+	</div>
+
+
+
+<body>
+<!--
+<div id="teaser">
+
+<a href="http://timegt.com">TimeGT</a> launching soon!<br/>
+<div id="teaserlink"><a href="http://timegt.com">Sign up</a>
+for a private beta invitation. First download available shortly.
+</div>
+
+</div>		
+
+/-->
+
+	<div class="main">
+		<div id="articles">
+			<div id="content">
+<p>&nbsp;</p>
+
+<p align="center" style="margin-bottom:40px">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3113432089933571";
+/* 468x60, created 4/10/09 */
+google_ad_slot = "5426919403";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</p>
+
+
+				  
+	         <h2 id="post-123"><a href="http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/" rel="bookmark" title="Java Quiz of The Day &#8211; same private field instance for two classes">Java Quiz of The Day &#8211; same private field instance for two classes</a></h2><div class="entrymeta">
+ Filed under: <a href="http://ahtik.com/blog/category/development-practices/" title="View all posts in Development Practices" rel="category tag">Development Practices</a>, <a href="http://ahtik.com/blog/category/eclipse/" title="View all posts in Eclipse" rel="category tag">Eclipse</a>, <a href="http://ahtik.com/blog/category/java-runtime/" title="View all posts in Java Runtime" rel="category tag">Java Runtime</a>  </div>
+
+<div class="author">
+<script src="http://feeds.feedburner.com/~s/ahtik?i=http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/" type="text/javascript" charset="utf-8"></script>
+</div>
+
+
+
+
+
+<p><strong>What is the smallest change to <i>main</i> method that makes it sysout &#8220;true&#8221;?</strong></p>
+<p><strong>You are allowed to change ONLY the main method! Of course changing sysout line is out of question.</strong></p>
+<p>You can leave your answer in comments and I&#8217;ll publish/approve them together with the solution.</p>
+<p>[java]<br />
+public class InstanceDemo {</p>
+<p>	public static void main(String[] args){<br />
+		MyClass cl1 = new MyClass();<br />
+		MyClass cl2 = new MyClass();<br />
+		System.out.println(cl1.ocl==cl2.ocl &#038;&#038; cl1!=cl2);<br />
+	}</p>
+<p>	private static class MyClass extends java.util.ArrayList {<br />
+		private final Object ocl = new Object();<br />
+	}</p>
+<p>}<br />
+[/java]</p>
+<p>I&#8217;ll post the correct answer in 24h <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p><strong>UPDATE:</strong> Was not that hard afterall! <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />  ~45 correct answers.</p>
+<p>Yes, clone() was the answer I was looking for:<br />
+[java]MyClass cl2 = (MyClass) cl1.clone();[/java]</p>
+<p><a href="http://ed-merks.blogspot.com/">Ed Merks</a> surprised with a nice solution:<br />
+[java]<br />
+//Add this line as the first line of main.<br />
+class MyClass extends InstanceDemo.MyClass {<br />
+Object ocl = null;<br />
+}<br />
+[/java]</p>
+<p>And a lot of people took the hard-core way:<br />
+[java]<br />
+Field field = cl1.getClass().getDeclaredField(&#8221;ocl&#8221;);<br />
+field.setAccessible(true);<br />
+field.set(cl2,cl1.ocl);<br />
+[/java] <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+
+<div class="date"><a href="http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/#comments" title="Comment on Java Quiz of The Day &#8211; same private field instance for two classes">Comments (49)</a> <span class="time">12:14 pm </span></div>     
+
+
+
+	<!--
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+				xmlns:dc="http://purl.org/dc/elements/1.1/"
+				xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+			<rdf:Description rdf:about="http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/"
+    dc:identifier="http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/"
+    dc:title="Java Quiz of The Day &#8211; same private field instance for two classes"
+    trackback:ping="http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/trackback/" />
+</rdf:RDF>	-->
+	
+<!-- Theme by Sreejith R - http://www.GFXedit.com / http://www.sr-ultimate.com  -->
+<p>
+<script type="text/javascript">
+google_ad_client = "pub-3113432089933571";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel ="3300470515";
+google_color_border = "F6F6F6";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "666666";
+google_color_url = "666666";
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</p>
+
+
+<h4 id="comments">49 Comments 
+	<a href="#postcomment" title="Leave a comment"><strong>&raquo;</strong></a>
+</h4>
+
+
+<ol id="commentlist">
+
+	<li id="comment-185">
+	<p>The most obvious answer would be:<br />
+<code><br />
+- MyClass cl2 = new MyClass();<br />
++ MyClass cl2 = cl1.clone();<br />
+</code></p>
+	<p><cite>Comment by Roland Tepp &#8212; December 1, 2008 @ <a href="#comment-185">12:43 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-186">
+	<p>My 0.02 are on &#8220;cl2=(MyClass)cl1.clone();&#8221; right before the println.</p>
+<p>dominikg</p>
+	<p><cite>Comment by dominikg &#8212; December 1, 2008 @ <a href="#comment-186">12:43 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-187">
+	<p>is it the good answer ?<br />
+MyClass cl2 = (MyClass) cl1.clone();</p>
+	<p><cite>Comment by Tristan &#8212; December 1, 2008 @ <a href="#comment-187">12:45 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-188">
+	<p>MyClass cl2 = (MyClass) cl1.clone();</p>
+<p>Gilles QUERRET</p>
+	<p><cite>Comment by <a href='http://pct.sourceforge.net' rel='external nofollow' class='url'>Gilles QUERRET</a> &#8212; December 1, 2008 @ <a href="#comment-188">12:57 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-183">
+	<p>change line 2 in main to</p>
+<p>MyClass cl2 = (MyClass)cl1.clone();</p>
+	<p><cite>Comment by fillg1 &#8212; December 1, 2008 @ <a href="#comment-183">1:12 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-184">
+	<p>public static void main(String[] args)<br />
+    {<br />
+        final MyClass cl1 = new MyClass();<br />
+        MyClass cl2 = new MyClass()<br />
+        {<br />
+            {<br />
+                try<br />
+                {<br />
+                Field firstNameField = MyClass.class.getDeclaredField(&#8221;ocl&#8221;);<br />
+                firstNameField.setAccessible(true);<br />
+                firstNameField.set(this, cl1.ocl);<br />
+                }<br />
+                catch (Exception e)<br />
+                {<br />
+                    // ignore<br />
+                }<br />
+            }<br />
+        };<br />
+        System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+    }</p>
+	<p><cite>Comment by Sergiy &#8212; December 1, 2008 @ <a href="#comment-184">1:16 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-182">
+	<p>From the master hackers of dow.ngra.de:<br />
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;<br />
+public static void main(String[] args) throws Exception {<br />
+ class MyClass { Object ocl = null;}<br />
+ MyClass cl1 = new MyClass();<br />
+ MyClass cl2 = new MyClass();<br />
+ System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+}<br />
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</p>
+	<p><cite>Comment by <a href='http://dow.ngra.de' rel='external nofollow' class='url'>Toomas RÃ?Â¶mer</a> &#8212; December 1, 2008 @ <a href="#comment-182">1:26 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-181">
+	<p>My first guess was to break into MyClass with reflection and to change the ocl attribute. But it actually is much easier: Instead of<br />
+<code>                MyClass cl2 = new MyClass();</code><br />
+Say<br />
+<code>    		MyClass cl2 = (MyClass) cl1.clone();</code></p>
+<p>I was sure that the &#8220;extends ArrayList&#8221; was there for a reason, it just took me a moment to figure it out. <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+<p>Nice.</p>
+	<p><cite>Comment by <a href='http://datenreisender.de/' rel='external nofollow' class='url'>marko schulz</a> &#8212; December 1, 2008 @ <a href="#comment-181">1:33 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-178">
+	<p>Add this line as the first line of main.</p>
+<p>  class MyClass extends InstanceDemo.MyClass {<br />
+    Object ocl = null;<br />
+  }</p>
+	<p><cite>Comment by <a href='http://www.ed-merks.blogspot.com/' rel='external nofollow' class='url'>Ed Merks</a> &#8212; December 1, 2008 @ <a href="#comment-178">1:35 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-179">
+	<p>Hi here is an answer :</p>
+<p>MyClass cl1 = new MyClass();<br />
+MyClass cl2 = (MyClass) cl1.clone();<br />
+System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);</p>
+<p>Is there any practical case where this can be useful ?</p>
+<p>Manu</p>
+	<p><cite>Comment by <a href='http://manuelselva.wordpress.com/' rel='external nofollow' class='url'>Manuel Selva</a> &#8212; December 1, 2008 @ <a href="#comment-179">2:19 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-176">
+	<p>Make cl2 a clone of cl1:</p>
+<p>MyClass cl2 = (MyClass)cl1.clone();</p>
+	<p><cite>Comment by Ancuta &#8212; December 1, 2008 @ <a href="#comment-176">2:21 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-177">
+	<p>package de.tutorials;</p>
+<p>public class InstanceDemo {</p>
+<p>	public static void main(String[] args) {<br />
+		MyClass cl1 = new MyClass();<br />
+		//MyClass cl2 = new MyClass();<br />
+		MyClass cl2 = (MyClass)cl1.clone();<br />
+		System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+	}</p>
+<p>	private static class MyClass extends java.util.ArrayList {<br />
+		private final Object ocl = new Object();<br />
+	}</p>
+<p>}</p>
+	<p><cite>Comment by <a href='http://www.tutorials.de' rel='external nofollow' class='url'>Thomas Darimont</a> &#8212; December 1, 2008 @ <a href="#comment-177">2:51 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-180">
+	<p><code>    public class InstanceDemo {</p>
+<p>    public static void main(String[] args){<br />
+    MyClass cl1 = new MyClass();<br />
+    MyClass cl2 = (MyClass) cl1.clone();<br />
+    System.out.println(cl1.ocl==cl2.ocl &amp;&amp; cl1!=cl2);<br />
+    }</p>
+<p>    private static class MyClass extends java.util.ArrayList {<br />
+    private final Object ocl = new Object();<br />
+    }</p>
+<p>    }<br />
+</code></p>
+<p>Nice touch on extends ArrayList!</p>
+<p>Robert</p>
+	<p><cite>Comment by Robert Munteanu &#8212; December 1, 2008 @ <a href="#comment-180">3:44 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-175">
+	<p>MyClass cl2 = (MyClass) cl1.clone();</p>
+	<p><cite>Comment by DrMastaP &#8212; December 1, 2008 @ <a href="#comment-175">3:46 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-174">
+	<p><code><br />
+public class InstanceDemo {</p>
+<p> public static void main(String[] args){<br />
+  MyClass cl1 = new MyClass();<br />
+  MyClass cl2 = (MyClass) cl1.clone();<br />
+  System.out.println(cl1.ocl==cl2.ocl &amp;&amp; cl1!=cl2);<br />
+ }</p>
+<p> private static class MyClass extends java.util.ArrayList {<br />
+  private final Object ocl = new Object();<br />
+ }<br />
+}<br />
+</code></p>
+<p>Simplest I could think of&#8230;</p>
+	<p><cite>Comment by koala &#8212; December 1, 2008 @ <a href="#comment-174">3:54 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-173">
+	<p>public class InstanceDemo<br />
+{</p>
+<p>  public static void main(String[] args)<br />
+  {<br />
+    MyClass cl1 = new MyClass();<br />
+    MyClass cl2 = (MyClass)cl1.clone();</p>
+<p>    System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+  }</p>
+<p>  private static class MyClass extends java.util.ArrayList<br />
+  {<br />
+    private final Object ocl = new Object();<br />
+  }</p>
+<p>}</p>
+	<p><cite>Comment by Daniel &#8212; December 1, 2008 @ <a href="#comment-173">4:00 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-172">
+	<p>How about this:</p>
+<p>public static void main(String[] args) throws Exception<br />
+{<br />
+	MyClass cl1 = new MyClass();<br />
+	MyClass cl2 = new MyClass();<br />
+	Field f = MyClass.class.getDeclaredField(&#8221;ocl&#8221;);<br />
+	f.setAccessible(true);<br />
+	f.set(cl2, cl1.ocl);<br />
+	System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+}</p>
+<p>Regards,<br />
+Johan</p>
+	<p><cite>Comment by Johan &#8212; December 1, 2008 @ <a href="#comment-172">4:24 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-170">
+	<p>MyClass cl2 = (MyClass)cl1.clone();</p>
+	<p><cite>Comment by kmast &#8212; December 1, 2008 @ <a href="#comment-170">4:29 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-171">
+	<p>public class InstanceDemo {</p>
+<p>public static void main(String[] args){<br />
+MyClass cl1 = new MyClass();<br />
+MyClass cl2 = (MyClass) cl1.clone();<br />
+System.out.println(cl1.ocl==cl2.ocl &amp;&amp; cl1!=cl2);<br />
+}</p>
+<p>private static class MyClass extends java.util.ArrayList {<br />
+private final Object ocl = new Object();<br />
+}</p>
+<p>}</p>
+	<p><cite>Comment by Yuriy &#8212; December 1, 2008 @ <a href="#comment-171">4:41 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-169">
+	<p>MyClass cl2 = (MyClass) cl1.clone();</p>
+	<p><cite>Comment by <a href='http://borisoneclipse.blogspot.com' rel='external nofollow' class='url'>Boris Bokowski</a> &#8212; December 1, 2008 @ <a href="#comment-169">5:00 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-168">
+	<p>Off the top of my head (it&#8217;s been a while I haven&#8217;t done some java)</p>
+<p>Replace<br />
+MyClass cl2 = new MyClass();<br />
+by<br />
+MyClass cl2 = (MyClass)cl1.clone();</p>
+	<p><cite>Comment by <a href='http://www.gmo-web.info' rel='external nofollow' class='url'>Guillaume Mouron</a> &#8212; December 1, 2008 @ <a href="#comment-168">5:11 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-166">
+	<p><code><br />
+public static void main(String[] args){<br />
+  MyClass cl1 = new MyClass();<br />
+  MyClass cl2 = (MyClass)cl1.clone();<br />
+  System.out.println(cl1.ocl==cl2.ocl &amp;&amp; cl1!=cl2);<br />
+}<br />
+</code></p>
+	<p><cite>Comment by <a href='http://cubussapiens.hu' rel='external nofollow' class='url'>BalÃ?Â¡zs Grill</a> &#8212; December 1, 2008 @ <a href="#comment-166">5:29 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-167">
+	<p>// In diff format.<br />
+- MyClass cl2 = new MyClass();<br />
++ MyClass cl2 = (MyClass) cl1.clone();</p>
+	<p><cite>Comment by Joakim E &#8212; December 1, 2008 @ <a href="#comment-167">5:38 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-155">
+	<p>One more reason why I try to avoid the clone method.<br />
+<code><br />
+MyClass cl1 = new MyClass();<br />
+MyClass cl2 = (MyClass)cl1.clone();<br />
+</code></p>
+	<p><cite>Comment by Cole &#8212; December 1, 2008 @ <a href="#comment-155">6:00 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-156">
+	<p><code><br />
+public class InstanceDemo {</p>
+<p>public static void main(String[] args){<br />
+MyClass cl1 = new MyClass();<br />
+MyClass cl2 = new MyClass();<br />
+System.out.println(cl1.ocl!=cl2.ocl &amp;&amp; cl1!=cl2);<br />
+}</p>
+<p>private static class MyClass extends java.util.ArrayList {<br />
+private final Object ocl = new Object();<br />
+}</p>
+<p>}<br />
+</code></p>
+<p>I changed 1 character, but I bet this is not what you expected <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+	<p><cite>Comment by Jerome Lanneluc &#8212; December 1, 2008 @ <a href="#comment-156">6:01 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-157">
+	<p>Oops, I changed the sysout line. So much to play the smart guy <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+	<p><cite>Comment by Jerome Lanneluc &#8212; December 1, 2008 @ <a href="#comment-157">6:03 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-158">
+	<p>Something like MyClass cl2 = cl1.clone();</p>
+	<p><cite>Comment by Jean Palies &#8212; December 1, 2008 @ <a href="#comment-158">6:08 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-159">
+	<p>Change line 4 to:<br />
+MyClass cl2 = <b>(MyClass)cl1.clone()</b>;<br />
+Is there a smaller change? I can see no other way without editing <i>MyClass</i>&#8230;</p>
+	<p><cite>Comment by Holger &#8212; December 1, 2008 @ <a href="#comment-159">6:18 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-165">
+	<p>How about</p>
+<p><code><br />
+public class InstanceDemo {</p>
+<p>public static void main(String[] args){<br />
+MyClass cl1 = new MyClass();<br />
+MyClass cl2 = (MyClass) cl1.clone();<br />
+System.out.println(cl1.ocl==cl2.ocl &amp;&amp; cl1!=cl2);<br />
+}</p>
+<p>private static class MyClass extends java.util.ArrayList {<br />
+private final Object ocl = new Object();<br />
+}<br />
+}<br />
+</code><br />
+??</p>
+<p>Cheers,<br />
+Daniel</p>
+	<p><cite>Comment by Daniel &#8212; December 1, 2008 @ <a href="#comment-165">6:54 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-163">
+	<p>&#8230;<br />
+private final Object ocl = &#8220;aString&#8221;;<br />
+&#8230;</p>
+	<p><cite>Comment by <a href='http://www.puzzle.ch' rel='external nofollow' class='url'>AndrÃ?Â© Dietisheim</a> &#8212; December 1, 2008 @ <a href="#comment-163">7:12 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-164">
+	<p>MyClass cl2 = (MyClass) cl1.clone();</p>
+	<p><cite>Comment by Phillipus &#8212; December 1, 2008 @ <a href="#comment-164">7:53 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-162">
+	<p><code><br />
+public class InstanceDemo {</p>
+<p>	public static void main(String[] args) {<br />
+		MyClass cl1 = new MyClass();<br />
+		MyClass cl2 = (MyClass) cl1.clone();<br />
+		System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+	}</p>
+<p>	private static class MyClass extends java.util.ArrayList {<br />
+		private final Object ocl = new Object();<br />
+	}</p>
+<p>}<br />
+</code></p>
+	<p><cite>Comment by <a href='http://andymaleh.blogspot.com/' rel='external nofollow' class='url'>Andy Maleh</a> &#8212; December 1, 2008 @ <a href="#comment-162">8:58 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-161">
+	<p>I would change the line that reads, &#8220;MyClass cl2 = new MyClass();&#8221; to be MyClass cl2 = (MyClass) cl1.clone();&#8221;</p>
+	<p><cite>Comment by Chris &#8212; December 1, 2008 @ <a href="#comment-161">9:12 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-160">
+	<p>public class InstanceDemo {</p>
+<p> public static void main(String[] args) {<br />
+  MyClass cl1 = new MyClass();<br />
+  MyClass cl2 = (MyClass) cl1.clone();<br />
+  System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+ }</p>
+<p> private static class MyClass extends java.util.ArrayList {<br />
+ private final Object ocl = new Object();<br />
+}</p>
+<p>}</p>
+	<p><cite>Comment by Kiril Mitov &#8212; December 1, 2008 @ <a href="#comment-160">10:18 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-154">
+	<p>Adding a &#8220;throws Exception&#8221; and<br />
+<code><br />
+    Field field = cl1.getClass().getDeclaredField( "ocl" );<br />
+    field.setAccessible( true );<br />
+    field.set( cl2, cl1.ocl );<br />
+</code><br />
+works, unless you have a restrictive SecurityManager, but is certainly no small change and <b>very</b> ugly.</p>
+<p>Smaller but still rather mad and ugly is using a method private class, by adding this as the first line in main:<br />
+<code><br />
+    class MyClass{Object ocl;}<br />
+</code></p>
+<p>I just learned about this very recently on stackoverflow&#8230;</p>
+	<p><cite>Comment by Michael &#8212; December 1, 2008 @ <a href="#comment-154">10:32 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-151">
+	<p>Change:<br />
+  MyClass cl2 = new MyClass();<br />
+to:<br />
+  MyClass cl2 = (MyClass)cl1.clone();</p>
+	<p><cite>Comment by H &#8212; December 1, 2008 @ <a href="#comment-151">10:57 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-153">
+	<p>MyClass cl2 = (MyClass) cl1.clone();</p>
+	<p><cite>Comment by <a href='http://www.mhaller.de/' rel='external nofollow' class='url'>mhaller</a> &#8212; December 1, 2008 @ <a href="#comment-153">11:46 pm</a></cite> </p>
+	</li>
+
+	<li id="comment-152">
+	<p>My solution is using reflection, but I suppose this is not what you mean by &#8220;the correct answer&#8221;. <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p><code><br />
+	public static void main(String[] args) throws Exception {<br />
+		MyClass cl1 = new MyClass();<br />
+		MyClass cl2 = new MyClass();</p>
+<p>		Field ocl = MyClass.class.getDeclaredField("ocl");<br />
+		ocl.setAccessible(true);</p>
+<p>		ocl.set(cl1, null);<br />
+		ocl.set(cl2, null);</p>
+<p>		System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+	}<br />
+</code></p>
+	<p><cite>Comment by Radoslaw Jozwik &#8212; December 2, 2008 @ <a href="#comment-152">12:09 am</a></cite> </p>
+	</li>
+
+	<li id="comment-148">
+	<p>Replace the 4th non-blank line with this:</p>
+<p>MyClass cl2 = (MyClass)cl1.clone();</p>
+<p>Do I win???</p>
+	<p><cite>Comment by Dave Weatherford &#8212; December 2, 2008 @ <a href="#comment-148">1:21 am</a></cite> </p>
+	</li>
+
+	<li id="comment-150">
+	<p>public class InstanceDemo {</p>
+<p>	public static void main(String[] args) {<br />
+		MyClass cl1 = new MyClass();<br />
+		MyClass cl2 = (MyClass)(cl1.clone());<br />
+		System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+	}</p>
+<p>	private static class MyClass extends java.util.ArrayList {<br />
+		private final Object ocl = new Object();<br />
+	}</p>
+<p>}</p>
+	<p><cite>Comment by <a href='http://www.cse.csiro.au' rel='external nofollow' class='url'>Stephen Egan</a> &#8212; December 2, 2008 @ <a href="#comment-150">1:52 am</a></cite> </p>
+	</li>
+
+	<li id="comment-149">
+	<p>Changing to</p>
+<p>MyClass cl2 = (MyClass)cl1.clone();</p>
+<p>Should make a trick. Can you publish the statistics about this question? Just wondering.</p>
+<p>Thanks,<br />
+Alex.</p>
+	<p><cite>Comment by Alex Smirnoff &#8212; December 2, 2008 @ <a href="#comment-149">2:24 am</a></cite> </p>
+	</li>
+
+	<li id="comment-146">
+	<p>Change &#8220;MyClass cl2 = new MyClass();&#8221; to:</p>
+<p>MyClass cl2 = (MyClass)cl1.clone();<br />
+ <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+	<p><cite>Comment by Brendan Bates &#8212; December 2, 2008 @ <a href="#comment-146">6:44 am</a></cite> </p>
+	</li>
+
+	<li id="comment-147">
+	<p><code><br />
+public static void main(String[] args) throws Exception {<br />
+MyClass cl1 = new MyClass();<br />
+MyClass cl2 = new MyClass();</p>
+<p>Field field = cl1.getClass().getDeclaredField("ocl");<br />
+field.setAccessible(true);<br />
+field.set(cl2,cl1.ocl);</p>
+<p>System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+}<br />
+</code></p>
+	<p><cite>Comment by Patrick &#8212; December 2, 2008 @ <a href="#comment-147">6:57 am</a></cite> </p>
+	</li>
+
+	<li id="comment-145">
+	<p>MyClass cl2 = (MyClass) cl1.clone();</p>
+	<p><cite>Comment by Yuri Schimke &#8212; December 2, 2008 @ <a href="#comment-145">8:11 am</a></cite> </p>
+	</li>
+
+	<li id="comment-144">
+	<p>public class InstanceDemo {</p>
+<p>public static void main(final String[] args) {<br />
+MyClass cl1 = new MyClass();<br />
+MyClass cl2 = (MyClass)cl1.clone();<br />
+System.out.println(cl1.ocl == cl2.ocl &amp;&amp; cl1 != cl2);<br />
+}</p>
+<p>private static class MyClass extends java.util.ArrayList {<br />
+private final Object ocl = new Object();<br />
+}</p>
+<p>}</p>
+	<p><cite>Comment by Andreas Groll, Michael FÃ?Â¼rstenberg &#8212; December 2, 2008 @ <a href="#comment-144">10:20 am</a></cite> </p>
+	</li>
+
+	<li id="comment-142">
+	<p>private <b>static</b> final Object ocl = new Object();</p>
+<p>not that hard compared to some SCJP questions <img src='http://ahtik.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+	<p><cite>Comment by shamaz &#8212; December 2, 2008 @ <a href="#comment-142">10:32 am</a></cite> </p>
+	</li>
+
+	<li id="comment-141">
+	<p>I&#8217;ll give it a try&#8230;</p>
+<p>public class InstanceDemo {</p>
+<p>public static void main(String[] args){<br />
+    MyClass cl1 = new MyClass();<br />
+    MyClass cl2 = <b>(MyClass) cl1.clone();</b><br />
+    System.out.println(cl1.ocl==cl2.ocl &amp;&amp; cl1!=cl2);<br />
+ }</p>
+<p>private static class MyClass extends java.util.ArrayList {<br />
+    private final Object ocl = new Object();<br />
+    }<br />
+ }</p>
+	<p><cite>Comment by Christoph &#8212; December 2, 2008 @ <a href="#comment-141">10:35 am</a></cite> </p>
+	</li>
+
+	<li id="comment-143">
+	<p>shamaz,</p>
+<p>&#8220;private static final Object ocl = new Object();&#8221;</p>
+<p>is not correct because you are allowed to change ONLY main method.</p>
+	<p><cite>Comment by <a href='http://ahtik.com' rel='external nofollow' class='url'>Ahti</a> &#8212; December 2, 2008 @ <a href="#comment-143">11:24 am</a></cite> </p>
+	</li>
+
+	<li id="comment-140">
+	<p>The idea of using a method private class is sweet and can be shortend by a few more characters, if you use an int instead of an object:</p>
+<p><code>class MyClass {int ocl;}</code> in the beginning of main() does the trick.</p>
+	<p><cite>Comment by <a href='http://datenreisender.de/' rel='external nofollow' class='url'>marko schulz</a> &#8212; December 2, 2008 @ <a href="#comment-140">2:44 pm</a></cite> </p>
+	</li>
+
+
+</ol>
+
+
+<!--  HERE you can add links to different feeds and utility sites like digg -->
+<p><a href='http://ahtik.com/blog/2008/12/01/java-quiz-of-the-day-same-private-field-instance-for-two-classes/feed/'><abbr title="Really Simple Syndication">RSS</abbr> feed for comments on this post.</a> 
+</p>
+
+<h4 id="postcomment">Leave a comment</h4>
+
+
+<form action="http://ahtik.com/blog/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+<label for="author"><small>Name (required)</small></label></p>
+
+<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+<label for="email"><small>Mail (will not be published) (but required)</small></label></p>
+
+<p><input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+<label for="url"><small>Website</small></label></p>
+
+
+
+<p><small><strong>XHTML</strong> ( You can use these tags): &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; .</small></p>
+
+<p><textarea name="comment" id="comment" cols="55" rows="11" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="6" value="Submit Comment" class="search-button" />
+
+<input type="hidden" name="comment_post_ID" value="123" />
+</p>
+		<script type='text/javascript'>
+				var RecaptchaOptions = { theme : 'clean', lang : 'en' , tabindex : 5 };
+		</script><script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Le1FwAAAAAAANi087NHavteqjwnmE40So3sTUoy"></script>
+
+<noscript>
+<iframe src="http://api.recaptcha.net/noscript?k=6Le1FwAAAAAAANi087NHavteqjwnmE40So3sTUoy" height="300" width="500" frameborder="0"></iframe><br/>
+<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+</noscript>				<div id="recaptcha-submit-btn-area"></div> 
+				<script type='text/javascript'>
+				var sub = document.getElementById('submit');
+				sub.parentNode.removeChild(sub);
+				document.getElementById('recaptcha-submit-btn-area').appendChild (sub);
+				document.getElementById('submit').tabIndex = 6;
+				if ( typeof _recaptcha_wordpress_savedcomment != 'undefined') {
+						document.getElementById('comment').value = _recaptcha_wordpress_savedcomment;
+				}
+				document.getElementById('recaptcha_table').style.direction = 'ltr';
+				</script>
+				<noscript>
+				 <style type='text/css'>#submit {display:none;}</style>
+				 <input name="submit" type="submit" id="submit-alt" tabindex="6" value="Submit Comment"/> 
+				</noscript>
+</form>
+
+
+<!-- This is where the "NEXT"  & "PREVIOUS" links appears after comments-->
+<div class="pg_nav">&laquo; <a href="http://ahtik.com/blog/2008/11/18/p2-fun-failed-to-prepare-partial-iu/">P2 fun: Failed to prepare partial IU</a> 
+&nbsp;&nbsp; <a href="http://ahtik.com/blog/2008/12/10/ericsson-comes-out-with-android-phone/">Ericsson comes out with the Android phone &#8211; mid-2009</a> &raquo;</div>
+<!--  end -->
+
+
+<!-- Theme by Sreejith R - http://www.GFXedit.com / http://www.sr-ultimate.com  -->
+
+					
+				<div class="center"></div>
+				
+			</div>
+			
+			<div id="right">
+<p align="center">
+<br/>
+<img src="http://ahtik.com/blog/wp-content/uploads/2006/05/ahtikantiquelow2.png" height="208" width="176"/><br/>
+Ahti Kitsik <a href="mailto:ahti.kitsik@gmail.com">(Email Me)</a><br/><br/>
+<a href="http://www.codehoop.com"><img src="http://www.codehoop.com/img/logo-codehoop-sm.gif"></a><br/>
+<b>Eclipse RCP developers</b>
+</p>
+<!--
+<div class="quote">Quote of the day:<br/> php wp_quotes_random(); </div>
+/-->
+
+				<div id="rightmenu">
+	<li class="cat-item cat-item-3"><a href="http://ahtik.com/blog/category/development-practices/" title="RUP, SCRUM, eXtremeProgramming etc">Development Practices</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://ahtik.com/blog/category/eclipse/" title="Plugin Reviews, Development Tutorials, Opinions, Essays, Interesting stuff found from the web">Eclipse</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://ahtik.com/blog/category/entrepreneurship/" title="Ideas, business models">Entrepreneurship</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://ahtik.com/blog/category/java-runtime/" title="Issues related to java runtime">Java Runtime</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://ahtik.com/blog/category/tools-and-frameworks/" title="Springframework, Hibernate, AndroMDA, CruiseControl etc">Tools and Frameworks</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://ahtik.com/blog/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://ahtik.com/blog/category/unrelated/" title="Unrelated content">Unrelated</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://ahtik.com/blog/category/web-2-0/" title="View all posts filed under Web 2.0">Web 2.0</a>
+</li>
+									
+				</div>
+
+
+<div class="rightarticle" align="center" bgcolor="#FFFFFF">
+<a href="http://www.eclipse.org/donate/"><img src="http://www.eclipse.org/donate/images/friendslogo160.jpg"></a>
+</div>
+
+
+				<div class="rightarticle" style="border-bottom: #CCCCCC 1px dashed">
+<p style="margin:0px;padding:0px;position:relative;float:right;top:5px;" align="right">
+<a href="http://feeds.feedburner.com/ahtik"><img src="http://feeds.feedburner.com/~fc/ahtik?bg=eeeeee&amp;fg=333333&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+</p>
+
+						<h2> Archives:</h2>
+				
+				
+								<li><a href='http://ahtik.com/blog/2009/11/' title='November 2009'>November 2009</a></li>
+	<li><a href='http://ahtik.com/blog/2009/10/' title='October 2009'>October 2009</a></li>
+	<li><a href='http://ahtik.com/blog/2009/07/' title='July 2009'>July 2009</a></li>
+	<li><a href='http://ahtik.com/blog/2009/06/' title='June 2009'>June 2009</a></li>
+	<li><a href='http://ahtik.com/blog/2009/05/' title='May 2009'>May 2009</a></li>
+	<li><a href='http://ahtik.com/blog/2009/04/' title='April 2009'>April 2009</a></li>
+	<li><a href='http://ahtik.com/blog/2009/03/' title='March 2009'>March 2009</a></li>
+	<li><a href='http://ahtik.com/blog/2008/12/' title='December 2008'>December 2008</a></li>
+	<li><a href='http://ahtik.com/blog/2008/11/' title='November 2008'>November 2008</a></li>
+	<li><a href='http://ahtik.com/blog/2008/10/' title='October 2008'>October 2008</a></li>
+	<li><a href='http://ahtik.com/blog/2008/09/' title='September 2008'>September 2008</a></li>
+	<li><a href='http://ahtik.com/blog/2008/08/' title='August 2008'>August 2008</a></li>
+	<li><a href='http://ahtik.com/blog/2008/02/' title='February 2008'>February 2008</a></li>
+	<li><a href='http://ahtik.com/blog/2008/01/' title='January 2008'>January 2008</a></li>
+	<li><a href='http://ahtik.com/blog/2007/12/' title='December 2007'>December 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2007/08/' title='August 2007'>August 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2007/06/' title='June 2007'>June 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2007/05/' title='May 2007'>May 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2007/04/' title='April 2007'>April 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2007/03/' title='March 2007'>March 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2007/02/' title='February 2007'>February 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2007/01/' title='January 2007'>January 2007</a></li>
+	<li><a href='http://ahtik.com/blog/2006/11/' title='November 2006'>November 2006</a></li>
+	<li><a href='http://ahtik.com/blog/2006/10/' title='October 2006'>October 2006</a></li>
+	<li><a href='http://ahtik.com/blog/2006/09/' title='September 2006'>September 2006</a></li>
+	<li><a href='http://ahtik.com/blog/2006/08/' title='August 2006'>August 2006</a></li>
+	<li><a href='http://ahtik.com/blog/2006/07/' title='July 2006'>July 2006</a></li>
+	<li><a href='http://ahtik.com/blog/2006/06/' title='June 2006'>June 2006</a></li>
+	<li><a href='http://ahtik.com/blog/2006/05/' title='May 2006'>May 2006</a></li>
+		
+
+						</div>
+
+<p align="center">
+<!--Creative Commons License--><a rel="license" href="http://creativecommons.org/licenses/by/2.5/"><img alt="Creative Commons License" style="border-width: 0" src="http://creativecommons.org/images/public/somerights20.png"/></a><br/>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5  License</a>.<!--/Creative Commons License--><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<Work rdf:about="">
+		<license rdf:resource="http://creativecommons.org/licenses/by/2.5/" />
+	<dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+	</Work>
+	<License rdf:about="http://creativecommons.org/licenses/by/2.5/"><permits rdf:resource="http://web.resource.org/cc/Reproduction"/><permits rdf:resource="http://web.resource.org/cc/Distribution"/><requires rdf:resource="http://web.resource.org/cc/Notice"/><requires rdf:resource="http://web.resource.org/cc/Attribution"/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/></License></rdf:RDF> -->
+</p>
+<p style="border-top: #CCCCCC 1px dashed"/>
+
+<!-- SiteSearch Google -->
+<form method="get" action="http://www.google.com/custom" target="google_window" style="margin-left:20px">
+<table border="0" bgcolor="#ffffff">
+<tr><td nowrap="nowrap" valign="top" align="left" height="32">
+<a href="http://www.google.com/">
+<img src="http://www.google.com/logos/Logo_25wht.gif" border="0" alt="Google" align="middle"></img></a>
+<br/>
+<input type="hidden" name="domains" value="ahtik.com"></input>
+<input type="text" name="q" size="20" maxlength="255" value=""></input>
+</td></tr>
+<tr>
+<td nowrap="nowrap">
+<table>
+<tr>
+<td>
+<input type="radio" name="sitesearch" value=""></input>
+<font size="-1" color="#000000">Web</font>
+</td>
+<td>
+<input type="radio" name="sitesearch" value="ahtik.com" checked="checked"></input>
+<font size="-1" color="#000000">ahtik.com</font>
+</td>
+</tr>
+</table>
+<input type="submit" name="sa" value="Search"></input>
+<input type="hidden" name="client" value="pub-3113432089933571"></input>
+<input type="hidden" name="forid" value="1"></input>
+<input type="hidden" name="ie" value="ISO-8859-1"></input>
+<input type="hidden" name="oe" value="ISO-8859-1"></input>
+<input type="hidden" name="cof" value="GALT:#008000;GL:1;DIV:#336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:336699;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;FORID:1"></input>
+<input type="hidden" name="hl" value="en"></input>
+</td></tr></table>
+</form>
+<!-- SiteSearch Google -->
+
+<p style="border-top: #CCCCCC 1px dashed"/>
+<a href="http://www.timegt.com"><b>TimeGT Task and Note Manager</b></a>
+<p style="border-top: #CCCCCC 1px dashed"/>
+<p align="center">
+<iframe width="180" height="150" src="http://rcm.amazon.com/e/cm?t=ahtikventures-20&o=1&p=9&l=ez&f=ifr" scrolling="no" border="0" frameborder="0" style="border:none;"></iframe></p>
+
+</div>
+	
+		<div id="links">
+			<p></p>		
+		</div>
+	</div>	</div>
+
+
+
+	<div id="footer">
+		<p style="float: left;">| Copyright &copy; 2010 <strong><a href="http://ahtik.com/blog">AhtiK Ventures</a></strong> | <br /> | <a href="http://ahtik.com/blog/feed/">RSS Feed</a> |
+		</p>
+		<p style=" float: right; text-align: right;">
+		| Powered by <a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform."><abbr title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress</abbr></a><br />
+		| Design: <a href="http://www.solucija.com/">Solucija</a>, Ported by <a href="http://www.gfxedit.com/" title="Theme by GFXedit.com"><abbr title="Theme by GFXedit.com">GFXedit.com</abbr></a>
+		
+		
+		</p>
+	</div>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=1552911; 
+var sc_invisible=1; 
+var sc_partition=14; 
+var sc_security="5ecdaa66"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c15.statcounter.com/counter.php?sc_project=1552911&java=0&security=5ecdaa66&invisible=1" alt="web stats analysis" border="0"></a> </noscript>
+<!-- End of StatCounter Code --><script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1146384-1";
+urchinTracker();
+</script>
+</body>	
+</html>

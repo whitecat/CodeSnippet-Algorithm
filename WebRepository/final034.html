@@ -1,0 +1,2050 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head profile="http://gmpg.org/xfn/11">
+<title>Code Monkeyism:   All variables in Java must be final</title>
+<meta name="google-site-verification" content="OZ7Ru8ZgyB1C1MqCbkXRvG9jD6cHveKwNw5MiIPWuAM" />
+<meta name="google-site-verification" content="jOGMnKVsxlvy2eUpYyt3FzrEgSRc7nPSm9m4ZpugECI" />
+<meta name="google-site-verification" content="jOGMnKVsxlvy2eUpYyt3FzrEgSRc7nPSm9m4ZpugECI" />
+<meta name="google-site-verification" content="CMgmVxmB9oPo-TV6bo5QHCkHFIkYb0u4d_MqAlkw45Q" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script src="http://codemonkeyism.com/wp-content/themes/cm/js/jquery.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="http://codemonkeyism.com/wp-content/themes/cm/blueprint/print.css" type="text/css" media="print" /> 
+<link rel="stylesheet" href="http://codemonkeyism.com/wp-content/themes/cm/blueprint/screen.css" type="text/css" media="screen, projection" /> 
+<!--[if IE]><link rel="stylesheet" href="http://codemonkeyism.com/wp-content/themes/cm/blueprint/ie.css" type="text/css" media="screen, projection" /><![endif]-->  
+<link rel="stylesheet" href="http://codemonkeyism.com/wp-content/themes/cm/style.css" type="text/css" media="screen,projection" />
+<link rel="icon" type="image/png" href="/favicon.ico" />
+<link rel="alternate" type="application/rss+xml" title="Code Monkeyism" href="http://feeds2.feedburner.com/stephansblog" />
+
+<style type="text/css">
+/* menu styles */
+#nav
+{       margin: 0;
+        padding: 0;
+	float: right;
+}
+
+        #nav li
+        {       float: left;
+                list-style: none;
+                font: 12px Verdana}
+
+        #nav li a
+        {       display: block;
+                background: #fafafa;
+                padding: 5px 12px;
+                text-decoration: none;
+                border-right: 1px solid white;
+                width: 8em;
+                color: #000000;
+                white-space: nowrap}
+
+        #nav li a:hover
+        {       background: #e0e0e0}
+
+                #nav li ul
+                {       margin: 0;
+                        padding: 0;
+                        position: absolute;
+                        visibility: hidden;
+                        border-top: 1px solid white}
+
+                        #nav li ul li
+                        {       float: none;
+                                display: inline}
+
+                        #nav li ul li a
+                        {       width: auto;
+                                background: #A9C251;
+                                color: #24313C}
+
+                        #nav li ul li a:hover
+                        {       background: #8EA344
+	}
+</style>
+	
+<link rel="alternate" type="application/rss+xml" title="Code Monkeyism &raquo; All variables in Java must be final Comments Feed" href="http://codemonkeyism.com/all-variables-in-java-must-be-final/feed/" />
+<script type='text/javascript' src='http://codemonkeyism.com/wp-includes/js/prototype.js?ver=1.6'></script>
+<script type='text/javascript' src='http://codemonkeyism.com/wp-includes/js/scriptaculous/wp-scriptaculous.js?ver=1.8.0'></script>
+<script type='text/javascript' src='http://codemonkeyism.com/wp-includes/js/scriptaculous/effects.js?ver=1.8.0'></script>
+<script type='text/javascript' src='http://codemonkeyism.com/wp-content/plugins/collapsing-archives/collapsFunctions.js?ver=1.4'></script>
+<script type='text/javascript' src='http://codemonkeyism.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<script type='text/javascript' src='http://codemonkeyism.com/wp-includes/js/jquery/jquery.form.js?ver=2.02m'></script>
+<script type='text/javascript' src='http://codemonkeyism.com/wp-content/plugins/mailchimp/js/mailchimp.js?ver=2.9.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://codemonkeyism.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://codemonkeyism.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Code Monkeyism' href='http://codemonkeyism.com' />
+<link rel='start' title='Weak versus strong languages, who wins the fight?' href='http://codemonkeyism.com/weak-versus-strong-languages-who-wins-the-fight/' />
+<link rel='prev' title='REST: Lean JSON and XML from the same code' href='http://codemonkeyism.com/rest-lean-json-and-xml-from-the-same-code/' />
+<link rel='next' title='When people don&#8217;t understand GPL and LGPL &#8211; or &#8211; ExtJS is history' href='http://codemonkeyism.com/when-people-dont-understand-gpl-and-lgpl/' />
+<meta name="generator" content="WordPress 2.9.1" />
+<link rel='canonical' href='http://codemonkeyism.com/all-variables-in-java-must-be-final/' />
+
+<!-- All in One SEO Pack 1.6.4 by Michael Torbert of Semper Fi Web Design[254,320] -->
+<meta name="description" content="I haven't been using the final keyword in Java for 10 years, but more and more I think it's an excellent keyword in Java. All local variables should be declared" />
+<!-- /all in one seo pack -->
+<style type='text/css'>
+    #sidebar span.collapsArch {
+        border:0;
+        padding:0; 
+        margin:0; 
+        cursor:pointer;
+} 
+
+#sidebar span.monthCount, span.yearCount {text-decoration:none; color:#333}
+#sidebar li.widget_collapspage h2 span.sym {float:right;padding:0 .5em}
+#sidebar li.collapsArch a.self {font-weight:bold}
+#sidebar ul.collapsArchList ul.collapsArchList:before {content:'';} 
+#sidebar ul.collapsArchList li.collapsArch:before {content:'';} 
+#sidebar ul.collapsArchList li.collapsArch {list-style-type:none}
+#sidebar ul.collapsArchList ul.collapsArchList li.collapsArch {list-style-type:none}
+#sidebar ul.collapsArchList li {
+       margin:0 0 0 .8em;
+       text-indent:-1em}
+#sidebar ul.collapsArchList li.collapsArchPost:before {content: '\00BB \00A0' !important;} 
+#sidebar ul.collapsArchList li.collapsArch {
+   font-size:1em;
+   margin: 0.2em 0.4em 0.5em;
+}
+
+#sidebar ul.collapsArchList li.collapsArch .sym {
+   font-family:Monaco, 'Andale Mono', 'FreeMono', 'Courier new', 'Courier', monospace;
+}
+    </style>
+
+<style type='text/css'>
+.mc_error_msg { color: red; }
+.mc_success_msg { color: green; }
+.mc_merge_var{ padding:0; margin:0; }
+.mc_custom_border{ padding:5px; border-width: 1px;border-style: solid;border-color: #ffffff;color: #555555;background-color: #ffffff;
+}
+.mc_custom_border legend {border-width: 1px;border-style: solid;border-color: #ffffff;color: #CC6600;background-color: #FFFFFF;font-size: 1.2em;padding:5px 10px;
+}
+#mc_signup_form .mc_var_label, #mc_signup_form .mc_input { float:left; clear:both; }
+#mc_signup_form legend { padding:.5em;margin:0; }
+#mc-indicates-required { float:left; clear:both; }
+#mc_display_rewards { clear:both; }
+#mc_interests_header { font-weight:bold; clear:both; padding-top:.2em;}
+div.mc_interest{ clear:both;}
+input.mc_interest { float:left; }
+label.mc_interest_label {float:left; clear:right;}
+.mc_signup_submit { width:100%; text-align:center; clear:both; padding:.2em; }
+</style>
+<!--[if IE]>
+<style type='text/css'>
+#mc_signup_form fieldset { position: relative; }
+#mc_signup_form legend {
+padding:.3em;
+position: absolute;
+top: -1em;
+left: .2em;
+}
+#mc_message { padding-top:1em; }
+</style>
+<![endif]--> 
+<script type="text/javascript">
+var mc_ajax_url = "http://codemonkeyism.com/wp-content/plugins/mailchimp/mailchimp_ajax.php";
+</script>	<style type="text/css">
+	a.postrank {
+		border:1px solid #333333;
+		color:#000000;
+		display:block;
+		float:right;
+		font-size:1.2em;
+		font-weight:bold;
+		margin: 0 0.2em;
+		position:relative;
+		text-align:center;
+		width:34px;
+	}
+
+	a.postrank span.topLeft, a.postrank span.topRight, a.postrank span.bottomLeft, a.postrank span.bottomRight {
+		background:transparent url(http://codemonkeyism.com/wp-content/plugins/wp-postrank/images/corners.png) no-repeat scroll 0 0;
+		display:block;
+		height:3px;
+		position:absolute;
+		width:3px;
+	}
+
+	a.postrank span.topLeft {
+		background-position:0 0;
+		left:-1px;
+		top:-1px;
+	}
+
+	a.postrank span.topRight {
+		background-position:-3px 0;
+		right:-1px;
+		top:-1px;
+	}
+
+	a.postrank span.bottomLeft {
+		background-position:0 -3px;
+		left:-1px;
+		bottom:-1px;
+	}
+
+	a.postrank span.bottomRight {
+		background-position:-3px -3px;
+		right:-1px;
+		bottom:-1px;
+	}
+
+	/* metrics */
+	#postrank_metrics { margin: 3px; background-color: #f6faff; border: 1px #c3d9ff solid; }
+	#postrank_metrics table{ margin: 5px 0; font-size: 1.3em; border-collapse: collapse; }
+	#postrank_metrics table td{ padding: 7px 11px 9px 14px; border: #c3d9ff solid; border-width: 0 0 0 1px; }
+	#postrank_metrics table td:first-child{ border: 0; padding-left: 11px; }
+	#postrank_metrics table td a, #postrank_metrics table td span{ padding: 1px 0 0 21px; background: url( http://postrank.com/graphics/spriteSet_3.png ) no-repeat; height: 15px; display: block; }
+	#postrank_metrics .bloglines{ background-position: 0 -16px; }
+	#postrank_metrics .reddit, #postrank_metrics .reddit_votes { background-position: 0 -32px; }
+	#postrank_metrics .technorati{ background-position: 0 -48px; }
+	#postrank_metrics .reddit_comments { background-position: 0 -416px; }
+	#postrank_metrics .magnolia{ background-position: 0 -64px; }
+	#postrank_metrics .digg{ background-position: 0 -80px; }
+	#postrank_metrics .twitter{ background-position: 0 -96px; }
+	#postrank_metrics .comments{ background-position: 0 -112px; }
+	#postrank_metrics .icerocket{ background-position: 0 -128px; }
+	#postrank_metrics .delicious{ background-position: 0 -144px; }
+	#postrank_metrics .google{ background-position: 0 -160px; }
+	#postrank_metrics .pownce{ background-position: 0 -176px; }
+	#postrank_metrics .views{ background-position: 0 -192px; }
+	#postrank_metrics .bookmarks{ background-position: 0 -208px; }
+	#postrank_metrics .clicks{ background-position: 0 -224px; }
+	#postrank_metrics .jaiku{ background-position: 0 -240px; }
+	#postrank_metrics .identica{ background-position: 0 -352px; }
+	#postrank_metrics .digg_comments{ background-position: 0 -256px; }
+	#postrank_metrics .twitarmy{ background-position: 0 -336px; }
+	#postrank_metrics .diigo{ background-position: 0 -272px; }
+	#postrank_metrics .furl{ background-position: 0 -320px; }
+	#postrank_metrics .brightkite{ background-position: 0 -304px; }
+	#postrank_metrics .feecle{ background-position: 0 -288px; }
+	#postrank_metrics .friendfeed_like{ background-position: 0 -368px; }
+	#postrank_metrics .friendfeed_comm{ background-position: 0 -432px; }
+	#postrank_metrics .blip{ background-position: 0 -384px; }
+	#postrank_metrics .tumblr { background-position: 0 -400px; }
+	</style>
+	<script type="text/javascript">
+	//<![CDATA[
+	if( document.all && !document.getElementsByTagName )
+		document.getElementsByTagName = function( nodeName )
+		{
+			if( nodeName == '*' ) return document.all;
+			var result = [], rightName = new RegExp( nodeName, 'i' ), i;
+			for( i=0; i<document.all.length; i++ )
+				if( rightName.test( document.all[i].nodeName ) )
+					result.push( document.all[i] );
+			return result;
+		};
+	if(!document.getElementsByClassName)
+		document.getElementsByClassName = function( className, nodeName )
+		{
+			var result = [], tag = nodeName||'*', node, seek, i;
+			var rightClass = new RegExp( '(^| )'+ className +'( |$)' );
+			seek = document.getElementsByTagName( tag );
+			for( i=0; i<seek.length; i++ )
+				if( rightClass.test( (node = seek[i]).className ) )
+					result.push( seek[i] );
+			return result;
+		};
+
+	function postrank_badge_step2(data)
+	{
+		// %r is raw url, %e is encoded url
+		var sources = {"comments":"%r", "twitter":"", "reddit":"",
+		"rocket":"http://blogs.icerocket.com/search?q=%e&ql=en&s=f&pop=l&news=m", "digg":"http://digg.com/submit?phase=2&url=%e",
+		"bloglines":"http://www.bloglines.com/search?q=Bcite:%e&ql=en&s=f&pop=l&news=m", "technorati":"http://www.technorati.com/search/%e", 
+		"magnolia":"http://ma.gnolia.com/meta/get?url=%e&title=title", "google":"http://blogsearch.google.com/blogsearch?q=link:%e",
+		"delicious":"http://del.icio.us/url/?url=%e"};
+		var metrics = document.getElementById('postrank_metrics');
+		metrics.innerHTML = '<table><tr></tr><tr></tr><tr></tr></table>';
+		var rows = metrics.getElementsByTagName('tr');
+		var length = 0;
+		var currentRow = 0;
+		for(var source in data)
+		{
+			if(!data[source] || data[source] < 1) {continue;}
+			var sourceName = source.substr(0,1).toUpperCase() + source.substr(1).replace(/_/,' ');
+			var el = document.createElement('td');
+			if(sources[source]) {
+				el.innerHTML = '<a style="position:relative;z-index:9;" title="' + sourceName + '" class="metric ' + source + '" href="' + sources[source].replace('%r', metrics.getAttribute('url')).replace('%e', encodeURIComponent(metrics.getAttribute('url'))) + '">' + data[source] + '</a>';
+			} else {
+				el.innerHTML = '<span style="position:relative;z-index:9;" title="' + sourceName + '" class="metric ' + source + '">' + data[source] + '</span>';
+			}
+			rows[currentRow].appendChild(el);
+			currentRow++;
+			if(currentRow >= rows.length) currentRow = 0;
+			length++;
+		}
+		if(length < 1) metrics.innerHTML = '<div style="padding:10px;">No Data</div>';
+		var wrapper = document.createElement('div');
+		wrapper.style.position = 'absolute';
+		wrapper.style.top = '-2px';
+		wrapper.style.bottom = '0px';
+		wrapper.style.left = '0px';
+		wrapper.style.right = '0px';
+		wrapper.className = 'metric';
+		wrapper.style.zIndex = 5;
+		wrapper.onmouseout = function(e)
+		{
+			if(!e.relatedTarget.className.match(/metric/))
+				this.parentNode.parentNode.removeChild(this.parentNode);
+		};
+		metrics.appendChild(wrapper);
+		metrics.style.marginLeft = (38 - metrics.offsetWidth) + 'px';
+		//wrapper.style.top = (-1*wrapper.parentNode.previousSibling.offsetHeight) + 'px'; // extend wrapper to cover postrank badge
+		document.getElementById('postrank_metrics').style.display = 'block';
+	}
+
+	function postrank_badge_setup()
+	{
+		var badges = document.getElementsByClassName('postrank-badge');
+		for(var i = 0; i < badges.length; i++)
+		{
+			badges[i].onmouseover = function()
+			{
+				this.onmouseout = function(e) {
+					if(!e.relatedTarget.className.match(/metric/))
+						document.getElementById('postrank_metrics').parentNode.removeChild(document.getElementById('postrank_metrics'));
+				};
+				var metrics = document.getElementById('postrank_metrics') || document.createElement('div');
+				metrics.style.position = 'absolute';
+				metrics.style.marginTop = this.offsetHeight + 'px';
+				metrics.style.zIndex = 10;
+				metrics.id = 'postrank_metrics';
+				metrics.setAttribute('url', this.lastChild.innerHTML);
+				this.parentNode.appendChild(metrics);
+				var script = document.createElement('script');
+				script.type = 'text/javascript';
+				script.src = 'http://api.postrank.com/v2/entry/' + this.id.match(/^entry-(.*)$/)[1] + '/metrics?format=json&appkey=wordpress&callback=postrank_badge_step2';
+				document.body.appendChild(script);
+			};
+		}
+	}
+
+	//adds an onload event to the current page
+	function addLoadEvent(func)
+	{
+		var oldonload = window.onload;
+		if (typeof(window.onload) != 'function')
+		{
+			window.onload = func;
+		}
+		else
+		{
+			window.onload = function()
+			{
+				oldonload();
+				func();
+			}
+		}
+	}
+	addLoadEvent(postrank_badge_setup);
+	//]]>
+	</script>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+</head>
+ 
+<body>
+
+<div class="container">
+  <div class="span-24">
+	<ul id="nav">
+	 <li class="page_item page-item-107"><a href="http://codemonkeyism.com/about/">About me</a></li>
+<li class="page_item page-item-530"><a href="http://codemonkeyism.com/my-presentations/">Presentations</a></li>
+<li class="page_item page-item-796"><a href="http://codemonkeyism.com/ebooks/">eBooks</a>
+<ul>
+	<li class="page_item page-item-842"><a href="http://codemonkeyism.com/ebooks/12-shorten-lead-time-ebook-free/">12 Things You can do to Shorten Your Lead Time and Time to Market in Software Development (eBook, free for now)</a></li>
+</ul>
+</li>
+<li class="page_item page-item-1589"><a href="http://codemonkeyism.com/codemonkeyism-archive/">Archive</a></li>
+ 
+                  	</ul>
+  </div>
+  <div class="span-24">
+   
+       <div class="header">
+        <div id="blogname">
+
+	 	   <div class="title"><a href="http://codemonkeyism.com/">Code Monkeyism</a></div>
+	
+	    <p class="tagline"> by Stephan Schmidt</p>
+	</div>
+	
+       </div>
+    </div>
+
+  
+ 
+    <div class="span-14 colborder">
+
+             <div class="post">		
+	     	    <div class="postdate">Written on April 22, 2008 by <a href="http://www.codemonkeyism.com/about/">Stephan Schmidt</a></div>
+        
+	 	  <h1 class="single">All variables in Java must be final</h1>
+		
+	     	    <div class="start_postdate"><div class="interaction">
+<span class="commentlink"><a href="http://codemonkeyism.com/all-variables-in-java-must-be-final/#comments" title="Comment on All variables in Java must be final">90 Comments</a></span><img src="http://codemonkeyism.com/wp-content/themes/cm/images/comments.png" alt="Comments Icon"><br/>
+<span class="tweet"><script type="text/javascript">  
+tweetmeme_url = 'http://codemonkeyism.com/all-variables-in-java-must-be-final/';
+tweetmeme_source = 'codemonkeyism';  
+tweetmeme_style = 'compact'; 
+tweetmeme_service = 'bit.ly'; 
+</script>
+<script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script></span>
+            </div>
+</div>
+
+
+       <p>I haven&#8217;t been using the <a href="http://renaud.waldura.com/doc/java/final-keyword.shtml">final</a> keyword in Java for 10 years, but more and more I think it&#8217;s an excellent keyword in Java. All local variables should be declared final. Today one of the developers of my team made every local variable in a method <code>final</code> and I was wondering how strange that looked. But of course it was the right thing to do. Declaring all variables <code>final</code> will lead to less bugs (logic and typos e.g.).</p>
+<pre name="code" class="java:nocontrols:nogutter">
+public void doSomething(final input) {
+   final result = calc(input);
+}
+</pre>
+<p>If you reassign a variable you most probably do something wrong. I&#8217;ll bet if you <a href="http://blog.objectmentor.com/articles/2007/02/26/outliving-the-great-variable-shortage">reassign a variable</a> your method does at least two different things though every method should only <a href="http://www.codinghorror.com/blog/archives/000805.html">do one thing</a>. <a href="http://butunclebob.com/ArticleS.UncleBob.SrpInRuby">As should a class</a>. <code>Final</code> also goes for method parameters, all should be final. <a href="http://cs.fit.edu/~ryan/cse2010/style.html">Others</a> <a href="http://cafe.elharo.com/blogroll/final-good/">think</a> so too even for methods.</p>
+<p>How do you deal with final attributes? When making most attributes final, just initialize them in the <a href="http://faisalferoz.wordpress.com/2007/12/21/immutable-design-pattern/">constructor.</a> Immutable objects also play nicely with <a href="http://www.pragmaticprogrammer.com/articles/tell-dont-ask">Tell, don&#8217;t ask</a>.</p>
+<p>All these <code>final</code> keywords around your code create noise though. It would be best to have all variables automatically be <code>final</code> and have a new <code>transient</code> keyword for reassignable variables. Or at least for my IDE &#8211; <a href="http://blogs.jetbrains.com/idea/">Intellij IDEA</A> &#8211; to hide the <code>final</code> keyword and write the variable in a different color.  Hear me IDEA developers!</p>
+<p><b>Update:</b> After some more work with Scala, <code>var </code >and <code>val </code> are a good solution.</p>
+
+	<p>You can leave a Reply <a href="#replyform">here</a>.
+<b>Of course, you should follow me on twitter <a href="http://twitter.com/codemonkeyism">here</a>.</b></p>
+       </div>
+	
+	
+	            <div class="span-6 colborder">
+<p>
+   	<b>You can share this post!</b><br/>
+	   Do you want to tell others about this article? Use the social bookmark icons to submit this artice to the service of your choice. Thanks.</p> 
+<a onclick="javascript:urchinTracker('/goal/subscribe/socialmedia/su')" href="http://www.stumbleupon.com/submit?url=http://codemonkeyism.com/all-variables-in-java-must-be-final/&title=All variables in Java must be final"><img src="http://www.stumbleupon.com/favicon.ico"  border="0"/></a>
+<a onclick="javascript:urchinTracker('/goal/subscribe/socialmedia/dz')" href="http://www.dzone.com/links/add.html?url=http://codemonkeyism.com/all-variables-in-java-must-be-final/&title=All variables in Java must be final"><img src="http://www.dzone.com/favicon.ico" border="0"></a>
+<a onclick="javascript:urchinTracker('/goal/subscribe/socialmedia/digg')" href="http://digg.com/submit?phase=2&url=http://codemonkeyism.com/all-variables-in-java-must-be-final/&title=All variables in Java must be final"><img src="http://www.digg.com/favicon.ico" border="0"/></a>
+<a onclick="javascript:urchinTracker('/goal/subscribe/socialmedia/reddit')" href="http://reddit.com/submit?url=http://codemonkeyism.com/all-variables-in-java-must-be-final/&title=All variables in Java must be final"><img src="http://www.reddit.com/favicon.ico" border="0"/></a>
+<a onclick="javascript:urchinTracker('/goal/subscribe/socialmedia/mixx')" href="http://www.mixx.com/submit?page_url=http://codemonkeyism.com/all-variables-in-java-must-be-final/&All variables in Java must be final"><img src="http://www.mixx.com/favicon.ico" border="0"/></a>
+<a onclick="javascript:urchinTracker('/goal/subscribe/socialmedia/del')" href="http://del.icio.us/post?v=4&noui&jump=close&url=http://codemonkeyism.com/all-variables-in-java-must-be-final/&title=All variables in Java must be final"><img src="http://www.delicious.com/favicon.ico" border="0"/></a>
+<a onclick="javascript:urchinTracker('/goal/subscribe/socialmedia/fb')" href="http://www.facebook.com/share.php?u=http://codemonkeyism.com/all-variables-in-java-must-be-final/"><img src="http://www.facebook.com/favicon.ico" border="0"/></a>
+<p> <script src="http://static.delicious.com/js/blogbadge.js"></script>
+</p>
+	</div>
+        <div class="span-7 last">
+         <div class="author-info">
+	  <b>About the author:</b> Stephan Schmidt is head of development at brands4friends. He has more than 15 years of internet technology experience and 10 years experience in agile. He was head of development, consultant and CTO and is a speaker, author and blog writer. He specializes in organizing and optimizing software development helping companies by increasing productivity with lean software development and agile methodologies. <a href="http://codemonkeyism.com/about">Want to know more?</a> All views are only his own.
+	 </div>
+        </div>	
+	
+   	<div class="span-14 last" id="comments">
+		Leave a <a href="#replyform">reply</a>.
+
+
+	<h3 id="comments">Comments<!-- 90 Responses to &#8220;All variables in Java must be final&#8221;--></h3>
+
+	                 		<div class="span-14 comment " id="comment-78057">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/47565862f6d36f68655f948f8478c093?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				John			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>for (final int i = 0; &#8230;</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78101">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/f32f84b4d4549a3ec6fe7407dd38127f?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://blog.subterfusion.net/' rel='external nofollow' class='url'>matthew</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I make all variables and classes final.  I only make classes non-final if I am designing for inheritance.  I can&#8217;t make method parameters final though, it just feels too noisy for me.</p>
+<p>This makes me feel safe.  But I can only get into this mindset in Java.  I have yet to use the Object.freeze() method in Ruby, because it seems to be frowned upon.  I write my code and run my tests and everything seems right.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78115">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/c81c08678b0b7eec374998db6469f9aa?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://shamsmi.blogspot.com' rel='external nofollow' class='url'>Shams</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Not sure whether all variables should be final, especially places like null checks and reassignments. but in general I follow the same strategy of making parameters and local variables final.<br />
+Another strategy I follow to reduce typos is maintain a separate set of prefixes for member variables, parameters and local variables like m, p and e respectively</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78120">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/8a31d5f591997e833d475bcbca6348e5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://sensearray.com/' rel='external nofollow' class='url'>Ian Clarke</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Immutability is generally regarded as a good thing in the functional programming world.  I wonder how much of a benefit this has from the perspective of helping the compiler to produce efficient code, has anyone tried benchmarking this?</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78123">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/3e8a8093c6742a9cd64b4e16c735b5bf?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				pwilder			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I couldn&#8217;t tell from your post but just in case you didn&#8217;t know there is already a rarely used transient Java key word. </p>
+<p><a href="http://en.wikibooks.org/wiki/Java_Programming/Keywords/transient" rel="nofollow">http://en.wikibooks.org/wiki/Java_Programming/Keywords/transient</a></p>
+<p>Sorry I couldn&#8217;t find a Sun reference.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78126">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@pwilder: Thanks, I know about transient which is for non serializable attributes and is used &#8211; as far as I know &#8211; also used with JPA. What I meant was a transient keyword for non final declarations. It would fit I think.</p>
+<p>@Ian: There was a myth some years ago when people put final everywhere for more performance, nowadays I think the Hotspot VM JIT is far outperforms final optimization by hand.</p>
+<p>@Shams: What do you mean with &#8220;null checks&#8221;?</p>
+<p>@matthew: &#8220;[...] Object.freeze() method in Ruby, because it seems to be frowned upon. &#8221; as a mindset this might lead to problems down the road with 500 classes and 100 developers. I&#8217;ll look into <code>freeze</code> thanks for the tip.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78127">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://programmaticallyspeaking.blogspot.com/' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I couldn&#8217;t agree more: all variables should be final. Most variables are not assigned more than once anyway in well designed software, at least to my experience.</p>
+<p>I think that the ratio between final and non-final variables is an estimation of how hard it is to understand a piece of code, because it gives an indication of how much state the code has.</p>
+<p>In Eclipse at least, it is actually possible to configure the compile such that it generates an error if a method parameter is assigend. One step in the right direction, I think.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78133">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/0d4026ee54778e05c462de8cc7942464?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codetojoy.blogspot.com' rel='external nofollow' class='url'>Michael Easter</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I disagree for using final for method parameters and as a blanket statement for local variables.</p>
+<p>For members/immutability, classes, etc, no problem.</p>
+<p>But for the method params, it just too much noise.  Same for locals, usually.  I will use them occasionally but not by dogma.</p>
+<p>It is true that I have a vulnerability for bugs, but it is very small and a good set of unit tests should expose it.  The unit tests are key, because they not only handle this issue but much, much more.</p>
+<p>Mike</p>
+<p>ps. For language design, it would be interesting to have everything to default to final unless otherwise stated.  Alas, with Java, I don&#8217;t see it happening.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78135">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/954196bb84dbd3e610de2a677cc31463?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://chiralsoftware.com/' rel='external nofollow' class='url'>ChiralSoftware</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>final is the most frequently used keyword in my code.  It should be by default, with some other keyword, like &#8220;mutable&#8221;, required to make a variable non-final.  I&#8217;m glad I&#8217;m not the only one who has &#8220;final&#8221; all over the place in my code.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78149">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/0f269a96939ba9c8ddf865794667e4d9?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://ivantamayo.net/blog' rel='external nofollow' class='url'>Saudade</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Functional programming!</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78150">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Saudade: Functional Programming is a state of mind not a programming language. So people can code FP in Java. Or there are atoms of principles from which programming languages derive their style: immutable declarations and statelessness are two of them, both can be realized with an FP language or with an OO language. FP is build on those, not equals those. Some people confuse the two facts.</p>
+<p>@ChiralSoftware: Excatly, as I said <code>transient</code> should be a keyword (and the current use dropped) for those. </p>
+<p>@Michael: Yes I agree, too much noise. An intelligent IDE could help. </p>
+<p>@Torgny: &#8220;I think that the ratio between final and non-final variables is an estimation of how hard it is to understand a piece of code, because it gives an indication of how much state the code has.&#8221; </p>
+<p>Excellent point.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78151">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/c69e6c48c7b0e1b21a12728125ef0c8b?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				kj			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>What we really need is the const keyword, compare with the c   keyword&#8230;</p>
+<p>public const String getId() {<br />
+  return copy-to-const(this.id);<br />
+}</p>
+<p>&#8230;.</p>
+<p>public const /* do not change object state */ &#8230;() {<br />
+  &#8230;<br />
+}<br />
+public void &#8230;(const String t) {<br />
+}</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78152">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/a86239e641ff9a31e6d5451202650efe?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				raveman			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>i disagree, for example you said that final lead to less bugs, for example if I have code</p>
+<p>public final void doSomething(final String string, final String string2) {<br />
+     final String trimedString = string.trim();<br />
+     final String substringedString = string2.substring(1);<br />
+     return trimedString   substringedString;<br />
+}</p>
+<p>i would argue that it can be more buggy if you have 2 variables more.</p>
+<p>public void doSomething(String string, String string2) {<br />
+     string = string.trim();<br />
+     string2 = string2.substring(1);<br />
+     return string   string2;<br />
+}</p>
+<p>I used to do final variables, but when i was changing the code removing final felt weird.</p>
+<p>&#8220;I only make classes non-final if I am designing for inheritance&#8221;<br />
+its weird idea too. When you do that you make final even more stupid since it only means that now you dont extend that class, maybe in future you will, but then you can remove the final and call it refactoring.</p>
+<p>and what about transient ?? i say use it alot too, if you not serializing class it should have all its field transient, just to tell people that youre not into serializing. Some wierd guy might try to serialize your class, but its YOUR class, stop him now! (with AOP you can make class implements Serializable at runtime, so you should use transient)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78153">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@kj: I&#8217;m not sure if the <code>const</code> keyword corresponds to all uses of final in Java. It&#8217;s more or less about immutable attributes, and yes we should be able (annotation?) to tell about immutable objects.</p>
+<p>(and returns from <code>Collections.unmodifiableCollection</code> which cannot be differntiated from normal Lists in the API)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78154">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@raveman: The problem with inheritance is that most extending classes do not take the  pre/post-conditions of the class into account they are extending, or even don&#8217;t know about them (Java vs. Eiffel). Final might help to prevent bugs from inheritance, when people don&#8217;t know what they do. And by default: <b>Noone should use inheritance because it was a stupid idea from the beginning, use composition!</b>. Only inherit in frameworks.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78160">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/954196bb84dbd3e610de2a677cc31463?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://chiralsoftware.com/' rel='external nofollow' class='url'>ChiralSoftware</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Re: the &#8220;transient&#8221; keyword: I agree, it should be dropped as a keyword, and replaced with a @Transient annotation.</p>
+<p>Making all &#8220;variables&#8221; final by default would be a nice change but I&#8217;m not sure if they would consider doing something like that, given how many millions of lines of existing code it would probably break.  I guess they could have a compile-time flag that says which language version it is using.  This is a compiler change, not a bytecode issue.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78163">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Chiral: Migration should be supported with -final argument to the compiler, just like with other features of Java as you&#8217;ve said.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78176">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.freshvanilla.org:8080' rel='external nofollow' class='url'>peter lawrey</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>In hindsight, my preference would be that fields be final by default and there should be a keyword to highlight variable fields. like var?<br />
+I also think const should declare a reference as immutable, but I think its too late to add this now&#8230;</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78178">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@peter: It&#8217;s never too late. And Java has shown that it can adapt, very slowly over several years, but it happens. See the very late changes to volatile :-)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78179">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://programmaticallyspeaking.blogspot.com/' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;Noone should use inheritance because it was a stupid idea from the beginning, use composition!&#8221;<br />
+Again, I totaly agree. I even wrote a post about it a few days ago. :)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78180">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Torgny: :-)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78203">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/39b4a9238a7a7d5a3522261b375c76a7?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				choucri			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>You sound like someone who would love to discover Scala! Check this link:<br />
+<a href="http://www.codecommit.com/blog/scala/roundup-scala-for-java-refugees" rel="nofollow">http://www.codecommit.com/blog/scala/roundup-scala-for-java-refugees</a></p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78207">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 22nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@choucri: I&#8217;ve been following Scala for a long time and did some minor stuff with Scala. From my perspective it&#8217;s too inconsistent for the average Java &#8211; enterprise &#8211; developer. But I guess the bet is still out for Scala, but I lean on the pessimistic side.</p>
+<p><a href="http://stephan.reposita.org/archives/2008/01/21/no-future-for-functional-programming-in-2008-scala-f-and-nu/" rel="nofollow">http://stephan.reposita.org/archives/2008/01/21/no-future-for-functional-programming-in-2008-scala-f-and-nu/</a></p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78309">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/80b1b9758e76568747b2c50bcb911201?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://my.opera.com/behrangsa' rel='external nofollow' class='url'>Behrang</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>So how do you iterate over a loop? Or keep the current stack position? Or&#8230;? Or how do you change the date of birth of a Person object?</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78312">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/80b1b9758e76568747b2c50bcb911201?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://my.opera.com/behrangsa' rel='external nofollow' class='url'>Behrang</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Oh, I see. You recommend having a new keyword called transient. Nah. I don&#8217;t like it. Then I should declare half of my variables or maybe even more transient.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78431">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/c81c08678b0b7eec374998db6469f9aa?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://shamsmi.blogspot.com' rel='external nofollow' class='url'>Shams</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@stephan regarding null checks</p>
+<p>public void doSomething(input) {  </p>
+<p>  if (input == null)<br />
+    input = myDefaultValue;  </p>
+<p>  final result = calc(input);<br />
+} </p>
+<p>vs</p>
+<p>public void doSomething(final input) {  </p>
+<p>  final result;<br />
+  if (input == null)<br />
+    result = calc(myDefaultValue);<br />
+  else<br />
+    result = calc(input);    </p>
+<p>}</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78463">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;So how do you iterate over a loop?&#8221; </p>
+<p>I usually iterate over a collection not a loop.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78469">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/80b1b9758e76568747b2c50bcb911201?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://my.opera.com/behrangsa' rel='external nofollow' class='url'>Behrang</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;I usually iterate over a collection not a loop.&#8221;</p>
+<p>LOL. I wanted to say the same thing. Also sometimes you just need to create loops just for the sake of implementing various kinds of algorithms. And even almost all iterator implementation need non-final variables. There still are a billion of places in which you need non-final variables.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78478">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Behrang: Some people think, and I might be one of them, that you should not iterate at all.</p>
+<p>Instead of </p>
+<pre name="code" class="java:nocontrols:nogutter">
+for (Person person: department.getPersons()) {
+...
+}
+</pre>
+<p>One could write</p>
+<pre name="code" class="java:nocontrols:nogutter">
+department.eachPerson( new Loop&lt;Person&gt;() {
+    public void doWith(Person person) {
+       ...
+    }
+}
+</pre>
+<p>which is longer and more noisy but a.) doesn&#8217;t make the caller dependent of the Person implementation (Iterator or Collection) b.) the Loop code could be used in different places.</p>
+<p>Java isn&#8217;t the best language to do this, but it&#8217;s possible.</p>
+<p>Beside that, you could use a keyword to make the variable not final.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78481">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>See <a href="http://www.pragprog.com/articles/tell-dont-ask" rel="nofollow">http://www.pragprog.com/articles/tell-dont-ask</a> for the usage of <code>Applyable</code>.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78529">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.freshvanilla.org:8080' rel='external nofollow' class='url'>peter lawrey</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>There should be an extra step for making a variable non-final.  The point is that a high percentage of non-final variable could be final and more importantly could be made final with just a little though, a process which is currently missing.</p>
+<p>Closures make your loop code much shorter.</p>
+<p>forEach(Person p: department) {<br />
+   // what ever.<br />
+}</p>
+<p>Note: the default modifiers for interface are final for fields and non-final for classes. In the same way the default modifier for fields can be final, but the default for loop variables could be non-final.  If you want to be explicit everywhere you still could.<br />
+I would suggest &#8216;var&#8217; be the keyword as it is used for javascript to do the same thing.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78561">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/80b1b9758e76568747b2c50bcb911201?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://my.opera.com/behrangsa' rel='external nofollow' class='url'>Behrang</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Stephan</p>
+<p>Without closures you can&#8217;t do that in Java unless you use some kind of iteration.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78590">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Behrang: Can&#8217;t do? Well the example does it. Anonymous classes in Java are closures. What people most often mean when they say Java has no closures:</p>
+<p>1.) There is no short syntax for closures (See Java 7 proposals)<br />
+2.) The libraries don&#8217;t &#8220;think&#8221; in closures</p>
+<p>But all Java collections could support a map(Mapper) method and it would be &#8211; more noisy &#8211; but the same as map in Ruby/Python/&#8230;</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78606">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://finalValidatingPropertiesconfig=' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I have to disagree: Java does not have closures &#8212; Java has anonymous classes. On thing that can be done with closures that cannot be done with anonymous classes is the following:<br />
+forEach(collection) {<br />
+  if (predicate) {<br />
+    return;<br />
+  }<br />
+}</p>
+<p>A naive mapping to anonymous classes whould result in something like:<br />
+forEach(collection, new Loop() {<br />
+  void iteration()<br />
+    if (predicate) {<br />
+      return;<br />
+    }<br />
+  }<br />
+}<br />
+which _does_not_ have the same semantics as the closure-example above.</p>
+<p>This is one reason Java needs closures in my opinion.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78628">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Torgny: Could you explain why it does not have the same semantics?</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78635">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://programmaticallyspeaking.blogspot.com/' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>When you call &#8220;return&#8221; in a closure, you return from the method that is executing the closure.</p>
+<p>That is, in the first of my two examples the &#8216;return&#8217; statement means &#8220;return from the surrounding method, i.e., the method that contains the forEach-loop&#8221;.<br />
+On the other hand, in the secound example the &#8216;return&#8217; statement means &#8220;return from the &#8216;iteration&#8217; method&#8221;.</p>
+<p>In other words, the &#8216;return&#8217; statement will stop the iteration in the first example, but will not stop the iteration in the second example.</p>
+<p>I hope this explains what I mean. Sorry for being unclear earlier.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78658">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Thanks.</p>
+<p>You could fix this with a </p>
+<p>if (predicate) {<br />
+  return true;<br />
+}<br />
+return false;</p>
+<p>Not as nice, but possible with another <code>Loop</code> implementation.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78661">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>And probably very buggy.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78671">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://programmaticallyspeaking.blogspot.com/' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Sure, there are work-arounds, but the whole point with closures (at least for me) is that noisy code becomes easier to read and understand.</p>
+<p>Let&#8217;s wait and see what Java 7 will be like&#8230;</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78673">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Well, when it&#8217;s about noise, then syntactic sugar to annonymous classe should be enough :-) But we&#8217;ll see with Java 7.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78674">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://programmaticallyspeaking.blogspot.com/' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Crap, you got me. :)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78678">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>:-)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78680">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>And your dynamic scope is crazy stuff. I really like people pushing Javas boundaries, it feels like when we push 6502 boundaries 25 years ago.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78704">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.freshvanilla.org:8080' rel='external nofollow' class='url'>peter lawrey</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>There are other things you can do with closures which you cannot do easily with anonymous classes.</p>
+<p>1) Change local variables.</p>
+<p>boolean found = false;<br />
+forEach(Person person) {<br />
+   if (person.name.equals(name))<br />
+      found = true;<br />
+      break;<br />
+   }<br />
+}<br />
+// found may or may not have changed.</p>
+<p>2) break from a &#8220;loop&#8221;<br />
+Rather like a return from the loop.</p>
+<p>3) continue in a &#8220;loop&#8221;<br />
+skip the rest of the anonymous method.</p>
+<p>4) return in a &#8220;loop&#8221; from the method. This doesn&#8217;t return from the anonymous class<br />
+public Person find(String name) {<br />
+forEach(Person person) {<br />
+   if (person.name.equals(name))<br />
+      return person;<br />
+   }<br />
+}<br />
+// do some more searching<br />
+// &#8230;.<br />
+}</p>
+<p>5) Throw checked exceptions.  The forEach throws whatever CheckedException&#8217;s the closure throws.</p>
+<p>public Person find(String name) throws InvalidPersonException {<br />
+forEach(Person person) {<br />
+   if (person.name == null)<br />
+      throw new InvalidPersonException(&#8220;null name&#8221;)l<br />
+}<br />
+}</p>
+<p>6) break or continue with a label.<br />
+The following has two nested closures&#8230;.</p>
+<p>LOOP: forEach(Person person) {<br />
+    forEach(Role role) {<br />
+       if (!person.roles.isAMemberOf(role))<br />
+          continue LOOP;<br />
+       if (!person.isActive())<br />
+          continue;<br />
+    }<br />
+}</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78763">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/80b1b9758e76568747b2c50bcb911201?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://my.opera.com/behrangsa' rel='external nofollow' class='url'>Behrang</a>			     </div>
+				<small class="commentmetadata">April 23rd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;Canâ??t do? Well the example does it.&#8221;</p>
+<p>Stephan, could you please show me the completed forEach method? Or the completed each method of the Applyable class? The Applyable class moves the loop from the caller code into the callee but it does not eliminate it.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-78982">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 24th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@Behrang: A closure based each doesn&#8217;t eliminate it either. Someone has to loop over the collection. But it&#8217;s not me, the caller, which has to do it, it&#8217;s not my code. </p>
+<p>If Java <code>Collections</code> would provide an <code>apply()</code> method, the implicit loop would be there, in infrastructure code. i don&#8217;t care if they use final or not. </p>
+<p>Rubys <code>each</code> needs to have an internal loop too, but it&#8217;s part of the language library not part of my code.</p>
+<p><a href="http://martinfowler.com/bliki/Closure.html" rel="nofollow">http://martinfowler.com/bliki/Closure.html</a></p>
+<p>That was the point I wished to make.</p>
+<p><code><br />
+Department.java:<br />
+public void persons(Applyable applyable) {<br />
+    this.persons.apply(applyable);<br />
+}<br />
+</code></p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-79113">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://finalValidatingPropertiesconfig=' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 24th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;And your dynamic scope is crazy stuff. I really like people pushing Javas boundaries, it feels like when we push 6502 boundaries 25 years ago.&#8221;<br />
+It&#8217;s powerful but dangerous stuff, I think&#8230; :)</p>
+<p>The closest I&#8217;ve got the a 6502 is when I programmed in Basic on the C64. Ah, such fond memories. :)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-79913">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+									</div>
+				<a href='http://fritzfreiheit.com/blog/2008/04/25/friday-link-dump/' rel='external nofollow' class='url'>fritz freiheit.com Â» Friday link dump</a>			     </div>
+				<small class="commentmetadata">April 25th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>[...] All variables in Java must be final at Stephans Blog (Java) [...]</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81077">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>How would one close a Connection in a finally block that was opened in the corresponding try block? The only way I know is to declare the reference (variable) outside the try block and initialize it to null, then assign the opened Connection to it inside the try block, which is impossible if the reference is final.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81199">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@DG: You&#8217;re right, the current language syntax in Java does not allow to make such a var final. Or more clearly the compiler is to blame because it does not accept</p>
+<p>if (finalVar != null) {<br />
+   &#8230;<br />
+}</p>
+<p>as a guard to an uninitialized variable.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81349">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I think that aspect of the Java compiler (preventing the reading of a possibly uninitialized variable) is a great feature. In my guess, it&#8217;s prevented far more runtime bugs than making all references final would. After pushing out many, many thousands of lines of Java code over the years, I can&#8217;t recall a single bug I ever found and fixed where I said to myself, &#8220;gee, that wouldn&#8217;t have happened if only I had declared that reference as final.&#8221;</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81356">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>It&#8217;s not that the compiler shouldn&#8217;t prevent the reading of uninitialized variables, but with a Null check guard this should work, if the contract is extended for uninitialized variables to be null (see my comment above). Otherwise your totally right of course.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81370">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://finalValidatingPropertiesconfig=' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>It sounds like what you really want is assign-once variables rather than final varibles. For me, there is a difference:</p>
+<p>final: is assigned where the variable is declared; cannot be undefined/unassigned; cannot change value.</p>
+<p>assign-once: is assign after being declared; can be undefined/unassigned; cannot change value once defined/assigned.</p>
+<p>(Note that final variables is a subset of assign-once variables).</p>
+<p>I would think that it it impossible (in the general case) to gurantee that assign-once variables are defined before they are read. This is, however, trivial to final variables. IOW, there will be run-time errors instead of compile-time errors if assign-once variable is used. </p>
+<p>However, it is alot easier for the developer to reason about assign-once variables than non-final varables. At least I can reason easire about assign-once variables.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81371">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>If you make uninitialized local references null, then you&#8217;re breaking the contract for final, because the reference will hold two legitimate values during its lifetime.</p>
+<p>But that&#8217;s all beside my main point, which was in the last sentence of my previous post. This proposal of yours is, IMO, a solution in search of a problem.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81378">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;final: is assigned where the variable is declared; cannot be undefined/unassigned; cannot change value.&#8221;</p>
+<p>Not really, final is more a write-before-first-read.</p>
+<p><code><br />
+final int a;<br />
+a = 3;<br />
+</code> </p>
+<p>works as does</p>
+<p><code><br />
+	private final int b;</p>
+<p>	public A() {<br />
+		this.b = 3;<br />
+	}<br />
+</code></p>
+<p>The problem with the finally is that the variable is first read before written.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81381">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://finalValidatingPropertiesconfig=' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;Not really, final is more a write-before-first-read.&#8221;<br />
+I didn&#8217;t know that&#8230; Hurray! I learn something new everyday! :)</p>
+<p>&#8220;The problem with the finally is that the variable is first read before written.&#8221;<br />
+I have to argue that that&#8217;s not a problem&#8230; it&#8217;s a feature. :)<br />
+If you want that kind of behaviour I suggest that you write an AssignOnce class, such that you can do:</p>
+<p>class Something {<br />
+  private final AssignOnce it = new AssignOnce();</p>
+<p>  setIt(Object o) {<br />
+    it.set(o); // throws run-time exception if already set.<br />
+  }<br />
+}</p>
+<p>Or, (and that&#8217;s a much more fun solution) you make some delicate changes to javac. :)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81407">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I wanted to hack javac to do fun things for quite some time, especially since everyon hacks his own closure implementation :-)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81432">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@stephan:</p>
+<p>Even if your proposal, to make references (or identifiers, I guess I should say, so as to include primitives) final by default, were a good idea, which I&#8217;m arguing it&#8217;s not, it&#8217;s absurd to think that any governing body of a language would make a change that would break probably 95% of the existing code base.</p>
+<p>As for declaring all variables as final (at least where it&#8217;s possible), I&#8217;m sorry to be blunt, but I think it&#8217;s a dumb idea, plain and simple. If there was a measurable benefit to be gained from doing it, it would have become common practice long ago, not just in Java, but in other languages where variables are, well, variable. </p>
+<p>Certain ideas are just obviously good, like for example global variables and goto statements should be avoided, and as a result they gain currency over time, and become conventional wisdom in the programming world. Seriously, no offense, but your idea is not one of them.</p>
+<p>You say doing this can prevent bugs, but as I said, I can&#8217;t recall ever encountering a bug that would have been prevented by adopting this practice. And even though it could conceivably prevent a bug on very rare occasions, I can more easily imagine scenarios where a proliferation of declared variables (when one is all that&#8217;s really needed) could make bugs more likely, rather than less.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81470">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@DG:</p>
+<p>&#8220;[...], but in other languages where variables are, well, variable&#8221;</p>
+<p>It&#8217;s the default style of implementation in some languages, FP language for example favor final type assignments. See the comment from Saudade above.</p>
+<p>&#8220;[...] itâ??s absurd to think that any governing body of a language would make a change that would break probably 95% of the existing code base.&#8221;</p>
+<p>See my comment above: &#8220;Migration should be supported with -final argument to the compiler, just like with other features of Java as youâ??ve said.&#8221;</p>
+<p>&#8220;[...] I canâ??t recall ever encountering a bug that would have been prevented by adopting this practice.&#8221;</p>
+<p>Making all variables (well except the ones I declared var/mutable/transient, see above comments from me) final would result in differently &#8211; and I think better &#8211; organized and designed code, more with a functional flavor. And it would lead to less bugs. Perhaps you didn&#8217;t have any aliased/shadowed bug in your career,  I had quite some in the last 25 years and they we&#8217;re often hard to find.</p>
+<p>&#8220;(when one is all thatâ??s really needed)&#8221;</p>
+<p>As written above, I consider reusing variables a code smell. See comment comment above.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81485">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I&#8217;ve had a few shadowed bugs in my career, but they would represent a minuscule percentage in the big picture. Certainly not enough to justify junking up my code with tons of superfluous variables.</p>
+<p>And, to each his own, but I don&#8217;t consider &#8220;reusing&#8221; variables to be a code smell. They&#8217;re called &#8220;variables&#8221; for a reason.</p>
+<p>At any rate, if you think this is a good idea, you should keep promoting it. Maybe enough programmers will agree with you for it to catch on. But I doubt that will be the case.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81490">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;At any rate, if you think this is a good idea, you should keep promoting it.&#8221;</p>
+<p>I&#8217;ll do :-)</p>
+<p>&#8220;Maybe enough programmers will agree with you for it to catch on.&#8221;</p>
+<p>Not in Java I fear. Other communities have different ideas. But in the end I do not care. I really think reusing variables is a code smell and preventing reuse will lead to more and smaller methods, which only do one thing and do not try to achieve several things,  and in the end better code. My wish for a compiler switch is also more for me, not to dump it onto others. Perhaps IDEA will have a plugin sometimes to hide the final keyword.</p>
+<p>Thanks for your thoughts on the topic.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81496">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.freshvanilla.org:8080' rel='external nofollow' class='url'>peter lawrey</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;I canâ??t recall ever encountering a bug that would have been prevented by adopting this practice.&#8221;</p>
+<p>You must have been using Java for very different things than myself.  </p>
+<p>One of the things final fields help with is thread safety.  I can only assume you have never had a field change when you didn&#8217;t expect it to. or you were happy to just synchronize everything, or you only write single threaded code.<br />
+I can only assume you have never used a field before it was initialized.<br />
+I guess you are lucky that you have only worked with people who always understood all the assumption made about when a field is set and when it can be used.</p>
+<p>Or perhaps you haven&#8217;t realized how many bugs you could have prevented with final fields.</p>
+<p>â??Maybe enough programmers will agree with you for it to catch on.â??<br />
+Unlikely. Most developers don&#8217;t like having to think about multi-threaded issues and most applications don&#8217;t require them to do so.</p>
+<p>However if there were a compiler option I would certainly use it.</p>
+<p>There is a measurable benefit in using final fields.  Its not big but applications do perform faster as the JVM can optimize access to such fields.</p>
+<p>The biggest benefit is in allowing multi-threaded access without synchronization.  This does provide a significant benefit in highly multi-threaded systems.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81514">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 28th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@peter lawrey:</p>
+<blockquote><p>
+&#8220;You must have been using Java for very different things than myself.&#8221;
+</p></blockquote>
+<p>And then again, maybe I&#8217;m just less prone to introducing bugs into my code. I&#8217;m not trying to be a smartass when I say that, although I know it sounds that way. If I found myself plagued by careless bugs that I coded all the time, I would probably also be seeking out novel ways to prevent those bugs, even if it meant junking up my code with a lot of defensive measures like declaring every local variable as final. But I&#8217;m not plagued by the sorts of bugs mentioned in the above comments. I occasionally create them, of course, but I find them, fix them and move on.</p>
+<p>&#8220;One of the things final fields help with is thread safety. I can only assume you have never had a field change when you didnâ??t expect it to.&#8221;</p>
+<p>No I haven&#8217;t. One of my habits is to always assume a multi-threaded environment. So, when I&#8217;m working with a static or an instance variable (field) in a method, I&#8217;ll assign it to a temporary local variable which won&#8217;t be changed by another thread. (Particularly when I&#8217;m using lazy instantiation.) Or, if the situation calls for it, I&#8217;ll use synchronization. And if the value of a field is never going to change, I have no objection to declaring it as final, and I usually in fact do. </p>
+<p>&#8220;There is a measurable benefit in using final fields. Its not big but applications do perform faster as the JVM can optimize access to such fields.&#8221;</p>
+<p>But the discussion above has been more about declaring local variables as final, than fields. And if there&#8217;s any efficiency gained by making a local variable final, it&#8217;s likely offset by the cost of extra final variables that are needed every time the value changes (as discussed above), and if not, the gain wouldn&#8217;t be worth the extra clutter in the code, at least not to me.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81722">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea728efe210e77bd866112dc5d9acdd5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://finalValidatingPropertiesconfig=' rel='external nofollow' class='url'>Torgny Andersson</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>There is another (more?) important thing about final variables: it communicates the intent of the variable to the reader of the source code.</p>
+<p>I find variables that are defined final easier to reason about.</p>
+<p>If the varible does/should not change, then make it final. It&#8217;s not that hard, is it? Actually, Eclipse can be configured to automatically insert &#8216;final&#8217; for variables/fields/parameters that can be final. That&#8217;s very nice.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81757">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.freshvanilla.org:8080' rel='external nofollow' class='url'>peter lawrey</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;And then again, maybe Iâ??m just less prone to introducing bugs into my code.&#8221;<br />
+&#8220;Iâ??m not plagued by the sorts of bugs mentioned in the above comments. I occasionally create them, of course, but I find them, fix them and move on.&#8221;</p>
+<p>I agree that I rarely introduce bugs into code I have written and often fix them quickly when I do.<br />
+However, consider you are in a team of say 80 developers of varying coding standard working on a code base of 2.5 million lines of code which is a few year old.  The main application has 600  threads fired off in no consistent manner.</p>
+<p>You are reading a large section of code you have to work on for the first time and you have no idea which variables might change when and in what weird and wonderful ways.  The simplest first step is to do what @Torgny Andersson suggest (I use IntelliJ which has 650 code analysis inspections) and turn as many fields final as possible and as many inner classes/methods static as possible etc. Essentially you are doing a basic code tidy up wishing the previous developer had bothered to do more housekeeping.</p>
+<p>You might assume why worry if the code works.  Actually this is a dangerous assumption because you will find there have been so many layers of code added that even if the application works the code may have never have worked but someone may have added a work around on top. (Actually several people may have added pieces of work arounds in many different places)  Until the code you are working on isn&#8217;t really called so it does really work and never has. </p>
+<p>On one program I worked it had 263 calls to System.exit() typically without a warning message. Numerous examples of infinite recursion.<br />
+Often enhancing a feature meant getting it work in the first place.<br />
+And in this kind of environment you find lots of bugs which are highlighted by code analysis and a common refactoring trick to get some control over the code is to place final on as many fields as possible.  For large methods it can be worth adding final variables as well.  However I would say a better option is to break up the methods into smaller ones if possible.  When you extract a method in IntelliJ it can detected other blocks of code which can be replaced by the method and gives you the option of replacing these as well.</p>
+<p>&#8220;Iâ??ll assign it to a temporary local variable&#8221; &#8211; I assume where ever a variable might be used more than once.<br />
+Not sure if this is simpler or not &#8220;cluttering up your code&#8221; when just adding final does the same thing.  Obviously for non final variables you should do this where appropriate.</p>
+<p>&#8220;But the discussion above has been more about declaring local variables as final, than fields. &#8221;<br />
+I take your point. However I would broaden the claim that final be the default modifier for variables and fields and you should have a keyword to signify non-final variables.</p>
+<p>&#8220;for (final int i = 0; â?¦&#8221;<br />
+You can use final in foreach loops as the variable has the scope of the block e.g. </p>
+<p>for(final String line: readByLine(filename)) {</p>
+<p>}</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81762">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;However, consider you are in a team of say 80 developers of varying coding standard working on a code base of 2.5 million lines of code which is a few year old&#8221;</p>
+<p>Ah, exactly my territory :-)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81894">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@peter lawrey,</p>
+<blockquote><p>
+On one program I worked it had 263 calls to System.exit() typically without a warning message. Numerous examples of infinite recursion.<br />
+Often enhancing a feature meant getting it work in the first place.
+</p></blockquote>
+<p>Then I would argue that you&#8217;re barking up the wrong tree if you think your problems could be mitigated, much less solved, by coding conventions. Incompetent programmers will produce inferior code, period. It sounds like the root of your problem is your management&#8217;s inability to recruit, hire and retain reasonably competent programmers.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81900">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;[...] recruit [...]&#8221;</p>
+<p>Ah, recruit. Getting the best usually can only be done with:</p>
+<p>Lots and lots and lots of money -> need to have a VC or an IPO or both (be Google)</p>
+<p>Grow your developers on a tree.</p>
+<p>Wait, wait, wait until you find the right person.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81922">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/eb062a367cc8798cb8e7f8f6c1a297b3?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://qform.sourceforge.net' rel='external nofollow' class='url'>DG</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@stephan,</p>
+<blockquote><p>
+Wait, wait, wait until you find the right person.
+</p></blockquote>
+<p>Not <i>the</i> right person, <i>a</i> right person. Notice that I said &#8220;reasonably competent&#8221;, not, to use your words, &#8220;the best&#8221;.</p>
+<p>Whoever randomly sprinkles a codebase with unwarned System.exits or endless recursions, is not competent at all. They&#8217;re doing more harm to their team&#8217;s development effort than good, at least in my opinion. Keeping them on the team is a failure on the part of management, again in my opinion.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81934">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>As a team manager I apply the wait, wait, wait strategy. Hiring people who put <code>System.exit()</code>  everywhere does not scale. In the end it does cost much more than they are worth, as you&#8217;ve said.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81945">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/528e6eedecce8add9cf6fdc98742672c?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				BA			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Not sure what all this noise is about making all variables final. Seems quite ridiculous to make method parameters final in Java. What is this getting you? The semantics are the same for the caller of your method whether you make them final or not. What exactly are you telling the user of your method with this final keyword?</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81952">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.freshvanilla.org:8080' rel='external nofollow' class='url'>peter lawrey</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>BTW: I was in an interview recently when they were discussing a language they had invented in house. !! While it had some pluses I could see, I was a bit shocked when they said the libraries had 30 million lines of code.</p>
+<p>I have developed a small framework which is just over 30K lines and in a recent rewrite I got rid of 10K&#8230;</p>
+<p>Anyway, I have found what works for me and what works for a team of diverse individuals are not the same.  In a team I tend to prefer defensive approaches which minimize assumptions.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-81995">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 29th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;Anyway, I have found what works for me and what works for a team of diverse individuals are not the same.  In a team I tend to prefer defensive approaches which minimize assumptions.&#8221;</p>
+<p>Same for me.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-82129">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/929bc9ba9f7ff911a9926c9ff0909203?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.hexaid.com' rel='external nofollow' class='url'>Gabriel Belingueres</a>			     </div>
+				<small class="commentmetadata">April 30th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I always use the final keyword in my code.</p>
+<p>At first it seems that writing final everywhere will clutter the code, but I found it the opposite: When I define a non final variable, I KNOW for sure it will be assigned more than one time (this saves time too.)</p>
+<p>Consider also the tricky relationship between final and method overriding, as I discussed here:</p>
+<p><a href="http://groups.google.com.ar/group/comp.lang.java.programmer/browse_thread/thread/ef31c6c22307d11b/22bc937b17d51703" rel="nofollow">http://groups.google.com.ar/group/comp.lang.java.programmer/browse_thread/thread/ef31c6c22307d11b/22bc937b17d51703</a></p>
+<p>Gabriel</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-82172">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/9989e8516a5e5d1772c0a9777a2f61a5?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				hacklberry			     </div>
+				<small class="commentmetadata">April 30th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;I havenâ??t been using the final keyword in Java for 10 years&#8230;&#8221; &#8211; that is sad, was someone stopping you from reading (freely available) books? :-)  <a href="http://www.parashift.com/c" rel="nofollow">http://www.parashift.com/c</a>  -faq-lite/const-correctness.html ,and Bruce Eckel wrote about const correctness in Java in his &#8220;Thinking in Java&#8221;. Why do I always feel that the most common<br />
+ characteristic of java developers is their ignorance? :-)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-82267">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/44a15a1ded0a9084a577a3269884447d?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://codemonkeyism.com' rel='external nofollow' class='url'>stephan</a>			     </div>
+				<small class="commentmetadata">April 30th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>@hacklberry: As I&#8217;ve written lots of Ruby, Perl, Python, C, Delphi and some Groovy in the past 15 years, shouldn&#8217;t it be that <i>&#8220;the most common charactersitic of Ruby, Perl, Python, C, Delphi, Groovy and Java developers is their ignorance&#8221;</i> ? :-)</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-82290">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.freshvanilla.org:8080' rel='external nofollow' class='url'>peter lawrey</a>			     </div>
+				<small class="commentmetadata">April 30th, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;The semantics are the same for the caller of your method whether you make them final or not. &#8221;<br />
+Good point. I would agree that final parameters for a method make no difference to the caller.  So making them final by default would have no impact in that situation either.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-83406">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/230f408fbe9ac6508bdb5ff008013f37?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				Sipowitz			     </div>
+				<small class="commentmetadata">May 2nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I adopted the habit of making all variables final about a year ago, and I don&#8217;t regret it. It&#8217;s the right thing to do, especially in relatively long methods.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-83472">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/528e6eedecce8add9cf6fdc98742672c?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				BA			     </div>
+				<small class="commentmetadata">May 2nd, 2008 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;Itâ??s the right thing to do, especially in relatively long methods.&#8221;</p>
+<p>Can you elaborate on the right thing? Why? And, it&#8217;s usually considered bad practice to have long methods so that&#8217;s not really a good point, is it?</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-224120">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/fe3ec04d1300b66c6afd32bf56979e54?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://apocalisp.wordpress.com' rel='external nofollow' class='url'>Apocalisp</a>			     </div>
+				<small class="commentmetadata">January 5th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I couldn&#8217;t agree more. Make everything final that can be. I&#8217;d add to that the final keyword for class declarations. All classes in Java should be declared final unless they are declared abstract.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-224126">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/de3713d9f21c7ec7788a71abb04151c9?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				Greg Mildenhall			     </div>
+				<small class="commentmetadata">January 6th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>&#8220;There&#8217;s a reason they&#8217;re called variables.&#8221;</p>
+<p>Yes, but it&#8217;s not what you think.</p>
+<p>It comes from the mathematical usage. The value of the variable varies from one application of the function (invocation of the method) to the next, _not_ within one. So in maths, all variables are final &#8211; and their functions end up so clearly-defined and well-behaved that they typically _prove_ that they&#8217;re correct. ;)</p>
+<p>The last sentence was kinda tongue-in-cheek but I do agree with the make-it-final agenda even Java seems to go out of its way in many places to stop you adhering to good coding practices like that one.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-224139">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/ea5db2b9491a41a88de7aed763aba043?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				Peter Lawrey			     </div>
+				<small class="commentmetadata">January 6th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>One problem with making class either final or abstract is that you cannot create instance of abstract classes.  This may be too restrictive and I think a lot of classes are neither final or abstract for good reason.<br />
+I would suggest in this case there be a third option of an inheritable class which can be instanciated.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-238631">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/9420b13f41ea0c28b268d819209069a9?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://javadots.blogspot.com/' rel='external nofollow' class='url'>Itay Maman</a>			     </div>
+				<small class="commentmetadata">August 9th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I think that final fields are great. Declaring most/all of the fields as final dramatically reduces the chances of Null-Pointer-Exceptions in the code.</p>
+<p>As for local variables things are somewhat more complicated. One case is loop variables which cannot be final. Another case is formal parameters whose values sometimes need to be adjusted. Of course you this can be solved by introducing an additional local variable but it is not always worth the extra verbosity.</p>
+<p>Anyway, I agree that final should be the default. Also, I like very much the idea of having the final qualifier hidden by the IDE.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-238707">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/6a12550cdf7fe9a70c57f8d8e6d9be9e?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://fotap.org/~osi' rel='external nofollow' class='url'>peter royal</a>			     </div>
+				<small class="commentmetadata">August 10th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>intellij has an inspection for re-use of local variables, so you have have it flag it as a warning/error as desired without the noise of the final keyword everywhere.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-238899">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/1d6bca214951c92498cae652575df76b?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://iacobus.blogspot.com' rel='external nofollow' class='url'>James E. Ervin</a>			     </div>
+				<small class="commentmetadata">August 11th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I agree with your basic premise, I love using final everywhere.  I love using them in classes to make them immutable.  What I wish was the case is that Java and Java Beans would better support them.  I find it so frustrating that to use any bean utility or more importantly do any form of serialization (to XML, Java serialization, or databases) you must have a bloody no arg constructor!  If there were only a good way around that constraint.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-239195">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+									</div>
+				<a href='http://satukubik.com/2009/08/13/eclipse-tips-auto-generate-final-variable-field-and-parameter/' rel='external nofollow' class='url'>Eclipse Tips: Auto generate &#8216;final&#8217; variable, field, and parameter | satukubik</a>			     </div>
+				<small class="commentmetadata">August 13th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>[...] with the up/down side of the suggestion, if you eager to do that, just do that somewhere else (here for [...]</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-242590">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/612e8974f1647bee9851c71857859589?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.TheHackerChickBlog.com' rel='external nofollow' class='url'>abby, the hacker chick blog</a>			     </div>
+				<small class="commentmetadata">September 6th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I really like this idea and am also trying to apply it to C# (which uses const &amp; readonly) &#8211; but I&#8217;m not finding a way to make method params &#8220;final&#8221;.  Any ideas how to duplicate this behavior in C#?</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-243894">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/396c2238dadd5290f507a4e801472e5a?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				newton			     </div>
+				<small class="commentmetadata">September 15th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I think you mean &#8220;All class member property must be final&#8221;,if not,the code &#8220;for(final int=0;&#8230;&#8221; looks funny.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-246478">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/7b7acf8895d66eb15bda67599741ec72?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://jintli.qyun.net' rel='external nofollow' class='url'>æ??é??</a>			     </div>
+				<small class="commentmetadata">October 1st, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>I agree with you because of readability.</p>
+			</div>
+                 </div>
+
+                 	                 		<div class="span-14 comment " id="comment-247773">
+			<div class="span-3">
+			    <div class="comment-author">
+				<div class="avatar">
+					<img alt='' src='http://www.gravatar.com/avatar/8c5548eb0b2b80924f237953392df5e7?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />				</div>
+				<a href='http://www.lumbercartel.ca/' rel='external nofollow' class='url'>Randolf Richardson</a>			     </div>
+				<small class="commentmetadata">October 11th, 2009 </small>
+			</div>
+			<div class="span-11 last">
+								<p>Regarding &#8220;hacking javac&#8221; &#8212; when you&#8217;re doing that, could you enable the &#8220;goto&#8221; command?  Thanks.</p>
+<p>Facetiously yours (smirking),</p>
+<p>Randolf.</p>
+			</div>
+                 </div>
+
+                 	 
+
+<div id="newcomment" class="span-14 last">
+<a name="replyform"></a>
+<h3 id="respond">Leave a Reply</h3>
+
+
+<form action="http://codemonkeyism.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+<label for="author"><small>Name (required)</small></label></p>
+
+<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+<label for="email"><small>Mail (will not be published) (required)</small></label></p>
+
+<p><input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+<label for="url"><small>Website</small></label></p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type="hidden" name="comment_post_ID" value="172" />
+</p>
+
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+
+</form>
+
+
+</div>
+
+        <div class="othersources">
+        <p>What people wrote somewhere else:</p>
+	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 	                 		</div>
+
+
+<p class="btc-powered">Additional comments powered by <a href="http://www.backtype.com/">BackType</a></p>  
+    	</div>
+
+    </div>
+	
+    <div class="span-6 last">
+	<div id="sidebar">
+  <div id="feeds"><a class="none" href="http://feeds2.feedburner.com/stephansblog"><img alt="RSS Feedburner Counter" height="26" width="88" alt="" style="border: 0pt none ;" src="http://feeds2.feedburner.com/~fc/stephansblog?bg=f0f0f0&fg=444444&anim=0" alt="CodeMonkeyism RSS Icon"/></a>
+
+<span class="twittercounter">
+<a href="http://twittercounter.com/?username=codemonkeyism" title="TwitterCounter for @codemonkeyism"><img src="http://twittercounter.com/counter/?username=codemonkeyism&style=white" width="88" height="26" style="border:none;" alt="TwitterCounter for @codemonkeyism" /></a></span>
+   </div>
+<div class="follow">
+<a href="http://twitter.com/codemonkeyism"><img src="/wp-content/uploads/2009/09/twitter-icon.png" align="left" border="0" alt="@CodeMonkeyism Twitter Icon"></a> You should follow me on twitter <a href="http://twitter.com/codemonkeyism">here</a>.<br/>
+</div>
+<div class="follow">
+<a class="none" style="text-decoration: none;" title="RSS Feed" href="http://feeds2.feedburner.com/stephansblog"><img alt="RSS icon" style="text-decoration: none;" alt="CodeMonkeyism RSS Icon" align="left"  src="/wp-content/themes/k2/images/RSS_32.png"/></a> <a href="http://feeds2.feedburner.com/stephansblog">Subscribe to CodeMonkeyism via RSS</a>
+</div>
+<h4>Free subscriptions</h4>
+<div class="subscriptions">
+Enter your email address to receive an occasional email when thereâ??s a major new article. I will never share your address, period, and there's a link to unsubscribe in every email.
+</div>
+	<div id="mc_signup_container">
+	<a name="mc_signup_form"></a>
+	<form method="post" action="/all-variables-in-java-must-be-final/#mc_signup_form" id="mc_signup_form">
+	<fieldset class="mc_custom_border">
+	    <legend></legend>    <input type="hidden" id="mc_submit_type" name="mc_submit_type" value="html"/>
+	<div class="updated" id="mc_message"></div><div class="mc_merge_var"><label for="mc_mv_EMAIL" class="mc_var_label">Email Address</label><input type="text" size="18" value="" name="mc_mv_EMAIL" id="mc_mv_EMAIL" class="mc_input"/></div>
+	<div class="mc_signup_submit">
+	<input type="submit" name="mc_signup_submit" id="mc_signup_submit" value="Subscribe" class="button"/>
+	</div>
+	    </fieldset>
+	</form>
+	</div>
+	<!--
+   <div id="twitter">
+        <div class="twitter-stream" style="float:clear;">
+<a class="twitter-morelink" href="http://twitter.com/codemonkeyism">More updates...</a>
+	<h3 style="">Twitter</h3> 
+<ul class="twitter"><li class="twitter-item"> +1 RT <a href="http://twitter.com/headius" class="twitter-user">@headius</a>: RT <a href="http://twitter.com/technomancy" class="twitter-user">@technomancy</a>: Graphics on Android+Duby now: <a href="http://bit.ly/dDgE5B" class="twitter-link">http://bit.ly/dDgE5B</a> (beautiful, and yes, as fast as Java) <a href="http://twitter.com/codemonkeyism/statuses/8623501672" class="twitter-link">#</a> <span class="twitter-timestamp"><abbr title="2010/02/04 07:24:39">3 hours ago</abbr></span></li><li class="twitter-item"> There seem to be more tweets about testing + Joel did a post-coincidently I'm looking for a tester in <a href="http://twitter.com/#search?q=Berlin" class="twitter-link">#Berlin</a>. <a href="http://twitter.com/#search?q=agile" class="twitter-link">#agile</a> <a href="http://twitter.com/#search?q=qa" class="twitter-link">#qa</a> <a href="http://twitter.com/#search?q=test" class="twitter-link">#test</a> <a href="http://twitter.com/#search?q=job" class="twitter-link">#job</a> <a href="http://twitter.com/codemonkeyism/statuses/8622680270" class="twitter-link">#</a> <span class="twitter-timestamp"><abbr title="2010/02/04 06:46:24">4 hours ago</abbr></span></li></ul>	</div>
+
+   </div>
+-->
+   <div id="postrank">
+
+<script type="text/javascript" src="http://api.postrank.com/static/widget-v2.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+	var options = {
+		"feed_hash": "660fe2ee6dbc320dc921b5bd29d66623", // Unique feed identifier
+		"num": 10, // Number of top posts to display
+		"theme": "blueSteel" // blueAndBlue, blackAndGray
+	}   
+	new PostRankWidget(options);
+//]]>
+</script>
+
+</div>
+</div>
+ 
+    </div> 
+
+   <div class="span-24" id="footer">
+     <!-- Please leave this line intact -->  
+     <div class="copyright">
+     Code Monkeyism Copyright 2008 , content and design by <a href="http://stephan.reposita.org/about/">Stephan Schmidt</a>. Monkey is from the Tango Project and is available under the Creative Commons Attribution Share Alike license. Icons from <a href="http://www.famfamfam.com/lab/icons/">FamFamFam</a>, images from Flickr and iStockPhoto. The newsletter subscription text is from <a href="http://www.joelonsoftware.com/">Joel on Software</a> because it was perfect.
+     </div>
+ </div>  
+   
+ <div style="position: absolute; top: -10000px; left: -10000px;  width: 0px; height: 0px;" id="FB_HiddenContainer"></div><link type="text/css" rel="stylesheet" href="http://codemonkeyism.com/wp-content/plugins/wp-facebookconnect//fbconnect.css"></link>
+<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+<script src="http://codemonkeyism.com/wp-content/plugins/wp-facebookconnect//fbconnect.js" type="text/javascript"></script><!-- no logged in Facebook user --><div class="fbc_loginstate_top"></div><script type="text/javascript">
+FBConnect.init('396f1cdec0acbaacea326b20cedcfa6f', 'http://codemonkeyism.com/wp-content/plugins/wp-facebookconnect/', '127263637971', 'http://codemonkeyism.com', 0, FBConnect.appconfig_reload);
+
+</script>  
+ </div>
+  
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-601592-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<!-- Start Quantcast tag -->
+<script type="text/javascript">
+_qoptions={
+qacct:"p-1aQH3kso1chr-"
+};
+</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<noscript>
+<img src="http://pixel.quantserve.com/pixel/p-1aQH3kso1chr-.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+<!-- End Quantcast tag -->
+ </body>  
+ </html>
+ 
+
+<!-- Dynamic page generated in 1.666 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2010-02-04 12:49:23 -->

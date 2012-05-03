@@ -1,0 +1,1197 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>Initialize final variable before constructor in Java - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6230">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/677595/initialize-final-variable-before-constructor-in-java">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Initialize final variable before constructor in Java'" href="/feeds/question/677595">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(677595);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f677595%2finitialize-final-variable-before-constructor-in-java">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/677595/initialize-final-variable-before-constructor-in-java" class="question-hyperlink">Initialize final variable before constructor in Java</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,final,constructor,variable,initialization">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="677595">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b></b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>Is there a solution to use a final variable in a Java constructor?
+The problem, if I init. a final var. like:</p>
+
+<pre><code>private final String name = "a name";
+</code></pre>
+
+<p>then I cannot use it in the constructor, while java first runs the constructor an then the fields... Is there a solution to get in contact with the final var. in the constructor?</p>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/final" class="post-tag" title="show questions tagged 'final'" rel="tag">final</a> <a href="/questions/tagged/constructor" class="post-tag" title="show questions tagged 'constructor'" rel="tag">constructor</a> <a href="/questions/tagged/variable" class="post-tag" title="show questions tagged 'variable'" rel="tag">variable</a> <a href="/questions/tagged/initialization" class="post-tag" title="show questions tagged 'initialization'" rel="tag">initialization</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-677595" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/677595/revisions" title="show all edits to this post"><span title="2009-03-24 15:00:31Z" class="relativetime">Mar 24 at 15:00</span></a></div><div class="user-gravatar32"><a href="/users/49246/starblue"><img src="http://www.gravatar.com/avatar/c421b43470bb8d3c099c5a847e588549?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/49246/starblue" >starblue</a><br><span class="reputation-score" title="reputation score">11.8k</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">10</span></span><span title="29 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">29</span></span></div></div>
+            
+            </td>
+            
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2009-03-24 14:16:15Z" class="relativetime">Mar 24 at 14:16</span></div><div class="user-gravatar32"><a href="/users/77722/tobiask"><img src="http://www.gravatar.com/avatar/813b038f6d66f1c5e1482335d8b24dfa?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/77722/tobiask" >Tobiask</a><br><span class="reputation-score" title="reputation score">374</span><span title="2 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">2</span></span><span title="9 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">9</span></span></div></div>
+            <br class="cbt">
+            <div class="accept-rate accept-answer-link" title="this user has accepted an answer for 9 of 9 eligible questions">100% accept rate</div>
+            
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677595" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-490853" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I assume that you want to change the value on the constructor right ? &ndash;&nbsp;<a href="/users/23238/webclimber" title="1266" class="comment-user">webclimber</a> <span class="comment-date"><span title="2009-03-24 14:25:23Z">Mar 24 at 14:25</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-491001" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I'm voting to close because, from my understanding, it turns out this is not really a problem at all.  What the OP is trying to do should work. &ndash;&nbsp;<a href="/users/1471/outlaw-programmer" title="4398" class="comment-user">Outlaw Programmer</a> <span class="comment-date"><span title="2009-03-24 15:02:30Z">Mar 24 at 15:02</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-491009" class="comment">
+        <td></td>
+        <td class="comment-text"><div>The constructor implicitly executes the field initialisation immediately before calling the super constructor. &ndash;&nbsp;<a href="/users/4725/tom-hawtin-tackline" title="24152" class="comment-user">Tom Hawtin - tackline</a> <span class="comment-date"><span title="2009-03-24 15:05:51Z">Mar 24 at 15:05</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>8 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/677595?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/677595?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/677595?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="677615"></a>
+    
+    <div id="answer-677615" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677615">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        11
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+<img src="http://sstatic.net/so/img/vote-accepted-on.png"
+    class="vote-accepted"
+    style="cursor:default"
+    width="30"
+    height="31"
+    alt="check"
+    title="The question owner accepted this as the best answer Mar 24 at 15:44" >
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>I do not really understand your question. That</p>
+
+<pre><code>public class Test3 {
+    private final String test = "test123";
+
+    public Test3() {
+        System.out.println("Test = "+test);
+    }
+
+    public static void main(String[] args) {
+        Test3 t = new Test3();
+    }
+}
+</code></pre>
+
+<p>executes as follows:</p>
+
+<pre><code>$ javac Test3.java &amp;&amp; java Test3
+Test = test123
+</code></pre>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677615#677615" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677615" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:20:14Z" class="relativetime">Mar 24 at 14:20</span></div><div class="user-gravatar32"><a href="/users/55925/johannes-weiss"><img src="http://www.gravatar.com/avatar/bfd255aadce50af6cbedca97f20ab305?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/55925/johannes-weiss" >Johannes Wei√?</a><br><span class="reputation-score" title="reputation score">5,475</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">10</span></span><span title="25 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">25</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677615" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,final,constructor,variable,initialization">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="677605"></a>
+    
+    <div id="answer-677605" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677605">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        4
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Do the initialization in the constructor, e.g.,</p>
+
+<pre><code>private final String name;
+private YourObj() {
+    name = "a name";
+}
+</code></pre>
+
+<p>Of course, if you actually know the value at variable declaration time, it makes more sense to make it a constant, e.g.,</p>
+
+<pre><code>private static final String NAME = "a name";
+</code></pre>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677605#677605" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677605" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/677605/revisions" title="show all edits to this post"><span title="2009-03-24 14:26:59Z" class="relativetime">Mar 24 at 14:26</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:18:07Z" class="relativetime">Mar 24 at 14:18</span></div><div class="user-gravatar32"><a href="/users/4203/hank-gay"><img src="http://www.gravatar.com/avatar/6992f91d3126fe9feb37630c9012897d?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/4203/hank-gay" >Hank Gay</a><br><span class="reputation-score" title="reputation score">13.5k</span><span title="12 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">12</span></span><span title="37 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">37</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677605" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="677607"></a>
+    
+    <div id="answer-677607" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677607">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        2
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>In this case, you can mark the field as 'static' also.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677607#677607" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677607" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:18:33Z" class="relativetime">Mar 24 at 14:18</span></div><div class="user-gravatar32"><a href="/users/1471/outlaw-programmer"><img src="http://www.gravatar.com/avatar/7ad4d03e76dcd191120e068c46719859?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/1471/outlaw-programmer" >Outlaw Programmer</a><br><span class="reputation-score" title="reputation score">4,398</span><span title="6 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">6</span></span><span title="24 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">24</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677607" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-490842" class="comment">
+        <td></td>
+        <td class="comment-text"><div>a way without a static field? &ndash;&nbsp;<a href="/users/77722/tobiask" title="374" class="comment-user owner">Tobiask</a> <span class="comment-date"><span title="2009-03-24 14:23:41Z">Mar 24 at 14:23</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-490854" class="comment">
+        <td></td>
+        <td class="comment-text"><div>@Tobiask: Why don't you want a static field? &ndash;&nbsp;<a href="/users/64657/sfossen" title="2566" class="comment-user">sfossen</a> <span class="comment-date"><span title="2009-03-24 14:25:35Z">Mar 24 at 14:25</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-490856" class="comment">
+        <td></td>
+        <td class="comment-text"><div>It's immutable, so you might as well make it static. &ndash;&nbsp;<a href="/users/35322/adam-jaskiewicz" title="4320" class="comment-user">Adam Jaskiewicz</a> <span class="comment-date"><span title="2009-03-24 14:25:55Z">Mar 24 at 14:25</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-491220" class="comment">
+        <td></td>
+        <td class="comment-text"><div>no, in a multiuser environment static var. aren&#180;t the best way... &ndash;&nbsp;<a href="/users/77722/tobiask" title="374" class="comment-user owner">Tobiask</a> <span class="comment-date"><span title="2009-03-24 15:45:01Z">Mar 24 at 15:45</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-491836" class="comment">
+        <td></td>
+        <td class="comment-text"><div>It's immutable. There's no shared mutable state, thus no concurrency issues. You'd be right if it didn't have that final on it. &ndash;&nbsp;<a href="/users/35322/adam-jaskiewicz" title="4320" class="comment-user">Adam Jaskiewicz</a> <span class="comment-date"><span title="2009-03-24 18:17:44Z">Mar 24 at 18:17</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="677619"></a>
+    
+    <div id="answer-677619" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677619">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        2
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Marking it static, will allow you to use it in the constructor, but since you made it final, it can not be changed.</p>
+
+<pre><code>private static final String name = "a_name";
+</code></pre>
+
+<p>is is possible to use a static init block as well.</p>
+
+<pre><code>private static final String name;
+
+static { name = "a_name"; }
+</code></pre>
+
+<p>If you are trying to modify the value in the constructor, then you can't assign a default value or you have to make it not final.</p>
+
+<pre><code>private String name = "a_name";
+Foo( String name )
+{
+    this.name = name;
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>private final String name;
+
+Foo( String name )
+{
+    if( s == null )
+       this.name = "a_name";
+    else
+       this.name = name;
+}
+</code></pre>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677619#677619" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677619" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/677619/revisions" title="show all edits to this post"><span title="2009-03-24 15:04:36Z" class="relativetime">Mar 24 at 15:04</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:21:56Z" class="relativetime">Mar 24 at 14:21</span></div><div class="user-gravatar32"><a href="/users/64657/sfossen"><img src="http://www.gravatar.com/avatar/3ab12ac68d6e7ad985e3eef66224f217?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/64657/sfossen" >sfossen</a><br><span class="reputation-score" title="reputation score">2,566</span><span title="8 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">8</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677619" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="677611"></a>
+    
+    <div id="answer-677611" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677611">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>In that case, you might as well make it static, too. And Java convention is to name such constants in ALL_CAPS.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677611#677611" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677611" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:18:52Z" class="relativetime">Mar 24 at 14:18</span></div><div class="user-gravatar32"><a href="/users/35322/adam-jaskiewicz"><img src="http://www.gravatar.com/avatar/a1007a915a3ecc9d2c0567a2b96fbd68?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/35322/adam-jaskiewicz" >Adam Jaskiewicz</a><br><span class="reputation-score" title="reputation score">4,320</span><span title="5 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">5</span></span><span title="18 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">18</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677611" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="677617"></a>
+    
+    <div id="answer-677617" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677617">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><pre><code>private static final String name = getName();
+</code></pre>
+
+<p>where <em>getName()</em> is a static function that gets you the name.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677617#677617" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677617" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:21:06Z" class="relativetime">Mar 24 at 14:21</span></div><div class="user-gravatar32"><a href="/users/81351/daanish-rumani"><img src="http://www.gravatar.com/avatar/6dadada454cbe3a63fba2c728711e8f2?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/81351/daanish-rumani" >daanish.rumani</a><br><span class="reputation-score" title="reputation score">244</span><span title="5 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">5</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677617" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-491278" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Beware of this construct if getName() does anything other than return a constant. You can find the logic used by getName() may not have been initialized. &ndash;&nbsp;<a href="/users/19276/djclayworth" title="1803" class="comment-user">DJClayworth</a> <span class="comment-date"><span title="2009-03-24 15:56:41Z">Mar 24 at 15:56</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="677743"></a>
+    
+    <div id="answer-677743" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677743">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><blockquote>
+  <p>I cannot use it in the constructor, while java first runs the constructor an then the fields...</p>
+</blockquote>
+
+<p>This is not correct, fields are evaluated first, otherwise you couldn't access any default values of members in your constructors, since they would not be initialized. This <em>does</em> work:</p>
+
+<pre><code>public class A {
+    protected int member = 1;
+    public A() {
+        System.out.println(member);
+    }
+}
+</code></pre>
+
+<p>The keyword <em>final</em> merely marks the member constant, it is treated as any other member otherwise.</p>
+
+<p>EDIT: Are you trying to <em>set</em> the value in the constructor? That wouldn't work, since the member is immutable if defined as final.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677743#677743" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677743" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:51:40Z" class="relativetime">Mar 24 at 14:51</span></div><div class="user-gravatar32"><a href="/users/44562/soulmerge"><img src="http://www.gravatar.com/avatar/8922be23ea372ecc66fb6660d95a7ffc?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/44562/soulmerge" >soulmerge</a><br><span class="reputation-score" title="reputation score">14.1k</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="14 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">14</span></span><span title="38 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">38</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677743" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-491012" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Technically it is the constructor that is (implicitly) executing the field initialisation logic. &ndash;&nbsp;<a href="/users/4725/tom-hawtin-tackline" title="24152" class="comment-user">Tom Hawtin - tackline</a> <span class="comment-date"><span title="2009-03-24 15:06:44Z">Mar 24 at 15:06</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-491160" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Well, ok. The fields get evaluated first nonetheless. &ndash;&nbsp;<a href="/users/44562/soulmerge" title="14094" class="comment-user">soulmerge</a> <span class="comment-date"><span title="2009-03-24 15:34:23Z">Mar 24 at 15:34</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="677759"></a>
+    
+    <div id="answer-677759" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="677759">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Another possiblity is to initialize the field in an instance initializer blocK:</p>
+
+<pre><code>public class Foo {
+        final String bar;
+
+        {
+                System.out.println("initializing bar");
+                bar = "created at " + System.currentTimeMillis();
+        }
+
+        public Foo() {
+                System.out.println("in constructor. bar=" + bar);
+
+        }
+
+        public static void main(String[] args) {
+                new Foo();
+        }
+}
+</code></pre>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/677595/initialize-final-variable-before-constructor-in-java/677759#677759" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-677759" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-03-24 14:55:02Z" class="relativetime">Mar 24 at 14:55</span></div><div class="user-gravatar32"><a href="/users/40342/joachim-sauer"><img src="http://www.gravatar.com/avatar/a648ccb47bbbe9497c073315aac4d33e?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/40342/joachim-sauer" >Joachim Sauer</a><br><span class="reputation-score" title="reputation score">17.2k</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="26 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">26</span></span><span title="60 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">60</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-677759" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/677595/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/final" class="post-tag" title="show questions tagged 'final'" rel="tag">final</a> <a href="/questions/tagged/constructor" class="post-tag" title="show questions tagged 'constructor'" rel="tag">constructor</a> <a href="/questions/tagged/variable" class="post-tag" title="show questions tagged 'variable'" rel="tag">variable</a> <a href="/questions/tagged/initialization" class="post-tag" title="show questions tagged 'initialization'" rel="tag">initialization</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/677595/ivc/aed5" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34066</span><br>
+<a href="/questions/tagged/constructor" class="post-tag" title="show questions tagged 'constructor'" rel="tag">constructor</a>&nbsp;<span class="item-multiplier">&times;&nbsp;521</span><br>
+<a href="/questions/tagged/variable" class="post-tag" title="show questions tagged 'variable'" rel="tag">variable</a>&nbsp;<span class="item-multiplier">&times;&nbsp;338</span><br>
+<a href="/questions/tagged/initialization" class="post-tag" title="show questions tagged 'initialization'" rel="tag">initialization</a>&nbsp;<span class="item-multiplier">&times;&nbsp;309</span><br>
+<a href="/questions/tagged/final" class="post-tag" title="show questions tagged 'final'" rel="tag">final</a>&nbsp;<span class="item-multiplier">&times;&nbsp;57</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2009-03-24 14:16:15Z">10 months ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">2,143 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-03-24 15:04:36Z">10 months ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,final,constructor,variable,initialization">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?6033">' +
+	   "Software Development Engineer, AmazonWireless - RCX" +
+	   ' at ' +
+	   "Amazon</a> (" +
+	   "Seattle, WA  98144" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+    <div class="module">
+    <h4>Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="/questions/1993587/is-it-bad-practice-to-declare-a-classs-ctor-final-in-php" class="question-hyperlink">Is it bad practice to declare a class&rsquo;s ctor &lsquo;final&rsquo; in PHP?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2101327/final-variable-and-synchronized-block-in-java" class="question-hyperlink">Final variable and synchronized block in java</a>
+</div>
+<div class="spacer">
+<a href="/questions/1693091/public-static-final-variable-in-an-imported-java-class" class="question-hyperlink">public static final variable in an imported java class </a>
+</div>
+<div class="spacer">
+<a href="/questions/1945663/where-are-java-final-local-variables-stored" class="question-hyperlink">Where are Java final local variables stored?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1249917/final-variable-manipulation-in-java" class="question-hyperlink">Final variable manipulation in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/1734377/how-can-i-assign-final-variables-of-the-base-class-within-a-derived-class-constr" class="question-hyperlink">How can I assign final variables of the base class within a derived class' constructor in Java?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1749588/proper-way-to-declare-and-set-a-private-final-member-variable-from-the-constructo" class="question-hyperlink">Proper way to declare and set a private final member variable from the constructor in Java?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2059773/final-variables-accessibility" class="question-hyperlink">Final variables accessibility</a>
+</div>
+<div class="spacer">
+<a href="/questions/1299837/cannot-refer-to-a-non-final-variable-inside-an-inner-class-defined-in-a-different" class="question-hyperlink">Cannot refer to a non-final variable inside an inner class defined in a different method</a>
+</div>
+<div class="spacer">
+<a href="/questions/609609/creating-final-variables-inside-a-loop" class="question-hyperlink">creating final variables inside a loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/1415955/private-final-static-attribute-vs-private-final-attribute" class="question-hyperlink">private final static attribute vs private final attribute</a>
+</div>
+<div class="spacer">
+<a href="/questions/1310009/java-possible-to-have-mutual-final-class-references" class="question-hyperlink">Java: Possible to have mutual, final class references?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1351568/java-basics-about-final-keyword" class="question-hyperlink">java basics about final keyword</a>
+</div>
+<div class="spacer">
+<a href="/questions/1181753/what-is-the-c-equivalent-of-public-final-static-in-java" class="question-hyperlink">what is the c# equivalent of public final static in java </a>
+</div>
+<div class="spacer">
+<a href="/questions/205239/why-can-final-constants-in-java-be-overriden" class="question-hyperlink">Why can final constants in Java be overriden?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2068804/why-string-is-final-in-java" class="question-hyperlink">Why String is final in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/2111845/does-the-java-final-keyword-actually-improve-security" class="question-hyperlink">Does the Java &lsquo;final&rsquo; keyword actually improve security?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1615163/modifying-final-fields-in-java" class="question-hyperlink">Modifying final fields in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection" class="question-hyperlink">Does using final for variables in Java improve garbage collection?</a>
+</div>
+
+    </div>
+    </div>
+
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/677595" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/677595" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6239</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

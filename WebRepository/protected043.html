@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Language" content="en" />
+  <meta http-equiv="Content-Type"
+      content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="author" content="Borislav Manolov" />
+
+
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, archive" />
+  <meta name="DC.Creator" content="Borislav Manolov" />
+  <meta name="DC.Language" content="en" />
+  <meta name="DC.Format" content="text/html" />
+  <meta name="DC.Source"
+        content="http://www.uni-bonn.de/~manfear/javaprotection.php" />
+
+  <meta name="PURL"
+        content="http://purl.oclc.org/NET/borislav/javaprotection.php" />
+
+  <!--link rel="icon" type="image/ico" href="/~manfear/img/favicon.ico" />
+  <link rel="shortcut icon" type="image/ico" href="/~manfear/img/favicon.ico" /-->
+
+  <link rel="top" type="text/html"
+        href="/~manfear/" />
+  <link rel="made" type="text/html"
+        href="contact.php" />
+  <style type="text/css"><!--
+    @import url("main.css");
+  --></style>
+
+  <script type="text/javascript" src="/~manfear/js/toggle.js"></script>
+
+  <meta name="keywords" content="java, modifiers, public, protected,
+    default, private, Access Protection Modifiers" />
+  <meta name="keywords" xml:lang="de"
+        content="privat, zugriff, zugriffsschutz" />
+  <title>Access Protection Modifiers in Java</title>
+  <link rel="stylesheet" type="text/css" href="j2h-style.css" />
+
+</head>
+
+<body>
+
+<div class="decor-top">
+  <div class="navbox">
+
+      <a href="/~manfear/"
+          title="Home">Home</a>  &#187; 
+      <a href="dev.php"
+          title="Dev">Dev</a>  &#187; 
+      <a href="java.php"
+          title="Java">Java</a>  &#187; 
+      <a href="javamodifiers.php"
+          title="Modifiers">Modifiers</a>  &#187;  Access Protection Modifiers 
+      <span id="nav-submenu">
+      &nbsp;&nbsp;&nbsp;
+        <span class="bracket">[</span><a
+            href="feedback.php"
+            accesskey="3"
+            title="Send your feedback, accesskey '3'"
+            >Feedback</a><span
+            class="bracket">]</span>
+
+        <span class="bracket">[</span><a
+            href="?media=print&amp;"
+            accesskey="2"
+            title="View a printer-friendly version, accesskey '2'"
+            >Print</a><span
+            class="bracket">]</span>        <span class="bracket">[</span><a href="sitemap.php"
+          accesskey="1"
+          title="View a map of this site, accesskey '1'"
+          >Site map</a><span
+          class="bracket">]</span>
+
+      </span>
+       </div>
+</div>
+
+<div id="content">
+
+
+<h1>Access Protection Modifiers in Java </h1>
+<h2>or Visibility and Access Rights in Java</h2>
+
+<p>This table (matrix) shows the accessible from each class
+  elements. </p>
+<p>See a <a href="javamodifiers.php">matrix of all modifiers in Java</a>
+and the elements to which they can be applied.</p>
+
+<table border="0" cellpadding="3" cellspacing="2"
+    summary="This table shows the access protection modifiers in Java and
+        how they set the access rights">
+<caption>Access rights for the different elements</caption>
+<tr>
+    <th align="center">class \ have access to</th>
+    <th>private <br />elements</th>
+    <th>default <br />elements <br />(<i>no modifier</i>)</th>
+    <th>protected<br />elements</th>
+    <th>public <br />elements</th>
+    </tr>
+
+<tr class="row1">
+    <td>own class (<a href="#base"><code>Base</code></a>)</td>
+    <td class="valid">yes</td>
+    <td class="valid">yes</td>
+    <td class="valid">yes</td>
+    <td class="valid">yes</td>
+</tr>
+
+<tr class="row2">
+    <td>subclass - same package (<a href="#suba"><code>SubA</code></a>)</td>
+    <td class="invalid">no</td>
+    <td class="valid">yes </td>
+    <td class="valid">yes</td>
+    <td class="valid">yes</td>
+</tr>
+
+<tr class="row1">
+    <td>class - same package (<a href="#anothera"><code>AnotherA</code></a>)</td>
+    <td class="invalid">no</td>
+    <td class="valid">yes</td>
+    <td class="valid">yes</td>
+    <td class="valid">yes</td>
+</tr>
+
+<tr class="row2">
+    <td>subclass - another package (<a href="#subb"><code>SubB</code></a>)</td>
+    <td class="invalid">no</td>
+    <td class="invalid">no</td>
+    <td class="depends">
+    <a href="#subyes">yes</a>/<a href="#subno">no</a> <b>*</b></td>
+    <td class="valid">yes</td>
+</tr>
+
+<tr class="row1">
+    <td>class - another package (<a href="#anotherb"><code>AnotherB</code></a>)</td>
+    <td class="invalid">no </td>
+    <td class="invalid">no </td>
+    <td class="invalid">no </td>
+    <td class="valid">yes</td>
+</tr>
+</table>
+
+<p>
+_______________<br />
+<b>*</b> Class <a href="#subb"><code>SubB</code></a> has access only to the inherited
+from <a href="#base"><code>Base</code></a>
+<span class="key">protected</span> elements, i.e. its own elements, but
+the <span class="key">protected</span> data of other <code>Base</code> instances
+ is not accessible from <code>SubB</code>.
+</p>
+
+
+<h2>Code Example</h2>
+<p>All lines with not accessible fields are commented.</p>
+
+<div class="srcbox">
+<pre>
+<a id="base"></a>
+<span class="key">package</span> packageA;
+
+<span class="key">public class</span> Base {
+    <span class="key">public</span> String publicStr = <span class="str">"publicString"</span>;
+    <span class="key">protected</span> String protectedStr = <span class="str">"protectedString"</span>;
+    String defaultStr = <span class="str">"defaultString"</span>;
+    <span class="key">private</span> String privateStr = <span class="str">"privateString"</span>;
+
+    <span class="key">public void</span> print() {
+        System.out.println(<span class="str">"packageA.Base has access to"</span>);
+        System.out.println(<span class="str"><span class="str">"    "</span></span> + publicStr);
+        System.out.println(<span class="str"><span class="str">"    "</span></span> + protectedStr);
+        System.out.println(<span class="str"><span class="str">"    "</span></span> + defaultStr);
+        System.out.println(<span class="str"><span class="str">"    "</span></span> + privateStr);
+
+        Base b = <span class="key">new</span> Base(); <span class="comm">// -- other Base instance</span>
+        System.out.println(<span class="str">"    b."</span> + b.publicStr);
+        System.out.println(<span class="str">"    b."</span> + b.protectedStr);
+        System.out.println(<span class="str">"    b."</span> + b.defaultStr);
+        System.out.println(<span class="str">"    b."</span> + b.privateStr);
+    }
+}
+
+--------------------------------------------------------------------------------
+<a id="suba"></a>
+<span class="key">package</span> packageA;
+
+<span class="key">public class</span> SubA <span class="key">extends</span> Base {
+    <span class="key">public void</span> print() {
+        System.out.println(<span class="str">"packageA.SubA has access to"</span>);
+        System.out.println(<span class="str">"    "</span> + publicStr + <span class="str">" (inherited from Base)"</span>);
+        System.out.println(<span class="str">"    "</span> + protectedStr + <span class="str">" (inherited from Base)"</span>);
+        System.out.println(<span class="str">"    "</span> + defaultStr + <span class="str">" (inherited from Base)"</span>);
+        <span class="comm">// -- not accessible - private elements are even not inherited
+        // System.out.println(privateStr);</span>
+
+        Base b = <span class="key">new</span> Base(); <span class="comm">// -- other Base instance</span>
+        System.out.println(<span class="str">"    b."</span> + b.publicStr);
+        System.out.println(<span class="str">"    b."</span> + b.protectedStr);
+        System.out.println(<span class="str">"    b."</span> + b.defaultStr);
+        <span class="comm">// -- not accessible
+        // System.out.println(b.privateStr);</span>
+    }
+}
+
+--------------------------------------------------------------------------------
+<a id="anothera"></a>
+<span class="key">package</span> packageA;
+
+<span class="key">public class</span> AnotherA {
+    <span class="key">public void</span> print() {
+        System.out.println(<span class="str">"packageA.AnotherA has access to"</span>);
+        Base b = <span class="key">new</span> Base();
+        System.out.println(<span class="str">"    b."</span> + b.publicStr);
+        System.out.println(<span class="str">"    b."</span> + b.protectedStr);
+        System.out.println(<span class="str">"    b."</span> + b.defaultStr);
+        <span class="comm">// System.out.println(b.privateStr);</span>
+    }
+}
+
+--------------------------------------------------------------------------------
+<a id="subb"></a>
+<span class="key">package</span> packageB;
+<span class="key">import</span> packageA.Base;
+
+<span class="key">public class</span> SubB <span class="key">extends</span> Base {
+    <span class="key">public void</span> print() {
+        System.out.println(<span class="str">"packageB.SubB has access to"</span>);
+        System.out.println(<span class="str">"    "</span> + publicStr + <span class="str">" (inherited from Base)"</span>);
+        <a id="subyes"></a><span class="comm">// -- protectedStr is inherited element -&gt; accessible</span>
+        System.out.println(<span class="str">"    "</span> + protectedStr + <span class="str">" (inherited from Base)"</span>);
+        <span class="comm">// -- not accessible
+        // System.out.println(defaultStr);
+        // System.out.println(privateStr);</span>
+
+        Base b = <span class="key">new</span> Base(); <span class="comm">// -- other Base instance</span>
+        System.out.println(<span class="str">"    b."</span> + b.publicStr);
+        <a id="subno"></a><span class="comm">// -- protected element, which belongs to other object -&gt; not accessible
+        // System.out.println(b.protectedStr);
+
+        // -- not accessible
+        // System.out.println(b.defaultStr);
+        // System.out.println(b.privateStr);</span>
+    }
+}
+
+--------------------------------------------------------------------------------
+<a id="anotherb"></a>
+<span class="key">package</span> packageB;
+<span class="key">import</span> packageA.Base;
+
+<span class="key">public class</span> AnotherB {
+    <span class="key">public void</span> print() {
+        System.out.println(<span class="str">"packageB.AnotherB has access to"</span>);
+        Base b = <span class="key">new</span> Base();
+        System.out.println(<span class="str">"    b."</span> + b.publicStr);
+        <span class="comm">// -- not accessible
+        // System.out.println(b.protectedStr);
+        // System.out.println(b.defaultStr);
+        // System.out.println(b.privateStr);</span>
+    }
+}
+
+--------------------------------------------------------------------------------
+
+<span class="key">import</span> packageA.*;
+<span class="key">import</span> packageB.*;
+
+<span class="comm">// -- testing class</span>
+<span class="key">public class</span> TestProtection {
+    <span class="key">public static void</span> main(String[] args) {
+        <span class="comm">// -- all classes are public, so class TestProtection
+        // -- has access to all of them</span>
+        <span class="key">new</span> Base().print();
+        <span class="key">new</span> SubA().print();
+        <span class="key">new</span> AnotherA().print();
+        <span class="key">new</span> SubB().print();
+        <span class="key">new</span> AnotherB().print();
+    }
+}
+
+
+
+</pre>
+</div>
+
+<h2>Summary</h2>
+<ul>
+    <li><span class="key">private</span> is the most restrictive access level</li>
+    <li>a <span class="key">private</span> member is accessible only
+    in the class in which it is defined</li>
+    <li><span class="key">private</span> members are not inherited by
+    the subclasses</li>
+</ul>
+
+<h2>Further reading</h2>
+
+<ul>
+ <li><a href="http://java.sun.com/docs/books/jls/second_edition/html/jTOC.doc.html" class="ext" title="Java Language Specification Second Edition (HTML Version)">Java Language Specification SE</a>:
+ <ul>
+   <li>
+ <a href="http://java.sun.com/docs/books/jls/second_edition/html/names.doc.html#104285" class="ext" title="Access Control from Java Language Specification Second Edition">Access Control</a></li>
+   <li>
+ <a href="http://java.sun.com/docs/books/jls/second_edition/html/classes.doc.html#23530" class="ext" title="Accessing Members of Inaccessible Classes from Java Language Specification Second Edition">Accessing Members of Inaccessible Classes</a></li>
+   <li>
+ <a href="http://java.sun.com/docs/books/jls/second_edition/html/expressions.doc.html#45453" class="ext" title="Check Accessibility of Type and Method from Java Language Specification Second Edition">Check Accessibility of Type and Method</a></li>
+ </ul>
+ </li>
+</ul>
+
+
+</div> <!-- end #content -->
+
+<div id="menu">
+	<h5><a id="ms2-hide" class="manager-hide" href="javascript:toggleElem('s2', 'ms2');">â??</a><a id="ms2-show" class="manager-show" href="javascript:toggleElem('s2', 'ms2');">+</a> <a href="/~manfear/numbers.php">Numbers</a></h5>
+		<ul id="s2" class="submenu">
+			<li><a href="/~manfear/numbaseconv.php">Numeric Base Converter</a></li>
+			<li><a href="/~manfear/num2textconv.php">Number To Text converter</a></li>
+			<li><a href="/~manfear/nums2text.php">Numbers To Text converter</a></li>
+			<li><a href="/~manfear/numbers_names.php">List of numbers names</a>
+			<ul>
+				<li><a href="/~manfear/googolminex2.php">googolminexminex</a></li>
+			</ul>
+			</li>
+			<li><a href="/~manfear/von-neumann-integer.php">von Neumann integer</a>
+				<ul>
+					<li><a href="/~manfear/von-neumann-integer-test.php">tester</a></li>
+					<li><a href="/~manfear/von-neumann-integer-gen.php">generator</a></li>
+				</ul>
+			</li>
+		</ul>
+
+	<h5><a id="ms3-hide" class="manager-hide" href="javascript:toggleElem('s3', 'ms3');">â??</a><a id="ms3-show" class="manager-show" href="javascript:toggleElem('s3', 'ms3');">+</a> <a href="/~manfear/lang.php">Lang</a></h5>
+		<ul id="s3" class="submenu">
+			<li><a href="/~manfear/cyrlatencoder.php">Cyrillic-Latin Encoder</a></li>
+			<li><a href="/~manfear/lang_mistakes_bg.php">Frequently made mistakes in Bulgarian</a></li>
+			<li><a href="/~manfear/test_bg.php">Tests in Bulgarian</a></li>
+		</ul>
+
+	<h5><a id="ms4-hide" class="manager-hide" href="javascript:toggleElem('s4', 'ms4');">â??</a><a id="ms4-show" class="manager-show" href="javascript:toggleElem('s4', 'ms4');">+</a>
+      <a href="/~manfear/math.php">Math</a></h5>
+		<ul id="s4" class="submenu">
+			<li><a href="/~manfear/matrixcalc.php">Matrix calculator</a></li>
+			<li><a href="/~manfear/matrix_lu.php">LU Decomposition tool</a></li>
+			<li><a href="/~manfear/solve_lineq.php">System of linear equations solving tool</a></li>
+			<li><a href="/~manfear/arabic2roman.php">Arabic-Roman numerals converter</a></li>
+			<li><a href="/~manfear/mathdict.php">Math Dictionary</a></li>
+		</ul>
+
+	<h5><a id="ms5-hide" class="manager-hide" href="javascript:toggleElem('s5', 'ms5');">â??</a><a id="ms5-show" class="manager-show" href="javascript:toggleElem('s5', 'ms5');">+</a>
+      <a href="/~manfear/dev.php">Dev</a></h5>
+		<ul id="s5" class="submenu">
+			<li><a href="/~manfear/javamodifiers.php">Modifiers in Java</a></li>
+			<li><a href="/~manfear/javaprotection.php">Access Protection Modifiers in Java</a></li>
+			<li><a href="/~manfear/javaoperators.php">Operator Precedence in Java</a></li>
+			<li><a href="/~manfear/java2html.php">Java2HTML Converter</a></li>
+			<li><a href="/~manfear/haskell.php">Haskell stuff</a></li>
+			<li><a href="/~manfear/html2wiki-tables.php">HTML2Wiki tool</a></li>
+		</ul>
+
+  <h5><a id="ms1-hide" class="manager-hide" href="javascript:toggleElem('s1', 'ms1');">â??</a><a id="ms1-show" class="manager-show" href="javascript:toggleElem('s1', 'ms1');">+</a> <a href="/~manfear/bulgaria.php">Bulgarian</a></h5>
+		<ul id="s1" class="submenu">
+			<li><a href="/~manfear/XMH.php">National anthems</a></li>
+		</ul>
+</div>
+
+<div class="decor-bot">
+<address id="footer">
+
+  <a href="http://validator.w3.org/check/referer">
+    <img src="/~manfear/img/valid-xhtml11.png"
+         alt="Valid XHTML 1.1!" title="Valid XHTML 1.1!"
+         width="88" height="31" />
+  </a>
+  <img src="/~manfear/img/spacer.png"
+       width="6" height="1" alt="spacer" />
+
+  <a href="http://creativecommons.org/licenses/by-sa/3.0/">
+    <img src="http://creativecommons.org/images/public/somerights"
+         alt="Creative Commons BY-SA 3.0"
+         width="88" height="31" /></a>
+  This siteâ??s content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/"
+     class="ext">Creative Commons Attribution-Share Alike 3.0 Unported</a>.
+
+  <br />
+  Last modified: 27-June-2004 14:46
+  <acronym title="Central European Time">CET</acronym>
+</address>
+</div>
+
+<!--
+  Served in 0.0041558742523193 secs.
+  by IBM_HTTP_SERVER/1.3.19.1  Apache/1.3.20 (Unix),
+     PHP/4.1.2 (Zend Engine/1.1.1).
+  _________
+  010001111
+-->
+
+</body>
+</html>

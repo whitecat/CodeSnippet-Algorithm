@@ -1,0 +1,2045 @@
+
+
+
+
+
+	
+		
+		
+
+
+ 
+
+
+
+
+
+	
+
+
+
+
+
+
+
+	
+	
+	  	
+		
+			
+		
+	
+	
+	
+	
+	  	
+		
+			
+		
+	
+	
+
+
+
+   
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+<style>
+.note-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: .95em;
+		margin-left: .75em; margin-right: .75em;}
+</style> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 	
+	
+	
+		
+		
+		
+        
+	
+	
+	
+	
+	
+	
+		
+	
+	
+		
+		
+		
+					
+			
+				
+				  	
+				
+			
+			
+			
+			
+				
+		    
+			
+			
+
+
+
+
+	
+	
+
+
+			
+			
+		
+		
+		
+		
+		
+		
+		
+	 
+
+
+
+	
+
+  	
+	
+	  	
+	
+
+
+
+
+
+
+
+	
+	
+	
+	
+	  	
+	
+	
+	
+		
+  
+
+
+	
+	
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 	
+ 	
+	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+
+<link rel="STYLESHEET" type="text/css" href="css/dl.css" />
+
+
+<title>Protected heap sharing for memory-constrained java environments</title>
+<style type="text/css"><!--
+    body {margin-left: 0em; margin-top: 0}
+    a:link {text-decoration: underline; 	Color: #006699;}
+    a:visited  { color: #990033; text-decoration: underline;}
+    a:hover {color: red; text-decoration: none}
+    a.dLink1:link {color:#336699}
+    a.dLink1:visited {color:#666666}
+	a.isblack:link {text-decoration: underline; 	Color: #000000;}
+    a.isblack:visited  { color: #000000; text-decoration: underline;}
+    a.isblack:hover {color: #000000; text-decoration: none}
+    h1 {font-size: 140%; margin-bottom: 0}
+	ul {margin-top: .25em; list-style-type: disc}
+	ol {margin-top: .25em;}
+	li {padding-bottom: .25em}
+    h2 {color: white; background-color: #069; 
+        font-size: 100%; padding-left: 1em;
+		margin: 0}
+	h3 {color: black; background-color: yellow; 
+    	font-size: 100%;
+		margin: 0}
+	 h4 {color: black; background-color: #99c5e8; 
+        font-size: 100%;
+		margin: 0}
+    hr {color: #39176d;}
+    form {margin-top: 10}
+    form.xrs {margin-top: 0}
+	
+	a {text-decoration: none; }
+	
+	input {font-size: 1em;}
+	.chevron {color: #ff0000;}
+	.light-blue {color:#336699;}
+	.black {color:#000000;}
+	
+	/* ### standard text styles, smallest to largest ### */
+	
+	.footer-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#336699; font-size: .75em; line-height: 1.33em;
+		text-indent: -.75 em; margin-left: 2em; margin-right: .75em;}
+		
+	.footer-copy-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .75em; line-height: 1.3em;
+		margin-left: .75em; margin-right: .75em;}
+		
+	.small-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; padding-bottom : 2px;
+	  	padding-top : 2px;}
+
+	.smallerer-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .65em;}
+	.smaller-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .75em;}		
+	.small-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em;}
+	.small-textb {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; font-weight: bold;}
+	.medium-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1em;}
+	.mediumb-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1em; font-weight: bold;}
+	.large-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1.3em;}		
+	.instr-text {font-family: Arial, Helvetica, sans-serif;
+		color:#666666; font-size: .83em;}
+		
+	.list-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#336699; font-size: .83em; line-height: 1.3em;}
+	.list-link-btext {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; line-height: 1.3em;}
+	
+	.searchbox-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold;}
+	.footer-header-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold;
+		margin-left: .75em; margin-right: .75em;}
+	.medium-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold; line-height: 1em;
+		text-indent: -1.25em; margin-left: 2em; margin-right: .75em;}
+	
+	
+	.small-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: .75em; line-height: 1.2em;
+		margin-left: .75em; margin-right: .75em;}
+
+	.medium-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: 1em; line-height: 1.2em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.large-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: 1.3em; line-height: 1.5em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.medium-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: 1em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.large-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: 1.5em;
+		margin-left: .75em; margin-right: .75em;}
+
+		#side {
+			width: 10px;
+			float: left;
+			margin-left: -1px;
+			padding: 2px;
+			}
+							
+		#content {
+			padding: 2px;
+			margin-left: 25px;
+			
+		        
+		        }
+  --></style>
+ 
+<script language="JavaScript">
+ /* <!-- Begin
+	if(document.layers || document.all) {
+	a = 1;
+	setInterval("Jump()", 10);
+	}
+	function Jump() {
+	a = a + 1;
+	//self.moveBy((Math.random() * a * 2 - a), (Math.random() * a * 2) - a);
+	}
+//  End --> */
+</script>
+
+
+
+
+
+
+
+
+	
+	
+		
+ 		
+			
+				
+				
+			
+				
+				
+				  	
+					
+		
+	
+  
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+	 
+	
+	
+	
+	
+	
+	
+
+
+
+ 
+ 
+
+
+
+
+
+	
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+</head>
+
+<body bgcolor="#ffffff" onload="window.focus(); ">
+<div align="center">
+<a name="CIT"></a>
+<table border="0" width="85%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+
+
+	
+		
+				
+				
+					
+				  
+		
+	 
+
+
+
+
+
+
+
+
+
+	
+		
+	  
+		
+
+	
+
+
+
+	
+
+
+	
+
+
+
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr valign="top">
+		<td width="1%" class="small-link-text" align="center"  background="http://portal.acm.org/images/horiz-bar.jpg"><img src="http://portal.acm.org/images/logo_acm_portal2.jpg" alt="ACM Portal" width="263" height="54" border="0" usemap="#PORT">
+			
+				<font color="white">
+				
+					California Digital Library:&nbsp;UC Irvine
+				  
+				</font>
+			  
+		</td>
+		<td width="99%" align="left" class="small-link-text">
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>&nbsp;</td>
+				
+					<td class="small-link-text"><a href="https://campus.acm.org/Public/login_genpubqj.cfm?rdr=http://portal.acm.org/citation.cfm?id=1176787&promo=QJPUB&offering=200&form_type=PUB&CFID=76405387&CFTOKEN=14865605" class="small-link-text">Subscribe</a><span class="small-link-text">&nbsp;(Full Service)</span>&nbsp;&nbsp;&nbsp;</td>
+					<td class="small-link-text"><a href="https://portal.acm.org/poplogin.cfm?dl=GUIDE&coll=GUIDE&want_href=citation%2Ecfm%3Fid%3D1176787%26CFID%3D76405387%26CFTOKEN%3D14865605&CFID=76405387&CFTOKEN=14865605" class="small-link-text">Register</a><span class="small-link-text">&nbsp;(Limited Service, <font color="Red">Free</font>)</span>&nbsp;&nbsp;&nbsp;</td>
+				
+				<td class="small-link-text" valign="bot">
+					
+					
+		 					<a href="https://portal.acm.org/poplogin.cfm?dl=GUIDE&coll=GUIDE&want_href=citation%2Ecfm%3Fid%3D1176787%26CFID%3D76405387%26CFTOKEN%3D14865605&CFID=76405387&CFTOKEN=14865605" class="small-link-text">Login</a>
+					
+				</td>			
+			</tr>
+			</table>
+			
+			
+			
+			<table border="0" width="100%" cellspacing="0" cellpadding="0">
+				
+					
+					
+					     
+					
+					<form name="qiksearch" action="results.cfm?coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" method="post">
+					<tr>
+						<td height="5"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+					</tr>
+					<input type="hidden" name="parser" value="Internet">
+					<tr>
+						<td class="small-link-text">&nbsp;</td>
+						<td class="small-link-text">
+							 
+							  	
+							
+							
+							
+							<b>Search:</b>&nbsp;&nbsp;&nbsp;<input type="Radio" name="whichDL" value="acm" >The ACM Digital Library&nbsp;&nbsp;&nbsp;<input type="Radio" name="whichDL" value="guide" checked>The Guide
+
+							
+							<br><input class="pubdescr" type="Text" name="query" size="60" value=" ">&nbsp;&nbsp;
+							<input type="Image" alt="Search" name=Go src="http://portal.acm.org/images/search_small.jpg" border="0">
+<script type="text/javascript" src="js/wz_tooltip/wz_tooltip.js"></script> 
+
+
+						</td>
+					</tr>
+
+					</form>
+				
+			</table>
+
+			
+		</td>
+	<!-- top nav END -->
+	</tr>
+	</table>
+	
+
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td height="12"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	</table>
+
+<map name="PORT" > 
+  <area shape="rect" coords="1,1,55,60" href="http://www.acm.org/" alt="ACM Home Page">
+  <area shape="rect" coords="65,1,300,78" href="portal.cfm?coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605">
+</map>
+
+	
+
+<table border="0" width="100%" align="left">
+	<col width="40%">
+	<col width="60%">
+	<tr>
+		<td>
+			
+				<a href="guide.cfm?coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605"><img src="http://portal.acm.org/images/acm_guide_bar_large2.jpg" width=350 height=25 alt="" border="0"></a>
+			
+		</td>
+ 		<td class="small-text" align="center">
+			<img src="http://portal.acm.org/images/feedback.gif" width="20" height="19" alt="Please provide us with feedback." border="0">&nbsp;<a href="feedback.cfm?CFID=76405387&CFTOKEN=14865605">Feedback</a>
+		</td>
+	</tr>
+	<tr>
+		<td height="6" colspan="2" class="medium-text" style="padding-top:20px; padding-bottom:20px;">
+         <a title="beta version" href="beta/citation.cfm?id=1176787"><img style="vertical-align:middle" src="img/ACMDL_Symbol_new.jpg" alt="Digital Library logo" border="0" /></a>Take a look at the new version of this page: [ <a title="beta version" href="beta/citation.cfm?id=1176787">beta version</a> ].</a> 
+        Tell us what you think.
+		</td>
+	</tr>
+</table>
+</td>
+</tr>
+
+
+ 	
+
+
+
+
+<tr>
+	<td colspan="3" valign="top" height="1" background="http://portal.acm.org/images/horiz-bar-long.jpg"></td>
+</tr>
+
+
+
+
+
+<tr>
+<td class="small-text">
+	<table border="0" width="100%"  cellpadding="2">
+		<col width="1%">
+		<col width="8%">
+		<col width="91%">
+	<tr>
+		<td class="medium-text" colspan="3"><strong>Protected heap sharing for memory-constrained java environments</strong></td>
+	</tr>
+			
+	
+		<tr valign="top">
+			
+			
+		</tr>
+		
+		
+		
+			<tr valign="top">
+				
+					<td class="small-text"><strong>Full text</strong></td>
+				 
+				<td class="smaller-text" colspan="2" >
+						
+						
+							
+									 
+									<A NAME="FullText" title="Pdf" HREF="ft_gateway.cfm?id=1176787&type=pdf&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_blank">
+									<img src="http://portal.acm.org/imagetypes/pdf_logo.gif" alt="Pdf" border="0" align="middle" style="margin-right: 2px">Pdf</A>
+									 (208&nbsp;KB)
+							
+						   
+					    
+					   
+					   
+					   
+						<br />
+						
+						
+						
+						
+				</td>
+			</tr>
+		
+		
+		<tr valign="top">
+			
+            
+            
+            
+            
+            
+		</tr>
+
+		<tr valign="top">
+			<td class="small-text"><strong>Source</strong>
+				
+				
+						
+				
+				
+					
+
+					
+				
+				
+			</td>
+			<td class="small-text" colspan="2">
+			
+								
+										
+											
+											
+												
+										
+											
+											
+											
+											
+											
+											
+												
+												
+												
+													
+													
+												
+											
+											
+											
+											    
+												
+												
+												
+												
+													
+													
+														
+												
+													
+													
+													
+														
+														
+														
+														
+														
+														<SPAN class="mediumb-text">International Conference on Compilers, Architecture and Synthesis for Embedded Systems</span>
+																			<a href="toc.cfm?id=SERIES004&type=series&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self" class="small-link-text">archive</a><br>
+													  
+													<SPAN class="mediumb-text">Proceedings of the 2006 international conference on Compilers, architecture and synthesis for embedded systems </span>
+										 								 <a href="toc.cfm?id=1176760&type=proceeding&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605"  target="_self" class="small-link-text">table of contents</a><br>
+												  
+												<DIV class="small-text">
+													 Seoul, Korea 
+												</div>
+											   
+										
+								
+		
+
+		
+		<div class="medium-text">
+			
+					
+						
+						
+						
+					
+									
+					
+						 
+						 	
+						 	
+						 	
+									
+					
+				   
+				    
+					
+					
+			 	SESSION: Memory systems
+				
+						<a href="toc.cfm?id=1176760&type=proceeding&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605#1176785" target="_self" class="small-text">table of contents</a><br>
+				
+			  
+			
+		</div>
+		
+		
+		    
+			
+			
+		
+
+			
+			
+			<div class="small-text">
+				 Pages: 212 - 222&nbsp;&nbsp;
+			</div>
+					
+			
+			
+			
+				<div class="small-text">
+					Year of Publication:&nbsp;2006
+				</div>
+			
+					
+			
+				<div class="small-text">
+					
+						
+						
+							
+							
+						  
+					  
+					ISBN:1-59593-543-6
+				</div>
+				
+
+			
+			
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+					
+					
+					
+				
+			
+			
+		
+			 
+			  	
+			 
+			 
+		
+		
+		
+			
+				
+			</td>
+		</tr>
+		
+		
+		
+			<tr valign="top">
+				<td class="small-text">							
+										  	<strong>Authors</strong>
+										
+				</td>
+				
+				
+					
+					
+				<td colspan="2">
+				<div class="authors">
+					<table cellpadding="0" cellspacing="0">		
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81416602097&coll=GUIDE&dl=GUIDE&trk=0&CFID=76405387&CFTOKEN=14865605" target="_self">Yoonseo Choi</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Korea Advanced Institute of Science and Technology (KAIST), Daejeon, Republic of Korea</small>
+										
+								</td>
+							</tr>
+					
+							<tr>
+								<td class="small-text">
+									
+									  	<a href="author_page.cfm?id=81319492971&coll=GUIDE&dl=GUIDE&trk=0&CFID=76405387&CFTOKEN=14865605" target="_self">Hwansoo Han</a>
+									
+									
+
+ 									 
+										
+										
+										
+										
+							    </td>
+								<td class="small-text">
+									
+										<small>&nbsp;Korea Advanced Institute of Science and Technology (KAIST), Daejeon, Republic of Korea</small>
+										
+								</td>
+							</tr>
+					
+					</table>	
+				</div>
+				</td>
+			</tr>
+			
+		
+		
+		
+	    
+
+		
+		
+		
+		
+			
+				<tr valign="top">
+					<td class="small-text"><strong>Sponsors</strong></td>
+					<td colspan="2">
+						<div class="sponsors">
+							
+								
+								
+								
+							
+								
+								
+								
+									
+									
+									
+										<a href=" http://www.acm.org/sigda/" target="sponsor" title="Sponsor">SIGDA</a>:
+									  								
+									 ACM Special Interest Group on Design Automation <br>
+								
+							
+								
+								
+								
+									
+									
+									
+										<a href=" http://www.acm.org/" target="sponsor" title="Sponsor">ACM</a>:
+									  								
+									 Association for Computing Machinery <br>
+								
+							
+								
+								
+								
+									
+									
+									
+										<a href=" http://www.acm.org/sigbed/" target="sponsor" title="Sponsor">SIGBED</a>:
+									  								
+									 ACM Special Interest Group on Embedded Systems <br>
+								
+							
+								
+								
+								
+									
+									
+									
+										<a href=" http://www.acm.org/sigmicro/" target="sponsor" title="Sponsor">SIGMICRO</a>:
+									  								
+									 ACM Special Interest Group on Microarchitectural Research and Processing <br>
+								
+							
+								
+								
+								
+							
+						</div>
+					 </td>
+				</tr>
+			
+		
+		
+		
+		
+			
+					<tr valign="top">
+						<td class="small-text"><strong>Publisher</strong></td>
+						<td colspan="2">
+							<div class="publishers">
+									
+										<a href="http://www.acm.org/publications" target="publisher" title="Publisher">
+										ACM</a>&nbsp;
+									  
+									
+										<small>New York, NY, USA</small>
+									
+							</div>
+						</td>
+					</tr>
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+					<tr valign="top">
+						<td class="small-text"><strong>Bibliometrics</strong></td>
+						<td colspan="2">
+							<div class="publishers">
+									Downloads (6 Weeks): 1,&nbsp;&nbsp;  Downloads (12 Months): 24,&nbsp;&nbsp;  Citation Count: 1
+							</div>
+						</td>
+					</tr>
+			
+		
+		
+		
+		
+		</table>
+	
+ 
+ 
+  
+ 		
+</td>
+</tr>
+
+
+<tr>
+<td>
+
+<!-- third main table: main content START -->
+	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	<tr>
+		<td colspan="4" valign="top" height="1" background="http://portal.acm.org/images/horiz-bar-long.jpg"></td>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+
+	
+
+	<tr valign="top">
+	<!-- buttons -->
+		<td width="100%" colspan="4">
+	    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+		<col width="22%">
+	    <col width="78%">
+		<tr>
+			<td class="small-text"><b>Additional Information:</b></td>
+			<td>
+			<p class="small-text">
+				
+				
+				
+					<a href="citation.cfm?id=1176787#abstract">abstract</a>&nbsp;&nbsp;
+				
+				
+				  
+					<a href="citation.cfm?id=1176787#references">references</a>&nbsp;&nbsp;
+				    
+				
+				
+				
+					<a href="citation.cfm?id=1176787#citedby">cited by</a>&nbsp;&nbsp;
+				
+				
+				
+					<a href="citation.cfm?id=1176787#IndexTerms">index terms</a>&nbsp;&nbsp;
+				
+				
+				
+						<a href="citation.cfm?id=1176787#collab">collaborative colleagues</a>&nbsp;&nbsp;
+				
+				
+				</p>
+			</td>
+		</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	
+	<tr valign="top">
+	<!-- buttons -->
+		<form name="popbinder">
+		<td width="100%" colspan="4">
+		
+		<table border="0" cellspacing="0" cellpadding="2" width="100%" >
+		  <col width="22%">
+		  <col width="78%">
+		  <tr valign="top">
+		  	<td class="small-text" style="padding-top: .75em"><b>Tools and Actions:</b></td>
+			<td style="padding-top: .75em">
+			
+				
+					
+					
+					 
+					 
+					 
+				
+				
+							
+				
+			  
+			
+			
+			
+
+			
+			
+		    
+			
+			<a href="http://www.reviews.com/reviewer/quickreview/frameset_toplevel.cfm?bib_id=1176787" target="reviews" class="small-link-text">Review this Article</a>&nbsp;&nbsp;
+			<div style="margin-top: .5em; margin-bottom: 0">
+			
+			 	<a href="citation.cfm?id=1176787#" onClick="window.alert('To use this Feature, you must login with your personal ACM Web Account.');" class="small-link-text">
+				Save this Article to a Binder</a><img src="http://portal.acm.org/images/blanks.gif" border="0" name="saved">
+			
+			&nbsp;&nbsp;
+			<span class="small-text">Display Formats:</span>
+			<a href="citation.cfm?id=1176787#" onClick="window.open('popBibTex.cfm?id=1176787&ids=SERIES004.1176760.1176785.1176787&types=series.proceeding.section.article&reqtype=article&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605','BibTex','width=800,height=100,top=100,left=100,scrollbars=Yes,resizable=yes');" class="small-link-text">
+			BibTeX</a>&nbsp;
+
+			<a href="citation.cfm?id=1176787#" onClick="window.open('testpopendnotes.cfm?id=1176787&ids=SERIES004.1176760.1176785.1176787&types=series.proceeding.section.article&reqtype=article&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605','BibTex','width=800,height=100,top=100,left=100,scrollbars=Yes,resizable=yes');" class="small-link-text">
+			EndNote</a>
+
+			
+			 
+				<a href="citation.cfm?id=1176787#" onClick="window.open('popacmref.cfm?id=1176787&ids=SERIES004.1176760.1176785.1176787&types=series.proceeding.section.article&reqtype=article&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605','BibTeX','width=800,height=100,top=100,left=100,scrollbars=Yes,resizable=yes');" class="small-link-text">
+			ACM Ref</a>
+			
+			
+			&nbsp;&nbsp;				
+			
+			</div>
+			
+			
+			
+				
+				  	
+				
+				
+				
+			
+			
+			</td>
+		</tr>
+		<tr>
+			<td height="10"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+		</tr>
+		
+		<tr valign="top">
+			<td class="small-text"><b>DOI Bookmark:</b></td>
+			<td class="small-text">
+				<small>Use this link to bookmark this Article:&nbsp;</small><a href="http://doi.acm.org/10.1145/1176760.1176787">http://doi.acm.org/10.1145/1176760.1176787</a><br><small><a href="http://www.doi.org/">What is a DOI?</a></small>
+			    
+			</td>
+		</tr> 
+		
+		</table>
+		
+		</td>
+		</form>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	<tr>
+		<td colspan="4" valign="top" height="1" background="http://portal.acm.org/images/horiz-bar-long.jpg"></td>
+	</tr>
+	<tr>
+		<td height="6"><img src="http://portal.acm.org/images/blanks.gif" width=1 height=1 alt="" border="0"></td>
+	</tr>
+	</table>
+<!-- third main table: main content END -->
+	
+
+		
+		
+
+
+
+		
+		
+		  	<div class="abstract">
+			
+			
+			  	
+			 
+			 
+			
+			</div>
+		
+		
+		
+
+		
+			<br>
+			<div class="abstract">
+			
+			<A HREF="citation.cfm?id=1176787#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="abstract">ABSTRACT</A></span>
+			
+			  	
+			 
+			 
+			
+				<p class="abstract">
+				
+					 Multitasking is one of capabilities we often want to have in memory-constrained embedded systems. To support multiple address spaces within a small physical memory, a simple memory management frequently encounters the lack of available memory. Our paper presents an efficient heap memory management scheme that reduces memory footprints by adaptively sharing heaps among multiple tasks in JVM environments. We modified KVM from Sun Microsystems so that Java applications acquire or release heaps in a shared pool on an as-needed basis. To protect address spaces among tasks in the absence of virtual memory capabilities, we use memory protection units (MPUs) by incorporating them into our heap sharing scheme. Our experiments with J2ME MIDP applications show significant reductions by 33% on average, ranging from 6% to 50% in memory usage over the execution. The overheads of our scheme in garbage collection are kept low. The execution times in our scheme increase only by 0.2% on average.
+					 
+				 
+				</p>
+			
+			
+			</div>
+		  
+			
+		
+			<br>
+			<div class="abstract">
+			
+			<A HREF="citation.cfm?id=1176787#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="references">REFERENCES</A></span>
+			<p class="abstract"><font color="Red">Note: OCR errors may be found in this Reference List extracted from the full text article.  ACM has opted to expose the complete List rather than only correct and linked references.</font></p>
+			
+			
+			  	
+					
+					
+					 
+					 
+					 
+				
+				
+								
+			  
+			
+			
+				
+				<table border="0" cellpadding="5">
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									1
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=362430&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									Ran Shaham , Elliot K. Kolodner , Mooly Sagiv, On effectiveness of GC in Java, Proceedings of the 2nd international symposium on Memory management, p.12-17, October 15-16, 2000, Minneapolis, Minnesota, United States
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									2
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=378820&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									Ran Shaham , Elliot K. Kolodner , Mooly Sagiv, Heap profiling for space-efficient Java, Proceedings of the ACM SIGPLAN 2001 conference on Programming language design and implementation, p.104-113, June 2001, Snowbird, Utah, United States
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									3
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									A. Sloss, D. Symes, and C. Wright. ARM System Developer's Guide. Morgan Kaufmann Publishers, San Francisco, CA, 2004.
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									4
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=1029881&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									Ting Yang , Matthew Hertz , Emery D. Berger , Scott F. Kaplan , J. Eliot B. Moss, Automatic heap sizing: taking real memory into account, Proceedings of the 4th international symposium on Memory management, October 24-25, 2004, Vancouver, BC, Canada
+									</a>
+
+									&nbsp;[doi><a href="http://doi.acm.org/10.1145/1029873.1029881">10.1145/1029873.1029881</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									5
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=581892&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									G. Chen , R. Shetty , M. Kandemir , N. Vijaykrishnan , M. J. Irwin , M. Wolczko, Tuning garbage collection for reducing memory system energy in an embedded java environment, ACM Transactions on Embedded Computing Systems (TECS), v.1 n.1, p.27-55, November 2002
+									</a>
+
+									&nbsp;[doi><a href="http://doi.acm.org/10.1145/581888.581892">10.1145/581888.581892</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> <img src="http://portal.acm.org/images/ACM_mini.jpg" width="25" height="24" alt="" vspace="0" border="0" align="top"></td>
+							<td>
+								<div class="abstract">
+									6
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=1065943&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									Paul Griffin , Witawas Srisa-an , J. Morris Chang, An energy efficient garbage collector for java embedded devices, Proceedings of the 2005 ACM SIGPLAN/SIGBED conference on Languages, compilers, and tools for embedded systems, June 15-17, 2005, Chicago, Illinois, USA
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									7
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=236254&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									Richard Jones , Rafael Lins, Garbage collection: algorithms for automatic dynamic memory management, John Wiley &amp; Sons, Inc., New York, NY, 1996
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									8
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									Connected, Limited Device Configuration (CLDC) 1.0.4. {Online}. Available: http://java.sun.com/javame
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									9
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									KVM Porting Guide, CLDC, Version 1.0.4, Java 2 Platform, Micro Edition, Santa Clara, CA, Sun Microsystems, Inc., 2002.
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									10
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=664690&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									Paul R. Wilson , Mark S. Johnstone , Michael Neely , David Boles, Dynamic Storage Allocation: A Survey and Critical Review, Proceedings of the International Workshop on Memory Management, p.1-116, September 27-29, 1995
+									</a>
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									11
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+										
+										<a href="citation.cfm?id=624301&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+									
+									Jean-Pierre Tual, MASSC: A Generic Architecture for Multiapplication Smart Cards, IEEE Micro, v.19 n.5, p.52-61, September 1999
+									</a>
+
+									&nbsp;[doi><a href="http://dx.doi.org/10.1109/40.798109">10.1109/40.798109</a>]									
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									12
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									MacroExpress&#174; {Online}. Available: http://www.macros.com
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									13
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									midlet.org -- Wireless Java Download. {Online}. Available: http://midlet.org
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									14
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									Minoraxis, Inc. {Online}. Available: http://www.minoraxis.com
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+						<tr valign="top">
+							<td valign="top"> &nbsp;</td>
+							<td>
+								<div class="abstract">
+									15
+								</div>
+							</td>
+							<td>
+								<div class="abstract">
+									 
+									Mobile Information Device Profile (MIDP) v2.0. {Online}. Available: http://java.sun.com/javame
+									
+
+																		
+								</div>
+							</td>
+						</tr>
+					
+				</table>
+				
+			  
+			
+			</div>
+		
+		
+		
+			<br>
+			<div class="abstract">
+			
+			<A HREF="citation.cfm?id=1176787#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="citings">CITED BY</A><A NAME="citedby"></A></span>
+			
+			
+			  	
+					
+					
+					 
+					 
+					 
+				
+				
+									
+				
+			  
+			
+			<table cellpadding="5">
+			
+				<tr valign="top">
+				<td valign="top">
+					
+                    
+					
+				</td>
+				<td>
+					<div class="abstract">
+						
+						<a href="citation.cfm?id=1331337&dl=GUIDE&coll=GUIDE&CFID=76405387&CFTOKEN=14865605">
+						Yoonseo Choi , Hwansoo Han, Shared heap management for memory-limited java virtual machines, ACM Transactions on Embedded Computing Systems (TECS), v.7 n.2, p.1-32, February 2008
+						</a>
+					</div>  
+					
+				</td>
+				</tr>
+			
+			</table>
+			
+			</div>
+		
+
+		
+			
+			
+			  	
+			 
+			 
+			
+		
+		
+		
+		  	<br>
+			<div class="indterms">
+			
+			<A HREF="citation.cfm?id=1176787#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="IndexTerms">INDEX TERMS</A></span>
+			
+				
+					<p class="Categories">
+						<SPAN class=heading><A NAME="GenTerms">Primary Classification:</A></span>
+						
+						  	
+						
+						
+						
+							<br>&nbsp;
+							
+							
+								  
+									
+									
+									
+									<b>D.</b>
+									
+									
+									
+									<a href="results.cfm?query=PrimaryCCS%3AD&querydisp=PrimaryCCS%3AD&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">
+									
+									Software</a><br>
+								  
+							
+								  
+									
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									
+									<b>D.3</b>
+									
+									
+									
+									<a href="results.cfm?query=PrimaryCCS%3AD3&querydisp=PrimaryCCS%3AD3&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">
+									
+									 PROGRAMMING LANGUAGES</a><br>
+								  
+							
+								  
+									
+									
+										&nbsp;
+									
+										&nbsp;
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									
+									<b>D.3.3</b>
+									
+									
+									
+									<a href="results.cfm?query=PrimaryCCS%3AD33&querydisp=PrimaryCCS%3AD33&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">
+									
+									 Language Constructs and Features</a><br>
+								  
+							
+								
+									  	
+										
+										
+											
+											
+												&nbsp;
+											
+												&nbsp;
+											
+												&nbsp;
+											
+												&nbsp;
+											
+												&nbsp;
+											
+											
+												<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+											 
+											<b>Subjects:</b>
+										    
+												<a href="results.cfm?query=PrimarySubject%3A%22Dynamic%20storage%20management%22&querydisp=PrimarySubject%3A%22Dynamic%20storage%20management%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">Dynamic storage management</a>											
+
+											
+										
+										<br>
+										
+								
+							
+						
+					 </p>
+				  
+				
+				  <p class="Categories">
+					<SPAN class=heading><A NAME="GenTerms">Additional&nbsp;Classification:</A></span>
+					 
+					  	
+					 
+					 
+					
+							<br>&nbsp;
+							
+							
+								 
+									
+									
+									 
+									<b>D.</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD&querydisp=CCS%3AD&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">									 
+
+									Software</a><br>
+								 
+							
+								 
+									
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									 
+									<b>D.3</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD3&querydisp=CCS%3AD3&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">									 
+
+									 PROGRAMMING LANGUAGES</a><br>
+								 
+							
+								 
+									
+									
+										&nbsp;
+									
+										&nbsp;
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									 
+									<b>D.3.4</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD34&querydisp=CCS%3AD34&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">									 
+
+									 Processors</a><br>
+								 
+							
+								
+								  	
+									
+									
+										
+										
+											&nbsp;
+										
+											&nbsp;
+										
+											&nbsp;
+										
+											&nbsp;
+										
+											&nbsp;
+										
+										
+											<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+										 
+										<b>Subjects:</b>
+									    
+											<a href="results.cfm?query=Subject%3A%22Memory%20management%20%28garbage%20collection%29%22&querydisp=Subject%3A%22Memory%20management%20%28garbage%20collection%29%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">Memory management (garbage collection)</a>																					
+
+										
+									
+									<br>
+									
+								
+							
+								 
+									
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									 
+									<b>D.4</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD4&querydisp=CCS%3AD4&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">									 
+
+									 OPERATING SYSTEMS</a><br>
+								 
+							
+								 
+									
+									
+										&nbsp;
+									
+										&nbsp;
+									
+										&nbsp;
+									
+									
+										<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+									 
+									<b>D.4.2</b>
+									
+									
+
+									<a href="results.cfm?query=CCS%3AD42&querydisp=CCS%3AD42&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">									 
+
+									 Storage Management</a><br>
+								 
+							
+								
+								  	
+									
+									
+										
+										
+											&nbsp;
+										
+											&nbsp;
+										
+											&nbsp;
+										
+											&nbsp;
+										
+											&nbsp;
+										
+										
+											<img src="http://portal.acm.org/images/tree.gif" border="0" height="20" width="20">
+										 
+										<b>Subjects:</b>
+									    
+											<a href="results.cfm?query=Subject%3A%22Allocation%2Fdeallocation%20strategies%22&querydisp=Subject%3A%22Allocation%2Fdeallocation%20strategies%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">Allocation/deallocation strategies</a>;																					
+
+										
+											<a href="results.cfm?query=Subject%3A%22Virtual%20memory%22&querydisp=Subject%3A%22Virtual%20memory%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">Virtual memory</a>;																					
+
+										
+											<a href="results.cfm?query=Subject%3A%22Garbage%20collection%22&querydisp=Subject%3A%22Garbage%20collection%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">Garbage collection</a>																					
+
+										
+									
+									<br>
+									
+								
+							
+					
+
+					</p>
+				   
+			
+				
+				<br>
+					<p class="GenTerms">
+						<SPAN class=heading><A NAME="GenTerms">General Terms:</A></span>
+						
+						  	
+						
+						
+						<BR>
+						 
+						
+							
+							<a href="results.cfm?query=General%20Terms%3A%22Design%22&querydisp=General%20Terms%3A%22Design%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">
+
+							Design</a>,
+							
+						
+							
+							<a href="results.cfm?query=General%20Terms%3A%22Performance%22&querydisp=General%20Terms%3A%22Performance%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">
+
+							 Performance</a>
+							
+						
+					</p>
+				  
+				
+				
+				<br>
+					<p class="keywords">
+						<SPAN class=heading><A NAME="Keywords">Keywords:</A></span>
+						
+						  	
+						
+						
+						<BR>
+						 
+						
+							
+							<a href="results.cfm?query=Keywords%3A%22dynamic%20memory%20management%22&querydisp=Keywords%3A%22dynamic%20memory%20management%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">							
+
+							dynamic memory management</a>,
+							
+						
+							
+							<a href="results.cfm?query=Keywords%3A%22garbage%20collection%22&querydisp=Keywords%3A%22garbage%20collection%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">							
+
+							 garbage collection</a>,
+							
+						
+							
+							<a href="results.cfm?query=Keywords%3A%22heap%20sharing%22&querydisp=Keywords%3A%22heap%20sharing%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">							
+
+							 heap sharing</a>,
+							
+						
+							
+							<a href="results.cfm?query=Keywords%3A%22memory%20protection%20unit%22&querydisp=Keywords%3A%22memory%20protection%20unit%22&termshow=matchboolean&coll=GUIDE&dl=GUIDE&CFID=76405387&CFTOKEN=14865605" target="_self">							
+
+							 memory protection unit</a>
+							
+												
+					</p>
+				  
+				
+			
+			</div>
+		 
+		
+		
+				
+		
+			<div class="abstract">
+				
+				<A HREF="citation.cfm?id=1176787#CIT"><img name="top" src="http://portal.acm.org/images/arrowu.gif" hspace="10" border="0"></A><SPAN class=heading><A NAME="collab">Collaborative Colleagues:</A></span>
+				
+				<table border="0" style="margin-left: 2em" cellpadding="2">
+				
+				
+				
+				
+				
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	Yoonseo Choi: <a href="author_page.cfm?id=81416602097&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=76405387&CFTOKEN=14865605" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
+							<div class="abstract">
+							
+							  	Hwansoo Han: <a href="author_page.cfm?id=81319492971&dsp=coll&coll=GUIDE&dl=GUIDE&trk=1&CFID=76405387&CFTOKEN=14865605" target="_self">colleagues</a>
+							
+							</div>
+						</td>
+					</tr>
+				
+				
+				</table>
+			</div>
+						
+		
+		
+		
+		
+		
+		
+		
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+				
+				
+				
+			
+		
+				
+			
+  	
+
+
+
+
+<br>
+<DIV class=footer-copy-text align="center">
+	
+
+
+
+	The ACM Portal is published by the Association for Computing Machinery. Copyright © 2010 ACM, Inc.<br>
+	<A href="http://www.acm.org/publications/policies/usage">Terms of Usage</A>&nbsp;&nbsp;
+	<A href="http://www.acm.org/about/privacy-policy">Privacy Policy</A>&nbsp;&nbsp;
+	<A href="http://www.acm.org/about/code-of-ethics">Code of Ethics</A>&nbsp;&nbsp;	  
+	<A href="http://www.acm.org/about/contact-us">Contact Us</A>
+
+<br><br>
+Useful downloads: 
+<a href="http://www.adobe.com/products/acrobat/readstep2.html"><img src="http://portal.acm.org/images/pdf_logo.gif" width="16" height="16" alt="" border="0"> Adobe Acrobat</a>
+&nbsp;&nbsp;
+<a href="http://www.apple.com/quicktime/download/" target="_blank"><img src="http://portal.acm.org/images/qtlogo.gif" width="16" height="16" alt="" border="0"> QuickTime</a>
+&nbsp;&nbsp;
+<a href="http://www.microsoft.com/windows/windowsmedia/download/default.asp" target="_blank"><img src="http://portal.acm.org/images/wmv.gif" width="16" height="15" alt="" border="0"> Windows Media Player</a>
+&nbsp;&nbsp;
+<a href="http://www.real.com/" target="_blank"><img src="http://portal.acm.org/images/realplayer.gif" width="20" height="18" alt="" border="0"> Real Player</a>
+
+
+</DIV>
+
+</td>
+</tr>
+</table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="content.css" />
+<meta name="area" content="livedocs" />
+<meta name="lang" content="en-us" />
+<meta name="product" content="LiveCycle" /> 
+<meta name="productv" content="9.0" />
+<meta name="book" content="Programming with LiveCycle ES2" />
+<script src="help.js" type="text/javascript" language="Javascript" charset="UTF-8">...</script>
+<script type="text/javascript">
+<!--[CDATA[
+handleContext(1);
+if (use_ie_6_behavior) {
+  document.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"content-ie6.css\" />");
+}
+// ]]-->
+</script>
+<script src="scripts.js" type="text/javascript" language="Javascript" charset="UTF-8">...</script>
+<script language="JavaScript" src="flashmovie.js" type="text/javascript" charset="UTF-8">...</script>
+<title>Adobe LiveCycle ES2 * Inspect Policy Protected PDF Documents using the Java API </title>
+</head>
+<body id="content_body">
+<!--googleoff: index-->
+<!-- BEGIN PAGE CONTENT WRAPPER -->
+<div id="pneumonic">
+  <h1 class="LiveCycle">Programming with LiveCycle ES2</h1>
+</div>
+<div id="page_content_wrapper">
+  <!-- BEGIN BREADCRUMBS -->
+  <div id="breadcrumb">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="nav">
+      <dl class="page">
+				
+<dd class="prev"><a accesskey="p" class="prev" href="000832.html" title="Inspecting Policy Protected PDF Documents"><img src="images/prev.gif" alt="Previous" /></a></dd><dd class="next"><a accesskey="n" class="next" href="000835.html" title="Inspect Policy Protected PDF Documents using the web service API"><img src="images/next.gif" alt="Next" /></a></dd>
+
+      </dl>
+    </div>
+    <div class="hierarchy"> <a href="000542.html">Performing Service Operations Using APIs</a> 
+/ <a href="000801.html">Protecting Documents with Policies</a> / <a href="000832.html"><b>Inspecting Policy Protected PDF Documents</b></a> </div>
+    <!-- END BREADCRUMBS -->
+  </div>
+  <!-- END BREADCRUMBS -->
+  <!-- BEGIN PAGE TITLE -->
+  <!--googleon: index-->
+  <h1> Inspect Policy Protected PDF Documents using the Java API </h1>
+  <!--googleoff: index-->
+  <!-- END PAGE TITLE -->
+  <!-- BEGIN CONTENT WRAPPER -->
+  <div id="content_wrapper">
+    <!--googleon: index-->
+      <div>
+       
+<p>Inspect a policy-protected PDF document by using the Rights&nbsp;Management Service&nbsp;API (Java): </p>
+<ol>
+  <li><a href="000832.html#1548305">Include project files</a> <ul><ul><p>Include client JAR files, such as the adobe-rightsmanagement-client.jar, in your Java project's class path. For information about the location of these files, see <a href="000469.html#1557972">Including LiveCycle&nbsp;ES2 Java library files</a>.</p>
+</ul></ul>  </li>
+  <li><a href="000832.html#1548310">Create a Rights Management Client&nbsp;API object</a> <ul>
+  <li>Create a <samp class="codeph">ServiceClientFactory</samp> object that contains connection properties. (See <a href="000474.html#1560195">Setting connection properties</a>.)
+</li>
+  <li>Create a <samp class="codeph">RightsManagementClient</samp> object by using its constructor and passing the <samp class="codeph">ServiceClientFactory</samp> object.
+</li>
+</ul>
+  </li>
+  <li><a href="000832.html#1548314">Retrieve a policy-protected document to inspect</a> <ul>
+  <li>Create a <samp class="codeph">java.io.FileInputStream</samp> object that represents the policy-protected PDF document by using its constructor. Pass a string value that specifies the location of the PDF document.
+</li>
+  <li>Create a <samp class="codeph">com.adobe.idp.Document</samp> object by using its constructor and passing the <samp class="codeph">java.io.FileInputStream</samp> object.
+</li>
+</ul>
+  </li>
+  <li><a href="000832.html#1549663">Inspect the document</a> <ul>
+  <li>Create a <samp class="codeph">DocumentManager</samp> object by invoking the <samp class="codeph">RightsManagementClient</samp> object's <samp class="codeph">getDocumentManager</samp> method.
+</li>
+  <li>Inspect the policy-protected document by invoking the <samp class="codeph">LicenseManager</samp> object's <samp class="codeph">inspectDocument</samp> method. Pass the <samp class="codeph">com.adobe.idp.Document</samp> object that contains the policy-protected PDF document. This method returns a <samp class="codeph">RMInspectResult</samp> object that contains information about the policy-protected document. 
+</li>
+</ul>
+  </li>
+  <li><a href="000832.html#1549098">Obtain information about the policy-protected document</a> <ul><ul><p>To obtain information about the policy-protected document, invoke the appropriate method that belongs <samp class="codeph">RMInspectResult</samp> object. For example, to retrieve the policy name, invoke the <samp class="codeph">RMInspectResult</samp> object's <samp class="codeph">getPolicyName</samp> method. </p>
+</ul></ul>  </li>
+</ol>
+<p><a name="1549811" id="1549811"></a><strong>See also</strong></p>
+<p><a href="000352.html#1549157">Quick Start (EJB mode): Inspecting policy protected PDF documents using the Java API</a> </p>
+<p><a href="000353.html#1573844">Quick Start (SOAP mode): Inspecting policy protected PDF documents using the Java API</a> </p>
+<p><a href="000469.html#1557972">Including LiveCycle&nbsp;ES2 Java library files</a></p>
+<p><a href="000474.html#1560195">Setting connection properties</a></p>
+
+      </div>
+    <!--googleoff: index-->
+  </div>
+  <!-- BEGIN BREADCRUMBS -->
+  <div id="breadcrumb">
+    <!-- BEGIN BREADCRUMBS -->
+    <div class="nav">
+      <dl class="page">
+				
+<dd class="prev"><a accesskey="p" class="prev" href="000832.html" title="Inspecting Policy Protected PDF Documents"><img src="images/prev.gif" alt="Previous" /></a></dd><dd class="next"><a accesskey="n" class="next" href="000835.html" title="Inspect Policy Protected PDF Documents using the web service API"><img src="images/next.gif" alt="Next" /></a></dd>
+
+      </dl>
+    </div>
+    <div class="hierarchy">&#160;</div>
+    <!-- END BREADCRUMBS -->
+  </div>
+</div>
+
+<br clear="both" />
+<!-- BEGIN IONCOMMENTS --> <div id="ionComHere"> </div> <!-- END IONCOMMENTS --> <script type="text/javascript" language="JavaScript"  src="http://community.adobe.com/help/badge/ionBadge.js"></script>
+<link href="http://community.adobe.com/ion/badge/ionBadge.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript">
+var loc = "en_US";
+var label = "livecycle_product_adobelr";
+ionReadyLoad(function(){
+        var badge = new ionBadge();
+        badge.url = window.location.toString();
+        badge.locale = loc;
+        badge.anchor = document.getElementById("ionCount");
+        badge.container = document.getElementById("ionComHere");
+        badge.ratingType = "thumbs";
+        badge.siteArea = "help";
+        badge.productLabel = label;
+        
+        badge.load();
+})
+ 
+</script>
+ 
+ <div style="display: none;">
+<!-- SiteCatalyst code version: H.15.2. Copyright 1997-2009 Omniture, Inc. More info available at
+http://www.omniture.com -->
+<script language="JavaScript" type="text/javascript"><!--
+var s_code=' ';
+var scJsHost = (("https:" == document.location.protocol) ? "https://www.adobe.com" : "http://wwwimages.adobe.com");
+document.write(unescape("%3Cscript src='" + scJsHost + "/uber/js/omniture_s_code.js' type='text/javascript'%3E%3C/script%3E"));
+//--></script>
+<script type="text/javascript"><!--
+var s_accountName;
+var s_docHost = window.location.hostname.toLowerCase();
+var s_docURL = window.location.pathname.toLowerCase();
+
+if (!window.s_account) s_accountName="mxmacromedia";
+else s_accountName=window.s_account;
+
+if (s_docURL.indexOf("/devnet/") != -1) {
+  s_channel="DevNet";
+  // Track Tabs as Pages when targeted directly
+  if (document.URL.indexOf("navID=") != -1) {
+    var s_pairs = window.location.search.substring(1).split("&");
+	for (i=0;i<s_pairs.length;i++) {
+	  if (s_pairs[i].indexOf("navID=") != -1)
+  		s_pageName=document.URL.substring(0, document.URL.indexOf("?")+1) + s_pairs[i];
+		s_pageName=s_pageName.toLowerCase();
+	}
+  }
+}
+else if (s_docURL.indexOf("/designcenter/") != -1) {
+  s_channel="Adobe Design Center";	
+}
+else if ((s_docHost.indexOf("labs.adobe") != -1) ||
+(s_docHost.indexOf("labs-staging.") != -1)) {
+  s_channel="Labs";        
+}
+else if (s_docHost.indexOf("help.adobe.com") != -1) {
+  // Tracking Learning Resources help.adobe.com
+  s_channel="Support Help.adobe.com";
+  var s_title=document.title;
+  if (s_title.indexOf("*") != -1) { 
+    s_title=document.title.substring(0,document.title.indexOf("*"));
+  }
+  s_pageName="Support help.adobe.com: " + s_title;
+  s_prop23=document.URL;
+}
+else if (s_docHost.indexOf("kb2.adobe.com") != -1) {
+  // Tracking Support Knowledgebase
+  s_channel="Support Knowledgebase";
+}
+if (!window.scMMInclude) {
+	var s_wd=window,s_tm=new Date;
+	if(s_code!=' '){
+		s_code=s_dc(s_accountName);
+		if(s_code)document.write(s_code)
+	} 
+} else {
+	s_wds(s_accountName);s_ca(s_accountName); 
+}	
+
+function sendAnalyticsEvent(str){var ns=s_accountName;if(str!=null)ns+=","+str;void(s_gs(ns));}
+function sendLinkEvent(accnt,lnkname,type){
+accnt=s_accountName;s_linkType=type;s_lnk=true;s_linkName=lnkname;void(s_gs(accnt));}
+var searchForm = (document.forms["globalnav-search"]) || (document.forms["adc-globalnav-search"]);
+if(searchForm) {
+	if (typeof s_channel == "undefined") { var s_channel; }
+	s_pageName_input_value = (s_pageName!="" && s_pageName != null) ? s_pageName : window.location.href.split("?");
+	s_channel_input_value = (s_channel!="") ? s_channel : "Channel:n/a";
+	var s_pageName_input = new Element('input');
+	s_pageName_input.writeAttribute({
+		 "name" : "s_pageName",
+		 "type" : "hidden",
+		 "value": s_pageName_input_value[0]
+	});
+	var s_channel_input = new Element('input');
+	s_channel_input.writeAttribute({
+		 "name" : "s_channel",
+		 "type" : "hidden",
+		 "value": s_channel_input_value
+	});
+	Element.insert(searchForm, s_pageName_input ).insert(s_channel_input);
+}
+//--></script>
+<noscript><img src="http://stats.adobe.com/b/ss/mxmacromedia/1/G.9-XELvs" height="1" width="1" border="0" alt="" /></noscript>
+<!-- End SiteCatalyst code version: H.15.2. -->
+</div>
+
+
+ 
+
+
+
+
+</body>
+</html>

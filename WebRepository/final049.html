@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.6 -->
+<!--X-Subject: java/2155: Overzealous detection of uninitialized final variables -->
+<!--X-From-R13: oelprNnyongebff.pb.am -->
+<!--X-Date: 3 Mar 2001 03:36:01 &#45;0000 -->
+<!--X-Message-Id: 20010303032927.20237.qmail@sourceware.cygnus.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>bryce - java/2155: Overzealous detection of uninitialized final variables</TITLE>
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--htdig_noindex-->
+<p>This is the mail archive of the 
+<tt>java-prs@gcc.gnu.org</tt>
+mailing list for the <a href="/java/">Java project</a>.
+
+
+<!--/htdig_noindex-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<!--htdig_noindex-->
+<HR>
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00050">Date&nbsp;Index</A>] [<a href="subjects.html#00050">Subject&nbsp;Index</a>] [<a href="authors.html#00050">Author&nbsp;Index</a>] [<A HREF="threads.html#00050">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00049.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00051.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00049.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00049.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>java/2155: Overzealous detection of uninitialized final variables</h1>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: gcc-gnats at gcc dot gnu dot org</LI>
+<LI><em>Subject</em>: java/2155: Overzealous detection of uninitialized final variables</LI>
+<LI><em>From</em>: bryce at albatross dot co dot nz</LI>
+<LI><em>Date</em>: 3 Mar 2001 03:29:27 -0000</LI>
+<LI><em>Reply-To</em>: bryce at albatross dot co dot nz</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+&gt;Number:         2155
+&gt;Category:       java
+&gt;Synopsis:       Overzealous detection of uninitialized final variables
+&gt;Confidential:   no
+&gt;Severity:       serious
+&gt;Priority:       medium
+&gt;Responsible:    unassigned
+&gt;State:          open
+&gt;Class:          rejects-legal
+&gt;Submitter-Id:   net
+&gt;Arrival-Date:   Fri Mar 02 19:36:00 PST 2001
+&gt;Closed-Date:
+&gt;Last-Modified:
+&gt;Originator:     Bryce McKinlay
+&gt;Release:        gcc version 3.0 20010302 (prerelease)
+&gt;Organization:
+&gt;Environment:
+
+&gt;Description:
+Try to compile the test case below. This code is legal,
+but gcj rejects it with the following error:
+
+
+$ gcj -c Final.java 
+Final.java: In class `Final':
+Final.java: In method `()':
+Final.java:9: Can't assign a value to the final variable `foo'.
+       foo = 22;
+       ^
+Final.java: At top level:
+Final.java:6: Final variable `foo' hasn't been initialized upon its declaration.
+     final int foo;
+               ^
+2 errors
+
+It seems that this is a regression caused by the PR java/1212 fix.
+
+&gt;How-To-Repeat:
+// Uninitalized final variables are not permitted, but they don't 
+// neccessarily have to be initialized inline.
+
+class Final
+{
+  final int foo;
+  
+  {
+    foo = 22;
+  }
+}
+&gt;Fix:
+
+&gt;Release-Note:
+&gt;Audit-Trail:
+&gt;Unformatted:
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<!--htdig_noindex-->
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00050">Date&nbsp;Index</A>] [<a href="subjects.html#00050">Subject&nbsp;Index</a>] [<a href="authors.html#00050">Author&nbsp;Index</a>] [<A HREF="threads.html#00050">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00049.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00051.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00049.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00049.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

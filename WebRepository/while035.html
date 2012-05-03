@@ -1,0 +1,236 @@
+<!-- MHonArc v2.6.8 -->
+<!--X-Subject: RE: [xsl] Problem...while using Java with XSLT. -->
+<!--X-From-R13: "[vpunry Ynl" <zvpunry.u.xnlNagyjbeyq.pbz> -->
+<!--X-Date: Wed, 25 Sep 2002 12:45:22 +0100 -->
+<!--X-Message-Id: 001e01c26489$07c76380$6401a8c0@pcukmka -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: OFFD3AFAFC.79471C45&#45;ON65256C3F.0038AF9E@etindia.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<TITLE>RE: [xsl] Problem...while using Java with XSLT.</TITLE>
+<link rel="stylesheet" type="text/css" href="/templates/css/archives.css">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<div class="topLinks">
+<table><tr>
+<td><a href="msg00964.html"><-prev</a> [<A HREF="threads.html#00967">Thread</A>] <a href="msg00966.html">next-></a></td>
+<td><a href="msg00966.html"><-prev</a> [<A HREF="maillist.html#00967">Date</A>] <a href="msg00968.html">next-></a></td>
+</tr>
+<tr><td colspan=2>
+<a href="../">Month Index</a> | <a href="../../">List Home</a>
+
+</td></tr>
+</table>
+
+</div>
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h2>RE: [xsl] Problem...while using Java with XSLT.</h2>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<div class="msgHead"><table><tr><td>
+ 
+<em>Subject</em>: RE: [xsl] Problem...while using Java with XSLT.<br>
+
+ 
+<em>From</em>: &quot;Michael Kay&quot; &lt;<a href="mailto:michael.h.kay@DOMAIN.HIDDEN">michael.h.kay@xxxxxxxxxxxx</a>&gt;<br>
+
+ 
+<em>Date</em>: Wed, 25 Sep 2002 12:45:22 +0100<br>
+
+</td></tr></table></div>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<div>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>You are probably loading the DOM tree correctly; you are then applying
+templates to it, and the built-in templates merely extract the text.
+
+Use xsl:copy-of instead of xsl:apply-templates.
+
+And please... any problem that isn't pure XSLT, please say what product
+you are using. There are half a dozen XSLT implementations in Java, and
+the way they do extension functions are all slightly different.
+
+Michael Kay
+Software AG
+home: Michael.H.Kay@xxxxxxxxxxxx
+work: Michael.Kay@xxxxxxxxxxxxxx 
+
+&gt; -----Original Message-----
+&gt; From: owner-xsl-list@xxxxxxxxxxxxxxxxxxxxxx 
+&gt; [<a  href="mailto:owner-xsl-list@xxxxxxxxxxxxxxxxxxxxxx">mailto:owner-xsl-list@xxxxxxxxxxxxxxxxxxxxxx</a>] On Behalf Of 
+&gt; Mukul.Mudgal@xxxxxxxxxxx
+&gt; Sent: 25 September 2002 11:42
+&gt; To: xsl-list@xxxxxxxxxxxxxxxxxxxxxx
+&gt; Subject: [xsl] Problem...while using Java with XSLT.
+&gt; 
+&gt; 
+&gt; Hello Friends
+&gt; 
+&gt; I'm trying to use Java with XSLT.
+&gt; 
+&gt; What I'm doing is ....I'm trying to get a node structure from 
+&gt; the Java class.....while doing the transformation. And that 
+&gt; node structure should be append into where I called the Java 
+&gt; Class in XSL file.
+&gt; 
+&gt; But instead of showing the appended node structure ...it is 
+&gt; showing it's value
+&gt; 
+&gt; Result Currently getting.......
+&gt; 
+&gt;   &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&gt;  &lt;AA xmlns:java=&quot;java&quot; xmlns:date=&quot;com.example.MeraClass&quot;&gt;
+&gt;   &lt;BB&gt;FunnyFunny1&lt;/BB&gt;
+&gt;   &lt;/AA&gt;
+&gt; 
+&gt; 
+&gt; 
+&gt; Result expected
+&gt;   &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&gt;  &lt;AA xmlns:java=&quot;java&quot; xmlns:date=&quot;com.example.MeraClass&quot;&gt;
+&gt;   &lt;BB&gt;
+&gt; &lt;CC&gt;
+&gt; &lt;DD&gt;Funny&lt;/DD&gt;
+&gt; &lt;EE&gt;Funny1&lt;/EE&gt;
+&gt; &lt;/CC&gt;
+&gt; &lt;/BB&gt;
+&gt;   &lt;/AA&gt;
+&gt; 
+&gt; These are my xsl and java code...
+&gt; 
+&gt; ****************XSL************
+&gt; &lt;xsl:stylesheet version=&quot;1.0&quot;
+&gt;    xmlns:xsl=&quot;<a  href="http://www.w3.org/1999/XSL/Transform&quot">http://www.w3.org/1999/XSL/Transform&quot</a>;
+&gt;    xmlns:date=&quot;com.example.MeraClass&quot;
+&gt;   xmlns:java=&quot;java&quot; &gt;
+&gt; 
+&gt; &lt;xsl:output method=&quot;html&quot; encoding=&quot;UTF-8&quot;/&gt;
+&gt; 
+&gt; &lt;xsl:template match=&quot;date&quot;&gt;
+&gt; &lt;AA&gt;
+&gt; &lt;BB&gt;
+&gt; &lt;xsl:apply-templates select=&quot;date:format(.)&quot;/&gt; &lt;!--  Calling 
+&gt; of Java Class i.e  com.example.MeraClass --&gt;
+&gt;   &lt;/BB&gt;
+&gt;   &lt;/AA&gt;
+&gt; &lt;/xsl:template&gt;
+&gt; 
+&gt; &lt;/xsl:stylesheet&gt;
+&gt; *******************************************************************
+&gt; 
+&gt; Java Class..
+&gt; import  java.util.*;
+&gt; import  java.text.*;
+&gt; import  org.w3c.dom.*;
+&gt; import  javax.xml.parsers.*;
+&gt; import  org.apache.xml.utils.WrappedRuntimeException;
+&gt; 
+&gt; 
+&gt; public class MeraClass {
+&gt; 
+&gt;     public static Node format (String date) {
+&gt; 
+&gt;     try {
+&gt;             Document doc = DocumentBuilderFactory.newInstance
+&gt; ().newDocumentBuilder().newDocument();
+&gt; 
+&gt;             Element dateNode = doc.createElement(&quot;CC&quot;);
+&gt;                    addChild(dateNode, &quot;DD&quot;, &quot;Funny&quot;);
+&gt;                    addChild(dateNode, &quot;EE&quot;, &quot;Funny1&quot;);
+&gt; 
+&gt;             return  dateNode;
+&gt;         } catch (Exception ex) {throw  new 
+&gt; WrappedRuntimeException(ex);}
+&gt; 
+&gt; }
+&gt; 
+&gt;     private static void addChild (Node parent, String name, 
+&gt; String text) {
+&gt;         Element child = parent.getOwnerDocument().createElement(name);
+&gt;         
+&gt; child.appendChild(parent.getOwnerDocument().createTextNode(text));
+&gt;         parent.appendChild(child);
+&gt;     }
+&gt; }
+&gt; 
+&gt; Please help how could I do this.
+&gt; 
+&gt; thanks
+&gt; Mukul
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt;  XSL-List info and archive:  <a  href="http://www.mulberrytech.com/xsl/xsl-list">http://www.mulberrytech.com/xsl/xsl-list</a>
+&gt; 
+&gt; 
+
+
+ XSL-List info and archive:  <a  href="http://www.mulberrytech.com/xsl/xsl-list">http://www.mulberrytech.com/xsl/xsl-list</a>
+
+
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+</div>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<div class="botThread">
+<table><tr><th>Current Thread</th></tr>
+       <tr><td><ul>
+<LI><a href="threads.html#00964">[xsl] Problem...while using Java with XSLT.</A>
+    <UL><LI><A name="00964" href="msg00964.html">Mukul . Mudgal</A> - Wed, 25 Sep 2002 16:12:13 +0530
+<ul>
+<li><span class="botThread"><em>Michael Kay</em> - Wed, 25 Sep 2002 12:45:22 +0100</span>&nbsp;<b>&lt;=</b>
+</li>
+</ul>
+</UL>
+</ul>
+</td></tr>
+</table>
+</div>
+
+<div class="botLinks">
+<table>
+<tr><th><- Previous</th><th>Index</th><th>Next -></th></tr>
+<tr><td><a href="msg00964.html">[xsl] Problem...while using Java wi</a>, <em>Mukul . Mudgal</em>
+</td>
+    <td><a href="threads.html#00967">Thread</a></td>
+    <td><a href="msg00966.html">[xsl] test if attribute contains va</a>, <em>thomas</em>
+</td>
+</tr>
+<tr><td><a href="msg00966.html">[xsl] test if attribute contains va</a>, <em>thomas</em>
+</td>
+    <td><a href="maillist.html#00967">Date</a></td>
+    <td><a href="msg00968.html">RE: [xsl] test if attribute contain</a>, <em>Michael Kay</em>
+</td>
+</tr>
+<tr><td></td>
+    <td><a href="../">Month</a></td>
+    <td></td>
+</tr>
+</table>
+<p>
+</div>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

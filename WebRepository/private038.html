@@ -1,0 +1,702 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+         
+      <title>Java exposing Private IP to internet | JavaWorld's Daily Brew</title><script>
+        var topicid = (-2);
+        </script>
+      <meta name="channels" content="JavaWorld Community">
+      <meta name="description" content="Get the latest Java technology news and reports from JavaWorld.com.">
+      <meta name="keywords" content="">
+      <meta name="contenttype" content="">
+      <meta name="publisher" content="JavaWorld.com">
+      <script>
+        function HighlightText(divid){
+            var code = document.body.createTextRange();
+            code.moveToElementText(document.getElementById('codewrap' + divid));
+            code.execCommand("SelectAll");
+            code.execCommand("Copy");
+        }
+      </script>
+      <meta name="publicationDate" content="2009-10-17" />      
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+<!-- put the # sign in the comment below to go live -->
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+<style>#reg{BACKGROUND: #ebe7d9;PADDING:5px;}</style>
+
+
+
+<script type="text/javascript" src="/includes/jqlib/jwLib_head.js"></script>
+<script language="javascript">
+  var outerref = new String("(none)");
+  var nwchannel = '(none)';
+  var refresh = 0;
+  
+  var jq_rxid = '(none)';
+</script>
+<base target = "_top">
+
+<script type="text/javascript" src="/includes/head-scripts.js"></script>
+<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+<script type="text/javascript">
+NW = window.NW || {};
+
+NW.PageInfo = NW.PageInfo || {};
+NW.PageInfo = function() {
+    return{
+        cookie_domain: "javaworld.com",
+        rxprimarytopic: "(none)",
+		rxheadline: "(none)",
+        channels: "(none)",
+        request_uri: "/community/node/3560",
+        doc_uri: "/community/index.php",
+        rxid: "(none)",
+        nodeid: "(none)",
+		pgtype: "(none)",
+        
+        // use this function to return meta info and add to NW.PageInfo object
+        setMetaInfo: function() {
+            $("meta").each(function (i) {
+                var n = $(this).attr("name");
+                var c = $(this).attr("content")
+                //alert('before - ' + n + ": " + c);
+                if(n && c) {
+                    NW.PageInfo[n] = $(this).attr("content");
+                    //document.write('in - ' + n + ": " + c + '<br />');
+                }
+            });    
+        }
+    };
+}();
+NW.PageInfo.setMetaInfo(); 
+</script>
+
+
+<!-- HBX -->
+<script language="javascript1.1">
+var _hbEC=0,_hbE=new Array;function _hbEvent(a,b){b=_hbE[_hbEC++]=new Object();b._N=a;b._C=0;return b;}
+var hbx=_hbEvent("pv");hbx.vpc="HBX0103u";hbx.gn="a.javaworld.com";
+var doctitle = hbxStrip(document.title);
+var loc = new String(document.location.href);
+loc = hbxStrip(loc);
+
+hbx.acct="DM54120129AB;DM550210NGWB";
+hbx.pn="PUT+PAGE+NAME+HERE";
+hbx.mlc="CONTENT+CATEGORY";
+hbx.pndef="title";
+hbx.ctdef="full";
+hbx.lvm="300";
+hbx.lidt="txl";
+
+hbx.fv="";//FORM VAL MIN
+hbx.lt="auto"; //LINK TR
+hbx.dlf="n";//Dl FILTER
+hbx.dft="n";//Dl FILE NAMING
+hbx.elf="n";//EXIT LINK FILTER
+
+hbx.seg="-1";
+hbx.ci="";
+hbx.hc1="general|";
+hbx.hc2=keywords+"|"+doctitle;
+hbx.hc3=author+"|"+doctitle;
+hbx.hc4=doctitle+"|"+author;
+hbx.pec="";//ERROR CODES
+</script><script language="javascript1.1" src="/includes/hbx.js"></script>
+<!--END HBX -->
+
+<!-- Start Quantcast tag -->
+<script type="text/javascript" src="//secure.quantserve.com/quant.js"></script>
+<script type="text/javascript">
+_qoptions = {
+            tags:"nww"
+};
+_qacct="p-25K88fxDSEn9Y";quantserve();</script>
+<noscript>
+<a href="http://www.quantcast.com/p-25K88fxDSEn9Y" target="_blank"><img src="//secure.quantserve.com/pixel/p-25K88fxDSEn9Y.gif?tags=nww" border="0" style="display: none" height="1" width="1"></a></noscript>
+<!-- End Quantcast tag -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-6191150-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<!--
+channels: (none)
+keywords (topics): (none)
+contenttype (tasks): (none)
+site: general
+pagename: 
+keyval: 
+ibsearch: (none)
+-->
+
+	 
+     
+
+<!--    MIKEG CHECK THIS OUT      -->
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/community/sites/all/modules/doubleclick_ads/doubleclick_ads.js?e"></script>
+
+
+
+
+
+
+
+<script type="text/javascript" src="/community/sites/all/modules/demandbase/demandbase.js?e"></script>
+<script type="text/javascript" src="http://api.demandbase.com/api/v1/ip.json?token=08b8cb24471b1cc051c579449c9641156b959aaa&callback=dbase_parse"></script>
+<link rel="alternate" type="application/atom+xml" title="Atom" href="http://www.javaworld.com/community/atom/feed" />
+<link rel="shortcut icon" href="/community//misc/favicon.ico" type="image/x-icon" />
+
+  <script type="text/javascript" src="/community/misc/jquery.js"></script>
+<script type="text/javascript" src="/community/misc/drupal.js"></script>
+<script type="text/javascript" src="/community/sites/all/modules/fivestar/js/fivestar.js"></script>
+<script type="text/javascript" src="/community/misc/textarea.js"></script>
+<script type="text/javascript">Drupal.extend({ settings: { "fivestar": { "titleUser": "Your rating: ", "titleAverage": "Rating for this post: ", "feedbackSavingVote": "Saving your vote...", "feedbackVoteSaved": "Your vote has been saved.", "feedbackDeletingVote": "Deleting your vote...", "feedbackVoteDeleted": "Your vote has been deleted." } } });</script>
+<script type="text/javascript">var RecaptchaOptions = {theme : 'red'};</script>
+      <link href="/includes/styles/adstyles.css" rel="stylesheet" type="text/css">
+      <link href="/includes/styles/jw-main.css" rel="stylesheet" type="text/css">
+        <style type="text/css" media="all">@import "/community/modules/node/node.css";</style>
+<style type="text/css" media="all">@import "/community/modules/poll/poll.css";</style>
+<style type="text/css" media="all">@import "/community/modules/system/defaults.css";</style>
+<style type="text/css" media="all">@import "/community/modules/system/system.css";</style>
+<style type="text/css" media="all">@import "/community/modules/user/user.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/blogger/blogger.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/cck/content.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/codefilter/codefilter.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/feedapi/feedapi_aggregator/aggregator.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/logintoboggan/logintoboggan.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/og/og.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/spam_tokens/spam_tokens.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/cck/fieldgroup.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/fivestar/css/fivestar.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/fivestar/widgets/small/small.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/forward/forward.css";</style>
+<style type="text/css" media="all">@import "/community/sites/all/modules/print/css/printlinks.css";</style>
+<style type="text/css" media="all">@import "/community/modules/comment/comment.css";</style>
+<style type="text/css" media="all">@import "/community/themes/javaworld/style.css";</style>
+		<link href="/community/themes/includes/new.css" rel="stylesheet" type="text/css">
+              <!--[if lt IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/includes/styles/ie.css"/><![endif]-->
+   </head>
+
+   <body onload="init()">
+
+      <div id="wrapper">
+
+         <div id="bannerarea">
+            <div id="mainbanner">
+            
+
+
+      
+        
+          
+        
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin Top Leaderboard ad --> 
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.blogs/;pos=topleaderboard;sz=728x90;tile=1;dcopt=ist;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.blogs/;pos=topleaderboard;sz=728x90;tile=1;dcopt=ist;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.blogs/;pos=topleaderboard;sz=728x90;tile=1;dcopt=ist;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" width="728" height="90" border="0" alt=""></a></noscript>
+<!-- end Top Leaderboard ad -->
+
+
+            </div>
+            <div class="separator">
+               <!-- xxxxxxxxxxxxxx -->
+            </div>
+            <div id="masthead">
+               <div id="logoarea">
+               <h2 id="ifwLogo">
+<a href="http://www.infoworld.com/d/developer-world?source=jw_ifwlogo">InfoWorld: Modernizing IT</a>
+</h2>
+<h2 id="jwLogo">
+<a href="http://www.javaworld.com">JavaWorld: Solutions for Java Developers</a>
+</h2>
+               </div>
+                 <div id="searcharea"><form method="get" accept-charset="iso-8859-1" action="http://www.javaworld.com/ifind/java/query.html"><input type=hidden name="qm" value="0" />
+<input type=hidden name="st" value="1" />
+<input type=hidden name="nh" value="10" />
+<input type="hidden" name="col" value="java" />
+  <table border="0" cellspacing="0" cellpadding="0">
+  <tr valign="top">
+    <td><input type="text" name="qt" class="formfield" value="" maxlength="1991"></td>
+    <td><input class="submit" name="" type="image" src="/includes/styles/i/but/lw-search-button.gif" alt="Search" value="Go" /></td>
+    <td><span><a href="http://www.javaworld.com/ifind/java/query.html?col=java&qs=&qc=&si=0&ql=a&nh=25&lk=1&rf=0">Advanced search</a></span></td>
+  </tr>
+</table>
+  </form>
+</div>
+            </div>
+            <div class="separator">
+               <!-- xxxxxxxxxxxxxx -->
+            </div>
+         </div>
+
+<!--Start Menu--><script language="javascript" src="http://www.javaworld.com/includes/lookup_topic.js" xml:space="preserve"> </script><div id="toolbar"><div id="medallion">
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin N1 ad ad --> 
+<table width="125"  border="0" cellspacing="0" cellpadding="0"><tr><td>
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.blogs/;pos=n1;sz=120x90;tile=2;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.blogs/;pos=n1;sz=120x90;tile=2;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.blogs/;pos=n1;sz=120x90;tile=2;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" width="120" height="90" border="0" alt=""></a></noscript>
+</td></tr></table>
+<!-- end N1 ad ad -->
+
+
+<!-- n2 ad deprecated --></div><ul><li class="research"><a href="http://www.javaworld.com/topics/" shape="rect">Research Centers</a></li></ul><div id="toolbar_rc"><ul><li id="navbar1001" class="nobracket"><a shape="rect" id="linknav1001" href="http://www.javaworld.com/channel_content/jw-core-index.html" class=""><span id="showplus1001" class="toolbar-red">
+			+ </span>Core Java</a><div id="toolbar_rcsubs1001"><ul><li id="subnav1127" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-client-side-index.html">Client-side Java</a></li><li id="subnav1108" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-patterns-index.html">Design Patterns</a></li><li id="subnav1131" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-language-index.html">Java Language</a></li><li id="subnav1098" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-apis-index.html">Java Platform APIs</a></li><li id="subnav1132" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-concepts-index.html">Java Programming Concepts</a></li><li id="subnav1136" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-gui-index.html">Swing/GUI Programming</a></li><li id="subnav1138" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-threads-index.html">Threads/Concurrency</a></li></ul></div></li><li id="navbar1002" class="nobracket"><a shape="rect" id="linknav1002" href="http://www.javaworld.com/channel_content/jw-enterprise-index.html" class=""><span id="showplus1002" class="toolbar-red">
+			+ </span>Enterprise Java</a><div id="toolbar_rcsubs1002"><ul><li id="subnav1124" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-ajax-index.html">Ajax/RIA/Web 2.0</a></li><li id="subnav1126" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-architecture-index.html">Architecture &amp; Scalability</a></li><li id="subnav1129" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-best-practices-index.html">Enterprise Best Practices</a></li><li id="subnav1010" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-xml-index.html">Java &amp; XML</a></li><li id="subnav1133" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-development-index.html">Java Web Development</a></li><li id="subnav1009" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-webserv-index.html">Web Services &amp; SOAs</a></li></ul></div></li><li id="navbar1003" class="nobracket"><a shape="rect" id="linknav1003" href="http://www.javaworld.com/channel_content/jw-micro-index.html" class=""><span id="showplus1003" class="toolbar-red">
+			+ </span>Mobile Java</a><div id="toolbar_rcsubs1003"><ul /></div></li><li id="navbar1004" class="nobracket"><a shape="rect" id="linknav1004" href="http://www.javaworld.com/channel_content/jw-applied-index.html" class=""><span id="showplus1004" class="toolbar-red">
+			+ </span>Tools &amp; Methods</a><div id="toolbar_rcsubs1004"><ul><li id="subnav1012" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-appserv-index.html">Application Servers</a></li><li id="subnav1128" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-data-management-index.html">Data Management/RDBMS</a></li><li id="subnav1146" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-enterprise-middleware-index.html">Enterprise Middleware</a></li><li id="subnav1130" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-ide-index.html">Java IDEs</a></li><li id="subnav1110" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-security-testing-index.html">Java Security</a></li><li id="subnav1109" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-ostools-index.html">Open Source Tools</a></li><li id="subnav1134" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-scripting-index.html">Scripting/Other Languages</a></li><li id="subnav1125" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-lifecycle-index.html">Software Development Lifecycle</a></li><li id="subnav1135" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-software-development-index.html">Software Development Methodologies</a></li><li id="subnav1137" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-testing-debugging-index.html">Testing &amp; Debugging</a></li><li id="subnav1021" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-webdev-index.html">Web Application Frameworks</a></li></ul></div></li><li id="navbar1123" class="nobracket"><a shape="rect" id="linknav1123" href="http://www.javaworld.com/channel_content/jw-archive-index.html" class=""><span id="showplus1123" class="toolbar-red">
+			+ </span>JavaWorld Archives</a><div id="toolbar_rcsubs1123"><ul><li id="subnav1059" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-design-index.html">Design Techniques</a></li><li id="subnav1056" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-howto-index.html">How-to Java</a></li><li id="subnav1061" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-101-index.html">Java 101</a></li><li id="subnav1076" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-java-design-patterns-index.html">Java Design Patterns</a></li><li id="subnav1065" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-qna-index.html">Java Q&amp;A</a></li><li id="subnav1057" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-tips-index.html">Java Tips</a></li><li id="subnav1071" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-traps-index.html">Java Traps</a></li><li id="subnav1139" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-serverside-index.html">Server-side Java</a></li><li id="subnav1073" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-hood-index.html">Under the Hood</a></li></ul></div></li></ul></div><div class="site_resources">
+ <!-- use li class=current1 to hightlight the items below-->
+    <ul>
+      <li class="toplevel2"><a href="/topics/index.html">Site Resources</a></li>
+      <li id="sr87"><a href="/features/index.html">Featured Articles</a></li>
+      <li id="sr89"><a href="/news-reviews/index.html">News &amp; Views</a></li>
+      <li id="sr998"><a href="/community/">Community</a></li>
+      <li id="sr996"><a href="/community/?q=javaqa">Java Q&amp;A</a></li>
+      <li id="sr995"><a href="/community/?q=jwblogs">JW Blogs</a></li>
+	  <li id="sr993"><a href="/podcasts/jtech/">Podcasts</a></li>
+	  <li id="sr997"><a href="/topics/index.html">Site Map</a></li>
+    </ul>
+    
+	
+	<ul class="second">
+      <li><a href="http://javaworld.4jobs.com">Careers</a></li>
+	  <li id="sr991"><a href="http://www.infoworld.com/newsletters/subscribe?showlist=infoworld_java&source=jwnla_leftnav">Newsletters</a></li>
+      <li id="sr95"><a href="/white-paper/index.html">Whitepapers</a></li>
+      <li id="sr992"><a href="/rss/index.html">RSS Feeds</a></li>
+    </ul>
+   
+   
+	<ul class="about">
+		 <li class="toplevel2"><a href="/info/jw-about-index.html">About JavaWorld</a></li>
+         <li><a href="/info/jw-advertise.html">Advertise</a></li>
+         <li><a href="/info/jw-guidelines.html">Write for JW</a></li>
+	</ul>
+	</div>
+	<script type="text/javascript">
+		if (typeof menu_lookup == "function") menu_lookup();
+	</script>
+	<br>
+	<div style="border:solid 1px #BBBBBB; padding:10px;">
+		<script type="text/javascript"> 
+		<!--
+		google_ad_client = "pub-7643913824060699";
+		/* 120x90 nav bar, created 2/26/09 */
+		google_ad_slot = "5481062170";
+		google_ad_width = 120;
+		google_ad_height = 90;
+		//-->
+		</script>
+		<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+    </div></div>   
+         <div class="article" id="contentarea">
+            <div id="rcheader">
+               <!--startindex-->
+               <div id="toptabs">
+                  <ul>
+                     <li><a href="/channel_content/jw-core-index.html">Java Standard Edition</a></li>
+                  </ul>
+               </div>
+               <!--stopindex-->
+            </div>
+            <div id="idglogin">
+               <!-- xxxxxxxxxxxxxx -->
+            </div>
+            <div id="sectionhome">
+               <div id="a-e_col1">
+                  <div id="d-e_col2b">
+                  <div id="d-e-1">
+	<div id="tabs">
+		<ul>
+		<li class="ts"><a href="javascript:opentab('topstories');" class="ts" id="topstories_a">JW's Most Read</a></li>
+		<!-- <li class="saved"><a href="javascript:opentab('savedarticles');" class="saved" id="savedarticles_a">Editor's Choice</a></li>-->
+		</ul>
+	</div>
+	<div id="topstories">
+		 <p><b>Recent:</b></p>
+<ul class="noindent">
+   <li><a href="http://www.javaworld.com/community/node/2915">Java Tips:&nbsp;The Serialization algorithm revealed</a></li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-05-2009/jw-05-troubleshooting-oc4j-and-weblogic.html">Know your Oracle application server</a></li>
+   <li><a href="http://www.javaworld.com/community/node/2916">SwingX, JRuby: Survivors?</a></li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-04-2009/jw-04-multicore-and-cloud-ready-2.html">Cloud-ready, multicore-friendly apps, Part 2</a></li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-04-2009/jw-04-lean-soa-with-javaee6.html">Lean service architectures with Java EE 6</a></li>
+</ul>
+<p><b>Archives:</b></p>
+<ul class="noindent">
+   <li><a href="http://www.javaworld.com/javaworld/jw-03-2008/jw-03-osgi1.html">Hello, OSGi:&nbsp;Bundles for beginners</a> (2008)
+   </li>
+   <li><a href="http://www.javaworld.com/jw-12-1996/jw-12-sockets.html">Sockets programming in Java:&nbsp;A tutorial</a> (1996)
+   </li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-01-2008/jw-01-jpa1.html">Understanding JPA, Part 1</a> (2008)
+   </li>
+   <li><a href="http://www.javaworld.com/javaworld/javaqa/2003-08/01-qa-0808-property.html">Smartly load your properties</a> (2003)
+   </li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-10-2008/jw-10-rest-series-1.html">REST for Java developers, Part 1</a> (2008)
+   </li>
+</ul>
+	</div>
+	<!--<div id="savedarticles">-->
+		 <!--include virtual="/news/briefs/jw-highlights.html"-->
+	<!--</div>-->
+</div>
+
+<script type="text/javascript">
+divnames = new Array('topstories', 'savedarticles'); <!--,'topstories'-->
+opentab("topstories");
+
+function opentab(divname) {	;
+	if(document.getElementById(divname)) {
+		for (i=0;i < 2;i++) {	<!-- 2-->
+			var aname = divnames[i] + '_a';		
+			if (divnames[i] == divname)	{	
+				tab=divname;		    
+				document.getElementById(divname).style.display='block';
+				document.getElementById(aname).parentNode.id = "current";	
+			}
+			else {
+				document.getElementById(divnames[i]).style.display='none';
+				document.getElementById(aname).parentNode.id = "none";
+			}
+		}
+	}
+}
+</script>
+
+                     <div class="imu">
+                       
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin Top IMU ad --> 
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.blogs/;pos=topimu;sz=336x280,300x250,336x600;tile=6;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.blogs/;pos=topimu;sz=336x280,300x250,336x600;tile=6;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.blogs/;pos=topimu;sz=336x280,300x250,336x600;tile=6;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" width="336" height="600" border="0" alt=""></a></noscript>
+<!-- end Top IMU ad -->
+
+
+                       
+                     </div>
+                     <!--Featured White Papers-->                             <!-- nl signup start-->
+	<!--form action="http://www.networkworld.com/nl/Signup.do" id="Form2" method="post" name="form" onSubmit="openNewWindow()" target="new_window"-->
+	<form action="http://www.infoworld.com/newsletters/subscribe?showlist=infoworld_java&source=jwnla_freenltmod" id="Form2" method="get" name="form">
+          <div id="newsletter">
+            <h5>Newsletter sign-up </h5> <a href="http://www.infoworld.com/newsletters">View all newsletters</a>
+			<p class="nl">Sign up for our Enterprise Java Newsletter </p>
+            <table width="300" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <!--<td valign="top" class="bgleft"><input name="list1" type="checkbox" id="NL70" value="networkworld_javaworld_enterprise_java_alert"/></td>-->
+                <td class="bgright">Enterprise Java</td>
+              </tr>
+		    </table>
+            <!--<strong>Email Address:</strong>
+			<input id="keycode" name="keycode" type="hidden" value="NLmsu08"/>
+			<input id="call" name="call" type="hidden" value="instant"/>
+			<input name="pid" type="hidden" value="121"/>
+			<input name="email" size="14" type="text"/>-->
+			<input type="hidden" name="showlist" value="infoworld_java">
+			<input type="hidden" name="source" value="jwnla_freenltmod">
+            <input alt="Submit" type="submit" value="Subscribe" id="Submit1"/>
+          </div>
+        </form>
+        
+       <div id="sponsoredlinks">
+    <h2>
+        Sponsored Links
+    </h2>
+  <script type="text/javascript" src="http://jlinks.industrybrains.com/jsct?sid=93&ct=JAVAWORLD_HP_ROS&num=1&layt=10&fmt=simp&tr=premium"></script>
+    <!--special ad start-->
+	<ul>
+		<li>
+			<h3><a href="http://ad.doubleclick.net/clk;220382956;7406810;g?http://www.scaleoutsoftware.com/redirect/javaworld_sl005.html" target="_new">Speed-up HPC Grid Apps - FREE Download</a></h3>
+			
+            FREE Download 1- 13 Distributed caching eliminates data bottlenecks. ScaleOut StateServer&reg;</li>
+	</ul>
+   
+  
+	<!--end special ad -->
+</div><!--/#sponsoredlinks-->
+
+	
+
+
+                    <!--include virtual="/includes/promo/iblinks/JAVAWORLD_HP_ROS_toplink_DE.html"-->                  </div>
+                  <div class="breadcr"><a href="/index.html">JavaWorld.com</a>
+                  &gt; <a href="/channel_content/jw-core-index.html">Java Standard Edition</a> &gt;                  </div>
+                  <div>
+                  <div id="main">
+                  <a href="/community/"><img src="/community/themes/includes/dailybrew421.jpg" alt="JavaWorld Daily Brew" width="421" height="80" border="0" /></a>
+                      <div class="block block-block" id="block-block-1">
+    <h2 class="title"></h2>
+    <div class="content"><ul class="menu">
+<li class="leaf"><a href="/community/?q=login" title="Log in">Log in</a></li>
+<li class="leaf"><a href="/community/?q=user/register" title="Register">Register</a></li>
+</ul>
+</div>
+ </div>
+                    <div class="breadcrumb"><a href="/community/">JavaWorld Community</a></div>                                
+                                                                                                                                         <h1 class="title">Java exposing Private IP to internet</h1>                                      
+        
+
+            <div id="nodezone">
+        <!--xxxxxxxxxxxxxxxxxxx-->
+        <div class="node">
+            <span class="submitted">Submitted by <a href="/community/user/27928" title="View user profile.">sufinmdq</a> on Sat, 10/17/2009 - 14:30.</span>
+    <div class="taxonomy">Tags: <ul class="links inline"><li  class="first taxonomy_term_1509"><a href="/community/taxonomy/term/1509" rel="tag" title="" class="taxonomy_term_1509">internet security ip</a></li>
+<li  class="taxonomy_term_859"><a href="/community/taxonomy/term/859" rel="tag" title="" class="taxonomy_term_859">Java Design Patterns</a></li>
+<li  class="taxonomy_term_860"><a href="/community/taxonomy/term/860" rel="tag" title="" class="taxonomy_term_860">Java Q&amp;A</a></li>
+<li  class="last taxonomy_term_822"><a href="/community/taxonomy/term/822" rel="tag" title="" class="taxonomy_term_822">Java Security</a></li>
+</ul></div><br /> 		
+    <!--paging_filter--><p>Hi to everyone,</p>
+<p>I did buy a D-Link router DIR-600 few days ago and overall it's a good product. So to test it's built-in capabilities I did go to AuditMyPC.com and some other security specialized sites to run a batch of security tests.</p>
+<p>Specifically in AuditMyPC.com was found that -they say this- a bug in Java exposes my internal -that is private- IP to the internet, alongside my current internet address.</p>
+<p>I wonder if there's any way to fix or cloack this? I know it's not a big deal, I run a firewall in my Linux box too and I'm a humble home user, not a corporate one, but it would be cool if I can have my PC fully stealthed.</p>
+<p>Any help greatly appreciated :)<br />
+Best!</p>
+<form action="/community/node/3560"  accept-charset="UTF-8" method="post" id="fivestar-form-node-3560" class="fivestar-widget">
+<div><div class="fivestar-form-3560 clear-block"><input type="hidden" name="content_type" id="edit-content-type-3560" value="node"  />
+<input type="hidden" name="content_id" id="edit-content-id-3560" value="3560"  />
+<div class="fivestar-form-item  fivestar-combo-text fivestar-average-stars fivestar-labels-hover"><div class="form-item" id="edit-vote-0-wrapper">
+ <label for="edit-vote-0">Rating for this post: </label>
+ <input type="hidden" name="auto_submit_path" id="edit-auto-submit-path-0" value="/community/fivestar/vote/node/3560"  class="fivestar-path" />
+<select name="vote" class="form-select" id="edit-vote-0" ><option value="-">Select rating</option><option value="20">Poor</option><option value="40">Okay</option><option value="60">Good</option><option value="80">Great</option><option value="100">Awesome</option></select>
+ <div class="description"><div class="fivestar-summary fivestar-summary-user fivestar-feedback-enabled"><span class="user-rating">Your rating: <span>None</span></span></div></div>
+</div>
+</div><input type="hidden" name="destination" id="edit-destination-3560" value="node/3560"  />
+<input type="submit" name="op" id="edit-fivestar-submit-3560" value="Rate"  class="form-submit fivestar-submit" />
+<input type="hidden" name="form_id" id="edit-fivestar-form-node-3560" value="fivestar_form_node_3560"  />
+</div>
+</div></form>
+    <div class="links"><ul class="links inline"><li  class="first forward_links"><a href="/community/forward?path=node/3560" title="Forward this page to a friend" class="forward-page forward_links">E-mail page</a></li>
+<li  class="print"><a href="/community/print/3560" title="Display a printer-friendly version of this page." class="print-page print" target="_blank" rel="nofollow">Printer-friendly</a></li>
+<li  class="service_links_delicious"><a href="http://del.icio.us/post?url=http%3A%2F%2Fwww.javaworld.com%2Fcommunity%2Fnode%2F3560&amp;title=Java+exposing+Private+IP+to+internet" title="Bookmark this post on del.icio.us." rel="nofollow" class="service_links_delicious"><img src="/community/sites/all/modules/service_links/delicious.png" alt="Delicious" /></a></li>
+<li  class="service_links_digg"><a href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.javaworld.com%2Fcommunity%2Fnode%2F3560&amp;title=Java+exposing+Private+IP+to+internet" title="Digg this post on digg.com." rel="nofollow" class="service_links_digg"><img src="/community/sites/all/modules/service_links/digg.png" alt="Digg" /></a></li>
+<li  class="service_links_stumbleupon"><a href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.javaworld.com%2Fcommunity%2Fnode%2F3560&amp;title=Java+exposing+Private+IP+to+internet" title="Thumb this up at StumbleUpon." rel="nofollow" class="service_links_stumbleupon"><img src="/community/sites/all/modules/service_links/stumbleit.png" alt="StumbleUpon" /></a></li>
+<li  class="service_links_facebook"><a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.javaworld.com%2Fcommunity%2Fnode%2F3560&amp;t=Java+exposing+Private+IP+to+internet" title="Share on Facebook." rel="nofollow" class="service_links_facebook"><img src="/community/sites/all/modules/service_links/facebook.png" alt="Facebook" /></a></li>
+<li  class="service_links_google"><a href="http://www.google.com/bookmarks/mark?op=add&amp;bkmk=http%3A%2F%2Fwww.javaworld.com%2Fcommunity%2Fnode%2F3560&amp;title=Java+exposing+Private+IP+to+internet" title="Bookmark this post on Google." rel="nofollow" class="service_links_google"><img src="/community/sites/all/modules/service_links/google.png" alt="Google" /></a></li>
+<li  class="last service_links_dzone"><a href="http://www.dzone.com/links/add.html?url=http%3A%2F%2Fwww.javaworld.com%2Fcommunity%2Fnode%2F3560&amp;title=Java+exposing+Private+IP+to+internet" title="Bookmark this post on DZone" rel="nofollow" class="service_links_dzone"><img src="/community/sites/all/modules/service_links/dz.png" alt="Dzone" /></a></li>
+</ul></div>  </div><div id="comments"><a id="comment-8488"></a>
+  <div class="comment">
+    <h3 class="title"><a href="/community/node/3560#comment-8488" class="active">I would not call that a</a></h3>    <div class="submitted">Submitted by <a href="/community/user/26459" title="View user profile.">meed2000</a> on Sat, 10/17/2009 - 19:11.</div>
+    <div class="content"><!--paging_filter--><p>I would not call that a 'bug', rather a weakness while you are giving the possibility to the website you are visiting to make an Applet getting executed on your machine (knowing its lan ip obviously).</p>
+<p>Disable it if you don't want to give your internal ip away.</p>
+</div>
+    <div class="links">&raquo; <ul class="links"><li  class="first last comment_reply"><a href="/community/comment/reply/3560/8488" class="comment_reply">reply</a></li>
+</ul></div>
+  </div>
+<form action="/community/node/3560"  accept-charset="UTF-8" method="post" id="comment-controls">
+<div>  <div class="box">
+    <h2 class="title">Comment viewing options</h2>    <div class="content"><div class="container-inline"><input type="hidden" name="form_id" id="edit-comment-controls" value="comment_controls"  />
+<div class="form-item" id="edit-mode-wrapper">
+ <select name="mode" class="form-select" id="edit-mode" ><option value="1">Flat list - collapsed</option><option value="2">Flat list - expanded</option><option value="3">Threaded list - collapsed</option><option value="4" selected="selected">Threaded list - expanded</option></select>
+</div>
+<div class="form-item" id="edit-order-wrapper">
+ <select name="order" class="form-select" id="edit-order" ><option value="1">Date - newest first</option><option value="2" selected="selected">Date - oldest first</option></select>
+</div>
+<div class="form-item" id="edit-comments-per-page-wrapper">
+ <select name="comments_per_page" class="form-select" id="edit-comments-per-page" ><option value="10">10 comments per page</option><option value="30" selected="selected">30 comments per page</option><option value="50">50 comments per page</option><option value="70">70 comments per page</option><option value="90">90 comments per page</option><option value="150">150 comments per page</option><option value="200">200 comments per page</option><option value="250">250 comments per page</option><option value="300">300 comments per page</option></select>
+</div>
+<input type="submit" name="op" id="edit-submit" value="Save settings"  class="form-submit" />
+</div><div class="description">Select your preferred way to display the comments and click "Save settings" to activate your changes.</div></div>
+ </div>
+
+
+</div></form>
+  <div class="box">
+    <h2 class="title">Post new comment</h2>    <div class="content"><form action="/community/comment/reply/3560"  accept-charset="UTF-8" method="post" id="comment-form">
+<div><div class="form-item" id="edit-subject-wrapper">
+ <label for="edit-subject">Subject: </label>
+ <input type="text" maxlength="64" name="subject" id="edit-subject"  size="60" value="" class="form-text" />
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Comment: <span class="form-required" title="This field is required.">*</span></label>
+ <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<ul class="tips"><li>Web page addresses and e-mail addresses turn into links automatically.</li><li>Allowed HTML tags: &lt;p&gt; &lt;a&gt; &lt;em&gt; &lt;strong&gt; &lt;cite&gt; &lt;code&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt; &lt;br /&gt; &lt;br&gt; &lt;strike&gt;</li><li>Lines and paragraphs break automatically.</li><li>Use <em>&lt;!--pagebreak--&gt;</em> to create page breaks.</li><li>You may post code using &lt;code&gt;...&lt;/code&gt; (generic) or &lt;?php ... ?&gt; (highlighted PHP) tags.</li></ul><p><a href="/community/filter/tips">More information about formatting options</a></p><input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<fieldset class="captcha"><legend>CAPTCHA</legend><div class="description">Just checking to see if you're an actual person rather than a spammer. Sorry for the inconvenience.</div><div class="form-item">
+ 
+ <div class="description"><script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf7oAMAAAAAAKHJJnKtpOO0HcMyBJNkws-ywWIH"></script>
+
+	<noscript>
+  		<iframe src="http://api.recaptcha.net/noscript?k=6Lf7oAMAAAAAAKHJJnKtpOO0HcMyBJNkws-ywWIH" height="300" width="500" frameborder="0"></iframe><br/>
+  		<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+  		<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+	</noscript></div>
+</div>
+<input type="hidden" name="captcha_token" id="edit-captcha-token" value="16e076ce8a2bd0d138244a5802741dbd"  />
+</fieldset>
+<input type="submit" name="op" id="edit-preview" value="Preview comment"  class="form-submit" />
+
+</div></form>
+</div>
+ </div>
+
+</div>        <!--xxxxxxxxxxxxxxxxxxx-->
+        </div>
+                                  
+                  </div>
+                  </div>
+               </div>
+               <div class="separator">
+                  <!-- xxxxxxxxxxxxxx -->
+               </div>
+               <script type="text/javascript"><!--
+	google_ad_client = "pub-7643913824060699";
+	/* 468x15 above footer, created 2/26/09 */
+	google_ad_slot = "3627869773";
+	google_ad_width = 468;
+	google_ad_height = 15;
+	//-->
+</script>
+<div style="padding:6px; background-color:#ededed; border:1px solid #D6D3D3; width:634px; margin-top:12px;">
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+
+<div id="sponsoredlinks">
+    <h2>
+        Sponsored Links
+    </h2>
+    <script type="text/javascript" src="http://jlinks.industrybrains.com/jsct?sid=93&ct=JAVAWORLD_HP_ROS&num=5&layt=10&fmt=simp"></script>
+    <DIV id="toplinks">&nbsp;</DIV>
+<DIV id="middlelinks">
+   <TABLE cellPadding="0" cellSpacing="0" id="nwtextlinks">
+      <TBODY>
+         <tr/>
+      </TBODY>
+   </TABLE>
+</DIV>
+    <br clear="all">
+</div>               <div class="separator">
+                  <!-- xxxxxxxxxxxxxx -->
+               </div>
+            </div>
+            <div id="footer">
+    <ul class="rc_footer">
+        <li class="rclinks">
+            <a href="/topics/index.html"><strong>RESEARCH CENTERS</strong></a>
+            <a href="/channel_content/jw-core-index.html">Core Java</a>
+            <a href="/channel_content/jw-enterprise-index.html">Enterprise Java</a>
+            <a href="/channel_content/jw-micro-index.html">Mobile Java</a>
+            <a href="/channel_content/jw-applied-index.html">Tools & Methods</a>
+            <a href="/channel_content/jw-archive-index.html">JavaWorld Archives</a>
+        </li>
+        <li><a href="http://www.idg.net"><strong>IDG Network</strong></a>
+            <a href="http://www.cio.com">CIO</a> <a href="http://www.computerworld.com">Computerworld</a>
+            <a href="http://www.csoonline.com/">CSO</a>
+            <a href="http://demo.com/">Demo</a> <a href="http://Gamepro.com/">GamePro</a>
+        </li>
+        <li>
+            <a href="http://www.games.net/">Games.net</a>
+            <a href="http://www.idgconnect.com">IDGconnect.com</a>
+            <a href="http://www.idgworldexpo.com/">IDG World Expo</a>
+            <a href="http://www.infoworld.com">InfoWorld</a>
+            <a href="http://www.itworld.com">ITworld</a>
+            <a href="http://www.linuxworld.com">LinuxWorld.com</a>
+        </li>
+        <li>
+            <a href="http://www.macuser.com">MacUser</a> 
+            <a href="http://www.macworld.com">Macworld</a>
+            <a href="http://www.networkworld.com">NetworkWorld.com</a>
+            <a href="http://www.pcworld.com">PC World</a>
+            <a href="http://www.playlistmag.com">Playlistmag.com</a>
+        </li>
+    </ul>
+<div class="grey">
+<a href="http://www.javaworld.com/info/jw-about-index.html">About Us</a> | <a href="http://www.javaworld.com/info/jw-advertise.html">Advertise</a> | <a href="http://www.javaworld.com/info/jw-masthead.html">Contact Us</a> | <a href="http://www.javaworld.com/info/jw-privacy.html">Terms of Service/Privacy</a>
+<span class="copyright"><a href="http://www.javaworld.com/javaworld/common/jw-copyright.html">Copyright</a>, 2006-2010 Infoworld, Inc. All rights reserved.</span>
+</div>
+<!-- intellitext was here see tjk notes to restore -->
+
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin DogEar ad ad --> 
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.blogs/;pos=dogear;sz=1x1;tile=5;dcopt=ist;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.blogs/;pos=dogear;sz=1x1;tile=5;dcopt=ist;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.blogs/;pos=dogear;sz=1x1;tile=5;dcopt=ist;author=sufinmdq;cid=3560;kw=internet_security_ip,java_design_patterns,java_q%26a,java_security;ord=0121297574?" width="1" height="1" border="0" alt=""></a></noscript>
+<!-- end DogEar ad ad -->
+
+
+
+</div>         </div>
+      </div>
+      <!--
+Test
+(none)
+test
+-->
+   </body>
+</html>

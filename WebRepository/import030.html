@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>How to import a certificate from file in Java using keytool [spikesource hints'n'tips]</title><meta name="description" content="How to import a certificate from file in Java using keytool"/><meta name="Copyright" content="blog.spikesource.com"/><link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.spikesource.com/index.rss"/><link rel="alternate" type="application/atom+xml" title="Atom" href="http://blog.spikesource.com/index.rss?format=atom"/>
+<link href="/common/v5/sitecss.cfm?l=3" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="/styles/v5/js/p7_eqCols2_10.js"></script>
+<script type="text/javascript">
+function popup(p){s="scrollbars,status=no,resizable=yes,height=400,innerHeight=400,width=540,innerWidth=540";if(window.screen){var ah=screen.availHeight-30,aw=screen.availWidth-10,xc=(aw-540)/2,yc=(ah-400)/2;s+=",left="+xc+",screenX="+xc+",top="+yc+",screenY="+yc;}topcW=window.open(p,"BlogWindow",s);}
+function popup(p,w,h){s="scrollbars,status=no,resizable=yes,height=" + h + ",width=" + w;if(window.screen){var ah=screen.availHeight-30,aw=screen.availWidth-10,xc=(aw-540)/2,yc=(ah-400)/2;s+=",left="+xc+",screenX="+xc+",top="+yc+",screenY="+yc;}topcW=window.open(p,"BlogWindow",s);topcW.focus();}
+jsblogsiteurl = "http://blog.spikesource.com/"; jsblogentryurl = "http://blog.spikesource.com/java_certificate_import.htm"; jsblogentrytitle = "How to import a certificate from file in Java using keytool";
+</script>
+
+<META name="verify-v1" content="t6hyrLv7EmXtVN+tTAiqWMajHLUh6VtOoGdzQEPI5wE=" />
+</head><body onLoad="P7_equalCols2(0,'column0','P','column1','P','column2','P')">
+
+
+<div id="container">
+
+<div id="header"><div align="left" style="float:left;"><a title="return to home page" href="/"><img src="/images/bubbles.gif" alt="blog-city" title="return to home page" style="border:0"/></a></div>
+<div align="right"><p><a href="/console/?login" title="log-in to this blog" rel="nofollow">Log-In</a>
+
+<br/><a title="administer your blog (or create a free trial site)" href="/console/?myblog" rel="nofollow">My Blog</a> &nbsp;&nbsp;
+<a title="view and edit your profile" href="/console/?profile" rel="nofollow">My Profile</a> &nbsp;&nbsp;
+<a title="leave a message for blog.spikesource.com" href="/console/profile/leavemessage.cfm" rel="nofollow">Leave Message</a> &nbsp;&nbsp;
+<a title="add this site to your myspace/facebook/profile page" href="/console/addtosite.cfm">Grab Latest</a> &nbsp;&nbsp;
+<a title="add this site to your neighborhood" href="/console/profile/addneighbor.cfm" rel="nofollow">Add as neighbor</a></p></div></div>
+<div id="masthead">
+  
+  <div class="blogname" onclick="document.location='/'" style="cursor:pointer;">spikesource hints'n'tips</div>
+  
+  
+</div>
+<div id="textarea">
+ <div id="column1">
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+  
+  
+    
+	    <div id="6269" class="widget">
+	    
+	    <p align="center"><a href="http://www.spikesource.com/"><img src="http://www.spikesource.com/images/spikesource4/spikesource-logodl.gif" border="0"></a></p></div>
+    
+  
+  
+  
+  
+    
+	    <div id="6259" class="widget">
+	    <h2>Hint'n'Tips Links</h2>
+	    <ul>
+ <li><a href="http://blog.spikesource.com/tags/?t=linux">Linux Tips</a></li>
+ <li><a href="http://blog.spikesource.com/tags/?t=java">Java Tips</a></li>
+ <li><a href="http://blog.spikesource.com/tags/?t=mysql">MySQL Tips</a></li>
+ <li><a href="http://blog.spikesource.com/tags/?t=python">Python Tips</a></li>
+</ul></div>
+    
+  
+  
+  
+  
+    
+	    <div id="6260" class="widget">
+	    <h2>Our Top Tags</h2>
+	    <div class="middle"><a href="/tags/?/apache" style="font-size: 100%; line-height: 130%;" title="1 references" rel="tag">apache</a> &nbsp; &nbsp;<a href="/tags/?/command%2Bline" style="font-size: 200%; line-height: 130%;" title="9 references" rel="tag">command line</a> &nbsp; &nbsp;<a href="/tags/?/email" style="font-size: 100%; line-height: 130%;" title="1 references" rel="tag">email</a> &nbsp; &nbsp;<a href="/tags/?/innodb" style="font-size: 100%; line-height: 130%;" title="1 references" rel="tag">innodb</a> &nbsp; &nbsp;<a href="/tags/?/java" style="font-size: 182%; line-height: 130%;" title="7 references" rel="tag">java</a> &nbsp; &nbsp;<a href="/tags/?/jetty" style="font-size: 100%; line-height: 130%;" title="1 references" rel="tag">jetty</a> &nbsp; &nbsp;<a href="/tags/?/linux" style="font-size: 200%; line-height: 130%;" title="17 references" rel="tag">linux</a> &nbsp; &nbsp;<a href="/tags/?/mysql" style="font-size: 159%; line-height: 130%;" title="5 references" rel="tag">mysql</a> &nbsp; &nbsp;<a href="/tags/?/network" style="font-size: 100%; line-height: 130%;" title="2 references" rel="tag">network</a> &nbsp; &nbsp;<a href="/tags/?/python" style="font-size: 100%; line-height: 130%;" title="2 references" rel="tag">python</a> &nbsp; &nbsp;</div></div>
+    
+  
+  
+  
+  
+    
+	    <div id="6279" class="widget">
+	    
+	    <div align="center"><a href="http://developer.spikesource.com/"><img src="http://www.spikesource.com/images/spikesource4/ad-devzone.jpg" border="0"/></a></div></div>
+    
+  
+  
+  
+  
+    
+	    <div id="6261" class="widget">
+	    <h2>Mailing List</h2>
+	    <div class="middle"><input type="button" style="width:80%" value="join mailing list &raquo;" onclick="popup('/common/mailinglist/',640,430);"/></div><div align="center"><p>Keep uptodate with the latest hints'n' tips as they are published by signing up to our mailing list.</p></div></div>
+    
+  
+  
+  
+  
+    
+	    <div id="6262" class="widget">
+	    <h2>Our RSS Feeds</h2>
+	    <div class="middle"><a href="http://blog.spikesource.com/index.rss"><img title="Latest Entries made to this site" src="http://files.blog-city.com/common/imgz/rss.gif" width="36" height="14" alt="" style="border:0px"/></a>
+<a href="http://blog.spikesource.com/index.rss?format=atom"><img title="Latest Entries made to this site" src="http://files.blog-city.com/common/imgz/xml.gif" width="36" height="14" alt="" style="border:0px"/></a>
+<br/><a href="http://add.my.yahoo.com/rss?url=http://blog.spikesource.com/index.rss"><img title="add to my Yahoo page" src="http://files.blog-city.com/common/imgz/addtomyyahoo4.gif" width="91" height="17" style="border:0px"/></a>
+<br/><a href="http://fusion.google.com/add?feedurl=http://blog.spikesource.com/index.rss"><img title="add to my Google page" src="http://files.blog-city.com/common/imgz/google.gif" width="104" height="17" style="border:0px"/></a>
+<br/><a href="http://my.msn/com/addtomymsn.armx?id=rss&ut=http://blog.spikesource.com/index.rss"><img title="add to my MSN page" src="http://files.blog-city.com/common/imgz/msn.gif" width="71" height="14" style="border:0px"/></a>
+<br/><a href="http://feeds.my.aol.com/add.jsp?url=http://blog.spikesource.com/index.rss"><img title="add to my AOL page" src="http://files.blog-city.com/common/imgz/aol.gif" width="63" height="14" style="border:0px"/></a>
+<br/><a href="http://www.bloglines.com/sub/http://blog.spikesource.com/index.rss"><img title="add to my BlogLines page" src="http://files.blog-city.com/common/imgz/bl.gif" width="76" height="17" style="border:0px"/></a>
+<br/><a href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://blog.spikesource.com/index.rss"><img title="add to my newsgator page" src="http://files.blog-city.com/common/imgz/ng.gif" width="91" height="17" style="border:0px"/></a>
+<br/><a href="http://technorati.com/faves?add=http://blog.spikesource.com/index.rss"><img title="add to my technorati page" src="http://files.blog-city.com/common/imgz/t.jpg" width="109" height="19" style="border:1px"/></a>
+</div></div>
+    
+  
+  
+  
+  
+    
+	    <div id="6266" class="widget">
+	    <h2>Latest Linux News</h2>
+	    
+
+	
+
+
+    
+    
+    
+
+    
+
+    
+
+  
+	
+	
+		
+
+
+
+
+  
+  
+  
+  
+
+  
+
+
+
+
+  
+  <div class="blog-panel">
+   <div class="blog-panel-content">
+    <h3><a href="http://linuxtoday.com/news_story.php3?ltsn=2009-05-24-002-35-OS-CY">Free Software in Education</a></h3>
+    <div class="date">Sunday, 24 May 2009</div>
+    <div class="bodytext">Free Software: "Free Software is political because it is strongly tied with a deep political question: that of education, and access to it."</div>
+   </div>
+  </div>
+  <div class="blog-panel-footer"></div>
+  
+  <div class="blog-panel">
+   <div class="blog-panel-content">
+    <h3><a href="http://linuxtoday.com/news_story.php3?ltsn=2009-05-24-001-35-MM-SW">A Great Multi-Platform Music Management Application: Jajuk</a></h3>
+    <div class="date">Sunday, 24 May 2009</div>
+    <div class="bodytext">Web Upd8: "Jajuk is a very comprehensive and feature rich Open Source music management software written in Java. The software program is therefore available for Windows, Linux and Apple Macintosh comp</div>
+   </div>
+  </div>
+  <div class="blog-panel-footer"></div>
+  
+  <div class="blog-panel">
+   <div class="blog-panel-content">
+    <h3><a href="http://linuxtoday.com/news_story.php3?ltsn=2009-05-23-006-35-OS-SW">Kiwi Imaging System - Forge your own operating system images in a matter of hours</a></h3>
+    <div class="date">Saturday, 23 May 2009</div>
+    <div class="bodytext">Dedoimedo: "Would you like to be able to create custom, ready-to-use operating system images that can be used as VMware images, Xen virtual machines or live DVDs or booted from USB sticks? Would you l</div>
+   </div>
+  </div>
+  <div class="blog-panel-footer"></div>
+  
+  <div class="blog-panel">
+   <div class="blog-panel-content">
+    <h3><a href="http://linuxtoday.com/news_story.php3?ltsn=2009-05-23-005-35-RV-SW">Linux Myth: No Simple, Easy Database Software</a></h3>
+    <div class="date">Saturday, 23 May 2009</div>
+    <div class="bodytext">The ERACC Web Log: "In this installment of my Linux Myth series I take aim at the GNU/Linux database nay-sayers, and shoot them down."</div>
+   </div>
+  </div>
+  <div class="blog-panel-footer"></div>
+  
+  <div class="blog-panel">
+   <div class="blog-panel-content">
+    <h3><a href="http://linuxtoday.com/news_story.php3?ltsn=2009-05-23-004-35-NW-BZ-LL">Finding the right open-source savvy lawyer</a></h3>
+    <div class="date">Saturday, 23 May 2009</div>
+    <div class="bodytext">Practical Technology: "Some days, like it or not, you need a lawyer. For most business purposes, picking the right law firm isn&#8217;t usually that big of a deal"</div>
+   </div>
+  </div>
+  <div class="blog-panel-footer"></div>
+  
+
+
+	
+</div>
+    
+  
+  
+  
+  
+    
+	    <div id="6278" class="widget">
+	    <h2>SpikeSource Bloggers</h2>
+	    <ul>
+ <li><a href="http://alan.blog-city.com/">Alan Williamson</a></li>
+ <li><a href="http://panela.blog-city.com/">Matt Harrison</a></li>
+ <li><a href="http://calvin.spikesource.com/">Calvin Austin</a></li>
+ <li><a href="http://dan.spikesource.com/">Dan Sternberg</a></li>
+ <li><a href="http://vinay.blog-city.com/">Vinay Srini</a></li>
+ <li><a href="http://blackbadger.sourceforge.net/">BlackBadger</a></li>
+</ul></div>
+    
+  
+  
+  
+  
+    
+	    <div id="18637" class="widget">
+	    <h2>Latest Digg Entries</h2>
+	    <script language="JavaScript" src="http://digg.com/diggjs/front/linux_unix/1" type="text/javascript"></script></div>
+    
+  
+  
+  
+  
+    
+	    <div id="33213" class="widget">
+	    
+	    <h3><a href="http://compiledby.spikesource.com">compiledby.spikesource.com</a></h3>
+<ul>
+ <li><a href="http://compiledby.spikesource.com/killed_santa.htm" title="read this entry">Mummy ... i killed Santa</a></li>
+ <li><a href="http://compiledby.spikesource.com/fog_on_the_line.htm" title="read this entry">Fog causing havoc both on and off line</a></li>
+ <li><a href="http://compiledby.spikesource.com/ant17.htm" title="read this entry">Ant 1.7 releases with new resource framework</a></li>
+ <li><a href="http://compiledby.spikesource.com/babynames.htm" title="read this entry">Would you call your baby Ruby?  Why not Java?</a></li>
+ <li><a href="http://compiledby.spikesource.com/solidmysql.htm" title="read this entry">Solid releases InnoDB replacement for MySQL</a></li>
+</ul>
+<p class="middle"><a href="/neighborhood/">view my neighborhood</a></p></div>
+    
+  
+  
+
+  
+<div id="column1b"></div></div>
+ <div id="column0">
+
+
+
+
+
+
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+ rdf:about="http://blog.spikesource.com/"
+ dc:identifier="http://blog.spikesource.com/java_certificate_import.htm"
+ dc:title="How to import a certificate from file in Java using keytool"
+ trackback:ping="http://blog.spikesource.com/read/trackback/1438719.htm" />
+</rdf:RDF>
+-->
+<div class="blog-panel">
+ <div class="blog-panel-content">
+  <h1>How to import a certificate from file in Java using keytool</h1>
+  <div class='date'><a href='/read/prev/1438719.htm' rel='previous' title='read the previous entry'>&laquo;</a>
+	<a href='/' rel='home' title='visit home page'>H</a> <a href='/console/admin/e.cfm?i=1438719' rel='nofollow' title='edit entry'>E</a>
+	<a href='/read/next/1438719.htm' rel='next' title='read the next entry'>&raquo;</a>
+	
+	
+	<a href="#" onclick="popup('/common/popup/emailblog.cfm?bid=1438719');">email</a></div>
+  <div class='date'>posted Wednesday, 17 August 2005</div>
+  
+    <div class="bodytext">If you need to import a certificate not included as part of the
+JRE then you can do so using the keytool utility provided as part of
+the JRE/JDK installation.
+<p>
+<tt>keytool -keystore &lt;path to keystore&gt; -import -file &lt;path to certificate&gt; -alias &lt;alias&gt;</tt>
+
+</p><p>
+</p>
+Accessing https://bugzilla.mozilla.org using a
+default installation of JRE 1.4.2_04 is not possible without importing
+the Mozilla certificate or one of the certificates in the trust
+hierarchy (GlobalSign Root CA, GlobalSign RootSign Partners CA, or
+XRamp Security Services GS CA).
+<p>The first step is to get the certificate as a file. The easiest way
+to do this is to surf to https://bugzilla.mozilla.org/ in Internet
+Explorer, go to File, then Properties. On the popped up Properties
+you'll see a "Certificates" button in the bottom right hand side. Click
+on that, select the Details tab, then "Copy to File..". Follow the
+wizard through saving as "DER encoded binary X.509". Name your file
+mozilla.cer. (Alternatively if you wish to install one of the other
+certificates in the chain they should be downloadable from their
+websites.)
+</p><p>Now enter the following at a DOS prompt where "c:\Program
+Files\Java\j2re1.4.2_04" can be substituted for your own java
+installation path:
+</p><p>
+<tt>keytool -keystore "c:\Program Files\Java\j2re1.4.2_04\lib\security\cacerts" -import -file mozilla.cer -alias mozilla</tt>
+</p><p>
+On executing this, you'll be prompted for a password which should be "changeit" (the default). Then enter "yes" to finish.</p><p class='tags'>tags: <a href='/tags/?/java' rel='tag'>java</a> &nbsp;</p><p></p><p style='clear:both;' class='tags'>links: <a rel='nofollow' title='suggest this entry to the digg community' href='http://digg.com/submit?phase=2&topic=Programming&url=http%3A%2F%2Fblog%2Espikesource%2Ecom%2Fjava%5Fcertificate%5Fimport%2Ehtm&title=How%20to%20import%20a%20certificate%20from%20file%20in%20Java%20using%20keytool&bodytext=How%20to%20import%20a%20certificate%20from%20file%20in%20Java%20using%20keytool'>digg this</a> &nbsp; &nbsp;<a rel="nofollow" title="add this to your del.icio.us post" href="http://del.icio.us/post" onclick="window.open('http://del.icio.us/post?v=4&noui&jump=close&url=http%3A%2F%2Fblog%2Espikesource%2Ecom%2Fjava%5Fcertificate%5Fimport%2Ehtm&title=How%20to%20import%20a%20certificate%20from%20file%20in%20Java%20using%20keytool', 'delicious','toolbar=no,width=700,height=400'); return false;">del.icio.us</a> &nbsp; &nbsp;<a rel='nofollow' title='search for references to this entry with Technorati' href='http://www.technorati.com/search/blog.spikesource.com/java_certificate_import.htm'>technorati</a> &nbsp; &nbsp;</p><p></div>
+  
+  </div>
+</div>
+
+<br style='clear:both;'/>
+
+<div class="commentholder"><a name='comment' class='comment' href='javascript:void(null);' onclick='popup("/console/comments/popup/?f=java_certificate_import", 600, 480)'>comments (6)</a></div>
+
+
+
+  
+  <br /><div id="entrymiddle">
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+  
+  
+    
+	    <div id="18636" class="widget">
+	    
+	    <div align="center" style="margin-top:14px;margin-bottom:14px;"><iframe src="http://rcm.amazon.com/e/cm?t=blogcity-20&o=1&p=13&l=st1&mode=books&search=java&=1&fc1=&lt1=_blank&lc1=&bg1=&f=ifr" marginwidth="0" marginheight="0" width="468" height="60" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe></div></div>
+    
+  
+  
+
+  
+</div>
+
+
+<br />
+
+
+
+  
+
+<div class="blogentry-comment"><strong><a href="#1" name="1" title="link to comment">1</a>. bob left...</strong>
+<div class="date">Monday, 24 October 2005 9:41 pm</div>
+<p><img style="border:1px solid black; background-color: white; width: 32px; height: 32px; float:left; margin-right: 10px; margin-bottom: 8px;" src="/images/noprofile.jpg"/>Hi,
+It you do not want to use command line,
+there is a free GUI version called KeyTool IUI, see
+http://yellowcat1.free.fr/index_ktl.html
+</p><br /></div><div class="blogentry-comment"><strong><a href="#2" name="2" title="link to comment">2</a>. John left...</strong>
+<div class="date">Wednesday, 10 May 2006 8:03 pm</div>
+<p><img style="border:1px solid black; background-color: white; width: 32px; height: 32px; float:left; margin-right: 10px; margin-bottom: 8px;" src="/images/noprofile.jpg"/>Thank you this solved my problem
+</p><br /></div><div class="blogentry-comment"><strong><a href="#3" name="3" title="link to comment">3</a>. Jimmy left...</strong>
+<div class="date">Friday, 8 December 2006 2:47 am</div>
+<p><img style="border:1px solid black; background-color: white; width: 32px; height: 32px; float:left; margin-right: 10px; margin-bottom: 8px;" src="/images/noprofile.jpg"/>Thanks a lot.
+</p><br /></div><div class="blogentry-comment"><strong><a href="#4" name="4" title="link to comment">4</a>. <a href="/console/profile/popup/?i=58637285" onclick="popup(this.href,600,430); return false;" title="view profile">rnavarro</a> left...</strong>
+<div class="date">Tuesday, 4 March 2008 11:56 am</div>
+<p><a href="/console/profile/popup/?i=58637285" onclick="popup(this.href,600,430); return false;" title="view profile"><img style="border:1px solid black; background-color: white; width: 32px; height: 32px; float:left; margin-right: 10px; margin-bottom: 8px;" src="/images/noprofile.jpg"/></a>Hi, I need to know how to import a certificate froma a keystore PKCS12 to a 
+UBER keystore. With keyToolIUI it works perfectly but I need the source 
+code, I've used java.security.keystore but it doesn't work
+thks
+</p><br /></div><div class="blogentry-comment"><strong><a href="#5" name="5" title="link to comment">5</a>. <a href="/console/profile/popup/?i=58638767" onclick="popup(this.href,600,430); return false;" title="view profile">dsingh283</a> left...</strong>
+<div class="date">Friday, 20 June 2008 2:41 pm</div>
+<p><a href="/console/profile/popup/?i=58638767" onclick="popup(this.href,600,430); return false;" title="view profile"><img style="border:1px solid black; background-color: white; width: 32px; height: 32px; float:left; margin-right: 10px; margin-bottom: 8px;" src="/images/noprofile.jpg"/></a>c:\java\jdk1.3\jre\bin\keytool -keystore 
+"c:\java\jdk1.3\jre\lib\security\cacerts" -import
+<p/>
+-file entrust.cer "c:\certificate" -alias cert1
+<p/>
+i am trying to import entrust.cert into .keystore file. am i missing 
+something in this .
+</p><br /></div><div class="blogentry-comment"><strong><a href="#6" name="6" title="link to comment">6</a>. <a href="/console/profile/popup/?i=58638767" onclick="popup(this.href,600,430); return false;" title="view profile">dsingh283</a> left...</strong>
+<div class="date">Friday, 20 June 2008 3:39 pm</div>
+<p><a href="/console/profile/popup/?i=58638767" onclick="popup(this.href,600,430); return false;" title="view profile"><img style="border:1px solid black; background-color: white; width: 32px; height: 32px; float:left; margin-right: 10px; margin-bottom: 8px;" src="/images/noprofile.jpg"/></a>c:\java\jdk1.3\jre\bin\keytool  -import -file  "c:\certificate\entrust.cer"
+-keystore "c:\java\jdk1.3\jre\lib\security\cacerts" -alias cert1
+<ul class="noMarker">
+ <li style="list-style-type: none;"><p>.... Now its working.. but i am 
+still getting. Untrusted server cert chain exception</p></li>
+</ul>
+</p><br /></div>
+
+
+
+  
+  <div id="entrybottom">
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+  
+  
+    
+	    <div id="6273" class="widget">
+	    <h2>Related Posts</h2>
+	    
+
+
+
+
+	
+	<div class="blog-panel">
+   <div class="blog-panel-content">
+   <h3><a href="/javaprocessid.htm" rel="bookmark" class="blogtitle">How can I start a Java process and retain its process id?</a></h3>
+   <div class="date">Monday, 2 October 2006 2:41 P GMT</div>
+   
+		
+			<div class="bodytext">
+
+
+How can I start a Java process and retain its process id?</div>
+		
+   
+
+   
+   
+   </div>
+  </div>
+
+  <div class="blog-panel-footer">
+   
+   
+  </div>
+	
+	<div class="blog-panel">
+   <div class="blog-panel-content">
+   <h3><a href="/java_link.htm" rel="bookmark" class="blogtitle">Handling different Java runtimes on a single machine</a></h3>
+   <div class="date">Thursday, 14 September 2006 10:48 A GMT</div>
+   
+		
+			<div class="bodytext">
+
+
+This entry takes a quick look at how you can best utilise different Java JVMs on the linux using a couple of techniques.</div>
+		
+   
+
+   
+   
+   </div>
+  </div>
+
+  <div class="blog-panel-footer">
+   
+   
+  </div>
+	
+	<div class="blog-panel">
+   <div class="blog-panel-content">
+   <h3><a href="/embedded_jetty.htm" rel="bookmark" class="blogtitle">Invoking Jetty as an embedded server</a></h3>
+   <div class="date">Wednesday, 16 August 2006 2:24 P GMT</div>
+   
+		
+			<div class="bodytext">
+
+
+Ever wondered how to invoke Jetty as an embedded server?  David Yu from the Jetty Mailing list recently posted a way you can do this.</div>
+		
+   
+
+   
+   
+   </div>
+  </div>
+
+  <div class="blog-panel-footer">
+   
+   
+  </div>
+	
+	<div class="blog-panel">
+   <div class="blog-panel-content">
+   <h3><a href="/jmeter.htm" rel="bookmark" class="blogtitle">How to install JMeter and use it for testing</a></h3>
+   <div class="date">Sunday, 11 September 2005 8:00 A GMT</div>
+   
+		
+			<div class="bodytext">
+
+
+Apache JMeter is a 100% pure Java desktop application designed to test performance on static/dynamic resources such as static files, Servlets, CGI scripts. JMeter can also be used to regression test application by creating test scripts.</div>
+		
+   
+
+   
+   
+   </div>
+  </div>
+
+  <div class="blog-panel-footer">
+   
+   
+  </div>
+	
+	<div class="blog-panel">
+   <div class="blog-panel-content">
+   <h3><a href="/jvmcrashes.htm" rel="bookmark" class="blogtitle">Introduction to JVM crashes</a></h3>
+   <div class="date">Friday, 9 September 2005 10:33 A GMT</div>
+   
+		
+			<div class="bodytext">
+
+
+Things to look for when checking a JVM crash</div>
+		
+   
+
+   
+   
+   </div>
+  </div>
+
+  <div class="blog-panel-footer">
+   
+   
+  </div>
+	
+	<div class="blog-panel">
+   <div class="blog-panel-content">
+   <h3><a href="/jgroups.htm" rel="bookmark" class="blogtitle">Configuring JGroups to avoid using multicasting</a></h3>
+   <div class="date">Wednesday, 31 August 2005 7:54 A GMT</div>
+   
+		
+			<div class="bodytext">
+
+
+JGroups - the cluster library used by Jboss, uses multicasting for cluster communication. This article discusses configuration of JGroups so that it does not use multi casting.</div>
+		
+   
+
+   
+   
+   </div>
+  </div>
+
+  <div class="blog-panel-footer">
+   
+   
+  </div>
+	
+	<div class="blog-panel">
+   <div class="blog-panel-content">
+   <h3><a href="/java_certificate_import.htm" rel="bookmark" class="blogtitle">How to import a certificate from file in Java using keytool</a></h3>
+   <div class="date">Wednesday, 17 August 2005 4:56 P GMT</div>
+   
+		
+			<div class="bodytext">
+
+
+How to import a certificate from file in Java using keytool</div>
+		
+   
+
+   
+   
+   </div>
+  </div>
+
+  <div class="blog-panel-footer">
+   
+   
+  </div>
+	
+
+	
+	
+
+</div>
+    
+  
+  
+
+  
+</div>
+
+  
+  
+    
+  
+
+
+<div id="column0b"></div></div>
+</div>
+<br style="clear:both" />
+<div id="blog-footer"><p class="footer"></p></div>
+<div id="footer"><p><br><div style="margin-left: 20px; font-size: 10px;" align="left">&copy; 2004-2006, <a href="http://www.spikesource.com/">SpikeSource</a>, Inc.</div></div>
+</div><iframe src="" id="controlframe" name="controlframe" width="1" height="1" border="0" frameborder="no"></iframe>
+</body>
+</html>

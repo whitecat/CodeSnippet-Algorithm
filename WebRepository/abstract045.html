@@ -1,0 +1,475 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Abstract Classes and Methods (Java in a Nutshell)</title>
+
+<!-- STYLESHEET -->
+
+<link rel="stylesheet" type="text/css" href="../style/style1.css">
+
+<!-- METADATA -->
+
+
+
+<!--Dublin Core Metadata-->
+
+<meta name="DC.Creator" content="David Flanagan">
+<meta name="DC.Date" content="">
+<meta name="DC.Format" content="text/xml" scheme="MIME">
+<meta name="DC.Generator" content="XSLT stylesheet, xt by James Clark">
+<meta name="DC.Identifier" content="">
+<meta name="DC.Language" content="en-US">
+<meta name="DC.Publisher" content="O'Reilly &amp; Associates, Inc.">
+<meta name="DC.Source" content="1-56592-487-8E" scheme="ISBN">
+<meta name="DC.Subject.Keyword" content="">
+<meta name="DC.Title" content="Abstract Classes and Methods">
+<meta name="DC.Type" content="Text.Monograph">
+
+</head>
+
+<body>
+</div>
+<br>
+<center>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-0321943928525350";
+/* 728x90 (main top) */
+google_ad_slot = "2783893649";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+<b><a href="http://www.unix.org.ua/forum/">Do not forget register in our new UNIX and CISCO forum</a></b>
+
+</center>
+<p>
+
+
+</center><html>
+<head>
+<title>Abstract Classes and Methods (Java in a Nutshell)</title>
+
+<!-- STYLESHEET -->
+
+<link rel="stylesheet" type="text/css" href="../style/style1.css">
+
+<!-- METADATA -->
+
+
+
+<!--Dublin Core Metadata-->
+
+<meta name="DC.Creator" content="David Flanagan">
+<meta name="DC.Date" content="">
+<meta name="DC.Format" content="text/xml" scheme="MIME">
+<meta name="DC.Generator" content="XSLT stylesheet, xt by James Clark">
+<meta name="DC.Identifier" content="">
+<meta name="DC.Language" content="en-US">
+<meta name="DC.Publisher" content="O'Reilly &amp; Associates, Inc.">
+<meta name="DC.Source" content="1-56592-487-8E" scheme="ISBN">
+<meta name="DC.Subject.Keyword" content="">
+<meta name="DC.Title" content="Abstract Classes and Methods">
+<meta name="DC.Type" content="Text.Monograph">
+
+</head>
+
+<body>
+
+<!-- START OF BODY -->
+
+
+
+<!-- TOP BANNER -->
+
+<a href="index.htm"><img src="gifs/smbanner.gif" usemap="#banner-map" border="0" alt="Book Home"></a>
+<map name="banner-map"><map name="banner-map"> <area shape="rect" coords="0,0,466,65" href="index.htm" alt="Java Enterprise in a Nutshell"> <area shape="rect" coords="467,0,514,18" href="jobjects/fsearch.htm" alt="Search this book"> </map>
+</map>
+
+<!-- TOP NAV BAR -->
+
+<div class="navbar">
+<table width="515" border="0">
+<tr>
+<td align="left" valign="top" width="172"><a href="ch03_05.htm"><img src="../gifs/txtpreva.gif" alt="Previous" border="0"></a></td><td align="center" valign="top" width="171"><a href="ch03_01.htm">Chapter 3: Object-Oriented Programming in Java</a></td><td align="right" valign="top" width="172"><a href="ch03_07.htm"><img src="../gifs/txtnexta.gif" alt="Next" border="0"></a></td>
+</tr>
+</table>
+</div>
+<hr width="515" align="left">
+
+<!-- SECTION BODY --><h2 class="sect1">3.6. Abstract Classes and Methods</h2>
+<p>
+<a name="INDEX-505"></a><a name="INDEX-506"></a><a name="INDEX-507"></a>
+
+
+      In <a href="ch03_05.htm#javanut3-ch-3-ex-poscircle">Example 3-4</a>, we declared our
+      <tt class="literal">Circle</tt> class to be part of a package named
+      <tt class="literal">shapes</tt>. Suppose we plan to implement a number
+      of shape classes: <tt class="literal">Rectangle</tt>,
+      <tt class="literal">Square</tt>, <tt class="literal">Ellipse</tt>,
+      <tt class="literal">Triangle</tt>, and so on. We can give these
+      shape classes our two basic <tt class="literal">area()</tt> and
+      <tt class="literal">circumference()</tt> methods. Now, to make it easy
+      to work with an array of shapes, it would be helpful if all our
+      shape classes had a common superclass, <tt class="literal">Shape</tt>. If we structure our class hierarchy this way, every
+      shape object, regardless of the actual type of shape it
+      represents, can be assigned to variables, fields, or array elements
+      of type <tt class="literal">Shape</tt>. We want the <tt class="literal">Shape</tt> class to encapsulate whatever
+      features all our shapes have in common (e.g., 
+      the <tt class="literal">area()</tt> and
+      <tt class="literal">circumference()</tt> methods). But our
+      generic <tt class="literal">Shape</tt> class doesn't represent any real
+      kind of shape, so it cannot define useful implementations
+      of the methods. Java handles this situation with
+      <em class="emphasis">abstract methods</em>. </p>
+<p>      Java lets us define a method without implementing it by declaring
+      the method with the <tt class="literal">abstract</tt> modifier. An
+      <tt class="literal">abstract</tt> method has no body; it simply has a
+      signature definition followed by a semicolon.<a href="#FOOTNOTE-7">[7]</a> Here are
+      the rules about <tt class="literal">abstract</tt> methods and the
+      <tt class="literal">abstract</tt> classes that contain them:
+    </p>
+<blockquote class="footnote">
+<a name="FOOTNOTE-7"></a>
+<p>[7] An
+      <tt class="literal">abstract</tt> method in Java is something like a
+      pure virtual function in C++ (i.e., a virtual function that is
+      declared <tt class="literal">= 0</tt>). In C++, a class that contains a
+      pure virtual function is called an abstract class and cannot be
+      instantiated. The same is true of Java classes that contain
+      <tt class="literal">abstract</tt> methods.</p>
+</blockquote>
+<ul>
+<li>
+<p>	  Any class with an <tt class="literal">abstract</tt> method is
+	  automatically <tt class="literal">abstract</tt> itself and must
+	  be declared as such. </p>
+</li>
+<li>
+<p>	  An <tt class="literal">abstract</tt> class cannot be instantiated. </p>
+</li>
+<li>
+<p>	  A subclass of an <tt class="literal">abstract</tt> class can be
+	  instantiated only if it overrides each of the
+	  <tt class="literal">abstract</tt> methods of its superclass and
+	  provides an implementation (i.e., a method body) for all of
+	  them. Such a class is often called a
+	  <em class="emphasis">concrete</em> subclass, to emphasize the fact
+	  that it is not <tt class="literal">abstract</tt>. </p>
+</li>
+<li>
+<p>	  If a subclass of an <tt class="literal">abstract</tt> class does
+	  not implement all the <tt class="literal">abstract</tt> methods
+	  it inherits, that subclass is itself
+	  <tt class="literal">abstract</tt>. </p>
+</li>
+<li>
+<p>
+<tt class="literal">static</tt>, <tt class="literal">private</tt>, and
+	  <tt class="literal">final</tt> methods cannot be
+	  <tt class="literal">abstract</tt>, since these types of methods
+	  cannot be overridden by a subclass. Similarly, a
+	  <tt class="literal">final</tt> class cannot contain any
+	  <tt class="literal">abstract</tt> methods. </p>
+</li>
+<li>
+<p>	  A class can be declared <tt class="literal">abstract</tt> even if
+	  it does not actually have any <tt class="literal">abstract</tt>
+	  methods. Declaring
+	  such a class <tt class="literal">abstract</tt> indicates that
+	  the implementation is somehow incomplete and is meant
+	  to serve as a superclass for one or more
+	  subclasses that will complete the implementation. Such a class cannot be instantiated. </p>
+</li>
+</ul>
+<p>      There is an important feature of the rules of 
+      <tt class="literal">abstract</tt> methods. If we define the <tt class="literal">Shape</tt> class to have 
+      <tt class="literal">abstract</tt><tt class="literal">area()</tt> and <tt class="literal">circumference()</tt>
+      methods, any subclass of <tt class="literal">Shape</tt> is
+      required to provide implementations of these methods so it can 
+      be instantiated. In other words, every
+      <tt class="literal">Shape</tt> object is guaranteed to have
+      implementations of these methods defined. <a href="ch03_06.htm#javanut3-ch-3-ex-shapes">Example 3-5</a> shows how this might
+      work. It defines an <tt class="literal">abstract</tt><tt class="literal">Shape</tt> class and two concrete subclasses of it. </p>
+<a name="javanut3-ch-3-ex-shapes"></a>
+<div class="example">
+<h4 class="objtitle">Example 3-5. An Abstract Class and Concrete Subclasses</h4>
+<blockquote>
+<pre class="programlisting">public abstract class Shape {
+  public abstract double area();            // Abstract methods: note
+  public abstract double circumference();   // semicolon instead of body. 
+}
+
+class Circle extends Shape {
+  public static final double PI = 3.14159265358979323846;
+  protected double r;                              // Instance data
+  public Circle(double r) { this.r = r; }          // Constructor
+  public double getRadius() { return r; }          // Accessor
+  public double area() { return PI*r*r; }          // Implementations of
+  public double circumference() { return 2*PI*r; } // abstract methods. 
+}
+
+class Rectangle extends Shape {
+  protected double w, h;                               // Instance data
+  public Rectangle(double w, double h) {               // Constructor
+    this.w = w;  this.h = h; 
+  }
+  public double getWidth() { return w; }               // Accessor method
+  public double getHeight() { return h; }              // Another accessor
+  public double area() { return w*h; }                 // Implementations of
+  public double circumference() { return 2*(w + h); }  // abstract methods.
+}</pre>
+</blockquote>
+</div>
+<p>      Each <tt class="literal">abstract</tt> method in
+      <tt class="literal">Shape</tt> has a semicolon right after its
+      parentheses. There are no curly braces, and no method body is
+      defined. Using the classes defined in <a href="ch03_06.htm#javanut3-ch-3-ex-shapes">Example 3-5</a>, we can now write code like
+	this:
+    </p>
+<blockquote>
+<pre class="programlisting">Shape[] shapes = new Shape[3];          // Create an array to hold shapes
+shapes[0] = new Circle(2.0);            // Fill in the array
+shapes[1] = new Rectangle(1.0, 3.0);
+shapes[2] = new Rectangle(4.0, 2.0);
+
+double total_area = 0;
+for(int i = 0; i &lt; shapes.length; i++)
+    total_area += shapes[i].area();     // Compute the area of the shapes</pre>
+</blockquote>
+<p>      There are two important points to notice here:
+    </p>
+<ul>
+<li>
+<p>	  Subclasses of <tt class="literal">Shape</tt> can be assigned to
+	  elements of an array of <tt class="literal">Shape</tt>. No cast
+	  is necessary. This is another example of a widening
+	  reference type conversion (discussed in <a href="ch02_01.htm">Chapter 2, "Java Syntax
+
+from the Ground Up"</a>). </p>
+</li>
+<li>
+<p>	  You can invoke the <tt class="literal">area()</tt>
+	  and <tt class="literal">circumference()</tt> methods for any
+	  <tt class="literal">Shape</tt> object, even though the
+	  <tt class="literal">Shape</tt> class does not define a body for these
+	  methods. When you do this, the method to be invoked is
+	  found using dynamic method lookup, so the area of a circle
+	  is computed using the method defined by
+	  <tt class="literal">Circle</tt>, and the area of a rectangle is
+	  computed using the method defined by
+	  <tt class="literal">Rectangle</tt>.
+<a name="INDEX-508"></a><a name="INDEX-509"></a><a name="INDEX-510"></a>
+</p>
+</li>
+</ul>
+
+<!-- BOTTOM NAV BAR -->
+
+<hr width="515" align="left">
+<div class="navbar">
+<table width="515" border="0">
+<tr>
+<td align="left" valign="top" width="172"><a href="ch03_05.htm"><img src="../gifs/txtpreva.gif" alt="Previous" border="0"></a></td><td align="center" valign="top" width="171"><a href="index.htm"><img src="../gifs/txthome.gif" alt="Home" border="0"></a></td><td align="right" valign="top" width="172"><a href="ch03_07.htm"><img src="../gifs/txtnexta.gif" alt="Next" border="0"></a></td>
+</tr>
+<tr>
+<td align="left" valign="top" width="172">3.5. Data Hiding and Encapsulation</td><td align="center" valign="top" width="171"><a href="index/index.htm"><img src="../gifs/index.gif" alt="Book Index" border="0"></a></td><td align="right" valign="top" width="172">3.7. Interfaces</td>
+</tr>
+</table>
+</div>
+<hr width="515" align="left">
+
+<!-- LIBRARY NAV BAR -->
+
+<img src="../gifs/smnavbar.gif" usemap="#library-map" border="0" alt="Library Navigation Links"><p>
+<font size="-1"><a href="copyrght.htm">Copyright &copy; 2001</a> O'Reilly &amp; Associates. All rights reserved.</font>
+</p>
+<map name="library-map"> <map name="library-map"> <area shape="rect" coords="-8,-5,72,97" href="../index.htm"> <area shape="rect" coords="75,2,150,109" href="../jenut/index.htm"> <area shape="rect" coords="154,0,225,99" href="../jnut/index.htm"> <area shape="rect" coords="228,3,298,112" href="../jfc/index.htm"> <area shape="rect" coords="306,1,373,124" href="../ebeans/index.htm"> <area shape="rect" coords="380,2,446,115" href="../servlet/index.htm"> <area shape="rect" coords="452,1,524,101" href="../security/index.htm"> <area shape="rect" coords="528,2,610,102" href="../dist/index.htm"> </map>
+</map>
+
+<!-- END OF BODY -->
+
+</body>
+</html>
+
+
+<br>
+
+
+
+</td>
+<td>
+
+<center>
+<a href="http://submit.shutterstock.com/?ref=345715">Do you have a DSLR photocamera? - make money on own photos now.</a>
+<br>
+<br>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-0321943928525350";
+/* 468x60, main footer */
+google_ad_slot = "1100896219";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</center>
+
+
+</td></tr>
+<tr><td colspan=2>
+<br>
+<hr size=1>
+
+
+
+<!-- SpyLOG -->
+<script src="http://tools.spylog.ru/counter_cv.js" id="spylog_code" type="text/javascript" counter="1028713" part="docs" track_links="ext" page_level="0">
+</script>
+<noscript>
+<a href="http://u10287.13.spylog.com/cnt?cid=1028713&f=3&p=0" target="_blank">
+<img src="http://u10287.13.spylog.com/cnt?cid=1028713&p=0" alt="SpyLOG" border="0" width="88" height="31"></a>
+</noscript>
+<!--/ SpyLOG -->
+
+<!--bigmir)net TOP 100-->
+<script type="text/javascript" language="javascript"><!--
+function BM_Draw(oBM_STAT){
+document.write('<table cellpadding="0" cellspacing="0" border="0" style="display:inline;margin-right:4px;"><tr><td><div style="margin:0px;padding:0px;font-size:1px;width:88px;"><div style="background:url(\'http://i.bigmir.net/cnt/samples/diagonal/b59_top.gif\') no-repeat bottom;">&nbsp;</div><div style="font:10px Tahoma;background:url(\'http://i.bigmir.net/cnt/samples/diagonal/b59_center.gif\');"><div style="text-align:center;"><a href="http://www.bigmir.net/" target="_blank" style="color:#0000ab;text-decoration:none;font:10px Tahoma;">bigmir<span style="color:#ff0000;">)</span>net</a></div><div style="margin-top:3px;padding: 0px 6px 0px 6px;color:#003596;"><div style="float:left;font:10px Tahoma;">'+oBM_STAT.hosts+'</div><div style="float:right;font:10px Tahoma;">'+oBM_STAT.hits+'</div></div><br clear="all"/></div><div style="background:url(\'http://i.bigmir.net/cnt/samples/diagonal/b59_bottom.gif\') no-repeat top;">&nbsp;</div></div></td></tr></table>');
+}
+//-->
+</script>
+
+<script type="text/javascript" language="javascript"><!--
+bmN=navigator,bmD=document,bmD.cookie='b=b',i=0,bs=[],bm={o:1,v:126595,s:126595,t:0,c:bmD.cookie?1:0,n:Math.round((Math.random()* 1000000)),w:0};
+for(var f=self;f!=f.parent;f=f.parent)bm.w++;
+try{if(bmN.plugins&&bmN.mimeTypes.length&&(x=bmN.plugins['Shockwave Flash']))bm.m=parseInt(x.description.replace(/([a-zA-Z]|s)+/,''));
+else for(var f=3;f<20;f++)if(eval('new ActiveXObject("ShockwaveFlash.ShockwaveFlash.'+f+'")'))bm.m=f}catch(e){;}
+try{bm.y=bmN.javaEnabled()?1:0}catch(e){;}
+try{bmS=screen;bm.v^=bm.d=bmS.colorDepth||bmS.pixelDepth;bm.v^=bm.r=bmS.width}catch(e){;}
+r=bmD.referrer.slice(7);if(r&&r.split('/')[0]!=window.location.host){bm.f=escape(r);bm.v^=r.length}
+bm.v^=window.location.href.length;for(var x in bm) if(/^[ovstcnwmydrf]$/.test(x)) bs[i++]=x+bm[x];
+bmD.write('<sc'+'ript type="text/javascript" language="javascript" src="http://c.bigmir.net/?'+bs.join('&')+'"></sc'+'ript>');
+//-->
+</script>
+<noscript>
+<a href="http://www.bigmir.net/" target="_blank"><img src="http://c.bigmir.net/?v126595&s126595&t2" width="88" height="31" alt="bigmir)net TOP 100" title="bigmir)net TOP 100" border="0" /></a>
+</noscript>
+<!--bigmir)net TOP 100-->
+
+<!--begin of Rambler's Top100 code -->
+<a href="http://top100.rambler.ru/top100/">
+<img src="http://counter.rambler.ru/top100.cnt?692798" alt="" width=1 height=1 border=0></a>
+<!--end of Top100 code-->
+
+<!--begin of Top100 logo-->
+<a href="http://top100.rambler.ru/top100/">
+<img src="http://top100-images.rambler.ru/top100/w1.gif" alt="Rambler's Top100" width=88 height=31 
+border=0></a>
+<!--end of Top100 logo -->
+
+
+<!-- hit.ua -->
+<a href='http://hit.ua/?x=3601' target='_blank'>
+<script language="javascript" type="text/javascript"><!--
+Cd=document;Cr="&"+Math.random();Cp="&s=1";
+Cd.cookie="b=b";if(Cd.cookie)Cp+="&c=1";
+Cp+="&t="+(new Date()).getTimezoneOffset();
+if(self!=top)Cp+="&f=1";
+//--></script>
+<script language="javascript1.1" type="text/javascript"><!--
+if(navigator.javaEnabled())Cp+="&j=1";
+//--></script>
+<script language="javascript1.2" type="text/javascript"><!--
+if(typeof(screen)!='undefined')Cp+="&w="+screen.width+"&h="+
+screen.height+"&d="+(screen.colorDepth?screen.colorDepth:screen.pixelDepth);
+//--></script>
+<script language="javascript" type="text/javascript"><!--
+Cd.write("<img src='http://c.hit.ua/hit?i=3601&g=0&x=1"+Cp+Cr+
+"&r="+escape(Cd.referrer)+"&u="+escape(window.location.href)+
+"' border='0' width='88' height='31' "+
+"alt='hit.ua: сейчас на сайте, посетителей и просмотров за сегодня' title='hit.ua: сейчас на сайте, посетителей и просмотров за сегодня'/>");
+//--></script>
+<noscript>
+<img src='http://c.hit.ua/hit?i=3601&amp;g=0&amp;x=1' border='0' width='88' height='31' alt='hit.ua: сейчас на сайте, посетителей и просмотров за сегодня' title='hit.ua: сейчас на сайте, посетителей и просмотров за сегодня'/>
+</noscript></a>
+<!-- / hit.ua -->
+
+<script language="javascript">//<!--
+mtI="012408140822";mtG="45";mtT="4";mtS='http://012408140822.c.mystat-in.net/?';
+mtD=document;mtN=navigator.appName;mtR=escape(mtD.referrer);
+mtW="";mtC="";mtV="0";mtJ="1";
+//--></script><script language="javascript1.1">//<!--
+mtV="1";mtJ = (navigator.javaEnabled()?"1":"0");
+//--></script><script language="javascript1.2">//<!--
+mtE=screen;mtW=mtE.width;mtN!="Netscape"?mtC=mtE.colorDepth:mtC=mtE.pixelDepth;mtV="2";
+//--></script><script language="javascript1.3">//<!--
+mtV="3";
+//--></script><script language="javascript">//<!--
+mtUrl="";mtUrl+="\""+mtS+"i"+mtI+"&t"+mtT+"&g"+mtG+"&w"+mtW+"&c"+mtC+"&r"+mtR+"&v"+mtV+"&j"+mtJ+"\"";
+mtUrl="<a href=http://mytop-in.net/ target=_blank><img src="+mtUrl+"width=88 height=31 border=0 alt=\"Rated by MyTOP\"></a>";
+mtD.write(mtUrl);
+//--></script>
+<noscript>
+<a href=http://mytop-in.net/ target=_blank><img src=http://012408140822.c.mystat-in.net/?i012408140822&t4&g45&j0 width=88 height=31 border=0 alt="Rated by MyTOP"></a>
+</noscript>
+
+<!--Rating@Mail.ru COUNTEr--><script language="JavaScript" type="text/javascript"><!--
+d=document;var a='';a+=';r='+escape(d.referrer)
+js=10//--></script><script language="JavaScript1.1" type="text/javascript"><!--
+a+=';j='+navigator.javaEnabled()
+js=11//--></script><script language="JavaScript1.2" type="text/javascript"><!--
+s=screen;a+=';s='+s.width+'*'+s.height
+a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth)
+js=12//--></script><script language="JavaScript1.3" type="text/javascript"><!--
+js=13//--></script><script language="JavaScript" type="text/javascript"><!--
+d.write('<a href="http://top.mail.ru/jump?from=1374183"'+
+' target=_top><img src="http://d7.cf.b4.a1.top.list.ru/counter'+
+'?id=1374183;t=48;js='+js+a+';rand='+Math.random()+
+'" alt="Рейтинг@Mail.ru"'+' border=0 height=31 width=88/><\/a>')
+if(11<js)d.write('<'+'!-- ')//--></script><noscript><a
+target=_top href="http://top.mail.ru/jump?from=1374183"><img
+src="http://d7.cf.b4.a1.top.list.ru/counter?js=na;id=1374183;t=48"
+border=0 height=31 width=88
+alt="Рейтинг@Mail.ru"/></a></noscript><script language="JavaScript" type="text/javascript"><!--
+if(11<js)d.write('--'+'>')//--></script><!--/COUNTER-->
+
+<!-- I.UA counter --><a href="http://www.i.ua/" target="_blank" onclick="this.href='http://i.ua/r.php?21595';" title="Rated by I.UA">
+<script type="text/javascript" language="javascript"><!--
+iS='<img src="http://r.i.ua/s?u21595&p66&n'+Math.random();
+iD=document;iD.cookie="iua=1";if(iD.cookie)iS+='&c1';
+iS+='&d'+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)
++"&w"+screen.width+'&h'+screen.height
+iT=iD.referrer.slice(7);iH=window.location.href.slice(7);
+((iI=iT.indexOf('/'))!=-1)?(iT=iT.substring(0,iI)):(iI=iT.length);
+if(iT!=iH.substring(0,iI))iS+='&f'+escape(iD.referrer.slice(7))
+iS+='&r'+escape(iH);
+iD.write(iS+'" border="0" width="88" height="31" />');
+//--></script></a><!-- End of I.UA counter -->
+
+<script type="text/javascript">
+<!--
+Nnv=navigator;Nna=Nnv.appName;Nd=document;Nd.cookie="b=b";Nc=0;if(Nd.cookie)Nc=1;
+Nn=(Nna.substring(0,2)=="Mi")?0:1;Ns=screen;Npx=(Nn==0)?Ns.colorDepth:Ns.pixelDepth;
+str='<img src="http://c.uarating.com/199;'+Ns.width+'x'+Ns.height+';'+Npx+';'+Nc+';';
+str=str+escape(Nd.referrer)+';'+Math.random()+'" width="88" height="31" border="0">';
+document.write('<a href="http://www.uarating.com/" alt="uaRating" target="_blank">'+str+'<\/a>');
+// -->
+</script>
+<noscript><a href="http://www.uarating.com/" target="_blank"><img src="http://c.uarating.com/199;0x0;0;0;-;0" alt="uaRating" width="88" height="31" border="0"></a></noscript>
+
+
+</td></tr>
+</table>
+
+
+</body>
+</html>

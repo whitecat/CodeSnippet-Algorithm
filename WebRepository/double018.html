@@ -1,0 +1,354 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+
+<head>
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+   <meta name="GENERATOR" content="Mozilla/4.51 [nl] (Win98; I) [Netscape]">
+
+   <meta name="Author" content="Bavo Bruylandt (RealApplets.com)">
+
+   <meta name="Description" content="A Learn By Example Tutorial. This tutorial will guide you from simple functions to more advanced features.This is the Double-buffering Example.">
+
+   <meta name="KeyWords" content="java applet tutorial,java,applet,tutorial,guide,faq,help,basics,java tutorial,realapplets,double,buffer,example">
+
+   <title>Java Applet Tutorial - Double Buffering Example</title>
+
+</head>
+
+<body background="bg.gif">
+
+<i>A member page of <a href="http://www.realapplets.com">realapplets.com</a></i>
+
+<center><img SRC="head.gif" height=40 width=310>
+
+
+
+<table border="0" align="center"><tr><td>
+
+<script type="text/javascript"><!--
+
+google_ad_client = "pub-3833005508656095";
+
+google_ad_width = 468;
+
+google_ad_height = 60;
+
+google_ad_format = "468x60_as";
+
+google_ad_type = "text_image";
+
+google_ad_channel ="";
+
+google_color_border = "003366";
+
+google_color_bg = "FFFFFF";
+
+google_color_link = "0044BB";
+
+google_color_url = "FF9900";
+
+google_color_text = "000000";
+
+//--></script>
+
+<script type="text/javascript"  src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+
+</td></tr></table>
+
+
+
+<p><b><font size=+2>Chapter 4 - Advanced Topics</font></b>
+
+<p><b><font size=+1>1. Double-Buffering.</font></b>
+
+<p>
+
+<applet code="NoDoubleBuffering.class" width="150" height="150"></applet>
+
+&nbsp;
+
+<applet code="BadDoubleBuffering.class" width="150" height="150"></applet>
+
+&nbsp;
+
+<applet code="DoubleBuffering.class" width="150" height="150"></applet>
+
+</center>
+
+
+
+<center><table COLS=1 WIDTH="70%" HEIGHT="100%" >
+
+<tr>
+
+<td>
+
+<br><font color="#000099">/* Drawing in applets is almost always done with
+
+double-buffering.</font>
+
+<br><font color="#000099">This means that drawing is first done to an offscreen
+
+image, and when all</font>
+
+<br><font color="#000099">is done, the offscreen image is drawn on the
+
+screen.</font>
+
+<br><font color="#000099">This reduces the nasty flickering applets otherwise
+
+have.</font>
+
+<p><font color="#000099">Above you see:</font>
+
+<br><font color="#000099">No Double-buffering : It flickers because everything
+
+is draw straight to the screen.</font>
+
+<br><font color="#000099">Bad double-buffering: Same as this below but
+
+without the update() method</font>
+
+<br><font color="#000099">Double Buffering: Example of this source.</font>
+
+<br><font color="#000099">*/</font>
+
+<p>import java.applet.*;
+
+<br>import java.awt.event.*;
+
+<br>import java.awt.*;
+
+<p>public class DoubleBuffering extends Applet implements MouseMotionListener
+
+<br>{
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">// The object we will
+
+use to write with instead of the standard screen graphics</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; Graphics bufferGraphics;
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp; // The image that will
+
+contain everything that has been drawn on</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp; // bufferGraphics.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; Image offscreen;
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">// To get the width
+
+and height of the applet.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; Dimension dim;
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; int curX, curY;
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; public void init()&nbsp;
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; {
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">//
+
+We'll ask the width and height by this</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dim = getSize();
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000099">
+
+// We'll redraw the applet eacht time the mouse has moved.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addMouseMotionListener(this);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setBackground(Color.black);
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+// Create an offscreen image to draw on</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000099">
+
+// Make it the size of the applet, this is just perfect larger</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+// size could slow it down unnecessary.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offscreen =
+
+createImage(dim.width,dim.height);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000099">
+
+// by doing this everything that is drawn by bufferGraphics</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+// will be written on the offscreen image.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bufferGraphics
+
+= offscreen.getGraphics();
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; }
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void paint(Graphics g)&nbsp;
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; {
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">//
+
+Wipe off everything that has been drawn before</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+// Otherwise previous drawings would also be displayed.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bufferGraphics.clearRect(0,0,dim.width,dim.width);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bufferGraphics.setColor(Color.red);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bufferGraphics.drawString("Bad
+
+Double-buffered",10,10);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000099">
+
+// draw the rect at the current mouse position</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+// to the offscreen image</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bufferGraphics.fillRect(curX,curY,20,20);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">//
+
+draw the offscreen image to the screen like a normal image.</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+// Since offscreen is the screen width we start at 0,0.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g.drawImage(offscreen,0,0,this);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; }
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">// Always required for
+
+good double-buffering.</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp; // This will cause the
+
+applet not to first wipe off</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp; // previous drawings
+
+but to immediately repaint.</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp; // the wiping off also
+
+causes flickering.</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp; // Update is called
+
+automatically when repaint() is called.</font>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; public void update(Graphics g)
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; {
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; paint(g);
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; }
+
+<br>&nbsp;
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">// Save the current mouse
+
+position to paint a rectangle there.</font>
+
+<br><font color="#000099">&nbsp;&nbsp;&nbsp;&nbsp; // and request a repaint()</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; public void mouseMoved(MouseEvent evt)&nbsp;
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; {
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; curX = evt.getX();
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; curY = evt.getY();
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; repaint();
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; }
+
+<br>&nbsp;
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <font color="#000099">// The necessary methods.</font>
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; public void mouseDragged(MouseEvent evt)&nbsp;
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; {
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp; }
+
+<p>&nbsp;}
+
+<p><font color="#000099">/*</font>
+
+<br><font color="#000099">This is all about double-buffering. It's easy
+
+to use and recommended to use always.</font>
+
+<br><font color="#000099">There is one dangerous pitfall here, when you
+
+create an offscreen image that's very large</font>
+
+<br><font color="#000099">the applet might run slow because it takes a
+
+lot of resources and effort.</font>
+
+<br><font color="#000099">I would not recommend offscreen images larger
+
+than 500*500 when redrawn at 30FPS.</font>
+
+<br><font color="#000099">(see Threads)</font>
+
+<br><font color="#000099">*/</font>
+
+<br>&nbsp;</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>&nbsp;</td>
+
+</tr>
+
+</table></center>
+
+
+
+<center>
+
+<p><a href="ThreadExample.html"><img SRC="next.gif" BORDER=0 height=30 width=150></a>
+
+<br><a href="index.html">Home</a> - <a href="chapter1.html">Chapter 1</a>
+
+- <a href="chapter2.html">Chapter2 </a>- <a href="chapter3.html">Chapter3</a>
+
+- <a href="chapter4.html">Chapter4</a></center>
+
+
+
+</body>
+
+</html>
+

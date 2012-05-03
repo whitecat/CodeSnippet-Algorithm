@@ -1,0 +1,537 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Introduction to Static Classes in Java</title>
+	<link rel="stylesheet" type="text/css" href="http://x.hubpages.com/s/hp14644.css" />
+	<link rel="stylesheet" type="text/css" href="http://x.hubpages.com/s/table14644.css" />
+	<link rel="alternate" type="application/rss+xml" title="Introduction to Static Classes in Java: Comments" href="http://hubpages.com/hub/Introduction-to-Static-Classes-in-Java?rss" />
+	<script type="text/javascript" src="http://x.hubpages.com/s/js14644.js"></script>
+
+<script type="text/javascript">
+window.google_analytics_uacct = "UA-8605222-5";
+</script>
+	<meta name="description" content=" The static class plays an important part in Object Oriented Programming (OOP). This tutorial introduces basic concepts of static classes in the Java programming language.  Figure 01 illustrates how to create..."/>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(
+['t1._setAccount', 'UA-8605222-5'],
+['t1._trackPageview'],
+['t2._setAccount', 'UA-286186-1'],
+['t2._trackPageview']
+);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+})();
+</script></head><body class="hubpage" onload="ssOnload()"><script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+<script type="text/javascript">
+function fetchRecaptcha(div_id) {
+Recaptcha.create("6LemUQQAAAAAAC6mNwmiXb8ZwmUU0R9Z5v_yZ5xl", div_id, {theme: "red"});
+}
+</script><div id="header_wrap">
+		<div id="header">
+			<div id="site_title"><a href="/" title="HubPages">HubPages</a></div>			<ul>
+				<li><a href="/signin/">sign in</a></li>
+				<li><a href="/hubtool/create/name/">start a new hub</a></li>
+				<li><a href="/my/hubs">my account</a></li>				<li class="highlight"><a href="/user/new/">join</a></li>
+				<li class="last"><a href="/faq/">help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="browse_wrap">
+		<div id="browse">
+			<ul>
+				<li>browse &raquo;</li>
+				<li><a href="/topics/">Topics</a></li>
+				<li><a href="/hubs/hot/">Hubs</a></li>
+				<li><a href="/answers/latest/">Answers</a></li>
+				<li><a href="/authors/best/">Hubbers</a></li>
+				<li><a href="/forum/">Forums</a></li>
+				<li><a href="/feed/">Feed</a></li>
+				<li class="search">
+					<form action="/search/" name="search_form" id="search_form"><input class="search_input" name="s" type="text" size="24" value=""/><select class="search_type" name="t" onchange="if(this.options.length==this.selectedIndex+1) window.location.href='/search/';"><option value="site">site</option><option value="hubs" selected="selected">hubs</option><option class="searchmore" value="more">more &rarr;</option></select> <input class="search_submit" type="submit" value="search" /></form>	<script type="text/javascript">
+		Event.observe('search_form','submit',function(event) {
+			if ($('search_form').s.value.strip()=='') Event.stop(event);
+		});
+	</script>				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="masthead_wrap">
+		<div id="masthead" class="withpromo">
+<div id="mastpromo"><a href="/help/landing_e2?utm_source=hubpromo&amp;utm_campaign=hubpromo2"><img src="http://x.hubpages.com/x/promo_button2.gif" alt="create your own" title="create your own"></a></div><div id="crumbs"><ul><li class="crumb"><a href="/topics/">All Topics</a></li><li class="crumb"><a class="novisited" href="/topics/technology/5338">Technology</a></li><li class="crumb"><a class="novisited" href="/topics/technology/computers/5389">Computers</a></li><li class="crumb"><a class="novisited" href="/topics/technology/computers/computer-science-and-programming/5392">Computer Science &amp; Programming</a></li><li>Introduction to Static Classes in Java</li></ul></div>		</div>
+	</div><div id="container_wrap"><div id="container">
+
+<div id="content" class="entry"><div id="hubtitle"><h1>Introduction to Static Classes in Java</h1><span title="hubscore">81</span></div><a id="ratethispage" href="#rate" class="novisited" onclick="return ssToId('share_tgt',1500,1200);" style="float:right; font-size:0.8em;">rate or flag this page</a><p class="author">By <a href="/profile/nicomp">nicomp</a></p><div class="modfloat full"><div id="mod_new4" class="module moduleAdSpot color0">
+<script type="text/javascript"><!--
+google_ad_host = "pub-6958755572607374";
+google_ad_client = "ca-pub-5716763142404758"; 
+google_alternate_ad_url = "http://hubpages.com/google_adsense_script.html";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel = "9795059004";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000CC";
+google_color_url = "333333";
+google_color_text = "333333";
+google_ui_features = "rc:0";
+
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script><div style="width:100%; height:8px"></div>
+</div><div id="mod_3002529" class="module moduleText color0"><h2>Introduction</h2><div style="word-wrap:break-word" class="txtd" id="txtd_3002529"><p>The static class plays an important part in Object Oriented Programming (OOP). This tutorial introduces basic concepts of static classes in the Java programming language.</p><p>Figure 01 illustrates how to create a basic static class. Simply put the keyword <strong><em>static</em></strong> in the declaration of the methods in the class. The declaration of the class itself requires no special decoration. The class can contain static and non-static methods and properties simultaneously.<br /></p></div></div><div id="mod_3002530" class="module moduleImage"><div id="imgs_3002530">				<div id="img_url_1050490">
+					<img src="http://s3.hubimg.com/u/1050490_f520.jpg" width="520" height="377" class="full" alt="Figure 01 - A simple static class" title="Figure 01 - A simple static class" />
+						<div class="fullSlide">
+		<a rel="nofollow" href="/slide/Introduction-to-Static-Classes-in-Java" title="">
+				<div class="slideshowButton">See all 6 photos
+				</div>
+		</a>
+	</div>
+
+				</div>				<div class="caption_full" id="img_desc_1050490">
+					Figure 01 - A simple static class
+				</div></div></div><div id="mod_new6" class="module moduleAdSpot color0">
+<br/><script type="text/javascript"><!--
+google_ad_host = "pub-6958755572607374";
+google_ad_client = "ca-pub-5716763142404758"; 
+google_alternate_ad_url = "http://hubpages.com/google_adsense_script.html";
+google_ad_width = 468;
+google_ad_height = 15;
+google_ad_format = "468x15_0ads_al";
+google_ad_type = "text_image";
+google_ad_channel = "9795059004";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000CC";
+google_color_url = "333333";
+google_color_text = "333333";
+google_ui_features = "rc:0";
+
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script><div style="width:100%; height:8px"></div>
+</div><div id="mod_3002535" class="module moduleText color0"><div style="word-wrap:break-word" class="txtd" id="txtd_3002535"><p>Figure 02 contains a main() that references the static class. Note that the reference uses the class name, <strong><em>not </em></strong>an object (instance) name. An instance is not required. <br /></p><p> An instance can reference a static member, but be sure to have a thorough understanding of the side effects.<br /></p></div></div><div id="mod_3002536" class="module moduleImage"><div id="imgs_3002536">				<div id="img_url_1050510">
+					<img src="http://s3.hubimg.com/u/1050510_f520.jpg" width="520" height="421" class="full" alt="Figure 02 - The static class is referenced from the main()" title="Figure 02 - The static class is referenced from the main()" />
+					
+				</div>				<div class="caption_full" id="img_desc_1050510">
+					Figure 02 - The static class is referenced from the main()
+				</div></div></div><div id="mod_3002537" class="module moduleText color0"><div style="word-wrap:break-word" class="txtd" id="txtd_3002537"><p>Let's modify the static class. In Figure 03, the class has a new property, alpha, and a new method, SetAlpha(). SetAlpha() is public and alpha is private. </p><p>The SetAlpha() method references the private property alpha. </p><p>Note that alpha and SetAlpha() are <em><strong>not </strong></em>declared as static.</p><p>All is well in the main(); it still builds and executes properly. No changes are necessary.<br /></p></div></div><div id="mod_3002538" class="module moduleImage"><div id="imgs_3002538">				<div id="img_url_1050525">
+					<img src="http://s2.hubimg.com/u/1050525_f520.jpg" width="520" height="458" class="full" alt="Figure 03 - A property and a method, both non-static are added to the class." title="Figure 03 - A property and a method, both non-static are added to the class." />
+					
+				</div>				<div class="caption_full" id="img_desc_1050525">
+					Figure 03 - A property and a method, both non-static are added to the class.
+				</div></div></div><div id="mod_3002540" class="module moduleText color0"><div style="word-wrap:break-word" class="txtd" id="txtd_3002540"><p>In Figure 05 the main() is broken because it's illegal to reference a non-static method using a class reference. The converse is permissible, but that's not the point of this exercise.. <br /></p></div></div><div id="mod_3002541" class="module moduleImage"><div id="imgs_3002541">				<div id="img_url_1050541">
+					<img src="http://s2.hubimg.com/u/1050541_f520.jpg" width="520" height="436" class="full" alt="Figure 04 - The main() is broken because a non-static method cannot be accessed from a class reference." title="Figure 04 - The main() is broken because a non-static method cannot be accessed from a class reference." />
+					
+				</div>				<div class="caption_full" id="img_desc_1050541">
+					Figure 04 - The main() is broken because a non-static method cannot be accessed from a class reference.
+				</div></div></div><div id="mod_3002542" class="module moduleText color0"><div style="word-wrap:break-word" class="txtd" id="txtd_3002542"><p>OK, let's try to fix the error by declaring the SetAlpha( ) method static. Figure 05 illustrates the attempt.</p></div></div><div id="mod_3002543" class="module moduleImage"><div id="imgs_3002543">				<div id="img_url_1050548">
+					<img src="http://s1.hubimg.com/u/1050548_f520.jpg" width="520" height="337" class="full" alt="Figure 05 - An attempt to declare a method as static" title="Figure 05 - An attempt to declare a method as static" />
+					
+				</div>				<div class="caption_full" id="img_desc_1050548">
+					Figure 05 - An attempt to declare a method as static
+				</div></div></div><div id="mod_3002654" class="module moduleText color0"><div style="word-wrap:break-word" class="txtd" id="txtd_3002654"><p>That fails. The SetAlpha( ) method cannot be declared static because it references a non-static variable, alpha. </p><p>Figure 06 illustrates the only way to fix the problem. The declaration of alpha must be modified to include the keyword <em><strong>static</strong></em>.</p><p>However, although the project now builds properly, we have created  a situation in which only one instance of the variable alpha will be created when the program runs. <br /></p></div></div><div id="mod_3002655" class="module moduleImage"><div id="imgs_3002655">				<div id="img_url_1050557">
+					<img src="http://s2.hubimg.com/u/1050557_f520.jpg" width="520" height="434" class="full" alt="Figure 06 - The variable alpha is declared as static" title="Figure 06 - The variable alpha is declared as static" />
+					
+				</div>				<div class="caption_full" id="img_desc_1050557">
+					Figure 06 - The variable alpha is declared as static
+				</div></div></div><div id="mod_3002656" class="module moduleText color0"><div style="word-wrap:break-word" class="txtd" id="txtd_3002656"><p> Static classes are commonly used to create classes that do not need to be instantiated and will be shared as a single copy throughout the entire project.  </p><p>The static class is also a first step in creating a design pattern called a <strong><em>Singleton</em></strong>.</p></div></div><div id="mod_3002700" class="module moduleAmazon color0"><table><tr>	<td class="pic">
+		<a rel="nofollow" href="http://www.amazon.com/Java-How-Program-6th-Deitel/dp/0131483986%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0131483986">
+			<img src="http://ecx.images-amazon.com/images/I/61X28XVQ8XL._SL75_.jpg" border="0" width="57" height="75" alt="Java How to Program (6th Edition) (How to Program (Deitel))" />
+		</a>
+	</td>
+	<td class="details">
+		<a rel="nofollow" href="http://www.amazon.com/Java-How-Program-6th-Deitel/dp/0131483986%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0131483986">Java How to Program (6th Edition) (How to Program (Deitel))</a>
+		<div class="amazonDescription"></div>
+		<div class="price">
+			<b>Price:</b> $47.94<br/>List Price: $118.00
+		</div>
+	</td>
+</tr><tr>	<td class="pic">
+		<a rel="nofollow" href="http://www.amazon.com/Java-How-Program-Objects-Version/dp/0136053068%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0136053068">
+			<img src="http://ecx.images-amazon.com/images/I/61W5b4wa-KL._SL75_.jpg" border="0" width="58" height="75" alt="Java How to Program: Early Objects Version (8th Edition)" />
+		</a>
+	</td>
+	<td class="details">
+		<a rel="nofollow" href="http://www.amazon.com/Java-How-Program-Objects-Version/dp/0136053068%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0136053068">Java How to Program: Early Objects Version (8th Edition)</a>
+		<div class="amazonDescription"></div>
+		<div class="price">
+			<b>Price:</b> $90.55<br/>List Price: $123.00
+		</div>
+	</td>
+</tr><tr>	<td class="pic">
+		<a rel="nofollow" href="http://www.amazon.com/Java-How-Program-Harvey-Deitel/dp/0132222205%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0132222205">
+			<img src="http://ecx.images-amazon.com/images/I/612eBFhciJL._SL75_.jpg" border="0" width="57" height="75" alt="Java How to Program, 7th Edition" />
+		</a>
+	</td>
+	<td class="details">
+		<a rel="nofollow" href="http://www.amazon.com/Java-How-Program-Harvey-Deitel/dp/0132222205%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0132222205">Java How to Program, 7th Edition</a>
+		<div class="amazonDescription"></div>
+		<div class="price">
+			<b>Price:</b> $62.50<br/>List Price: $127.00
+		</div>
+	</td>
+</tr><tr>	<td class="pic">
+		<a rel="nofollow" href="http://www.amazon.com/Student-Solutions-Manual-accompany-Program/dp/013142579X%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D013142579X">
+			<img src="http://ecx.images-amazon.com/images/I/51QG04WAH4L._SL75_.jpg" border="0" width="57" height="75" alt="Java Student Solutions Manual to accompany Java How to Program (5th Edition)" />
+		</a>
+	</td>
+	<td class="details">
+		<a rel="nofollow" href="http://www.amazon.com/Student-Solutions-Manual-accompany-Program/dp/013142579X%3FSubscriptionId%3D14H876SFAKFS0EHBYQ02%26tag%3Dhubp09fd-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D013142579X">Java Student Solutions Manual to accompany Java How to Program (5th Edition)</a>
+		<div class="amazonDescription"></div>
+		<div class="price">
+			<b>Price:</b> $22.95<br/>List Price: $34.00
+		</div>
+	</td>
+</tr></table><iframe class="amazonlogo" src="http://rcm.amazon.com/e/cm?t=hubp09fd-20&amp;o=1&amp;p=41&amp;l=ur1&amp;category=home&amp;banner=0PXNA3R0DT5CZVZA7J02&amp;f=ifr" width="88" height="31" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe></div><div id="mod_3284940" class="module modulePoll color0"><h2>Software Engineering Poll</h2><script type="text/javascript">
+pmm.add(18879, new PollManager(3284940, 18879) );
+</script><div id="3284940_poll_results" class="modulePollResults"><h2 class="pollQuestion">Static classes in Java are</h2><form id="3284940_vote_form"><ul><li><input value="0" type="radio" name="3284940_vote" /> A cheap shortcut that should be avoided at all costs.</li><li><input value="1" type="radio" name="3284940_vote" /> A useful tool for implementing the Singleton design pattern.</li><li><input value="2" type="radio" name="3284940_vote" /> Somewhere in the middle.</li></ul><input type="button" value="Vote" onclick="pmm.getById(18879).voteInPoll(); return false;" /></form><a onclick="pmm.getById(18879).seePollVotes();return false;" href="#" >See results without voting</a><input type="hidden" id="18879_pollVotes" name="18879_pollVotes" value="21" ></div></div><div id="mod_new2" class="module moduleShare color0"><script src="http://cdn.printfriendly.com/pnicer3.js" type="text/javascript"></script><div id="share_tgt"></div><p class="flags" style="clear:both"><a class="print_this" href="#" id="printnicer" onclick="window.print(); return false;" title="Print an optimized version of this web page">Print</a><a class="share_this" href="#" onclick="toggleShareIt(531095, true);return false;">Share it!</a><span id="rec_531095"> &nbsp; &#8212; &nbsp; <b>Rate it:</b> &nbsp;<a class="up" href="#" onclick="return recArt(531095, 1);">up</a> &nbsp;<a class="down" href="#" onclick="return recArt(531095, 0);">down</a> &nbsp;</span><span><a href="/flag/hub/Introduction-to-Static-Classes-in-Java">flag this hub</a></span></p><div class="group_nav"><div id="leftGroupnav"><a href="/hub/Exception-Handling-in-Java">Java: Exception Handling in Java</a></div><div id="rightGroupnav"><a href="/hub/OOP-Interfaces-Demo-in-Java---Part-5">Java: OOP Interfaces Demo in Java - Part 5</a></div></div></div><div id="comFirst"></div><div id="mod_3284939" class="module moduleComment"><h2>Comments</h2><p class="rss_comments"><a class="comment_icon_rss" href="?rss"><acronym title="Really Simple Syndication">RSS</acronym> for comments on this Hub </a></p><div class="comment alt" id="comment1851888"><p class="comment_meta"><strong>Meow Man&nbsp;&nbsp;says:</strong><br/><small>3 months ago</small></p><p>Java static classes rock</p></div><div id="comment_tgt" class="more_comments"></div><form name="comment_3284939" id="comment_3284939" method="get" action=""><h2>Submit a Comment</h2><input type="hidden" name="mod_id" value="3284939" /><script type="text/javascript">
+	var com = new hpFormHandler('comment_3284939');
+
+	com.handleResponse = function(req) 
+	{
+		var mod = $("mod_3284939");
+		Element.update(mod, req.responseText);
+	}
+
+	com.setValidators({}, {
+		name: function(ele) {
+			com.validateMandatory(ele, 'Please enter your name before posting.'); 
+		},
+
+		comText_3284939: function(ele) {
+			com.testForError((!ele.value || ele.value.length == 0 || ele.value == 'Enter a comment'), ele, 'Please enter a comment before posting.');
+			com.testForError((ele.value.length != 0 && ele.value.length < 4),ele,'Your comment is rather short.');
+		}
+	});
+
+	com.errorHeader = '';
+	com.submitUri = '/xml/comment.php';
+	com.nextUri = null;
+
+	// save a reference to original com to support multiple 
+	// comment modules on a page
+	var com_3284939 = com;
+</script><div id="member_call"><h4>Members and Guests</h4><p><a href="/signin/">Sign in</a> or <a href="/user/new/?utm_source=tocomment&amp;utm_nooverride=1">sign up</a> and post using a hubpages account.</p></div><p><label for="name">Name:</label><br/><input type="text" id="name" class="text_input" name="name"/></p><p><label for="url">URL:</label> <small>optional</small><br/><input type="text" id="url" class="text_input" name="url"/></p><div id='formErrors'></div><p><label>Comment:</label><br/><textarea wrap="virtual" onfocus="Field.select('comText_3284939')" id="comText_3284939" name="comText_3284939" rows="6" cols="60"></textarea></p><div class="post"><input type="submit" class="comment_submit" onclick="com_3284939.save(); return false;" value="Post Comment"/></div><ul class="comment_warn"><li>No HTML is allowed in comments, but URLs will be hyperlinked</li><li>Comments are not for promoting your hubs or other sites</li></ul></form><script type="text/javascript">com.observe();</script><br style="clear:both"/></div><div id="mod_3410024" class="module moduleRss color1"><ul ><li><a    href="http://www.newearthonline.co.uk/article/821">Voddler</a><p class='moduleRssDescription'>
+				
+					
+				Voddler is a content delivery system for videos much akin to what Spotify is for music. It is an advert supported service that provides films (and eventually TV episodes) to the masses for free, though newer films are ones you have to pay for to &amp;quot;rent&amp;quot;. So what is this brand new service like?Continue reading about "Voddler" on New Earth Online - <span class="date">5 weeks ago</span></p></li>
+<li><a    href="http://www.newearthonline.co.uk/article/820">Doctor Who: The End of Time</a><p class='moduleRssDescription'>
+				
+					
+				Just as this was a tale of two parts, this review is of two parts. When Season 4 ended in 2008 we were told we would instead be getting four features during 2009 instead of a season. Not long after that we were then informed that the journey of the Tenth Doctor, David Tennant would
+be coming to an end. One of the things that you&#039;ll notice about the end of a season of Doctor Who is that it ties together most of the stories from earlier episodes to show it is just one over-arching story that is made up of smaller adventures. This last outing for the Tenth Doctor is no different either.Continue reading about "Doctor Who: The End of Time" on New Earth Online - <span class="date">5 weeks ago</span></p></li>
+<li><a    href="http://www.newearthonline.co.uk/article/818">Tin Man</a><p class='moduleRssDescription'>
+				
+					
+				Pretty much everyone knows the story of the Wizard of Oz and how Dorothy Gale met the scarecrow without a brain, the Tin man without a heart, and the cowardly lion on her way to see the Wizard so that she could return to her home in Kansas. What Tin Man does is take this classic story and turns it on it&#039;s head and brings new life to the story.Continue reading about "Tin Man" on New Earth Online - <span class="date">6 weeks ago</span></p></li>
+<li><a    href="http://www.newearthonline.co.uk/article/815">Moon</a><p class='moduleRssDescription'>
+				
+					
+				Moon is a film by Duncan Jones, the son of David Bowie, and his first film shows promise that he will may make a similar impact in the world of film as his father did in the world of music.Continue reading about "Moon" on New Earth Online - <span class="date">2 months ago</span></p></li>
+<li><a    href="http://www.newearthonline.co.uk/article/230">Privacy on the World Wide Web</a><p class='moduleRssDescription'>
+				
+					
+				No one likes their privacy being invaded, and whilst on the web it should not be an exception, so you should implement a P3P policy to give customers satisfaction that you respect their privacy. It will also give them some indication of what data you are collecting, or plan to collect.Continue reading about "Privacy on the World Wide Web" on New Earth Online - <span class="date">2 months ago</span></p></li>
+<li><a    href="http://www.newearthonline.co.uk/article/812">Sony Handycam HDR-TG7VE</a><p class='moduleRssDescription'>
+				
+					
+				If you want to start recording your own video for whatever reason you may have, such as uploading to any one of the many video uploading sites out there (YouTube, Vimeo, Flickr, etc.) you will no doubt want a decent High Definition camcorder to do the job. There are many good ones out there from Canon, Sony, Red, and others; though none seem to have good quality in such a small package as the Sony HDR-TG7VE.Continue reading about "Sony Handycam HDR-TG7VE" on New Earth Online - <span class="date">2 months ago</span></p></li>
+<li><a    href="http://www.newearthonline.co.uk/article/809">Blade Runner</a><p class='moduleRssDescription'>
+				
+					
+				Whether you loved it or hated it, there is no denying the fact that Ridley Scott&#039;s Blade Runner had a lasting impact on the world of science fiction. The book it was based upon, Philip K. Dick&#039;s &amp;quot;Do Androids Dream of Electric Sheep&amp;quot; is a respected novel which many say was superior to the film. What is it that people love and hate about the film though?Continue reading about "Blade Runner" on New Earth Online - <span class="date">3 months ago</span></p></li>
+<li><a    href="http://www.newearthonline.co.uk/article/806">Dragon Age: Origins</a><p class='moduleRssDescription'>
+				
+					
+				Bioware have a long history of award winning RPG games such as Baldur&#039;s Gate, Neverwinter Nights, Knights of the Old Republic, Jade Empire and the more recent Mass Effect. With an impressive back catalogue like this it is no wonder that all eyes are on Bioware every time they announce or release a new game. Does Dragon Age: Origins stand up to the test?Continue reading about "Dragon Age: Origins" on New Earth Online - <span class="date">3 months ago</span></p></li>
+</ul></div><div id="mod_new8" class="module moduleAdSpot color0">
+<script type="text/javascript"><!--
+google_ad_host = "pub-6958755572607374";
+google_ad_client = "ca-pub-5716763142404758"; 
+google_alternate_ad_url = "http://hubpages.com/google_adsense_script.html";
+google_ad_width = 200;
+google_ad_height = 90;
+google_ad_format = "200x90_0ads_al";
+google_ad_type = "text_image";
+google_ad_channel = "9795059004";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000CC";
+google_color_url = "333333";
+google_color_text = "333333";
+google_ui_features = "rc:0";
+
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div></div><img src="/c/a531095.gif" alt=""/></div><div id="sidebar"><div class="sidebar_box"><div class="big_bio"><div class="bio_hub_score"><span title="hubscore">97</span></div><a href="/profile/nicomp" title="nicomp's profile"><img src="http://s1.hubimg.com/u/2305196_177.jpg"   alt="nicomp profile image" title="nicomp profile image"/></a></div><div id="stats"><a href="/profile/nicomp" title="nicomp's profile"><strong>nicomp</strong></a><br/>From <strong>Ohio, USA</strong><br/><strong class="">318</strong> Followers<br/><strong class="">275</strong> Hubs<br/>Joined <strong class="">10 months ago</strong></div><br/></div><div class="sidebar_box"><div class="fan_box"><p class="more_hubs"><a class="novisited" href="/author/nicomp/hot/"><strong>Read more hubs by nicomp</strong></a></p><p class="email"><a href="/email/user/nicomp">Contact nicomp</a></p><p class="fans"><a href="/fans/add/nicomp" title="Follow nicomp">Follow nicomp</a></p><p class="author_rss"><a href="/author/nicomp/latest/?rss" title="Subscribe to nicomp's RSS Feed">Subscribe to nicomp's <acronym title="Really Simple Syndication">RSS</acronym> feed</a></p></div><br/></div>			<script type="text/javascript">
+				function submitQuestion() {
+					if($('ask_question').value == "") {
+						$('question_error').innerHTML = "You must ask a question first.";
+					} else {
+						$('question_error').innerHTML = "";
+						fetchRecaptcha('ask_captcha');toggleOverlay('askSignUp')
+					}
+				}
+			</script>
+			<div id="askBox" class="sidebar_box">
+				<div id="question_box">
+					<h3>Ask a Question</h3>
+					<p><small class="special">Ask nicomp to publish a Hub answering your question.</small></p>
+					<div id="question_error"></div>
+					<textarea name="ask_question" id="ask_question" rows="2" cols="40"></textarea>
+					<p><input type="submit" class="ask_button" value="ask!" onclick="submitQuestion()" /></p>
+				</div>
+			</div>				<div id="askSignUp" class="overlay" style="display:none">
+					<a class="close" href="#" onclick="toggleOverlay('askSignUp'); return false;">close</a>
+								<h1 id="signTitle">To reply, sign up</h1>
+			<div id="suSection">
+				<span class="special">If you are already a member, you can <a href="#" onclick="$('signTitle').innerHTML='Sign In Now';$('suSection').hide();$('siSection').show();return false;">sign in</a></span>
+								<form id="signupForm" name="signupForm" action="">
+					<div id="signupErrors"></div>
+					<script type="text/javascript">
+						var suFH = new hpFormHandler("signupForm");
+						suFH.method = 'post';
+						suFH.submitUri = '/xml/signup.php';
+						suFH.nextUri = '/user/new/about.php';
+						suFH.errorDiv = $('signupErrors');
+
+						suFH.setValidators({
+							usname: function(ele) {
+								suFH.validateLengthMax(ele, 100, 'Your username is too long.  Please make it shorter.');
+								suFH.validateLengthMin(ele, 3, 'User Names must have at least three characters.  Give it another shot.');
+								suFH.validateServerCheck(ele, '/xml/checkusername.php', 'The username you specified has already been taken.  Please try another one');
+								suFH.validateRegex(ele, /^[^\s].*[^\s]$/, 'Please do not include spaces at the start or end of your username.');
+								suFH.validateNoRegex(ele, /&/, 'Please do not use ampersands in your username.');
+								suFH.validateNoRegex(ele, /\+/, 'Please do not use plus signs in your username.');
+								suFH.validateNoRegex(ele, /#/, 'Please do not use pound signs in your username.');
+								suFH.validateNoRegex(ele, /\//, 'Please do not use forward slashes in your username.');
+								suFH.validateNoRegex(ele, /%/, 'Please do not use percent signs in your username.');
+							},
+							usemail: function(ele) {
+								suFH.validateEmail(ele);
+								suFH.validateServerCheck(ele, '/xml/checkemail.php', 'This email address has already been used to register for an account.  Please use a different email address, or login to your existing account.');
+							}
+						},
+						{
+							usname: function(ele) {
+								suFH.validateMandatory(ele, 'Please specify a username.');
+							},
+							usemail: function(ele) {
+								suFH.validateMandatory(ele, 'Please specify an email address.');
+							},
+							password: function(ele) {
+								suFH.validateNewPassword(ele, 'password2');
+							},
+							eula: function(ele) {
+								suFH.validateMandatory(ele, 'Please verify that you have read and agree to the HubPages terms of use.');
+							}
+						});
+
+						suFH.handleResponse = function(req) {
+							try {
+								eval(req.responseText);
+							} catch (e) {}
+
+							if (!hipSuccess) {
+								$('hipError').innerHTML = 'Please try typing the two distorted words again.';
+								Recaptcha.reload();
+							} else {
+								this.onSuccess();
+							}
+						}
+						suFH.onSuccess = function() {
+							window.location.replace(this.nextUri);
+						}
+					</script>
+
+					<input type='hidden' name='ab_info' value='ask:sidebar:lightbox' />
+
+					<div class="form_row concise">
+						<label for="usname">Username</label>
+						<input class="form_text" autocomplete="off" type="text" tabindex="1" size="17" maxlength="17" name="usname" id="usname" value="" />
+					</div>
+					<div class="form_row concise">
+						<label for="usemail">Email</label>
+						<input class="form_text" autocomplete="off" type="text" tabindex="2" size="25" maxlength="50" name="usemail" id="usemail" value="" />
+					</div>
+					<div class="form_row concise">
+						<label for="password">Password</label>
+						<input class="form_text" autocomplete="off" type="password" tabindex="3" size="25" name="password" id="password" value="" />
+					</div>
+					<div class="form_row concise">
+						<label for="password2">Retype</label>
+						<input class="form_text" autocomplete="off" type="password" tabindex="4" size="25" name="password2" id="password2" value="" />
+					</div>
+					<div class="form_row concise">
+						<span id="hipError" style="color: #bb0e0e; font-weight: bold;"></span>
+						<div id='ask_captcha'></div>
+					</div>
+					<div class="form_row checkbox_row concise">
+						<span>I read and understood <a rel="nofollow" href="/help/user_agreement" target="new">HubPages' terms of use</a>.</span>
+						<input class="normal form_checkbox" type="checkbox" tabindex="6" id="eula" name="eula" /> &nbsp;
+					</div>
+					<div class="form_row concise">
+						<input id="create_account" class="form_button" type="button" tabindex="7" value="ask!" onclick="javascript:void suFH.save();" />
+					</div>
+				</form>
+				<script type="text/javascript">suFH.observe();</script>
+			</div>
+			<div id="siSection" style="display:none">
+				<span class="special">If you are not a member, you can <a href="#" onclick="$('signTitle').innerHTML='Sign Up Now';$('siSection').hide();$('suSection').show();return false;">sign up</a></span>
+							<form id="signinForm" name="signinForm" action="">
+				<div id="signinErrors"></div>
+				<script type="text/javascript">
+					var siFH = new hpFormHandler("signinForm");
+					siFH.method = 'post';
+					siFH.submitUri = '/xml/signin.php';
+					siFH.nextUri = '/my/hubs';
+					siFH.errorDiv = $('signinErrors');
+					siFH.useEffects = false;
+
+					siFH.setValidators({}, {
+						usshem123: function(ele) {
+							siFH.validateMandatory(ele, 'Please enter your username.');
+						},
+						ussisma123: function(ele) {
+							siFH.validateMandatory(ele, 'Please enter your password.');
+						}
+					});
+
+					siFH.handleResponse = function(req) {
+						try {
+							eval(req.responseText);
+						} catch (e) {}
+
+						if(valid) {
+							this.onSuccess();
+						} else {
+							$('signinErrors').className = "alert";
+							$('signinErrors').innerHTML = errorHtml;
+							$('signinErrors').show();
+						}
+					}
+					siFH.onSuccess = function() {
+						window.location.replace(this.nextUri);
+					}
+				</script>
+				<div class="form_row concise">
+					<label for="usshem123">Username/ email</label>
+					<input class="form_text" type="text" id="usshem123" name="usshem123" maxlength="255" value=""/>
+				</div>
+				<div class="form_row concise">
+					<label for="ussisma123">Password</label>
+					<input class="form_text" type="password" id="ussisma123" name="ussisma123" size="17" maxlength="40"/>
+				</div>
+				<div class="form_row concise">
+					<input id="rememberme_checkbox" class="checkbox" type="checkbox" name="remember"/>
+					<label for="rememberme_checkbox" class="checkbox_label">Remember me</label>
+				</div>
+				<div class="form_row concise">
+					<input id="signin_button" class="form_button" type="button" value="ask!" onclick="javascript:void siFH.save();" />
+					<a id="forgot_something" href="/signin/reset/"><small>Forgot username or password?</small></a>
+				</div>
+			</form>
+			</div>
+				</div>
+				<script type="text/javascript">
+					suFH.ghostField("ask_question", "asked_question");
+					suFH.onSuccess = function() {
+						location.href = "/make/request/nicomp/?requestText="+escape($('asked_question').innerHTML);
+					}
+					siFH.onSuccess = suFH.onSuccess;
+				</script><div class="entry moduleYieldBuild" style="clear:left">
+<script type="text/javascript"><!--
+google_ad_host = "pub-6958755572607374";
+google_ad_client = "ca-pub-5716763142404758"; 
+google_alternate_ad_url = "http://hubpages.com/google_adsense_script.html";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "image";
+google_ad_channel = "9795059004";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000CC";
+google_color_url = "333333";
+google_color_text = "333333";
+google_ui_features = "rc:0";
+
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><div class="sidebar_box"><h3>Related Hubs</h3><ul class="simpleHubList"><li><a href="/hub/8-Great-Careers-for-a-Computer-Science-Major"><img src="http://s4.hubimg.com/u/863143_50.jpg" alt="" title="" /></a><div><a href="/hub/8-Great-Careers-for-a-Computer-Science-Major">8 Great Careers for a Computer Science Major</a><br/><span class="author">by Kathryn Vercillo</span></div></li><li><a href="/hub/Dragon-Naturally-Speaking-Review"><img src="http://s1.hubimg.com/u/271664_50.jpg" alt="" title="" /></a><div><a href="/hub/Dragon-Naturally-Speaking-Review">Dragon Naturally Speaking Review</a><br/><span class="author">by MarcNorris</span></div></li><li><a href="/hub/Data-Types-in-C-Language"><img src="http://s2.hubimg.com/u/977725_50.jpg" alt="" title="" /></a><div><a href="/hub/Data-Types-in-C-Language">Data Types in C Language</a><br/><span class="author">by rajkishor09</span></div></li><li><a href="/hub/Your-First-C-Program"><img src="http://s2.hubimg.com/u/969957_50.jpg" alt="Turbo C Editor Window." title="Turbo C Editor Window." /></a><div><a href="/hub/Your-First-C-Program">Your First C Program</a><br/><span class="author">by rajkishor09</span></div></li><li><a href="/hub/Turn-Your-PC-Keyboard-to-Musical-Keyboard"><img src="http://s3.hubimg.com/u/980946_50.jpg" alt="C Language Tutorials" title="C Language Tutorials" /></a><div><a href="/hub/Turn-Your-PC-Keyboard-to-Musical-Keyboard">Turn Your PC Keyboard to Musical Keyboard using C Program</a><br/><span class="author">by rajkishor09</span></div></li><li><a href="/hub/C-program-that-interfaces-with-MS-Access-Store-data-text-image-in-an-Access-database-file"><img src="http://x.hubpages.com/i/s.gif" alt=""/></a><div><a href="/hub/C-program-that-interfaces-with-MS-Access-Store-data-text-image-in-an-Access-database-file">C# program that interfaces with MS Access: Store data...</a><br/><span class="author">by mbip</span></div></li></ul></div><div class="sidebar_box"><div class="forum_topics">
+<h3> Computers Forum</h3>
+<table cellpadding="0" cellspacing="0" border="0">
+<thead>
+<tr>
+<th class="topic">Topic</th>
+<th class="postcount">Replies</th>
+</tr>
+</thead>
+<tbody><tr class="light"><td class="topic"><a href="/forum/topic/34897">Online Tech Support for Computer</a><span class="postedby">posted by ShallyD</span></td><td class="postcount">6</td></tr><tr class="dark"><td class="topic"><a href="/forum/topic/34590">Will we ever see a Operating System other than Windows??</a><span class="postedby">posted by Sagarika Rath</span></td><td class="postcount">25</td></tr><tr class="light"><td class="topic"><a href="/forum/topic/30730">Is there any free antivirus software to remove virus from my computer?</a><span class="postedby">posted by technocrates</span></td><td class="postcount">26</td></tr></tbody>
+</table>
+<a class="txtbutton" href="/forum/newtopic/category/5389">Post a new topic</a><a class="txtbutton morebutton" href="/forum/category/5389">35 more topics &rarr;</a>
+</div></div><div class="sidebar_box"><h3>Related Questions</h3><ul class="simpleRequestList"><li><h3><a href="/question/19580/what-is-the-best-open-source-speech-recognition-software-that-is-available-free-of-charge">What is the best open source speech recognition software that is available free of charge?</a></h3><h4>asked by Aya Katz 5 months ago</h4><p><a class="num_answers" href="/question/19580/what-is-the-best-open-source-speech-recognition-software-that-is-available-free-of-charge">3 answers</a> &nbsp;&nbsp; <a class="makehub" href="/question/19580/what-is-the-best-open-source-speech-recognition-software-that-is-available-free-of-charge?open">Answer this question</a></p></li><li><h3><a href="/question/12135/i-want-build-my-own-software--can-any-one-tell-me-how-to-start--which-programming-laguage-is-easy--good-for">i wan't build my own software ,
+can any one tell me how to start ,
+which programming laguage is easy & good for begginers?
+what language should i use?</a></h3><h4>asked by shreekrishna 9 months ago</h4><p><a class="num_answers" href="/question/12135/i-want-build-my-own-software--can-any-one-tell-me-how-to-start--which-programming-laguage-is-easy--good-for">11 answers</a> &nbsp;&nbsp; <a class="makehub" href="/question/12135/i-want-build-my-own-software--can-any-one-tell-me-how-to-start--which-programming-laguage-is-easy--good-for?open">Answer this question</a></p></li></ul></div><div class="sidebar_box"><h3>Tags</h3><ul id="nav_tags"><li><a href="/tag/oop/hot" >oop</a> </li><li><a href="/tag/object+oriented+programming/hot" >object oriented programming</a> </li><li><a href="/tag/design+patterns/hot" >design patterns</a> </li><li><a href="/tag/static+java+class+/hot" >static java class </a> </li><li><a href="/tag/static+class+java+/hot" >static class java </a> </li><li><a href="/tag/java+static+class+/hot" >java static class </a> </li><li><a href="/tag/static+class+in+java+/hot" >static class in java </a> </li><li><a href="/tag/references+static/hot" >references static</a> </li><li><a href="/tag/static+classes/hot" >static classes</a> </li><li><a href="/tag/static+class/hot" >static class</a> </li></ul></div><div class="poweredbyyb"><a rel="nofollow" href="http://yieldbuild.com/?utm_source=sitepromo&amp;utm_campaign=hubpagespromo&amp;utm_medium=micro&amp;utm_content=v2g"><img width="160" height="40" src="http://x.hubpages.com/x/yieldbuild/v2g.png" alt="powered by YieldBuild" /></a></div><div class="entry moduleYieldBuild" style="clear:left; padding-top:10px;">
+
+</div></div></div><script type="text/javascript">dur = new SampleDuration(531095);</script>	</div> <!-- container wrap -->
+	<div id="footer_wrap">
+		<div id="footer">
+			<a id="footer_home" href="/" title="To the HubPages home page">HubPages</a>
+			<ul>
+				<li><a href="/about/">about us</a></li>
+				<li><a href="http://blog.hubpages.com/">blog</a></li>
+				<li><a href="/guide/overview">guide</a></li>
+				<li><a href="/tour/affiliate/" >affiliates</a></li>
+				<li><a href="/help/advertise">advertise</a></li>
+								<li><a href="javascript:showEmailForm('Introduction-to-Static-Classes-in-Java', 'hub');void(0);">email this page</a></li>
+								<li><a href="#" onclick="showLinkArticle('/hub/Introduction-to-Static-Classes-in-Java', 'Introduction to Static Classes in Java'); return false;">link to this page</a></li>
+				<li><a href="/help/copyright_infringement">copyright</a></li>
+							</ul>
+			<p>Copyright &copy; 2010 Hubpages Inc. and respective owners. All rights reserved.</p>
+			<p class="disclaimer">Other product and company names shown may be trademarks of their respective owners.</p>
+			<p><a href="/help/user_agreement">terms of use</a> <a href="/help/privacy_policy">privacy policy</a> (served in 0.458 sec)</p>		</div>
+	</div>
+
+	<div id="ajaxing"><div id="ajaxing_box"><img src="http://x.hubpages.com/i/spnr.gif" alt="" /> <span>working</span></div></div>
+	<div id="ajaxing_big"><img src="http://x.hubpages.com/x/loader.gif" alt="" /></div>
+
+	<script type="text/javascript">
+_qoptions={
+qacct:"p-40hb1Sup4Jk_U",
+labels:"technology.computers"
+};
+</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<noscript>
+<img src="http://pixel.quantserve.com/pixel/p-40hb1Sup4Jk_U.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+	<script type="text/javascript">
+_qoptions={
+qacct:"p-92xG4DA5UTFrc",
+labels:"Technology"
+};
+</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<noscript>
+<img src="http://pixel.quantserve.com/pixel/p-92xG4DA5UTFrc.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+	
+	<iframe width="1" height="1" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" src="http://pbid.pro-market.net/engine?site=121964;size=1x1;category=Computer+Science+%26+Programming;kw=Introduction+to+Static+Classes+in+Java"></iframe>
+	<script type="text/javascript" src="http://js.revsci.net/gateway/gw.js?csid=G07610&amp;bpid=S0273"></script>
+	</body>
+</html>
+<!-- rendered by hubwbe12 at Thu, 04 Feb 10 02:00:51 -0800 -->
+<!-- served from cache Thu, 04 Feb 10 02:50:48 -0800 -->

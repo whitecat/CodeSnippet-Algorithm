@@ -1,0 +1,80 @@
+<head>
+ <meta http-equiv="Content-Type" content="text/html ">
+ <title>'[XSLTC] Exception java.lang.VerifyError while testing' - MARC</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000C0" vlink="#800080">
+<pre><b>[<a href="?l=xalan-j-users&m=100411452423471&w=2">prev in list</a>] [<a href="?l=xalan-j-users&m=100415600631841&w=2">next in list</a>] [<font color="#c0c0c0">prev in thread</font>] [<font color="#c0c0c0">next in thread</font>] </b>
+<b><font size=+1>
+List:       <a href="?l=xalan-j-users&r=1&w=2">xalan-j-users</a>
+Subject:    [XSLTC] Exception java.lang.VerifyError while testing
+From:       <a href="?a=100412586000001&r=1&w=2">BAILLEUX_Benoît_FTRD/DMI/CAE</a>
+Date:       <a href="?l=xalan-j-users&r=1&w=2&b=200110">2001-10-26 11:41:51</a></font>
+[<a href="?l=xalan-j-users&m=100412573531890&q=raw">Download message RAW</a>]</b>
+
+Hi all.
+I try to use Xalan Java 2.2.D11 to test its perfs with TRANSLETS, for the
+first time, and I have trouble with it.
+I have no difficulty to create a JAR file with my translet, that way :
+
+$ java -cp
+./xalan14/xerces.jar:./xalan14/xalan.jar:./xalan14/xsltc.jar:./xalan
+14/runtime.jar:./xalan14/BCEL.jar org.apache.xalan.xsltc.compiler.XSLTC -j
+phonexml.jar -o phonexml phonexml.xsl
+
+but I can't run a command-line transformation that way :
+
+$ java -cp
+./xalan14/xerces.jar:./xalan14/xalan.jar:./xalan14/xsltc.jar:./xalan
+14/runtime.jar:./xalan14/BCEL.jar:./phonexml.jar
+org.apache.xalan.xsltc.runtime .DefaultRun phonexml.xml phonexml
+
+because XSLTC throw an exception that I haven't see referenced nowhere in
+that context :
+
+Exception in thread "main" java.lang.VerifyError: (class: phonexml, method:
+applyTemplates signature:
+(Lorg/apache/xalan/xsltc/DOM;Lorg/apache/xalan/xsltc/NodeIterator;Lorg/apach
+e/xalan/xsltc/TransletOutputHandler;)V) Expecting to find object/array on
+stack
+        at java.lang.Class.forName0(Native Method)
+        at java.lang.Class.forName(Class.java:124)
+        at
+org.apache.xalan.xsltc.runtime.DefaultRun.doTransform(DefaultRun.java:127)
+        at
+org.apache.xalan.xsltc.runtime.DefaultRun.main(DefaultRun.java:312)
+
+Same result with various XML and XSL files, on various platforms (Win 2000
+and Linux).
+The Java versions are 1.2.2 :
+Linux :
+java version "1.2.2"
+Classic VM (build JDK-1.2.2_008, green threads, nojit)
+
+Win 2000 :
+java version "1.2.2"
+Classic VM (build JDK-1.2.2-W, native threads, symcjit)
+
+Anyone has a solution or a clue ?
+
+NB : let me know if this english version is not comprehensible :-) 
+
+Cordialement,
+--
+Benoît BAILLEUX - France Télécom R&amp;D
+benoit.bailleux@francetelecom.com
+Tél. : 02 31 75 91 62
+
+<b>[<a href="?l=xalan-j-users&m=100411452423471&w=2">prev in list</a>] [<a href="?l=xalan-j-users&m=100415600631841&w=2">next in list</a>] [<font color="#c0c0c0">prev in thread</font>] [<font color="#c0c0c0">next in thread</font>] </b>
+</pre>
+  </pre><br><center>
+    <a href="?q=configure">Configure</a> | 
+
+    <a href="?q=about">About</a> |
+    <a href="?q=news">News</a> |
+    <a href="?q=about#Begware">Donate</a> |
+    <a href="mailto:webguy@marc.info?subject=Add a list to MARC">Add&nbsp;a&nbsp;list</a> |
+    Sponsors:&nbsp;<a href="http://www.10East.com/">10East</a>,&nbsp;<a href="http://www.korelogic.com/">KoreLogic</a>,&nbsp;<a href="http://www.terra-intl.com/">Terra-International</a>,&nbsp;<a href="http://www.chakpak.com/">Chakpak.com</a>
+</center>
+</body>
+</html>

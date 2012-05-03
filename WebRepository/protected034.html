@@ -1,0 +1,740 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+
+
+    <title>java.net Forums : How to mock protected method in Java ...</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="style/style.jsp;jsessionid=66D9AF779F53E75E93C9B13283320FEA" title="Forum Styles" />
+
+    <link rel="alternate" type="application/rss+xml" title="RSS"
+          href="http://forums.java.net/jive/rss/rssmessages.jspa?threadID=62956">
+</head>
+<body>
+
+
+		<a name="top"></a>
+<!--  Masthead  -->
+<div class="topline">
+<div class="topbar">
+<a href="http://www.java.net"><img src="http://www.java.net/images/header_jnet_new.jpg" width="500" height="60" border="0" alt="The Source for Java Technology Collaboration"></a>
+</div>
+</div>
+<div style="text-align:right; font-size:12px; font-weight:bold">
+
+<script language="JavaScript" type="text/javascript">
+<!--
+var name = "spamreport";
+var domain = "admin.dev.java.net";
+var display = "<img src=\"http://java.net/sites/all/themes/java/images/email.png\" border=\"0\"> Report Abuse";
+var subject = "[Java.net Forum Abuse]";
+var ending = "";
+var style = "";
+document.write('<a style="color:#900" class="' + style + '" href="mailto:' + name + '@' + domain + '?subject=' + subject + '">');
+if (display) {
+ document.write(display);
+} else {
+ document.write(name + '@' + domain);
+}
+document.write('</a>' + ending);
+document.write('<!-- mailmunge bit -->');
+// -->
+
+</script>
+
+</div>
+<div style="padding:20px; font-size:16px; border:1px solid red; display:none">Webmaster Alert:  Posting to Jive Forums is currently not working.  Estimated time for fix is unknown.</div>
+
+
+
+<br />
+
+<div id="jive-threadedpage">
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr valign="top">
+        <td width="98%">
+
+            
+
+
+
+
+
+
+
+
+
+
+<p class="jive-breadcrumbs">
+
+
+    
+    <a href="http://www.java.net"
+     >Home</a>
+    &raquo;
+
+
+
+
+
+
+
+<a href="index.jspa?categoryID=1">java.net Forums</a>
+
+
+
+    
+        &raquo;
+        <a href="category.jspa?categoryID=19">Java Tools</a>
+    
+
+    
+        &raquo;
+        <a href="forum.jspa?forumID=59&start=0">Java Development Tools</a>
+
+
+
+
+</p>
+
+            <p class="jive-page-title">
+                Thread: How to mock protected method in Java
+            </p>
+
+            
+
+
+
+
+
+
+
+    
+        
+        
+
+        
+        
+
+
+
+        </td>
+        <td width="1%"><img src="images/blank.gif" width="10" height="1" border="0" alt=""></td>
+        <td width="1%">
+
+            
+
+
+
+
+
+
+
+
+
+<div class="jive-accountbox">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" summary="Jive Forums Accountbox">
+
+
+
+<thead>
+    <tr>
+        <th colspan="2">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <th width="99%" style="border-width:0px;">
+                        
+                        Welcome, Guest
+                    </th>
+                    <th width="1%" style="border-width:0px;" nowrap="nowrap">
+                        
+                        <a href="help.jspa"><img src="images/help-16x16.gif" width="16" height="16" border="0"
+                                                 alt="Help"></a>
+                    </th>
+                </tr>
+            </table>
+        </th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td width="1%" class="jive-icon"><a
+                href="login!withRedirect.jspa"><img
+                src="images/key-16x16.gif" width="16" height="16" border="0" alt="Login"></a>
+        </td>
+        <td width="99%" class="jive-icon-label">
+            
+            
+
+            <a href="https://www.dev.java.net/servlets/TLogin?x-redirect=https://forums.java.net/jive/thread-threaded.jsp?messageID=350742">
+                Login</a>
+
+            
+        </td>
+    </tr>
+    <tr>
+        <td width="1%" class="jive-icon">
+            <a href="guestsettings!default.jspa"
+                    ><img src="images/preferences-16x16.gif" width="16" height="16" border="0" alt="Guest Settings"></a>
+        </td>
+        <td width="99%" class="jive-icon-label">
+            
+            <a href="guestsettings!default.jspa">Guest Settings</a>
+        </td>
+    </tr>
+</tbody>
+
+
+
+</table>
+</div>
+
+
+
+<style type="text/css">
+#jive-history .wrap1 {
+    float : left;
+    background:url(images/ds_shadow.gif) right bottom no-repeat;
+}
+#jive-history .wrap2 {
+    background : url(images/ds_corner_bl.gif) left bottom no-repeat;
+}
+#jive-history .wrap3 {
+    padding : 0px 5px 5px 0px;
+    background : url(images/ds_corner_tr.gif) right top no-repeat;
+}
+#jive-history .wrap3 img {
+    display : block;
+}
+</style>
+
+<div id="jive-history" style="position:absolute; z-index:1000; display:none;">
+    <div class="wrap1"><div class="wrap2"><div class="wrap3">
+        <iframe id="rhframe" src="recent-history.jspa" width="400" height="300" frameborder="0"
+                style="background-color:#fff; border: 1px #000 solid;"></iframe>
+    </div></div></div>
+</div>
+
+<script type="text/javascript" src="scripts/prototype/prototype.js"></script>
+<script type="text/javascript" src="scripts/scriptaculous/effects.js"></script>
+
+<script type="text/javascript" language="JavaScript">
+    if (document.layers) {
+        document.captureEvents(Event.KEYDOWN);
+    }
+
+    document.onkeydown = function (evt) {
+        var keyCode = document.layers ?
+            evt.which : document.all ? event.keyCode : document.getElementById ? evt.keyCode : 0;
+        if (keyCode == 27) { // esc - close recent history
+            var history = document.getElementById('jive-history');
+            if (history.style.display != "none") {
+                new Effect.toggle('jive-history', 'blind', {duration: 0.2});
+            }
+        }
+    }
+
+    document.body.onclick  = function (evt) {
+        var history = document.getElementById('jive-history');
+        if (history.style.display != "none") {
+            new Effect.toggle('jive-history', 'blind', {duration: 0.2});
+        }
+    }
+
+    var elemx = 0;
+    var elemy = 0;
+    function XYpos(event){
+        // do not set the position of the element more than once
+        if (elemx == 0 && elemy == 0) {
+            if (event.pageX || event.pageY) {
+                elemx = window.innerWidth - event.pageX - 20;
+                elemy = event.pageY + 10;
+            }
+            else if (event.clientX || event.clientY) {
+                elemx = document.body.offsetWidth - event.clientX - 20;
+                elemy = event.clientY + 10;
+            }
+            var elem = document.getElementById('jive-history');
+            elem.style.right = elemx;
+            elem.style.top = elemy;
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+        </td>
+    </tr>
+</table>
+
+
+    
+
+
+
+
+    <div id="jive-question-box" class="jive-infobox">
+    <table cellpadding="2" cellspacing="0" border="0">
+    <tbody>
+        <tr valign="top">
+            <td><img src="images/question-open-24x24.gif" alt="" border="0"></td>
+            <td>
+                
+
+                    
+
+                        
+
+                        
+                            
+                            
+                                
+                                
+                            This question is <span class="unans">not answered</span>.
+
+                        
+
+                        
+                        
+                            
+                            
+                                
+                            Helpful answers available: <b>2</b>.
+
+                            
+                            
+                                
+                            Correct answers available: <b>1</b>.
+                        
+
+                    
+
+                
+            </td>
+       </tr>
+    </tbody>
+    </table>
+    </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+    
+
+    <div class="jive-buttons">
+    <table summary="Buttons" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        
+                <td class="jive-icon">
+                    <a href="post!reply.jspa?threadID=62956"
+                     ><img src="images/reply-16x16.gif" width="16" height="16" border="0" alt="Reply to this Thread"></a></td>
+                <td class="jive-icon-label">
+                    
+                    <a id="jive-reply-thread" href="post!reply.jspa?threadID=62956"
+                     >Reply to this Thread</a>
+                </td>
+        
+                <td class="jive-icon">
+                    <a href="search!default.jspa?objID=f59"
+                     ><img src="images/search-16x16.gif" width="16" height="16" border="0" alt="Search Forum"></a></td>
+                <td class="jive-icon-label">
+                    
+                    <a href="search!default.jspa?objID=f59"
+                     >Search Forum</a>
+                </td>
+        
+
+        
+
+        
+
+        
+
+        <td class="jive-icon">
+            <a href="forum.jspa?forumID=59"
+             ><img src="images/arrow-left-16x16.gif" width="16" height="16" border="0" alt="Back to Thread List"></a>
+        </td>
+        <td class="jive-icon-label">
+            
+            <a href="forum.jspa?forumID=59"
+             >Back to Thread List</a>
+        </td>
+
+    </tr>
+    </table>
+    </div>
+
+
+
+<br>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody>
+        <tr valign="top">
+            <td width="99%">
+
+                
+                
+
+
+
+<div class="jive-message-list">
+<div class="jive-table">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<thead>
+    <tr>
+        <th class="jive-first-last">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <thead>
+                <tr>
+                    <th width="1%">
+                        <a href="thread.jspa?threadID=62956"
+                         title="Permlink"
+                         ><img src="images/permlink-16x16.gif" width="16" height="16" border="0" alt="Permlink"></a>
+                    </th>
+                    <th width="97%">
+
+                        
+                        <nobr>
+                        Replies:
+                        0
+                        </nobr>
+
+                        
+
+                        
+                        
+
+                    </th>
+                    <th width="1%" nowrap>
+                        
+                            
+                        
+                    </th>
+                </tr>
+            </thead>
+            </table>
+        </th>
+    </tr>
+</thead>
+</table>
+</div>
+</div>
+
+                
+                
+
+                        <div class="jive-message-list">
+                            <div class="jive-table">
+                                
+
+
+
+
+
+
+
+
+
+
+
+<div class="jive-messagebox">
+<table summary="Message" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr id="jive-message-350742" valign="top" class="jive-even">
+<td width="1%" class="jive-first">
+<table cellpadding="0" cellspacing="0" border="0" width="150">
+<tr>
+<td>
+
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody>
+        <tr valign="top">
+            <td width="1%" style="padding:0px;">
+                <nobr>
+                    <a href="profile.jspa?userID=503341"
+                       title="intelrate"
+                            >intelrate</a>
+                </nobr>
+            </td>
+            <td width="99%" style="padding:0px;">
+                
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<br>
+
+
+
+            <span class="jive-description">
+
+
+            
+            Posts:
+            1
+            <br>
+
+            
+            
+             <!--   Registered:
+                12/31/69 -->
+            
+
+            </span>
+
+
+</td>
+</tr>
+</table>
+</td>
+<td width="99%" class="jive-last">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top">
+<td width="1%">
+    
+</td>
+<td width="97%">
+
+                    <span class="jive-subject">
+                    <a name="350742"></a>
+                    How to mock protected method in Java
+                    </span>
+
+    <br>
+
+    
+                    <span class="jive-description">
+                    Posted:
+                    Jun 11, 2009 9:03 AM
+
+                    
+                    </span>
+</td>
+
+    <td width="1%" class="jive-rating-buttons" nowrap>
+
+        
+
+        
+        &nbsp;
+        <br />
+
+
+        
+
+    </td>
+
+<td width="1%">
+
+<div class="jive-buttons">
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+
+
+
+
+
+
+
+
+
+<td>&nbsp;</td>
+<td class="jive-icon">
+    <a href="post!reply.jspa?messageID=350742"
+       title="Click to reply to this thread"
+            ><img src="images/reply-16x16.gif" width="16" height="16" border="0"
+                  alt="Click to reply to this thread"></a>
+</td>
+<td class="jive-icon-label">
+    <a href="post!reply.jspa?messageID=350742"
+       title="Click to reply to this thread"
+            >Reply</a>
+</td>
+
+
+</tr>
+</table>
+</div>
+
+</td>
+</tr>
+
+<tr>
+    <td colspan="4" style="border-top: 1px #ccc solid;">
+        <br>
+        Here is a question.<br/><br/> I wanted my JUnit tests to be more modular and found <a href="http://intelrate.blogspot.com/2009/05/how-to-mock-protected-method-in-java.html">how to mock protected methods</a> for that purpose. Briefly speaking, we cannot mock and control calls of protected method with JDK dynamic proxy because protected methods are not in any interface but we can create MockInterface with mock method under control and call it from overridden protected method to achieve our goal.<br/><br/> The problem IÃ¢â?¬â?¢m trying to resolve now is that my mock method should have the same number of parameters as protected method I want to mock. It forces me to create several mock methods with different number of parameters which is not elegant. Does anyone know better solution in JMock or other Java framework? Any help would be very appreciated.
+        <br><br>
+    </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+                            </div>
+                        </div>
+
+                        
+
+            
+</div>
+
+<div class="jive-message-list-footer">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tbody>
+            <tr>
+                <td width="1%" nowrap>
+                    
+                    <br>
+                    <a href="rss.jspa?feed=rss/rssmessages.jspa?threadID=62956"
+                       title="Point your RSS reader here for a feed of the latest messages in this thread"><img src="images/feed-icon-16x16.gif" width="16"
+                                                                          height="16" border="0"
+                                                                          alt="Point your RSS reader here for a feed of the latest messages in all forums"></a> 
+                </td>
+                <td width="98%" align="center">
+                    <table cellpadding="3" cellspacing="0" border="0">
+                        <tr>
+                            <td>
+                                <a href="forum.jspa?forumID=59"
+                                        ><img src="images/arrow-left-16x16.gif" width="16" height="16" border="0"
+                                              alt="Go Back"></a>
+                            <td>
+                                
+                            <span class="jive-button-label">
+                            <a href="forum.jspa?forumID=59"
+                                    >Back to Thread List</a>
+                            </span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="1%" nowrap>
+
+                    
+                            
+                        
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</td>
+<td width="1%">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+</tbody>
+</table>
+
+<br>
+
+    
+    
+
+
+
+</div>
+
+<br /><br />
+
+
+		<!--  BEGIN VNV5 FOOTER   -->
+<!--  BEGIN VNV5 FOOTER   -->
+
+<table border="0" cellpadding="0" cellspacing="10" width="100%">
+<tr>
+<td>
+&nbsp;<a href="http://today.java.net/pub/q/java_net_rss"><img src="http://www.java.net/images/xml.gif" border="0" width="36" height="14" alt="XML" align="absmiddle"></a>&nbsp;<b>java.net RSS</b><br />
+<div class="grayline"></div>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="vatop">
+<tr>
+<td><img src="http://www.java.net/im/a.gif" width="190" height="1" border="0" alt=" " /><br />
+&nbsp;&nbsp;<a href="http://www.oracle.com"><img src="http://www.java.net/images/logo_oracle_footer.gif" border="0" alt=" " vspace="5"/></a></td>
+<td width="60%" valign="top">
+<div class="footer">
+<a href="https://java-net.dev.java.net/feedback.html">Feedback</a> &nbsp;|&nbsp;<a href="http://java.net/faq.csp">FAQ</a> &nbsp;|&nbsp;<a href="http://java.net/presscenter/">Press</a>&nbsp;|&nbsp;<a href="http://java.net/terms.csp">Terms of Use</a><br />
+
+<a href="http://www.sun.com/privacy/">Privacy</a> &nbsp;|&nbsp;
+<a href="http://www.sun.com/suntrademarks/">Trademarks</a>&nbsp;|&nbsp;<a href="https://java-net.dev.java.net/sitemap.html">Site Map</a>
+<br /><span class="sp5">&nbsp;</span><br />
+Your use of this web site or any of its content or software indicates your agreement to be bound by these <a href="http://java.net/terms.csp">Terms of Participation</a>.<br />
+<span class="sp5">&nbsp;</span><br />
+Copyright &copy; 2010, Oracle and/or its affiliates. All rights reserved. Oracle and Java are registered trademarks of Oracle and/or its affiliates. Other names may be trademarks of their respective owners.
+
+</div></td>
+<td width="40%" valign="top" align="right"><div class="footer">
+<a href="http://www.collab.net/"><img src="http://java.net/images/montague_logo_collabnet.gif" alt="Collabnet Logo" border="0" height="19" width="85"></a>
+
+		<a href="http://www.cognisync.com/"><img src="http://java.net/images/cognisync.jpg" alt="Cognisync Communities" border="0"></a>
+<br>
+                    Powered by Sun Microsystems, Inc.,<br>
+                    CollabNet and Cognisync </div></td></tr>
+<!--  <tr><td colspan="3" valign="top" class="grey3"><img src="http://www.java.net/im/a.gif" width="1" height="2" border="0" alt=" " /></td></tr>  -->
+</table>
+<div class="grayline"></div>
+</td></tr>
+</table>
+<!--  END VNV5 FOOTER  -->
+
+<!--  Begin SiteCatalyst code  -->
+<script language="JavaScript">
+<!--
+var s_channel="jnet-other";
+//--></script>
+<script language="JavaScript" src="http://www.java.net/images/s_code_remote.js"></script>
+<!--  End SiteCatalyst code  -->
+
+
+
+</body>
+</html>

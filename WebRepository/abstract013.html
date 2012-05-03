@@ -1,0 +1,1992 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Are You Using Abstract Classes, Polymorphism, and Interfaces? | JAVA Developer's Journal</title>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://java.sys-con.com/index.rss" />
+  <link rel="shortcut icon" href="http://gemsres.com/ui/2.0/gems/favicon.ico" />
+  <meta name="keywords" content="SYS-CON Media, NJ, Breaking Technology News, SYS-CON Media, Java, Sun Microsystems, J2EE, J2ME, J2SE, Eclipse.org, IBM WebSphere, BEA WebLogic, Microsoft.net, Linux, Oracle application server, JCP, JSP, Java server faces"/>
+  <meta name="description" content="SYS-CON Media JDJ Java Developer's Journal"/>
+  <link type="text/css" rel="stylesheet" media="all" href="/modules/logintoboggan/logintoboggan.css?o" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/fivestar/css/fivestar.css?o" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/comment/comment.css?o" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/openid/openid.css?o" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/uz/lib/yui/tabview/assets/skins/sam/tabview.css?o" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/uz/lib/yui/carousel/assets/skins/sam/carousel.css?o" />
+<link type="text/css" rel="stylesheet" media="all" href="http://gemsres.com/ui/2.0/gems/uz_theme_gems_outer.css" />
+<link type="text/css" rel="stylesheet" media="all" href="http://gemsres.com/ui/2.0/gems/uz_theme_gems_inner.css" />
+<link type="text/css" rel="stylesheet" media="all" href="http://gemsres.com/ui/2.0/gems/uz_theme_gems_site.css" />
+  <script type="text/javascript" src="/misc/jquery.js?o"></script>
+<script type="text/javascript" src="/misc/drupal.js?o"></script>
+<script type="text/javascript" src="/sites/all/modules/uz_node/uz_node.feedback.js?o"></script>
+<script type="text/javascript" src="/modules/fivestar/js/fivestar.js?o"></script>
+<script type="text/javascript" src="/modules/openid/openid.js?o"></script>
+<script type="text/javascript" src="/sites/all/modules/uz/lib/yui/yahoo-dom-event/yahoo-dom-event.js?o"></script>
+<script type="text/javascript" src="/sites/all/modules/uz/lib/yui/element/element-beta-min.js?o"></script>
+<script type="text/javascript" src="/sites/all/modules/uz/lib/yui/tabview/tabview-min.js?o"></script>
+<script type="text/javascript" src="/sites/all/modules/uz/lib/yui/animation/animation-min.js?o"></script>
+<script type="text/javascript" src="/sites/all/modules/uz/lib/yui/carousel/carousel-beta-min.js?o"></script>
+<script type="text/javascript" src="/sites/all/themes/uz_theme/uz_theme.js?o"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "fivestar": { "titleUser": "Your rating: ", "titleAverage": "Average: ", "feedbackSavingVote": "Saving your vote...", "feedbackVoteSaved": "Your vote has been saved.", "feedbackDeletingVote": "Deleting your vote...", "feedbackVoteDeleted": "Your vote has been deleted." } });
+//--><!]]>
+</script>
+    <style type="text/css">
+div#tabs-whitepapers-downloads-webcasts .whitepapers, div#tabs-whitepapers-downloads-webcasts .downloads, div#tabs-whitepapers-downloads-webcasts .webcasts {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+div#tabs-whitepapers-downloads-webcasts .whitepapers li {
+  background: transparent url(http://gemsres.com/ui/2.0/gems/images/bullet-whitepaper.gif) no-repeat scroll 0 50%;
+  padding: 1px 0 1px 28px
+}
+div#tabs-whitepapers-downloads-webcasts .downloads li {
+  background: transparent url(http://gemsres.com/ui/2.0/gems/images/bullet-download.gif) no-repeat scroll 0 50%;
+  padding: 1px 0 1px 28px;
+}
+div#tabs-whitepapers-downloads-webcasts .webcasts li {
+  background: transparent url(http://gemsres.com/ui/2.0/gems/images/bullet-webcast.gif) no-repeat scroll 0 50%;
+  padding: 1px 0 1px 28px;
+}
+div#tabs-whitepapers-downloads-webcasts .whitepapers li a: hover, div#tabs-whitepapers-downloads-webcasts .downloads li a: hover, div#tabs-whitepapers-downloads-webcasts .webcasts li a: hover {
+  text-decoration: underline;
+}
+div#tabs-whitepapers-downloads-webcasts .whitepapers li a, div#tabs-whitepapers-downloads-webcasts .downloads li a, div#tabs-whitepapers-downloads-webcasts .webcasts li a {
+  color: #256790;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  line-height: 18px;
+  text-decoration: none;
+}
+.yui-skin-sam .yui-navset .yui-content,
+.yui-skin-sam .yui-navset .yui-navset-top .yui-content {
+  border-top: 1px solid #D5DEE5;
+  margin-top: 5px;
+  padding: 0.25em 0;
+}
+</style>
+
+  <script type="text/javascript">
+  <!--
+  function MM_jumpMenu(targ,selObj,restore){ //v3.0
+    eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+    if (restore) selObj.selectedIndex=0;
+  }
+  addthis_pub  = 'syscon';
+  //-->
+  </script>
+  <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+</head>
+<body>
+  <div id="container">
+    <table cellpadding="0" cellspacing="0" id="container-table">
+    <tr>
+      <td colspan="2"><div id="header-all"><div id="header-navbar">
+	<div id="header-nav-left">
+  	<div id="header-greeting">
+      <p>Welcome! </p>
+    </div>
+    <div id="navcontainer">
+            <ul id="navlist">
+        <li><a href="/user/register">Register</a></li> <li>|</li> <li><a href="/user?destination=node%2F37695">Sign-in</a></li>      </ul>
+          </div>
+    <!-- end #navcontainer -->
+	</div>
+  <!-- end #header-nav-left -->
+	<div id="header-nav-right">
+    <div id="header-search">Search&nbsp;
+      <form id="header-search-form" name="search" method="get" action="/search">
+        <input type="text" id="header-search-form-text" name="s" size="32" maxlength="255" value="" />
+        <img onclick="javascript:document.search.submit();" src="http://gemsres.com/ui/2.0/gems/images/search.gif" alt="search" align="top" />
+      </form>
+    </div>
+    <div id="magazine-jump">
+      <form name="drop" id="drop">
+        <select name="jumpMenu" id="jumpMenu" onchange="MM_jumpMenu('parent',this,0)">
+          <option selected="selected">Jump to a Magazine</option>
+          <option value="http://dotnet.sys-con.com">.NET</option>
+          <option value="http://ajax.sys-con.com">AJAX</option>
+          <option value="http://apache.sys-con.com">APACHE</option>
+          <option value="http://cloudcomputing.sys-con.com">CLOUD COMPUTING</option>
+          <option value="http://cms.sys-con.com">CMS</option>
+          <option value="http://coldfusion.sys-con.com">COLDFUSION</option>
+          <option value="http://crm.sys-con.com">CRM</option>
+          <option value="http://eclipse.sys-con.com">ECLIPSE</option>
+          <option value="http://flex.sys-con.com">FLEX</option>
+          <option value="http://hp.sys-con.com">HP</option>
+          <option value="http://iphone.sys-con.com">IPHONE</option>
+          <option value="http://jdj.sys-con.com">JAVA</option>
+          <option value="http://linux.sys-con.com">LINUX</option>
+          <option value="http://opensource.sys-con.com">OPEN SOURCE</option>
+          <option value="http://openwebdeveloper.sys-con.com">OPEN WEB</option>
+          <option value="http://oracle.sys-con.com">ORACLE</option>
+          <option value="http://perl.sys-con.com">PERL</option>
+          <option value="http://php.sys-con.com">PHP</option>
+          <option value="http://pbdj.sys-con.com">POWERBUILDER</option>
+          <option value="http://python.sys-con.com">PYTHON</option>
+          <option value="http://redhat.sys-con.com">RED HAT</option>
+          <option value="http://ruby.sys-con.com">RUBY</option>
+          <option value="http://sap.sys-con.com">SAP</option>
+          <option value="http://search.sys-con.com">SEARCH</option>
+          <option value="http://silverlight.sys-con.com">SILVERLIGHT</option>
+          <option value="http://soa.sys-con.com">SOA</option>
+          <option value="http://symbian.sys-con.com">SYMBIAN</option>
+          <option value="http://internetvideo.sys-con.com">VIDEO</option>
+          <option value="http://virtualization.sys-con.com">VIRTUALIZATION</option>
+          <option value="http://web2.sys-con.com">WEB 2.0</option>
+          <option value="http://weblogic.sys-con.com">WEBLOGIC</option>
+          <option value="http://websphere.sys-con.com">WEBSPHERE</option>
+          <option value="http://wireless.sys-con.com">WIRELESS</option>
+          <option value="http://xml.sys-con.com">XML</option>
+        </select>
+      </form>
+    </div>
+  </div>
+  <!-- end #header-nav-right -->
+</div>
+<!-- end #header-navbar -->
+<div id="header">
+  <div id="header-logo"><img src="http://res.sys-con.com/section/1/logo_java.png" alt="" /></div>
+  <!-- end #header-logo -->
+  <div id="nav_gems">
+    <ul>
+      <li class="itm01"><a href="http://www.sys-con.com"><span>Home</span></a></li>
+      <li class="itm02"><a href="http://www.sys-con.com/general/subscribe.htm"><span>Subscribe</span></a></li>
+      <li class="itm03"><a href="http://www.sys-con.com/general/advertise.htm"><span>Advertise</span></a></li>
+      <li class="itm04"><a href="http://www.ulitzer.com/authors"><span>Authors</span></a></li>
+      <li class="itm05"><a href="http://www.ulitzer.com/topics"><span>Topics</span></a></li>
+      <li class="itm06"><a href="http://www.sys-con.tv"><span>Videos</span></a></li>
+      <li class="itm07"><a href="http://events.sys-con.com"><span>Events</span></a></li>
+      <li class="itm08"><a href="http://webcast.sys-con.com"><span>Webcasts</span></a></li>
+    </ul>
+  </div>
+  <!-- end #nav -->
+  <div id="header-title-tools">
+    <p class="get-author-via">
+      Java: 
+      <img src="http://gemsres.com/ui/2.0/gems/images/emailalerts.gif" alt="eMailAlerts" align="top" /><span class="tool-name"><a class="tool-link" href="/user/alert/site/1/add">Email Alerts</a></span>
+      <img src="http://gemsres.com/ui/2.0/gems/images/newsletter.gif" alt="newsletter" align="top" /><span class="tool-name"><a class="tool-link" href="http://www.sys-con.com/general/newslettersub.htm">Newsletters</a></span>&nbsp;&nbsp;
+
+      Get Java:
+      <img src="http://gemsres.com/ui/2.0/gems/images/homepage.gif" alt="homepage" align="top" /><span class="tool-name"><a class="tool-link" href="/">Homepage</a></span>
+      <img src="http://gemsres.com/ui/2.0/gems/images/mobile.gif" alt="mobile" align="top" /><span class="tool-name"><a class="tool-link" href="/mobile">Mobile</a></span>
+      <a class="tool-link" href="/index.rss"><img src="http://gemsres.com/ui/2.0/gems/images/feed.gif" alt="rss" align="top" /></a>
+      <a class="tool-link" href="http://www.facebook.com/sharer.php?u=http%3A/%252Fjava.sys-con.com/node/37695&t=Are%20You%20Using%20Abstract%20Classes%2C%20Polymorphism%2C%20and%20Interfaces%3F%20%7C%20JAVA%20Developer%27s%20Journal" target="_blank"><img src="http://gemsres.com/ui/2.0/gems/images/facebook.gif" alt="facebook" align="top" /></a>
+      <a class="tool-link" href=" http://twitter.com/sysconmedia" target="_blank"><img src="http://gemsres.com/ui/2.0/gems/images/icon_twitter.png" alt="twitter" align="top" /></a>
+      <a class="tool-link" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A/%252Fjava.sys-con.com/node/37695&title=Are%20You%20Using%20Abstract%20Classes%2C%20Polymorphism%2C%20and%20Interfaces%3F%20%7C%20JAVA%20Developer%27s%20Journal&ro=false&summary=&source=" target="_blank"><img src="http://gemsres.com/ui/2.0/gems/images/linkedin_logo.gif" alt="linkedin" align="top" /></a>
+    </p>
+  </div>
+</div>
+<!-- end #header -->
+<div id="header-navbar2">
+  <ul id="navbar2-list">
+    <li><a href="http://dotnet.sys-con.com/">.NET</a></li>
+    <li>|</li>
+    <li><a href="http://ajax.sys-con.com/">AJAX</a></li>
+    <li>|</li>
+    <li><a href="http://cloudcomputing.sys-con.com/">Cloud</a></li>
+    <li>|</li>
+    <li><a href="http://eclipse.sys-con.com/">Eclipse</a></li>
+    <li>|</li>
+    <li><a href="http://flex.sys-con.com/">Flex</a></li>
+    <li>|</li>
+    <li><a href="http://openwebdeveloper.sys-con.com/">Open Web</a></li>
+    <li>|</li>
+    <li><a href="http://iphone.sys-con.com/">iPhone</a></li>
+    <li>|</li>
+    <li><a href="http://java.sys-con.com/">Java</a></li>
+    <li>|</li>
+    <li><a href="http://linux.sys-con.com/">Linux</a></li>
+    <li>|</li>
+    <li><a href="http://opensource.sys-con.com/">Open Source</a></li>
+    <li>|</li>
+    <li><a href="http://oracle.sys-con.com/">Oracle</a></li>
+    <li>|</li>
+    <li><a href="http://powerbuilder.sys-con.com/">PowerBuilder</a></li>
+    <li>|</li>
+    <li><a href="http://security.sys-con.com/">Security</a></li>
+    <li>|</li>
+    <li><a href="http://soa.sys-con.com/">SOA</a></li>
+    <li>|</li>
+    <li><a href="http://virtualization.sys-con.com/">Virtualization</a></li>
+    <li>|</li>
+    <li><a href="http://web2.sys-con.com/">Web 2.0</a></li>
+  </ul>
+</div>
+<!-- end #header-navbar -->
+</div></td>
+    </tr>
+    <tr>
+      <td colspan="2"><div id="header-title"><div>
+      <table width="986" height="95" border="0" align="center" cellpadding="0" cellspacing="0">
+           <tr>
+             <td width="728" height="90" align="left" valign="top"><div align="left">
+
+
+<!--/* OpenX Javascript Tag v2.6.2 */-->
+
+<!--/*
+  * The backup image section of this tag has been generated for use on a
+  * non-SSL page. If this tag is to be placed on an SSL page, change the
+  *   'http://banners.sys-con.com/openx/www/delivery/...'
+  * to
+  *   'https://banners.sys-con.com/openx/www/delivery/...'
+  *
+  * This noscript section of this tag only shows image banners. There
+  * is no width or height in these banners, so if you want these tags to
+  * allocate space for the ad before it shows, you will need to add this
+  * information to the <img> tag.
+  *
+  * If you do not want to deal with the intricities of the noscript
+  * section, delete the tag (from <noscript>... to </noscript>). On
+  * average, the noscript tag is called from less than 1% of internet
+  * users.
+  */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://banners.sys-con.com/openx/www/delivery/ajs.php':'http://banners.sys-con.com/openx/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=106");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a5e0a2f5&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=106&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a5e0a2f5' border='0' alt='' /></a></noscript>
+
+
+
+</div></td>
+
+
+             <td width="242" align="right" valign="top"><div align="right"><div align="right">
+<a href="http://events.sys-con.com/"><img src="http://gemsadmin.sys-con.com/files/gems/section/113/rotating-242x90.gif" border=0></a></td>
+           </tr></table>  
+</div>
+</div></td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+      <td valign="top">
+        <table cellpadding="0" cellspacing="0">
+        <tr>
+          <td colspan="2"><div id="content-above"></div></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div id="full-width-title">
+              <p class="topics">Java Authors: <span class="topic-links"><a href="http://maureenogara.sys-con.com/">Maureen O&#039;Gara</a>, <a href="http://realwirenews.sys-con.com/">RealWire News Distribution</a>, <a href="http://jeremygeelan.sys-con.com/">Jeremy Geelan</a>, <a href="http://yeshimdeniz.sys-con.com/">Yeshim Deniz</a>, <a href="http://gregoconnor.sys-con.com/">Greg O&#039;Connor</a></span></p>              <p class="topics">Related Topics: <span class="topic-links"><a href="http://java.sys-con.com/">Java</a></span></p>              <p class="category">Java: Article</p>
+              <h2>Are You Using Abstract Classes, Polymorphism, and Interfaces?</h2>
+              <p class="subtitle">Are You Using Abstract Classes, Polymorphism, and Interfaces?</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <div id="content">
+              <div id="widget-x" class="content-widget-x">
+                <table width="468" border="0" class="storyauthor">
+                  <tr>
+                    <td>By <strong><a href="http://yakovfain.sys-con.com/">Yakov Fain</a></strong></td>
+                    <td><div align="right">Article Rating:</div></td>
+                    <td width="100"><form action="/node/37695"  accept-charset="UTF-8" method="post" id="fivestar-form-node-37695" class="fivestar-widget">
+<div><div class="fivestar-form-37695 clear-block"><input type="hidden" name="content_type" id="edit-content-type-37695" value="node"  />
+<input type="hidden" name="content_id" id="edit-content-id-37695" value="37695"  />
+<div class="fivestar-form-item  fivestar-average-stars"><div class="form-item" id="edit-vote-0-wrapper">
+ <input type="hidden" name="auto_submit_path" id="edit-auto-submit-path-0" value="/fivestar/vote/node/37695"  class="fivestar-path" />
+<select name="vote" class="form-select" id="edit-vote-0" ><option value="-">Select rating</option><option value="20">Give it 1/5</option><option value="40">Give it 2/5</option><option value="60">Give it 3/5</option><option value="80">Give it 4/5</option><option value="100">Give it 5/5</option></select>
+</div>
+</div><input type="hidden" name="destination" id="edit-destination-37695" value="node/37695"  />
+<input type="submit" name="op" id="edit-fivestar-submit-37695" value="Rate"  class="form-submit fivestar-submit" />
+<input type="hidden" name="form_build_id" id="form-749dc78092638e3bb366f7604456c710" value="form-749dc78092638e3bb366f7604456c710"  />
+<input type="hidden" name="form_id" id="edit-fivestar-form-node-37695" value="fivestar_form_node_37695"  />
+</div>
+</div></form>
+</td>
+                  </tr>
+                  <tr>
+                    <td>September 1, 2003 12:00 AM EDT</td>
+                                        <td><div align="right">Reads:</div></td>
+                    <td width="90" class="orange-text">87,827</td>
+                                      </tr>
+                </table>  
+                <div class="actions-panel">
+                  <ul>
+                    <li class="itm01"><a href="#related"><span>Related</span></a></li>
+                    <li class="itm02">
+                      <a title="print this story"
+                        onmouseover="window.status='';return true"
+                        href="##" onclick="windowPopup('Print Story','/node/37695/print'); return false;">
+                        <span>Print</span>
+                      </a>
+                    </li>
+                    <li class="itm03">
+                      <a title="alert someone to this story"
+                        onmouseover="window.status='';return true"
+                        href="##" onclick="windowPopup('Email this Story','/node/37695/email'); return false;">
+                        <span>Email</span>
+                      </a>
+                    </li>
+                    <li class="itm04"><a href="#feedback"><span>Feedback</span></a></li>
+                    <li class="itm05"><a href="http://www.addthis.com/bookmark.php" 
+                      onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" 
+                      onmouseout="addthis_close()" onclick="return addthis_sendto()">
+                      <span>Add This</span></a></li>
+                    <li class="itm06">
+                      <a title="blog/write about this story"
+                        onmouseover="window.status='';return true"
+                        href="##" onclick="windowPopup('Blog about this Story','/node/37695/blog'); return false;">
+                        <span>Blog This</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div id="main-story-content">
+                                  <img align="left" src="http://res.sys-con.com/author/2514/Yakov%20Fain%20110.jpg" hspace="5" vspace="5"/>
+                                <p>If the answer is no, at a minimum your project needs a code review.</p>
+<p>Let's work on the following assignment: a company has  employees and consultants. Design classes with and without the use of  inheritance to represent the people who work for this company. The  classes should have the following methods:</p>
+<p>Â </p>
+<ul>
+<li> changeAddress </li>
+<li> promote </li>
+<li> giveDayOff </li>
+<li> raiseSalary </li>
+</ul>
+<p>Promotion means giving one day off and raising the salary by  a specified percentage. For employees, the method raiseSalary should  raise the yearly salary and, for consultants, it should increase  their hourly rate.</p>
+<p><b>Abstract Classes</b> <br /> A class is called abstract if it has at least one abstract  (not implemented) method. The keyword abstract has to be placed in  the definition of the method(s) and the class itself. For example,  the class in Listing 1 has three concrete methods and one abstract.  (The link to the source code is available below the article<span style="text-decoration: underline;"></span>)</p>
+<p>Abstract classes cannot be instantiated, but they allow you  to create superclasses that implement some of the functionality,  while leaving one or more methods to be implemented in subclasses.</p>
+<p>The class Person can contain dozens of concrete methods that  are the same for every person, such as changeAddress and giveDayOff,  but since the process of raising a salary is different for employees  and consultants, the method raiseSalary should remain abstract.  Please note that even though this method is abstract, it could be  called in an abstract class because by the time the concrete class is  instantiated, the method will be already implemented. Since we have  two types of workers, let's create subclasses Employee and Consultant  and implement the method raiseSalary based on different rules (see  Listings 2 and 3).</p>
+<p>The designer of the class Person may not know the specifics  of the raising salary process, but this does not stop him or her from  calling the method raiseSalary. Programmers writing subclasses are  forced to write an implementation of this method according to its  signature declared in the abstract class. If they declare a method  raiseSalary with a different argument list, this will be considered  method overloading and the subclass will remain abstract. The class  Promoter in Listing 4 shows how to use the classes Employee and  Consultant for promoting workers.</p>
+<p><b>Polymorphism</b><br /> A programming language could be considered object-oriented if  it supports inheritance, encapsulation, and polymorphism. The first  two notions can be easily defined:</p>
+<ul>
+<li> <i>Inheritance</i> lets you design a class by deriving it from an  existing one. This feature allows you to reuse existing code without  doing copy and paste. Java provides the keyword extends for declaring  inheritance. </li>
+<li> <i>Encapsulation</i> is the ability to hide and protect data. Java  has access-level qualifiers such as public, private, and protected to  control who can access class variables and methods. There is also  so-called package-level protection, which is automatically engaged if  you don't use any of the access-level keywords. </li>
+<li> <i>Polymorphism</i>, though, is easier to understand through an  example. Let's look at the classes Person, Employee, and Consultant  from a different angle. We'll populate a Vector, mixing up the  instances of classes Employee and Consultant - in real life this  information usually comes from a database. For example, a program  could get the person's work status from the database and instantiate  an appropriate concrete class. The class Promoter (see Listing 4)  will give an additional vacation day and increase the salary or  hourly rate of every worker by 5%. </li>
+</ul>
+<p>Please note that even though we cast every object from the  collection workers to the ancestor's type Person in line 17, Listing  4, the variable pers can hold references to its descendent objects.  The actual object type will be evaluated during runtime only. This  feature of object-oriented languages is called runtime or late  binding.</p>
+<p>The output of the class Promoter will look as follows:</p>
+<blockquote>Class Person: Promoting a worker...<br /> Class Person: Adding a day off<br /> Class Employee:Increasing salary by 5%<br /> Class Person: Promoting a worker...<br /> Class Person: Adding a day off<br /> Class Consultant: Increasing hourly rate by 5%<br /> Class Person: Promoting a worker...<br /> Class Person: Adding a day off<br /> Class Employee:Increasing salary by 5%<br /> Class Person: Promoting a worker...<br /> Class Person: Adding a day off<br /> Class Employee:Increasing salary by 5%<br /></blockquote>
+<p>Both classes Employee and Consultant are inherited from the  same base class Person. Instead of having different methods for  increasing the worker's compensation based on its type, we give a  polymorphic behavior to the method raiseSalary, which applies  different business logic depending on the type of object from the  collection. Even though it looks as if we're calling the same method  promote, this is not the case. Since the actual object type is  evaluated during runtime, the salary is raised properly according to  this particular object's implementation of the method raiseSalary.  This is polymorphism in action.</p>
+<p>The while loop in the class Promoter will remain the same  even if we add some other types of workers inherited from the class  Person. For example, to add a new category of worker - a foreign  contractor - we'll have to create a class Foreign- Contractor derived from the class Person and implement the method  raiseSalary there. The class Promoter will keep casting all these  objects to the type Person during runtime and call the method  raiseSalary of the proper object.</p>
+<p>Polymorphism allows you to avoid using switch or if  statements with the expensive operator instanceof. Listing 5 shows an  ugly alternative to our while loop from the class Promoter that  assumes there is no abstract method raiseSalary, but we have separate  promote methods in each subclass of the Person. This code would work  slower than the polymorphic version from the class Promoter, and the  if statement would have to be modified every time a new type of  worker is added.</p>
+<p><b>Interfaces</b><br /> A similar functionality could be implemented using Java  interfaces. We'll keep working with a modified version of the  ancestor class Person because it has such useful methods as  changeAddress and giveDayOff. But this class doesn't have to be  abstract anymore because the method raiseSalary will be moved to a  Java interface. The method promote won't be needed; we'd rather make  the method giveDayOff available to descendants of the class Person by  changing the private access level to protected (see line 8 in Listing  6).</p>
+<p>Here's the "interface way" to ensure that each person in the  firm receives the proper salary raise despite the differences in  payroll calculation.</p>
+<p>Let's define an interface Payable in Listing 7. More than one  class can implement this interface (see Listing 8). When the class  Consultant declares that it implements interface Payable, it promises  to write implementations for all methods declared in this interface -  in our case it's just one method raiseSalary. Why is it so important  that the class will "keep the promise" and implement all the  interface's methods? In many cases interface is a description of some  behavior. In our case behavior Payable means the existence of the  method boolean raiseSalary(int percent). If any other class knows  that Employee implements Payable, it can safely call any method  declared in the Payable interface (see the interface example in  Listing 9).</p>
+<p>Let's forget for a moment about employees and consultants and  switch to the Java AWT listeners and events. When a class declares  that it implements the interface java.awt.Action- Listener, a JVM will call the method actionPerformed on this class  whenever the user clicks on the window's button, and in some other  cases as well. Try to imagine what would happen if you forgot to  include the method actionPerformed in your class. The good news is  that your class won't even compile if not all methods declared in the  interface were implemented. The java.awt.WindowListener interface  declares seven methods, and even if you are interested only in the  windowClosing one, you must include six additional empty-bodied  methods to compile the class (window adapters simplify this process,  but they are beyond the scope of this article).</p>
+<p>While both abstract classes and interfaces can ensure that a  concrete class will have all required methods, abstract classes can  also contain implemented methods, but interfaces can't.</p>
+<div class="portlet sponsored-links-inside">
+    <div class="portlettitle">
+    CIO, CTO &amp; Developer Resources  </div>
+      <div class="portletbody">
+    <iframe src="http://banners.sys-con.com/openx/local/sponsored_inside_cloud.php" scrolling="no" frameborder="0" marginwidth="0" marginheight="0" height="220" width="468" ></iframe>    </div>
+  
+</div>
+
+<p>Beside method declarations, interfaces can contain final  static variables. For example, let's say we have multiple bonus-level  codes used in several classes during the calculation of new salaries.  Instead of redefining these constants in every class that needs them,  we can create the interface shown in Listing 10.</p>
+<p>Now a small change in the class declaration will allow us to  use these bonus levels as if they were declared in the class Employee:</p>
+<blockquote><span style="color: blue;"> </span>
+<p><span style="color: blue;"> public class Employee<br /> implements Payable, Bonus {<br /> ...<br /> if (empLevel==JUNIOR_LVL){<br /> //apply the rules for juniors<br /> }<br /> }<br /> <br /> public class Consultant<br /> implements Payable, Bonus {<br /> ...<br /> }<br /> </span></p>
+</blockquote>
+<p>Java does not allow multiple inheritance, which means a class  can't have two independent ancestors, but you can use interfaces as a  workaround. As you've seen in the example above, a class can  implement multiple interfaces; it just needs to implement all methods  declared in all interfaces. If your window needs to process button  clicks and window closing events, you can declare a class as follows:</p>
+<p>Â </p>
+<blockquote><span style="color: blue;"> </span>
+<p><span style="color: blue;">class MyWindow implements ActionListener, WindowListener{S} </span></p>
+</blockquote>
+<p>During evolution, an Employee can obtain multiple behaviors,  for example</p>
+<p>Â </p>
+<blockquote><span style="color: blue;"> class Employee extends Person<br /> implements Payable, Transferable,<br /> Sueable, Bonus {...}<br /> </span></blockquote>
+<p>Consultants such as myself are usually more primitive  creatures and can be defined as follows:</p>
+<blockquote><span style="color: blue;"> class Consultant extends Person<br /> implements Payable, Sueable {...} </span></blockquote>
+<p>But if a program such as Promoter is interested only in  Payable functions, it can cast the object only to those interfaces it  intends to use, for example:</p>
+<p>Â </p>
+<blockquote><span style="color: blue;"> Employee    emp = new Employee();<br /> Consultant  con = new Consultant();<br /> Payable person1 = (Payable) emp;<br /> Payable person2 = (Payable) con;<br /> </span></blockquote>
+<p>Now we're ready to write a second version of the class  Promoter that will use the classes Employee and Consultant defined in  Listings 8 and 11.</p>
+<p>The output of this program will look similar to the output of  the class Promoter from Listing 4:</p>
+<blockquote><span style="color: blue;"></span>
+<p><span style="color: blue;">Class Employee:Increasing salary by 5%<br /> Class Consultant: Increasing hourly rate by 5%<br /> Class Employee:Increasing salary by 5%<br /> Class Employee:Increasing salary by 5%<br /> </span></p>
+</blockquote>
+<p>Line 18 of Listing 9 may look a little confusing: How can we  call a concrete method raiseSalary on a variable of an interface  type? Actually we call a method on a concrete instance of the  Employee or a Consultant, but by casting this instance to the type  Payable we are just letting the JVM know that we're only interested  in the methods that were declared in this particular interface.</p>
+<p><b>Java Technical Interviews</b><br /> During the technical interviews, probably the most frequently  asked question is, "What's the difference between Java abstract  classes and interfaces?" While interviewing Java programmers, I also  found out that only half of the job applicants could properly  complete the assignment described at the beginning of this article.</p>
+<p>During the job interview your answers should be clear and  short; you won't even have a chance to use all the material presented  here. Here's one version of the answer to our problem.</p>
+<p>If two classes have lots of common functionality, but some  methods should be implemented differently, you could create a common  abstract ancestor Person and two subclasses Employee and Consultant.  The method raiseSalary must be declared abstract in the class Person  while other methods should be concrete. This way we ensure that the  subclasses do have the method named raiseSalary with a known  signature, so we could use it in the ancestor without knowing its  implementation. Java interfaces should also be considered in cases  when the same method must be implemented in multiple classes - in  this case we do not need to use abstract ancestors. Actually,  interfaces could be your only option if a class already has an  ancestor that can not be changed.</p>
+<p>One good interview technique is to impress the interviewer by  elaborating on a related topic. Discussion of abstract classes and  interfaces gives you a good opportunity to show your understanding of  polymorphism.</p>
+<p><b>Summary</b><br /> Use of abstract classes, interfaces, and polymorphism  improves the design of any project by making it more readable and  easily extensible. This also makes your code more compact and elegant.</p>                </div>
+      
+                      
+                      
+                <p class="story-footer">
+                  Published September 1, 2003                                    &#150; Reads 87,827                                    <br />
+                  Copyright &copy; 2003 SYS-CON Media, Inc. &mdash; All Rights Reserved.
+                  <br />
+                  Syndicated stories and blog feeds, all rights reserved by the author.
+                </p>
+      
+                <div class="actions-panel">
+                  <ul>
+                    <li class="itm01"><a href="#related"><span>Related</span></a></li>
+                    <li class="itm02">
+                      <a title="print this story"
+                        onmouseover="window.status='';return true"
+                        href="##" onclick="windowPopup('Print Story','/node/37695/print'); return false;">
+                        <span>Print</span>
+                      </a>
+                    </li>
+                    <li class="itm03">
+                      <a title="alert someone to this story"
+                        onmouseover="window.status='';return true"
+                        href="##" onclick="windowPopup('Email this Story','/node/37695/email'); return false;">
+                        <span>Email</span>
+                      </a>
+                    </li>
+                    <li class="itm04"><a href="#feedback"><span>Feedback</span></a></li>
+                    <li class="itm05"><a href="http://www.addthis.com/bookmark.php" 
+                      onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" 
+                      onmouseout="addthis_close()" onclick="return addthis_sendto()">
+                      <span>Add This</span></a></li>
+                    <li class="itm06">
+                      <a title="blog/write about this story"
+                        onmouseover="window.status='';return true"
+                        href="##" onclick="windowPopup('Blog about this Story','/node/37695/blog'); return false;">
+                        <span>Blog This</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+      
+                <a id="related"></a>
+
+                                <div id="related-stories">
+                  <div class="portlettitle">Related Stories</div>
+                  <ul class="arrowlist">
+                    <li><a href="/node/43802">Java Serialization - Lesson 7</a></li>                  </ul>
+                </div>
+                                
+                                <div id="related-links">
+                  <div class="portlettitle">Related Links</div>
+                  <ul class="arrowlist">
+                    <li><a href="http://gemsres.com/story/37695/zip.html" target="_blank">Source Code (zip file)</a></li>                  </ul>
+                </div>
+                      
+                                  <div class="about-the-author">
+                  <h2><a href="http://yakovfain.sys-con.com/">More Stories By Yakov Fain</a></h2>
+                  <p>Yakov Fain is a Managing Director of <a href="http://faratasystems.com">Farata Systems</a>, consulting, training and product company. He has authored several Java books, dozens of technical articles. SYS-CON Books released his latest co-authored book , <i>Rich Internet Applications with Adobe Flex and Java: Secrets of the Masters</i> in Spring 2007. Sun Microsystems has nominated and awarded Yakov with the title Java Champion. He leads the Princeton Java Users Group. He is an Adobe Certified Flex Instructor. Currently Yakov works on the book for O'Reilly "Enterprise Application Development with Flex". He twits at twitter.com/yfain.</p>
+                  </div> 
+                                
+                <div id="content-below">
+                
+                  <a id="feedback"></a>
+                                    <div id="feedback-form">
+                    <div id="feedback-form-holder">
+                      <form id="feedback-form-element">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                        <tr>
+                          <td colspan="2">
+                            <p><span class="comments-header">Comments (4)</span> <a href="#comments-top">View Comments</a></p>
+                            <p class="comments-share">Share your thoughts on this story.</p>
+                            <p>
+                              <strong>Add your comment</strong>
+                                                            <br />You must be signed in to add a comment.
+                              <a href="/user?destination=node%2F37695%23feedback">Sign-in</a> | <a href="/user/register">Register</a>                                                          </p>
+                            <p>In accordance with our <a href="#">Comment Policy</a>, we encourage comments that are on topic, relevant and to-the-point. We will remove comments that include profanity, personal attacks, racial slurs, threats of violence, or other inappropriate material that violates our <a href="#">Terms and Conditions</a>, and will block users who make repeated violations. We ask all readers to expect diversity of opinion and to treat one another with dignity and respect.</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td id="feedback-panel-container" colspan="2">
+                            <div id="feedback-panel">
+                              <textarea id="comments" name="feedback_comment" cols="52" rows="8" disabled="disabled"></textarea>
+                              <div id="feedback-preview" style="display: none"></div>
+                              <br />
+                              <input type="button" id="feedback-edit-button" value="Edit" style="display: none" />
+                              <input type="button" id="feedback-preview-button" value="Preview" disabled="disabled"/>
+                              <input type="button" id="feedback-post-button" value="Post" disabled="disabled"/>
+                              <input type="hidden" id="feedback_name" name="feedback_name" value="" />
+                              <input type="hidden" id="feedback_website" name="feedback_website" value="" />
+                              <input type="hidden" id="feedback_nid" name="feedback_nid" value="37695" />
+                            </div>
+                            <div id="feedback-panel-wait" style="display: none">
+                              <p align="center">Please wait while we process your request...</p>
+                              <br/><br/><br/><br/>
+                              <p align="center"><img src="/sites/all/modules/uz_node/feedback-panel-wait.gif"/></p>
+                            </div>
+                            <div id="feedback-panel-done" style="display: none">
+                              <p align="center">Your feedback has been submitted for approval.</p>
+                            </div>
+                          </td>
+                        </tr>
+                        </table>
+                      </form>
+                    </div>
+                  </div>
+                                  
+                                      <a id="comments-top"></a>
+                    <div id="user-feedback">
+  <div class="portlettitle">Most Recent Comments</div>
+  <table class="commentstable" width="460px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="60" rowspan="3"><img height="50" width="50" src="/sites/all/themes/uz_theme/images/author-photo-default.gif" /></td>
+<td colspan="4"><span class="commentsname">sherali Inamdar</span> <span class="commentsdate">12/14/07 05:04:48 AM EST</span></td>
+</tr>
+<tr>
+<td colspan="4"><p>Hi Dear Yakov Fain,<br />
+     Even If a class Dont Have Abstract Method(i.e all methods may concrete), we can declare it as a Abstract Class. just appending the keyword</p>
+</td>
+</tr>
+</table><table class="commentstable" width="460px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="60" rowspan="3"><img height="50" width="50" src="/sites/all/themes/uz_theme/images/author-photo-default.gif" /></td>
+<td colspan="4"><span class="commentsname">Taitelman mordechai</span> <span class="commentsdate">12/10/07 11:28:31 AM EST</span></td>
+</tr>
+<tr>
+<td colspan="4"><p>Regarding your last paragraph: when to use Abstract class vs. Interface:<br />
+In terms of OOD the decision is more architectural:<br />
+Abstract class and interfaces are two ways to enforce an implementation in sub-classes.<br />
+However, I believe the main importance of Interfaces in Java is to overcome the multi-inheritance limitation.<br />
+The 2nd issue is agreed API between components.   Two people should declare an interface if they intend to split up and re-join after several months. So what you should consider is: what is the probability this class would cross the boundaries of the component ?<br />
+Abstract class should be considered more inside the component. In many cases abstract classes are added in order to prevent circular dependencies between packages (in the same component). Furthermore, abstract class is your way to enforce some implementation details.<br />
+Beside that, in Java an interface is identical to (pure) abstract class.</p>
+</td>
+</tr>
+</table><table class="commentstable" width="460px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="60" rowspan="3"><img height="50" width="50" src="/sites/all/themes/uz_theme/images/author-photo-default.gif" /></td>
+<td colspan="4"><span class="commentsname">punit pandey</span> <span class="commentsdate">09/04/03 11:00:08 AM EDT</span></td>
+</tr>
+<tr>
+<td colspan="4"><p>It is a great article. good for newbies.</p>
+</td>
+</tr>
+</table><table class="commentstable" width="460px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="60" rowspan="3"><img height="50" width="50" src="/sites/all/themes/uz_theme/images/author-photo-default.gif" /></td>
+<td colspan="4"><span class="commentsname">Steve Kasson</span> <span class="commentsdate">09/03/03 09:14:05 AM EDT</span></td>
+</tr>
+<tr>
+<td colspan="4"><p>The source code is not available for this article.  It references Listings 1 - 11, but I cannot find them anywhere.</p>
+<p>Otherwise... excellent article.</p>
+<p>-Steve</p>
+</td>
+</tr>
+</table></div>
+                  
+                  <div>
+      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,124,0" width="483" height="200" id="TwitterWidget" align="middle">
+	<param name="allowScriptAccess" value="always" />
+	<param name="allowFullScreen" value="false" />
+	<param name="movie" value="http://static.twitter.com/flash/widgets/profile/TwitterWidget.swf" />
+	<param name="quality" value="high" />
+	<param name="bgcolor" value="#000000" />
+	<param name="FlashVars" value="userID=36339779&styleURL=http://static.twitter.com/flash/widgets/profile/velvetica.xml">
+	<embed src="http://static.twitter.com/flash/widgets/profile/TwitterWidget.swf" quality="high" bgcolor="#000000" width="483" height="200" name="TwitterWidget" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="userID=36339779&styleURL=http://static.twitter.com/flash/widgets/profile/velvetica.xml"/>
+</object>  
+</div>
+<div class="portlet-top-margin">
+      <div class="portletbody">
+      <div class="yui-skin-sam">
+    <div id="tabs-most-read" class="yui-navset">
+      <ul class="yui-nav">
+                <li class=""><a href="#tab1"><em>Top Reads - Week</em></a></li>
+                        <li class=""><a href="#tab2"><em>This Month</em></a></li>
+                        <li class="selected"><a href="#tab3"><em>All Time</em></a></li>
+              </ul>
+      <div class="yui-content">
+                <div id="tab1">
+        <ul class="arrowlist">
+                        <li><a href="/node/1153768">An Exclusive Interview with Oracle, Cloud Expo 2010 Diamond Sponsor</a></li>
+                        <li><a href="/node/1002315">Whatever Happened to JAAS?</a></li>
+                        <li><a href="/node/1234925">Whatever the Apple iPad Is, It Apparently Leaks Like a Sieve</a></li>
+                        <li><a href="/node/1249117">Whatâ??s Next for Oracle-Sun?</a></li>
+                        <li><a href="/node/1063761">The End of IT 1.0 As We Know It Has Begun</a></li>
+                        <li><a href="/node/1218515">Cloud Expo New York Call for Papers to Expire January 15, 2010</a></li>
+                        <li><a href="/node/1233509">Six Enterprise Megatrends to Watch in 2010</a></li>
+                        <li><a href="/node/1172727">Oracle Maps Its Cloud Computing Strategy During Cloud Expo Keynote</a></li>
+                        <li><a href="/node/1240739">Oracleâ??s Next Sun Hurdle</a></li>
+                        <li><a href="/node/1249464">Now Russia Threatens to Hold Up Oracle-Sun Deal</a></li>
+                        <li><a href="/node/1225674">Oracle Claims Victory Over EC; Says Sun Will Sell Clouds</a></li>
+                        <li><a href="/node/1204661">Free Virtual Appliance for Cloud Computing</a></li>
+                    </ul>
+        </div>
+                        <div id="tab2">
+          <ul class="arrowlist">
+                        <li><a href="/node/1152430">Kindle 2 vs Nook</a></li>
+                        <li><a href="/node/1084456">Cloud Expo New York Call for Papers Now Open</a></li>
+                        <li><a href="/node/862933">Is Cloud Computing Like Teenage Sex?</a></li>
+                        <li><a href="/node/1153768">An Exclusive Interview with Oracle, Cloud Expo 2010 Diamond Sponsor</a></li>
+                        <li><a href="/node/1100244">Performance Tuning Essentials for Java</a></li>
+                        <li><a href="/node/1121594">Tactical Cloud Computing Panel at 1st Annual GovIT Expo</a></li>
+                        <li><a href="/node/1002315">Whatever Happened to JAAS?</a></li>
+                        <li><a href="/node/1234925">Whatever the Apple iPad Is, It Apparently Leaks Like a Sieve</a></li>
+                        <li><a href="/node/1180779">Cloud Computing Can Revitalize Your Career as Software Developer</a></li>
+                        <li><a href="/node/1249117">Whatâ??s Next for Oracle-Sun?</a></li>
+                        <li><a href="/node/1063761">The End of IT 1.0 As We Know It Has Begun</a></li>
+                        <li><a href="/node/1218515">Cloud Expo New York Call for Papers to Expire January 15, 2010</a></li>
+                      </ul>
+        </div>
+                        <div id="tab3">
+          <ul class="arrowlist">
+                        <li><a href="/node/163229">A Cup of AJAX? Nay, Just Regular Java Please</a></li>
+                        <li><a href="/node/260074">Java Developer&#039;s Journal Exclusive: 2006 &quot;JDJ Editors&#039; Choice&quot; Awards</a></li>
+                        <li><a href="/node/47349">The i-Technology Right Stuff</a></li>
+                        <li><a href="/node/46516">JavaServer Faces (JSF) vs Struts</a></li>
+                        <li><a href="/node/210991">Rich Internet Applications with Adobe Flex 2 and Java</a></li>
+                        <li><a href="/node/45250">Java vs C++ &quot;Shootout&quot; Revisited</a></li>
+                        <li><a href="/node/36420">Bean-Managed Persistence Using a Proxy List</a></li>
+                        <li><a href="/node/171467">Reporting Made Easy with JasperReports and Hibernate</a></li>
+                        <li><a href="/node/46977">Creating a Pet Store Application with JavaServer Faces, Spring, and Hibernate</a></li>
+                        <li><a href="/node/99729">What&#039;s New in Eclipse?</a></li>
+                        <li><a href="/node/457324">Why Do &#039;Cool Kids&#039; Choose Ruby or PHP to Build Websites Instead of Java?</a></li>
+                        <li><a href="/node/313594">i-Technology Predictions for 2007: Where&#039;s It All Headed?</a></li>
+                      </ul>
+        </div>
+              </div>
+    </div>
+    </div>
+    </div>
+  
+</div>
+<script>
+(function() {
+    var tabView = new YAHOO.widget.TabView('tabs-most-read');
+})();
+</script>
+<script type="text/javascript"><!--
+google_ad_client = "pub-1350009230072468";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>                  
+                </div>
+              </div>
+            </div>
+          </td>
+          <td valign="top"><div id="sidebar-3"><div class="portletsmallfeedback">
+    <div class="portlettitlesmall">
+    Related Stories  </div>
+      <ul class="arrowlist">
+        <li class="item item-1"><a href="/node/882364">IBM Willing To Pay $6.5BN To Acquire Sun: Wall St. Journal</a></li>
+        <li class="item item-2"><a href="/node/884016">IBM-Sun Pairing Would Help IBM Get into the Cloud: BusinessWeek</a></li>
+        <li class="item item-3"><a href="/node/890705">Sun-IBM Watch</a></li>
+        <li class="item item-4"><a href="/node/891096">Dell Claims To Make Hay with Sunâ??s Fate Unclear</a></li>
+      </ul>
+  
+</div>
+<div class="portletsmallfeedback"><div class="portlettitlesmall">Comments</div><table border="0" cellpadding="2" cellspacing="0" width="99%"><tr><td><div class="story"><div><a href="/node/1257760"><span class="storytitle">Top Ten Reasons To Use &quot;Real&quot; Outlook On Your iPhone </span></a></div><div class="storyauthor">By Chris Fleck</div><div class="storysummary">Pankaj wrote: There are other options like <a href="http://iphone.hyperoffice.com">HyperOffice</a> hich offer additional benefits:-
+
+1) Access and share Outlook contacts, mail, tasks and calendars on your iPhone without Exchange Server. 
+2) Access and collaborate on official documents on your iPhone. 
+3) Get intranet tools within the same solution, rather than having to separately go through the hassles of setting up SharePoint</div><div class="storytagline">Jan. 25, 2010 04:30 PM EST</div><div><a href="/node/1257760"><span class="readmore">read more &amp; respond &raquo;</span></a></div></div></td></tr></table></div><div class="portlet-top-margin">
+      <iframe id='a3b317be' name='a3b317be' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=a3b317be&amp;zoneid=104&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='160' height='160'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=ad5c7e44&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=104&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ad5c7e44' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>  
+</div>
+<div class="portletsmallpadding"><div class="portlettitlesmall">Latest Java News</div><table border="0" cellpadding="2" cellspacing="0" width="99%"><tr><td><div class="story"><div><a href="/node/1272305"><span class="storytitle">Oracle Pulls Plug on Sunâ??s Wonderland</span></a></div><div class="storyauthor">By Maureen O'Gara</div><div class="storysummary">Oracle, sensibly enough from Oracleâ??s point-o...</div><div class="storytagline">Feb. 4, 2010</div></div></td></tr></table></div><div class="portlet-top-margin">
+      <iframe id='a3efb143' name='a3efb143' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=a3efb143&amp;zoneid=105&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='160' height='160'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=ae99dac2&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=105&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ae99dac2' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>  
+</div>
+<div class="portlet-top-margin">
+      <!--/* OpenX Javascript Tag v2.6.2 */-->
+
+<!--/*
+  * The backup image section of this tag has been generated for use on a
+  * non-SSL page. If this tag is to be placed on an SSL page, change the
+  *   'http://banners.sys-con.com/openx/www/delivery/...'
+  * to
+  *   'https://banners.sys-con.com/openx/www/delivery/...'
+  *
+  * This noscript section of this tag only shows image banners. There
+  * is no width or height in these banners, so if you want these tags to
+  * allocate space for the ad before it shows, you will need to add this
+  * information to the <img> tag.
+  *
+  * If you do not want to deal with the intricities of the noscript
+  * section, delete the tag (from <noscript>... to </noscript>). On
+  * average, the noscript tag is called from less than 1% of internet
+  * users.
+  */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://banners.sys-con.com/openx/www/delivery/ajs.php':'http://banners.sys-con.com/openx/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=107");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a40a2a06&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=107&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a40a2a06' border='0' alt='' /></a></noscript>
+
+<p>  
+</div>
+<div class="portlet-top-margin">
+      <style type="text/css">
+<!--
+.story {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #000000;
+}
+.mytitletester {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color:#f59620;
+	text-transform:capitalize;
+}
+.old-webcasts {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color:#666666;
+	text-transform:capitalize;
+}
+.style1 {color: #666666}
+
+}
+
+-->
+</style>
+
+<div class="portletsmall" style="background:#ffffff">
+
+<table style="border:1px solid #000;" cellpadding='2' cellspacing='0' width='160'>
+
+<font size="1">
+
+<tr><td align="center"><a href="http://events.sys-con.com/" target="_blank">
+<img src='http://www2.sys-con.com/cloud_virt_09e.jpg' border='0'></a><br>
+<span class="style1">2009 East</span></td>
+</tr>
+
+<!--<tr><td>
+<div class="mytitletester" align="center">DIAMOND SPONSOR:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d2_s4_t3_data_direct" target="_blank">
+<div class='storytitle'>Data Direct</div></a><div class='storysummary'>SOA, WOA and Cloud Computing: The New Frontier for Data Services</div> 
+</div></td></tr> -->
+
+<tr><td>
+<div class="mytitletester" align="center">PLATINUM SPONSORS:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d1_s2_t1_ibm_jimrymarczyk" target="_blank">
+<div class='storytitle'>IBM</div></a><div class='storysummary'>Smarter Business Solutions Through Dynamic Infrastructure </div>
+
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d2_s2_t1_ibm_michaelhill" target="_blank">
+<div class='storytitle'>IBM</div></a><div class='storysummary'>Smarter Insights: How the CIO Becomes a Hero Again </div>
+
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d1_s4_t1_msoft_khalidi" target="_blank">
+<div class='storytitle'>Microsoft</div></a><div class='storysummary'>Windows Azure</div>
+
+</div></td></tr>
+
+<!--
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_soa8e_intel"><div class='storytitle'>Intel</div></a><div class='storysummary'>Virtualization &ndash; Path to Predictive Enterprise</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_soa8e_greenhills"><div class='storytitle'>Green Hills</div></a><div class='storysummary'>IT Security in a Hostile World</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_soa8e_jboss"><div class='storytitle'>JBoss / freedom oss</div></a><div class='storysummary'>Practical SOA Approach</div>
+</div></td></tr>
+-->
+
+<tr><td>
+<div class="mytitletester" align="center">GOLD SPONSORS:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d2_s6_t1_appsense" target="_blank">
+<div class='storytitle'>Appsense</div></a><div class='storysummary'>Why VDI?</div>
+</div></td></tr>
+
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d2_s4_t1_ca" target="_blank">
+
+<div class='storytitle'>CA</div></a><div class='storysummary'>Maximizing the Business Value of Virtualization in Enterprise and Cloud Computing Environments</div>
+</div></td></tr>
+
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d3_s3_t1_exact_target" target="_blank">
+<div class='storytitle'>ExactTarget</div></a><div class='storysummary'>Messaging in the Cloud - Email, SMS and Voice</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d2_s8_t1_freedom_oss" target="_blank">
+<div class='storytitle'>Freedom OSS</div></a><div class='storysummary'>Stairway to the Cloud</div>
+
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_d2_s5_t1_sun_incubation" target="_blank">
+<div class='storytitle'>Sun</div></a><div class='storysummary'>Sun's Incubation Platform: Helping Startups Serve the Enterprise</div>
+
+
+</div></td></tr>
+
+<tr><td>
+<div class="mytitletester" align="center">POWER PANELS:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_pp1" target="_blank">
+<div class='storytitle'></div><div class='storysummary'>Cloud Computing & Enterprise IT: Cost & Operational Benefits</a></div>
+
+</div></td></tr>
+
+
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc09e_pp2" target="_blank">
+<div class='storytitle'></div><div class='storysummary'>How and Why is a Flexible IT Infrastructure the Key To the Future?</a></div>
+
+</div></td></tr>
+
+<!--
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d1_s4_t3_intel2" target="_blank">
+<div class='storytitle'>Intel</div></a><div class='storysummary'>Architecting an Enterprise Service Router (ESR) â?? A Cost-Effective Way to Scale SOA Across the Enterprise</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d1_s2_t1_sensedia" target="_blank">
+<div class='storytitle'>Sensedia</div></a><div class='storysummary'>Return on Assests: Bringing Visibility to your SOA Strategy</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d3_s2_t1_symantec" target="_blank">
+<div class='storytitle'>Symantec</div></a><div class='storysummary'>Managing Hybrid Endpoint Environments</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d3_s7_t3_vmware" target="_blank">
+<div class='storytitle'>VMWare</div></a><div class='storysummary'>Game-Changing Technology for Enterprise Clouds and Applications</div>
+
+</div></td></tr>
+
+-->
+
+<tr><td>
+<a href="http://webcast.sys-con.com/"><div align="center" class="old-webcasts" >Click For 2008 West<br> Event Webcasts</div></a>
+</td></tr>
+</table>
+
+
+
+<table><tr><td></td></tr></table>
+  
+</div>
+<div class="portlet-top-margin">
+      <!--/* OpenX iFrame Tag v2.6.2 */-->
+
+<iframe id='afe85f16' name='afe85f16' src='http://banners.sys-con.com/openx/www/delivery/afr.php?zoneid=356&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='160' height='600'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=ab6b5814&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=356&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab6b5814' border='0' alt='' /></a></iframe>
+  
+</div>
+<div class="portlet-top-margin">
+      <style type="text/css">
+<!--
+.story {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #000000;
+}
+.mytitletester {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color:#f59620;
+	text-transform:capitalize;
+}
+.old-webcasts {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color:#666666;
+	text-transform:capitalize;
+}
+.style1 {color: #666666}
+
+}
+
+-->
+</style>
+
+<div class="portletsmall" style="background:#ffffff">
+
+<table style="border:1px solid #000;" cellpadding='2' cellspacing='0' width='160'>
+
+<font size="1">
+
+<tr><td align="center"><a href="http://events.sys-con.com/" target="_blank">
+<img src='http://www2.sys-con.com/soa_ajax_09e.jpg' border='0'></a><br>
+<span class="style1">2009 East</span></td>
+</tr>
+
+<!--<tr><td>
+<div class="mytitletester" align="center">DIAMOND SPONSOR:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d2_s4_t3_data_direct" target="_blank">
+<div class='storytitle'>Data Direct</div></a><div class='storysummary'>SOA, WOA and Cloud Computing: The New Frontier for Data Services</div> 
+</div></td></tr> -->
+
+
+<!--
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_soa8e_intel"><div class='storytitle'>Intel</div></a><div class='storysummary'>Virtualization &ndash; Path to Predictive Enterprise</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_soa8e_greenhills"><div class='storytitle'>Green Hills</div></a><div class='storysummary'>IT Security in a Hostile World</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_soa8e_jboss"><div class='storytitle'>JBoss / freedom oss</div></a><div class='storysummary'>Practical SOA Approach</div>
+</div></td></tr>
+-->
+
+<tr><td>
+<div class="mytitletester" align="center">GOLD SPONSORS:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_ajaxsoa09e_d1_s4_t1_ca" target="_blank">
+<div class='storytitle'>CA</div></a><div class='storysummary'>Get Your Transactions Under Control: SOA Performance Management</div>
+</div></td></tr>
+
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_ajaxs0a09e_d1_s2_t1_software_ag" target="_blank">
+
+<div class='storytitle'>Software AG </div></a>
+<div class='storysummary'>Performance Driven Adoption: The Secret to Advancing SOA</div>
+</div></td></tr>
+
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_ajaxsoa09e_d2_s3_t1_intel" target="_blank">
+<div class='storytitle'>Intel</div></a><div class='storysummary'>The Evolving SOA Appliance: 3 Game-Changing Innovations</div>
+</div></td></tr>
+
+
+
+
+<!--
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d1_s4_t3_intel2" target="_blank">
+<div class='storytitle'>Intel</div></a><div class='storysummary'>Architecting an Enterprise Service Router (ESR) Ã¢â?¬â?? A Cost-Effective Way to Scale SOA Across the Enterprise</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d1_s2_t1_sensedia" target="_blank">
+<div class='storytitle'>Sensedia</div></a><div class='storysummary'>Return on Assests: Bringing Visibility to your SOA Strategy</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d3_s2_t1_symantec" target="_blank">
+<div class='storytitle'>Symantec</div></a><div class='storysummary'>Managing Hybrid Endpoint Environments</div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_cc8w_d3_s7_t3_vmware" target="_blank">
+<div class='storytitle'>VMWare</div></a><div class='storysummary'>Game-Changing Technology for Enterprise Clouds and Applications</div>
+
+</div></td></tr>
+
+-->
+<tr><td>
+<div class="mytitletester" align="center">SILVER SPONSOR:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_ajaxsoa09e_d1_s5_t1_denodo" target="_blank">
+<div class='storytitle'>Denodo</div></a><div class='storysummary'>Data Mashups: Deliver Your Project Faster with Virtualized Data Services Across Internal & External Sources</div>
+</div></td></tr>
+
+<tr><td>
+<div class="mytitletester" align="center">POWER PANELS:</div>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_ajaxsoa09e_pp1" target="_blank">
+<div class='storytitle'></div><div class='storysummary'>The Business Value of Service Orientation</a></div>
+</div></td></tr>
+
+<tr><td bgcolor="#fce2c1"><div class='story'>
+<a href="http://www2.sys-con.com/webinararchive.cfm?pid=wc_ajaxsoa09e_pp2" target="_blank">
+<div class='storytitle'></div><div class='storysummary'> Driving Profitability Through User Experience</a></div>
+</div></td></tr>
+
+<tr><td>
+<a href="http://webcast.sys-con.com/"><div align="center" class="old-webcasts" >Click For 2008 West<br> Event Webcasts</div></a>
+</td></tr>
+</table>
+
+
+
+<table><tr><td></td></tr></table>
+  
+</div>
+<div class="rightportlet portlet-top-margin"><div class="portlettitlesmall">Topics</div><div><a href="http://jdj.sys-con.com/read/category/index.htm"><span class="menuitem">All Sections</span></a></div><div><a href="http://jdj.sys-con.com/read/issue/archives/"><span class="menuitem">JDJ Archives</span></a></div><div><a href="/category/800"><span class="menuitem">Desktop Java</span></a></div><div><a href="/category/74"><span class="menuitem">Features</span></a></div><div><a href="/category/1121"><span class="menuitem">From the Blogosphere</span></a></div><div><a href="/category/431"><span class="menuitem">From the Editor</span></a></div><div><a href="/category/64"><span class="menuitem">General Java</span></a></div><div><a href="/category/194"><span class="menuitem">Hibernate | JSF | Spring</span></a></div><div><a href="/category/1001"><span class="menuitem">Java Desktop</span></a></div><div><a href="/category/67"><span class="menuitem">Java EE 5</span></a></div><div><a href="/category/73"><span class="menuitem">Java Industry News</span></a></div><div><a href="/category/66"><span class="menuitem">Java ME</span></a></div><div><a href="/category/70"><span class="menuitem">Java SE 6</span></a></div><div><a href="/category/380"><span class="menuitem">JavaFX</span></a></div><div><a href="/category/226"><span class="menuitem">JSR Watch</span></a></div><div><a href="/category/69"><span class="menuitem">Product Reviews</span></a></div><div><a href="/main/proposal.htm"><span class="menuitem">Write For Us</span></a></div><div><a href="http://java.sys-con.com/general/gasstation.htm"><span class="menuitem">Yakov&#039;s Gas Station</span></a></div></div></div></td>
+        </tr>
+        <tr>
+          <td><!--Content Below--></td>
+          <td>&nbsp;</td>
+        </tr>
+        </table>
+      </td>
+      <td valign="top"><div id="sidebar-4"><div>
+      <iframe src='http://www2.sys-con.com/mutevideobycookie_terracotta.cfm' MARGINWIDTH='0' MARGINHEIGHT='0' framespacing='0' frameborder='no' scrolling='No' width='336' height='380'></iframe>  
+</div>
+<div class="portlet-top-margin">
+      <!--/* OpenX iFrame Tag v2.6.2 */-->
+
+<iframe id='ac4eb7f0' name='ac4eb7f0' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=ac4eb7f0&amp;zoneid=108&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='336' height='280'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a1bcbe65&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=108&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a1bcbe65' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>  
+</div>
+<div class="portlet-top-margin">
+      <div class="portletbody">
+    <script type="text/javascript" src="http://banners.sys-con.com/openx/embedded/whitepapers_downloads_webcasts.php"></script>
+    </div>
+  
+</div>
+<div class="portlet-top-margin">
+      <!--/* OpenX Javascript Tag v2.6.2 */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://banners.sys-con.com/openx/www/delivery/ajs.php':'http://banners.sys-con.com/openx/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=109&amp;target=_blank");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a0043339&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=109&amp;n=a0043339' border='0' alt='' /></a></noscript>
+  
+</div>
+<div class="portlet-top-margin">
+      <div class="portletbody">
+      <div class="yui-skin-sam">
+    <div id="tabs-latest" class="yui-navset">
+      <ul class="yui-nav">
+        <li class="selected"><a href="#tab1"><em>Latest Articles</em></a></li>
+        <li class=""><a href="#tab2"><em>Latest Blogs</em></a></li>
+        <li class=""><a href="#tab3"><em>Latest News</em></a></li>
+      </ul>
+      <div class="yui-content">
+        <div id="tab1">
+          <ul class="arrowlist">
+                        <li><a href="/node/1272305">Oracle Throws Sun&#039;s Wonderland Down the Rabbit Hole</a></li>
+                        <li><a href="/node/1249423">What Are Your Top 10 Web Application Performance Issues?</a></li>
+                        <li><a href="/node/1207696">Microsoft WebsiteSpark: Get New Business Leads to Grow Your Business</a></li>
+                        <li><a href="/node/1085967">Current Trends in the Data Management Market</a></li>
+                        <li><a href="/node/1267188">The Death of Cloud Computing the Birth of Dream Computing</a></li>
+                        <li><a href="/node/1265841">IBM Gloats Over Sun &amp; HP Poaching</a></li>
+                        <li><a href="/node/1265517">Sun Finally Belongs to Oracle</a></li>
+                        <li><a href="/node/1261728">Oracle To Hire More Than It Fires at Sun: Reports</a></li>
+                        <li><a href="/node/1262514">Oracle Completes Sun Acquisition</a></li>
+                        <li><a href="/node/1258187">Malaysiaâ??s Premier Free-to-Air TV Station Goes Mobile with Netbiscuits</a></li>
+                        <li><a href="/node/1261617">McNealy Writes the E-Mail He Never Wanted To Write</a></li>
+                        <li><a href="/node/1234925">Whatever the Apple iPad Is, It Apparently Leaks Like a Sieve</a></li>
+                                    <li><a href="/latest/articles"><span style="font-style: italic">More Articles...</span></a></li>
+                      </ul>
+        </div>
+        <div id="tab2">
+          <ul class="arrowlist">
+                        <li><a href="/node/1272678">Nimbuzz Announces First Revenue-Generating Partnership With Largest Indonesian Operator, Telkomsel</a></li>
+                        <li><a href="/node/1272674">Accumulate Guarantees Increased Revenues for Pre-loaded Mobile Games</a></li>
+                        <li><a href="/node/1259019">Getting Started with OpenJPA</a></li>
+                        <li><a href="/node/1270870">opentaps Open Source ERP + CRM Quarterly Update</a></li>
+                        <li><a href="/node/1265165">Rocela responds to Oracle&#039;s acquisition of Sun Microsystems; Businesses must seize this as opportunity to strengthen strategic vendor relationships</a></li>
+                        <li><a href="/node/1261649">Lewâ??s Law</a></li>
+                        <li><a href="/node/1259633">Master ADF Applications</a></li>
+                        <li><a href="/node/1257843">IT Spending to Grow Nearly 5% This Year</a></li>
+                        <li><a href="/node/1256722">Myriad Congratulates Finalists of the Best Mobile Handset and Device Categories at Mobile World Congress Awards 2010</a></li>
+                        <li><a href="/node/1250976">Partner Communications selects Streamezzo to power its Mobile TV application on iPhoneâ?¢</a></li>
+                        <li><a href="/node/1249740">Using JSAPI with a JBoss SEAM Component</a></li>
+                        <li><a href="/node/1247853">No New Skills or Training Required</a></li>
+                                    <li><a href="/latest/blogs"><span style="font-style: italic">More Blogs...</span></a></li>
+                      </ul>
+        </div>
+        <div id="tab3">
+          <ul class="arrowlist">
+                        <li><a href="/node/1272445">Call for Participation: 2nd Biannual Symposium on Eclipse Open Source Software &amp; OMG Open Specifications</a></li>
+                        <li><a href="/node/1272113">Research and Markets: North American I.T. Development Survey 2009: New Survey Shows Python Use Has Risen 45% Since Google App Engine Debuted</a></li>
+                        <li><a href="/node/1271897">Revere Security Appoints Co-Inventor of Public-Key Cryptography Whitfield Diffie as Chief Cryptographer</a></li>
+                        <li><a href="/node/1271783">NI Technology Previews Earnings for Benchmark Electronics, CARBO Ceramics, Harmonic, ON Semiconductor and FalconStor Software</a></li>
+                        <li><a href="/node/1271712">SCIA &quot;Saturday Conference&quot; -- Feb 6th Hilton Hotel, Irvine, CA </a></li>
+                        <li><a href="/node/1271697">IM+ for Skype With Free VoIP Calls Comes to BlackBerry</a></li>
+                        <li><a href="/node/1271575">Sauce Labs Adds Top Python and Jython Core Committers to Team </a></li>
+                        <li><a href="/node/1268735">Andreessen&#039;s Makara Launches Cloud Computing Platform</a></li>
+                        <li><a href="/node/1269903">IBS America, Inc. Generates Buzz at a Successful Lotusphere 2010 in Orlando </a></li>
+                        <li><a href="/node/1269651">NI Technology Previews Earnings for Cisco Systems, Broadcom, United Microelectronics, O2Micro International and International Rectifier</a></li>
+                        <li><a href="/node/1269576">Motorola Ventures Leads Investment Round in Scanbuy, Inc.</a></li>
+                        <li><a href="/node/1269557">Research and Markets: Asian Developers Embrace Free Developer Programs, New Survey APAC Development Survey 2009, v2 Shows</a></li>
+                                    <li><a href="/latest/news"><span style="font-style: italic">More News...</span></a></li>
+                      </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  
+</div>
+<script>
+(function() {
+    var tabView = new YAHOO.widget.TabView('tabs-latest');
+})();
+</script>
+<div class="portlet-top-margin">
+      <iframe id='a9be2111' name='a9be2111' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=a9be2111&amp;zoneid=111&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='336' height='600'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a274b423&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=111&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a274b423' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>
+<p>  
+</div>
+<script type="text/javascript"><!--
+google_ad_client = "pub-1350009230072468";
+google_ad_width = 336;
+google_ad_height = 280;
+google_ad_format = "336x280_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+<div class="portlet-top-margin">
+      <!--/* OpenX iFrame Tag v2.6.2 */-->
+
+<iframe id='ac2f82aa' name='ac2f82aa' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=ac2f82aa&amp;zoneid=110&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='336' height='280'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=ab2d021e&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=110&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab2d021e' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>  
+</div>
+<div class="portlet-top-margin">
+      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,124,0" width="336" height="350" id="TwitterWidget" align="middle">
+	<param name="allowScriptAccess" value="sameDomain" />
+	<param name="allowFullScreen" value="false" />
+	<param name="movie" value="http://static.twitter.com/flash/widgets/profile/TwitterWidget.swf" />
+	<param name="quality" value="high" />
+	<param name="bgcolor" value="#000000" />
+	<param name="FlashVars" value="userID=18854457&styleURL=http://static.twitter.com/flash/widgets/profile/smooth.xml">
+	<embed src="http://static.twitter.com/flash/widgets/profile/TwitterWidget.swf" quality="high" bgcolor="#000000" width="336" height="350" name="TwitterWidget" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="userID=18854457&styleURL=http://static.twitter.com/flash/widgets/profile/smooth.xml"/>
+</object>
+<br>  
+</div>
+<div class="portlet-top-margin">
+      <!--/* OpenX iFrame Tag v2.6.2 */-->
+
+<iframe id='a6673192' name='a6673192' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=a6673192&amp;zoneid=371&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='336' height='280'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a485a360&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=371&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a485a360' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>  
+</div>
+<div class="portlet about-magazine">
+    <div class="portlettitleabout">
+    About JAVA Developer&#039;s Journal  </div>
+      <div class="portletbody">
+      <div class="about-body">
+      Java Developer's Journal presents insight, technical explanations and new ideas related to Java and covers the technology that affects Java developers and their companies.      <table>
+        <tr>
+          <td>
+            <div class="subscribe-to"><a href="/user/alert/site/1/add"><img src="http://gemsres.com/ui/2.0/gems/images/icon_email-alerts.gif" alt="Subscribe to Email Alerts" name="addto" align="left" />Subscribe to JAVA Developer's Journal Email News Alerts</a> </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="subscribe-to"><a href="/index.rss"><img src="http://gemsres.com/ui/2.0/gems/images/icon_rss.gif" alt="Subscribe via RSS" name="addto" align="left" />Subscribe via RSS<br/>
+            <span class="alerts-click-this-link">Click this link to view as XML</span></a> </div>
+          </td>
+        </tr>
+      </table>
+      <p class="add-this-feed">ADD THIS FEED TO YOUR ONLINE NEWS READER
+      <a href="http://fusion.google.com/add?feedurl=http://java.sys-con.com/index.rss"><img src="http://gemsres.com/ui/2.0/gems/images/icon_add-to-google.gif" alt="Add to Google" name="addto" width="91" height="19" /></a>
+      <a href="http://add.my.yahoo.com/rss?url=http://java.sys-con.com/index.rss"><img src="http://gemsres.com/ui/2.0/gems/images/icon_my-yahoo.gif" alt="My Yahoo!" name="addto" width="92" height="19" /></a>
+      <a href="http://my.msn.com/addtomymsn.armx?id=rss&amp;ut=http://java.sys-con.com/index.rss&amp;ru=http://java.sys-con.com/index.rss"><img src="http://gemsres.com/ui/2.0/gems/images/icon_my-msn.gif" alt="My MSN" name="addto" width="91" height="19" /></a>
+      </p>
+    </div>
+    </div>
+  
+</div>
+</div></td>
+    </tr>
+        <tr bgcolor="#FFFFFF">
+      <td colspan="2">
+        <div id="site-footer">
+          <script type="text/javascript">
+  YAHOO.namespace("uz.carousel");
+
+  YAHOO.uz.carousel.init = function() {
+    YAHOO.uz.carousel.block = new YAHOO.widget.Carousel("top-sites-top-stories-carousel", { numVisible: 1, animation: { speed: 0.5 } });
+    YAHOO.uz.carousel.block.render();
+    YAHOO.uz.carousel.block.show();
+  }
+
+  YAHOO.util.Event.onDOMReady(YAHOO.uz.carousel.init);
+</script>
+<div class="portlet">
+    <div class="portlettitle">
+    Top Stories  </div>
+      <div class="portletbody">
+      <div class="yui-skin-sam">
+    <div id="top-sites-top-stories-carousel">
+      <ol>
+                <li class="top-sites-top-stories-slider">
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://cloudcomputing.sys-con.com/">Cloud Expo</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://cloudcomputing.sys-con.com/node/1272629">Cloud Computing: Rockinâ?? the corridors of Power</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://cloudcomputing.sys-con.com/node/1272246">Transitioning to Cloud Computing</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://cloudcomputing.sys-con.com/node/1272632">Consolidate and Dedicate to Eradicate</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://cloudcomputing.sys-con.com/node/1272333">Nimsoft Named â??Bronze Sponsorâ?? of Cloud Expo New York &amp; Silicon Valley</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://cloudcomputing.sys-con.com/node/1272065">R1Soft to Exhibit at World&#039;s Largest Cloud Computing Event</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://virtualization.sys-con.com/">Virtualization</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://virtualization.sys-con.com/node/1272630">Cloud SLAs to Mature</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://virtualization.sys-con.com/node/1272122">eSalesTrack to Exhibit at Cloud Expo 2010 East</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://virtualization.sys-con.com/node/1271926">Ping Identity to Exhibit at Cloud Expo 2010 East</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://virtualization.sys-con.com/node/1272682">mental images Introduces RealityServer AppLab for Easy Setup and Sharing of 3D Content on the Web</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://virtualization.sys-con.com/node/1272689">Map GDrive (Google Docs) as a Local Drive</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://dotnet.sys-con.com/">.NET</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://dotnet.sys-con.com/node/1272667">EPEATÂ® Green Electronics Rating System Expands to Singapore</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://dotnet.sys-con.com/node/1272702">MicroStrategy Announces Fourth Quarter 2009 Financial Results</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://dotnet.sys-con.com/node/1272497">Unicon Technologists Deliver Presentations at the Jasig Spring 2010 Conference, â??Ten Years of Open Source Innovationâ??</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://dotnet.sys-con.com/node/1272473">ROC Software, LP Announces Release of ROC EasySpooler SUSE-powered Appliance</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://dotnet.sys-con.com/node/1272194">Book Review: Sams Teach Yourself ASP.NET 3.5</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://web2.sys-con.com/">Web 2.0</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://web2.sys-con.com/node/1272287"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1272287/THY%20ELITE%20PLUS%20CARD%20226.jpg" alt="" /></a><br />
+                                          <a href="http://web2.sys-con.com/node/1272287">Freedom of Speech Turkish Style</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://web2.sys-con.com/node/1272678">Nimbuzz Announces First Revenue-Generating Partnership With Largest Indonesian Operator, Telkomsel</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://web2.sys-con.com/node/1272152">Macworld 2010 Announces New Product Launches</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://web2.sys-con.com/node/1272655">Fusion Garage Moves Into Full Production of Breakthrough JooJoo Web Tablet </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://web2.sys-con.com/node/1271209">Funambol Enhances Open Source Mobile Cloud for Rich Media, Social Networks</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://soa.sys-con.com/">SOA & WOA</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://soa.sys-con.com/node/1271278"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1271278/Cloud_SaaS_226.jpg" alt="" /></a><br />
+                                          <a href="http://soa.sys-con.com/node/1271278">Zuora CEO to Present at Cloud Expo 2010 East</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://soa.sys-con.com/node/1272679">Kaseya Announces Next Generation Product Line</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://soa.sys-con.com/node/770174">The Top 150 Players in Cloud Computing  </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://soa.sys-con.com/node/1061561">An Exclusive Interview with Adaptivity, Cloud Expo 2010 Platinum Plus Sponsor</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://soa.sys-con.com/node/1234925">Whatever the Apple iPad Is, It Apparently Leaks Like a Sieve</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column-noborder">
+            <div class="top-sites-top-stories-subject"><a href="http://search.sys-con.com/">Search</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://search.sys-con.com/node/1272021"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1272021/Preemptive%20226.jpg" alt="" /></a><br />
+                                          <a href="http://search.sys-con.com/node/1272021">Google-China Tiff: A Clash of Cyber Civilizations?</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://search.sys-con.com/node/1272517">Blast Radius Intern Lands &#039;Crunchie&#039; Award, Alongside Google and Facebook </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://search.sys-con.com/node/1272580">Cellufun Enters 2010 Ranked in Top Eight Mobile Websites</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://search.sys-con.com/node/1272625">Investors, Financial Community Encouraged to Join Modavox for Live Conference Call and Webcast</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://search.sys-con.com/node/1272242">CORRECTING and REPLACING New Enterprise Software Makes Advertisersâ?? Websites Mobile-Friendly in 30 Days</a>
+            </div>
+                      </div>
+                  </li>
+                <li class="top-sites-top-stories-slider">
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://sap.sys-con.com/">SAP</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://sap.sys-con.com/node/1272623">Extreme Networks BlackDiamond 8900-Series Modules Recognized Globally as Innovative Data Center Solution and Product of the Year </a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://sap.sys-con.com/node/1272447">Citrix Executives to Present at Upcoming Investor Conferences</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://sap.sys-con.com/node/1272481">Broadcom&#039;s Next Generation 10GbE Converged-NIC Delivers Advanced Virtualization and Unparalleled Performance</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://sap.sys-con.com/node/1272110">GigeNet Selects ParaScale Software for its HIVE Cloud Storage Platform</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://sap.sys-con.com/node/1272283">Riverbed Appoints Michael Boustridge to Board of Directors</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://wireless.sys-con.com/">Wireless</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://wireless.sys-con.com/node/1272074"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1272074/Steve%20Jobs%20468.jpg" alt="" /></a><br />
+                                          <a href="http://wireless.sys-con.com/node/1272074">Jobs Has a Few Words for Google &amp; Adobe &amp; They Ainâ??t Pretty: Reports</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://wireless.sys-con.com/node/1272674">Accumulate Guarantees Increased Revenues for Pre-loaded Mobile Games</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://wireless.sys-con.com/node/1272694">AirTight Wins NASSCOM New Technology Innovation Award for Wireless Intrusion Prevention </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://wireless.sys-con.com/node/1272608">Sunrise TelecomÂ® Reports Profitable 2009 Fourth Quarter, EBITDA $0.9 million</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://wireless.sys-con.com/node/1272708">Ballard Reports 2009 Achievements and Provides 2010 Outlook</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://opensource.sys-con.com/">Open Source</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://opensource.sys-con.com/node/1270871"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1270871/Ecommerce_226.jpg" alt="" /></a><br />
+                                          <a href="http://opensource.sys-con.com/node/1270871">Quick Comparison of eCommerce Platforms</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://opensource.sys-con.com/node/1272445">Call for Participation: 2nd Biannual Symposium on Eclipse Open Source Software &amp; OMG Open Specifications</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://opensource.sys-con.com/node/1272113">Research and Markets: North American I.T. Development Survey 2009: New Survey Shows Python Use Has Risen 45% Since Google App Engine Debuted</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://opensource.sys-con.com/node/1084456">Cloud Expo New York Call for Papers Now Open</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://opensource.sys-con.com/node/1233509">Six Enterprise Megatrends to Watch in 2010</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://iphone.sys-con.com/">iPhone</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://iphone.sys-con.com/node/1271056"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1271056/iPad_226.jpg" alt="" /></a><br />
+                                          <a href="http://iphone.sys-con.com/node/1271056">The iPad Is the Ultimate Thin Client</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://iphone.sys-con.com/node/1272540">Keyword Targeting Completes the Lat49 Location-Focused Online and Mobile Device Ad Serving Solution </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://iphone.sys-con.com/node/1272672">Penguin&#039;s Interactive e-book for children set to change book publishing</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://iphone.sys-con.com/node/1272470">Concur Reports Strong Revenue and Earnings Growth in First Quarter of Fiscal 2010</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://iphone.sys-con.com/node/1272117">Pressmart Announces Support for Apple iPad</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://java.sys-con.com/">Java</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://java.sys-con.com/node/1267188"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1267188/Dream%20Cloud_0_0_0.jpg" alt="" /></a><br />
+                                          <a href="http://java.sys-con.com/node/1267188">The Death of Cloud Computing the Birth of Dream Computing</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://java.sys-con.com/node/1249423">What Are Your Top 10 Web Application Performance Issues?</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://java.sys-con.com/node/1207696">Microsoft WebsiteSpark: Get New Business Leads to Grow Your Business</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://java.sys-con.com/node/1249117">Whatâ??s Next for Oracle-Sun?</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://java.sys-con.com/node/1152430">Kindle 2 vs Nook</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column-noborder">
+            <div class="top-sites-top-stories-subject"><a href="http://ajax.sys-con.com/">AJAX & REA</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://ajax.sys-con.com/node/1271203"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1271203/Semiconductor_226.jpg" alt="" /></a><br />
+                                          <a href="http://ajax.sys-con.com/node/1271203">Flash Player, iPhone, and the Rest of the RIA World</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://ajax.sys-con.com/node/1272677">Sagem Wireless And UPEK Partner To Bring Fingerprint-Based Identity Capabilities To New Mobile Devices</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://ajax.sys-con.com/node/1265707">PivotLink Named Cool Cloud Computing Vendor</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://ajax.sys-con.com/node/1265102">iPad on Ulitzer - Iâ??ll Buy iPad. But What For?</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://ajax.sys-con.com/node/1260265">Apple iPad in 3rd Place Behind iPhone and Android For Application Developers</a>
+            </div>
+                      </div>
+                  </li>
+                <li class="top-sites-top-stories-slider">
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://govit.sys-con.com/">GovIT</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://govit.sys-con.com/node/1272284">Catbird vSecurityâ?¢ Now Certified CVEÂ® Compatible</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://govit.sys-con.com/node/1272088">Shavlik Technologies Reports a Record 2009 With Increased Revenue, New Customers, Partners and Added Headcount </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://govit.sys-con.com/node/1257999">Cloud Economics â?? Amazon, Microsoft, Google Compared</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://govit.sys-con.com/node/1218515">Cloud Expo New York Call for Papers to Expire January 15, 2010</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://govit.sys-con.com/node/1217366">Adaptivity â??Platinum Plus Sponsorâ?? of Cloud Expo</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://crm.sys-con.com/">CRM</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://crm.sys-con.com/node/1272665">CRM and SharePoint â?? Two Webinars on the Same Day</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://crm.sys-con.com/node/1272277">Greenberg Traurig Establishes San Francisco Office</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://crm.sys-con.com/node/1271494">Salesforce.com Raises the Stakes for Enterprise Cloud Computing Platforms With New Force.com Visual Process Manager</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://crm.sys-con.com/node/1271846">Radio, TV, Print Budgets Slashed as Marketers Look Online to Build Brand Reputation</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://crm.sys-con.com/node/1271884">NetSuite and HEIN Partner to Provide Expert Accounting and Regulatory Compliance Solutions From the Cloud</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://oracle.sys-con.com/">Oracle</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://oracle.sys-con.com/node/1268935"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1268935/Application_performance_226.jpg" alt="" /></a><br />
+                                          <a href="http://oracle.sys-con.com/node/1268935">SYSTIME and Oracle Unveil Oracleâ??s Application Integration Architecture</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://oracle.sys-con.com/node/1249464">Now Russia Threatens to Hold Up Oracle-Sun Deal</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://oracle.sys-con.com/node/1271866">RemoteRelief Selects Hosted Solutions&#039; Stratus Trusted Cloud(TM) for Infrastructure and Managed Services</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://oracle.sys-con.com/node/1153768">An Exclusive Interview with Oracle, Cloud Expo 2010 Diamond Sponsor</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://oracle.sys-con.com/node/1265570">Apple and Oracle on Way to Do What IBM and Microsoft Could Not</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://linux.sys-con.com/">Linux</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://linux.sys-con.com/node/1261493"><img width="90" height="51" src="http://res.sys-con.com/story/jan10/1261493/Conversation%20226.jpg" alt="" /></a><br />
+                                          <a href="http://linux.sys-con.com/node/1261493">iPad New Media Topic Launched on Ulitzer</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://linux.sys-con.com/node/1272158">Logic Launches System on Module and eXperimenter Development Kit for the Texas Instruments AM3517 microprocessor</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://linux.sys-con.com/node/1269406">rPath Eliminates the â??Pain of Changeâ?? for Linux Shops</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://linux.sys-con.com/node/1204661">Free Virtual Appliance for Cloud Computing</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://linux.sys-con.com/node/1271776">BeyondTrust Achieves Record Growth In 2009</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://cms.sys-con.com/">CMS</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://cms.sys-con.com/node/1272486">Foundation for the National Archives Receives $75,000 Gift for Theater Programming</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://cms.sys-con.com/node/1272536">Simply XML Announces Release 4.0 of Content Mapper, Microsoft(TM) Office to XML Authoring and Publishing Environment Including SharePoint Support </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://cms.sys-con.com/node/1271685">Mezeo Software Appoints Vice President of Business Development </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://cms.sys-con.com/node/1271758">Zerista Creates Customized Social Network for GSMAâ??s 2010 Mobile World Congress</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://cms.sys-con.com/node/1270868">Social Media, Networking, and Networks</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column-noborder">
+            <div class="top-sites-top-stories-subject"><a href="http://php.sys-con.com/">PHP</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://php.sys-con.com/node/1272466">Broadcom is First to Market With the Industry&#039;s Lowest Power 40nm 10GBASE-T PHYs</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://php.sys-con.com/node/1272435">Broadcom to Gain EPON Technology With Acquisition of Teknovus</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://php.sys-con.com/node/1270870">opentaps Open Source ERP + CRM Quarterly Update</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://php.sys-con.com/node/1272185">Experts: No Good Candidates Exist for Current Nuclear Reactor Loan Guarantee Bailout Funds, Much Less Tripled Amount Under Obama Budget Plan</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://php.sys-con.com/node/1271783">NI Technology Previews Earnings for Benchmark Electronics, CARBO Ceramics, Harmonic, ON Semiconductor and FalconStor Software</a>
+            </div>
+                      </div>
+                  </li>
+                <li class="top-sites-top-stories-slider">
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://symbian.sys-con.com/">Symbian</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://symbian.sys-con.com/node/1272675">Tyntec Announces Complete Coverage In China</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://symbian.sys-con.com/node/1272687">AuthenTec to Demonstrate New Smart Sensor Products, Features, and Applications at GSMA Mobile World Congress</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://symbian.sys-con.com/node/1272657">Single Touch Systems Primed for Growth with $3.3 Million Investment</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://symbian.sys-con.com/node/1272126">Telecom Companies Grab Two Bright Spots After Last Year</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://symbian.sys-con.com/node/1272335">Loopt Users Can Help Support Haiti Relief Fund by &quot;Checking In&quot; at Whole Foods, Chipotle Grill and Panera Bread </a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://coldfusion.sys-con.com/">ColdFusion</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://coldfusion.sys-con.com/node/1211690"><img width="90" height="51" src="http://res.sys-con.com/story/dec09/1211690/Load%20Balancing%20226.jpg" alt="" /></a><br />
+                                          <a href="http://coldfusion.sys-con.com/node/1211690">Adobe Discusses Cloud Computing and Government</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://coldfusion.sys-con.com/node/1201762">Adobe Fiddles with its Web Apps</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://coldfusion.sys-con.com/node/1241325">Using Custom Type Marshallers in BlazeDS</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://coldfusion.sys-con.com/node/1222381">Streaming Media in the Cloud by Amazon and Adobe</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://coldfusion.sys-con.com/node/1249134">UPDATE: Adobe &amp; IE Implicated as Chinaâ??s Spy Holes</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://redhat.sys-con.com/">Red Hat</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://redhat.sys-con.com/node/1271575">Sauce Labs Adds Top Python and Jython Core Committers to Team </a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://redhat.sys-con.com/node/1243384">Running the Vordel XML Gateway on Oracle VM</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://redhat.sys-con.com/node/1217529">Cloud Computing Was the Big News of 2009</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://redhat.sys-con.com/node/1175525">Reality Check at the Cloud Expo</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://redhat.sys-con.com/node/1257885">Cloud Expo New York, Prague, and San Francisco Sponsors</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://python.sys-con.com/">Python</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://python.sys-con.com/node/1268758"><img width="90" height="51" src="http://res.sys-con.com/story/feb10/1268758/Failover-226.gif" alt="" /></a><br />
+                                          <a href="http://python.sys-con.com/node/1268758">ActiveState Launches Business Edition</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://python.sys-con.com/node/1271439">NBC Universal Selects KickApps Social Software and Video Solutions to Power Experiences Across a Broad Range of Brands</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://python.sys-con.com/node/1272307">Codenomicon is Offering a Free Fuzzing Tool</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://python.sys-con.com/node/1143310">Microsoftâ??s First Step Toward Cloud Computing</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://python.sys-con.com/node/1271672">Teryl Resources Announces Approval of US$1.5 Million 2010 Exploration Budget for the Gil Joint Venture Gold Claims by Kinross Gold Corporation </a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://eclipse.sys-con.com/">Eclipse</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://eclipse.sys-con.com/node/1269375">Feng Shui Expert Consultant Dr. Simona Mainini Releases Annual Forecast for 2010 </a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://eclipse.sys-con.com/node/1085967">Current Trends in the Data Management Market</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://eclipse.sys-con.com/node/1271631">Open Source Association Veteran Paula Hunter Named Executive Director of the CodePlex Foundation </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://eclipse.sys-con.com/node/1271856">INSIDE Contactless propose une stack de logiciel NFC Open Source</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://eclipse.sys-con.com/node/1271831">EnterpriseDB Signs on as Exclusive Platinum Sponsor of PG East 2010 to Enhance Industry&#039;s Largest Independent Open Source Database Event</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column-noborder">
+            <div class="top-sites-top-stories-subject"><a href="http://blackberry.sys-con.com/">BlackBerry Developer</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://blackberry.sys-con.com/node/1271506">New Enterprise Software Makes Advertisersâ?? Websites Mobile-Friendly in 30 Days</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://blackberry.sys-con.com/node/1271697">IM+ for Skype With Free VoIP Calls Comes to BlackBerry</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://blackberry.sys-con.com/node/1272213">Thumbplay Forges 20 New Content Deals for Just-Launched Thumbplay Music; 8 Million Tracks Now Under License for the Cloud-Based, On-Demand Service</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://blackberry.sys-con.com/node/1271639">Lithium Technologies enregistre plus de 100 pour cent de croissance en 2009</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://blackberry.sys-con.com/node/1250514">Hotel Bookings via Mobile Phone</a>
+            </div>
+                      </div>
+                  </li>
+                <li class="top-sites-top-stories-slider">
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://flex.sys-con.com/">Adobe Flex</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://flex.sys-con.com/node/1272222">Investor Advisory: Adobe Announces Webcasts of Investor Conference Participation</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://flex.sys-con.com/node/1125189">The Transition to Cloud Computing: What Does It Mean For You?</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://flex.sys-con.com/node/1207089">Cloud Expo New York Diamond and Platinum Sponsorships Sold Out</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://flex.sys-con.com/node/1255061">What Should Be Baked into the New Apple iPad and Why</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://flex.sys-con.com/node/1271706">SlideShare Launches Channels for Marketing to Professionals</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://xml.sys-con.com/">XML</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://xml.sys-con.com/node/579826"><img width="90" height="51" src="http://res.sys-con.com/story/jun08/579826/Jacob%20Javits%20468.jpg" alt="" /></a><br />
+                                          <a href="http://xml.sys-con.com/node/579826">What is Cloud Computing?</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://xml.sys-con.com/node/1272191">FDA Consumer Health Information - FDA&#039;s MedWatch Safety Alerts: January 2010</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://xml.sys-con.com/node/1272107">Verical â??DemandMatchâ?? Slashes Sourcing Times for Electronic Components Shortage Buyers</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://xml.sys-con.com/node/1270948">Xiotech in 2010 (BD Event Recap)</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://xml.sys-con.com/node/1203943">A Security Analysis of Cloud Computing</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://websphere.sys-con.com/">Websphere</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                                          <a href="http://websphere.sys-con.com/node/1272631">Pillar Data Systems Blog: Pass the Morton&#039;s Salt</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://websphere.sys-con.com/node/1270933">IBM-Neon Fight Flares</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://websphere.sys-con.com/node/1272293">Opscode Announces John Willis as New Vice President of Training &amp; Services </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://websphere.sys-con.com/node/1268577">IBM and JLL Sign a Seven-Year IT Services Agreement</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://websphere.sys-con.com/node/1241033">Declarative Programming in the Cloud</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://apache.sys-con.com/">Apache</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://apache.sys-con.com/node/1159483"><img width="90" height="51" src="http://res.sys-con.com/story/oct09/1159483/Cloud%20Expoo%202009%20Opens%2065_0.jpg" alt="" /></a><br />
+                                          <a href="http://apache.sys-con.com/node/1159483">Virtualization Expo New York Call for Papers to Expire January 15, 2010</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://apache.sys-con.com/node/1249855">How do I tweet? Let me count the ways... </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://apache.sys-con.com/node/1270866">Social Media and Networking for Small Businesses</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://apache.sys-con.com/node/1272304">Goodrich Delivers 500th Laser Detecting System for U.S. Army Helicopters</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://apache.sys-con.com/node/1259019">Getting Started with OpenJPA</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column">
+            <div class="top-sites-top-stories-subject"><a href="http://hp.sys-con.com/">HP</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://hp.sys-con.com/node/1178636"><img width="90" height="51" src="http://res.sys-con.com/story/nov09/1178636/Recession%20226.jpg" alt="" /></a><br />
+                                          <a href="http://hp.sys-con.com/node/1178636">Cloud Expo and The End of Tech Recession</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://hp.sys-con.com/node/1272479">HP Announces Participation in Upcoming Investor Conferences</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://hp.sys-con.com/node/1272456">HP to Present Live Audio Webcast of First Quarter Earnings Conference Call</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://hp.sys-con.com/node/1225234">Oracle Named Exclusive Diamond Sponsor of Cloud Expo 2010</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://hp.sys-con.com/node/1063761">The End of IT 1.0 As We Know It Has Begun</a>
+            </div>
+                      </div>
+                    <div class="top-sites-top-stories-column-noborder">
+            <div class="top-sites-top-stories-subject"><a href="http://weblogic.sys-con.com/">Weblogic</a></div>
+                        <div class="top-sites-top-stories-main-title">
+                            <a href="http://weblogic.sys-con.com/node/1242600"><img width="90" height="51" src="http://res.sys-con.com/story/jan10/1242600/Virtualization_Security_226.jpg" alt="" /></a><br />
+                                          <a href="http://weblogic.sys-con.com/node/1242600">Oracle to Present at the Largest Cloud Computing Event in the World</a>
+            </div>
+                                    <div class="top-sites-top-stories-small-title">
+              <a href="http://weblogic.sys-con.com/node/1271828">NewMarket Technology, Inc. Anticipates More Than $100 Million in Wi-Fi ODM Contracts for Asian Market in 1st Quarter 2010 </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://weblogic.sys-con.com/node/1271865">China Crescent Enterprises, Inc. Anticipates More Than $100 Million in New Contracts in First Quarter 2010 </a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://weblogic.sys-con.com/node/1271621">WhiteHat Security Names Erik Pace Birkholz as Western Region Sales Director</a>
+            </div>
+                        <div class="top-sites-top-stories-small-title">
+              <a href="http://weblogic.sys-con.com/node/1216820">Sun Microsystems Releases NetBeans IDE 6.8</a>
+            </div>
+                      </div>
+                  </li>
+              </ol>
+    </div>
+    </div>
+    </div>
+  
+</div>
+<div class="portlet">
+    <div class="portlettitle">
+    CIO, CTO &amp; Developer Resources  </div>
+      <div class="portletbody">
+    <iframe src="http://banners.sys-con.com/openx/local/sponsored_java_ajax_cloud.php" height="240" width="980" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+
+<iframe id='af0af0e0' name='af0af0e0' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=af0af0e0&amp;campaignid=304&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='1' height='1'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a109aaa3&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?campaignid=304&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a109aaa3' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script><iframe id='a1f40713' name='a1f40713' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=a1f40713&amp;campaignid=305&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='1' height='1'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a0c41487&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?campaignid=305&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a0c41487' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script><iframe id='a4716f4b' name='a4716f4b' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=a4716f4b&amp;campaignid=306&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='1' height='1'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a4829d75&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?campaignid=306&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a4829d75' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>    </div>
+  
+</div>
+          <br style="clear:both;" />
+        </div>
+      </td>
+    </tr>
+        <tr>
+      <td colspan="2"><div id="footer"><div class="footer-nav">
+<h2>SYS-CON Media</h2>
+<ul>
+  <li><a href="http://www.sys-con.com/general/aboutus.htm">About Us</a></li>
+  <li><a href="http://www.sys-con.com/general/contactus.htm">Contact Us</a></li>
+  <li><a href="http://www.sys-con.com/category/61">Company News</a></li>
+  <li><a href="http://www.sys-con.com/general/careers.htm">Careers</a></li>
+  <li><a href="http://www.sys-con.com/general/authorguidelines.htm">Author Guidelines</a></li>
+</ul>
+</div>
+<div class="footer-nav">
+<h2>SYS-CON Events</h2>
+<ul>
+   <li><a href="http://cloudcomputingexpo.com/">Cloud Computing Conference &amp; Expo</a></li>
+   <li><a href="http://virtualizationconference.com">Virtualization Conference &amp; Expo</a></li>
+   <li><a href="http://cloudbootcamp2010east.sys-con.com">Cloud Computing Bootcamp</a></li>
+   <li><a href="http://events.sys-con.com">iPhone Developer Summit</a></li>
+</ul>
+<!--</div>
+<div class="footer-nav">-->
+<h2>Navigate</h2>
+<ul>
+  <li><a href="http://www.sys-con.com">Home</a></li>
+  <li><a href="http://www.sys-con.com/general/subscribe.htm">Subscribe</a></li>
+  <li><a href="http://www.sys-con.com/general/advertise.htm">Advertise</a></li>
+  <li><a href="http://downloads.sys-con.com">Downloads</a></li>
+  <li><a href="http://whitepapers.sys-con.com">Whitepapers</a></li>
+  <li><a href="http://www.sys-con.tv">Videos</a></li>
+  <li><a href="http://events.sys-con.com">Events</a></li>
+  <li><a href="http://webcast.sys-con.com">Webcasts</a></li>
+</ul>
+</div>
+<div class="footer-nav">
+<h2>International Sites</h2>
+<ul>
+  <li><a href="http://in.sys-con.com">India</a></li>
+  <li><a href="http://uk.sys-con.com">UK</a></li>
+  <li><a href="http://ca.sys-con.com">Canada</a></li>
+  <li><a href="http://de.sys-con.com">Germany</a></li>
+  <li><a href="http://ft.sys-con.com">France</a></li>
+  <li><a href="http://au.sys-con.com">Australia</a></li>
+  <li><a href="http://it.sys-con.com">Italy</a></li>
+  <li><a href="http://es.sys-con.com">Spain</a></li>
+  <li><a href="http://ne.sys-con.com">Netherlands</a></li>
+  <li><a href="http://br.sys-con.com">Brazil</a></li>
+  <li><a href="http://be.sys-con.com">Belgium</a></li>
+</ul>
+</div>
+<div class="footer-nav">
+<h2>Magazines</h2>
+<ul>
+  <li><a href="http://dotnet.sys-con.com">.NET</a></li>
+  <li><a href="http://apache.sys-con.com">Apache</a></li>
+  <li><a href="http://ajax.sys-con.com">AJAX</a></li>
+  <li><a href="http://cloudcomputing.sys-con.com">Cloud Computing</a></li>
+  <li><a href="http://cms.sys-con.com">CMS</a></li>
+  <li><a href="http://coldfusion.sys-con.com">Coldfusion</a></li>
+  <li><a href="http://crm.sys-con.com">CRM</a></li>
+  <li><a href="http://eclipse.sys-con.com">Eclipse</a></li>
+  <li><a href="http://opensource.sys-con.com">Open Source</a></li>
+  <li><a href="http://flex.sys-con.com">Flex</a></li>
+  <li><a href="http://hp.sys-con.com">HP</a></li>
+</ul>
+</div>
+<div class="footer-nav">
+<h2>&nbsp;</h2>
+<ul>
+  <li><a href="http://iphone.sys-con.com">iPhone</a></li>
+  <li><a href="http://internetvideo.sys-con.com">Video</a></li>
+  <li><a href="http://java.sys-con.com">Java</a></li>
+  <li><a href="http://linux.sys-con.com">Linux</a></li>
+  <li><a href="http://openwebdeveloper.sys-con.com">Open Web</a></li>
+  <li><a href="http://oracle.sys-con.com">Oracle</a></li>
+  <li><a href="http://perl.sys-con.com">Perl</a></li>
+  <li><a href="http://php.sys-con.com">PHP</a></li>
+  <li><a href="http://powerbuilder.sys-con.com">PowerBuilder</a></li>
+  <li><a href="http://python.sys-con.com">Python</a></li>
+  <li><a href="http://redhat.sys-con.com">Red Hat</a></li>
+</ul>
+</div>
+<div class="footer-nav">
+<h2>&nbsp;</h2>
+<ul>
+  <li><a href="http://ruby.sys-con.com">Ruby</a></li>
+  <li><a href="http://search.sys-con.com">Search</a></li>
+  <li><a href="http://silverlight.sys-con.com">Silverlight</a></li>
+  <li><a href="http://sap.sys-con.com">SAP</a></li>
+  <li><a href="http://soa.sys-con.com">SOA</a></li>
+  <li><a href="http://symbian.sys-con.com">Symbian</a></li>
+  <li><a href="http://virtualization.sys-con.com">Virtualization</a></li>
+  <li><a href="http://web2.sys-con.com">Web 2.0</a></li>
+  <li><a href="http://weblogic.sys-con.com">Weblogic</a></li>
+  <li><a href="http://websphere.sys-con.com">Websphere</a></li>
+  <li><a href="http://wireless.sys-con.com">Wireless</a></li>
+  <li><a href="http://xml.sys-con.com">XML</a></li>
+</ul>
+</div>
+<div id="footer-terms">
+<p><img src="http://gemsres.com/ui/2.0/gems/images/logo_sys-con_sml.png"  align="left" /><a href="http://www.sys-con.us/general/terms.htm">Terms of Use &amp; Our Privacy Statement</a> - <a href="http://www.sys-con.us/general/aboutfeeds.htm">About Newsfeeds / Videofeeds</a>. Copyright &copy;1994-2009 SYS-CON Media.<br />All Rights Reserved. All marks are trademarks of SYS-CON Media.<br />
+Reproduction in whole or in part in any form or medium without express written permission of SYS-CON Media is prohibited.</p>
+</div>
+</div></td>
+    </tr>
+    </table>
+  </div>
+  
+      <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+      <script type="text/javascript">_uacct = "UA-271410-1"; urchinTracker(); </script>
+
+
+    <div id="elementDiv" style="z-index: 1000; width:620; height:420; background-color:white; visibility:hidden; position:absolute; top:0; left:0; border: 8px ridge black; padding: 10px;">
+    <body>
+<center>
+
+<!--/* OpenX iFrame Tag v2.6.2 */-->
+
+<iframe id='ab0be6f1' name='ab0be6f1' src='http://banners.sys-con.com/openx/www/delivery/afr.php?n=ab0be6f1&amp;zoneid=294&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='600' height='400'><a href='http://banners.sys-con.com/openx/www/delivery/ck.php?n=a4f95aaf&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://banners.sys-con.com/openx/www/delivery/avw.php?zoneid=294&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a4f95aaf' border='0' alt='' /></a></iframe>
+<script type='text/javascript' src='http://banners.sys-con.com/openx/www/delivery/ag.php'></script>
+
+
+
+</center>
+</body>
+    <div align="center"><a onclick="closeElement();">close this window</a></div>
+    </div>
+    <script>welcome('WM_');</script>
+</body>
+</html>

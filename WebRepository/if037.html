@@ -1,0 +1,1026 @@
+ 
+ 
+ 
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+
+<title>
+Using the Java plugin with Firefox
+</title>
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/minify.php/css_styles_mozcommon;css_styles_mozkb" /><!--[if lte IE 6]><link rel="StyleSheet" media="all" href="/styles/mozcommon/ie.css" type="text/css" /> <![endif]-->
+<!--[if IE 7]><link rel="StyleSheet" media="all" href="/styles/mozcommon/ie7.css" type="text/css" /> <![endif]-->
+
+
+    <!--[if lte IE 6]><link rel="StyleSheet" media="all" href="/styles/mozkb/ie.css" type="text/css" /> <![endif]-->
+    <!--[if IE 7]><link rel="StyleSheet" media="all" href="/styles/mozkb/ie7.css" type="text/css" /> <![endif]-->
+
+ 
+</head>
+
+
+<body  class="mini"	onload="showfor_start();"
+ class="tiki_wiki page">
+
+
+<div id="wrap" class="mini">
+  <div id="doc">
+    
+
+	<!-- start #header -->
+	<div id="header" role="banner">
+		<div>
+<h1><a href="http://www.mozilla.com/" title="Back to Mozilla.com"><img src="/styles/mozcommon/mozilla-logo.png" height="56" width="145" alt="Mozilla" /></a></h1>
+<div id="nav-main" class="yuimenubar yuimenubarnav" role="navigation">
+  <div class="bd">
+
+    <ul class="first-of-type">
+<li id="menu_products" class="yuimenubaritem"><a href="http://www.mozilla.com/en-US/products/">Products</a>
+      <div class="yuimenu">
+        <div class="bd">
+          <ul>
+<li id="submenu_firefox" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/products/firefox/">Firefox</a></li><li id="submenu_thunderbird" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/products/thunderbird/">Thunderbird</a></li></ul>
+        </div>
+      </div>
+
+      </li><li id="menu_addons" class="yuimenubaritem"><a href="https://addons.mozilla.org/">Add-ons</a>
+      <div class="yuimenu">
+        <div class="bd">
+          <ul>
+<li id="submenu_addons_all" class="yuimenuitem"><a href="https://addons.mozilla.org/firefox/">All Add-ons</a></li><li id="submenu_addons_recommended" class="yuimenuitem"><a href="https://addons.mozilla.org/firefox/recommended">Recommended</a></li><li id="submenu_addons_popular" class="yuimenuitem"><a href="https://addons.mozilla.org/firefox/browse/type:1/cat:all?sort=popular">Popular</a></li><li id="submenu_addons_themes" class="yuimenuitem"><a href="https://addons.mozilla.org/firefox/browse/type:2">Themes</a></li><li id="submenu_addons_search" class="yuimenuitem"><a href="https://addons.mozilla.org/firefox/browse/type:4">Search Engines</a></li><li id="submenu_addons_plugins" class="yuimenuitem"><a href="https://addons.mozilla.org/firefox/browse/type:7">Plugins</a></li></ul>
+        </div>
+
+      </div>
+      </li><li id="menu_support" class="yuimenubaritem"><span class="current">Support</span>
+      <div class="yuimenu">
+        <div class="bd">
+          <ul>
+<li id="submenu_support_kb" class="yuimenuitem"><a href="/en-US/kb/">Firefox Support</a></li><li id="submenu_support_thunderbird" class="yuimenuitem"><a href="http://www.mozilla.org/support/thunderbird/">Thunderbird Support</a></li></ul>
+        </div>
+
+      </div>
+      </li><li id="menu_community" class="yuimenubaritem"><a href="http://www.mozilla.com/en-US/manyfaces/">Community</a>
+      <div class="yuimenu">
+        <div class="bd">
+          <ul>
+<li id="submenu_community_addons" class="yuimenuitem"><a href="https://addons.mozilla.org/">Add-ons</a></li><li id="submenu_community_bugzilla" class="yuimenuitem"><a href="https://bugzilla.mozilla.org/">Bugzilla</a></li><li id="submenu_community_devmo" class="yuimenuitem"><a href="http://developer.mozilla.org/">Mozilla Developer Center</a></li><li id="submenu_community_labs" class="yuimenuitem"><a href="http://labs.mozilla.com/">Mozilla Labs</a></li><li id="submenu_community_mozillaorg" class="yuimenuitem"><a href="http://www.mozilla.org/">Mozilla.org</a></li><li id="submenu_community_mozillazine" class="yuimenuitem"><a href="http://www.mozillazine.org/">MozillaZine</a></li><li id="submenu_community_planet" class="yuimenuitem"><a href="http://planet.mozilla.org/">Planet Mozilla</a></li><li id="submenu_community_qmo" class="yuimenuitem"><a href="http://quality.mozilla.org/">QMO</a></li><li id="submenu_community_spreadfirefox" class="yuimenuitem"><a href="http://www.spreadfirefox.com/">SpreadFirefox</a></li><li id="submenu_community_support" class="yuimenuitem"><span class="current">Support</span></li></ul>
+
+        </div>
+      </div>
+      </li><li id="menu_aboutus" class="yuimenubaritem"><a href="http://www.mozilla.com/en-US/about/">About</a>
+      <div class="yuimenu">
+        <div class="bd">
+          <ul>
+<li id="submenu_about" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/about/whatismozilla.html">What is Mozilla?</a></li><li id="submenu_getinvolved" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/about/get-involved.html">Get Involved</a></li><li id="submenu_press" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/press/">Press Center</a></li><li id="submenu_careers" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/about/careers.html">Careers</a></li><li id="submenu_partnerships" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/about/partnerships.html">Partnerships</a></li><li id="submenu_licensing" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/about/licensing.html">Licensing</a></li><li id="submenu_blog" class="yuimenuitem"><a href="http://blog.mozilla.com/">Blog</a></li><li id="submenu_store" class="yuimenuitem"><a href="http://store.mozilla.org/">Store</a></li><li id="submenu_contact" class="yuimenuitem"><a href="http://www.mozilla.com/en-US/about/contact.html">Contact Us</a></li></ul>
+
+        </div>
+      </div>
+      </li></ul>
+  </div>
+</div>		</div>
+		<hr class="hide" />
+	</div>
+	<!-- end #header -->
+
+	<hr class="hide" />
+
+	<div class="feature-contents">
+
+		<div id="breadcrumbs"><ul>
+		<li><a href="/en-US/kb/">Firefox Support</a></li>
+		                                           <li class="divider">/</li><li><span class="categpath">
+<a class="categpath" href="/en-US/kb/Article+list" title="browse category">Knowledge&nbsp;Base</a></span>
+</li>
+                                                              <li class="divider">/</li><li>Using the Java plugin with Firefox</li>
+                                      
+
+	</ul></div>
+	
+	
+			</div><ul id="side-menu">
+  <li class="first"><h3><a href="/en-US/kb/">Firefox Support</a></h3></li>
+  <li><a href="/en-US/kb/" class="on">Knowledge Base</a></li>
+  <li><a href="/forum">Support Forum</a></li>
+  <li><a href="/en-US/kb/Ask+a+question">Ask a Question</a></li>
+  <li><a href="/en-US/kb/Other+Firefox+support">Other Firefox Support</a></li>
+  <li><a href="/en-US/kb/How+to+contribute">How to Contribute</a></li>
+    <li><a href="/tiki-login.php?locale=en-US">Log In</a></li>
+  </ul>	<div id="c1c2">
+		<div id="wrapper">
+			<div id="col1" class=" marginright">
+				<div class="marginleft content">
+					<div class="clearfix cbb contentwrapper" role="main">
+						<div class="topbar"></div>
+						                        						<div class="top-notify" id="fx2eol" style="display: none;">
+							<p><b>Mozilla is not planning any further security and stability updates for Firefox 2</b>, and recommends that you <a title="Updating Firefox" href="/en-US/kb/Updating+Firefox" class="wiki">upgrade to Firefox 3</a> as soon as possible. It's free, and your settings and bookmarks will be preserved.
+</p>
+
+<p>Also, the Phishing Protection service will no longer be available for Firefox 2 users. Firefox 3 offers a free Phishing and Malware Protection service, which will continue to protect you from online scams and attacks.
+</p>
+						</div>												
+
+<div class="titleetc">	
+	
+		<h1 class="pagetitle">
+					Using the Java plugin with Firefox
+		  </h1>
+
+	
+</div> 
+<div class="bodybox">
+  <div class="bodybox-inner">
+    <div class="actions">
+
+	<div class="actionsbox"><div class="action-title">Actions</div>
+	<ul id="actionsbox">
+			
+			
+						
+										
+				<li><a class="linkbut" title="Edit this page" href="/tiki-editpage.php?locale=en-US&amp;page=%2AUsing%20the%20Java%20plugin%20with%20Firefox"><img src="/styles/mozcommon/action_edit.png"  width="10" height="10" /> Edit this page</a></li>
+										<li><a href="/tiki-edit_translation.php?locale=en-US&amp;page=Using%20the%20Java%20plugin%20with%20Firefox" class="linkbut"><img src="/styles/mozcommon/action_translate.png" width="10" height="10" /> Translate this page</a></li>
+												
+							  	
+			
+			
+						
+																												
+									  
+	  				  	  	  
+	  	
+						
+			</ul>
+
+</div>
+</div>
+
+	
+	<div class="showfor_title">
+		Show content customized for:
+	</div>
+			<ul class="showfor_nav">
+					<li  id="showfor_li_windows" ><a id="showfor_tab_windows" href="javascript:showfor('windows')" onclick="showfor_save_os('windows')" class="showfor_button">Windows</a></li>
+					<li  id="showfor_li_linux" ><a id="showfor_tab_linux" href="javascript:showfor('linux')" onclick="showfor_save_os('linux')" class="showfor_button">Linux</a></li>
+					<li  id="showfor_li_mac" ><a id="showfor_tab_mac" href="javascript:showfor('mac')" onclick="showfor_save_os('mac')" class="showfor_button">Mac OS</a></li>
+					<li style="display:none;" id="showfor_li_allos" ><a id="showfor_tab_allos" href="javascript:showfor('allos')" onclick="showfor_save_os('allos')" class="showfor_button">All</a></li>
+				</ul>
+				
+		<ul class="showfor_nav showfor_browser_label">
+		Firefox:
+					
+									
+									
+				 
+					<li><a class="showfor_button" id="showfor_tab_firefox3.0" href="javascript:showfor('firefox3.0')" onclick="showfor_save_browser('firefox3.0')">3.0</a></li>				
+									
+									
+				 
+					<li><a class="showfor_button" id="showfor_tab_firefox3.6" href="javascript:showfor('firefox3.6')" onclick="showfor_save_browser('firefox3.6')">3.5/3.6</a></li>				
+									
+											
+									<li style="display: none !important"><a class="showfor_button" id="showfor_tab_firefox2" href="javascript:showfor('firefox2')" onclick="showfor_save_browser('firefox2')">2.0</a></li>													
+									
+									<li style="display: none !important"><a class="showfor_button" id="showfor_tab_firefox3" href="javascript:showfor('firefox3')" onclick="showfor_save_browser('firefox3')">3</a></li>													
+									
+									
+									<li style="display: none !important"><a class="showfor_button" id="showfor_tab_firefox3.1" href="javascript:showfor('firefox3.1')" onclick="showfor_save_browser('firefox3.1')">3.1</a></li>													
+									
+									
+									<li style="display: none !important"><a class="showfor_button" id="showfor_tab_allbrowser" href="javascript:showfor('allbrowser')" onclick="showfor_save_browser('allbrowser')">All</a></li>													
+								</ul>
+	  </div>
+</div>
+<div id="top" class="clearfix wikitext">
+
+
+
+<p>Many web pages use <a class="wiki"  href="http://en.wikipedia.org/wiki/Java_applet">Java applets</a> for interactive content such as online games.  <a class="wiki"  href="http://en.wikipedia.org/wiki/Java_programming_language ">Java</a> is a programming language that can run on a Windows, Mac, Linux, and other  computer systems.
+</p>
+<ul><li> Java is developed and maintained by <a class="wiki"  href="http://www.java.com/en/about">Sun Microsystems</a>.
+</li><li> Java is not the same thing as JavaScript (see <a title=" JavaScript is a standard programming language that can be included in web pages to provide functionality such as menus, sounds, and other interactive features. By default, Firefox enables the use of " href="/en-US/kb/JavaScript" class="wiki">this article</a> for information about JavaScript).
+</li></ul>
+
+<p>Before Firefox can run Java applets you must have the <b>Java Runtime Environment</b> (JRE) properly installed and enabled. This article will help you install or update your JRE and get it working in Firefox.
+</p>
+
+
+
+<h3>Table Of Contents</h3><ul><li class='toclevel-1'><a href='#Testing_Java' class='link'>Testing Java</a></li>
+<li class='toclevel-1'><a href='#Enabling_Java' class='link'>Enabling Java</a></li>
+<li class='toclevel-2'><a href='#Other_software_that_may_block_Java' class='link'>Other software that may block Java</a></li>
+<li class='toclevel-1'><a href='#Installing_or_updating_Java' class='link'>Installing or updating Java</a></li>
+<li id='showfor_toc_2_0' class='toclevel-3'><a href='#Manual_install_or_update' class='link'>Manual install or update</a></li>
+<li id='showfor_toc_2_1' class='toclevel-3'><a href='#Updates' class='link'>Updates</a></li>
+<li id='showfor_toc_2_2' class='toclevel-3'><a href='#Troubleshooting' class='link'>Troubleshooting</a></li>
+<li class='toclevel-1'><a href='#Issues_or_problems_related_to_Java' class='link'>Issues or problems related to Java</a></li>
+<li class='toclevel-1'><a href='#Additional_resources' class='link'>Additional resources</a></li></ul>
+
+
+
+
+<h2 class="showhide_heading" id="Testing_Java">Testing Java</h2>
+<p>A number of online tools will tell you if Java is installed and enabled in Firefox.
+</p>
+<ul><li> You can visit the Java test page at <a class="wiki"  href="http://www.java.com/en/download/help/testvm.jsp">java.com</a>.
+<ul><li> <b>Note: Through the above test, you can also install the appropriate JRE for your system.</b>
+</li></ul></li><li> To verify your installed Java software, see <a class="wiki"  href="http://www.java.com/en/download/installed.jsp">Verify Installation</a> at java.com.
+</li><li> <a class="wiki"  href="http://javatester.org/index.htm ">Java Tester</a> includes links to verify your Java version and whether Java is enabled.
+</li></ul>
+
+<h2 class="showhide_heading" id="Enabling_Java">Enabling Java</h2>
+<p>If Java is not working, make sure that the Java plugin is enabled in the Add-ons window:
+</p>
+<ol><li> Open Firefox.
+</li><li> <span style=" text-align: left; float: none; clear: none;" class='noMac' >At the top of the Firefox window</span><span style=" text-align: left; float: none; clear: none;" class='mac' >On the menu bar</span>, open the <span class='pth'>Tools</span> menu, and click on <span class='pth'>Add-ons</span>. The Add-ons window will open.
+</li><li> Select the <span class='pth'>Plugins</span> panel.
+</li><li> Click on the <b>Java</b> item to select it.
+</li><li> Click <span style=" text-align: left; float: none; clear: none;" class='button' >Enable</span>. (If it says <span style=" text-align: left; float: none; clear: none;" class='button' >Disable</span>, Java is already enabled.)
+</li></ol>
+
+<h3 class="showhide_heading" id="Other_software_that_may_block_Java">Other software that may block Java</h3>
+<p>Even if Java is installed and enabled in Firefox, it may be blocked by  other software or Firefox add-ons, such as the following:
+</p>
+<div class="showfor_label" id="wikiplugin_showforlabel0">Windows:</div><div class="showfor_contents" id="wikiplugin_showfor0">
+<ul><li> The ZoneAlarm Pro software firewall can block Java. For more information on enabling Java through this program, see <a class="wiki"  href="http://forums.zonelabs.com/zonelabs/board/message?board.id=AllowAccess&amp;message.id=61 ">the ZoneAlarm Pro forum</a>.
+</li></ul>
+<p></div>
+</p>
+<ul><li> The NoScript extension for Firefox will block Java. For more information, see the <a class="wiki"  href="http://www.noscript.net/faq#qa1_8 ">NoScript FAQ</a>
+</li></ul>
+
+<h2 class="showhide_heading" id="Installing_or_updating_Java">Installing or updating Java</h2>
+<div class="showfor_label" id="wikiplugin_showforlabel2">Windows:</div><div class="showfor_contents" id="wikiplugin_showfor2">
+<h4 class="showhide_heading" id="Manual_install_or_update">Manual install or update</h4>
+<ol><li> Go to the download page at <a class="wiki"  href="http://java.com/download/">Java.com</a>.
+</li><li> Click the <span style=" text-align: left; float: none; clear: none;" class='button' >Free Java Download</span> button.
+</li><li> Click the <span style=" text-align: left; float: none; clear: none;" class='button' >Download Now</span> button to start the <a class="wiki"  href="http://java.com/en/download/windows_xpi.jsp">online installation</a>.
+</li><li> After the installation is complete, you must restart Firefox.
+</li></ol>
+
+<h4 class="showhide_heading" id="Updates">Updates</h4>
+<ul><li> <b>Automatic update:</b> Java for Windows includes a <a class="wiki"  href="http://www.java.com/en/download/help/5000020700.xml#java_update ">Java Update</a> feature that, in Windows 2000 and later, periodically checks for updates and notifies you when an update is available for installation.
+</li><li> <b>Manual update:</b> You can also check for new updates at any time from the <a class="wiki"  href="http://java.sun.com/javase/6/docs/technotes/guides/deployment/deployment-guide/jcp.html ">Java Control Panel</a>. Open the Windows <span class='pth'>Start Menu</span>, select <span class='pth'>Control Panel</span> and double-click  <span class='pth'>Java</span> to open the Java Control Panel, and then choose the <span class='pth'>Update</span> tab and click <span style=" text-align: left; float: none; clear: none;" class='button' >Update Now</span>.
+</li></ul>
+
+<p><dl><dt></dt><dd><div class="simplebox"><b>Note:</b> To eliminate potential security vulnerabilities and to save disk space, you should remove any older Java versions that may still be installed. For more information, see <a class="wiki"  href="http://www.java.com/en/download/help/5000010800.xml">Java.com</a>.</div></dd></dl>
+</p>
+<h4 class="showhide_heading" id="Troubleshooting">Troubleshooting</h4>
+<p>After enabling Java in your operating system and through your Firefox options, Java may still fail to work properly. To activate Java, try the following suggestions:
+</p>
+<ul><li> <b>Remove outdated Java plugin files from the Firefox plugins folder:</b>
+</li></ul>
+<p><dl><dt></dt><dd><div class="simplebox"><b>Note:</b> It is recommended that you <span style="text-decoration:underline;">do not</span> copy Java plugins from other locations to the Firefox plugins folder. Outdated Java plugins can cause Java not to work if you update Java and then uninstall the older Java version, if plugins from the old Java version are still in the Firefox plugins folder.</div></dd></dl>
+</p>
+<div class="showfor_label" id="wikiplugin_showforlabel1">3:</div><div class="showfor_contents" id="wikiplugin_showfor1">
+<ol><ol><li> At the top of the Firefox window, click the <span class='pth'>Tools</span> menu, and select <span class='pth'>Add-ons</span>. The Add-ons window will open.
+</li><li> In the Add-ons window, select the <span class='pth'>Plugins</span> panel, to display a list of installed plugins.
+</li><li>Select each Java plugin listed to make sure that all are enabled.
+</li><li> Check if the Java plugins are correctly detected.  All Java plugins listed in the Add-ons window should match the version number of the currently installed JRE. There should be no plugins for earlier versions of Java. For example, if JRE 6.0 Update 2 is currently installed, each Java plugin in the Add-ons window should be listed as the following: <br /> <b>Java(TM) Platform SE 6 U2</b> Java Plug-in 1.6.0_02 for Netscape Navigator (DLL Helper)
+</li><li> If you find Java plugin files listed that do not match your current  version, that means that the Firefox plugins folder contains outdated Java plugin files which should be removed.  This folder is typically in the following location:<br /><span class='filename'>C:\Program Files\Mozillla Firefox\plugins</span><br />Java files from older versions in the Firefox plugins folder can prevent Java from working.  For more information, see the <a class="wiki"  href="http://plugindoc.mozdev.org/faqs/java.html#Issues "> PluginDoc Java FAQ</a>.</div>
+</li></ol></ol><ul><li><b>Add missing registry entry:</b> Sometimes a Windows registry entry that Java needs may be missing.  To fix, you should re-install Firefox - see the instructions in <a title="Installing Firefox on Windows" href='/en-US/kb/Installing+Firefox+on+Windows' class='wiki'>Installing Firefox on Windows</a> for installation instructions.
+</li><li> <b>Workaround if Java is not detected: </b>  On most systems, the Java plugin files are detected via plugin scanning if the required registry entry exists. However, in some cases, Java is not detected unless the Java <span class='filename'>np*.dll</span> plugin files are copied from the Java application folder <span class='filename'>bin</span> folder.<br /><b>Note:</b> The following steps should be executed only as a last resort, as each time Java is updated the outdated plugin files must be removed and the newer versions copied over. For more information, see <a class="wiki"  href="http://www.broadbandreports.com/forum/remark,12924447 ">these notes</a>.
+<ol><li>Copy the <span class='filename'>np*.dll</span> files for your version of the JRE from the following location: <br /> <span class='filename'>C:\Program Files\Java\j2re&lt;version&gt;\bin\</span>
+</li><li>Paste them into your Firefox plugins folder, which is typically in the following location: <br /> <span class='filename'>C:\Program Files\Mozilla Firefox\plugins</span>
+</li><li><b>Important:</b> If copying the Java plugin files to the browser plugins folder does not activate Java after restarting Firefox, remove them from the folder.
+</li></ol></li></ul>
+<p></div>
+</p>
+<div class="showfor_label" id="wikiplugin_showforlabel3">Mac OS:</div><div class="showfor_contents" id="wikiplugin_showfor3">
+<p>Java is a core component of Mac and should be properly installed with the operating system.   To update Java, use the <a class="wiki"  href="http://support.apple.com/kb/HT1338">Mac OS X Software Update</a> feature.
+</p>
+</div>
+<div class="showfor_label" id="wikiplugin_showforlabel4">Linux:</div><div class="showfor_contents" id="wikiplugin_showfor4">
+<p>Visit <a class="wiki"  href="http://java.sun.com/javase/6/webnotes/install/jre/manual-plugin-install-linux.html">Java Plugin Install for Linux</a> at Java.Sun.com for help installing or updating Java on your Linux system.
+</p>
+</div>
+
+<h2 class="showhide_heading" id="Issues_or_problems_related_to_Java">Issues or problems related to Java</h2>
+<p>For more information on specific issues with Java, see <a title="  This article describes and may help to resolve some specific issues related to Java. For general information on installing, enabling, and updating Java, see Using the Java plugin with Firefox.     J" href='/en-US/kb/Java-related+issues' class='wiki'>Java-related issues</a>.
+</p>
+
+<h2 class="showhide_heading" id="Additional_resources">Additional resources</h2>
+<ul><li>The <a class="wiki"  href="http://www.java.com/en/download/faq/index_general.xml">Java FAQs</a> page at Java.com answers some frequently asked questions.
+</li><li><a class="wiki"  href="http://plugindoc.mozdev.org/">PluginDoc</a> includes Java downloads and installation instructions for other operating systems.
+</li></ul>
+
+
+<p><br /> <br />
+<br /><b><i>Based on information from <a class="wiki"  href="http://kb.mozillazine.org/Java">Java (mozillaZine KB)</a></i></b>
+</p>
+
+<br style="clear:both; height: 1px" />
+
+
+
+<div class="navbar" align="right">
+    </div>
+
+
+</div>												<div class="botbar"></div>
+													
+	
+		
+	
+	
+				
+			<span id="comments"></span>
+
+<script type="text/javascript" src="/tiki-poll_form_ajax.php?locale=en-US&amp;client=all&amp;stub=all"></script>
+
+<script type="text/javascript">
+	function showFeedbackTextArea() {
+		document.getElementById("article-feedback").style.display = "block";
+		document.getElementById("article-feedback-info").style.display = "none";
+
+					document.getElementById('comments_postComment').disabled = false;
+		
+		return false;
+	}
+	function sendFeedback() {
+   ajax = new pollSubmission();
+   page = document.getElementById('comments_title').value;
+   comments_parentId = document.getElementById('comments_parentId').value; 
+   comments_title = document.getElementById('comments_title').value; 
+   uri = window.location.pathname;
+   
+   if ( !document.getElementById('editpost2')) 
+     return false; 
+   comments_data = document.getElementById('editpost2').value
+   
+   if ( !document.getElementById('antibotcode'))
+     return false;
+   antibot = document.getElementById('antibotcode').value; 
+   
+   document.getElementById('editpostform').style.display = 'none';
+   document.getElementById('article-feedback-title').innerHTML = 'Processing...';
+   document.getElementById('article-feedback-title').className = 'process-running';
+   document.getElementById('article-feedback-text').innerHTML = '';          
+	 
+	 
+   response = ajax.sendFeedback(page, comments_parentId, comments_title, comments_data, antibot, uri);    
+
+   if ( response === true ) {
+     document.getElementById('article-feedback-title').innerHTML = 'Thank you for your feedback.'
+     document.getElementById('article-feedback-text').innerHTML = '<p>Note that we are unable to respond to your feedback. If you need help with solving a Firefox problem, <a href="/en-US/kb/Ask+a+question">ask a support question</a> instead.</p>';          
+     document.getElementById('editpostform').innerHTML = '';
+     document.getElementById('article-feedback-title').className = '';    
+   } else {
+     document.getElementById('article-feedback-title').innerHTML = 'Error';
+     for(var i in response) {
+        document.getElementById('article-feedback-text').innerHTML += '<p>' + response[i] + '</p>';
+     }
+     document.getElementById('editpostform').style.display = 'block'; 
+     document.getElementById('article-feedback-title').className = '';  
+   }
+   return false;         
+ } 
+</script>
+
+	
+	
+
+<script type="text/javascript">
+function submitPoll( pollId, optionId, area, show_b )
+{	
+	var ajax = new pollSubmission();
+	ajax.savePoll( pollId, optionId );
+	document.getElementById(area).style.display = 'none';
+	if ( show_b ) document.getElementById('pollarea_b').style.display = 'block';
+}
+</script>
+	
+
+<div id="pollarea_b" class="pollarea" style="display: none;">
+<div class="greybox"><div class="cbb">
+<h3>Please rate your experience with solving your problem on support.mozilla.com from 1 (very unsatisfied) to 5 (very satisfied).</h3>
+<div class="pollyesno" id="polledit">
+<div class="feedback-controls">
+<input type="hidden" name="2530_radio" id="2530_radio" value="" />
+<input onclick="document.getElementById('2530_radio').value = 9712;" type="radio" name="polls_optionId" value="1">1</input>&nbsp;&nbsp;
+<input onclick="document.getElementById('2530_radio').value = 9713;" type="radio" name="polls_optionId" value="2">2</input>&nbsp;&nbsp;
+<input onclick="document.getElementById('2530_radio').value = 9714;" type="radio" name="polls_optionId" value="3">3</input>&nbsp;&nbsp;
+<input onclick="document.getElementById('2530_radio').value = 9715;" type="radio" name="polls_optionId" value="4">4</input>&nbsp;&nbsp;
+<input onclick="document.getElementById('2530_radio').value = 9716;" type="radio" name="polls_optionId" value="5">5</input>&nbsp;&nbsp;
+<input onclick="if (document.getElementById('2530_radio').value == '') {alert('Please select an option'); return false;} var clickedButton = document.getElementById('2530_radio').value; submitPoll(2530,clickedButton,
+'pollarea_b'
+, 0
+)"
+ type="button" name="polls_submit" value="Submit" 
+ class="feedback-submit" id="poll2530" />
+</div>
+</div>
+</div></div></div>
+<div id="pollarea" class="pollarea">
+<div class="greybox"><div class="cbb">
+<h3>Did this article solve a problem you had with Firefox?</h3>
+<div class="pollyesno" id="polledit">
+<div class="feedback-controls">
+<input onclick="submitPoll(171,333,
+'pollarea'
+,
+1)" type="button" name="polls_optionId" value="Yes" 
+ class="feedback-submit" id="
+kb-solve-yes
+	
+" />
+<input onclick="submitPoll(171,334,
+'pollarea'
+,
+0)" type="button" name="polls_optionId" value="No" 
+ class="feedback-submit" id="
+kb-solve-no
+	
+" />
+</div>
+</div>
+</div></div></div>
+<div id="pollarea2" class="pollarea">
+<div class="greybox"><div class="cbb">
+<h3>Was this article easy to understand?</h3>
+<div class="pollyesno" id="polledit">
+<div class="feedback-controls">
+<input onclick="submitPoll(2529,1052,
+'pollarea2'
+,
+0)" type="button" name="polls_optionId" value="Yes" 
+ class="feedback-submit" id="
+poll25291052
+" />
+<input onclick="submitPoll(2529,1338,
+'pollarea2'
+,
+0)" type="button" name="polls_optionId" value="No" 
+ class="feedback-submit" id="
+poll25291338
+" />
+</div>
+</div>
+</div></div></div>
+<br class="clear"/>      	
+<div class="feedbackbox greybox" id="additional-feedback">
+	<div class="cbb">
+			<div id="feedback-options">
+				<p class="feedback-info">Still need help? <a href="/en-US/kb/Ask+a+question">Ask a support question.</a></p>
+				<p id="article-feedback-info" class="feedback-info">Help us improve this article. <a href="/en-US/kb/Using+the+Java+plugin+with+Firefox?givefeedback=1#article-feedback" onclick="return showFeedbackTextArea()">Submit additional feedback.</a></p>
+			</div>
+		<div id="article-feedback" style="display: none">
+					<p style="margin-top: 0">
+				<h3 id="article-feedback-title">Submit article feedback</h3>
+				<div id="article-feedback-text">
+				 <p>Note that we will not respond to your feedback about this article. However, it will be visible to contributors to this site and may be used to improve this article.</p>
+				  <p>If you need help with solving a Firefox problem: <a href="/en-US/kb/Ask+a+question">ask a support question</a></p>
+			  </div>
+			</p>
+			<form enctype="multipart/form-data" method="post" action="/en-US/kb/Using+the+Java+plugin+with+Firefox" id='editpostform'>
+									<input type="hidden" name="page" value="Using the Java plugin with Firefox" />
+								<input type="hidden" id="comments_parentId" name="comments_parentId" value="0" />    
+				<input type="hidden" id="comments_grandParentId" name="comments_grandParentId" value="" />    
+				<input type="hidden" id="comments_reply_threadId" name="comments_reply_threadId" value="0" />    
+				<input type="hidden" id="comments_offset" name="comments_offset" value="0" />
+			  	<input type="hidden" id="comments_title" name="comments_title" value="Using the Java plugin with Firefox"/>	  
+				<textarea id="editpost2" id="comments_data" name="comments_data" rows="6"></textarea>
+				<input type="hidden" name="rows" value="6"/>
+				<div class="feedback-controls">
+					<span id="ajaxcaptcha">
+													Enter this number:
+							<img src="/tiki-random_num_img.php?locale=en-US" alt='Random Image'/>
+							<input maxlength="8" size="8" id="antibotcode" name="antibotcode" type="text" autocomplete="off">
+											</span>
+					<input class="feedback-submit" type="submit" name="comments_postComment" id="comments_postComment" value="Send feedback"  disabled="disabled" onclick="return sendFeedback()" />
+				</div>
+				<br class="clear"/>
+			</form>
+		</div>
+	</div>
+</div>
+<br class="clear"/>				
+
+<div class="editdate">
+  Page last modified on Monday 25 of January, 2010 19:08:27 PST.
+</div>
+<div class="editdate">
+  Contributors to this page: <a class='link'  target='_top' href='/tiki-user_information.php?locale=en-US&amp;userId=412' ><span class="highlightgroup">Bo</span></a>
+     ,
+      <span class='link'><span class="highlightgroup">Willy_Gatti</span></span>
+     ,
+      <a class='link'  target='_top' href='/tiki-user_information.php?locale=en-US&amp;userId=45' ><span class="highlightgroup">np</span></a>
+     ,
+      <a class='link'  target='_top' href='/tiki-user_information.php?locale=en-US&amp;userId=233' ><span class="highlightgroup">ehsan</span></a>
+     ,
+      <a class='link'  target='_top' href='/tiki-user_information.php?locale=en-US&amp;userId=13' ><span class="highlightgroup">Chris_Ilias</span></a>
+     ,
+      <span class='link'><span class="highlightgroup">skulvis</span></span>
+     ,
+      <a class='link'  target='_top' href='/tiki-user_information.php?locale=en-US&amp;userId=37' >Vectorspace</a>
+     ,
+      <span class='link'><span class="highlightgroup">admin</span></span>
+     ,
+      <span class='link'>supernova_00</span>
+      and
+      <a class='link'  target='_top' href='/tiki-user_information.php?locale=en-US&amp;userId=11' ><span class="highlightgroup">AliceWyman</span></a>
+  .
+</div>
+<div class="editdate">
+	- This is a help article -	- This is a support/troubleshooting article -</div>
+											</div>
+				</div>
+ 			</div>
+		</div>
+		</div>
+		<div id="col3">
+		<div class="content" >
+							
+
+
+
+<div class="box box-search">
+<div class="wrapper">
+	<h3 class="box-title">
+		
+				Search
+			</h3>
+	<div class="box-data" id="mod-search" style="display: block">
+		
+<div id="search" class="module" style="display:block;">
+<div class="mod-searchlogoform">
+<div class="mod-searchlogotitle">Search Firefox Help</div>
+<form action="/search.php"><input type="hidden" name="locale"
+value="en-US" /><input id="fsearch" name="q" type="text" size="25" value=""/>
+<input id="searchsubmit" type="submit" name="sa" value="" alt="Search"
+title="Search" />
+</form>
+</div>
+</div>
+
+			</div>
+	<div class="box-bottom"></div>
+	</div>
+</div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+
+
+  
+  
+
+<div class="box box-freetags_morelikethis">
+<div class="wrapper">
+	<h3 class="box-title">
+		
+				Related Articles
+			</h3>
+	<div class="box-data" id="mod-freetags_morelikethis" style="display: block">
+		       <div class="module">
+	      <a class="linkmodule" href="/en-US/kb/Customizing%20Firefox%20with%20add-ons">Customizing Firefox with add-ons</a>
+	 </div>
+       <div class="module">
+	      <a class="linkmodule" href="/en-US/kb/Using%20the%20Adobe%20Reader%20plugin%20with%20Firefox">Using the Adobe Reader plugin with Firefox</a>
+	 </div>
+       <div class="module">
+	      <a class="linkmodule" href="/en-US/kb/Using%20the%20Shockwave%20plugin%20with%20Firefox">Using the Shockwave plugin with Firefox</a>
+	 </div>
+       <div class="module">
+	      <a class="linkmodule" href="/en-US/kb/Managing%20the%20Flash%20plugin">Managing the Flash plugin</a>
+	 </div>
+       <div class="module">
+	      <a class="linkmodule" href="/en-US/kb/Uninstalling%20add-ons">Uninstalling add-ons</a>
+	 </div>
+    
+			</div>
+	<div class="box-bottom"></div>
+	</div>
+</div>
+							
+
+  
+  
+
+<div class="box box-freetags_current">
+<div class="wrapper">
+	<h3 class="box-title">
+		
+				Tags in this Article
+			</h3>
+	<div class="box-data" id="mod-freetags_current" style="display: block">
+		       <div class="module">
+     <a class="linkmodule" href="/tiki-browse_freetags.php?locale=en-US&amp;tag=java">java</a>
+	 </div>
+       <div class="module">
+     <a class="linkmodule" href="/tiki-browse_freetags.php?locale=en-US&amp;tag=plugins">plugins</a>
+	 </div>
+       <div class="module">
+     <a class="linkmodule" href="/tiki-browse_freetags.php?locale=en-US&amp;tag=installation">installation</a>
+	 </div>
+      
+			</div>
+	<div class="box-bottom"></div>
+	</div>
+</div>
+							
+					</div>
+	</div>
+	
+<br style="clear: both" />
+</div> 
+</div> 
+	<!-- start #footer -->
+
+	<div id="footer">
+	<div id="footer-contents" role="contentinfo">
+
+			<div id="lang_form">
+							
+			 
+				<script type="text/javascript">
+				current_page = 'Using the Java plugin with Firefox';
+									page_to_translate = 'Using the Java plugin with Firefox';
+								
+				
+				function quick_switch_language( element )
+				{
+					var index = element.selectedIndex;
+					var option = element.options[index];
+				
+					var tradupage = new Array();
+										tradupage[0] = 'Using the Java plugin with Firefox'; 					
+										tradupage[1] = 'Das Java-Plugin mit Firefox nutzen'; 					
+										tradupage[2] = 'Informazioni su Java'; 					
+										tradupage[3] = 'De Java-plug-in gebruiken met Firefox'; 					
+										tradupage[4] = 'Ð?Ð¸ÐºÐ¾Ñ?Ð¸Ñ?Ñ?Ð°Ð½Ð½Ñ? Ð¼Ð¾Ð´Ñ?Ð»Ñ? Java Ñ? Firefox'; 					
+										tradupage[5] = 'Java ã??ã?©ã?°ã?¤ã?³å?©ç?¨ã?¬ã?¤ã??'; 					
+														
+
+					if( option.value == "-" )
+						return;
+					else if( option.value == "_translate_" )
+						document.location.href = "/tiki-edit_translation.php?page=" + encodeURIComponent(page_to_translate);
+					else if( option.value == "en" )
+						document.location.href= '/en-US/kb/' + encodeURIComponent(tradupage[index]);
+					else
+						document.location.href= '/' + option.value + '/kb/' + encodeURIComponent(tradupage[index]);
+				}
+				
+				</script>
+				<label for="switch-language">Other Languages</label>
+				<select id="switch-language" name="page" onchange="quick_switch_language( this )">				
+										<option value="en">English</option>
+										<option value="de">Deutsch</option>
+										<option value="it">Italiano</option>
+										<option value="nl">Nederlands</option>
+										<option value="uk">Ð£ÐºÑ?Ð°Ñ?Ð½Ñ?Ñ?ÐºÐ°</option>
+										<option value="ja">æ?¥æ?¬èª?</option>
+										<option value="-">---</option>
+					<option value="_translate_">Translate</option>				</select>
+			
+			</div>
+			<ul id="footer-menu">
+			<li><a href="http://www.mozilla.com/firefox/">Firefox</a>
+				<ul>
+					<li><a href="http://www.mozilla.com/firefox/features/">Features</a></li>
+
+					<li><a href="http://www.mozilla.com/firefox/security/">Security</a></li>
+					<li><a href="http://www.mozilla.com/firefox/customize/">Customization</a></li>
+					<li><a href="http://www.mozilla.com/firefox/organic/">100% Organic Software</a></li>
+					<li><a href="http://www.mozilla.com/firefox/tips/">Tips &amp; Tricks</a></li>
+					<li><a href="http://www.mozilla.com/firefox/latest/releasenotes/">Release Notes</a></li>
+
+					<li><a href="http://www.mozilla.com/firefox/all.html">Other Systems &amp; Languages</a></li>
+				</ul>
+			</li>
+			<li><a href="https://addons.mozilla.org/" class="external">Add-ons</a>
+				<ul>
+					<li><a href="https://addons.mozilla.org/firefox/" class="external">All Add-ons</a></li>
+
+					<li><a href="https://addons.mozilla.org/firefox/recommended" class="external">Recommended</a></li>
+					<li><a href="https://addons.mozilla.org/firefox/browse/type:1/cat:all?sort=popular" class="external">Popular</a></li>
+					<li><a href="https://addons.mozilla.org/firefox/browse/type:2" class="external">Themes</a></li>
+					<li><a href="https://addons.mozilla.org/firefox/browse/type:4" class="external">Search Engines</a></li>
+					<li><a href="https://addons.mozilla.org/firefox/browse/type:7" class="external">Plugins</a></li>
+				</ul>
+
+			</li>
+			<li><a href="/">Support</a>
+				<ul>
+					<li><a href="/en-US/kb/">Firefox Support</a></li>
+					<li><a href="http://www.mozilla.org/support/thunderbird/" class="external">Thunderbird Support</a></li>
+
+				</ul>
+			</li>
+			<li><a href="http://www.mozilla.com/manyfaces/">Community</a>
+				<ul>
+					<li><a href="https://addons.mozilla.org/" class="external">Add-ons</a></li>
+					<li><a href="https://bugzilla.mozilla.org/" class="external">Bugzilla</a></li>
+					<li><a href="http://developer.mozilla.org/" class="external">Mozilla Developer Center</a></li>
+
+					<li><a href="http://labs.mozilla.com/" class="external">Mozilla Labs</a></li>
+					<li><a href="http://www.mozilla.org/" class="external">Mozilla.org</a></li>
+					<li><a href="http://www.mozillazine.org/" class="external">MozillaZine</a></li>
+					<li><a href="http://planet.mozilla.org/" class="external">Planet Mozilla</a></li>
+					<li><a href="http://quality.mozilla.org/" class="external">QMO</a></li>
+					<li><a href="http://www.spreadfirefox.com/" class="external">SpreadFirefox</a></li>
+
+					<li><a href="http://support.mozilla.com/">Support</a></li>
+				</ul>
+			</li>
+			<li><a href="http://www.mozilla.com/about/">About</a>
+				<ul>
+					<li><a href="http://www.mozilla.com/about/whatismozilla.html">What is Mozilla?</a></li>
+					<li><a href="http://www.mozilla.com/about/get-involved.html">Get Involved</a></li>
+
+					<li><a href="http://www.mozilla.com/press/">Press Center</a></li>
+					<li><a href="http://www.mozilla.com/about/careers.html">Careers</a></li>
+					<li><a href="http://www.mozilla.com/about/partnerships.html">Partnerships</a></li>
+					<li><a href="http://www.mozilla.com/about/licensing.html">Licensing</a></li>
+					<li><a href="http://blog.mozilla.com/" class="external">Blog</a></li>
+					<li><a href="http://store.mozilla.org/" class="external">Store</a></li>
+
+					<li><a href="http://www.mozilla.com/about/contact.html">Contact Us</a></li>
+				</ul>
+			</li>
+		</ul>
+
+	<div id="cc-license">
+        <p>Except where otherwise <a href="http://www.mozilla.com/en-US/about/legal.html#site">noted</a>, content on this site is licensed under the<br><strong><a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share-Alike License v3.0</a></strong> or any later version.</p>
+        <ul>
+            <li><a href="http://www.mozilla.com/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="http://www.mozilla.com/about/legal.html">Legal Notices</a></li>
+            <li><a href="/en-US/kb/About+Firefox+Support">About</a></li>
+            <li><a href="http://blog.mozilla.com/sumo">Blog</a></li>
+        </ul>
+
+        <p class="disclaimer">Mozilla is providing links to any applications as a courtesy, and makes no representations regarding the applications or any information related there to. Any questions, complaints or claims regarding the applications must be directed to the appropriate software vendor.</p>
+
+	<p>Powered by <a href="http://tikiwiki.org/">TikiWiki CMS/Groupware</a></p>
+	</div>
+
+	</div>
+	</div>
+
+
+
+
+<script type="text/javascript">s_account="mozillasupport";</script>
+<script type="text/javascript" src="/minify.php/js_main"></script>
+ 
+
+	
+<script type="text/javascript">
+
+function showfor(tab) {
+	switch (tab) {
+
+	case 'firefox2':
+document.getElementById('showfor_tab_firefox2').className='showfor_button_on';
+document.getElementById('showfor_tab_firefox3').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.0').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.1').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.6').className='showfor_button';
+document.getElementById('showfor_tab_allbrowser').className='showfor_button';
+document.getElementById('wikiplugin_showfor1').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel1').style.display = 'none';
+
+	break;	
+	case 'firefox3':
+document.getElementById('showfor_tab_firefox3').className='showfor_button_on';
+document.getElementById('showfor_tab_firefox2').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.0').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.1').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.6').className='showfor_button';
+document.getElementById('showfor_tab_allbrowser').className='showfor_button';
+document.getElementById('wikiplugin_showfor1').style.display = '';
+document.getElementById('wikiplugin_showforlabel1').style.display = 'none';
+
+	break;	
+	case 'firefox3.0':
+document.getElementById('showfor_tab_firefox3.0').className='showfor_button_on';
+document.getElementById('showfor_tab_firefox2').className='showfor_button';
+document.getElementById('showfor_tab_firefox3').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.1').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.6').className='showfor_button';
+document.getElementById('showfor_tab_allbrowser').className='showfor_button';
+document.getElementById('wikiplugin_showfor1').style.display = '';
+document.getElementById('wikiplugin_showforlabel1').style.display = 'none';
+
+	break;	
+	case 'firefox3.1':
+document.getElementById('showfor_tab_firefox3.1').className='showfor_button_on';
+document.getElementById('showfor_tab_firefox2').className='showfor_button';
+document.getElementById('showfor_tab_firefox3').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.0').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.6').className='showfor_button';
+document.getElementById('showfor_tab_allbrowser').className='showfor_button';
+document.getElementById('wikiplugin_showfor1').style.display = '';
+document.getElementById('wikiplugin_showforlabel1').style.display = 'none';
+
+	break;	
+	case 'firefox3.6':
+document.getElementById('showfor_tab_firefox3.6').className='showfor_button_on';
+document.getElementById('showfor_tab_firefox2').className='showfor_button';
+document.getElementById('showfor_tab_firefox3').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.0').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.1').className='showfor_button';
+document.getElementById('showfor_tab_allbrowser').className='showfor_button';
+document.getElementById('wikiplugin_showfor1').style.display = '';
+document.getElementById('wikiplugin_showforlabel1').style.display = 'none';
+
+	break;	
+	case 'allbrowser':
+document.getElementById('showfor_tab_allbrowser').className='showfor_button_on';
+document.getElementById('showfor_tab_firefox2').className='showfor_button';
+document.getElementById('showfor_tab_firefox3').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.0').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.1').className='showfor_button';
+document.getElementById('showfor_tab_firefox3.6').className='showfor_button';
+document.getElementById('wikiplugin_showfor1').style.display = '';
+document.getElementById('wikiplugin_showforlabel1').style.display = '';
+
+	break;	
+	case 'windows':
+document.getElementById('showfor_tab_windows').className='showfor_button_on';
+document.getElementById('showfor_tab_linux').className='showfor_button';
+document.getElementById('showfor_tab_mac').className='showfor_button';
+document.getElementById('showfor_tab_allos').className='showfor_button';
+if (!window.allSpans) allSpans = document.getElementsByTagName('span');
+
+					if (allSpans) {
+						for(i = allSpans.length-1; i >= 0; i--) {
+                            var thisclass = allSpans[i].className;
+if (thisclass && thisclass.match(/win/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/windows/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noMac/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noUnix/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noLinux/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noWin/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/noWindows/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/mac/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/unix/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/linux/)) allSpans[i].style.display='none';
+    }
+}document.getElementById('wikiplugin_showfor0').style.display = '';
+document.getElementById('wikiplugin_showforlabel0').style.display = 'none';
+if (document.getElementById('showfor_toc_2_0')) document.getElementById('showfor_toc_2_0').style.display = '';
+if (document.getElementById('showfor_toc_2_1')) document.getElementById('showfor_toc_2_1').style.display = '';
+if (document.getElementById('showfor_toc_2_2')) document.getElementById('showfor_toc_2_2').style.display = '';
+document.getElementById('wikiplugin_showfor2').style.display = '';
+document.getElementById('wikiplugin_showforlabel2').style.display = 'none';
+document.getElementById('wikiplugin_showfor3').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel3').style.display = 'none';
+document.getElementById('wikiplugin_showfor4').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel4').style.display = 'none';
+
+	break;	
+	case 'linux':
+document.getElementById('showfor_tab_linux').className='showfor_button_on';
+document.getElementById('showfor_tab_windows').className='showfor_button';
+document.getElementById('showfor_tab_mac').className='showfor_button';
+document.getElementById('showfor_tab_allos').className='showfor_button';
+if (!window.allSpans) allSpans = document.getElementsByTagName('span');
+
+					if (allSpans) {
+						for(i = allSpans.length-1; i >= 0; i--) {
+                            var thisclass = allSpans[i].className;
+if (thisclass && thisclass.match(/linux/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/unix/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noMac/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noWin/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noWindows/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/win/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/windows/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/mac/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/noUnix/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/noLinux/)) allSpans[i].style.display='none';
+    }
+}document.getElementById('wikiplugin_showfor0').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel0').style.display = 'none';
+if (document.getElementById('showfor_toc_2_0')) document.getElementById('showfor_toc_2_0').style.display = 'none';
+if (document.getElementById('showfor_toc_2_1')) document.getElementById('showfor_toc_2_1').style.display = 'none';
+if (document.getElementById('showfor_toc_2_2')) document.getElementById('showfor_toc_2_2').style.display = 'none';
+document.getElementById('wikiplugin_showfor2').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel2').style.display = 'none';
+document.getElementById('wikiplugin_showfor3').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel3').style.display = 'none';
+document.getElementById('wikiplugin_showfor4').style.display = '';
+document.getElementById('wikiplugin_showforlabel4').style.display = 'none';
+
+	break;	
+	case 'mac':
+document.getElementById('showfor_tab_mac').className='showfor_button_on';
+document.getElementById('showfor_tab_windows').className='showfor_button';
+document.getElementById('showfor_tab_linux').className='showfor_button';
+document.getElementById('showfor_tab_allos').className='showfor_button';
+if (!window.allSpans) allSpans = document.getElementsByTagName('span');
+
+					if (allSpans) {
+						for(i = allSpans.length-1; i >= 0; i--) {
+                            var thisclass = allSpans[i].className;
+if (thisclass && thisclass.match(/mac/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noWin/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noWindows/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noUnix/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noLinux/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noMac/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/windows/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/win/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/unix/)) allSpans[i].style.display='none';
+if (thisclass && thisclass.match(/linux/)) allSpans[i].style.display='none';
+    }
+}document.getElementById('wikiplugin_showfor0').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel0').style.display = 'none';
+if (document.getElementById('showfor_toc_2_0')) document.getElementById('showfor_toc_2_0').style.display = 'none';
+if (document.getElementById('showfor_toc_2_1')) document.getElementById('showfor_toc_2_1').style.display = 'none';
+if (document.getElementById('showfor_toc_2_2')) document.getElementById('showfor_toc_2_2').style.display = 'none';
+document.getElementById('wikiplugin_showfor2').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel2').style.display = 'none';
+document.getElementById('wikiplugin_showfor3').style.display = '';
+document.getElementById('wikiplugin_showforlabel3').style.display = 'none';
+document.getElementById('wikiplugin_showfor4').style.display = 'none';
+document.getElementById('wikiplugin_showforlabel4').style.display = 'none';
+
+	break;	
+	case 'allos':
+document.getElementById('showfor_tab_allos').className='showfor_button_on';
+document.getElementById('showfor_tab_windows').className='showfor_button';
+document.getElementById('showfor_tab_linux').className='showfor_button';
+document.getElementById('showfor_tab_mac').className='showfor_button';
+if (!window.allSpans) allSpans = document.getElementsByTagName('span');
+
+					if (allSpans) {
+						for(i = allSpans.length-1; i >= 0; i--) {
+                            var thisclass = allSpans[i].className;
+if (thisclass && thisclass.match(/win/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/windows/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/mac/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/linux/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/unix/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noMac/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noUnix/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noLinux/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noWin/)) allSpans[i].style.display='';
+if (thisclass && thisclass.match(/noWindows/)) allSpans[i].style.display='';
+    }
+}document.getElementById('wikiplugin_showfor0').style.display = '';
+document.getElementById('wikiplugin_showforlabel0').style.display = '';
+if (document.getElementById('showfor_toc_2_0')) document.getElementById('showfor_toc_2_0').style.display = '';
+if (document.getElementById('showfor_toc_2_1')) document.getElementById('showfor_toc_2_1').style.display = '';
+if (document.getElementById('showfor_toc_2_2')) document.getElementById('showfor_toc_2_2').style.display = '';
+document.getElementById('wikiplugin_showfor2').style.display = '';
+document.getElementById('wikiplugin_showforlabel2').style.display = '';
+document.getElementById('wikiplugin_showfor3').style.display = '';
+document.getElementById('wikiplugin_showforlabel3').style.display = '';
+document.getElementById('wikiplugin_showfor4').style.display = '';
+document.getElementById('wikiplugin_showforlabel4').style.display = '';
+
+	break;	
+
+	}
+	// need to get to correct hash position after hiding/showing stuff
+	if (location.hash) location.hash = location.hash; 
+}
+
+
+function showfor_start() {
+var os = 'windows';
+var browser = 'firefox3.6';
+var detect_os = true;
+var detect_browser = true;  
+showfor_start_browser( browser, detect_browser );showfor_start_os( os, detect_os );}
+</script>
+<script type="text/javascript" src="/js/wikiplugin_showfor.js"></script>
+
+<!-- SiteCatalyst -->
+<script type="text/javascript">
+	var s_code=s.t();if(s_code)document.write(s_code);
+</script>
+
+
+<script type="text/javascript">
+<!--
+// js 0 
+tiki_cookie_jar=new Array()
+-->
+</script>
+
+
+</body>
+</html>
+<!-- memcache sumo_781e082ebe24b046ae3f615a250888cf-->

@@ -1,0 +1,240 @@
+<!-- MHonArc v2.6.3 -->
+<!--X-Subject: problem with GCJ while running java code -->
+<!--X-From-R13: tsbetpp <aneraqen.xnNyagrzflf.pbz> -->
+<!--X-Date: 13 Feb 2008 11:31:08 &#45;0000 -->
+<!--X-Message-Id: 15455624.post@talk.nabble.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>gforgcc - problem with GCJ while running java code</TITLE>
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--htdig_noindex-->
+<p>This is the mail archive of the 
+<tt>java@gcc.gnu.org</tt>
+mailing list for the <a href="/java/">Java project</a>.
+
+
+<!--/htdig_noindex-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<!--htdig_noindex-->
+<HR>
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00019">Date&nbsp;Index</A>] [<a href="subjects.html#00019">Subject&nbsp;Index</a>] [<a href="authors.html#00019">Author&nbsp;Index</a>] [<A HREF="threads.html#00019">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00018.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00020.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00018.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00021.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+  <tr><th align="left">Other format:</th>
+  <td>[<a href="/cgi-bin/get-raw-msg?listname=java&date=2008-02&msgid=15455624.post%40talk.nabble.com">Raw text</a>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>problem with GCJ while running java code</h1>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>From</em>: gforgcc &lt;narendra dot ka at lntemsys dot com&gt;</li>
+<li><em>To</em>: java at gcc dot gnu dot org</li>
+<li><em>Date</em>: Wed, 13 Feb 2008 03:30:38 -0800 (PST)</li>
+<li><em>Subject</em>: problem with GCJ while running java code</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>
+Hi friends 
+I have a problem while running a java code with GCJ...
+i recently cross compiled GCC for arm with added language option as java. so
+i got arm-unknown-linux-gnu-gcj..
+My java code is 
+
+class helloworld
+{
+    static public void main(String argc[])
+   {
+         System.out.println(&quot;Hello World !&quot;);
+   }
+}
+
+so i am crosscompiling my java code like this...
+arm-unknown-linux-gnu-gcj -g --main=helloworld -o helloworld helloworld.java
+and running like this
+./helloworld 
+the above should print Hello World ! as far as my understanding since GCJ
+does not require JVM
+while compiling and running it is not giving any error or warning.. 
+but to some extent GDB helped me to atleast post here.. 
+this is my GDB dump.. 
+
+GNU gdb 6.1
+Copyright 2004 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain
+conditions.
+Type &quot;show copying&quot; to see the conditions.
+There is absolutely no warranty for GDB.  Type &quot;show warranty&quot; for details.
+This GDB was configured as &quot;--host=i386-pc-linux-gnu
+--target=arm-unknown-linux-gnu&quot;...
+(gdb) break main
+Breakpoint 1 at 0x899c: file /var/tmp/ccdniIeT.i, line 10.
+(gdb) target remote localhost:1234
+Remote debugging using localhost:1234
+0xb5e88330 in ?? ()
+(gdb) c
+Continuing.
+
+Breakpoint 1, main (argc=1, argv=0xb7f06824) at /var/tmp/ccdniIeT.i:10
+10      /var/tmp/ccdniIeT.i: No such file or directory.
+        in /var/tmp/ccdniIeT.i
+(gdb) s
+11      in /var/tmp/ccdniIeT.i
+(gdb) s
+JvRunMain (klass=Variable &quot;klass&quot; is not available.
+)
+    at
+/home/developer/crosstool-0.43/build/arm-unknown-linux-gnu/gcc-4.0.1-glibc-2.3.2/gcc-4.0.1/libjava/prims.cc:1370
+1370      _Jv_RunMain (klass, NULL, argc, argv, false);
+Current language:  auto; currently c++
+(gdb) s
+1368    JvRunMain (jclass klass, int argc, const char **argv)
+(gdb) s
+1370      _Jv_RunMain (klass, NULL, argc, argv, false);
+(gdb) s
+1368    JvRunMain (jclass klass, int argc, const char **argv)
+(gdb) s
+1370      _Jv_RunMain (klass, NULL, argc, argv, false);
+(gdb) s
+s_Jv_RunMain (klass=Variable &quot;klass&quot; is not available.
+)
+    at
+/home/developer/crosstool-0.43/build/arm-unknown-linux-gnu/gcc-4.0.1-glibc-2.3.2/gcc-4.0.1/libjava/prims.cc:1364
+1364      _Jv_RunMain (NULL, klass, name, argc, argv, is_jar);
+(gdb) s
+1362                 bool is_jar)
+(gdb) s
+1364      _Jv_RunMain (NULL, klass, name, argc, argv, is_jar);
+(gdb) s
+_Jv_RunMain (vm_args=Variable &quot;vm_args&quot; is not available.
+)
+    at
+/home/developer/crosstool-0.43/build/arm-unknown-linux-gnu/gcc-4.0.1-glibc-2.3.2/gcc-4.0.1/libjava/prims.cc:1314
+1314      java::lang::Runtime *runtime = NULL;
+(gdb) s
+1308                 const char **argv, bool is_jar)
+(gdb) s
+1314      java::lang::Runtime *runtime = NULL;
+(gdb) s
+1308                 const char **argv, bool is_jar)
+(gdb) s
+1311      _Jv_SetArgs (argc, argv);
+(gdb) s
+_Jv_SetArgs (argc=1, argv=0xb7f06824)
+    at
+/home/developer/crosstool-0.43/build/arm-unknown-linux-gnu/gcc-4.0.1-glibc-2.3.2/gcc-4.0.1/libjava/prims.cc:117
+117       _Jv_argc = argc;
+(gdb) s
+115     _Jv_SetArgs (int argc, const char **argv)
+(gdb) s
+117       _Jv_argc = argc;
+(gdb) s
+118       _Jv_argv = argv;
+(gdb) s
+117       _Jv_argc = argc;
+(gdb) s
+118       _Jv_argv = argv;
+(gdb) s
+119     }
+(gdb) s
+_Jv_RunMain (vm_args=Variable &quot;vm_args&quot; is not available.
+)
+    at
+/home/developer/crosstool-0.43/build/arm-unknown-linux-gnu/gcc-4.0.1-glibc-2.3.2/gcc-4.0.1/libjava/prims.cc:1318
+1318          if (_Jv_CreateJavaVM (vm_args) &lt; 0)
+(gdb) s
+_Jv_CreateJavaVM (vm_args=Variable &quot;vm_args&quot; is not available.
+)
+    at
+/home/developer/crosstool-0.43/build/arm-unknown-linux-gnu/gcc-4.0.1-glibc-2.3.2/gcc-4.0.1/libjava/prims.cc:1211
+1211    _Jv_CreateJavaVM (JvVMInitArgs* vm_args)
+(gdb) s
+1215      if (runtimeInitialized)
+(gdb) s
+1144      if (_Jv_Compiler_Properties)
+(gdb) s
+1218      runtimeInitialized = true;
+(gdb) s
+1144      if (_Jv_Compiler_Properties)
+(gdb) s
+1149          for (int i = 0; props[i]; i++)
+(gdb) s
+1147          _Jv_Compiler_Properties = NULL;
+(gdb) s
+1149          for (int i = 0; props[i]; i++)
+(gdb) s
+1158      if (vm_args == NULL)
+(gdb) s
+852       char *props = getenv(&quot;GCJ_PROPERTIES&quot;);
+(gdb) s
+857       if (NULL == props)
+(gdb) s
+1228      _Jv_InitThreads ();
+
+really dunno what is wrong why is showing those warnings.. as highlighted in
+the dump..
+what is the meaning of all those.. 
+please help me to solve this problem...
+i just need it to print Hello World !
+thanks... :) :) 
+-- 
+View this message in context: <a  href="http://www.nabble.com/problem-with-GCJ-while-running-java-code-tp15455624p15455624.html">http://www.nabble.com/problem-with-GCJ-while-running-java-code-tp15455624p15455624.html</a>
+Sent from the gcc - java mailing list archive at Nabble.com.
+
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00021" href="msg00021.html">Re: problem with GCJ while running java code</a></strong>
+<ul><li><em>From:</em> Andrew Haley</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<!--htdig_noindex-->
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00019">Date&nbsp;Index</A>] [<a href="subjects.html#00019">Subject&nbsp;Index</a>] [<a href="authors.html#00019">Author&nbsp;Index</a>] [<A HREF="threads.html#00019">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00018.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00020.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00018.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00021.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

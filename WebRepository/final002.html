@@ -1,0 +1,720 @@
+<!-- $Id: final-keyword.shtml,v 1.23 2006/03/24 17:24:03 renaud Exp $ -->
+
+
+
+
+<!-- $Id: header.shtml,v 1.26 2003/07/10 06:06:24 renaud Exp $ -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML> <HEAD>
+
+<!-- style sheets -->
+<LINK REL="stylesheet" HREF="/renaud.css">
+
+<!-- meta tags for search engines -->
+<META NAME="keywords" CONTENT="software development consulting engineering consultant www web applications java j2ee ejb servlets perl e-commerce agents">
+<META NAME="classification" CONTENT="">
+<META NAME="description" CONTENT="Renaud Waldura Software Development Services">
+
+<!-- page title, displayed in window bar -->
+<TITLE> Renaud Waldura's The Final Word On the final Keyword </TITLE>
+
+</HEAD> <BODY>
+<TABLE height="100%" width="100%" cellpadding="12">
+<TR>
+
+<!-- %%%%%%%%%%%%%%%%%%%% LEFT FRAME %%%%%%%%%%%%%%%%%%%% -->
+
+<TD WIDTH="141" VALIGN="top">
+
+<P>
+<A HREF="/"> <IMG ALT="logo" WIDTH=141 HEIGHT=124 BORDER=0 SRC="/img/logo.png" /> </A>
+</P>
+
+<!-- the left-hand menu -->
+	<table class="menu" width="100%">
+	<tr>
+	<td> <a href="/software/"> Software </a> 
+	<tr>
+	<td> <a href="/doc/"> Articles </a> 
+	<tr>
+	<td> <a href="/portfolio/"> Portfolio </a> 
+	<tr>
+	<td> <a href="/resume/"> R&eacute;sum&eacute; </a> 
+	</table>
+
+</TD>
+
+<!-- %%%%%%%%%%%%%%%%%%%% CENTER FRAME %%%%%%%%%%%%%%%%%%%% -->
+
+<TD valign="top">
+
+<H1> The Final Word On the final Keyword </H1>
+
+
+
+<p>
+Some features of the Java language simply cannot be ignored.
+Consider for example interfaces, used extensively by every Java specification;
+or <code>try/catch</code> blocks, that form the basis for exception handling.
+Other features are more obscure &ndash; useful, but ignored by the masses. 
+Without looking as far as <code>volatile</code> (probably the most obscure Java keyword),
+think about <code>final</code>. When was the last time you used <code>final</code> in your code?
+<p>
+Me, I'm a <code>final</code> fan. Enamored with <code>final</code>, I'm of
+the school of thought that inserts <code>final</code> any where, any time.
+Or almost. But why?
+In this article I shine the spotlight on the Java keyword <code>final</code>, and
+invite you to discover its subtle meanings, and the many Java idioms that make use of it. All for 
+better code!
+</p>
+
+<ol>
+<li><a href="#many">The Many Meanings of <code>final</code></a>
+<li><a href="#vars">Final Variables</a>
+	<ol>
+	<li> Final Parameters
+	<li> Anonymous Local Classes
+	</ol>
+<li><a href="#fields">Final Fields</a>
+	<ol>
+	<li> Declare Constants
+	<li> Aggregation vs. Acquaintance
+	<li> Enforce Atomicity of Object Creation
+	<li> Declare Invariants
+	<li> For Performance
+	<li> Conclusion on Final Fields
+	</ol>
+<li><a href="#methods">Final Methods</a>
+	<ol>
+	<li> Enforce Invariant Code
+	<li> For Security
+	<li> For Performance?
+	</ol>
+<li><a href="#classes">Final Classes</a>
+	<ol>
+	<li> Enforce Composition over Inheritance
+	<li> For Security
+	</ol>
+<li><a href="#immutable">Immutable Objects</a>
+<li><a href="#conclusion">Conclusion</a>
+<li><a href="#refs">References</a>
+</ol>
+
+
+<a name="many">
+<h2>The Many Meanings of <code>final</code></h2>
+</a>
+<p>
+The <code>final</code> modifier can be applied to four Java constructs:
+<ol>
+<li> variables: a final variable can be set once and only once.
+<li> fields: a final field can also be set only once, by the constructor
+	of the class which defines it.
+<li> methods: a final method cannot be overridden nor hidden.
+<li> classes: a final class cannot be extended. 
+</ol>
+<p>
+Notice how using <code>final</code> is an entirely negative act.
+The <code>final</code> keyword works by subtracting, limiting default language mechanisms:
+the ability to override a method, to set a variable or a field.
+The motivations behind
+using <code>final</code> fall into three broad categories: correctness,
+robustness, and finally performance.
+</p>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%% VARIABLES %%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<a name="vars">
+<h2>Final Variables</h2>
+</a>
+<p>
+A final variable can be set only once, allowing you to declare
+local constants. Such a variable can be left un-assigned at the point of declaration,
+creating <cite>blank finals</cite>. But all final variables must be assigned exactly
+once.
+Final variables come in handy in mostly two situations: to prevent accidental
+changes to method parameters, and with variables accessed by anonymous classes.
+</p>
+
+<h3>Final Parameters</h3>
+<p>
+The following sample declares final parameters:
+</p>
+
+<div class="frame"> <pre>
+public void doSomething(final int i, final int j)
+{
+    // ...
+}
+</pre> </div>
+
+<p>
+<code>final</code> is used here to ensure the two indexes 
+<code>i</code>
+and
+<code>j</code>
+won't accidentally be reset by the method.
+It's a handy way to protect against an insidious bug
+that erroneously changes the value of your parameters. Generally speaking,
+short methods are a better way to protect from this class of errors, 
+but final parameters can be a useful addition to your coding
+style.
+<p>
+Note that final parameters are not considered part of the method signature,
+and are ignored by the compiler when resolving method calls. Parameters can be
+declared final (or not) with no influence on how the method is overriden.
+</p>
+
+<h3>Anonymous Local Classes</h3>
+<p>
+The second situation involving final variables
+is actually mandated
+by language semantics. In that situation, the Java compiler won't let you use a variable
+unless it is declared final.
+This situation arises with <em>closures</em>, also known as anonymous local classes.
+Local classes can only reference local variables and parameters that are
+declared final. 
+</p>
+
+<div class="frame"> <pre>
+public void doSomething(int i, int j)
+{
+    final int n = i + j; // must be declared final
+
+    Comparator comp = new Comparator()
+    {
+        public int compare(Object left, Object right)
+        {
+            return n; // return copy of a local variable
+        }
+    };
+} 
+</pre> </div>
+
+<p>
+The reason for this restriction becomes apparent if we shed
+some light on how local classes are implemented. 
+
+An anonymous local class can use local variables because the compiler automatically gives
+the class a private instance field to hold a copy of each local
+variable the class uses. The compiler also adds hidden parameters to each
+constructor to initialize these automatically created
+private</code> fields. Thus, a local class does not actually access
+local variables, but merely its own private copies of them. The only way
+this can work correctly is if the local variables are declared final,
+so that they are guaranteed not to change. With this guarantee in place, the local
+class is assured that its internal copies of the variables accurately reflect
+the actual local variables.
+</p>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%% FIELDS %%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<a name="fields">
+<h2>Final Fields</h2>
+</a>
+<p>
+A final field can be assigned once and only once, and must be initialized
+by every constructor of the class that declares it.
+It is also possible to assign the field directly, in the same statement
+where it is defined. This simply reflects the fact that such shortcut
+assignments are compiled into a <cite>synthetic constructor</cite>.
+
+E.g. both the following code samples are correct and strictly equivalent;
+the first is preferred for being shorter. 
+</p>
+
+<div class="frame"> <pre>
+public class MyClass
+{
+    private final int i = 2;
+}
+
+public class MyClass
+{
+    private final int i;
+
+    public MyClass()
+    {
+        i = 2;
+    }
+}
+</pre> </div>
+
+
+<h3>Declare Constants</h3>
+<p>
+Coupled with <code>static</code>, <code>final</code> is used to flag constants. This usage
+is well-known to all Java programmers, so I won't expand much on it.
+It is useful to know that the value of a field declared constant in that manner
+will be computed statically if possible, at compile-time.
+</p>
+
+<div class="frame"> <pre>
+private static final int ERROR_CODE = 1 + 3 * 4 / 2;
+public static final String ERROR_MESSAGE = "An error occurred with code=" + ERROR_CODE;
+</pre> </div>
+
+<p>
+The compiler will compute the value for <code>ERROR_CODE</code>,
+concatenate the string equivalent
+of the result, and assign the resulting <code>String</code> to <code>ERROR_MESSAGE</code>.
+</p>
+
+<h3>Aggregation vs. Acquaintance</h3>
+<p>
+In the words of Gamma et al.'s <cite>Design Patterns</cite>:
+<blockquote>
+Aggregation implies that one object owns or is responsible for another object.
+Generally we speak of an object <em>having</em> or 
+being <em>part of</em> another object.
+Aggregation implies that an aggregate object and its owner have identical
+lifetimes.
+<p>
+Acquaintance implies that an object merely <em>knows</em> of another object. Sometimes
+acquaintance is called "association" or the "using" relationship. Acquainted
+objects may request operations of each other, but they aren't responsible for
+each other. Acquaintance is a weaker relationship than aggregation and suggests
+much looser coupling between objects.
+<p>
+It's easy to confuse aggregation and acquaintance, because they are often 
+implemented in the same way. Ultimately, acquaintance and aggregation are
+determined more by intent than by explicit language mechanisms.
+Aggregation relationships tend to be fewer and more permanent than acquaintance.
+Acquaintance, in contrast, are made and remade more frequently, sometimes
+existing only for the duration of an operation. Acquaintances are more dynamic
+as well, making them more difficult to discern in the source code.
+</blockquote>
+<p>
+As it turns out, the Java language does offer an explicit mechanism to differentiate
+aggregation relationships from mere acquaitances: the object of this article,
+the keyword <code>final</code>.
+Use it to flag and make explicit aggregations.
+But why should this be important to you? The short answer is:
+<em>to improve code quality</em>.
+</p>
+
+<h3>Enforce Atomicity of Object Creation</h3>
+<p>
+Once a field is determined to be an aggregation of another object,
+and it is declared final, an interesting property emerges.
+The aggregating object is guaranteed to be created in full,
+or it won't be created at all; either all final fields are initialized
+successfully, or an exception terminates the constructor.
+<p>
+Say an object Car aggregates another object Engine, and therefore is defined as
+absolutely requiring
+an Engine instance to function. Declaring the reference to the Engine as final
+ensures any Car instance is correctly initialized in full 
+&ndash; or the constructor was terminated abruptly by a thrown exception.
+
+The Car class doesn't even compile without the Engine reference
+being initialized.
+</p>
+
+<div class="frame"> <pre>
+public class Car
+{
+    private final Engine engine;	// always has an engine
+
+    public Car()
+    {
+        engine = new Engine();
+    }	
+}
+</pre> </div>
+
+<p>
+Simply by tagging a field with <code>final</code>, we have just created a very strong condition 
+on all Car instances: namely, they must have an Engine to exist. This simple
+property can dramatically raise the quality of your code, by 
+enforcing correct
+aggregation relationships between objects. The object thus defined, and 
+all its aggregated dependents, always exists in a stable state.
+</p>
+
+<h3>Declare Invariants</h3>
+<p>
+Design by Contract is an effective programming methodology for designing robust
+software components: by declaring (and verifying) conditions specific to a
+given component, its behavior can be asserted correct, even at runtime.
+<code>final</code> is a great tool to enforce field invariance: since final fields can
+only be set once, any attempt to reset their value (accidental or not)
+is detected by the compiler.
+This idiom is also of great help during refactoring: it catches
+refactoring mistakes by acting as a safeguard against the re-initialization of a
+field.
+<p>
+A caveat applies here: if a final variable holds a reference to an object,
+the object may be modified, in spite of it being final.
+This is because <code>final</code> only applies to the <em>reference</em> holding
+the object, not the object itself.
+The final variable will always refer to the same object, but the object itself may change
+through its methods.
+<p>
+This applies also to arrays and collections, because they are both objects. If
+a final variable holds a reference to an array, then the components of the array
+may be changed by operations on the array, although the variable will always refer to
+the same array. 
+The same restriction applies to collections as well. E.g. a list
+may be declared final and thus always exist as far as the aggregating object is concerned, its
+content is undetermined, and can be changed at will. Elements can be added/removed 
+from the collection, even though it is declared final.
+</p>
+
+<h3>For Performance</h3>
+<p>
+The revised memory model proposed by JSR 133 includes special provisions for final fields, 
+provisions that are absent from the existing specification. Newer VMs already implement this
+specification, and treat final fields accordingly. Because final fields are assigned exactly once,
+aggressive optimizations
+in a multithreaded context become possible. Specifically, a field doesn't need to be ever reloaded,
+since its value is guaranteed never to change.
+</p>
+
+<h3>Conclusion on Final Fields</h3>
+<p>
+Extensive use of final fields leads to a new and interesting programming
+idiom. By statically enforcing field initialization at
+construction time, objects can be designed to be correct,
+fully initialized,
+once their construction is complete. Doing so is a simple yet powerful way
+to increase both the correctness and robustness of a given object: since it cannot fail to be
+correctly initialized, subsequent methods are free to deal with their
+own processing, and use whatever fields they need to do said processing,
+without concern for the correct initialization sequence of the object.
+<p>
+This idiom strongly relates to <cite>eager initialization</cite>: 
+all fields are initialized
+as soon as possible, at construction, and never changed once the
+initialization phase is over.
+In my experience, developers shun eager initialization because
+it is perceived as more expensive than lazy initialization. "I don't need this
+field until later, so let's not bother with it now," their thinking goes.
+Unfortunately, this line
+of thinking leads to more complex code than simply initializing all
+fields right away. Every usage of the field has to check whether
+the field has been initialized, and initialize it if it hasn't. It's akin to premature
+optimization, which, as we all know, is the root of all evil.
+<p>
+Compare the two following examples. While it may look like a trivial
+transformation, in a real class with potentially dozens of fields,
+eager initialization will clear up a lot of code by removing
+extraneous tests. By declaring all fields final, initialization is gathered in one place (the constructor),
+yielding simpler, more maintainable, code.
+</p>
+
+<div class="frame"> <pre>
+public class LazyCar
+{
+    private Engine engine; // lazily initialized
+
+    public void drive()
+    {
+        if (engine == null)
+        {
+            engine = new Engine();
+        }
+
+        // ...
+    }
+}
+</pre> </div>
+
+<div class="frame"> <pre>
+public class BetterCar
+{
+    private final Engine engine = new Engine(); // using final
+
+    public void drive()
+    {
+        // the engine is always present
+        // ...
+    }
+}
+</pre> </div>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<a name="methods">
+<h2>Final Methods</h2>
+</a>
+<p>
+A final method is implemented exactly once,
+in the declaring class. Such a method cannot be overridden: subclasses cannot substitute a
+new definition for the method. 
+Note that either modifier <code>private</code> or
+<code>static</code> also implies <code>final</code>, which is therefore redundant, 
+when applied to methods. <em>Private and static methods
+are always implicitely final</em>, since they cannot be overridden.
+</p>
+
+<h3>Enforce Invariant Code</h3>
+<p>
+The <cite>Template Method</cite> pattern declares an abstract method
+solely for the purpose of overriding it in a subclass. This allows the base class
+to delegate parts of an algorithm to subclasses.
+Final methods cannot be overridden, therefore
+they create an almost exact anti-"template method" pattern. But in fact, they are
+best used in conjunction with template methods. By specifying explicitely
+which parts of the algorithm can vary (using abstract methods) and which cannot
+(using final methods), the class's author conveys a precise picture of the work
+expected by subclasses.
+Final methods are used with template methods to declare the invariant parts of an algorithm.
+</p>
+
+<div class="frame"> <pre>
+public abstract class AbstractBase
+{
+    public final void performOperation()    // cannot be overridden
+    {
+        prepareForOperation();
+        doPerformOperation();   
+    }
+    
+    protected abstract void doPerformOperation();    // must override
+}
+</pre> </div>
+
+<p>
+Be aware that final methods impose a very strict restriction on subclass implementors.
+In a framework context, think long and hard before declaring methods final, as it will
+severely limit the extensibility of the framework, and the possibilities of adapting the
+framework to situations unforeseen by the original developers.
+</p>
+
+<h3>For Security</h3>
+<p>
+In Java all methods are by default overridable. While this gives maximum flexibility to us
+programmers, this liberal attitude can sometimes lead to conflicting situations.
+Let's look at the
+<a href="//java.sun.com/j2se/1.4/docs/api/java/lang/Object.html"><code>Object</code></a>
+class for example. It declares methods that certainly must be overridable:
+<a href="//java.sun.com/j2se/1.4/docs/api/java/lang/Object.html#equals(java.lang.Object)"><code>Object.equals</code></a>
+and
+<a href="//java.sun.com/j2se/1.4/docs/api/java/lang/Object.html#toString()"><code>Object.toString</code></a>
+are two well-known examples. 
+But <code>Object</code> also includes methods such as
+<a href="//java.sun.com/j2se/1.4/docs/api/java/lang/Object.html#wait()"><code>Object.wait</code></a>
+and
+<a href="//java.sun.com/j2se/1.4/docs/api/java/lang/Object.html#notify()"><code>Object.notify</code></a>
+&ndash; system-level methods which implement
+core language capabilities.
+It simply cannot be allowed for 
+<code>Object.wait</code>
+to be substituted by a different implementation. It would alter
+the semantics of the language itself.
+<p>
+Final methods come to the rescue again in this case:
+<code>Object.wait</code>
+is declared
+final, and therefore it cannot be changed, accidentally or not. This reasoning also applies to entire
+JDK classes, as discussed below.
+</p>
+
+<h3>For Performance?</h3>
+<p>
+Since a final method is only implemented in the declaring class, there is no need to dynamically
+dispatch a call to a final method, and static invocation can be used instead. 
+The compiler can emit a direct call to the method, bypassing entirely the usual virtual
+method invocation procedure.
+Because of this, final methods are also candidates for inlining by a Just-In-Time compiler or a
+similar optimization tool. (Remember, private/static methods are already final, therefore always
+considered for this optimization.)
+<p>
+Static invocation is faster than dynamic method lookup, leading to the widespread use of final methods
+as an optimization technique.
+But this "optimization" is next to useless in recent virtual machines: they are able to detect if
+a non-final method is overridden, and if not, use static invocation.
+
+Therefore, <code>final</code> should be used first and foremost for sofware engineering reasons, as
+discussed in the rest of this article.
+</p>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%% CLASSES %%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<a name="classes">
+<h2>Final Classes</h2>
+</a>
+<p>
+A final class cannot be subclassed, or extended, in any way. Final classes can be regarded as a
+generalization of final methods: a final class has all its method declared final. On the other
+hand, fields of a final class do not have any special property.
+</p>
+
+<h3>Enforce Composition over Inheritance</h3>
+<p>
+Since final classes cannot be extended, the only way to reuse them is by composing them with
+other objects. And encouraging that practice in your own code
+might prove very healthy; inheritance, while a powerful
+technique that should not be dismissed, has it own share of issues. It introduces a very tight
+coupling between classes, sometimes leading to the infamous
+<a href="http://www.cas.mcmaster.ca/~emil/publications/fragile/"><cite>Fragile Base Class</cite> problem</a>.
+It is also more complex, forcing users 
+to bounce up and down a class hierarchy in order to understand what a given class does.
+And finally, it can break encapsulation by allowing less restrictive access to methods.
+<p>
+Thus final classes are used to enforce composition. This is particularly important with core
+classes, classes that define the base functionality of a framework. We look at this case next.
+</p>
+
+<h3>For Security</h3>
+<p>
+One of the very best feature of the Java environment is its ability to dynamically load
+classes. Necessarily, this flexibility comes at a price, including a more complex
+security model. If classes can be loaded dynamically, at any time, the virtual machine must be able
+to enforce security policies on the running code.
+Final classes are used in this context to prevent malicious code from altering the semantics of classes
+essential to the framework.
+<p>
+The best known example of a final class is certainly <code>java.lang.String</code>. 
+This class is so vital to the operation of the Java compiler and interpreter 
+that it must be guaranteed that whenever code uses a string,
+it gets exactly a <code>java.lang.String</code> and not an instance of some other class.
+Because <code>java.lang.String</code> is final, it cannot be subclassed, 
+none of its methods can be overriden, and therefore any <code>String</code> instance is guaranteed to always 
+behave the way it is intended.
+</p>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%% IMMUTABLE OBJECTS %%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<a name="immutable">
+<h2>Immutable Objects</h2>
+</a>
+<p>
+I would like to conclude this article with a section about immutable objects and
+what a useful pattern they form.
+<p>
+An immutable object is an object which state is guaranteed to stay
+identical over its entire lifetime. While it is perfectly possible to
+implement immutability without <code>final</code>, its use makes that
+purpose explicit, to the human (the software developer) and the
+machine (the compiler).
+<p>
+Immutable objects carry some very desirable characteristics:
+<ul>
+<li> they are simple to understand and easy to use
+<li> they are inherently thread-safe: they require no synchronization
+<li> they make great building blocks for other objects
+</ul>
+Clearly <code>final</code> is going to help us define immutable objects. First in labelling our object
+as immutable, which makes it simple to use and understand by other programmers. Second
+in guaranteeing that the object's state never changes, which enable the thread-safe property: 
+thread concurrency
+issues are relevant when one thread can change data while another thread is reading 
+the same data. Because an immutable object never changes its data, synchronizing 
+access to it is not needed.
+<p>
+Create an immutable class by meeting all of the following conditions:
+<ol>
+<li> Declare all fields <code>private final</code>.
+<li> Set all fields in the constructor.
+<li> Don't provide any methods that modify the state of the object; provide only getter methods (no setters).
+<li> Declare the class final, so that no methods may be overridden.
+<li> Ensure exclusive access to any mutable components, e.g. by returning copies.
+</ol>
+</p>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION %%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<a name="conclusion">
+<h2>Conclusion</h2>
+</a>
+<p>
+I hope you have enjoyed this scrutiny of a sometimes forgotten feature of the Java language.
+My <a href="#refs">references section</a> lists additional resources useful to the reader eager
+to keep on learning about <code>final</code> and its uses.
+</p>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<a name="refs">
+<h2>References</h2>
+</a>
+<ul>
+<li> <a href="http://www.codeguru.com/java/tij/tij0071.shtml">The <code>final</code> keyword</a> at CodeGuru.
+<li> <a href="http://java.sun.com/products/hotspot/docs/general/hs2.html">The Java HotSpot Server VM</a>.
+<li> <a href="http://java.sun.com/products/hotspot/whitepaper.html">THE JAVA HOTSPOT PERFORMANCE ENGINE ARCHITECTURE</a>.
+<li> <a href="http://jcp.org/jsr/detail/133.jsp">JSR 133</a>, Java Memory Model and Thread Specification Revision.
+<li> <a href="http://www.cs.umd.edu/~pugh/java/memoryModel/semantics.pdf">Semantics of Multithreaded Java</a> by Jeremy Manson and William Pugh.
+<li> The <a href="http://www.cas.mcmaster.ca/~emil/publications/fragile/"><cite>Fragile Base Class</cite> problem</a> by Leonid Mikhajlov and Emil Sekerinski.
+<li> <a href="http://www.swe.uni-linz.ac.at/publications/html/combo/combo.2.html">Chapter 12</a> of <cite>Object Oriented Application Frameworks</cite> by Ted Lewis.
+<li> <a href="http://www.javaperformancetuning.com/tips/final.shtml">Performance tips for the Java <code>final</code> keyword</a>.
+<li> The Java Language Specification on:
+	<ul> 
+	<li> <a href="http://java.sun.com/docs/books/jls/second_edition/html/typesValues.doc.html#10931">final variables</a>
+	<li> <a href="http://java.sun.com/docs/books/jls/second_edition/html/classes.doc.html#54727">final classes</a>
+	<li> <a href="http://java.sun.com/docs/books/jls/second_edition/html/classes.doc.html#35962">final fields</a>
+	<li> <a href="http://java.sun.com/docs/books/jls/second_edition/html/classes.doc.html#11246">final methods</a>
+	</ul>
+<li> The Java tutorial on:
+	<ul>
+	<li> <a href="http://java.sun.com/docs/books/tutorial/java/javaOO/final.html">final classes and methods</a>.
+	<li> <a href="http://java.sun.com/docs/books/tutorial/java/nutsandbolts/finalVariables.html">final variables</a>.
+	</ul>
+<li> At the Portland Wiki Pattern Repository:
+	<ul>
+	<li> The evils of <a href="http://c2.com/cgi/wiki?PrematureOptimization">premature optimization</a>.
+	<li> Define an <a href="http://c2.com/cgi/wiki?ImmutableInterface">immutable interface</a> for immutable objects.
+	</ul>
+<li> <cite>Practical Java</cite> by Peter Haggar:
+	<ul>
+	<li> <a href="http://www.informit.com/content/index.asp?product_id={8290DB60-956E-4FD9-861A-75F10D4C2312}">Practical Java Praxis 63: Define and Implement Immutable Classes Judiciously</a>
+	<li> <a href="http://www.informit.com/content/index.asp?product_id={0ED371D2-F3BD-4CF7-86C2-CE7CE078D5D7}">Practical Java Praxis 64: Use clone for Immutable Objects When Passing or Receiving Object References to Mutable Objects</a>
+	<li> <a href="http://www.informit.com/content/index.asp?product_id={3C33C8CC-3E4F-4086-AF6F-B129A8652491}">Practical Java Praxis 65: Use Inheritance or Delegation to Define Immutable Classes</a>
+	</ul>
+<li> More about the Enumeration idiom in <a href="http://www.javaworld.com/javaworld/javatips/jw-javatip122.html">Java Tip 122: Beware of Java typesafe enumerations</a>.
+</ul>
+
+
+<h2>About the Author</h2>
+<p>
+Renaud Waldura is a software engineer who develops distributed applications in Java.
+He relishes in dissecting the subtleties of programming languages, as well as leading 
+software teams to success on complex projects.
+Visit Renaud's Web site at <a href="http://renaud.waldura.com/">http://renaud.waldura.com</a>
+and learn more about how his outstanding Java skills can help you succeed in your business.
+</p>
+
+
+<!-- $Id: footer.shtml,v 1.18 2007/03/16 05:55:12 renaud Exp $ -->
+
+
+	<div class="legal_notice">
+	<p>
+	Copyright &copy; 2000-2007 by Renaud Waldura. 
+	Permission to make digital or hard copies of part or all of this work for personal
+	or classroom use is granted without fee, provided that copies are not made or distributed
+	for profit or commercial advantage, and that copies bear this notice and full citation
+	on the first page. 
+	Copyright for components of this work owned by others than Renaud Waldura
+	must be honored. Abstracting with credit is permitted. To copy otherwise, to
+	republish, to post on servers, or to redistribute to lists, requires prior
+	specific permission and/or fee. Request permission to publish from 
+	<a href="mailto:renaud+articles@waldura.com">renaud@waldura.com</a>.
+	<p>
+	Last modified: 2006/03/24 17:24:03 $
+	</p>
+	</div>
+
+
+</TD>
+
+</TR>
+</TABLE>
+
+<HR/>
+
+<ADDRESS>
+Copyright &copy; 2000-2007 Renaud Waldura
+&lt;<A HREF="mailto:renaud+web@waldura.com">renaud@waldura.com</A>&gt;
+</ADDRESS>
+
+</BODY>
+</HTML>
+

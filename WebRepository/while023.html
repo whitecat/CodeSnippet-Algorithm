@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: java.lang.VerifyError while using struts with Tomcat 4.0.x</title>
+   <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>Mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox//tomcat-users" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox//tomcat-users/200205.mbox/%3c20020505150652.V85828-100000@icarus.apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox//tomcat-users/200205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox//tomcat-users/200205.mbox/%3cBDEJIJGCNJHLHNAOJCLPOEMHEAAA.news@news.jb21.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox//tomcat-users/200205.mbox/%3c20020502091840.C94767-100000@icarus.apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox//tomcat-users/200205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox//tomcat-users/200205.mbox/%3c02050210291701.30552@host51.syd.nuix.com.au%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox//tomcat-users/200205.mbox/%3c20020505150652.V85828-100000@icarus.apache.org%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox//tomcat-users/200205.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox//tomcat-users/200205.mbox/%3cBDEJIJGCNJHLHNAOJCLPOEMHEAAA.news@news.jb21.net%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox//tomcat-users/200205.mbox/%3c20020502091840.C94767-100000@icarus.apache.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox//tomcat-users/200205.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox//tomcat-users/200205.mbox/%3c02050210291701.30552@host51.syd.nuix.com.au%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Dmitri Lysenko &lt;...@nuix.com.au&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: java.lang.VerifyError while using struts with Tomcat 4.0.x</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 06 May 2002 01:03:18 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+On Friday 03 May 2002 02:19, you wrote:
+
+I've made the try with this version of the tomcat (tomcat-4.0.4-b2)
+but the VerifyError is still there.  
+Possibly it's not a problem with the tomcat's class loader
+but with the version 3.x all works fine.
+I'm including the exception log below:
+
+[EmbeddedCatalinaServiceSX] action: Error creating Action instance for path 
+'/security/common/topiclist', class name 
+'com.nuix.itopix.action.TopicListAction'
+java.lang.VerifyError: (class: com/nuix/itopix/action/TopicListAction, 
+method: defaultAction signature: 
+(Lcom/nuix/itopix/list/GenericListForm;Ljavax/servlet/http/HttpServletRequest;Lorg/apache/struts/action/ActionMapping;)Ljava/lang/Object;)
+
+Incompatible object argument for method call
+        at java.lang.Class.forName1(Native Method)
+        at java.lang.Class.forName(Class.java(Compiled Code))
+        at 
+org.apache.struts.action.ActionServlet.processActionCreate(ActionServlet.java:1632)
+        at 
+org.apache.struts.action.ActionServlet.process(ActionServlet.java:1577)
+        at 
+com.nuix.itopix.servlet.ItopixActionServlet.process(ItopixActionServlet.java:234)
+        at 
+org.apache.struts.action.ActionServlet.doGet(ActionServlet.java:492)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:740)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+        at 
+org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:247)
+        at 
+org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:193)
+        at 
+org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:243)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:566)
+        at 
+org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:472)
+        at 
+org.apache.catalina.core.ContainerBase.invoke(ContainerBase.java:943)
+        at 
+org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:190)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:566)
+        at 
+org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:531)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:564)
+        at 
+org.apache.catalina.valves.CertificatesValve.invoke(CertificatesValve.java:246)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:564)
+        at 
+org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:472)
+        at 
+org.apache.catalina.core.ContainerBase.invoke(ContainerBase.java:943)
+        at 
+org.apache.catalina.core.StandardContext.invoke(StandardContext.java:2347)
+        at 
+org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:180)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:566)
+        at 
+org.apache.catalina.valves.ErrorDispatcherValve.invoke(ErrorDispatcherValve.java:170)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:564)
+        at 
+org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:170)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:564)
+        at 
+org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:472)
+        at 
+org.apache.catalina.core.ContainerBase.invoke(ContainerBase.java:943)
+        at 
+org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:174)
+        at 
+org.apache.catalina.core.StandardPipeline.invokeNext(StandardPipeline.java:566)
+        at 
+org.apache.catalina.core.StandardPipeline.invoke(StandardPipeline.java:472)
+        at 
+org.apache.catalina.core.ContainerBase.invoke(ContainerBase.java:943)
+        at 
+org.apache.catalina.connector.http.HttpProcessor.process(HttpProcessor.java:1017)
+        at 
+org.apache.catalina.connector.http.HttpProcessor.run(HttpProcessor.java:1115)
+        at java.lang.Thread.run(Thread.java:498)
+
+&gt; Don't know if this is exactly the same issue, but some class loader bugs
+&gt; in 4.0.3 have been fixed in 4.0.4-b2 -- you should give that a try
+&gt; instead.
+&gt;
+&gt; Craig
+&gt;
+&gt; On Thu, 2 May 2002, Dmitri Lysenko wrote:
+&gt; &gt; Date: Thu, 2 May 2002 10:43:54 +1000
+&gt; &gt; From: Dmitri Lysenko &lt;lds@nuix.com.au&gt;
+&gt; &gt; Reply-To: Tomcat Users List &lt;tomcat-user@jakarta.apache.org&gt;,
+&gt; &gt; lds@nuix.com.au To: tomcat-user@jakarta.apache.org
+&gt; &gt; Subject: java.lang.VerifyError while using struts with Tomcat 4.0.x
+&gt; &gt;
+&gt; &gt; Hi,
+&gt; &gt;
+&gt; &gt; I'm using tomcat 4.0.3 integrated with JBoss 2.4.4 (they run in the same
+&gt; &gt; JVM).  Struts framework is used to handle the presentation logic.
+&gt; &gt; This combination works fine with Tomcat 3.x.
+&gt; &gt; However after I upgrated to the Tomcat 4.0.3 I'm experiencing the
+&gt; &gt; java.lang.VerifyError (Incompartible argument for a function) while the
+&gt; &gt; ActionServlet instanciates some action classes.  I'm sure that the
+&gt; &gt; problem caused by the changes in the tomcat's classloader. I had the
+&gt; &gt; situation when the class with the same name is accessible by two
+&gt; &gt; different classloaders. I found out that the problem appears if the class
+&gt; &gt; is loaded by the classloader that's different with the one that the
+&gt; &gt; current thread uses. In this situation I had this VerifyError. I was able
+&gt; &gt; to resolve the problem by eliminating the class duplication, now I have
+&gt; &gt; no two same classes that are placed in the different jars. However the
+&gt; &gt; question is why this error appears? The situation that I had when the
+&gt; &gt; same class is accessible by multiple class loaders is not prohibited by
+&gt; &gt; the Java language. I'm wondering what classloader contraint was violated.
+&gt; &gt;
+&gt; &gt; To fix the problem I have to use the jar's packaging that's not very
+&gt; &gt; convenient for me. So I appreciate any help that allows me to resolve
+&gt; &gt; this problem in better way.
+&gt; &gt;
+&gt; &gt; Dmitri Lyssenko,
+&gt; &gt; lds@nuix.com.au
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt; To unsubscribe:   &lt;mailto:tomcat-user-unsubscribe@jakarta.apache.org&gt;
+&gt; &gt; For additional commands: &lt;mailto:tomcat-user-help@jakarta.apache.org&gt;
+&gt; &gt; Troubles with the list: &lt;mailto:tomcat-user-owner@jakarta.apache.org&gt;
+&gt;
+&gt; --
+&gt; To unsubscribe:   &lt;mailto:tomcat-user-unsubscribe@jakarta.apache.org&gt;
+&gt; For additional commands: &lt;mailto:tomcat-user-help@jakarta.apache.org&gt;
+&gt; Troubles with the list: &lt;mailto:tomcat-user-owner@jakarta.apache.org&gt;
+
+--
+To unsubscribe:   &lt;mailto:tomcat-user-unsubscribe@jakarta.apache.org&gt;
+For additional commands: &lt;mailto:tomcat-user-help@jakarta.apache.org&gt;
+Troubles with the list: &lt;mailto:tomcat-user-owner@jakarta.apache.org&gt;
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox//tomcat-users/200205.mbox/raw/<02050611031800.20045@host51.syd.nuix.com.au>/">Unnamed text/plain</a> (inline, 8-Bit, 6938 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox//tomcat-users/200205.mbox/raw/%3c02050611031800.20045@host51.syd.nuix.com.au%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Java technology, IBM style: Class sharing</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="The new Shared Classes feature in the IBM implementation of version 5.0 of the Java platform offers a completely transparent and dynamic means of sharing all loaded classes that places no restrictions on the JVMs that are sharing the class data. This feature offers a straightforward and flexible solution for reducing virtual memory footprint and improving startup time, and there are few applications that will not benefit from it. This article explores how the feature works, how to use it, and when to use it, along with some of the features it provides."/>
+<meta name="Description" content="The new Shared Classes feature in the IBM implementation of version 5.0 of the Java platform offers a completely transparent and dynamic means of sharing all loaded classes that places no restrictions on the JVMs that are sharing the class data. This feature offers a straightforward and flexible solution for reducing virtual memory footprint and improving startup time, and there are few applications that will not benefit from it. This article explores how the feature works, how to use it, and when to use it, along with some of the features it provides."/>
+<meta name="Keywords" content="java, jvm, java virtual machine, shared classes, ibm, ibm sdk, class sharing, Ben Corrie, tttjca"/>
+<meta name="DC.Date" scheme="iso8601" content="2006-05-30"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCJVAZZ" />
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2006"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2006-05-30"/>
+<meta name="title" content="Java technology, IBM style: Class sharing"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Java technology, IBM style: Class sharing</h1><p><em>The Shared Classes feature helps reduces memory footprint and improves startup performance</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Ben Corrie</a> (<a href="mailto:corrieb@uk.ibm.com?subject=Class sharing">corrieb@uk.ibm.com</a>), JVM developer, IBM</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print"><div class="position"><img src="http://www.ibm.com/developerworks/i/p-bcorrie.jpg" width="64" height="80" alt="" /></div>Ben Corrie graduated from Southampton University in 1998 with a BSc in Computer Science and Spanish.  He joined IBM Hursley shortly after graduation and started work testing the IBM 1.1.6 JVM. After a spell writing functional test suites for new ORB features, he went on assignment to Ottawa in 2002 to work in development on the J9 JVM. He returned to Hursley in 2004 to lead the development of the Shared Classes feature.</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; The new Shared Classes feature in the IBM implementation of version 5.0 of the Java&#8482; platform offers a completely transparent and dynamic means of sharing all loaded classes that places no restrictions on the JVMs that are sharing the class data. This feature offers a straightforward and flexible solution for reducing virtual memory footprint and improving startup time, and there are few applications that will not benefit from it. This article explores how the feature works, how to use it, and when to use it, along with some of the features it provides.</p>
+<p class="ibm-no-print"><a href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=java+technology+ibm+style:">View more content in this series</a></p>
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 30 May  2006
+<br /><b>Level: </b>&nbsp;Intermediate
+
+<br /><b>Activity:</b>&nbsp; 7474 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>The principle of sharing loaded classes between Java virtual machine (JVM) processes is not new. Sun's CDS feature, for example, writes system classes into a read-only file that is memory-mapped into the JVM.The Shiraz feature in the IBM z/OS&#174; 1.4.2 JVM used a master JVM to populate a class cache that was then shared by slave JVMs.</p>
+
+<p>The IBM implementation of the 5.0 JVM takes the concept a step further by allowing <i>all</i> system and application classes to be stored in a persistent dynamic class cache in shared memory. This <i>Shared Classes</i> feature is supported on all of the platforms on which the IBM implementation of the JVM ships. The feature even supports integration with runtime bytecode modification, which this article discusses <a href="#3">later</a>.</p>
+
+<p>The Shared Classes feature has been designed from the ground up to be an option you can just switch on and forget about, yet it provides very powerful scope for reducing virtual memory footprint and improving JVM startup time. For this reason, it is best suited to environments where more than one JVM is running similar code or where a JVM is regularly restarted.</p>
+
+<p>In addition to the runtime class-sharing support in the JVM and its classloaders, there is also a public Helper API provided for integrating class sharing support into custom classloaders, which this article discusses <a href="#4">in detail</a>.</p>
+
+<p><a name="1"><span class="atitle">How it works</span></a></p>
+
+<p>Let's start by exploring the technical details of how the Shared Classes feature operates.</p>
+
+<p><a name="1.1"><span class="smalltitle">Enabling class sharing</span></a></p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><a name="sidebar1"></a><h2>About the series</h2><div class="ibm-container-body">
+
+
+<p>The <i><a href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=java+technology+ibm+style:">Java technology, IBM style</a></i> series takes a look at the latest releases of the IBM implementations of the Java platform.  You'll learn how IBM has implemented some of the advances built into version 5.0 of the Java platform, and find out how to use some of the value-added features built into IBM's new releases.</p>
+
+<p>Please contact the authors individually with comments or questions about their articles. To comment on the series as a whole, you may contact series lead <a href="mailto:baileyc@uk.ibm.com">Chris Bailey</a>.  For more on the concepts discussed here and links where you can download the latest IBM releases, see <a href="#resources">Resources</a>.</p> 
+
+</div></div>
+
+<p>You enable class sharing by adding <code>-Xshareclasses[:name=&lt;cachename&gt;]</code> to an existing Java command line. When the JVM starts up, it looks for a class cache of the name given (if no name is provided, it chooses a default name) and it either connects to an existing cache or creates a new one, as required.</p>
+
+<p>You specify cache size using the parameter <code>-Xscmx&lt;size&gt;[k|m|g]</code>; this parameter only applies if a new cache is created by the JVM. If this option is omitted, a platform-dependent default value is chosen (typically 16MB). Note that there are operating system settings that can limit the amount of shared memory that can be allocated -- for instance, <code>SHMMAX</code> on Linux is typically set to about 20MB. The details of these settings can be found in the Shared Classes section of the appropriate user guide (see the <a href="#resources">Resources</a> section for a link).</p>
+
+<p><a name="1.2"><span class="smalltitle">The class cache</span></a></p>
+
+<p>A <i>class cache</i> is an area of shared memory of fixed size that persists beyond the lifetime of any JVM using it. Any number of shared class caches can exist on a system, subject to operating system settings and restrictions; however, a single JVM can only connect to one cache during its lifetime.</p>
+
+<p>No JVM owns the cache, and there is no master/slave JVM concept; instead, any number of JVMs can read and write to the cache concurrently. A cache is deleted either when it is explicitly destroyed using a JVM utility or when the operating system restarts (a cache cannot persist beyond an operating system restart). A cache cannot grow in size and, when it becomes full, a JVM can still load classes from it but cannot add any classes to it. There are a number of JVM utilities to manage active caches, which the section entitled "<a href="#1.6">Shared classes utilities</a>" discusses.</p>
+
+<p><a name="1.3"><span class="smalltitle">How are classes cached?</span></a></p>
+
+<p>When a JVM loads a class, it first looks in the cache to see if the class it needs is already present. If it is, it loads the class from the cache. Otherwise, it loads the class from the filesystem and writes it into the cache as part of the <code>defineClass()</code> call. Therefore, a non-shared JVM has the following classloader lookup order:</p>
+
+<ol>
+<li>Classloader cache</li>
+<li>Parent</li>
+<li>Filesystem</li>
+</ol>
+
+<p>In contrast, a JVM running with Class Sharing uses the following order:</p>
+
+<ol>
+<li>Classloader cache</li>
+<li>Parent</li>
+<li>Shared cache</li>
+<li>Filesystem</li>
+</ol> 
+
+<p>Classes are read from and written to the cache using the public Helper API, which has been integrated into the IBM implementation of <code>java.net.URLClassLoader</code>. Therefore, any classloader that extends <code>java.net.URLClassLoader</code> gets class sharing support for free.</p>
+
+<p><a name="1.4"><span class="smalltitle">What parts of the class are cached?</span></a></p>
+
+<p>Inside the IBM implementation of the JVM, Java classes are divided into two parts: a read-only part called a <code>ROMClass</code>, which contains all the class's immutable data, and a <code>RAMClass</code> that contains data that is not immutable, such as static class variables. A <code>RAMClass</code> points to data in its <code>ROMClass</code>, but the two are completely separate, which means that it is quite safe for a <code>ROMClass</code> to be shared between JVMs and even between <code>RAMClasses</code> in the same JVM.</p>
+
+<p>In the non-shared case, when the JVM loads a class, it creates the <code>ROMClass</code> and the <code>RAMClass</code> separately and stores them both in its local process memory. In the shared case, if the JVM finds a <code>ROMClass</code> in the class cache, it only needs to create the <code>RAMClass</code> in its local memory; the <code>RAMClass</code> then references the shared <code>ROMClass</code>.</p>
+
+<p>Because the majority of class data is stored in the <code>ROMClass</code>, this is where the virtual memory savings are made. (The "<a href="#6.2">Virtual memory footprint</a>" sections discusses this in more detail.) JVM startup times are also significantly improved with a populated cache because some of the work to define each cached class has already been done and the classes are being loaded from memory, rather than from the filesystem. Startup time overhead to populate a new cache (which I discuss <a href="#6.1">later in this article</a>) is not significant, as each class simply needs to be relocated into the cache as it is defined.</p>
+
+<p><a name="1.5"><span class="smalltitle">What happens if a class changes on the filesystem?</span></a></p>
+
+<p>Because the cache can persist indefinitely, filesystem updates that invalidate classes in the cache may occur. It is therefore the responsibility of the cache code to ensure that, if a classloader makes a request for a shared class, then the class returned should always be exactly the same as the one that would have been loaded from the filesystem. This happens transparently when classes are loaded, so users can modify and update as many classes as they like during the lifetime of a shared class cache, knowing that the correct classes are always loaded.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><a name="sidebar2"></a><h2>Pitfalls with class changes: Two examples</h2><div class="ibm-container-body">
+
+
+<p>Imagine a class <code>C1</code> that is loaded into the cache by a JVM. Then, when the JVM shuts down, <code>C1</code> is changed and recompiled. When the JVM restarts, it definitely should not load the cached version of <code>C1</code>.</p>
+
+<p>Similarly, imagine a JVM that's running with a classpath of <code>/mystuff:/mystuff/myClasses.jar</code>. It loads <code>C2</code> from myClasses.jar into the cache. Then a different <code>C2.class</code> is added to <code>/myStuff</code> and another JVM starts up running the same application. It would be incorrect for the JVM to load the cached version of <code>C2</code>.</p>
+
+</div></div>
+
+<p>The JVM detects filesystem updates by storing timestamp values into the cache and comparing the cached values with actual values on each class load. If it detects that a JAR file has been updated, it has no idea which classes have been changed, so all classes loaded from that JAR in the cache are immediately marked as stale and cannot then be loaded from the cache. When the classes from that JAR are loaded from the filesystem and re-added to the cache, only the ones that have actually changed are added in their entirety; those that haven't changed are effectively made not stale.</p>
+
+<p>Classes cannot be purged from the cache, but the JVM attempts to make the most efficient use of the space it has. For example, the same class is never added twice, even if it is loaded from many different locations. So, if the same class <code>C3</code> is loaded from /A.jar, /B.jar, and /C.jar by three different JVMs, the class data is only added once, but there are three pieces of metadata to describe the three locations from which it was loaded.</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="1.6"><span class="atitle">Shared classes utilities</span></a></p>
+
+<p>There are a number of utilities that can be used to manage active caches, all of which are suboptions to <code>-Xshareclasses</code>. (You can get a complete list of all valid suboptions to <code>-Xshareclasses</code> by typing <code>java -Xshareclasses:help</code>.)</p>
+
+<p>Note that none of the utilities (apart from <code>expire</code>) actually start the JVM, so they perform the action required and then exit without running a class. Note also that the message <code>Could not create the Java virtual machine</code> is printed by the Java launcher by each utility because a JVM is not started. <i>This is not an error.</i></p>
+
+<p>To demonstrate the use of these options, let's walk through some examples. First, let's create two caches by running a <code>HelloWorld</code> class with different cache names, as shown in Listing 1:</p>
+
+<br /><a name="listing1"><b>Listing 1. Creating two caches</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+C:\j9vmwi3223\sdk\jre\bin&gt;java -cp . -Xshareclasses:name=cache1 Hello
+Hello
+C:\j9vmwi3223\sdk\jre\bin&gt;java -cp . -Xshareclasses:name=cache2 Hello
+Hello
+</pre></td></tr></table><br />
+
+<p>Running the <code>listAllCaches</code> suboption lists all caches on a system and determines whether or not they are in use, as in you can see in Listing 2:</p>
+
+<br /><a name="listing1"><b>Listing 2. Listing all caches</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+C:\j9vmwi3223\sdk\jre\bin&gt;java -Xshareclasses:listAllCaches
+Shared Cache            Last detach time
+cache1                  Sat Apr 15 18:47:46 2006
+      
+cache2                  Sat Apr 15 18:51:15 2006
+      
+Could not create the Java virtual machine.
+</pre></td></tr></table><br />
+
+<p>Running the <code>printStats</code> option prints summary statistics on the named cache, as shown in Listing 3. For a detailed description of what all the fields shown here mean, consult the user guide (see <a href="#resources">Resources</a> for a link).</p>
+
+<br /><a name="listing3"><b>Listing 3. Summary statistics for a cache</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+
+C:\j9vmwi3223\sdk\jre\bin&gt;java -Xshareclasses:name=cache1,printStats
+      
+Current statistics for cache "cache1":
+      
+base address       = 0x41D10058
+end address        = 0x42D0FFF8
+allocation pointer = 0x41E3B948
+      
+cache size         = 16777128
+free bytes         = 15536080
+ROMClass bytes     = 1226992
+Metadata bytes     = 14056
+Metadata % used    = 1%
+      
+# ROMClasses       = 313
+# Classpaths       = 2
+# URLs             = 0
+# Tokens           = 0
+# Stale classes    = 0
+% Stale classes    = 0%
+      
+Cache is 7% full
+      
+Could not create the Java virtual machine.
+</pre></td></tr></table><br />
+
+<p>Running the <code>printAllStats</code> option on a named cache lists the entire contents of the cache, along with the <code>printStats</code> summary information. Each class stored in the cache is listed along with the context data, such as classpath data. In Listing 4, you can see the JVM's bootstrap classpath listed, followed by some of the classes and details of where they were loaded from:</p>
+
+<br /><a name="listing4"><b>Listing 4. Listing the entire contents of a cache</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+C:\j9vmwi3223\sdk\jre\bin&gt;java -Xshareclasses:name=cache1,printAllStats
+      
+Current statistics for cache "cache1":
+      
+1: 0x42D0FAB0 CLASSPATH
+        C:\j9vmwi3223\sdk\jre\lib\vm.jar
+        C:\j9vmwi3223\sdk\jre\lib\core.jar
+        C:\j9vmwi3223\sdk\jre\lib\charsets.jar
+        C:\j9vmwi3223\sdk\jre\lib\graphics.jar
+        C:\j9vmwi3223\sdk\jre\lib\security.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmpkcs.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmorb.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmcfw.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmorbapi.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmjcefw.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmjgssprovider.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmjsseprovider2.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmjaaslm.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmjaasactivelm.jar
+        C:\j9vmwi3223\sdk\jre\lib\ibmcertpathprovider.jar
+        C:\j9vmwi3223\sdk\jre\lib\server.jar
+        C:\j9vmwi3223\sdk\jre\lib\xml.jar
+1: 0x42D0FA78 ROMCLASS: java/lang/Object at 0x41D10058.
+        Index 0 in classpath 0x42D0FAB0
+1: 0x42D0FA50 ROMCLASS: java/lang/J9VMInternals at 0x41D106E0.
+        Index 0 in classpath 0x42D0FAB0
+1: 0x42D0FA28 ROMCLASS: java/lang/Class at 0x41D120A8.
+        Index 0 in classpath 0x42D0FAB0
+    ...
+</pre></td></tr></table><br />
+
+<p>Named caches are destroyed using the <code>destroy</code> option, illustrated in Listing 5. Similarly, <code>destroyAll</code> destroys all caches that are not in use and that the user has permissions to destroy.</p>
+
+<br /><a name="listing5"><b>Listing 5. Destroying a cache</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+    C:\j9vmwi3223\sdk\jre\bin&gt;java -Xshareclasses:name=cache1,destroy
+    JVMSHRC010I Shared Cache "cache1" is destroyed
+    Could not create the Java virtual machine.
+      
+    C:\j9vmwi3223\sdk\jre\bin&gt;java -Xshareclasses:listAllCaches
+    Shared Cache            Last detach time
+    cache2                  Sat Apr 15 18:51:15 2006
+      
+    Could not create the Java virtual machine.
+</pre></td></tr></table><br />
+
+<p>The <code>expire</code> option, illustrated in Listing 6, is a housekeeping option that you can add to the command line to automatically destroy caches to which nothing has been attached for a specified number of minutes. This is the only utility that does not cause the JVM to exit. Listing 6 looks for caches that have not been used for a week and destroys them before starting the VM:</p>
+
+<br /><a name="listing6"><b>Listing 6. Destroying caches that haven't been used in a week</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+C:\j9vmwi3223\sdk\jre\bin&gt;java -cp . -Xshareclasses:expire=10000,name=cache1 Hello
+Hello
+</pre></td></tr></table><br /> 
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="2"><span class="atitle">Verbose options</span></a></p>
+
+<p>Verbose options provide useful feedback on what class sharing is doing. They are all suboptions to <code>-Xshareclasses</code>. This section offers some examples of how to use verbose output.</p>
+
+<p>The <code>verbose</code> option, illustrated in Listing 7, gives concise status information on JVM startup and shutdown:</p>
+
+<br /><a name="listing7"><b>Listing 7. Getting JVM status information</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+C:\j9vmwi3223\sdk\jre\bin&gt;java -cp . -Xshareclasses:name=cache1,verbose Hello
+[-Xshareclasses verbose output enabled]
+JVMSHRC158I Successfully created shared class cache "cache1"
+JVMSHRC166I Attached to cache "cache1", size=16777176 bytes
+Hello
+JVMSHRC168I Total shared class bytes read=0. Total bytes stored=1176392
+</pre></td></tr></table><br /> 
+
+<p>The <code>verboseIO</code> option prints a status line for every class load request to the cache. To understand <code>verboseIO</code> output, you should understand the classloader hierarchy, as this can be clearly seen for classes that are loaded by any non-bootstrap classloader. Every classloader must delegate up the hierarchy to the bootstrap loader to find a class. In the output, each classloader is assigned a unique ID, but the bootstrap loader is always 0.</p>
+
+<p>Note that it is normal for <code>verboseIO</code> to sometimes show classes being loaded from disk and stored in the cache even if they are already cached. For example, the first class load from each JAR on the application classpath is always loaded from disk and stored, regardless of whether it exists in the cache or not.</p>
+
+<p>In <a href="sidefile.html#listing8">Listing 8</a>, the first section demonstrates the population of the cache and the second shows the reading of the cached classes:</p>
+
+
+
+<p>The <code>verboseHelper</code> suboption, illustrated in <a href="sidefile.html#listing9">Listing 9</a>, is an advanced option that gives status output from the Helper API. It is designed to help developers using the Helper API understand how it is being driven. More details on this output are described in the JVM diagnostics guide (see <a href="#resources">Resources</a> for a link).</p>
+
+
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="3"><span class="atitle">Runtime bytecode modification</span></a></p>
+
+<p>Runtime bytecode modification is becoming a popular means of instrumenting behaviour into Java classes. It can be performed using the JVM Tools Interface (JVMTI) hooks (see <a href="#resources">Resources</a> for a link); alternately, the class bytes can be replaced by the classloader before the class is defined. This presents an extra challenge to class sharing, as one JVM may cache instrumented bytecode that should not be loaded by another JVM sharing the same cache.</p>
+
+<p>However, because of the dynamic nature of the IBM Shared Classes implementation, multiple JVMs using different types of modification can safely share the same cache. Indeed, if the bytecode modification is expensive, caching the modified classes has an even greater benefit, as the transformation only ever needs to be performed once. The only proviso is that the bytecode modifications should be deterministic and predictable. Once a class has been modified and cached, it cannot then be changed further.</p>
+
+<p>Modified bytecode can be shared by using the <code>modified=&lt;context&gt;</code> suboption to <code>-Xshareclasses</code>. The context is a user-defined name that creates a partition in the cache into which all of the classes loaded by that JVM are stored. All JVMs using that particular modification should use the same modification context name, and they all load classes from the same cache partition. Any JVM using the same cache without the <code>modified</code> suboption finds and stores vanilla classes as normal.</p>
+
+<p><a name="3.1"><span class="smalltitle">Potential pitfalls</span></a></p>
+
+<p>If a JVM is running with a JVMTI agent that has registered to modify class bytes and the <code>modified</code> suboption is <i>not</i> used, class sharing with other vanilla JVMs or with JVMs using other agents is still managed safely, albeit with a small performance cost because of extra checking. Thus, it is always more efficient to use the <code>modified</code> suboption.</p>
+
+<p>Note that this is only possible because the JVM knows that bytecode modification is imminent because of the presence of the JVMTI agent. Therefore, if a custom classloader modifies class bytes before defining the class without using JVMTI <i>and</i> without using the <code>modified</code> suboption, the classes being defined are assumed to be vanilla and could be incorrectly loaded by other JVMs.</p>
+
+<p>For more detailed information on sharing modified bytecode, see the JVM diagnostics guide (see <a href="#resources">Resources</a>).</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="4"><span class="atitle">Using the Helper API</span></a></p>
+
+<p>The Shared Classes Helper API has been provided by IBM so that developers can integrate class sharing support into custom classloaders. This is only required for classloaders that do not extend <code>java.net.URLClassLoader</code>, as those classloaders automatically inherit class-sharing support.</p>
+
+<p>A comprehensive tutorial on the Helper API is beyond the scope of this article, but here is a general overview. If you'd like a more detailed description, the full Javadoc is available in the <a href="#download">Download</a> section, and the diagnostics guide (see <a href="#resources">Resources</a>) also has more information.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><a name="sidebar3"></a><h2>OSGi support</h2><div class="ibm-container-body">
+
+
+<p>A good example of a custom classloader framework is OSGi, which is used in Eclipse 3.x. Unless class sharing support is added to OSGi plug-in classloaders, the only classes that will be shared are the bootstrap classes and the application classes needed to start the Eclipse and OSGi frameworks. None of the plug-in code can be shared, as this is loaded by custom OSGi plug-in classloaders, which don't have class sharing support. It is worth noting that in this specific case, IBM provides an OSGi Adaptor plug-in to enable class sharing support in plug-in classloaders. This is available in the file com.ibm.cds_1.0.0.zip, which you can obtain from the <a href="#download">Download</a> section.</p>
+
+</div></div>
+
+<p><a name="4.1"><span class="smalltitle">The Helper API: A summary</span></a></p>
+
+<p>All the Helper API classes are in the <code>com.ibm.oti.shared</code> package and are contained within vm.jar in the jre/lib directory. Each classloader wishing to share classes must get a <code>SharedClassHelper</code> object from a <code>SharedClassHelperFactory</code>. The <code>SharedClassHelper</code> once created belongs to the classloader that requested it and can only store classes defined by that classloader. The <code>SharedClassHelper</code> gives the classloader a simple API for finding and storing classes in the class cache to which the JVM is connected. If the classloader is garbage collected, its <code>SharedClassHelper</code> is also garbage collected.</p>
+
+<p><a name="4.2"><span class="smalltitle">Using the SharedClassHelperFactory</span></a></p>
+
+<p>The <code>SharedClassHelperFactory</code> is a singleton that is obtained using the static method <code>com.ibm.oti.shared.Shared.getSharedClassHelperFactory()</code>, which returns a factory if class sharing is enabled in the JVM; otherwise, it returns <code>null</code>.</p>
+
+<p><a name="4.3"><span class="smalltitle">Using the SharedClassHelpers</span></a></p>
+
+<p>There are three different types of <code>SharedClassHelper</code> that can be returned by the factory, each of which is designed for use by a different type of classloader:</p>
+
+<ul>
+
+<li><code>SharedClassURLClasspathHelper</code>: This helper is designed for use by classloaders that have the concept of a URL classpath. Classes are stored and found in the cache using the URL classpath array. The URL resources in the classpath must be accessible on the filesystem for the classes to be cached. This helper also carries some restrictions on how the classpath can be modified during the lifetime of the helper.<br /><br /></li>
+
+<li><code>SharedClassURLHelper</code>: This helper is designed for use by classloaders that don't have the concept of a classpath and can load classes from any URL. The URL resources given must be accessible on the filesystem for the classes to be cached.<br /><br /></li>
+
+<li><code>SharedClassTokenHelper</code>: This helper effectively turns the shared class cache into a simple hashtable -- classes are stored against string key <i>tokens</i> that are meaningless to the cache. This is the only helper that doesn't provide dynamic update capability because the classes stored have no filesystem context associated with them.</li>
+
+</ul>
+
+<p>Each <code>SharedClassHelper</code> has two basic methods, the parameters of which differ slightly between helper types:</p>
+
+<ul>
+
+<li><code>byte[] findSharedClass(String classname...)</code> should be called after the classloader has asked its parent for the class (if one exists). If <code>findSharedClass()</code> does not return <code>null</code>, the classloader should call <code>defineClass()</code> on the byte array returned. Note that this function returns a special cookie for <code>defineClass()</code>, not actual class bytes, so the bytes cannot be instrumented.<br /><br /></li>
+
+<li><code>boolean storeSharedClass(Class clazz...)</code> should be called immediately after a class has been defined. The method returns <code>true</code> if the class was successfully stored and <code>false</code> otherwise.</li>
+
+</ul>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="5"><span class="atitle">Other considerations</span></a></p>
+
+<p>When deploying class sharing with your application, you need to take into account such factors as security,
+and cache tuning. These considerations are briefly summarised here</p>
+
+<p><a name="5.1"><span class="smalltitle">Security</span></a></p>
+
+<p>By default, class caches are created with user-level security, so only the user that created the cache can access it. For this reason, the default cache name is different for each user so that clashes are avoided. On UNIX, there is a suboption to specify <code>groupAccess</code>, which gives access to all users in the primary group of the user that created the cache. However, regardless of the access level used, a cache can only be destroyed by the user that created it or by the root user.</p>
+
+<p>In addition to this, if there is a <code>SecurityManager</code> installed, a classloader can only share classes if it has been explicitly granted the correct permissions. Refer to the user guide (see <a href="#resources">Resources</a>) for more details on setting these permissions.</p>
+
+<p><a name="5.2"><span class="smalltitle">Garbage collection and just-in-time compilation</span></a></p>
+
+<p>Running with class sharing enabled has no effect on class garbage collection (GC). Classes and classloaders can still be garbage collected in just as they are in the non-shared case. Also, there are no restrictions placed on GC modes or configurations when using class sharing.</p>
+
+<p>It is not possible to cache just-in-time (JIT) compiled code in the class cache, so there is no change in behaviour in the JIT when running with class sharing enabled.</p>
+
+<p><a name="5.3"><span class="smalltitle">Cache size limits</span></a></p>
+
+<p>The current maximum theoretical cache size is 2GB. The cache size is limited by the following factors:</p>
+
+<ul>
+
+<li><b>Available disk space (Microsoft Windows only).</b> A memory-mapped file is created in a directory called javasharedresources to store the class data. This directory is created in the user's %APPDATA% directory. The shared cache files are deleted every time you restart Windows.<br /><br /></li>
+
+<li><b>Available system memory (UNIX only).</b> On UNIX, the cache exists in shared memory and a configuration file is written to /tmp/javasharedresouces by the JVM to allow all JVMs to locate the shared memory areas by name.<br /><br /></li>
+
+<li><b>Available virtual address space.</b> Because the virtual address space of a process is shared between the shared class cache and the Java heap, increasing the maximum size of the Java heap reduces the size of the shared class cache you can create.</li>
+
+</ul>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="6"><span class="atitle">An example</span></a></p>
+
+<p>To practically demonstrate the benefits of class sharing, this section provides a simple graphical demo. The source and binaries are available from the <a href="#download">Download</a> section.</p>
+
+<p>The demo app looks for the jre\lib directory and opens each JAR, calling <code>class.forName()</code> on every class it finds. This causes about 12,000 classes to be loaded into the JVM. The demo reports on how long it takes the JVM to load the classes. Obviously, this is a slightly contrived example, as the test only does class-loading, but it effectively demonstrates the benefits of class sharing. Let's run the application and see the results.</p>
+
+<p><a name="6.1"><span class="smalltitle">Class-loading performance</span></a></p>
+
+<ol>
+
+<li>Download shcdemo.jar from the <a href="#download">Download</a> section.<br /><br /></li>
+
+<li>Run the test a couple of times without class sharing to warm up the system disk cache, using the command in Listing 10:<br /><br />
+
+<br /><a name="listing10"><b>Listing 10. Warming up the disk cache</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycodeliquid">
+
+    C:\j9vmwi3223\sdk\jre\bin&gt;java -cp C:\shcdemo.jar ClassLoadStress
+</pre></td></tr></table><br /><br /><br />
+
+When the window in Figure 1 appears, press the button. The app will load the classes.<br /><br />
+
+
+<br /><a name="fig1"><b>Figure 1. Press the button</b></a><br />
+<img alt="Press the button" height="100" src="demoimg1.jpg" width="350"/>
+<br />
+
+<br /><br />Once the classes have loaded, the application reports how many it loaded and how long it took, as shown in Figure 2:<br /><br />
+
+
+<br /><a name="fig2"><b>Figure 2. Results are in!</b></a><br />
+<img alt="Results are in!" height="100" src="demoimg2.jpg" width="350"/>
+<br />
+
+<br /><br />You'll notice that the application probably gets slightly faster each time you run it; this is because of operating system optimizations.<br /><br /></li>
+
+<li>Now run the demo with class sharing enabled, as illustrated in <a href="sidefile.html#listing11">Listing 11</a>. A new cache is created, so this run shows you the time it takes to populate the new cache. You should specify a cache size of about 50MB to ensure that there is enough space for all the classes. Listing 11 shows the command line and some sample output.<br /><br />
+
+
+
+As Figure 3 illustrates, this run should take slightly longer than the previous ones, as the demo is populating the shared class cache. You can also optionally use <code>printStats</code>, as shown in Listing 12, to see the number of classes stored in the shared class cache:<br /><br />
+
+
+<br /><a name="fig3"><b>Figure 3. Cold cache results</b></a><br />
+<img alt="Cold cache results" height="100" src="demoimg3.jpg" width="350"/>
+<br />
+
+<br /><a name="listing12"><b>Listing 12. Seeing the number of cached classes</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycodeliquid">
+        
+C:\j9vmwi3223\sdk\jre\bin&gt;java -Xshareclasses:name=demo,printStats
+        
+Current statistics for cache "demo":
+        
+        
+base address       = 0x41D10058
+end address        = 0x44F0FFF8
+allocation pointer = 0x44884030
+        
+cache size         = 52428712
+free bytes         = 6373120
+ROMClass bytes     = 45563864
+Metadata bytes     = 491728
+Metadata % used    = 1%
+        
+# ROMClasses       = 12212
+# Classpaths       = 3
+# URLs             = 0
+# Tokens           = 0
+# Stale classes    = 0
+% Stale classes    = 0%
+        
+Cache is 87% full
+       
+Could not create the Java virtual machine.
+</pre></td></tr></table><br />
+
+
+<br /><br /></li>
+
+<li>Now, start the demo again with exactly the same Java command line. This time, it should read the classes from the shared class cache, as you can see in <a href="sidefile.html#listing13">Listing 13</a>.<br /><br />
+
+
+
+You can clearly see the significant improvement in class load time. Again, you should see performance improve slightly each time you run the demo because of operating system optimizations. This particular test was done on a single-processor, 1.6 GHz x86-compatible laptop running Windows XP:<br /><br />
+
+
+<br /><a name="fig4"><b>Figure 4. Warm cache results</b></a><br />
+<img alt="Warm cache results" height="100" src="demoimg4.jpg" width="350"/>
+<br />
+
+</li>
+</ol>
+
+<p>There are a number of variations you can experiment with. For example, you can use the <code>javaw</code> command and start multiple demos and trigger them all loading classes together to see the concurrent performance.</p>
+
+<p>In a real-world scenario, the overall JVM startup time benefit that can be gained from using class sharing depends on the number of classes that are loaded by the application: a HelloWorld program will not show much benefit, whereas a large Web server certainly will. However, this example has hopefully demonstrated that experimenting with class sharing is very straightforward, so you can easily test the benefits.</p>
+
+<p><a name="6.2"><span class="smalltitle">Virtual memory footprint</span></a></p>
+
+<p>It is also easy to see the virtual memory savings when running the example program in more than one JVM.</p>
+
+<p>Below are two Task Manager snapshots obtained using the same machine as the previous examples. In Figure 5, five instances of the demo have been run to completion without class sharing. In Figure 6, five instances have been run to completion with class sharing enabled, using the same command lines as before:</p>
+
+
+<br /><a name="fig5"><b>Figure 5. Five demos with no class sharing</b></a><br />
+<img alt="Five demos with no class sharing" height="449" src="demoimg5.jpg" width="579"/>
+<br />
+
+
+<br /><a name="fig6"><b>Figure 6. Five demos with class sharing enabled</b></a><br />
+<img alt="Five demos with class sharing enabled" height="449" src="demoimg6.jpg" width="579"/>
+<br />
+
+<p>You can clearly see that the commit charge with class sharing enabled is significantly lower. Windows seems to calculate its commit charge by adding the VM sizes together. Because the total amount of cached class data being shared is around 45MB, you can see that the memory usage for each JVM is approximately the VM size plus amount of cached class data.</p>
+
+<p>Both examples started with a commit charge of around 295MB. This means that the first example used 422MB, whereas the second one used 244 MB -- a savings of 178MB.</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="7"><span class="atitle">Conclusion</span></a></p>
+
+<p>The new Shared Classes feature in the IBM implementation of version 5.0 of the Java platform offers a simple and flexible way to reduce virtual memory footprint and improve JVM startup time. In this article, you have seen how to enable the feature, how to use the cache utilities, and how to get quantifiable measurements of the benefits.</p>
+
+<p>The next article in the series will introduce some of the new debugging, monitoring, and profiling tools available in the IBM implementation of the Java platform. It will also show how you can use them to profile and debug Java applications quickly.</p>
+
+
+<!-- CMA ID: 124931 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br /><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><span class="atitle"><a name="download">Download</a></span></p><table width="100%" class="ibm-data-table" cellspacing="0" cellpadding="0" border="0"><tr><th scope="col">Description</th><th scope="col">Name</th><th scope="col">Size</th><th scope="col">Download method</th></tr><tr><td class="tb-row" scope="row">Sample code</td><td nowrap="nowrap">j-ibmjava4.zip</td><td nowrap="nowrap">116KB</td><td nowrap="nowrap"><a class="fbox" href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=124931&amp;filename=j-ibmjava4.zip&amp;method=http&amp;locale=worldwide">
+                    
+                    HTTP
+                    </a></td></tr></table><p><a href="/developerworks/library/whichmethod.html" class="ibm-forward-link">Information about download methods</a></p><br />
+<p><a name="resources"><span class="atitle">Resources</span></a></p><p><b>Learn</b></p><ul><li>
+<a href="http://www.ibm.com/developerworks/java/jdk/docs.html">JVM user guide</a>: Essential information on using the IBM SDK.<br /><br /></li><li><a href="http://www.ibm.com/developerworks/java/jdk/diagnosis">JVM diagnostics guide</a>: For information on debugging the JDK and more advanced discussions of its features.<br /><br /></li><li><a href="http://java.sun.com/j2se/1.5.0/docs/guide/jvmti/">JVMTI (JVM Tool Interface)</a>: Reference documentation for JVMTI.<br /><br /></li><li>
+"<a href="http://www.ibm.com/developerworks/java/library/j-ibmjava1.html">Introduction to the IBM Developer Kit</a>," Chris Bailey (developerWorks, May 2006): The first article in this series gives an overall summary of the features in the JVM.<br /><br /></li><li>The <a href="http://www.ibm.com/developerworks/java/">developerWorks Java  zone</a>: Browse all Java content.<br /><br /></li></ul><p><b>Get products and technologies</b></p><ul><li><a href="http://www.ibm.com/developerworks/java/jdk/">IBM implementations of Java technology</a>: Download the SDKs for AIX, Linux, and z/OS, among other IBM developer kits for Java technology, from this page.<br /><br /></li><li>
+Download the  <a href="http://www.ibm.com/developerworks/java/jdk/eclipse/index.html">IBM Development Package for Eclipse</a>: Develop, test, and run your Java applications with this ready-to-run Java development environment.
+<br /><br /></li><li>
+<a href="http://www.ibm.com/software/wireless/weme/">WebSphere Everyplace Micro Environment</a>: A production-ready runtime environment, tested and certified to meet J2ME specifications.
+<br /><br /></li><li>
+<a href="http://www.ibm.com/developerworks/java/jdk/harmony/index.html">IBM Development Package for Apache Harmony</a>: An execution environment designed to run code contributed to the Apache Harmony project.<br /><br /></li></ul><p><b>Discuss</b></p><ul><li>
+<a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=367&amp;cat=10">IBM Runtimes and SDKs</a>: Participate in the discussion forum.
+
+<br /><br /></li></ul>
+<p><a name="author"><span class="atitle">About the author</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><img src="http://www.ibm.com/developerworks/i/p-bcorrie.jpg" width="64" height="80" alt="Ben Corrie" /><p><a name="author1"></a>Ben Corrie graduated from Southampton University in 1998 with a BSc in Computer Science and Spanish.  He joined IBM Hursley shortly after graduation and started work testing the IBM 1.1.6 JVM. After a spell writing functional test suites for new ORB features, he went on assignment to Ottawa in 2002 to work in development on the J9 JVM. He returned to Hursley in 2004 to lead the development of the Shared Classes feature.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java technology</div><div class="metavalue">ArticleID=124931</div><div class="metavalue">ArticleTitle=Java technology, IBM style: Class sharing</div><div class="metavalue">publish-date=05302006</div><div class="metavalue">author1-email=corrieb@uk.ibm.com</div><div class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#1">How it works</a></li><li><a class="ibm-feature-link" href="#1.6">Shared classes utilities</a></li><li><a class="ibm-feature-link" href="#2">Verbose options</a></li><li><a class="ibm-feature-link" href="#3">Runtime bytecode modification</a></li><li><a class="ibm-feature-link" href="#4">Using the Helper API</a></li><li><a class="ibm-feature-link" href="#5">Other considerations</a></li><li><a class="ibm-feature-link" href="#6">An example</a></li><li><a class="ibm-feature-link" href="#7">Conclusion</a></li><li><a class="ibm-feature-link" href="#download">Download</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the author</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/spot-nextsteps.jpg"/><p>Spring, JRuby, and Ajax development is easier with WebSphere Application Server - a smart Java 5 and J2EE Web services-based application server.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/ws/wasce/learn.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Try: The no-charge WebSphere Application Server Community Edition is a pre-integrated, lightweight Java 5 application server built on Apache Tomcat and other best-of-breed open source software such as OpenEJB, Apache Axis, and Apache Derby.</a></li><li><a href="http://www.ibm.com/developerworks/websphere/library/techarticles/0810_asplund/0810_asplund.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: The article leverage the Spring Framework and the WebSphere Application Server to improve your J2EE project productivity.</a></li><li><a href="http://www.ibm.com/developerworks/edu/x-dw-x-jrorajax.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Tutorial: See how the free WebSphere Application Server and XML can improve the efficiency of your JRuby on Rails and Ajax development.</a></li><li><a href="http://www.ibm.com/software/dre/h2b/buildh2bpage.wss?synkey=G394201N28809H35&amp;S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: WebSphere Application Server - Express</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Java on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/java/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/java/newto/" class="ibm-forward-link">New to Java programming</a></li><li><a href="http://www.ibm.com/developerworks/views/java/downloads.jsp" class="ibm-forward-link">Downloads and products</a></li><li><a href="http://www.ibm.com/developerworks/views/java/projects.jsp" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/views/java/standards.jsp" class="ibm-forward-link">Standards</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/java/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/views/java/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY02&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/websphere/zones/was/security/?S_CMP=TILE&amp;ca=dti-tilewassecurity&amp;ca=dth-w"><img src="//www.ibm.com/developerworks/i/tile_v16_secure.gif" width="158" height="50" border="0" alt="Securing WebSphere Application Server environments" /></a></p><p class="dw-special-offers"><a href="http://www-01.ibm.com/software/data/cognos/products/cognos-express/demo.html?S_CMP=TILE&amp;ca=dti-tilecognosexpdemos&amp;ca=dth-i"><img src="//www.ibm.com/developerworks/i/tile_v16_express.gif" width="158" height="50" border="0" alt="Cognos Express online demos" /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/downloads/soasandbox/reuse/index.html?S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tilesoawaseclipse&amp;ca=dth-soa"><img src="//www.ibm.com/developerworks/i/tile_v16_sandboxeclipse.gif" width="158" height="50" border="0" alt="SOA Sandbox for WAS CE and Eclipse" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '124931';
+			contentAreas = 'java';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[263,39,16,695],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

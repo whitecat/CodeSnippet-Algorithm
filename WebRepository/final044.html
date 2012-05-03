@@ -1,0 +1,1265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+	<title>
+		InfoQ: Java EE 6 Proposed Final Draft Hints at Future Direction of the Platform
+	</title>
+    
+	
+	<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="copyright" content="&copy; 2006 C4Media" />
+<meta name="author" content="alex[at]c4media[dot]com" />
+
+	
+	
+    <link rel="stylesheet" type="text/css" media="screen" href="http://cdn2.infoq.com/styles/style.css;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" />
+    <link rel="stylesheet" type="text/css" media="print" href="http://cdn2.infoq.com/styles/print.css;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" />
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/style-ie.css;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" />
+    <![endif]-->
+    <link rel="shortcut icon" href="http://cdn4.infoq.com/favicon.ico;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="image/x-icon">
+    
+    <script src="http://cdn4.infoq.com/scripts/combinedJs_en.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="text/javascript"></script>
+	
+	
+
+	
+	<meta name="keywords" content="ee6pfd,Java,Enterprise Application Blocks,Java EE,"/>
+	<meta name="description" content="The Proposed Final Draft of the Java EE 6 Platform adds standardised dependency injection and bean validation for the platform, and introduces a new specification for managed beans providing a clear indication of the future direction of the platform."/>
+	
+
+</head>
+
+<body > 
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var loginLanguage='en';
+var loginURL='/login.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+var registerURL='/reginit.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+var reactivateURL='/reactivate.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+var reserpasswordURL='/resetpassword.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+var loggedIn=false;
+var logoutURL='/logout.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+var editUserURL='/edituser.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+var aboutURL='/about;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+var homeURL='/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745';
+</script>
+<div id="tooltip" style="display:none;"></div>
+<div id="loginWindow" style="display:none;">
+	
+
+
+
+
+
+
+<div id="innerLoginWindow" class="popup login-popup" style="display:none; z-index: 25550; position: absolute;">
+		<div class="popup-wrapper">
+			<p class="popup-close"><a href="javascript:void(0);" onclick="javascript:hideLoginWindow();">Close</a></p>
+			<h2>Existing Users:</h2>
+			<div id="loginArea">
+				<div id="loginAreaFields">
+					<form onsubmit="doLogin();return false;" style="margin-bottom: 1px;">
+						<p><label for="username">Email:</label> <input id="username" name="username" style="width: 100%;" type="text"></p>
+						<p><label for="password">Password:</label> <input id="password" name="password" style="width: 100%;" onkeydown="if ((event.which &amp;&amp; event.which == 13)||(event.keyCode &amp;&amp; event.keyCode == 13)){doLogin();return false;} else return true;" type="password"></p>
+						<p><input value="Login" type="submit"></p>
+					</form>	
+				</div>
+				<div id="loginUpperArea" style="display:none;"></div>
+				<div style="display: none; text-align: left;" id="loginMessage"></div>	
+				<h2>New Users:</h2>
+				<p><input value="Register" id="submitButton" onclick="javascript:document.location.href='/reginit.action'" type="button"></p>
+			</div>
+		</div>
+</div>
+</div>
+<div id="tagPopup" style="display:none;"></div>
+<div id="container">
+	<h1 class="logo"><a href="#">InfoQ</a></h1>
+
+	
+
+
+
+
+
+
+
+
+
+<div id="header">
+	<p class="skip"><a href="#content">Skip to Content</a></p>
+
+	<div id="quote"><p>Tracking change and innovation in the enterprise software development community</p></div>
+
+	<div style="float: left;width: 29%;position: relative;margin: 0 0 2px 0;padding: 0;">
+		
+
+
+
+
+
+
+
+
+<p style="margin:0;padding: 6px 37px 0 0;margin: 0;float: right;">
+	En | <a href="/cn/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">ä¸­æ??</a> | <a href="/jp/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">æ?¥æ?¬èª?</a> | <a href="/br/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">Br</a>
+	
+</p>
+<p style="margin: 0;padding: 6px 9px;text-align:left;">
+	
+	
+</p>
+	</div>
+</div>
+
+
+
+	
+	<div id="sidebar">
+	<div id="sidebar-wrapper">
+		
+
+
+
+
+
+
+<div class="s-logo">
+	
+	<p class="r-logo"><a href="/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745"><img src="http://cdn4.infoq.com/styles/i/logo.gif;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" alt="InfoQ"/></a></p>
+</div>
+
+
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span style="font-size: x-small;#font-size: xx-small;">
+
+    
+    
+511,421 Jan unique visitors
+</span>
+<div style="margin-top:5px; height:60px">
+	<a href="http://qconlondon.com/london-2010?utm_source=infoq&utm_medium=banner&utm_campaign=buttonimage" target="_blank">
+	   <img src="http://cdn3.infoq.com/styles/i/qcon/london_2010/qcon-london-2010_11.jpg;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" style="width:100%; height:60px"/>
+	</a>
+</div>
+
+
+		    
+		
+		
+
+
+
+
+
+
+
+
+	<div class="box-simple">
+		<div class="box-simple-top"></div>
+		<div id="mainLoginArea" class="box-simple-content">
+			
+			
+			<ul>
+	            <li><a href="/reginit.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">Register</a></li>
+			    <li><a href="javascript:void(0)" onClick="javascript:showLoginWindow(this,ALIGN_LEFT,new Function('void(0);'));">Login</a></li>
+	            <li><a href="/about;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">About us</a></li>
+	            
+	            
+			    <li><a href="/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">Home</a></li>
+			</ul>
+			
+		</div>
+		<div class="box-simple-bottom"></div>
+	</div>
+
+
+		
+
+
+
+
+
+
+
+
+
+<div id="mainCommunitiesArea" class="box">
+    <h2>Your Communities</h2>
+    <div class="top-corners"><div></div></div>
+    <div class="box-content">
+    <div class="box-content-2">
+    	
+
+
+
+
+
+
+<script language="JavaScript">
+var communityChangeMessage = 'Your new preferences will be used starting with the next refresh.';
+</script>	
+
+<div id="communities">
+    <ul>
+	
+		<li><input type="checkbox" name="java" value="true" checked="checked" id="community1" onclick="includeExcludeCommunity(this);"/>
+ <a href='/java/'>Java</a></li>
+	
+		<li><input type="checkbox" name="dotnet" value="true" checked="checked" id="community4" onclick="includeExcludeCommunity(this);"/>
+ <a href='/dotnet/'>.NET</a></li>
+	
+		<li><input type="checkbox" name="ruby" value="true" checked="checked" id="community5" onclick="includeExcludeCommunity(this);"/>
+ <a href='/ruby/'>Ruby</a></li>
+	
+		<li><input type="checkbox" name="soa" value="true" checked="checked" id="community2" onclick="includeExcludeCommunity(this);"/>
+ <a href='/soa/'>SOA</a></li>
+	
+		<li><input type="checkbox" name="agile" value="true" checked="checked" id="community3" onclick="includeExcludeCommunity(this);"/>
+ <a href='/agile/'>Agile</a></li>
+	
+		<li><input type="checkbox" name="architecture" value="true" checked="checked" id="community1389" onclick="includeExcludeCommunity(this);"/>
+ <a href='/architecture/'>Architecture</a></li>
+	
+    </ul>
+</div>
+<div id="communitiesMessage"></div>
+    </div></div>
+    <div class="bottom-corners"><div></div></div>
+</div>
+
+
+
+
+		
+
+
+
+
+
+
+
+<script type="text/javascript">
+	function doSearch(){
+		var searchString = document.getElementById("searchId").value;
+		document.getElementById("searchTerm").value =  searchString + " site:www.infoq.com";		
+		document.getElementById("submitForm").submit();
+	}
+	
+	function clearSearchText(){	
+		var searchtext =  document.getElementById("searchId").value
+		if(searchtext==JSResource.search){
+			document.getElementById("searchId").value="";
+		}
+	}
+</script>
+<form action="http://www.google.com/search" method="GET" id="submitForm" target="_blank">
+	<input type="hidden" name="q" id="searchTerm" />
+</form>
+
+	<div style="background: url('http://cdn2.infoq.com/styles/i/bg-search.gif;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745') no-repeat 0 4px;">	
+			<input type="text" name="search" id="searchId" value="Search" style="width: 85%; border: 0px none; background-color: transparent; height: 19px; padding-left:9px; padding-right:9px; padding-top:0; padding-bottom:0" onclick="clearSearchText();" onkeypress="if ((event.which && event.which == 13)||(event.keyCode && event.keyCode == 13)){doSearch();}" onblur="if(this.value=='') this.value=JSResource.search"/>	
+			<a href="#" onclick="doSearch();return false;"><img src="http://cdn3.infoq.com/styles/i/btn-search.gif;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" alt="Search" /></a> 
+	</div>
+
+		
+
+
+
+
+
+
+<div class="box-simple">
+<div class="box-simple-top"></div>
+<div id="featuredTopics" class="box-simple-content">
+
+    <h2>Featured Topics</h2>
+    <div>
+		<ul>
+			<li><a href="/scrum/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">Scrum</a></li>
+            <li><hr style="width: 100%; height: 1px; border: 0; color: #C8C8C8; background-color: #C8C8C8;"/></li>
+			<li><a href="/deployment-datacenter/;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">Deployment / Datacenter</a></li>            
+        </ul>
+	</div>
+		
+</div>
+<div class="box-simple-bottom"></div>
+</div>
+	
+		
+
+
+
+
+
+
+
+
+<!-- Widgets -->
+
+
+
+
+
+
+			
+
+
+<!-- /Widgets -->
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+<div class="box-simple">
+	<div class="box-simple-top"></div>
+	<div class="box-simple-content">
+		<p class="banner" id="bannerparagraph">
+			
+			
+				<iframe src="http://view.atdmt.com/MRT/iview/174242312/direct/01?click=" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" allowtransparency="true" width="120" height="600">
+<script language="JavaScript" type="text/javascript">
+document.write('<a href="http://clk.atdmt.com/MRT/go/174242312/direct/01/" target="_blank"><img src="http://view.atdmt.com/MRT/view/174242312/direct/01/"/></a>');
+</script><noscript><a href="http://clk.atdmt.com/MRT/go/174242312/direct/01/" target="_blank"><img border="0" src="http://view.atdmt.com/MRT/view/174242312/direct/01/" /></a></noscript></iframe>
+			
+		</p>
+	</div>
+	<div class="box-simple-bottom"></div>
+</div>
+
+
+
+
+	<div class="box-simple">
+		<div class="box-simple-top"></div>
+		<div class="box-simple-content adsTower2" id="leftbartextlinks">
+			<div style="width:120px;background:white;">
+				
+
+
+
+
+
+
+
+	
+	
+		<h3>Sponsored Links</h3>
+		
+			<p><a id="tl-157" href="/ads/textLinkUrlAction.action?i=157&url=http%3A%2F%2Fqconlondon.com%2Flondon-2010%3Futm_source%3Dinfoq%26utm_medium%3Dtextlink%26utm_campaign%3Dinfoqtextlink" target="_blank">QCon London 2010!</a><br/>March 10-12, 100<br/>Speakers, 80 sessions,<br/>"THE" team leads and,<br/>architects conference.</p>
+		
+			<p>Free Book Offer<br/><a id="tl-163" href="/ads/textLinkUrlAction.action?i=163&url=http%3A%2F%2Fwww.infoq.com%2Fzones%2Fcompare-datapower%2Fdownload%2FBookOffer" target="_blank">SOA Demystified</a><br/>$40 Value</p>
+		
+			<p>Scaling Scrum<br/>in the enterprise?<br/>ScrumWorks Pro<br/>can help.<br/><a id="tl-162" href="/ads/textLinkUrlAction.action?i=162&url=http%3A%2F%2Fdanube.com%2Fscrumworks%2Fpro%2Ftrial" target="_blank">Start a trial today</a></p>
+		
+	
+
+			</div>
+		</div>
+		<div class="box-simple-bottom"></div>
+	</div>
+
+
+<div style="margin-top:5px;">
+	<a href="http://planet.infoq.com/" target="_blank">
+	   <img src="http://cdn3.infoq.com/styles/i/banners/banner-InfoQ_Planet.jpg;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" style="width:140px;"/>
+	</a>
+</div>
+
+<div class="box-simple">
+	<div class="box-simple-top"></div>
+	<div class="box-simple-content">
+		<p class="banner">
+			<img src="http://cdn3.infoq.com/styles/i/banners/books.jpg;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" usemap="#booksmap" alt="" />
+			<map name="booksmap">
+				  <area href="http://www.infoq.com/minibooks/scrum-xp-from-the-trenches" alt="Scrum and XP from the Trenches" title="Scrum and XP from the Trenches" shape=rect coords="0,104,120,129">
+				  <area href="http://www.infoq.com/minibooks/starting-struts2" alt="Starting Struts 2" title="Starting Struts 2" shape=rect coords="0,136,120,151">		     	
+				  <area href="http://www.infoq.com/minibooks/agile-patterns" alt="Agile Patterns: The Technical Cluster" title="Agile Patterns: The Technical Cluster" shape=rect coords="0,156,120,186">
+				  <area href="http://www.infoq.com/minibooks/grails" alt="Getting Started with Grails" title="Getting Started with Grails" shape=rect coords="-1,224,119,249">
+				  <area href="http://www.infoq.com/minibooks/domain-driven-design-quickly" alt="Domain Driven Design Quickly" title="Domain Driven Design Quickly" shape=rect coords="0,258,120,283">
+				  <area href="http://www.infoq.com/minibooks/scrum-checklists" alt="Scrum Checklists" title="Scrum Checklists" shape=rect coords="0,291,120,306">
+				  <area href="http://www.infoq.com/minibooks/enterprise-soa" alt="Enterprise SOA Adoption Strategies" title="Enterprise SOA Adoption Strategies" shape=rect coords="0,315,120,338">
+				  <area href="http://www.infoq.com/minibooks/vsnettt" alt="Visual Studio .NET Tips and Tricks" title="Visual Studio .NET Tips and Tricks" shape=rect coords="0,345,120,370">
+				  <area href="http://www.infoq.com/minibooks/JTDS" alt="Java Transaction Design Strategies" title="Java Transaction Design Strategies" shape=rect coords="0,379,120,404">
+				  <area href="http://www.infoq.com/minibooks/ruby" alt="Little Ruby Book" title="Little Ruby Book" shape="rect" coords="1,192,120,218" />
+				  <area href="http://www.infoq.com/minibooks/kanban-scrum-minibook" alt="Kanban and Scrum" title="Kanban and Scrum" shape="rect" coords="1,69,124,97"/>
+			</map>
+		</p>
+	</div>
+	<div class="box-simple-bottom"></div>
+</div>
+
+
+		
+		<div class="sidebar-bottom"></div>
+	</div>
+	</div>
+	
+
+	<div id="clearer"></div>
+
+	
+	<div id="content">
+	<div id="content-wrapper">
+		
+		<div class="box">
+			
+			
+
+    <div class="contribute contribute-print">
+    <ul>
+    	<li class="c-news"><a href="mailto:news@infoq.com?Subject=[NEWS]&Body=Thanks for your interest in submitting news to InfoQ.com. Please provide as much detail about your news suggestion in this email as possible.  Your suggestion will be considered and if selected an InfoQ editor will write an editted version and publish it. An automated version of this form will be coming sometime in the next few weeks. :) Thanks - InfoQ team.">Contribute News</a></li>
+    	<li class="c-print"><a href="javascript:print()">Print</a></li>		        	
+    </ul>		        
+    </div>			
+    <h2>News</h2>
+    <div class="top-corners"><div></div></div>    
+    <div class="box-content">
+    <div class="box-content-2">
+    <div class="box-content-5">
+	
+    <h1>Java EE 6 Proposed Final Draft Hints at Future Direction of the Platform</h1>
+    
+    <p class="info">
+    	Posted by
+		
+			
+		
+        <strong><a
+	
+	href="/author/Charles-Humble;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745"
+
+ class="editorlink">
+Charles Humble</a>
+</strong>
+        
+        on
+        Oct 14, 2009
+    </p>
+    
+    <dl class="tags2">
+    	<dt class="community">Community</dt>
+        
+        	<dd><a href="/java;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" name="java" id="1" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Java</a></dd>
+        
+        
+     	
+       		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dt class="topics">Topics</dt>
+
+   	<dd>
+   		
+   			
+   			<a href="/EAB;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" name="EAB" id="239" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Enterprise Application Blocks</a>
+    
+   		
+   	</dd>
+
+
+	<dt class="topics">Tags</dt>
+	
+		<dd>
+			
+				
+				<a href="/javaee5;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" name="javaee5" id="285" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Java EE</a>
+    
+			
+		</dd>
+	
+
+       		
+        
+    </dl>
+   	    
+   	<p>The expert group for JSR-316 (Java EE 6) recently released a <a href="http://jcp.org/aboutJava/communityprocess/pfd/jsr316/index.html">proposed    final draft</a> for the specification. Three significant changes since the early    review draft are the additions of <a href="http://jcp.org/en/jsr/summary?id=330">JSR-330    </a>(Dependency Injection for Java), <a href="http://jcp.org/en/jsr/summary?id=299">JSR-299</a>    (Contexts and Dependency Injection for the Java EE Platform hereafter referred    to as &quot;CDI&quot;), and <a href="http://jcp.org/en/jsr/summary?id=303">JSR-303</a>    (Bean Validation) as required components to both the full platform and the web    profile. To align CDI with JSR-330 a second proposed final draft has been submitted    for the former which re-uses the dependency injection annotations as defined    by JSR-330, adds constructor injection for EJB session beans and makes    some other minor changes.</p>
+<p>The expert group has also added a specification document for managed beans    in addition to the web profile and full specification documents they were already    producing. Managed beans, which are Java classes treated as managed components    by a container, are a widely used concept shared by both CDI and JavaServer    Faces. In addition the introduction of EJB Lite, which allows EJB session beans    to be used outside of a full Java EE container, means that three variants of    the concept exist within the Java EE platform alone. Similar concepts exist    on other widely used frameworks such as Spring and Seam. Managed beans support    a small set of basic services such as resource injection, lifecycle callbacks    and interceptors. Other specifications can build on this definition and add    other services, so for example CDI adds dependency injection, EJB session beans    add transactions, remoting, and so on. Writing on his <a href="http://weblogs.java.net/blog/robc/archive/2009/10/08/java-ee-6-platform-specification-reaches-proposed-final-draft-stage">blog</a>    Roberto Chinnici provides the following example:</p>
+<blockquote>Given a JAX-RS resource class, you can turn it into a managed bean    by adding a <em>@ManagedBean</em> annotation, or an EJB component annotation    (<em>@Stateful</em>) or one of many potential CDI annotations (e.g. the <em>@Default</em>    qualifier). What's more, one can also take the opposite view, and see the resulting    class as coming from a managed bean or an EJB component that has been turned    into a JAX-RS resource class by the addition of a JAX-RS <em>@Path </em>annotation.    The same thing can be done with a servlet, or a JAX-WS endpoint class, or (mostly)    any other component type in Java EE 6.</blockquote>
+<p>Whilst the managed bean specification is currently small in scope, it is significant    in that it indicates the overall direction of travel which Sun envisages for    the EE platform as a whole. Whilst further refactoring will be required to make    the entire Java EE platform work this way, it isn't difficult to see how the    combination of managed beans and the annotation-based programming model introduced    in version 5 of the EE Platform will ultimately allow developers to pick and    choose from any of the services offered by the EE container on any component.    At the same time, the simple managed bean model complements the existing set of extensibility points and service provider interfaces within the platform, providing a standardised mechanism for Java framework    and product developers to cleanly layer on top of the platform; a major goal    for EE 6.</p>
+<p>Sun's GlassFish version 3 is likely to be the first application    server to offer full platform support and <a href="https://glassfish.dev.java.net/downloads/v3-preview.html">previews</a>    for it are already available. The next beta of JBoss 5.2 will include some EE    6 support including JavaServer Faces (JSF) 2.0, Java Persistence (JPA) 2.0,    Bean Validation and the new version of CDI. SpringSource are also supporting    parts of the new standard. Spring 3.0 includes support for JSF 2.0, JPA 2, Bean    Validation and JSR-330. Future 3.x releases of Spring are expected to support    other EE 6 APIs, including Servlet 3.</p>
+<p>In terms of IDE support NetBeans 6.8 will include support for JSF 2.0 including Facelets,    JPA 2.0, and incremental deployment with GlassFish version 3. The milestone    2 release is currently available for <a href="http://bits.netbeans.org/netbeans/6.8/m2/">download</a>.    JetBrains are also tracking EE 6 closely and <a href="http://www.jetbrains.com/idea/nextversion/index.html">IntelliJ    IDEA 9</a> is expected to support JPA 2.0, EJB 3.1, JSF 2.0, Servlet 3, CDI    and Bean Validation, as well as GlassFish 3.</p>
+<p>&nbsp;</p>
+       	
+    <div style="display:block;margin-top:15px;">
+        <div align="right" style="display: inline; margin-right: 0px;">
+            
+            
+
+
+
+
+
+
+<dl class="tags3">
+<dt>Bookmark</dt>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://digg.com/submit?phase=2&url=' + escape(window.location)" rel="nofollow">digg+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://reddit.com/submit?url=' + escape(window.location) + '&title=' + escape('Java EE 6 Proposed Final Draft Hints at Future Direction of the Platform')" rel="nofollow">reddit+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://del.icio.us/post?url=' + escape(window.location) + '&title=' + escape('Java EE 6 Proposed Final Draft Hints at Future Direction of the Platform')" rel="nofollow">del.icio.us+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://www.dzone.com/links/add.html?url=' + escape(window.location) + '&title=' + escape('Java EE 6 Proposed Final Draft Hints at Future Direction of the Platform')" rel="nofollow">dzone+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://www.facebook.com/share.php?u=' + escape(window.location)" rel="nofollow">facebook+</a>
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://slashdot.org/slashdot-it.pl?op=basic&amp;url=' + encodeURIComponent(location.href)" rel="nofollow">slashdot+</a>
+</dd>
+</dl>
+
+        </div>
+        
+    </div>
+    
+    
+
+
+
+
+
+
+
+
+    
+	
+
+
+
+
+
+
+
+
+<div class="vendor-content-box">
+	
+	<h3>Related<span class="vendor">Vendor</span>Content</h3>
+
+	
+	
+	
+	
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745?vcr=864" >
+				Understand and Align BPM, SOA, and Lean Six Sigma: 43 page IBM Redguide
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745?vcr=794" >
+				Consolidation and Virtualization Are NOT Enough: The Case for Non-x86
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745?vcr=795" >
+				Innovation in Your Data Centre
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745?vcr=796" >
+				Regaining control of the data centre   
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745?vcr=827" >
+				SOA for Dummies Mini eBook
+			</a>
+		</p>
+	
+	
+	
+	
+		
+		
+	
+	
+	
+	
+	
+</div>
+
+
+	
+	
+	
+		
+	
+
+
+
+
+
+
+<script type='text/javascript'>
+var replyEnabled=true;
+var forumID=1;
+var threadID=13424;
+var previewText='Preview';
+var pleaseWait='Please Wait ...';	
+var reply='Reply';
+var postMessage='Post Message';	
+var errorSubject='Please enter a subject.';	
+var errorBody='You can not post a blank message. Please type your message and try again.';
+var cancel='Cancel';
+var goBackOrEdit='Go Back/Edit';
+var re='Re:';
+var lastMessage=0;
+var stopWatchText='Stop Watching Thread';
+var startWatchText='Watch Thread';
+var descending='false';
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action?language=' + 'en';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var loggedIn=false;	
+
+
+var forumNotificationDefault=false;
+
+</script>
+
+<script src="/scripts/forum.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type='text/javascript'></script>
+<script type="text/javascript" src='/dwr/interface/ForumNotifications.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745'></script>
+
+	<div class="comments-header">
+	    <h3><span id="comments-number">3</span> comments</h3>
+	    <p>
+			
+				
+				
+	                <span id="watch">
+	                    <a href="javascript:void(0)" class="comment-watch" onClick="javascript:loggedIn?startWatch():showLoginWindow(this,ALIGN_RIGHT,new Function('startWatch();'));">
+	                        Watch Thread
+	                    </a>
+	                </span>	
+				
+				
+			<a href="javascript:void(0)" class="comment-reply" onClick="javascript:loggedIn?replyFromTooltip(48859,true):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromTooltip(48859,true)'));">Reply</a>
+		</p>
+	</div>
+	
+	<span id="newMessage" style="display:none;"></span>
+	
+	<span id="replyTree_48859"></span>	  	
+	<span id="replyMessage_48859"></span>
+		
+		<div class="forum-list-tree" style="position: relative; left: 0px; margin-right: 0px;">		
+			<a class="forum-list">
+			<span id="tooltip_49070" style="cursor:pointer; cursor:hand;">CDI Reference Implementation</span>		
+			</a>
+			by 
+			Gavin King 
+			Posted
+	        Oct 16, 2009 2:03 PM
+			<script type="text/javascript" language="javascript">
+		    	Event.observe('tooltip_49070', 'mouseover', initializeTooltip);
+		    	Event.observe('tooltip_49070', 'mouseout', deintializeTooltip);	    	
+		  	</script>  	
+	  	</div>
+		<span id="replyTree_49070"></span>
+		<span id="replyMessage_49070"></span>
+		
+		<div class="forum-list-tree" style="position: relative; left: 15px; margin-right: 15px;">		
+			<a class="forum-list">
+			<span id="tooltip_49119" style="cursor:pointer; cursor:hand;">Re: CDI Reference Implementation</span>		
+			</a>
+			by 
+			adrian collheart 
+			Posted
+	        Oct 18, 2009 5:38 AM
+			<script type="text/javascript" language="javascript">
+		    	Event.observe('tooltip_49119', 'mouseover', initializeTooltip);
+		    	Event.observe('tooltip_49119', 'mouseout', deintializeTooltip);	    	
+		  	</script>  	
+	  	</div>
+		<span id="replyTree_49119"></span>
+		<span id="replyMessage_49119"></span>
+		
+		<div class="forum-list-tree" style="position: relative; left: 0px; margin-right: 0px;">		
+			<a class="forum-list">
+			<span id="tooltip_49120" style="cursor:pointer; cursor:hand;">p.s.</span>		
+			</a>
+			by 
+			adrian collheart 
+			Posted
+	        Oct 18, 2009 6:22 AM
+			<script type="text/javascript" language="javascript">
+		    	Event.observe('tooltip_49120', 'mouseover', initializeTooltip);
+		    	Event.observe('tooltip_49120', 'mouseout', deintializeTooltip);	    	
+		  	</script>  	
+	  	</div>
+		<span id="replyTree_49120"></span>
+		<span id="replyMessage_49120"></span>
+	
+	
+	<div class="comments-sort">
+		<span id="comments-sort"  >
+			
+			
+				<a class="comment-sort-desc" href="javascript:changeOrder(2);">Sort by date descending</a>
+			
+		</span>
+	</div>
+	
+	<ol class="comments">
+	
+	
+	
+		<li id="comment-49070">
+			<a name="view_49070"></a>
+			<div class="comment-header">
+				<p class="comment-top">
+					<a style="position:relative;" href="#">Back to top</a>
+				</p>
+				
+				<div id="header_49070">
+	                <h4><a href="#view_49070" name="49070" onClick="javascript:hideTooltip();return true;">CDI Reference Implementation</a></h4>
+	                <p class="comment-author">
+	                    Oct 16, 2009 2:03 PM
+	                    by
+	                    <strong>
+	                        Gavin King 
+	                    </strong>
+	                </p>
+				</div>
+			</div>				
+			<div id="body_49070">
+			<p>
+				<span id="quote_49070">
+					Note that Pete Muir just released Weld CR1, the first feature-complete release of the JSR-299 Reference Implementation.<br><br><a rel="nofollow" href="http://in.relation.to/Bloggers/Weld100CR1Available" target="_blank">in.relation.to/Bloggers/Weld100CR1Available</a><br><br><blockquote>The reference implementation is used in GlassFish V3 and the upcoming JBoss AS 5.2.0.Beta1 release (watch Jason's blog for details!). Our implementation also adds support for Servlet containers such as Tomcat and Jetty. Furthermore you could choose to use Wicket as your view layer, or perhaps Swing via the Java SE support. If you are using an OSGi container, there's a bundle for that too! If you are getting started, there are a few examples in the distribution to guide you. If you are looking for help, try our forums, or perhaps join us on IRC.</blockquote>
+				</span>
+			</p>
+			</div>
+			<p class="comment-footer"><a class="comment-reply" href="javascript:void(0)" onClick="javascript:loggedIn?replyFromFlat(49070):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(49070);'));">Reply</a></p>			
+		<span id="replyFlat_49070"></span>
+		</li>
+		<span id="replyFlatMessage_49070"></span>	
+	
+		<li id="comment-49119">
+			<a name="view_49119"></a>
+			<div class="comment-header">
+				<p class="comment-top">
+					<a style="position:relative;" href="#">Back to top</a>
+				</p>
+				
+				<div id="header_49119">
+	                <h4><a href="#view_49119" name="49119" onClick="javascript:hideTooltip();return true;">Re: CDI Reference Implementation</a></h4>
+	                <p class="comment-author">
+	                    Oct 18, 2009 5:38 AM
+	                    by
+	                    <strong>
+	                        adrian collheart 
+	                    </strong>
+	                </p>
+				</div>
+			</div>				
+			<div id="body_49119">
+			<p>
+				<span id="quote_49119">
+					<blockquote> and the upcoming JBoss AS 5.2.0.Beta1 release</blockquote><br><br>About that specially, shouldn't it be released already? I seem to remember it being planned for the 15th of this month. Of course I don't want to sound impatient, but just wondering ;)<br><br>I'm greatly looking forward to all this new stuff. Java EE 6 really got me exciting again about development. Can't wait to try some of the stuff in Jboss AS 5.2. Keep up the good work guys!
+				</span>
+			</p>
+			</div>
+			<p class="comment-footer"><a class="comment-reply" href="javascript:void(0)" onClick="javascript:loggedIn?replyFromFlat(49119):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(49119);'));">Reply</a></p>			
+		<span id="replyFlat_49119"></span>
+		</li>
+		<span id="replyFlatMessage_49119"></span>	
+	
+		<li id="comment-49120">
+			<a name="view_49120"></a>
+			<div class="comment-header">
+				<p class="comment-top">
+					<a style="position:relative;" href="#">Back to top</a>
+				</p>
+				
+				<div id="header_49120">
+	                <h4><a href="#view_49120" name="49120" onClick="javascript:hideTooltip();return true;">p.s.</a></h4>
+	                <p class="comment-author">
+	                    Oct 18, 2009 6:22 AM
+	                    by
+	                    <strong>
+	                        adrian collheart 
+	                    </strong>
+	                </p>
+				</div>
+			</div>				
+			<div id="body_49120">
+			<p>
+				<span id="quote_49120">
+					Jason's blog can be found here: <a rel="nofollow" href="http://in.relation.to/Bloggers/Jason" target="_blank">in.relation.to/Bloggers/Jason</a><br><br><blockquote>In terms of IDE support NetBeans 6.8 will include support for JSF 2.0 including Facelets, JPA 2.0 [...] JetBrains are also tracking EE 6 closely and IntelliJ IDEA 9 is expected to support JPA 2.0, EJB 3.1, JSF 2.0, Servlet 3, CDI and Bean Validation </blockquote><br><br>It seems Eclipse is a little behind here. To the best of my knowledge, both WTP and MyEclipse are still struggling with full support for Java EE 5...
+				</span>
+			</p>
+			</div>
+			<p class="comment-footer"><a class="comment-reply" href="javascript:void(0)" onClick="javascript:loggedIn?replyFromFlat(49120):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(49120);'));">Reply</a></p>			
+		<span id="replyFlat_49120"></span>
+		</li>
+		<span id="replyFlatMessage_49120"></span>	
+	
+	
+	<span id="lastMessages"></span>
+	<span id="replyFlatMessage_48859"></span>
+	
+	</ol>
+
+
+    <div class="box-bottom"></div>
+    </div>
+    </div> 
+    <div class="bottom-corners"><div></div></div>
+    </div> 
+  
+
+			
+		</div>
+		
+	</div></div>
+	
+		
+	
+
+
+
+
+
+
+
+<!-- right side start -->
+
+	<div id="rightbar">
+	<div id="right-wrapper">
+	    <!-- box start -->
+	    <div class="box">
+	        <h2>Educational Content</h2>
+	        <ul class="menu" id="tabsmenu">
+	   			<li id="tab_ALL_EXCEPT_NEWS" class="m-ALL_EXCEPT_NEWS-on"><a href="#" onclick="ContentSummary.switchTab('ALL_EXCEPT_NEWS');return false;">All</a></li>
+	            <li id="tab_ARTICLE" class="m-ARTICLE-off"><a href="#" onclick="ContentSummary.switchTab('ARTICLE');return false;">Articles</a></li>
+	            <li id="tab_PRESENTATION" class="m-PRESENTATION-off"><a href="#" onclick="JSResource.presentationsTab();return false;">Presentations</a></li>
+	            <li id="tab_INTERVIEW" class="m-INTERVIEW-off"><a href="#" onclick="JSResource.interviewsTab();return false;">Interviews</a></li>
+	            <li id="tab_MINIBOOK" class="m-MINIBOOK-off"><a href="#" onclick="JSResource.minibooksTab();return false;">Minibooks</a></li>
+	        </ul>
+		    <div class="top-corners"><div></div></div>
+		    
+		    <div class="box-content">
+			    <div class="box-content-2">
+			    <div id="rightbarcontentbox" class="box-content-3">
+                    
+					
+                        
+						
+								
+<form id="tabstateform" onsubmit="customOnsubmit(); return true;" action="http://www.infoq.com/;jsessionid=1912489EBE3AFA0828C83EFF80567F24">
+<table class="wwFormTable">
+
+	<input id="startIndex" type="hidden" name="startIndex" value="0"/>
+	<input id="selectedTab" type="hidden" name="selectedTab" value="ALL_EXCEPT_NEWS"/>
+	<input id="rightBarLanguage" type="hidden" name="language" value="en" />
+</table>
+</form>
+
+
+<script>
+	function customOnsubmit() {
+		
+	}
+</script>
+
+
+
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-articles"><a href="/articles/air-20-new-features;jsessionid=1912489EBE3AFA0828C83EFF80567F24">What's New in Two: Adobe AIR 2.0 is Coming Soon!</a></h1>
+    	
+        	<p class="image"><a href="/articles/air-20-new-features;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/articles/air-20-new-features/en/smallimage/image_adobe-air-2.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>Adobe AIR 2.0 is coming, and it contains many highly requested features that application developers have wanted since AIR 1.0 was released nearly two years ago - learn more about what's new in 2.0.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Feb 03, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/articles/air-20-new-features;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		
+    		    			1
+    		    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-articles"><a href="/articles/agile-soa;jsessionid=1912489EBE3AFA0828C83EFF80567F24">Agile and SOA, Hand in Glove? </a></h1>
+    	
+        	<p class="image"><a href="/articles/agile-soa;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/articles/agile-soa/en/smallimage/image_hand_puppets.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>We examine the compatibility between SOA and Agile development. </p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Feb 02, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/articles/agile-soa;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-interviews"><a href="/interviews/box-soap-xml-rest-m;jsessionid=1912489EBE3AFA0828C83EFF80567F24">Don Box Discusses SOAP, XML, REST and M</a></h1>
+    	
+        	<p class="image"><a href="/interviews/box-soap-xml-rest-m;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/interviews/box-soap-xml-rest-m/en/smallimage/DonBox.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>Don Box discusses the history of SOAP, XML, XML Schema, SOAP and WSDL, opinions on REST, REST at Microsoft, coexistence of REST and WS-*, the M language, M and DSLs, M vs XML, and future plans.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Feb 01, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/interviews/box-soap-xml-rest-m;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-presentations"><a href="/presentations/SpringSource-Cloud-Computing;jsessionid=1912489EBE3AFA0828C83EFF80567F24">Faster Time to Value through Cloud Computing</a></h1>
+    	
+        	<p class="image"><a href="/presentations/SpringSource-Cloud-Computing;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/presentations/SpringSource-Cloud-Computing/en/smallimage/CharlesLee.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>Charles Lee presents the values of cloud computing and introduces the audience to several SpringSource tools, especially Cloud Foundry, useful to create and manage cloud deployments.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 31, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/presentations/SpringSource-Cloud-Computing;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-presentations"><a href="/presentations/Reincarnation-SOA-Anne-Thomas-Manes;jsessionid=1912489EBE3AFA0828C83EFF80567F24">The Reincarnation of SOA</a></h1>
+    	
+        	<p class="image"><a href="/presentations/Reincarnation-SOA-Anne-Thomas-Manes;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/presentations/Reincarnation-SOA-Anne-Thomas-Manes/en/smallimage/AnneThomasM.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>Anne Thomas Manes talks about SOA's reincarnation. Old SOA had to die because it was focused on technology and products, while the new one will be focused on architecture, principles and practices.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 29, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/presentations/Reincarnation-SOA-Anne-Thomas-Manes;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		
+    		    			5
+    		    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-interviews"><a href="/interviews/manns-change-oopsla;jsessionid=1912489EBE3AFA0828C83EFF80567F24">Mary-Lynn Manns on Fearless Change</a></h1>
+    	
+        	<p class="image"><a href="/interviews/manns-change-oopsla;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/interviews/manns-change-oopsla/en/smallimage/MaryLyn.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>In this short interview, Mary-Lynn Manns discusses some of the patterns from the book Fearless Change plus some patterns that will appear in the sequel, tentatively titled, More Fearless Change.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 28, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/interviews/manns-change-oopsla;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-articles"><a href="/articles/blazedsjms1;jsessionid=1912489EBE3AFA0828C83EFF80567F24">BlazeDS and JMS for PHP Developers, Part 1</a></h1>
+    	
+        	<p class="image"><a href="/articles/blazedsjms1;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/articles/blazedsjms1/en/smallimage/image_php_blazeDS.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>In the first of two articles on BlazeDS and JMS, InfoQ looks at the advantages of JMS and how you can use BlazeDS to communicate with your Java services via JMS from your Flex applications.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 27, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/articles/blazedsjms1;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-interviews"><a href="/interviews/mercuri-computer-forensics;jsessionid=1912489EBE3AFA0828C83EFF80567F24">Rebecca Mercuri on Computer Forensics</a></h1>
+    	
+        	<p class="image"><a href="/interviews/mercuri-computer-forensics;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><img src="/resource/interviews/mercuri-computer-forensics/en/smallimage/Rebecca.jpg;jsessionid=1912489EBE3AFA0828C83EFF80567F24" alt="" /></a></p>
+        
+        <p>In this interview, Dr. Mercuri defines computer forensics, talks about forensics for criminal cases, general IP issues, and civil matters.  She also talks about technological issues.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 27, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/interviews/mercuri-computer-forensics;jsessionid=1912489EBE3AFA0828C83EFF80567F24"><span>&nbsp;</span>
+	    	    		
+    		    			1
+    		    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+
+<ul class="newsnav link-col">
+
+
+    <li><a href="#" onclick="ContentSummary.setStartIndex('8');return false;">Older &gt;</a></li>
+
+</ul>
+
+	                <!-- Rightbar:8ms -->
+    
+				    <div class="box-bottom"></div>
+				</div>
+				</div>
+				<div class="bottom-corners"><div></div></div>
+			</div>
+		</div>
+		<!-- box end -->
+		<script type="text/javascript">
+			ContentSummary.setSelectedTab('en');
+		</script>
+	</div>
+	</div>
+
+<!-- right side end -->
+
+
+	<div class="clearer"></div>
+
+	
+
+
+
+
+
+
+
+
+	<div id="footer">
+		<p>
+			InfoQ.com and all content copyright &#169; 2006-2009 C4Media Inc.
+			InfoQ.com hosted at <a href="http://www.contegix.com/">Contegix</a>, the best ISP we've ever worked with.
+			<a href="/PrivacyPolicy.jsp;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745">Privacy policy</a>
+		</p>
+	</div>
+
+
+</div>
+
+<script src="http://cdn2.infoq.com/scripts/__utm.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="text/javascript"></script>
+<script src="/dwr/engine.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="text/javascript"></script>
+<script src="/dwr/util.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="text/javascript"></script>
+<script src="/dwr/interface/UserCategoryUtil.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="text/javascript"></script>
+<script src="/dwr/interface/DWRRewriteAction.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="text/javascript"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var includeName = 'Include';
+	var excludeName = 'Exclude';
+	var includeHint = 'You can include this category.';
+	var excludeHint = 'You can exclude this category.';
+	var excludeCategoryMessage = 'You can re-include from your profile personalization, or right now.<BR />';
+	var viewallCategoryMessage = 'You can view all items that belong to this category.';
+	var busyMessage = 'Please wait...';
+	var contextPath = '' + '/';
+	var viewallCategoryPath= 'en';
+	var includeExcludeLink= true;
+</script>
+
+
+
+
+
+
+
+
+
+
+	<script src="/dwr/interface/UserConfirmation.js;jsessionid=62A0DFFA2C30E38B587AE8DE701D6745" type="text/javascript"></script>
+	<script type="text/javascript">UserConfirmation.confirm('9ApokqvuxlRfm84TSusK36JfjjJ2YALB');</script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-6608133-2");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Java Code Examples from The Java Developers Almanac" />
+<meta name="keywords" content="Java,examples" />
+<meta name="owner" content="Patrick Chan" />
+  <title>Determining If a String Contains a Substring | Example Depot</title>  
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/views/css/views.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/css/css_39bedd3d4b3a9fbcb7658027feb4f44c.css" />
+  <script type="text/javascript" src="/js/js_90251d7dacc243246e619a59f30a4693.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/" });
+//--><!]]>
+</script>
+  <!--[if IE 6]><link rel="stylesheet" href="/sites/all/themes/artisteer_exd/style.ie6.css" type="text/css" /><![endif]-->  
+  <!--[if IE 7]><link rel="stylesheet" href="/sites/all/themes/artisteer_exd/style.ie7.css" type="text/css" media="screen" /><![endif]-->
+  <script type="text/javascript">if (Drupal.jsEnabled) {$(document).ready(function(){
+				window.setTimeout("artNoStyleAdding(document)", 2000);});}</script>
+  <script type="text/javascript"> </script>
+</head>
+
+<body>
+<div id="art-main">
+<div class="art-Sheet">
+    <div class="art-Sheet-tl"></div>
+    <div class="art-Sheet-tr"></div>
+    <div class="art-Sheet-bl"></div>
+    <div class="art-Sheet-br"></div>
+    <div class="art-Sheet-tc"></div>
+    <div class="art-Sheet-bc"></div>
+    <div class="art-Sheet-cl"></div>
+    <div class="art-Sheet-cr"></div>
+    <div class="art-Sheet-cc"></div>
+    <div class="art-Sheet-body">
+<div class="art-Header">
+    <div class="art-Header-jpeg"></div>
+<div class="art-Logo">
+    <h1 class="art-Logo-name"><a href="/" title = "Example Depot">Example Depot</a></h1><div class="art-Logo-text">Useful code samples</div></div>
+</div>
+<div class="art-nav">
+        <div class="l"></div>
+    <div class="r"></div>
+            <ul class="art-menu">
+<li class="leaf first active-trail active"><a href="/" title="" class=" active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+<li class="leaf"><a href="/egs" title=""><span class="l"> </span><span class="r"> </span><span class="t">Java</span></a></li>
+<li class="leaf last"><a href="/contact" title=""><span class="l"> </span><span class="r"> </span><span class="t">Contact</span></a></li>
+</ul>
+	</div>
+<div class="art-contentLayout">
+<div class="art-sidebar1"><div class="art-Block clear-block block block-search" id="block-search-0">
+    <div class="art-Block-cc"></div>
+    <div class="art-Block-body">
+
+	<div class="art-BlockContent content">
+	    <div class="art-BlockContent-body">
+	
+		<form action="/egs/java.lang/HasSubstr.html"  accept-charset="UTF-8" method="post" id="search-block-form">
+<div><div class="form-item" id="edit-search-block-form-1-wrapper">
+ <input type="text" maxlength="128" name="search_block_form" id="edit-search-block-form-1" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
+</div>
+<span class="art-button-wrapper"><span class="l"></span><span class="r"></span><input type="submit" name="op" id="edit-submit" value="Search"  class="form-submit art-button"/></span><input type="hidden" name="form_build_id" id="form-eac6db2996040ef90c067c2885bea521" value="form-eac6db2996040ef90c067c2885bea521"  />
+<input type="hidden" name="form_id" id="edit-search-block-form" value="search_block_form"  />
+
+</div></form>
+
+	    </div>
+	</div>
+	
+
+    </div>
+</div>
+<div class="art-Block clear-block block block-adsense_managed" id="block-adsense_managed-0">
+    <div class="art-Block-cc"></div>
+    <div class="art-Block-body">
+
+	<div class="art-BlockContent content">
+	    <div class="art-BlockContent-body">
+	
+		<div style='text-align:center'><div class='adsense adsense_managed'>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-6001183370374757";
+/* 160x600 */
+google_ad_slot = "6138857183";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div></div>
+	    </div>
+	</div>
+	
+
+    </div>
+</div>
+</div><div class="art-content">
+              
+<div class="art-Post">
+    <div class="art-Post-body">
+<div class="art-Post-inner">
+<div class="art-PostContent">
+<div class="breadcrumb"><a href="/egs">Java</a> &#187; <a href="/egs/index.html">Java packages</a> &#187; <a href="/egs/java.lang/pkg.html">java.lang</a> &#187; <a href="/taxonomy/term/173">Strings</a></div>
+</div>
+<div class="cleared"></div>
+
+</div>
+
+    </div>
+</div>
+<div class="art-Post">
+    <div class="art-Post-body">
+<div class="art-Post-inner">
+<h2 class="art-PostHeader"> <a href="/egs/java.lang/HasSubstr.html" title="Determining If a String Contains a Substring">Determining If a String Contains a Substring</a>
+</h2>
+<div class="art-PostContent">
+<div class="art-article"><!-- google_ad_section_start -->
+<div class="exd_ex">
+See also <a href="/egs/java.util.regex/BasicMatch.html">Quintessential Regular Expression Search Program</a>.
+
+
+
+<div class="exd_code">
+<div class="exd_code_head"><a href="">COPY</a></div>
+<div class="exd_code_body">String string = <span class="exd_v">"Madam, I am Adam"</span>;
+
+// Starts with
+boolean  b = string.startsWith(<span class="exd_v">"Mad"</span>);  // true
+
+// Ends with
+b = string.endsWith(<span class="exd_v">"dam"</span>);             // true
+
+// Anywhere
+b = string.indexOf(<span class="exd_v">"I am"</span>) &gt; 0;         // true
+
+// To ignore case, regular expressions must be used
+
+// Starts with
+b = string.matches(<span class="exd_v">"(?i)mad.*"</span>);
+
+// Ends with
+b = string.matches(<span class="exd_v">"(?i).*adam"</span>);
+
+// Anywhere
+b = string.matches(<span class="exd_v">"(?i).*i am.*"</span>);
+</div></div>
+</div>
+<!-- google_ad_section_end --></div>
+</div>
+<div class="cleared"></div>
+
+</div>
+
+    </div>
+</div>
+<div class="art-Block clear-block block block-views" id="block-views-related_examples-block_1">
+    <div class="art-Block-cc"></div>
+    <div class="art-Block-body">
+
+	<div class="art-BlockHeader">
+		    <div class="l"></div>
+		    <div class="r"></div>
+		    <div class="art-header-tag-icon">
+		        <div class="t">	
+			<h2 class="subject">Related examples</h2>
+</div>
+		    </div>
+		</div>    
+	<div class="art-BlockContent content">
+	    <div class="art-BlockContent-body">
+	
+		<div class="view view-related-examples view-id-related_examples view-display-id-block_1 view-dom-id-1">
+    
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/CompareStr.html">Comparing Strings</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/CreateUsingStringBuffer.html">Constructing a String</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/PrimType2Str.html">Converting a Primitive Type Value to a String</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/UpperLower.html">Converting a String to Upper or Lower Case</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-5 views-row-odd">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/UnicodeToUTF8.html">Converting Between Unicode and UTF-8</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-6 views-row-even">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/FindUnicodeBlock.html">Determining a Character&#039;s Unicode Block</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-7 views-row-odd">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/IsJavaId.html">Determining If a String Is a Legal Java Identifier</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-8 views-row-even">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/GetSubstring.html">Getting a Substring from a String</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-9 views-row-odd">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/ReplaceChar.html">Replacing Characters in a String</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-10 views-row-even">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/ReplaceString.html">Replacing Substrings in a String</a></span>
+  </div>
+  </div>
+  <div class="views-row views-row-11 views-row-odd views-row-last">
+      
+  <div class="views-field-title">
+                <span class="field-content"><a href="/egs/java.lang/SearchString.html">Searching a String for a Character or a Substring</a></span>
+  </div>
+  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div> 
+	    </div>
+	</div>
+	
+
+    </div>
+</div>
+<div class="art-Block clear-block block block-views" id="block-views-comments-block_1">
+    <div class="art-Block-cc"></div>
+    <div class="art-Block-body">
+
+	<div class="art-BlockHeader">
+		    <div class="l"></div>
+		    <div class="r"></div>
+		    <div class="art-header-tag-icon">
+		        <div class="t">	
+			<h2 class="subject">Comments</h2>
+</div>
+		    </div>
+		</div>    
+	<div class="art-BlockContent content">
+	    <div class="art-BlockContent-body">
+	
+		<div class="view view-comments view-id-comments view-display-id-block_1 view-dom-id-2">
+    
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+    <a id="comment-85"></a>
+<div class="exd-comment">
+  <table class="exd-comment-header" width="100%">
+    <tbody>
+	<tr>
+	  <td>
+	    16 Jan 2010 - 6:52am by Yegorkin (not verified)	  </td>
+	  <td align="right">
+	    	  </td>
+	</tr>
+	</tbody>
+  </table>
+  <div class="exd-comment-content">
+	<p>// correct Anywhere<br />
+b = string.indexOf("I am") &gt;= 0;         // true</p>
+  </div>
+</div>
+  </div>
+  <div class="views-row views-row-2 views-row-even views-row-last">
+    <a id="comment-111"></a>
+<div class="exd-comment">
+  <table class="exd-comment-header" width="100%">
+    <tbody>
+	<tr>
+	  <td>
+	    20 Jan 2010 - 7:13am by smalga (not verified)	  </td>
+	  <td align="right">
+	    	  </td>
+	</tr>
+	</tbody>
+  </table>
+  <div class="exd-comment-content">
+	<p>// To ignore case<br />
+string.toLowerCase().indexOf("Adam".toLowerCase()) &gt;= 0 // true</p>
+  </div>
+</div>
+  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div> 
+	    </div>
+	</div>
+	
+
+    </div>
+</div>
+<div class="art-Block clear-block block block-commentblock" id="block-commentblock-comment_form">
+    <div class="art-Block-cc"></div>
+    <div class="art-Block-body">
+
+	<div class="art-BlockHeader">
+		    <div class="l"></div>
+		    <div class="r"></div>
+		    <div class="art-header-tag-icon">
+		        <div class="t">	
+			<h2 class="subject">Post a comment</h2>
+</div>
+		    </div>
+		</div>    
+	<div class="art-BlockContent content">
+	    <div class="art-BlockContent-body">
+	
+		<form action="/comment/reply/1374"  accept-charset="UTF-8" method="post" id="comment-form">
+<div><div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Your name: </label>
+ <input type="text" maxlength="60" name="name" id="edit-name" size="30" value="Anonymous" class="form-text" />
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Comment: <span class="form-required" title="This field is required.">*</span></label>
+ <textarea cols="60" rows="3" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<p><a href="/filter/tips">More information about formatting options</a></p><input type="hidden" name="form_build_id" id="form-a8e1c386573c8f42c4f25c9f678e41b0" value="form-a8e1c386573c8f42c4f25c9f678e41b0"  />
+<input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<fieldset class="captcha"><legend>CAPTCHA</legend><div class="description">This question is for testing whether you are a human visitor and to prevent automated spam submissions.</div><input type="hidden" name="captcha_sid" id="edit-captcha-sid" value="528122"  />
+<img src="/image_captcha/528122/1265289742" alt="Image CAPTCHA" title="Image CAPTCHA" /><div class="form-item" id="edit-captcha-response-wrapper">
+ <label for="edit-captcha-response">What code is in the image?: <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" maxlength="128" name="captcha_response" id="edit-captcha-response" size="15" value="" class="form-text required" />
+ <div class="description">Enter the characters shown in the image. Ignore spaces and be careful about upper and lower case.</div>
+</div>
+</fieldset>
+<span class="art-button-wrapper"><span class="l"></span><span class="r"></span><input type="submit" name="op" id="edit-submit-1" value="Post"  class="form-submit art-button"/></span>
+</div></form>
+
+	    </div>
+	</div>
+	
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cleared"></div>
+<div class="art-Footer">
+    <div class="art-Footer-inner">
+        <a href="/rss.xml" class="art-rss-tag-icon"></a>        <div class="art-Footer-text">
+        <p><a href="/user">Login</a>&nbsp;|&nbsp;<a href="#">Terms of Use</a>&nbsp;|&nbsp;<a href="#">Trademarks</a>&nbsp;|&nbsp;<a href="#">Privacy Statement</a><br />Copyright &copy; 2009&nbsp;Example Depot.&nbsp;All Rights Reserved.</p>                </div>        
+    </div>
+    <div class="art-Footer-background"></div>
+</div>
+
+    </div>
+</div>
+<div class="cleared"></div>
+
+</div>
+
+
+
+</body>
+</html>

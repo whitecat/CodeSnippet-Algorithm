@@ -1,0 +1,956 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>JavaTechniques   &raquo; Faster Deep Copies of Java Objects</title>
+	<meta name="generator" content="WordPress 2.7" /> <!-- leave this for stats -->
+	<link rel="stylesheet" href="http://javatechniques.com/blog/wp-content/themes/lowstream-220/style.css" type="text/css" media="screen" />
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://javatechniques.com/blog/feed/" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="http://javatechniques.com/blog/feed/rss/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://javatechniques.com/blog/feed/atom/" />
+	<link rel="pingback" href="http://javatechniques.com/blog/xmlrpc.php" />
+		<link rel='archives' title='June 2007' href='http://javatechniques.com/blog/2007/06/' />
+	<link rel='archives' title='May 2007' href='http://javatechniques.com/blog/2007/05/' />
+	<link rel='archives' title='April 2007' href='http://javatechniques.com/blog/2007/04/' />
+	<link rel='archives' title='July 2006' href='http://javatechniques.com/blog/2006/07/' />
+	<link rel='archives' title='June 2006' href='http://javatechniques.com/blog/2006/06/' />
+	<link rel='archives' title='October 2005' href='http://javatechniques.com/blog/2005/10/' />
+	<link rel='archives' title='May 2004' href='http://javatechniques.com/blog/2004/05/' />
+	<link rel='archives' title='January 2004' href='http://javatechniques.com/blog/2004/01/' />
+	<link rel='archives' title='December 2003' href='http://javatechniques.com/blog/2003/12/' />
+	<link rel='archives' title='November 2003' href='http://javatechniques.com/blog/2003/11/' />
+	<link rel='archives' title='October 2003' href='http://javatechniques.com/blog/2003/10/' />
+	<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://javatechniques.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://javatechniques.com/blog/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 2.7" />
+
+	
+		<style type="text/css">
+	/* html selectors */
+	
+	html, body {
+		background-color: #FFF;
+	}
+	
+	blockquote {
+		border-left: 1px solid #BBB;
+		background-color: #EEE;
+	}
+	/* page margins */
+	
+	.blog {
+		background-image: url(http://javatechniques.com/blog/wp-content/themes/lowstream-220/images/bg_left.gif);
+		background-repeat: repeat-y;
+	}
+	
+	/* header */
+	
+	.banner {
+		border-left: 1px solid #777;
+		border-right: 1px solid #777;
+		border-bottom: 1px solid #BBB;
+	}
+	
+	/* navigation */
+	
+	#navigation {
+		background-color: #FFF;
+	}
+		
+	#navigation ul li a {
+		color: #003366;
+		background-color: #FFF;
+	}
+	
+	#navigation ul li a:hover, #navigation ul li a:active {
+		background: #dcdcc2;
+		color: #000000;		
+	}
+		
+	/* announcement block */
+
+	#announce {
+		background-color: #FFF;
+		color: #777;
+		border: 1px solid #777;
+	}
+
+	#announce a:link, #announce a:visited {
+		background-color: #FFF;
+		color: #003366;
+	}
+
+	#announce a:hover, #announce a:active {
+		background-color: #FFF;
+		color: #003366;
+	}
+
+	/* posts */
+	
+	.main {
+		float: right;
+	}
+	
+	.main p {
+		color: #333;
+	}
+
+	.main a:link, .main a:visited {
+		color: #0000FF;
+	}
+	
+	.main a:hover, .main a:active {
+		color: #0000FF;
+		background-color: #FFF;
+	}
+
+	.main h2 {
+		color: #003366;
+	}
+
+	.main h2 a:link, .main h2 a:visited  {
+		color: #003366;
+	}
+
+	.main h2 a:hover, .main h2 a:active {
+		color: #003366;
+	}
+
+	.main h3 {
+		color: #003366;
+	}
+
+	.main ul, .main ol {
+		color: #333;
+	}
+
+	.meta {
+		border-top: 1px solid #BBB;
+	}
+
+	.meta a:link, #meta a:visited {
+		color: #0000FF;
+	}
+
+	.meta a:hover, #meta a:active {
+		color: #0000FF;
+	}
+
+	.postnav {
+		color: #0000FF;
+	}
+
+	.postnav li.left {
+		color: #0000FF;
+	}
+
+	.postnav li.right {
+		color: #0000FF;
+	}
+
+	.left a {
+		color: #0000FF;
+	}
+
+	.right a {
+		color: #0000FF;
+	}
+
+	.left a:hover, .right a:hover {
+		color: #0000FF;
+	}
+	
+
+	.left a:active, .right a:active {
+		color: #0000FF;
+	}
+
+	/* comments &amp; trackbacks */
+
+	#comment_area, #trackback_area {
+		color: #777;
+	}
+	
+	#comm_text {
+		border-top: 1px solid #003366;
+		margin-top: 8px;
+	}
+
+	#comment_area p, #traceback_area p {
+		color: #777;
+	}
+
+	#comment_area p a, #comment_area p a:visited, #comment_area p a:active {
+		color: #003366;
+	}
+	
+	#comment_area p a:hover {
+		color: #003366;
+	}
+
+	#commenter {
+		color: #003366;
+	}
+
+	#comment_info {
+		color: #003366;
+	}
+	
+	#comment_author {
+		color: #003366;
+	}
+
+	#comment_number {
+		color: #003366;
+	}
+
+	#comment_number a, #comment_number a:visited, #comment_number a:active {
+		color: #003366;
+	}
+
+	#comment_number a:hover {
+		color: #003366;
+	}
+
+	.comments h2 {
+		color: #003366;
+	}
+	
+	#submit {
+		color: #003366;
+	}
+
+	/* sidebar */
+	
+	.side {
+		float: left;
+	}
+
+	.side h2 {
+		color: #003366;
+	}
+
+	.side ul {
+		border-top: 1px solid #777;
+		color: #777;
+	}
+
+	.side ul a {
+		border-bottom: 1px solid #777;
+		color: #777;
+		background-color: #FFF;
+	}
+
+	.side ul a:hover {
+		color: #000000;
+		background-color: #dcdcc2;
+	}
+
+	/* footer */
+
+	.foot {
+		color: #777;
+		border-top: 1px solid #BBB;
+		border-bottom: 1px solid #BBB;
+		border-left: 1px solid #777;
+		border-right: 1px solid #777;
+		background-color: #FFF;
+	}
+
+	.foot p {
+		color: #777;
+	}
+
+	.foot p a:link, .foot p a:visited {
+		color: #003366;
+	}
+
+	.foot p a:hover, .foot p a:active {
+		color: #003366;
+	}
+
+	/* calendar */
+
+	.pad {
+		background-color: #EEE;
+		color: #777;
+	}
+
+	#wp-calendar caption {
+		color: #003366;
+	}
+
+	#wp-calendar a:link, #wp-calendar a:visited {
+		color: #003366;
+	}
+
+	#wp-calendar a:hover, #wp-calendar a:active {
+		color: #003366;
+	}
+
+	#wp-calendar td {
+		border: 1px solid #777;
+		color: #777;
+	}
+
+	#wp-calendar td a:link, a:visited {
+		color: #003366;
+	}
+
+	#wp-calendar td a:hover, a:active {
+		color: #003366;
+	}
+	
+	#wp-calendar th {
+		color: #777	}
+	
+	/* search forms */
+	
+	.searchform {
+		border: 1px solid #777;
+		background-color: #FFF;
+	}
+
+	</style>
+	
+</head>
+
+<body>
+
+<div class="blog">
+		
+		
+	
+	<div class="banner">
+		<a href="http://javatechniques.com/blog">		<img src="http://javatechniques.com/blog/wp-content/themes/lowstream-220/headers/jt_header.jpg" border="0" alt="Header" />
+		</a>	</div>
+	
+
+	
+	<div class="main">
+	
+		<h2>Faster Deep Copies of Java Objects</h2>
+												<p>The <CODE>java.lang.Object</CODE> root superclass defines a <CODE>clone()</CODE> method that will, assuming the subclass implements the <CODE>java.lang.Cloneable</CODE> interface, return a copy of the object. While Java classes are free to override this method to do more complex kinds of cloning, the default behavior of <CODE>clone()</CODE> is to return a <I>shallow</I> copy of the object. This means that the values of all of the origical object&#8217;s fields are copied to the fields of the new object.</p>
+<p><center><br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-6996704245138669";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text";
+google_ad_channel = "";
+google_color_border = "663300";
+google_color_bg = "330000";
+google_color_link = "FFFFFF";
+google_color_text = "AECCEB";
+google_color_url = "AECCEB";
+//-->
+</script><br />
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script><br />
+</center></p>
+<p>A property of shallow copies is that fields that refer to other objects will point to <I>the same</I> objects in both the original and the clone. For fields that contain primitive or immutable values (<CODE>int</CODE>, <CODE>String</CODE>, <CODE>float</CODE>, etc&#8230;), there is little chance of this causing problems. For mutable objects, however, cloning can lead to unexpected results. Figure 1 shows an example.</p>
+<p><HR></p>
+<pre>
+
+import java.util.Vector;
+
+public class Example1 {
+
+    public static void main(String[] args) {
+        // Make a Vector
+        Vector original = new Vector();
+
+        // Make a StringBuffer and add it to the Vector
+        StringBuffer text = new StringBuffer("The quick brown fox");
+        original.addElement(text);
+
+        // Clone the vector and print out the contents
+        Vector clone = (Vector) original.clone();
+        System.out.println("A. After cloning");
+        printVectorContents(original, "original");
+        printVectorContents(clone, "clone");
+        System.out.println(
+            "--------------------------------------------------------");
+        System.out.println();
+
+        // Add another object (an Integer) to the clone and
+        // print out the contents
+        clone.addElement(new Integer(5));
+        System.out.println("B. After adding an Integer to the clone");
+        printVectorContents(original, "original");
+        printVectorContents(clone, "clone");
+        System.out.println(
+            "--------------------------------------------------------");
+        System.out.println();
+
+        // Change the StringBuffer contents
+        text.append(" jumps over the lazy dog.");
+        System.out.println("C. After modifying one of original's elements");
+        printVectorContents(original, "original");
+        printVectorContents(clone, "clone");
+        System.out.println(
+            "--------------------------------------------------------");
+        System.out.println();
+    }
+
+    public static void printVectorContents(Vector v, String name) {
+        System.out.println("  Contents of \"" + name + "\":");
+
+        // For each element in the vector, print out the index, the
+        // class of the element, and the element itself
+        for (int i = 0; i &lt; v.size(); i++) {
+            Object element = v.elementAt(i);
+            System.out.println("   " + i + " (" +
+                element.getClass().getName() + "): " +
+                element);
+        }
+        System.out.println();
+    }
+
+}
+</pre>
+<p><HR><br />
+<CENTER>Figure 1. Modifying <CODE>Vector</CODE> contents after cloning</CENTER></p>
+<p>In this example we create a <CODE>Vector</CODE> and add a <CODE>StringBuffer</CODE> to it. Note that <CODE>StringBuffer</CODE> (unlike, for example, <CODE>String</CODE> is mutable &#8212; it&#8217;s contents can be changed after creation. Figure 2 shows the output of the example in Figure 1.</p>
+<p><HR></p>
+<pre>
+
+&gt; java Example1
+
+A. After cloning
+  Contents of "original":
+   0 (java.lang.StringBuffer): The quick brown fox
+
+  Contents of "clone":
+   0 (java.lang.StringBuffer): The quick brown fox
+
+ --------------------------------------------------------
+
+B. After adding an Integer to the clone
+  Contents of "original":
+   0 (java.lang.StringBuffer): The quick brown fox
+
+  Contents of "clone":
+   0 (java.lang.StringBuffer): The quick brown fox
+   1 (java.lang.Integer): 5
+
+ --------------------------------------------------------
+
+C. After modifying one of original's elements
+  Contents of "original":
+   0 (java.lang.StringBuffer): The quick brown fox jumps over the lazy dog.
+
+  Contents of "clone":
+   0 (java.lang.StringBuffer): The quick brown fox jumps over the lazy dog.
+   1 (java.lang.Integer): 5
+
+ --------------------------------------------------------
+</pre>
+<p><HR><br />
+<CENTER>Figure 2. Output from the example code in Figure 1</CENTER></p>
+<p>In the first block of output (&#8221;A&#8221;), we see that the clone operation was successful: The original vector and the clone have the same size (1), content types, and values. The second block of output (&#8221;B&#8221;) shows that the original vector and its clone are distinct objects. If we add another element to the clone, it only appears in the clone, and not in the original. The third block of output (&#8221;C&#8221;) is, however, a little trickier. Modifying the <CODE>StringBuffer</CODE> that was added to the original vector has changed the value of the first element of <I>both</I> the original vector and its clone. The explanation for this lies in the fact that <CODE>clone</CODE> made a shallow copy of the vector, so both vectors now point to the exact same <CODE>StringBuffer</CODE> instance.</p>
+<p>This is, of course, sometimes exactly the behavior that you need. In other cases, however, it can lead to frustrating and inexplicable errors, as the state of an object seems to change &#8220;behind your back&#8221;.</p>
+<p>The solution to this problem is to make a <I>deep copy</I> of the object. A deep copy makes a distinct copy of each of the object&#8217;s fields, recursing through the entire graph of other objects referenced by the object being copied. The Java API provides no deep-copy equivalent to <CODE>Object.clone()</CODE>. One solution is to simply implement your own custom method (e.g., <CODE>deepCopy()</CODE>) that returns a deep copy of an instance of one of your classes. This may be the best solution if you need a complex mixture of deep and shallow copies for different fields, but has a few significant drawbacks:<br />
+<OL><br />
+<LI> You must be able to modify the class (i.e., have the source code) or implement a subclass. If you have a third-party class for which you do not have the source and which is marked <CODE>final</CODE>, you are out of luck.<br />
+<LI> You must be able to access all of the fields of the class&#8217;s superclasses. If significant parts of the object&#8217;s state are contained in <CODE>private</CODE> fields of a superclass, you will not be able to access them.<br />
+<LI> You must have a way to make copies of instances of all of the other kinds of objects that the object references. This is particularly problematic if the exact classes of referenced objects cannot be known until runtime.<br />
+<LI> Custom deep copy methods are tedious to implement, easy to get wrong, and difficult to maintain. The method must be revisited any time a change is made to the class or to any of its superclasses.<br />
+</OL></p>
+<p>A common solution to the deep copy problem is to use Java Object Serialization (JOS). The idea is simple: Write the object to an array using JOS&#8217;s <CODE>ObjectOutputStream</CODE> and then use <CODE>ObjectInputStream</CODE> to reconsistute a copy of the object. The result will be a completely distinct object, with completely distinct referenced objects. JOS takes care of all of the details: superclass fields, following object graphs, and handling repeated references to the same object within the graph. Figure 3 shows a first draft of a utility class that uses JOS for making deep copies.</p>
+<p><HR></p>
+<pre>
+
+import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+
+/**
+ * Utility for making deep copies (vs. clone()'s shallow copies) of
+ * objects. Objects are first serialized and then deserialized. Error
+ * checking is fairly minimal in this implementation. If an object is
+ * encountered that cannot be serialized (or that references an object
+ * that cannot be serialized) an error is printed to System.err and
+ * null is returned. Depending on your specific application, it might
+ * make more sense to have copy(...) re-throw the exception.
+ *
+ * A later version of this class includes some minor optimizations.
+ */
+public class UnoptimizedDeepCopy {
+
+    /**
+     * Returns a copy of the object, or null if the object cannot
+     * be serialized.
+     */
+    public static Object copy(Object orig) {
+        Object obj = null;
+        try {
+            // Write the object out to a byte array
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(bos);
+            out.writeObject(orig);
+            out.flush();
+            out.close();
+
+            // Make an input stream from the byte array and read
+            // a copy of the object back in.
+            ObjectInputStream in = new ObjectInputStream(
+                new ByteArrayInputStream(bos.toByteArray()));
+            obj = in.readObject();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        catch(ClassNotFoundException cnfe) {
+            cnfe.printStackTrace();
+        }
+        return obj;
+    }
+
+}
+</pre>
+<p><HR><br />
+<CENTER>Figure 3. Using Java Object Serialization to make a deep copy</CENTER></p>
+<p>Unfortunately, this approach has some problems, too:<br />
+<OL><br />
+<LI> It will only work when the object being copied, as well as all of the other objects references directly or indirectly by the object, are serializable. (In other words, they must implement <CODE>java.io.Serializable</CODE>.) Fortunately it is often sufficient to simply declare that a given class <CODE>implements java.io.Serializable</CODE> and let Java&#8217;s default serialization mechanisms do their thing.<br />
+<LI> Java Object Serialization is slow, and using it to make a deep copy requires both serializing and deserializing. There are ways to speed it up (e.g., by pre-computing serial version ids and defining custom <CODE>readObject()</CODE> and <CODE>writeObject()</CODE> methods), but this will usually be the primary bottleneck.<br />
+<LI> The byte array stream implementations included in the <CODE>java.io</CODE> package are designed to be general enough to perform reasonable well for data of different sizes and to be safe to use in a multi-threaded environment. These characteristics, however, slow down <CODE>ByteArrayOutputStream</CODE> and (to a lesser extent) <CODE>ByteArrayInputStream</CODE>.<br />
+</OL></p>
+<p>The first two of these problems cannot be addressed in a general way. We can, however, use alternative implementations of <CODE>ByteArrayOutputStream</CODE> and <CODE>ByteArrayInputStream</CODE> that makes three simple optimizations:<br />
+<OL><br />
+<LI> <CODE>ByteArrayOutputStream</CODE>, by default, begins with a 32 byte array for the output. As content is written to the stream, the required size of the content is computed and (if necessary), the array is expanded to the greater of the required size or twice the current size. JOS produces output that is somewhat bloated (for example, fully qualifies path names are included in uncompressed string form), so the 32 byte default starting size means that lots of small arrays are created, copied into, and thrown away as data is written. This has an easy fix: construct the array with a larger inital size.<br />
+<LI> All of the methods of <CODE>ByteArrayOutputStream</CODE> that modify the contents of the byte array are <CODE>synchronized</CODE>. In general this is a good idea, but in this case we can be certain that only a single thread will ever be accessing the stream. Removing the synchronization will speed things up a little. <CODE>ByteArrayInputStream</CODE>&#8217;s methods are also synchronized.<br />
+<LI> The <CODE>toByteArray()</CODE> method creates and returns a <I>copy</I> of the stream&#8217;s byte array. Again, this is usually a good idea: If you retrieve the byte array and then continue writing to the stream, the retrieved byte array should not change. For this case, however, creating another byte array and copying into it merely wastes cycles and makes extra work for the garbage collector.<br />
+</OL><br />
+An optimized implementation of <CODE>ByteArrayOutputStream</CODE> is shown in Figure 4.<br />
+<HR></p>
+<pre>
+
+import java.io.OutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+
+/**
+ * ByteArrayOutputStream implementation that doesn't synchronize methods
+ * and doesn't copy the data on toByteArray().
+ */
+public class FastByteArrayOutputStream extends OutputStream {
+    /**
+     * Buffer and size
+     */
+    protected byte[] buf = null;
+    protected int size = 0;
+
+    /**
+     * Constructs a stream with buffer capacity size 5K
+     */
+    public FastByteArrayOutputStream() {
+        this(5 * 1024);
+    }
+
+    /**
+     * Constructs a stream with the given initial size
+     */
+    public FastByteArrayOutputStream(int initSize) {
+        this.size = 0;
+        this.buf = new byte[initSize];
+    }
+
+    /**
+     * Ensures that we have a large enough buffer for the given size.
+     */
+    private void verifyBufferSize(int sz) {
+        if (sz > buf.length) {
+            byte[] old = buf;
+            buf = new byte[Math.max(sz, 2 * buf.length )];
+            System.arraycopy(old, 0, buf, 0, old.length);
+            old = null;
+        }
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * Returns the byte array containing the written data. Note that this
+     * array will almost always be larger than the amount of data actually
+     * written.
+     */
+    public byte[] getByteArray() {
+        return buf;
+    }
+
+    public final void write(byte b[]) {
+        verifyBufferSize(size + b.length);
+        System.arraycopy(b, 0, buf, size, b.length);
+        size += b.length;
+    }
+
+    public final void write(byte b[], int off, int len) {
+        verifyBufferSize(size + len);
+        System.arraycopy(b, off, buf, size, len);
+        size += len;
+    }
+
+    public final void write(int b) {
+        verifyBufferSize(size + 1);
+        buf[size++] = (byte) b;
+    }
+
+    public void reset() {
+        size = 0;
+    }
+
+    /**
+     * Returns a ByteArrayInputStream for reading back the written data
+     */
+    public InputStream getInputStream() {
+        return new FastByteArrayInputStream(buf, size);
+    }
+
+}
+</pre>
+<p><HR><br />
+<CENTER>Figure 4. Optimized version of <CODE>ByteArrayOutputStream</CODE></CENTER></p>
+<p>The <CODE>getInputStream()</CODE> method returns an instance of an optimized version of <CODE>ByteArrayInputStream</CODE> that has unsychronized methods. The implementation of <CODE>FastByteArrayInputStream</CODE> is shown in Figure 5.<br />
+<HR></p>
+<pre>
+
+import java.io.InputStream;
+import java.io.IOException;
+
+/**
+ * ByteArrayInputStream implementation that does not synchronize methods.
+ */
+public class FastByteArrayInputStream extends InputStream {
+    /**
+     * Our byte buffer
+     */
+    protected byte[] buf = null;
+
+    /**
+     * Number of bytes that we can read from the buffer
+     */
+    protected int count = 0;
+
+    /**
+     * Number of bytes that have been read from the buffer
+     */
+    protected int pos = 0;
+
+    public FastByteArrayInputStream(byte[] buf, int count) {
+        this.buf = buf;
+        this.count = count;
+    }
+
+    public final int available() {
+        return count - pos;
+    }
+
+    public final int read() {
+        return (pos < count) ? (buf[pos++] &#038; 0xff) : -1;
+    }
+
+    public final int read(byte[] b, int off, int len) {
+        if (pos >= count)
+            return -1;
+
+        if ((pos + len) > count)
+            len = (count - pos);
+
+        System.arraycopy(buf, pos, b, off, len);
+        pos += len;
+        return len;
+    }
+
+    public final long skip(long n) {
+        if ((pos + n) > count)
+            n = count - pos;
+        if (n < 0)
+            return 0;
+        pos += n;
+        return n;
+    }
+
+}
+</pre>
+<p><HR><br />
+<CENTER>Figure 5. Optimized version of <CODE>ByteArrayInputStream</CODE>.</CENTER></p>
+<p>Figure 6 shows a version of a deep copy utility that uses these classes:<br />
+<HR></p>
+<pre>
+
+import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+
+/**
+ * Utility for making deep copies (vs. clone()'s shallow copies) of
+ * objects. Objects are first serialized and then deserialized. Error
+ * checking is fairly minimal in this implementation. If an object is
+ * encountered that cannot be serialized (or that references an object
+ * that cannot be serialized) an error is printed to System.err and
+ * null is returned. Depending on your specific application, it might
+ * make more sense to have copy(...) re-throw the exception.
+ */
+public class DeepCopy {
+
+    /**
+     * Returns a copy of the object, or null if the object cannot
+     * be serialized.
+     */
+    public static Object copy(Object orig) {
+        Object obj = null;
+        try {
+            // Write the object out to a byte array<FONT COLOR=RED>
+            FastByteArrayOutputStream fbos =
+                    new FastByteArrayOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(fbos);</FONT>
+            out.writeObject(orig);
+            out.flush();
+            out.close();
+
+            // Retrieve an input stream from the byte array and read
+            // a copy of the object back in.
+            ObjectInputStream in =
+                new ObjectInputStream(<FONT COLOR=RED>fbos.getInputStream()</FONT>);
+            obj = in.readObject();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        catch(ClassNotFoundException cnfe) {
+            cnfe.printStackTrace();
+        }
+        return obj;
+    }
+
+}
+</pre>
+<p><HR><br />
+<CENTER>Figure 6. Deep-copy implementation using optimized byte array streams</CENTER></p>
+<p>The extent of the speed boost will depend on a number of factors in your specific application (more on this later), but the simple class shown in Figure 7 tests the optimized and unoptimized versions of the deep copy utility by repeatedly copying a large object.<br />
+<HR></p>
+<pre>
+
+import java.util.Hashtable;
+import java.util.Vector;
+import java.util.Date;
+
+public class SpeedTest {
+
+    public static void main(String[] args) {
+        // Make a reasonable large test object. Note that this doesn't
+        // do anything useful -- it is simply intended to be large, have
+        // several levels of references, and be somewhat random. We start
+        // with a hashtable and add vectors to it, where each element in
+        // the vector is a Date object (initialized to the current time),
+        // a semi-random string, and a (circular) reference back to the
+        // object itself. In this case the resulting object produces
+        // a serialized representation that is approximate 700K.
+        Hashtable obj = new Hashtable();
+        for (int i = 0; i < 100; i++) {
+            Vector v = new Vector();
+            for (int j = 0; j < 100; j++) {
+                v.addElement(new Object[] {
+                    new Date(),
+                    "A random number: " + Math.random(),
+                    obj
+                 });
+            }
+            obj.put(new Integer(i), v);
+        } 
+
+        int iterations = 10;
+
+        // Make copies of the object using the unoptimized version
+        // of the deep copy utility.
+        long unoptimizedTime = 0L;
+        for (int i = 0; i < iterations; i++) {
+            long start = System.currentTimeMillis();
+            Object copy = UnoptimizedDeepCopy.copy(obj);
+            unoptimizedTime += (System.currentTimeMillis() - start);
+
+            // Avoid having GC run while we are timing...
+            copy = null;
+            System.gc();
+        }
+
+        // Repeat with the optimized version
+        long optimizedTime = 0L;
+        for (int i = 0; i < iterations; i++) {
+            long start = System.currentTimeMillis();
+            Object copy = DeepCopy.copy(obj);
+            optimizedTime += (System.currentTimeMillis() - start);
+
+            // Avoid having GC run while we are timing...
+            copy = null;
+            System.gc();
+        }
+
+        System.out.println("Unoptimized time: " + unoptimizedTime);
+        System.out.println("  Optimized time: " + optimizedTime);
+    }
+
+}
+</pre>
+<p><HR><br />
+<CENTER>Figure 7. Testing the two deep copy implementations.</CENTER></p>
+<p>A few notes about this test:<br />
+<UL><br />
+<LI> The object that we are copying is large. While somewhat random, it will generally have a serialized size of around 700 Kbytes.<br />
+<LI> The most significant speed boost comes from avoid extra copying of data in <CODE>FastByteArray<i>Output</i>Stream</CODE>. This has several implications:<br />
+<OL><br />
+<LI> Using the unsynchronized <CODE>FastByteArrayInputStream</CODE> speeds things up a little, but the standard <CODE>java.io.ByteArrayInputStream</CODE> is nearly as fast.<br />
+<LI> Performance is mildly sensitive to the initial buffer size in <CODE>FastByteArrayOutputStream</CODE>, but is much more sensitive to the rate at which the buffer grows. If the objects you are copying tend to be of similar size, copying will be much faster if you initialize the buffer size and tweak the rate of growth.<br />
+</OL><br />
+<LI> Measuring speed using elapsed time between two calls to <CODE>System.currentTimeMillis()</CODE> is problematic, but for single-threaded applications and testing relatively slow operations it is sufficient. A number of commercial tools (such as JProfiler) will give more accurate per-method timing data.<br />
+<LI> Testing code in a loop is also problematic, since the first few iterations will be slower until HotSpot decides to compile the code. Testing larger numbers of iterations aleviates this problems.<br />
+<LI> Garbage collection further complicates matters, particularly in cases where lots of memory is allocated. In this example, we manually invoke the garbage collector after each copy to try to keep it from running while a copy is in progress.<br />
+</UL></p>
+<p>These caveats aside, the performance difference is sigificant. For example, the code as shown in Figure 7 (on a 500Mhz G3 Macintosh iBook running OSX 10.3 and Java 1.4.1) reveals that the unoptimized version requires about 1.8 seconds per copy, while the optimized version only requires about 1.3 seconds. Whether or not this difference is signficant will, of course, depend on the frequency with which your application does deep copies and the size of the objects being copied. </p>
+<p>For very large objects, an extension to this approach can reduce the peak memory footprint by serializing and deserializing in parallel threads. See &#8220;<A HREF="http://javatechniques.com/blog/low-memory-deep-copy-technique-for-java-objects/">Low-Memory Deep Copy Technique for Java Objects</A>&#8221; for more information.</p>
+	<xx?php comments_template(); ?xx>
+							
+	</div>
+
+<div class="side">
+	
+		
+	<br />
+	
+		
+	<h2>Categories</h2>
+		<ul>
+				<li class="cat-item cat-item-3"><a href="http://javatechniques.com/blog/category/basics/" title="View all posts filed under Basics">Basics</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://javatechniques.com/blog/category/bug-fixes/" title="View all posts filed under Bug fixes">Bug fixes</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://javatechniques.com/blog/category/general-development/" title="View all posts filed under General Development">General Development</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://javatechniques.com/blog/category/gui/" title="View all posts filed under GUI">GUI</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://javatechniques.com/blog/category/hosting/" title="View all posts filed under Hosting">Hosting</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://javatechniques.com/blog/category/lucene/" title="View all posts filed under Lucene">Lucene</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://javatechniques.com/blog/category/optimization/" title="View all posts filed under Optimization">Optimization</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://javatechniques.com/blog/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+		</ul>
+<br />
+
+       <center>
+<script type="text/javascript"><!--
+google_ad_client = "pub-6996704245138669";
+google_ad_width = 120;
+google_ad_height = 600;
+google_ad_format = "120x600_as";
+google_ad_type = "text";
+google_ad_channel ="";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<p/>
+<center>
+<script type="text/javascript" src=http://www.hostmonster.com/src/js/isenhour/CODE16/120x90/1.gif></script>
+</center>
+<p/>
+<center>
+<SCRIPT charset="utf-8" type="text/javascript" src="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822/US/javatechncom-20/8001/c90ca370-c0bf-4826-b729-55f8d375ab98"> </SCRIPT> <NOSCRIPT><A HREF="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Fjavatechncom-20%2F8001%2Fc90ca370-c0bf-4826-b729-55f8d375ab98&Operation=NoScript">Amazon.com Widgets</A></NOSCRIPT>
+</center>
+
+
+<br />
+		
+ <!--
+	<h2>Navigation</h2>
+		<ul>
+			<li><a href="http://javatechniques.com/blog/">Home</a></li>
+		</ul>
+ -->
+	
+	<h2>Pages</h2>
+		<ul>
+			<li class="page_item page-item-2"><a href="http://javatechniques.com/blog/about/" title="About this Site">About this Site</a></li>
+<li class="page_item page-item-14"><a href="http://javatechniques.com/blog/compressing-data-sent-over-a-socket/" title="Compressing Data Sent Over a Socket">Compressing Data Sent Over a Socket</a></li>
+<li class="page_item page-item-11"><a href="http://javatechniques.com/blog/dateformat-and-simpledateformat-examples/" title="DateFormat and SimpleDateFormat Examples">DateFormat and SimpleDateFormat Examples</a></li>
+<li class="page_item page-item-13"><a href="http://javatechniques.com/blog/deploying-java-apps-on-a-virtual-dedicated-server/" title="Deploying Java Apps on a Virtual Dedicated Server">Deploying Java Apps on a Virtual Dedicated Server</a></li>
+<li class="page_item page-item-10 current_page_item"><a href="http://javatechniques.com/blog/faster-deep-copies-of-java-objects/" title="Faster Deep Copies of Java Objects">Faster Deep Copies of Java Objects</a></li>
+<li class="page_item page-item-17"><a href="http://javatechniques.com/blog/faster-jtextpane-text-insertion-part-i/" title="Faster JTextPane Text Insertion (Part I)">Faster JTextPane Text Insertion (Part I)</a></li>
+<li class="page_item page-item-18"><a href="http://javatechniques.com/blog/faster-jtextpane-text-insertion-part-ii/" title="Faster JTextPane Text Insertion (Part II)">Faster JTextPane Text Insertion (Part II)</a></li>
+<li class="page_item page-item-15"><a href="http://javatechniques.com/blog/fixing-disappearing-text-selections-when-a-menu-is-opened/" title="Fixing Disappearing Text Selections when a Menu is Opened">Fixing Disappearing Text Selections when a Menu is Opened</a></li>
+<li class="page_item page-item-19"><a href="http://javatechniques.com/blog/gridbaglayout-example-a-simple-form-layout/" title="GridBagLayout Example: A Simple Form Layout">GridBagLayout Example: A Simple Form Layout</a></li>
+<li class="page_item page-item-16"><a href="http://javatechniques.com/blog/java-font-problems-under-panther-mac-osx-103/" title="Java Font Problems under Panther (Mac OSX 10.3)">Java Font Problems under Panther (Mac OSX 10.3)</a></li>
+<li class="page_item page-item-39"><a href="http://javatechniques.com/blog/jdb-example-generating-a-thread-dump/" title="JDB Example: Generating a Thread Dump">JDB Example: Generating a Thread Dump</a></li>
+<li class="page_item page-item-41"><a href="http://javatechniques.com/blog/launching-java-webstart-from-the-command-line/" title="Launching Java WebStart from the Command Line">Launching Java WebStart from the Command Line</a></li>
+<li class="page_item page-item-12"><a href="http://javatechniques.com/blog/linux-x11-libraries-for-headless-mode/" title="Linux X11 Libraries for Headless Mode">Linux X11 Libraries for Headless Mode</a></li>
+<li class="page_item page-item-9"><a href="http://javatechniques.com/blog/low-memory-deep-copy-technique-for-java-objects/" title="Low-Memory Deep Copy Technique for Java Objects">Low-Memory Deep Copy Technique for Java Objects</a></li>
+<li class="page_item page-item-4"><a href="http://javatechniques.com/blog/lucene-in-memory-text-search-example/" title="Lucene In-Memory Text Search Example">Lucene In-Memory Text Search Example</a></li>
+<li class="page_item page-item-21"><a href="http://javatechniques.com/blog/profiling-webstart-apps-with-jprofiler-on-osx/" title="Profiling WebStart Apps with JProfiler on OSX">Profiling WebStart Apps with JProfiler on OSX</a></li>
+<li class="page_item page-item-8"><a href="http://javatechniques.com/blog/setting-jtextpane-font-and-color/" title="Setting JTextPane Font and Color">Setting JTextPane Font and Color</a></li>
+<li class="page_item page-item-6"><a href="http://javatechniques.com/blog/squid-corrupts-jar-files/" title="Squid Corrupts Jar Files?">Squid Corrupts Jar Files?</a></li>
+<li class="page_item page-item-5"><a href="http://javatechniques.com/blog/string-equality-and-interning/" title="String Equality and Interning">String Equality and Interning</a></li>
+		</ul>
+		
+	<h2>Archives</h2>
+		<ul>
+				<li><a href='http://javatechniques.com/blog/2007/06/' title='June 2007'>June 2007</a></li>
+	<li><a href='http://javatechniques.com/blog/2007/05/' title='May 2007'>May 2007</a></li>
+	<li><a href='http://javatechniques.com/blog/2007/04/' title='April 2007'>April 2007</a></li>
+	<li><a href='http://javatechniques.com/blog/2006/07/' title='July 2006'>July 2006</a></li>
+	<li><a href='http://javatechniques.com/blog/2006/06/' title='June 2006'>June 2006</a></li>
+	<li><a href='http://javatechniques.com/blog/2005/10/' title='October 2005'>October 2005</a></li>
+	<li><a href='http://javatechniques.com/blog/2004/05/' title='May 2004'>May 2004</a></li>
+	<li><a href='http://javatechniques.com/blog/2004/01/' title='January 2004'>January 2004</a></li>
+	<li><a href='http://javatechniques.com/blog/2003/12/' title='December 2003'>December 2003</a></li>
+	<li><a href='http://javatechniques.com/blog/2003/11/' title='November 2003'>November 2003</a></li>
+	<li><a href='http://javatechniques.com/blog/2003/10/' title='October 2003'>October 2003</a></li>
+		</ul>	
+
+	
+	<h2>Meta</h2>
+		<ul>
+						<li><a href="http://javatechniques.com/blog/feed/" title="Syndicate this site using RSS"><abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://javatechniques.com/blog/wp-login.php">Log in</a></li>
+					</ul>
+	
+		
+	<br />
+	
+	</div>
+
+			
+			
+			<div class="foot">
+				<p>
+				Copyright 2003-2007 - Philip Isenhour				</p>
+								
+			</div>
+			
+		</div>
+		
+	</body>
+	
+</html>

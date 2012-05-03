@@ -1,0 +1,405 @@
+<html>
+<head>
+   <title>Javad: A Java Class File Disassembler</title>
+</head>
+<body background="/images/paperbk.gif">
+<base href="http://www.bearcave.com/">
+
+<h2>
+Javad: A Java Class File Disassembler
+</h2>
+
+<p>
+This web page publishes <b>javad</b>, a Java class file disassembler.
+This program is published in source form.  The javad program is
+written in Java (as Sun would say, 100% pure Java, compile once, run
+anywhere - pass the coolaid).
+</p>
+
+<h3>
+Why would you be interested in <i>javad</i>?
+</h3>
+
+<p>
+The <b>javad</b> program is a tool for understanding the Java class
+file format.  
+</p>
+
+<p>
+Java class files contain most of the original symbol information that
+existed in the Java source.  When compiling a Java class that
+references a class outside of the current file, the Java compiler uses
+the symbol information in the class file to resolve local references
+and to do semantic checking.  For example, if the Java compiler is
+compiling the file MyClass.java, which imports the class FooClass, the
+Java compiler will look for symbol information in the class file
+FooClass.class.
+</p>
+
+<p>
+Java source level debuggers, Java source browsers and, of course, Java
+virtual machines, must all read class files and build internal data
+structures on the basis of the class file information.
+</p>
+
+<p>
+The <b>javad</b> program operates much like Sun's <b>javap</b> class
+file disassembler.  That is, <b>javad</b> reads a class file and
+outputs a pseudo-Java declaration for the class that was the source
+for the class file.  Unlike Sun's <b>javap</b>, the <b>javad</b>
+program is published in source form to serve as a reference for
+reading class files.
+</p>
+
+<h3>
+Software Download
+</h3>
+
+<p>
+The <b>javad</b> source code currently consists of about 4K lines of
+Java source and comments.  It can be downloaded as a gzipped tar file
+by clicking <a href="/software/java/javad/src/javad.tar.gz">here</a>.
+</p>
+
+<p>
+If you are using a Windows NT system and you don't have <b>gzip</b>
+and <b>tar</b> you can down load them here (note: I have not tested
+gzip/tar on Windows 95/98).  This code is courtesy of <a
+href="http://www.cygnus.com">Cygnus</a> and is free software.
+</p>
+<ul>
+<li>
+<a href="/software/btp/gzip.exe">gzip.exe</a>
+</li>
+<li>
+<a href="/software/btp/tar.exe">tar.exe</a>
+</li>
+</ul>
+</p>
+
+<p>
+This software is <u>not</u> open source.  It is covered by the
+following <a
+href="http://www.bearcave.com/software/java/javad/copyright.html">
+copyright</a>.  I discuss my reasons for using this copyright at
+length <a href="http://www.bearcave.com/software/btp/freesoft.html">here</a>.
+</p>
+
+<h3>
+Unpacking the software
+</h3>
+
+<ol>
+
+<li>
+<p>
+The source for <b>javad</b> will probably placed in the destination
+directory as <i>javad_tar.gz</i>.  Execute the command <tt>gzip -d
+javad_tar.gz</tt>.  This will uncompress the file into <i>javad_tar</i>.
+</p>
+</li>
+
+<li>
+<p>
+To unpack the "tar" file execute the command <tt>tar xvf
+javad_tar</tt>.  This will create the directory <tt>javad</tt> which
+contains the source tree for <b>javad</b>.
+</p>
+</li>
+
+</ol>
+
+<h3>
+Building <i>javad</i>
+</h3>
+
+<p>
+One nice thing about Java is that it does not necessarily need a
+"Makefile" to build a source tree.  To build <b>javad</b> compile the
+ile <tt>javad.java</tt> with your local Java compiler (e.g, Sun's
+<b>javac</b>, Microsofts <b>jvc</b>.  For example:
+</p>
+<pre>
+  javac javad.java
+  jvc javad.java
+</pre>
+<p>
+The packages that are used by <b>javad</b> reference each other, so
+you may have to set our class path to refer to both the local
+directory and to the next directory up.  Here is how I've set my class
+path:
+</p>
+<pre>
+CLASSPATH=.;..;E:\jdk1.2.2\jre\lib\rt.jar
+</pre>
+
+<h3>
+Running <i>javad</i>
+</h3>
+
+<p>
+The <b>javad</b> program takes a list of one or more class files.  To
+run <b>javad</b> enter:
+</p>
+
+<pre>
+   java javad.main MyClass.class
+</pre>
+<p>
+or
+</p>
+<pre>
+   jview javad.main MyClass.class
+</pre>
+
+<h3>
+<i>javad</i> documentation
+</h3>
+
+<p>
+Software source code encapsulates information in the same way that
+a book does.  In the case of software this information is designed to be
+read by both compilers and people.  The challenge for the author of
+anything more than a trivial piece of software is to make the software
+design and implementation understandable to humans.  No piece of
+software that is larger than a few hundred lines is "self
+documenting".  This is a canard put forward by software engineers who
+don't want to spend the time to document their software source.
+</p>
+
+<p>
+I hope that from the paragraph above it is clear that I believe
+strongly in documenting code.  Over time I have come to believe that
+the implementation documentation should be included with the code
+itself and maintained with the code as comments.  As the code changes,
+the documentation should change as well.  Documentation is rarely
+complete (this is certainly true of the <b>javad</b> documentation) and
+documentation should be added to over time to explain pieces of
+code that seemed clear when they were written but were revealed as
+obscure when they were read weeks or months later.
+</p>
+
+<p>
+In the case of <b>javad</b> much of the documentation is contained in
+Chapter 4 of <i>The Java Virtual Machine Specification</i>, Second
+Edition, by Tim Lindholm and Frank Yelling, Addison Wesley, 1999.
+This chapter specifies the Java Virtual Machine (JVM) class file
+format.  The comments in the <b>javad</b> source discuss how the
+source code relates to this file format and discusses areas where I
+found the JVM Specification either incorrect or obscure.
+</p>
+
+<p>
+One piece that is largely missing in the programmer's tool box is a
+software tool that will read documented source code and turn it into a
+document that can be used to explain the algorithms or software
+structure.  Some programs, like Knuth's CWEB, create beautifully
+typeset documents, but clutter the source code with typesetting
+commands to the extent that it harms readability.  Sun's
+<b>javadoc</b> reads Java source and does a nice job of creating API
+documentation.  It is less useful for documenting programs.  But I
+have not found a better tool which is free (e.g., without paying a
+license fee).
+</p>
+
+<p>
+<b>Javadoc</b> generated documentation for <b>Javad</b> are available
+<a href="/software/java/javad/doc/index.html">here</a>.
+</p>
+
+<p>
+Keith Johnston's ANTLR based <a
+href="http://home.austin.rr.com/kjohnston/javasrc.htm"><i>javasrc</i></a>
+program generates an HTML version of a Java source tree that includes
+cross reference HTML links.  This is published <a
+href="/software/java/javad/javasrc_doc/index.html">here</a>.
+</p>
+
+<h3>
+Other Java Documentation Software
+</h3>
+
+<p>
+I did not find Sun's <b>javadoc</b> very easy to use.  Its great for
+documenting class librarys, but it is hard to get it to develop a
+documentation hierarchy for a program like <i>javad</i>.  I looked at
+a number of documentation tools, both in the public domain and for a
+license fee.  Right now I can bring myself to pay a license fee for a
+documentation tool.  Here are some notes on other documentation tools.
+</p>
+
+<ul>
+
+<li>
+<p>
+The <i>doxygen</i> documentation tool for C++
+</p>
+
+<p>
+The <a href="http://www.stack.nl/~dimitri/doxygen/">doxygen</a> tool,
+written by Dimitri van Heesch is a documentation tool for C++.  The
+source for <i>doxygen</i> is published under the GNU Public License
+(GPL).  This tool looks really promising and looks like a great
+alternative to commercial tools.  This software is mirrored in a
+number of places on the Internet.  Several of these suggest that it
+can be used to document Java as well.  Certainly the class structure
+of Java is simplar to that of C++.  But the syntax of the two
+languages, especially for methods and class members, is different and
+I have not found an authoritative statement that it can be used for
+Java.
+</p>
+</li>
+
+
+<li>
+<p>
+DOC++ by Roland Wunderling and Malte Z&ouml;ckler of the
+Konrad-Zuse-Zentrum f&uuml;r Informationstechnik Berlin
+</p>
+<p>
+The <a
+href="http://www.zib.de/Visual/software/doc++/index.html">DOC++</a>
+can be used to generate documentation for both Java and C++.  I
+believe that I tried this program and had trouble with it (it crashed
+or did not produce the output I wanted).  However, it too looks
+promising and I'll give it another try the next time I generate Java
+documentation.
+</p>
+</li>
+</ul>
+
+<h3>
+Future Directions
+</h3>
+
+<p>
+The <b>javad</b> program reads the Java class file code attribute
+associated with class methods.  It builds an object that contains the
+Java byte codes, but currently does not do anything with the byte code.
+</p>
+
+
+<p>
+A later release of the <b>javad</b> program will read the Java byte
+codes in the method code attributes and print the equivalent abstract
+syntax trees.  This will serve as a prototype for a compiler input
+phase.
+</p>
+
+<p>
+Java byte code can be converted into an abstract syntax trees
+(ASTs) by creating software that acts like the Java
+virtual machine.  Instead of executing the Java code, it generates
+trees.  For example, consider the following pseudo-byte codes:
+</p>
+
+<pre>
+push A
+push B
+iAdd
+store C
+</pre>
+
+<p>
+If these pseudo-byte codes were executed on a stack machine like the
+JVM, they would push A onto the stack, push B onto the stack and then
+add the top of stack (tos) and tos-1 values.  The result would be left
+on the top of stack.  The top of stack would then be stored into C by the
+<tt>store C</tt> instruction.
+</p>
+
+<p>
+To generate ASTs from the byte code stream, a stack would be used that
+would hold AST nodes (e.g., AST "leaves" like identifiers and
+constants and AST operators like "+").  The execution of the above
+byte codes would push an AST node for symbol A and an AST node for
+symbol B onto the stack.  The execution of the iAdd would "reduce" the
+stack and create the tree
+</p>
+<pre>
+         +
+        / \
+       A   B
+</pre>
+<p>
+The tree rooted in "+" would be put back on the stack.  The "store C"
+operation would result in the creation of the tree
+</p>
+<pre>
+       =
+      / \
+     C   +
+        / \
+       A   B
+</pre>
+<p>
+Since this is a statement in Java it would be added to the statement list.
+</p>
+
+<p>
+Blocks of statements without branches are referred to as basic blocks
+by compiler designers.  By following the scheme above, basic blocks
+can be generated.  Java branch operations result in the construction
+of a control flow graph of basic blocks.
+</p>
+
+<p>
+Once the Java byte code stream has been "decompiled" into a control
+flow graph of basic blocks it is possible to further decompile the
+Java byte codes back into java source.
+</p>
+
+<p>
+If the Java byte code stream is "decompiled" into a control flow graph
+that is the same as the control flow graph generated by a Java front
+end, then a Java compiler actually has two options: Java source code
+or Java class files.  After a class file is read into a control flow
+graph it can be optimized and native code can be generated.  This
+allows a Java compiler to process Java source and class files for
+which source is not available.
+</p>
+
+<p>
+A Java to native compiler must be able to read Java class files to get
+get symbol information on classes and interfaces that are imported
+into the file being compiled.  It must also be able to generate a flow
+graph from the byte code stream so that it can compile class files
+produced by Java byte code compilers.  Since parsing and semantic
+analysis is also a big task, many compilers simply use class files as
+their input.  The Sun Java compiler is available at no cost, so
+this is not seen as a burden on the user.  Java compilers are
+discussed at greater length on my Web page on <a
+href="/software/java/comp_java.html">compiling Java</a>.
+</p>
+
+<h3>
+Related links
+</h3>
+
+<p>
+Bill Venners, author of <i>Inside the Java 2 Virtual Machine</i> has a
+great web site with lots of information on the JVM, Java and Jini (the
+coolest Java technology yet released).  The site is named after
+Venners' consulting company, Artima Software.  You can click on the
+icon below to go to the Artima site.
+</p>
+<p>
+<A
+href="http://www.artima.com"><IMG src="images/artima.gif" alt="Get
+Java and Jini resources at artima.com" border="0" width="100"
+height="25"></A>
+</p>
+
+<p>
+Ian Kaplan, January 24, 2000<br/>
+Revised: April 26, 2004
+</p>
+
+<hr>
+
+<p><a href="/software/java">back to <i>Java page</i></a></p>
+
+<address><a href="mailto:iank@bearcave.com"><img src="/images/mailicon.gif" border=0 height=82 width=60 align=bottom></a></address>
+
+</body>
+</html>

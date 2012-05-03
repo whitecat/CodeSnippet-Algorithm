@@ -1,0 +1,500 @@
+<HTML>
+<HEAD>
+<TITLE>Programming in Java:  Lecture Notes 4</TITLE>
+</HEAD>
+<BODY BGCOLOR=FFFFFF>
+<HR>
+<H1>Programming in Java</H1>
+
+<B>Graphics and Graphical User Interfaces</B>
+<BR>
+<B>Display of AkmMimic</B>
+<BR>
+<B>Classes used in Mimic</B>
+<HR>
+<H1>Display Components</H1>
+
+<UL>
+<LI>Basic code to display components
+
+
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+
+
+          public class AkmMimic extends Applet {
+
+            public void init () {
+
+              this.add (new TextField(20));
+ 
+              this.add (new Label ("No news is good news"));
+
+              this.add (new Button ("OK"));
+
+            }
+
+          }
+
+</PRE>
+
+<LI>Applet is a type of Container
+<LI>Can add components to containers
+<LI>Container takes care of "laying out the components"
+<LI>Default behavior for Applets is "Flow Layout"
+<LI>Left to right, goes to new rows as necessary
+</UL>
+
+<HR>
+<H1>Events</H1>
+
+
+<UL>
+<LI>Events can occur on Components
+<LI>There are many types of events, for example:
+<UL>
+<LI>Action, Mouse, Key, Focus, Paint, Window
+</UL>
+<LI>Listeners watch for events on component
+<LI>Listeners in Java are interfaces (must be implemented by a class)
+<LI>Examples:
+<UL>
+<LI>ActionListener 
+<LI>MouseListener
+<LI>MouseMotionListener
+</UL>
+<LI>Listeners are passed Event objects
+<LI>Event objects contain information (e.g. x,y position of mouse)
+<LI>Examples
+<UL>
+<LI>ActionEvent
+<LI>MouseEvent
+<LI>KeyEvent
+</UL>
+<LI>Different components can generate different events
+<LI>Button, List, TextField, MenuItem generate ActionEvents
+<LI>Any component can generate MouseEvents
+<LI>To handle events, have to add listeners
+<PRE>
+          Button b = new Button ("OK");
+
+          ActionListener al = ? create an action listener ?
+
+          b.addActionListener (al);
+
+</PRE>
+<LI>ActionListener is an interface
+<LI>Need a class that implements the interface
+<PRE>
+          public abstract interface ActionListener
+
+          extends EventListener {
+
+          public abstract void actionPerformed (ActionEvent e);
+
+          }
+
+</PRE>
+</UL>
+
+<HR>
+<H1>Listening to the OK button</H1>
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+          import java.awt.event.*;
+
+
+
+          public class AkmMimic extends Applet {
+
+            public void init () {
+
+              this.add (new TextField(20));
+
+              this.add (new Label ("No news is good news"));
+
+              Button b = new Button ("OK");
+
+              ActionListener al = new OK_Handler();
+
+              b.addActionListener (al);
+
+              this.add (b);
+
+            }
+
+          }
+
+
+
+          class OK_Handler implements ActionListener {
+
+            public void actionPerformed (ActionEvent e) {
+
+              System.out.println ("You pressed OK");
+
+            }
+
+          }
+
+</PRE>
+
+<HR>
+<H1>Applets can also Listen</H1>
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+          import java.awt.event.*;
+
+
+
+          public class AkmMimic extends Applet implements ActionListener {
+
+            public void init () {
+
+              this.add (new TextField(20));
+
+              this.add (new Label ("No news is good news"));
+
+              Button b = new Button ("OK");
+
+              b.addActionListener (this);
+
+              this.add (b);
+
+            }
+
+
+
+            public void actionPerformed (ActionEvent e) {
+
+              System.out.println ("You pressed OK");
+
+            }
+
+          }
+
+</PRE>
+
+<HR>
+<H1>Copying from TextField to Label</H1>
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+          import java.awt.event.*;
+
+
+
+          public class AkmMimic extends Applet implements ActionListener {
+
+            TextField textfield = new TextField(20);
+
+            Label label = new Label ("No news is good news");
+
+            public void init () {
+
+              this.add (textfield);
+
+              this.add (label));
+
+              Button b = new Button ("OK");
+
+              b.addActionListener (this);
+
+              this.add (b);
+
+            }
+
+
+
+            public void actionPerformed (ActionEvent e) {
+
+              label.setText (textfield.getText());
+
+            }
+
+          }
+
+</PRE>
+
+<HR>
+<H1>Listeners</H1>
+<UL>
+<LI>Some listeners have multiple methods
+
+
+<PRE>
+          public abstract interface MouseListener extends EventListener {
+
+            public abstract void mouseClicked(MouseEvent e);
+
+            public abstract void mouseEntered(MouseEvent e);
+
+            public abstract void mouseExited(MouseEvent e);
+
+            public abstract void mousePressed(MouseEvent e);
+
+            public abstract void mouseReleased(MouseEvent e);
+ 
+          };
+
+</PRE>
+<LI>Classes that implement interfaces
+<LI>MUST define code for all methods of the interface
+<LI>If you only need code in one method, solution isn't clean
+</UL>
+
+<HR>
+<H1>Handling Mouse Events</H1>
+
+
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+          import java.awt.event.*;
+
+
+
+          public class AkmMimic extends Applet {
+
+            public void init () {
+
+              this.add (new TextField(20));
+
+              this.add (new Label ("No news is good news"));
+
+              this.add (new Button("OK"));
+
+              this.addMouseListener (new MyMouseHandler());
+
+            }
+
+          }
+
+
+
+          class MyMouseHandler implements MouseListener {
+
+            public void mouseClicked(MouseEvent e) { }
+
+            public void mouseEntered(MouseEvent e) { }
+
+            public void mouseExited(MouseEvent e) { }
+ 
+            public void mousePressed(MouseEvent e) {
+
+              System.out.println ("You pressed a mouse button");
+
+            }
+
+            public void mouseReleased(MouseEvent e) { }
+
+          }
+
+</PRE>
+
+<HR>
+<H1>Using Adapters to Listen</H1>
+<UL>
+<LI>For most listeners, there is a corresponding adapter
+
+
+<PRE>
+          class MouseAdapter implements MouseListener {
+
+            public void mouseClicked(MouseEvent e) { }
+
+            public void mouseEntered(MouseEvent e) { }
+
+            public void mouseExited(MouseEvent e) { }
+
+            public void mousePressed(MouseEvent e) { }
+
+            public void mouseReleased(MouseEvent e) { }
+
+          }
+
+</PRE>
+<LI>You can reuse these, and only implement necessary methods
+
+
+<PRE>
+          class MyMouseHandler extends MouseAdapter {
+
+            public void mousePressed (MouseEvent e) {
+
+              System.out.println ("You pressed a mouse button");
+
+            }
+
+          }
+
+</PRE>
+</UL>
+
+<HR>
+<H1>Using MouseAdapter</H1>
+
+
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+          import java.awt.event.*;
+
+
+
+          public class AkmMimic extends Applet {
+
+            public void init () {
+
+              this.add (new TextField(20));
+
+              this.add (new Label ("No news is good news"));
+
+              this.add (new Button("OK"));
+
+              this.addMouseListener (new MyMouseHandler());
+
+            }
+
+          }
+
+
+
+          class MyMouseHandler extends MouseAdapter {
+
+            public void mousePressed(MouseEvent e) {
+
+              System.out.println ("You pressed a mouse button");
+
+            }
+
+          }
+
+</PRE>
+
+<HR>
+<H1>Too many classes</H1>
+
+
+<UL>
+<LI>A typical GUI has many buttons, components, menu items, etc.
+<LI>Need a different class for each listener
+<LI>Too many classes
+<LI>Confuses name space
+<LI>Java's solution
+<LI>Anonymous, inner classes
+<LI>Class is embedded in another class
+<LI>Class does not have to have a name provided by developer
+</UL>
+
+<HR>
+<H1>Anonymous Classes</H1>
+
+
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+          import java.awt.event.*;
+
+
+
+          public class AkmMimic extends Applet {
+
+            public void init () {
+
+              this.add (new TextField(20));
+
+              this.add (new Label ("No news is good news"));
+
+              this.add (new Button("OK"));
+
+              this.addMouseListener (new MouseAdapter () {
+
+                public void mousePressed(MouseEvent e) {
+
+                  System.out.println ("You pressed a mouse button");
+
+                }
+
+              });
+
+            }
+
+          }
+
+</PRE>
+
+<HR>
+<H1>Left, Right, or Middle Button?</H1>
+
+
+<PRE>
+          import java.applet.Applet;
+
+          import java.awt.*;
+
+          import java.awt.event.*;
+
+
+
+          public class AkmMimic extends Applet {
+
+            public void init () {
+
+              this.add (new TextField(20));
+
+              this.add (new Label ("No news is good news"));
+
+              this.add (new Button("OK"));
+
+              this.addMouseListener (new MouseAdapter () {
+
+                public void mousePressed(MouseEvent e) {
+
+                  if (e.isMetaDown()) {
+
+                    System.out.println ("Right mouse button pressed");
+
+                  } 
+
+                  else if (e.isAltDown()) {
+
+                    System.out.println ("Middle mouse button pressed");
+
+                 } 
+
+                 else {
+
+                   System.out.println ("Left mouse button pressed");
+
+                 }
+
+               }
+
+             });
+
+            }
+
+          }
+
+</PRE>
+
+</BODY>
+</HTML>

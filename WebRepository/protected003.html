@@ -1,0 +1,857 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>How are java.lang.Object's protected methods protected from subclasses? - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6226">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/451647/how-are-java-lang-objects-protected-methods-protected-from-subclasses">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'How are java.lang.Object's protected methods protected from subclasses?'" href="/feeds/question/451647">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(451647);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f451647%2fhow-are-java-lang-objects-protected-methods-protected-from-subclasses">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/451647/how-are-java-lang-objects-protected-methods-protected-from-subclasses" class="question-hyperlink">How are java.lang.Object&rsquo;s protected methods protected from subclasses?</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,protected,object">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="451647">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b></b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>The keyword <code>protected</code> grants access to classes in the same package and subclasses (<a href="http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html" rel="nofollow">http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html</a>).</p>
+
+<p>Now, every class has <code>java.lang.Object</code> as superclass (<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/Object.html" rel="nofollow">http://java.sun.com/j2se/1.5.0/docs/api/java/lang/Object.html</a>).</p>
+
+<p>Hence I conclude that every class may access <code>java.lang.Object</code>'s methods even if they are <code>protected</code>.</p>
+
+<p>Take a look at the following example:</p>
+
+<pre>
+public class Testclass {
+  public Object getOne() throws CloneNotSupportedException {
+    return this.clone();
+  }
+  public Object getTwo() throws CloneNotSupportedException {
+    return ((Object) this).clone();
+  }
+}
+</pre>
+
+<p>While <code>getOne()</code> compiles fine, <code>getTwo()</code> gives</p>
+
+<pre>
+Testclass.java:6: clone() has protected access in java.lang.Object
+    	return ((Object) this).clone();
+</pre>
+
+<p>I neither understand why <code>getTwo()</code> doesn't compile nor what's the difference (regarding the access of <code>java.lang.Object</code>s members) with <code>getOne()</code>.</p>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/protected" class="post-tag" title="show questions tagged 'protected'" rel="tag">protected</a> <a href="/questions/tagged/object" class="post-tag" title="show questions tagged 'object'" rel="tag">object</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-451647" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2009-01-16 19:32:12Z" class="relativetime">Jan 16 '09 at 19:32</span></div><div class="user-gravatar32"><a href="/users/55965/adrian-lang"><img src="http://www.gravatar.com/avatar/9a38887baf481569db05e89d38bc5797?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/55965/adrian-lang" >Adrian Lang</a><br><span class="reputation-score" title="reputation score">41</span><span title="6 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">6</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-451647" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>3 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/451647?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/451647?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/451647?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="451696"></a>
+    
+    <div id="answer-451696" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="451696">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        3
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+<img src="http://sstatic.net/so/img/vote-accepted-on.png"
+    class="vote-accepted"
+    style="cursor:default"
+    width="30"
+    height="31"
+    alt="check"
+    title="The question owner accepted this as the best answer Jan 16 '09 at 20:11" >
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>You can only access protected members of a type in a different package if the compile-time type of the expression you're referencing it through is either your own class or a subclass. (Where "your" class is the class containing the code.) Your own class has to be a subclass of the type which originally declares the method, too.</p>
+
+<p>Here's an example; assume that <code>Base</code> is in a different package to all the other classes:</p>
+
+<pre><code>package first;
+public class Base
+{
+    protected void Foo() {}
+}
+
+// Yes, each class is really in its own file normally - but treat
+// all the classes below as being in package "second"
+
+package second;
+public class Child extends Base
+{
+    public void OtherMethod(Object x)
+    {
+        ((Base) x).Foo(); // Invalid: Base is not Child or subclass
+        ((Child) x).Foo(); // Valid: Child is Child
+        ((GrandChild) x).Foo(); // Valid: GrandChild is subclass of Child
+        ((OtherChild) x).Foo(); // Valid: OtherChild is not Child or subclass
+    }
+}
+
+public class GrandChild extends Child {}
+public class OtherChild extends Base {}
+</code></pre>
+
+<p>In other words, it's letting you have access to the protected members of "objects which are a like you".</p>
+
+<p>Details are in <a href="http://java.sun.com/docs/books/jls/third_edition/html/names.html#6.6.2" rel="nofollow">section 6.6.2 of the Java Language Specification</a>:</p>
+
+<blockquote>
+  <p>A <code>protected</code> member or constructor of
+  an object may be accessed from outside
+  the package in which it is declared
+  only by code that is responsible for
+  the implementation of that object.</p>
+  
+  <p><strong>6.6.2.1 Access to a protected Member</strong></p>
+  
+  <p>Let <em>C</em> be the class in which a
+  protected member <em>m</em> is declared. Access
+  is permitted only within the body of a
+  subclass <em>S</em> of <em>C</em>. In addition, if Id
+  denotes an instance field or instance
+  method, then: If the access is by a
+  qualified name <em>Q.Id</em>, where <em>Q</em> is an
+  <em>ExpressionName</em>, then the access is
+  permitted if and only if the type of
+  the expression <em>Q</em> is <em>S</em> or a subclass of
+  <em>S</em>. If the access is by a field access
+  expression <em>E.Id</em>, where <em>E</em> is a <em>Primary</em>
+  expression, or by a method invocation
+  expression <em>E.Id(. . .)</em>, where <em>E</em> is a
+  <em>Primary</em> expression, then the access is
+  permitted if and only if the type of <em>E</em>
+  is <em>S</em> or a subclass of <em>S</em>.</p>
+</blockquote>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/451647/how-are-java-lang-objects-protected-methods-protected-from-subclasses/451696#451696" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-451696" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/451696/revisions" title="show all edits to this post"><span title="2009-01-16 20:01:03Z" class="relativetime">Jan 16 '09 at 20:01</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-01-16 19:47:05Z" class="relativetime">Jan 16 '09 at 19:47</span></div><div class="user-gravatar32"><a href="/users/22656/jon-skeet"><img src="http://www.gravatar.com/avatar/6d8ebb117e8d83d74ea95fbdd0f87e13?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/22656/jon-skeet" >Jon Skeet</a><br><span class="reputation-score" title="reputation score">135k</span><span title="28 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">28</span></span><span title="520 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">520</span></span><span title="1043 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">1043</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-451696" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-272358" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Note from that reference that classes can access protected members of <i>any</i> class in the same package. &ndash;&nbsp;<a href="/users/13531/mmyers" title="23773" class="comment-user">mmyers</a> <span class="comment-date"><span title="2009-01-16 19:51:57Z">Jan 16 '09 at 19:51</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-272368" class="comment">
+        <td></td>
+        <td class="comment-text"><div>You have a typo:
+&lt;pre&gt;
+public class Child extends Base {}
+{
+[â?¦]
+}
+&lt;/pre&gt; &ndash;&nbsp;<a href="/users/55965/adrian-lang" title="41" class="comment-user owner">Adrian Lang</a> <span class="comment-date"><span title="2009-01-16 19:56:28Z">Jan 16 '09 at 19:56</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-272377" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Whoops, thanks both - will fix. &ndash;&nbsp;<a href="/users/22656/jon-skeet" title="135330" class="comment-user">Jon Skeet</a> <span class="comment-date"><span title="2009-01-16 19:59:24Z">Jan 16 '09 at 19:59</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-272388" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Hm. While your copy from Javaspec sounds persuading, your code compiles very well. Still seems to be different from my example. &ndash;&nbsp;<a href="/users/55965/adrian-lang" title="41" class="comment-user owner">Adrian Lang</a> <span class="comment-date"><span title="2009-01-16 20:01:40Z">Jan 16 '09 at 20:01</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-272399" class="comment">
+        <td></td>
+        <td class="comment-text"><div>It's due to the package business - I amended the text to say that Base had to be in a different package. I'll put it in the code as well. &ndash;&nbsp;<a href="/users/22656/jon-skeet" title="135330" class="comment-user">Jon Skeet</a> <span class="comment-date"><span title="2009-01-16 20:04:37Z">Jan 16 '09 at 20:04</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    <a id="comments-link-451696" class="comments-link" title="expand to show all comments on this post">show <b>1</b> more comment</a>
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,protected,object">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="451694"></a>
+    
+    <div id="answer-451694" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="451694">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        4
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>When you said "<code>((Object) this).clone()</code>", you accessed your own object via its superclass Object.  You performed a widening conversion to an Object.  The code then attempts to call clone on Object.  </p>
+
+<p>But, as you've noted, clone is a protected method, meaning that only if your object was in the same package of java.lang would it be able to access the OBJECT's clone method.  </p>
+
+<p>When you say this.clone, your class extended Object and thus had access to override or use clone directly through the protected class modifier because of inheritance.  But that doesn't change the Object implementation.</p>
+
+<p>By saying ((Object) yourObject), you get something that is only accessible through the Object class.  Only public methods of the Object class are accessible ouside of the package java.lang, so you get the compile-time exception, because the compiler knows this.</p>
+
+<p>By saying this.clone(), you are invoking your object's clone method that it got through inheriting through Object, and is now able to be invoked because it becomes a part of your custom subclass.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/451647/how-are-java-lang-objects-protected-methods-protected-from-subclasses/451694#451694" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-451694" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-01-16 19:46:47Z" class="relativetime">Jan 16 '09 at 19:46</span></div><div class="user-gravatar32"><a href="/users/8026/metroidfan2002"><img src="http://www.gravatar.com/avatar/60929e8e0445f0070e501f5ded8ad348?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/8026/metroidfan2002" >MetroidFan2002</a><br><span class="reputation-score" title="reputation score">2,550</span><span title="4 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">4</span></span><span title="19 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">19</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-451694" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-272352" class="comment">
+        <td></td>
+        <td class="comment-text"><div>You're confusing protected with package-protected. &ndash;&nbsp;<a href="/users/13531/mmyers" title="23773" class="comment-user">mmyers</a> <span class="comment-date"><span title="2009-01-16 19:49:04Z">Jan 16 '09 at 19:49</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-272355" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I don't think so: &quot;When you say this.clone, your class extended Object and thus had access to override or use clone directly through the protected class modifier because of inheritance&quot; &ndash;&nbsp;<a href="/users/22656/jon-skeet" title="135330" class="comment-user">Jon Skeet</a> <span class="comment-date"><span title="2009-01-16 19:50:50Z">Jan 16 '09 at 19:50</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-272387" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I was nitpicking with this statement: &quot;But, as you've noted, clone is a protected method, meaning that only if your object was in the same package of java.lang would it be able to access the OBJECT's clone method.&quot; On the face of it, that sounds wrong. But let me reconsider for a bit... &ndash;&nbsp;<a href="/users/13531/mmyers" title="23773" class="comment-user">mmyers</a> <span class="comment-date"><span title="2009-01-16 20:01:10Z">Jan 16 '09 at 20:01</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-272393" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Ok, I think I understand it now. +1 for making me think. &ndash;&nbsp;<a href="/users/13531/mmyers" title="23773" class="comment-user">mmyers</a> <span class="comment-date"><span title="2009-01-16 20:03:06Z">Jan 16 '09 at 20:03</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-273234" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Sorry, mmyers.  What I was saying was that your class can't access Object's clone method, but it can use or override it by being a subclass of object: it could only access the Object implementation (read: use Object.clone(), not yourclass.clone()) by being in the same package, namely, java.lang. &ndash;&nbsp;<a href="/users/8026/metroidfan2002" title="2550" class="comment-user">MetroidFan2002</a> <span class="comment-date"><span title="2009-01-17 02:46:54Z">Jan 17 '09 at 2:46</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="451716"></a>
+    
+    <div id="answer-451716" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="451716">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>The difference is how you are accessing Object.clone().  clone is only accessible when accessed via a sub class or class in the same package.  In the getOne() example you are claling this.clone().  This clearly satisfies access from within a sub class.  </p>
+
+<p>In getTwo() though you are acessing Object.clone() and <strong>not</strong> TestClass.clone().  In order for this to work you must have package level access to Object which you don't and hence the error.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/451647/how-are-java-lang-objects-protected-methods-protected-from-subclasses/451716#451716" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-451716" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-01-16 19:51:03Z" class="relativetime">Jan 16 '09 at 19:51</span></div><div class="user-gravatar32"><a href="/users/23283/jaredpar"><img src="http://www.gravatar.com/avatar/529ba429a58902bef56c2fcb672d5ccb?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/23283/jaredpar" >JaredPar</a><br><span class="reputation-score" title="reputation score">76.3k</span><span title="10 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">10</span></span><span title="142 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">142</span></span><span title="286 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">286</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-451716" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/451647/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/protected" class="post-tag" title="show questions tagged 'protected'" rel="tag">protected</a> <a href="/questions/tagged/object" class="post-tag" title="show questions tagged 'object'" rel="tag">object</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/451647/ivc/3c54" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34050</span><br>
+<a href="/questions/tagged/object" class="post-tag" title="show questions tagged 'object'" rel="tag">object</a>&nbsp;<span class="item-multiplier">&times;&nbsp;569</span><br>
+<a href="/questions/tagged/protected" class="post-tag" title="show questions tagged 'protected'" rel="tag">protected</a>&nbsp;<span class="item-multiplier">&times;&nbsp;47</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2009-01-16 19:32:12Z">1 year ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">2,110 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-01-16 20:01:03Z">1 year ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,protected,object">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?6053">' +
+	   ".NET UI Developer @ Growing Start-up" +
+	   ' at ' +
+	   "homeboodle.com</a> (" +
+	   "San Francisco, CA" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+    <div class="module">
+    <h4>Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="/questions/1906544/as3-overriding-protected-var-in-subclass" class="question-hyperlink">AS3: overriding protected var in subclass</a>
+</div>
+<div class="spacer">
+<a href="/questions/332920/java-protected-access-not-working" class="question-hyperlink">Java Protected Access Not Working</a>
+</div>
+<div class="spacer">
+<a href="/questions/1622219/why-cant-i-access-protected-java-method-even-thought-ive-extended-the-class" class="question-hyperlink">why can&rsquo;t i access protected java method even thought i&rsquo;ve extended the class?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1624564/access-protected-member-of-a-class-in-a-derived-class" class="question-hyperlink">Access protected member of a class in a derived class</a>
+</div>
+<div class="spacer">
+<a href="/questions/1547342/c-run-time-error-with-protected-members" class="question-hyperlink">C++ run time error with protected members</a>
+</div>
+<div class="spacer">
+<a href="/questions/1723977/accessing-protected-member-functions-from-test-code-in-c" class="question-hyperlink">Accessing protected member functions from test code in C++</a>
+</div>
+<div class="spacer">
+<a href="/questions/1729251/how-to-limit-subclassing-of-public-abstact-class-to-types-in-same-assembly-and-th" class="question-hyperlink">How to limit subclassing of public abstact class to types in same assembly and thus allow protected members typed to internal types.</a>
+</div>
+<div class="spacer">
+<a href="/questions/1813671/problem-with-protected-fields-in-base-class-in-c" class="question-hyperlink">Problem with protected fields in base class in c++</a>
+</div>
+<div class="spacer">
+<a href="/questions/1836175/c-protected-members-accessed-via-base-class-variable" class="question-hyperlink">C# protected members accessed via base class variable</a>
+</div>
+<div class="spacer">
+<a href="/questions/1904782/whats-the-real-reason-for-preventing-protected-member-access-through-a-base-sibl" class="question-hyperlink">What&rsquo;s the real reason for preventing protected member access through a base/sibling class?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2081255/c-set-accessor-accessible-to-all-types-in-assembly-and-get-assessor-only-to-der" class="question-hyperlink">C# set accessor accessible to all types in assembly, and get assessor only to derivated types. How to?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2105953/favorite-c-template-hack" class="question-hyperlink">Favorite C++ template hack</a>
+</div>
+<div class="spacer">
+<a href="/questions/335019/detecting-vista-ie7-protected-mode-with-javascript" class="question-hyperlink">Detecting Vista IE7 Protected Mode with Javascript</a>
+</div>
+<div class="spacer">
+<a href="/questions/319343/can-you-ever-have-too-many-protected-virtual-methods" class="question-hyperlink">Can you ever have too many &ldquo;protected virtual&rdquo; methods?</a>
+</div>
+<div class="spacer">
+<a href="/questions/362719/c-using-setters-or-getters-from-base-class" class="question-hyperlink">c# using setters or getters from base class</a>
+</div>
+<div class="spacer">
+<a href="/questions/374399/private-protected-inheritance" class="question-hyperlink">Private/protected inheritance</a>
+</div>
+<div class="spacer">
+<a href="/questions/433263/mocking-superclass-protected-variable-using-jmockit" class="question-hyperlink">mocking superclass protected variable using jmockit</a>
+</div>
+<div class="spacer">
+<a href="/questions/496873/data-corruption-in-protected-access-in-c" class="question-hyperlink">Data corruption in protected access in c++</a>
+</div>
+<div class="spacer">
+<a href="/questions/516148/why-cant-i-have-protected-interface-members" class="question-hyperlink">Why can&rsquo;t I have protected interface members?</a>
+</div>
+
+    </div>
+    </div>
+
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/451647" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/451647" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6228</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

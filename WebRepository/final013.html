@@ -1,0 +1,329 @@
+<html>
+
+<head>
+<title>The final keyword in Java</title>
+<meta name="author" content="Neil Coffey">
+<meta name="keywords" content="Java,programming,final,synchronization,concurrency,thread-safety">
+<meta name="description" content="How the 'final' keyword can be used to give thread-safety.">
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<table><tr valign=top><td width="162">
+<div class="navbar"><font size=-1>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="/">Javamex Home</a><br>
+<img src="/RightArrowBlue.gif">&nbsp;<a href="/tutorials/synchronization_concurrency_1.shtml">Java synchronization</a><br>
+<img src="/RightArrowBlue.gif">&nbsp;<a href="/tutorials/threads/">Java threads</a><br>
+<img src="/RightArrowBlue.gif">&nbsp;<a href="/tutorials/cryptography/">Java cryptography</a><br>
+<img src="/RightArrowBlue.gif">&nbsp;<a href="/tutorials/profiling/profiling_java5.shtml">Java profiling</a><br>
+<img src="/RightArrowBlue.gif">&nbsp;<a href="/tutorials/io/index.shtml">Java I/O</a><br>
+<img src="/RightArrowBlue.gif">&nbsp;<a href="/tutorials/io/nio_intro.shtml">NIO</a><br>
+<img src="/RightArrowBlue.gif">&nbsp;<a href="/tutorials/collections/index.shtml">Java collections</a>
+</font></div>
+<hr>
+
+<center>
+<a target="_new" href="http://click.linksynergy.com/fs-bin/click?id=y4VqKj2p2Ek&offerid=145238.10000039&subid=0&type=4"><IMG border="0"   alt="InformIT (Pearson Education)" src="http://ad.linksynergy.com/fs-bin/show?id=y4VqKj2p2Ek&bids=145238.10000039&subid=0&type=4&gridnum=4"></a>
+</center>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-7685045015884574";
+google_ad_slot = "4332830588";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+<hr>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-7685045015884574";
+google_ad_slot = "4332830588";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</td><td>
+
+<table width="100%"><tr valign=top><td>
+<font size=-1>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="/">Home</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_concurrency_1.shtml">Synchronization and concurrency</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_wait_notify.shtml">wait/notify</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_final.shtml">final</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_volatile.shtml">volatile</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_concurrency_synchronized1.shtml">synchronized keyword</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="threads/">Java threading</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="threads/deadlock.shtml">Deadlock (and avoiding it)</a>
+<img src="../RightArrowBlue.gif">&nbsp;<strong>Java 5:</strong> <a href="synchronization_concurrency_8_hashmap.shtml">ConcurrentHashMap</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_concurrency_7_atomic.shtml">Atomic variables</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_concurrency_9_locks.shtml">Explicit locks</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_concurrency_8_queues.shtml">Queues</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="synchronization_concurrency_semaphore.shtml">Semaphores</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="threads/CountDownLatch.shtml">CountDownLatch</a>
+<img src="../RightArrowBlue.gif">&nbsp;<a href="threads/CyclicBarrier.shtml">CyclicBarrier</a>
+</font>
+</div>
+
+</td><td width="200">
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">addthis_pub  = 'frenchlinguistics';</script>
+<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+<!-- AddThis Button END -->
+</td></tr></table>
+<hr>
+
+<table><tr valign="top"><td>
+<i>Search this site:</i></td><td>
+<!-- Google CSE Search Box Begins  -->
+<form action="http://www.google.com/cse" id="searchbox_007572414825397037682:iud26zxm2jq">
+  <input type="hidden" name="cx" value="007572414825397037682:iud26zxm2jq" />
+  <input type="text" name="q" size="30" />
+  <input type="submit" name="sa" value="Search" />
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_007572414825397037682%3Aiud26zxm2jq&lang=en"></script>
+<!-- Google CSE Search Box Ends -->
+</td><td>
+<a href="/tutorials/threads/"><img src="/ix/threads.png" border="0" alt="Threads"></a>
+<a href="/tutorials/database/"><img src="/ix/db.png" border="0" alt="Database"></a>
+<a href="/tutorials/profiling/profiling_java5.shtml"><img src="/ix/profiling.png" border="0" alt="Profiling"></a>
+<a href="/tutorials/regular_expressions/"><img src="/ix/regex.png" border="0" alt="Regular expressions"></a>
+<a href="/tutorials/random_numbers/"><img src="/ix/random.png" border="0" alt="Random numbers"></a>
+<a href="/tutorials/compression/"><img src="/ix/compression.png" border="0" alt="Compression"></a>
+<a href="/tutorials/exceptions/"><img src="/ix/exceptions.png" border="0" alt="Exceptions"></a>
+<a href="/java_equivalents/index.shtml"><img src="/ix/c.png" border="0" alt="C Equivalents in Java"></a>
+</td></tr></table>
+
+<div>
+<div style="float: right;">
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">addthis_pub  = 'frenchlinguistics';</script>
+<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+<!-- AddThis Button END -->
+</div>
+
+<center>
+<script type="text/javascript"><!--
+amazon_ad_tag="javamex-20"; 
+amazon_ad_width="728"; 
+amazon_ad_height="90"; 
+amazon_color_background="FFF281"; 
+amazon_color_border="206BA2"; 
+amazon_color_logo="FFFFFF"; 
+amazon_color_link="206BA2"; 
+amazon_ad_logo="hide"; 
+amazon_ad_link_target="new"; 
+amazon_ad_border="hide"; 
+amazon_ad_title="Recommended Java Books"; //--></script>
+<script type="text/javascript" src="http://www.assoc-amazon.com/s/asw.js"></script>
+</center>
+
+<img src="/RightArrowBlue.gif">&nbsp;<b>Got a question about Java?</b> <a href="http://javamex.ning.com/" target="forum">Java discussion forum</a>
+</div>
+
+
+<h1>Thread-safety with the Java <tt>final</tt> keyword</h1>
+
+<p>As of Java 5, the <tt>final</tt> keyword is a very important and often overlooked weapon in your
+concurrency armoury. Essentially, <tt>final</tt> can be used to make sure that when you
+construct an object, another thread accessing that object doesn't see that object
+in a partially-constructed state, as could otherwise happen.
+This is because when used as an attribute on the variables of an object, <tt>final</tt>
+has the following important characteristic as part of its definition:
+</p>
+
+<div class="summarybox">
+When the <b>constructor exits</b>, the values of <b>final</b> fields are
+<b>guaranteed to be visible</b> to other threads accessing the constructed object.
+</div>
+
+<h3>Why is this necessary?</h3>
+
+<p>The <tt>final</tt> field is a means of what is sometimes called <b>safe publication</b>.
+Here, "publication" of an object means creating it in one thread and then having
+that newly-created object be referred to by another thread at some point in the future.
+When the JVM executes the constructor of your object, it must store values into
+the various fields of the object, and store a pointer to the object data. As in any
+other case of data writes, these accesses can potentially occur out of order, and their
+application to main memory can be delayed and other processors can be delayed unless you
+take special steps to combat this.
+In particular, the pointer to the object data could be stored to main memory and
+accessed <i>before</i> the fields themselves have been committed
+(this can happen partly because of compiler ordering:
+if you think about how you'd write things in a low-level language such as
+C or assembler, it's quite natural to store a pointer to a block of memory, and then advance
+the pointer as you're writing data to that block).
+And this in turn could lead to another
+thread seeing the object in an invalid or partially constructed state.
+</p>
+
+<p><tt>final</tt> prevents this from happening:
+if a field is <tt>final</tt>, it is part of the JVM specification that it must effectively ensure
+that, once the object pointer is available to other threads, so are the correct values
+of that object's final fields.
+</p>
+
+<h3>Final object references</h3>
+
+<p>The fields on any <i>object</i> accessed via a <tt>final</tt> reference are also
+guaranteed to be at least as up to date as when the constructor exits. This means that:
+</p>
+
+<div class="summarybox">
+Values of <tt>final</tt> fields, including objects inside collections referred to
+by a <tt>final</tt> reference, can be <b>safely <i>read</i> without synchronization</b>.
+</div>
+
+<p>Note that if you have a <tt>final</tt> reference to a collection, array, or some
+other mutable object, you must still synchronize all accesses to that object (or use
+a thread-safe collection such as a <a href="tutorials/synchronization_concurrency_8_hashmap.shtml">ConcurrentHashMap</a>)
+if that collection is ever accessed by a thread other than the constructing thread.
+</p>
+
+<p>Thus, <b>immutable objects</b> (ones where all fields are <tt>final</tt> and are
+either primitives or references to immutable objects)
+can be <b>concurrently accessed without synchronization</b>. It is also safe to
+read "effectively immutable" objects (ones whose fields aren't actually final, but
+in practice never change) via a <tt>final</tt> reference. However, from a program design
+perspective, you'd be wise to try and enforce immutability in this case (e.g. by
+wrapping a collection in a <tt>Collections.unmodifiableList()</tt><sup>1</sup> etc). That way, you'll
+spot bugs introduced when one of your colleagues naughtily attempts to modify a collection that you didn't
+intend to be modified!
+</p>
+
+<h3>Restrictions and limitations of using <tt>final</tt></h3>
+
+<p>When you declare a field <tt>final</tt>, you <b><i>must</i> set the value <i>once</i>
+<u>by the time the constructor exits</u></b>. This means that you can declare a
+final field as follows:
+</p>
+
+<div class="codefragment"><pre>
+public class MyClass {
+  <b>private final int myField = 3;</b>
+  public MyClass() {
+    ...
+  }
+}
+</pre></div>
+
+<p><i>or</i> you can write the following:</p>
+
+<div class="codefragment"><pre>
+public class MyClass {
+  <b>private final int myField;</b>
+  public MyClass() {
+    ...
+    <b>myField = 3;</b>
+    ...
+  }
+}
+</pre></div>
+
+
+<p>It's important to emphasise that storing a reference to an object in a <tt>final</tt>
+field only makes the <b><i>reference</i> immutable</b>, not the actual object. For examlple,
+if a list is declared as follows:
+</p>
+
+<div class="codefragment"><pre>
+private final List myList = new ArrayList();
+</pre></div>
+
+<p>there's nothing to stop modifications to the list:</p>
+
+<div class="codefragment"><pre>
+myList.add("Hello");
+</pre></div>
+
+<p>However, the following would <i>not</i> be possible:</p>
+
+<div class="codefragment"><pre>
+myList = new ArrayList();
+myList = someOtherList;
+</pre></div>
+
+<h3>When should I use <tt>final</tt>?</h3>
+
+<p>One answer to this is "whenever you possibly can". Any field that you never expect to be
+changed (be that a primitive value, or a <i>reference</i> to an object, whether or not
+that particular object is itself immutable or not), should generally
+be declared <tt>final</tt>. Another way of looking at things is:
+</p>
+
+<div class="summarybox">
+If your object is accessed by multiple threads, and you <b><i>don't</i> declare
+its fields <tt>final</tt></b>, then you must provide <b>thread-safety by some other means</b>.
+</div>
+
+<p>Other means could include declaring the field <a href="synchronization_volatile.shtml">volatile</a>,
+using <a href="../synchronization_concurrency_synchronized1.shtml">synchronized</a> or
+an <a href="synchronization_concurrency_9_locks.shtml">explicit Lock</a> around all accesses to that field.
+</p>
+
+<p>A typical case that people overlook is where an object is created by one thread
+and then <i>later</i> consumed by another thread, e.g. an object via a
+<a href="threads/ThreadPoolExecutor.shtml">ThreadPoolExecutor</a>.
+In this case, the object must still be
+made properly thread-safe: it doesn't matter that the accesses by different threads aren't
+<i>concurrent</i>. What matters is that the object is accessed by different threads at
+<i>any</i> point in its lifetime.
+</p>
+
+<hr>
+<p><font size=-1>1. It's important to understand, however, that such wrappers give you
+an unmodifiable <i>view</i> of a collection. If some other reference to the original collection
+escapes, then the collection can still be modified by that other reference.
+</font></p>
+
+<div style="background: #ffffcc; border: 1px solid black;">
+<img src="/RightArrowBlue.gif">&nbsp;<b>Did this article answer your question?</b> If not, visit the new
+<a href="http://javamex.ning.com/" target="forum">Javamex discussion forums</a> to ask your question.
+</div>
+
+<br>
+
+<div>
+<script type="text/javascript"><!--
+amazon_ad_tag = "frenchlingui-20"; amazon_ad_width = "728"; amazon_ad_height = "90"; amazon_ad_link_target = "new"; amazon_color_background = "FDFFCD"; amazon_ad_include = "java+concurrency;java+threads;java+programming"; amazon_ad_categories = "acdefg";//--></script>
+<script type="text/javascript" src="http://www.assoc-amazon.com/s/ads.js"></script>
+</div>
+
+<hr>
+
+<center><font size=-1 color="#444444"><i>
+<!-- google_ad_section_start -->
+Unless otherwise stated, the Java programming articles and tutorials on this site are written by Neil Coffey.
+Suggestions are always welcome if you wish to suggest topics for Java tutorials or programming articles,
+or if you simply have a programming question that you would like to see answered on this site. Most topics
+will be considered. But in particular, the site aims to provide tutorials and information on topics that
+aren't well covered elsewhere, or on Java performance information that is poorly described or understood.
+<!-- google_ad_section_end -->
+Suggestions may be made via the Javamex blog (see the site's front page for details).
+<br>
+Copyright &copy; Javamex UK 2009. All rights reserved.
+</i></font></center>
+
+</td></tr></table>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</td></tr></table>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2207493-4");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Diagnosing Java code: The Double Descent bug pattern</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="Although usually easier to debug than other, more insidious erroneous behaviors, class-casting error messages are often symptoms of conceptual errors in recursively descending a composite data structure. In this installment of Diagnosing Java Code, Eric Allen discusses where programmers should look to find this pattern of bug, how to recognize the pattern, and what they can do to minimize its occurrence."/>
+<meta name="Description" content="Although usually easier to debug than other, more insidious erroneous behaviors, class-casting error messages are often symptoms of conceptual errors in recursively descending a composite data structure. In this installment of Diagnosing Java Code, Eric Allen discusses where programmers should look to find this pattern of bug, how to recognize the pattern, and what they can do to minimize its occurrence."/>
+<meta name="Keywords" content="Eric Allen, recursive, double-descent, bug, bug pattern, debug, debugging, data-descent, Diagnosing Java Code, class-cast, class-casting, null-pointer, instanceof, valueis, branch, leaf, tttjca"/>
+<meta name="DC.Date" scheme="iso8601" content="2001-04-01"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCJVAZZ" />
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2001"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2001-04-01"/>
+<meta name="title" content="Diagnosing Java code: The Double Descent bug pattern"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Diagnosing Java code: The Double Descent bug pattern</h1><p><em>Beat recursive class-casting conceptual errors at the start</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Eric Allen</a> (<a href="mailto:eallen@cs.rice.edu?subject=The Double Descent bug pattern">eallen@cs.rice.edu</a>), Ph.D. candidate, Java programming languages team, Rice University, Cycorp, Inc.</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print">Eric Allen has an A.B. in computer science and mathematics from Cornell University. He is a moderator for the Java Beginner discussion forum at <i>JavaWorld,</i> and a Ph.D. candidate in the Java programming languages team at Rice University. His research concerns the development of semantic models and static analysis tools for the Java language, both at the source and bytecode levels. Currently, he is implementing a source-to-bytecode compiler for the NextGen programming language, an extension of the Java language with generic run-time types. Contact Eric at <a href="mailto:eallen@cs.rice.edu">eallen@cs.rice.edu</a>.</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; Although usually easier to debug than other, more insidious erroneous behaviors, class-casting error messages are often symptoms of conceptual errors in recursively descending a composite data structure. In this installment of Diagnosing Java Code, Eric Allen discusses where programmers should look to find this pattern of bug, how to recognize the pattern, and what they can do to minimize its occurrence.</p>
+<p class="ibm-no-print"><a href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=diagnosing%20java%20code:">View more content in this series</a></p>
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 01 Apr  2001
+<br /><b>Level: </b>&nbsp;Introductory
+
+<br /><b>Activity:</b>&nbsp; 3278 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p><a name="h0"><span class="atitle">Don't cast that class!</span></a></p><p>
+
+ 
+Unlike the dreaded <a href="http://www.ibm.com/developerworks/library/j-diag3.html">null-pointer exception</a> (which says nothing about what was expected to occur instead of the null pointer), a class-cast exception is relatively easy to debug.
+</p><p>
+A class-cast exception often occurs in a program that is performing a recursive descent over a data structure, usually when some part of the code is descending two levels per method call and is not dispatching appropriately on the second descent. Programmers can identify the problem by learning about the Double Descent bug pattern.
+</p><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="h1"><span class="atitle">The Double Descent bug pattern</span></a></p><p>
+
+ This week's special is the Double Descent bug pattern. It manifests itself as a class-cast exception. It is caused by recursively descending a composite data structure in such a way that, sometimes, more than one step in the descent is taken in a single recursive call. Doing so often necessitates the addition of casts to get the code to compile. But, in such a descent, it is easy to forget to check that appropriate invariants are satisfied to guarantee that these casts will succeed. 
+</p><p>
+Consider the following class hierarchy for binary trees of <code>int</code>s. Because we want to allow for empty trees, we will not put a value field into the <code>Leaf</code> class. Because this decision makes all Leaves identical, we'll keep a singleton for <code>Leaf</code> in a static field.
+</p><br /><a name="code_block_1.0"><b>Listing 1. Class hierarchy for binary trees of ints</b></a><br /><table width="600" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+abstract class Tree {
+}
+
+class Leaf extends Tree {
+  public static final Leaf ONLY = new Leaf();
+}
+
+class Branch extends Tree {
+
+  public int value;
+  public Tree left;
+  public Tree right;
+
+  public Branch(int _value, Tree _left, Tree _right) {
+    this.value = _value;
+    this.left = _left;
+    this.right = _right;
+  }
+}
+
+		</pre></td></tr></table><br /><p>
+Now, suppose we want to add a method on <code>Tree</code>s that determines whether any two consecutive nodes (such as a branch and one of its children) both contain 0 as their value. We might add the following methods (notice that the last method will not compile in its current form):
+</p><br /><a name="code_block_2.0"><b>Listing 2. Methods to determine whether two consecutive nodes both contain a value of 0</b></a><br /><table width="600" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+  // in class Tree:
+  public abstract boolean hasConsecutiveZeros();
+
+
+  // in class Leaf: 
+  public boolean hasConsecutiveZeros() {
+    return false;
+  }
+
+
+  // in class Branch:
+  public boolean hasConsecutiveZeros() {
+
+    boolean foundOnLeft = false;
+    boolean foundOnRight = false;
+
+    if (this.value == 0) {
+      foundOnLeft = this.left.value == 0;
+      foundOnRight = this.right.value == 0;
+    }
+    if (foundOnLeft || foundOnRight) {
+      return true;
+    }
+    else {
+      foundOnLeft = this.left.hasConsecutiveZeros();
+      foundOnRight = this.right.hasConsecutiveZeros();
+      return foundOnLeft || foundOnRight;
+    }
+  }
+		</pre></td></tr></table><br /><p>
+The method in class <code>Branch</code> will not compile because <code>this.left</code> and <code>this.right</code> are not guaranteed to have <code>value</code> fields. 
+</p><p>
+That we cannot compile strongly suggests that there is a logical problem with our manipulation of these data structures. But suppose we ignore this warning and simply cast <code>this.left</code> and <code>this.right</code> to <code>Branch</code>es in the appropriate <code>if</code> statement, as follows:
+</p><br /><a name="code_block_3.0"><b>Listing 3. Casting this.left and this.right to Branches in the appropriate if statement</b></a><br /><table width="600" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+  public boolean hasConsecutiveZeros() {
+
+    boolean foundOnLeft = false;
+    boolean foundOnRight = false;
+
+    if (this.value == 0) {
+      foundOnLeft = ((Branch)this.left).value == 0;
+      foundOnRight = ((Branch)this.right).value == 0;
+    }
+    if (foundOnLeft || foundOnRight) {
+      return true;
+    }
+    else {
+      foundOnLeft = this.left.hasConsecutiveZeros();
+      foundOnRight = this.right.hasConsecutiveZeros();
+      return foundOnLeft || foundOnRight;
+    }
+  }
+		</pre></td></tr></table><br /><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="h2"><span class="atitle">The symptoms</span></a></p><p>
+
+ 
+Now the code will compile. In fact, it will succeed on many test cases. But suppose we were to run this code on the tree shown in Figure 1, where the branches are represented as circles, with their values in the center, and the leaves are represented as squares. Calling <code>hasConsecutiveZeros</code> on this tree causes a class-cast exception.
+</p><br /><a name="N100C0"><b>Figure 1. On this tree, calling hasConsecutiveZeros causes a class-cast exception</b></a><br /><img alt="hasConsecutiveZeros causes a class-cast exception" height="185" src="treediagram.gif" width="208"/><br /><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="h3"><span class="atitle">The cause</span></a></p><p>
+
+ 
+The problem occurs with the left branch. Because the value of that branch is 0, <code>hasConsecutiveZeros</code> casts its children to type <code>Branch</code>, which, of course, fails.
+</p><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="h4"><span class="atitle">Cures and prevention</span></a></p><p>
+
+ 
+The way to fix the above problem is the same as the way to prevent it. Before I discuss this fix, however, I should discuss one way <i>not</i> to fix it. 
+</p><p>
+The quick but incorrect way to remedy the problem would be to eliminate the <code>Leaf</code> class and represent <code>Leaf</code> nodes simply by putting null pointers in the left and right fields of a <code>Branch</code>. This approach would eliminate the need to cast in the above code, but it would not fix the bug. 
+</p><p>
+Instead, the error signaled at run time would be a null-pointer exception instead of a class-cast exception. Because null-pointer exceptions are more difficult to diagnose, this "fix" would actually decrease the quality of the code. For more discussion on this issue, see my article <a href="http://www.ibm.com/developerworks/library/j-diag3.html">The Null Flag bug pattern</a>.
+</p><p>
+So, how can we fix this bug? One way would be to wrap each cast in an <code>instanceof</code> check.
+</p><br /><a name="code_block_4.0"><b>Listing 4. A fix: Wrap each cast in an instanceof check
+</b></a><br /><table width="600" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+        if (! (this.left instanceof Leaf)) {  
+	  // this.left instanceof Branch
+	  foundOnLeft = ((Branch)this.left).value == 0;
+	}
+	if (! (this.right instanceof Leaf)) { 
+	  // this.right instanceof Branch
+	  foundOnRight = ((Branch)this.right).value == 0;
+	}
+		</pre></td></tr></table><br /><p>
+By the way, notice the comments asserting what invariant we expect to hold in the body of each <code>if</code> statement. It's good practice to add comments like this in your code. It is an especially helpful practice for <code>else</code> clauses. Because there is rarely an explicit check on the invariants that are expected to be held in an <code>else</code> clause, it's a good idea to make that clear in your code.
+</p><p>
+Think of a cast as a kind of assertion and the invariants as arguments for why the assertion is true.
+</p><p>
+The disadvantage of using <code>instanceof</code> checks in this fashion is that, if we were to add another subclass of <code>Tree</code> (such as, a <code>LeafWithValue</code> class), we would have to revise these <code>instanceof</code> checks. For this reason, I try to avoid <code>instanceof</code> checks whenever possible.
+</p><p>
+Instead, I add extra methods to the subclasses that perform the appropriate action for each subclass. After all, the ability to add such polymorphic methods is one of the key advantages of an object-oriented language.
+</p><p>
+In the current example, we could do this by adding a <code>valueIs</code> method to the <code>Tree</code> class, as follows:
+</p><br /><a name="code_block_5.0"><b>Listing 5. Using valueIs instead of instanceof </b></a><br /><table width="600" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+  // in class Tree:
+  public abstract boolean valueIs(int n);
+
+  // in class Leaf:
+  public boolean valueIs(int n) { return false; }
+
+  // in class Branch:
+  public boolean valueIs(int n) {
+    return value == n;
+  }
+ 
+  // in class Branch, method hasConsecutiveZeros
+  if (this.valueIs(0)) {
+    foundOnLeft = this.left.valueIs(0);
+    foundOnRight = this.right.valueIs(0);
+  }
+		</pre></td></tr></table><br /><p>
+Notice that I've added a <code>valueIs</code> method as opposed to a <code>getValue</code> method. If we had added a <code>getValue</code> method to class <code>Leaf</code>, we would either have to return some sort of flag value indicating that the method application is non-sensical or actually throw an exception.
+</p><p>
+Returning a flag value would have many of the same problems as the Null Flag bug pattern we discussed last time. Throwing an exception would not help in our case because we would then have to add <code>instanceof</code> checks in <code>hasConsecutiveZeros</code> to ensure that we didn't trigger the exception. And that is exactly what we are trying to avoid with the new method.
+</p><p><code>valueIs</code> avoids all of these problems by encapsulating what we really want each class to handle separately: checking whether an instance of the class contains the given value. 
+</p><div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="h5"><span class="atitle">Wrapup</span></a></p><p>
+
+Here's the breakdown of this week's bug pattern:
+</p><ul><li>Pattern: Double Descent 
+</li><li>Symptoms: A program that performs a recursive descent over a data structure throws a class-cast exception.
+</li><li>Cause: Some part of the code is descending two levels per method call without dispatching appropriately on the second descent.
+</li><li>Cures and preventions: Factor the casting code out into separate methods for each class. Alternatively, examine the invariants to ensure that the casts will succeed.</li></ul><p>
+In short, the moral to this story is to always convince yourself that the invariants inside a code block ensure that any casts in the block will always succeed. When each cast is held to this level of scrutiny, you may find yourself factoring out many of these casts by adding methods to the relevant subclasses.
+</p><p>
+In the next article, I will discuss bug patterns related to the mishandling of complex input data.
+</p><!-- CMA ID: 10525 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br />
+<p><a name="resources"><span class="atitle">Resources</span></a></p><ul><li><a href="http://www.cs.cmu.edu/afs/cs/user/nch/www/sba.html">Set-based analysis</a> is one method that could automatically determine the possibility of many class-cast exceptions before the program is ever run. The Carnegie Mellon School of Computer Science Web site provides a short introduction to this approach, along with links to several technical publications on the topic.<br /><br /></li><li>Visit the <a href="http://hillside.net/patterns/">Patterns Home Page</a> for a good introduction to design patterns and how they are used.<br /><br /></li><li>Check out <a href="http://www.junit.org/index.htm">JUnit</a> and catch more errors by making your code "test-infested." <br /><br /></li><li>Read Eric's complete series on <a href="http://www-128.ibm.com/developerworks/views/java/libraryview.jsp?search_by=diagnosing%20java%20code:"><i>Diagnosing Java code</i></a>.<br /><br /></li></ul>
+<p><a name="author"><span class="atitle">About the author</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><p><a name="author1"></a>Eric Allen has an A.B. in computer science and mathematics from Cornell University. He is a moderator for the Java Beginner discussion forum at <i>JavaWorld,</i> and a Ph.D. candidate in the Java programming languages team at Rice University. His research concerns the development of semantic models and static analysis tools for the Java language, both at the source and bytecode levels. Currently, he is implementing a source-to-bytecode compiler for the NextGen programming language, an extension of the Java language with generic run-time types. Contact Eric at <a href="mailto:eallen@cs.rice.edu">eallen@cs.rice.edu</a>.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java technology</div><div class="metavalue">ArticleID=10525</div><div class="metavalue">ArticleTitle=Diagnosing Java code: The Double Descent bug pattern</div><div class="metavalue">publish-date=04012001</div><div class="metavalue">author1-email=eallen@cs.rice.edu</div><div class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#h0">Don't cast that class!</a></li><li><a class="ibm-feature-link" href="#h1">The Double Descent bug pattern</a></li><li><a class="ibm-feature-link" href="#h2">The symptoms</a></li><li><a class="ibm-feature-link" href="#h3">The cause</a></li><li><a class="ibm-feature-link" href="#h4">Cures and prevention</a></li><li><a class="ibm-feature-link" href="#h5">Wrapup</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the author</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/spot-nextsteps.jpg"/><p>Spring, JRuby, and Ajax development is easier with WebSphere Application Server - a smart Java 5 and J2EE Web services-based application server.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/ws/wasce/learn.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Try: The no-charge WebSphere Application Server Community Edition is a pre-integrated, lightweight Java 5 application server built on Apache Tomcat and other best-of-breed open source software such as OpenEJB, Apache Axis, and Apache Derby.</a></li><li><a href="http://www.ibm.com/developerworks/websphere/library/techarticles/0810_asplund/0810_asplund.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: The article leverage the Spring Framework and the WebSphere Application Server to improve your J2EE project productivity.</a></li><li><a href="http://www.ibm.com/developerworks/edu/x-dw-x-jrorajax.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Tutorial: See how the free WebSphere Application Server and XML can improve the efficiency of your JRuby on Rails and Ajax development.</a></li><li><a href="http://www.ibm.com/software/dre/h2b/buildh2bpage.wss?synkey=G394201N28809H35&amp;S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: WebSphere Application Server - Express</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Java on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/java/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/java/newto/" class="ibm-forward-link">New to Java programming</a></li><li><a href="http://www.ibm.com/developerworks/views/java/downloads.jsp" class="ibm-forward-link">Downloads and products</a></li><li><a href="http://www.ibm.com/developerworks/views/java/projects.jsp" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/views/java/standards.jsp" class="ibm-forward-link">Standards</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/java/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/views/java/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY02&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/websphere/zones/was/security/?S_CMP=TILE&amp;ca=dti-tilewassecurity&amp;ca=dth-w"><img src="//www.ibm.com/developerworks/i/tile_v16_secure.gif" width="158" height="50" border="0" alt="Securing WebSphere Application Server environments" /></a></p><p class="dw-special-offers"><a href="http://www-01.ibm.com/software/data/cognos/products/cognos-express/demo.html?S_CMP=TILE&amp;ca=dti-tilecognosexpdemos&amp;ca=dth-i"><img src="//www.ibm.com/developerworks/i/tile_v16_express.gif" width="158" height="50" border="0" alt="Cognos Express online demos" /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/downloads/soasandbox/reuse/index.html?S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tilesoawaseclipse&amp;ca=dth-soa"><img src="//www.ibm.com/developerworks/i/tile_v16_sandboxeclipse.gif" width="158" height="50" border="0" alt="SOA Sandbox for WAS CE and Eclipse" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '10525';
+			contentAreas = 'java';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[16,34],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

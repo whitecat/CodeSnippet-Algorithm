@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../../notes.css"/>
+
+  <title>Java: Integers</title>
+</head>
+<body><div id="content">
+
+<h1 class="title"><a href="../../index.html">Java Notes</a></h1><h1>Integers</h1>
+
+<p>Integers are whole numbers, for example, -35, 0, 2048, ....
+Integers are represented in binary inside the computer, and in
+decimal in Java source programs.  Java automatically converts decimal
+numbers you write in your source program into binary numbers internally.
+</p>
+
+   
+<h2>Four (or five) kinds of primtive integers and two integer classes.</h2>
+<p><span class="leadin">Primitive types</span>.  The are four types of integers in Java:
+<code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>.  
+<strong>The most common is <tt>int</tt></strong>.
+All integers are stored in signed, two's-complement, format.
+</p>
+
+<p><span class="leadin">char!</span>  Technically, <code>char</code> is an unsigned integer type altho it
+is almost exclusively used to store characters.  Making it integer is largely because of Java's legacy from 
+C++.  Don't use <code>char</code> for integers unless you are sure of what you're
+doing.
+</p>
+
+<p><span class="leadin">Classes</span>.  In addition to the primitive types, there are two classes
+used for integers.</p>
+<ul>
+<li><b>Integer</b> - Primarily useful for utility methods and to put in the Collections data structure classes.</li>
+<li><b>BigInteger</b> - Used where unbounded arithmetic is important.</li>
+</ul>
+   
+   
+<h2>How Java stores integers in memory</h2>
+<p>Java stores all integers in memory as binary numbers.</p>
+<table border="1" cellspacing="0" summary="integer types">
+<tr><td><i>type</i></td><td colspan="2" align="center"><i>Size</i></td><td colspan="2" align="center"><i>Range</i></td></tr>
+<tr><td><i>name</i></td><td><i>bytes</i></td><td><i>bits</i></td><td><i>minimum</i></td><td><i>maximum</i></td></tr>
+<tr><td><strong><tt>byte</tt></strong></td> <td>1</td><td>8</td> <td>-128</td><td>+127</td></tr>
+<tr><td><strong><tt>short</tt></strong></td><td>2</td><td>16</td><td>-32,768</td><td>+32,767</td></tr>
+<tr><td><strong><tt><strong>int</strong></tt></strong></td>  <td>4</td><td>32</td><td>-2,147,483,648</td><td>+2,147,483,647</td></tr>
+<tr><td><strong><tt>long</tt></strong></td> <td>8</td><td>64</td><td>-9,223,372,036,854,775,808</td><td>+9,223,372,036,854,775,807</td></tr>
+</table>
+
+
+<h2>How to write integer literals</h2>
+<p>Here is how to write decimal integer literals (constants).</p>
+<ul>
+<li><code>int</code> literals are written in the 
+    usual decimal notation, like 34 or -222.</li>
+    
+<li><code>long</code> literals are written by adding an L 
+    (or lowercase l altho this is almost impossible to
+    distinguish from the digit 1), eg, 34L or -222L.
+    </li>
+    
+<li>There is no way to write a literal <code>byte</code> or <code>short</code>,
+    altho sometimes Java will automatically cast an int literal
+    to the appropriate type.
+    </li>
+</ul>
+
+
+<h2>Hexadecimal literals</h2>
+<p>You can write an int in hexadecimal by prefixing the hexadecimal number
+with the digit zero followed by the letter x, "0x" or "0X".  The
+hexadecimal digits are 0-9 and the letters a-f in upper- or lowercase.
+</p>
+<pre class="fragment">
+   int i;
+   i = 0x2A;  // assigns decimal 42 to i.
+</pre>
+
+
+<h2>The shame of integer arithmetic</h2>
+<p>Operations may produce numbers which are too large (overflow) to be stored in an <code>int</code>.
+No error is caused in this case; the result is simply an incorrect number (one 
+of the shames of modern computer arithmetic).  Division by zero will cause 
+an execution exception (ArithmeticException). 
+Use BigInteger to prevent arithmetic overflow.
+</p>
+   
+<h2>Webliography</h2>
+<ul>
+<li><a href="http://www.javalobby.org/forums/thread.jspa?threadID=16906&tstart=0">Algorithms: Getting a Number's Ordinal</a></li>
+</ul>
+
+
+<div class="footer">
+Copyleft 2005 <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
+</div>
+</div></body>
+</html>
+

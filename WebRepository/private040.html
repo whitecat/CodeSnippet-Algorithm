@@ -1,0 +1,369 @@
+<HTML>
+<HEAD>
+<TITLE>RedBlackTree.java</TITLE>
+<STYLE TYPE="text/css"><!--
+.syntax0 {
+color: #000000;
+}
+.syntax1 {
+color: #009900;
+font-style: italic;
+}
+.syntax2 {
+color: #009900;
+font-style: italic;
+}
+.syntax3 {
+color: #6600cc;
+}
+.syntax4 {
+color: #cc6600;
+}
+.syntax5 {
+color: #ff0000;
+}
+.syntax6 {
+color: #000066;
+font-weight: bold;
+}
+.syntax7 {
+background: #ffffcc;
+color: #ff0066;
+}
+.syntax8 {
+color: #0001b3;
+font-weight: bold;
+}
+.syntax9 {
+color: #0000ff;
+font-weight: bold;
+}
+.syntax10 {
+color: #0000ff;
+font-weight: bold;
+}
+.syntax11 {
+color: #000000;
+font-weight: bold;
+}
+.syntax12 {
+color: #02b902;
+}
+.syntax13 {
+color: #ff0000;
+}
+.syntax14 {
+color: #00ff00;
+}
+.syntax15 {
+color: #0000ff;
+font-weight: bold;
+}
+.syntax16 {
+color: #00ffff;
+}
+.syntax17 {
+color: #0000ff;
+}
+.syntax18 {
+color: #330033;
+font-weight: bold;
+}
+.gutter {
+background: #dbdbdb;
+color: #000000;
+}
+.gutterH {
+background: #dbdbdb;
+color: #990066;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE><SPAN CLASS="gutter">       1:</SPAN><SPAN CLASS="syntax9">import</SPAN> java.util.*;
+<SPAN CLASS="gutter">       2:</SPAN><SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax10">class</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T <SPAN CLASS="syntax8">extends</SPAN> Comparable<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN><SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">       3:</SPAN>    <SPAN CLASS="syntax1">/*</SPAN>
+<SPAN CLASS="gutter">       4:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Red/Black</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">tree</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">implementation</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">based</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">on</SPAN><SPAN CLASS="syntax1"> </SPAN>
+<SPAN CLASS="gutterH">Java   5:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Algorithms</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">in</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">C++,</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Sedgewick</SPAN>
+<SPAN CLASS="gutter">       6:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Introduction</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">To</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Algorithms</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Cormen,</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Thomas</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">H.</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">/</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Leiserson,</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Charl</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">es</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">E</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">.</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">/</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Rivest,</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Ronald</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">L</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">.</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">The</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">MIT</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">Press</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">07/1990</SPAN>
+<SPAN CLASS="gutter">       7:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">NOTE</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">LOOK</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">AT</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">END</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">OF</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">FILE</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">TO</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">SEE</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">DIFFERENCES</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">IN</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">TRAVERSAL</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">IDIOMS</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN>
+<SPAN CLASS="gutter">       8:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">*/</SPAN>
+<SPAN CLASS="gutter">       9:</SPAN>    
+<SPAN CLASS="gutterH">Java  10:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax8">static</SPAN> <SPAN CLASS="syntax8">final</SPAN> <SPAN CLASS="syntax10">int</SPAN> red   <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax5">0</SPAN>;
+<SPAN CLASS="gutter">      11:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax8">static</SPAN> <SPAN CLASS="syntax8">final</SPAN> <SPAN CLASS="syntax10">int</SPAN> black <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax5">1</SPAN>;
+<SPAN CLASS="gutter">      12:</SPAN>    
+<SPAN CLASS="gutter">      13:</SPAN>    <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">use</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">python</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">instance</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">variable</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">naming</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">convention</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">for</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">convenience</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">in</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">comparing</SPAN>
+<SPAN CLASS="gutter">      14:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> <SPAN CLASS="syntax10">int</SPAN>               __color;
+<SPAN CLASS="gutterH">Java  15:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> T                 __val;
+<SPAN CLASS="gutter">      16:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN>   __left;
+<SPAN CLASS="gutter">      17:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN>   __right;
+<SPAN CLASS="gutter">      18:</SPAN>
+<SPAN CLASS="gutter">      19:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> <SPAN CLASS="syntax6">RedBlackTree</SPAN>(RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> b) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutterH">Java  20:</SPAN>        __val      <SPAN CLASS="syntax18">=</SPAN> b.__val;
+<SPAN CLASS="gutter">      21:</SPAN>        __left     <SPAN CLASS="syntax18">=</SPAN> b.__left;
+<SPAN CLASS="gutter">      22:</SPAN>        __right    <SPAN CLASS="syntax18">=</SPAN> b.__right;
+<SPAN CLASS="gutter">      23:</SPAN>        __color    <SPAN CLASS="syntax18">=</SPAN> red;
+<SPAN CLASS="gutter">      24:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutterH">Java  25:</SPAN>
+<SPAN CLASS="gutter">      26:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> <SPAN CLASS="syntax10">void</SPAN> <SPAN CLASS="syntax6">copy</SPAN>(RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> x) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      27:</SPAN>        __val     <SPAN CLASS="syntax18">=</SPAN> x.__val;
+<SPAN CLASS="gutter">      28:</SPAN>        __left    <SPAN CLASS="syntax18">=</SPAN> x.__left;
+<SPAN CLASS="gutter">      29:</SPAN>        __right   <SPAN CLASS="syntax18">=</SPAN> x.__right;
+<SPAN CLASS="gutterH">Java  30:</SPAN>        __color   <SPAN CLASS="syntax18">=</SPAN> x.__color;
+<SPAN CLASS="gutter">      31:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      32:</SPAN>    
+<SPAN CLASS="gutter">      33:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax6">RBinsertLeft</SPAN>(T k,<SPAN CLASS="syntax10">int</SPAN> sw) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      34:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> l;
+<SPAN CLASS="gutterH">Java  35:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> b;
+<SPAN CLASS="gutter">      36:</SPAN>        
+<SPAN CLASS="gutter">      37:</SPAN>        l <SPAN CLASS="syntax18">=</SPAN> __left;
+<SPAN CLASS="gutter">      38:</SPAN>        <SPAN CLASS="syntax8">if</SPAN> (l <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      39:</SPAN>            __left <SPAN CLASS="syntax18">=</SPAN> b <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax8">new</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN>(k);
+<SPAN CLASS="gutterH">Java  40:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      41:</SPAN>        <SPAN CLASS="syntax8">else</SPAN> <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      42:</SPAN>            b <SPAN CLASS="syntax18">=</SPAN> l.<SPAN CLASS="syntax6">RBinsert</SPAN>(k,sw);
+<SPAN CLASS="gutter">      43:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      44:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> b;
+<SPAN CLASS="gutterH">Java  45:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      46:</SPAN>        
+<SPAN CLASS="gutter">      47:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax6">RBinsertRight</SPAN>(T k,<SPAN CLASS="syntax10">int</SPAN> sw) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      48:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> r;
+<SPAN CLASS="gutter">      49:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> b;
+<SPAN CLASS="gutterH">Java  50:</SPAN>        
+<SPAN CLASS="gutter">      51:</SPAN>        r <SPAN CLASS="syntax18">=</SPAN> __right;
+<SPAN CLASS="gutter">      52:</SPAN>        <SPAN CLASS="syntax8">if</SPAN> (r <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      53:</SPAN>            __right <SPAN CLASS="syntax18">=</SPAN> b <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax8">new</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN>(k
+<SPAN CLASS="gutter">      54:</SPAN>            );
+<SPAN CLASS="gutterH">Java  55:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      56:</SPAN>        <SPAN CLASS="syntax8">else</SPAN> <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      57:</SPAN>            b <SPAN CLASS="syntax18">=</SPAN> r.<SPAN CLASS="syntax6">RBinsert</SPAN>(k,sw);
+<SPAN CLASS="gutter">      58:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      59:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> b;
+<SPAN CLASS="gutterH">Java  60:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      61:</SPAN>    
+<SPAN CLASS="gutter">      62:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax6">rotLeft</SPAN>()
+<SPAN CLASS="gutter">      63:</SPAN>    <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      64:</SPAN>       RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> x;
+<SPAN CLASS="gutterH">Java  65:</SPAN>       RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> me;
+<SPAN CLASS="gutter">      66:</SPAN>
+<SPAN CLASS="gutter">      67:</SPAN>       <SPAN CLASS="syntax8">if</SPAN> (__right <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax8">return</SPAN> <SPAN CLASS="syntax14">null</SPAN>;
+<SPAN CLASS="gutter">      68:</SPAN>      <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">make</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">changes</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">in</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">a</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">copy</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">of</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">current</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">__self</SPAN>
+<SPAN CLASS="gutter">      69:</SPAN>      <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">on</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">return,</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">caller</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">will</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">copy</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">in</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">'me'</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">to</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">current</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN>
+<SPAN CLASS="gutterH">Java  70:</SPAN>       me          <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax8">new</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN>(<SPAN CLASS="syntax14">this</SPAN>);
+<SPAN CLASS="gutter">      71:</SPAN>       x           <SPAN CLASS="syntax18">=</SPAN> me.__right;
+<SPAN CLASS="gutter">      72:</SPAN>       me.__right  <SPAN CLASS="syntax18">=</SPAN> x.__left;
+<SPAN CLASS="gutter">      73:</SPAN>       x.__left    <SPAN CLASS="syntax18">=</SPAN> me;
+<SPAN CLASS="gutter">      74:</SPAN>       <SPAN CLASS="syntax8">return</SPAN>   x;
+<SPAN CLASS="gutterH">Java  75:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      76:</SPAN>
+<SPAN CLASS="gutter">      77:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax6">rotRight</SPAN>()
+<SPAN CLASS="gutter">      78:</SPAN>    <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      79:</SPAN>       RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> x;
+<SPAN CLASS="gutterH">Java  80:</SPAN>       RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> me;
+<SPAN CLASS="gutter">      81:</SPAN>
+<SPAN CLASS="gutter">      82:</SPAN>       <SPAN CLASS="syntax8">if</SPAN> (__left <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax8">return</SPAN> <SPAN CLASS="syntax14">null</SPAN>;
+<SPAN CLASS="gutter">      83:</SPAN>
+<SPAN CLASS="gutter">      84:</SPAN>      <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">make</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">changes</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">in</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">a</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">copy</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">of</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">current</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">__self</SPAN>
+<SPAN CLASS="gutterH">Java  85:</SPAN>      <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">on</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">return,</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">caller</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">will</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">copy</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">in</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">'me'</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">to</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">current</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN>
+<SPAN CLASS="gutter">      86:</SPAN>       me          <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax8">new</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN>(<SPAN CLASS="syntax14">this</SPAN>);
+<SPAN CLASS="gutter">      87:</SPAN>       x           <SPAN CLASS="syntax18">=</SPAN> me.__left;
+<SPAN CLASS="gutter">      88:</SPAN>       me.__left   <SPAN CLASS="syntax18">=</SPAN> x.__right;
+<SPAN CLASS="gutter">      89:</SPAN>       x.__right   <SPAN CLASS="syntax18">=</SPAN> me;
+<SPAN CLASS="gutterH">Java  90:</SPAN>       <SPAN CLASS="syntax8">return</SPAN> x;
+<SPAN CLASS="gutter">      91:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">      92:</SPAN>
+<SPAN CLASS="gutter">      93:</SPAN>    <SPAN CLASS="syntax8">private</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax6">RBinsert</SPAN>(T k,<SPAN CLASS="syntax10">int</SPAN> sw) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">      94:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> b <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>;
+<SPAN CLASS="gutterH">Java  95:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> x;
+<SPAN CLASS="gutter">      96:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> l;
+<SPAN CLASS="gutter">      97:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> ll;
+<SPAN CLASS="gutter">      98:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> r;
+<SPAN CLASS="gutter">      99:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> rr;
+<SPAN CLASS="gutterH">Java 100:</SPAN>        
+<SPAN CLASS="gutter">     101:</SPAN>        <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">if</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">current</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">is</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">a</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">4</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node,</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">split</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">it</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">by</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">flipping</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">its</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">colors</SPAN>
+<SPAN CLASS="gutter">     102:</SPAN>        <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">if</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">both</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">children</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">of</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">this</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">are</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">red,</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">change</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">this</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">one</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">to</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">red</SPAN>
+<SPAN CLASS="gutter">     103:</SPAN>        <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">and</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">children</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">to</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">black</SPAN>
+<SPAN CLASS="gutter">     104:</SPAN>        l <SPAN CLASS="syntax18">=</SPAN> __left;
+<SPAN CLASS="gutterH">Java 105:</SPAN>        r <SPAN CLASS="syntax18">=</SPAN> __right;
+<SPAN CLASS="gutter">     106:</SPAN>        <SPAN CLASS="syntax8">if</SPAN> ((l <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(l.__color<SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN>red)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(r <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(r.__color<SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN>red)) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     107:</SPAN>            __color <SPAN CLASS="syntax18">=</SPAN> red;
+<SPAN CLASS="gutter">     108:</SPAN>            l.__color <SPAN CLASS="syntax18">=</SPAN> black;
+<SPAN CLASS="gutter">     109:</SPAN>            r.__color <SPAN CLASS="syntax18">=</SPAN> black;
+<SPAN CLASS="gutterH">Java 110:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     111:</SPAN>        
+<SPAN CLASS="gutter">     112:</SPAN>        <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">go</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">left</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">or</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">right</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">depending</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">on</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">key</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">relationship</SPAN>
+<SPAN CLASS="gutter">     113:</SPAN>        <SPAN CLASS="syntax8">if</SPAN> (k.<SPAN CLASS="syntax6">compareTo</SPAN>(__val) <SPAN CLASS="syntax18">&lt;</SPAN> <SPAN CLASS="syntax5">0</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     114:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">recursively</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">insert</SPAN>
+<SPAN CLASS="gutterH">Java 115:</SPAN>            b <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax6">RBinsertLeft</SPAN>(k,<SPAN CLASS="syntax5">0</SPAN>);
+<SPAN CLASS="gutter">     116:</SPAN>            
+<SPAN CLASS="gutter">     117:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">on</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">way</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">back</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">up</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">check</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">if</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">a</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">rotation</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">is</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">needed</SPAN>
+<SPAN CLASS="gutter">     118:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">if</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">search</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">path</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">has</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">two</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">red</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">links</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">with</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">same</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">orientation</SPAN>
+<SPAN CLASS="gutter">     119:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">do</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">a</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">single</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">rotation</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">and</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">flip</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">color</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">bits</SPAN>
+<SPAN CLASS="gutterH">Java 120:</SPAN>            l <SPAN CLASS="syntax18">=</SPAN> __left;
+<SPAN CLASS="gutter">     121:</SPAN>            <SPAN CLASS="syntax8">if</SPAN> ((__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(l <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(l.__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(sw <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax5">1</SPAN>)) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     122:</SPAN>                x <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax6">rotRight</SPAN>();
+<SPAN CLASS="gutter">     123:</SPAN>                <SPAN CLASS="syntax8">if</SPAN> (x <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     124:</SPAN>                    <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">copy</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">returned</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">to</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">'this'</SPAN>
+<SPAN CLASS="gutterH">Java 125:</SPAN>                    <SPAN CLASS="syntax6">copy</SPAN>(x);
+<SPAN CLASS="gutter">     126:</SPAN>                <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     127:</SPAN>            <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     128:</SPAN>            
+<SPAN CLASS="gutter">     129:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">flip</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">color</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">bits</SPAN>
+<SPAN CLASS="gutterH">Java 130:</SPAN>            l <SPAN CLASS="syntax18">=</SPAN> __left;
+<SPAN CLASS="gutter">     131:</SPAN>            <SPAN CLASS="syntax8">if</SPAN> (l <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     132:</SPAN>                ll <SPAN CLASS="syntax18">=</SPAN> l.__left;
+<SPAN CLASS="gutter">     133:</SPAN>                <SPAN CLASS="syntax8">if</SPAN> (ll <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     134:</SPAN>                    <SPAN CLASS="syntax8">if</SPAN> ((l.__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(ll.__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutterH">Java 135:</SPAN>                        x <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax6">rotRight</SPAN>();
+<SPAN CLASS="gutter">     136:</SPAN>                        <SPAN CLASS="syntax8">if</SPAN> (x <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     137:</SPAN>                            <SPAN CLASS="syntax6">copy</SPAN>(x);
+<SPAN CLASS="gutter">     138:</SPAN>                        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     139:</SPAN>                        __color <SPAN CLASS="syntax18">=</SPAN> black;
+<SPAN CLASS="gutterH">Java 140:</SPAN>                        r <SPAN CLASS="syntax18">=</SPAN> __right;
+<SPAN CLASS="gutter">     141:</SPAN>                        <SPAN CLASS="syntax8">if</SPAN> (r <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     142:</SPAN>                           r.__color <SPAN CLASS="syntax18">=</SPAN> red;
+<SPAN CLASS="gutter">     143:</SPAN>                        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     144:</SPAN>                    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutterH">Java 145:</SPAN>                <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     146:</SPAN>            <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     147:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     148:</SPAN>        <SPAN CLASS="syntax8">else</SPAN> <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     149:</SPAN>            b <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax6">RBinsertRight</SPAN>(k,<SPAN CLASS="syntax5">1</SPAN>);
+<SPAN CLASS="gutterH">Java 150:</SPAN>            
+<SPAN CLASS="gutter">     151:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">on</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">way</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">back</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">up</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">check</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">if</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">a</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">rotation</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">is</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">needed</SPAN>
+<SPAN CLASS="gutter">     152:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">if</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">search</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">path</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">has</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">two</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">red</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">links</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">with</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">same</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">orientation</SPAN>
+<SPAN CLASS="gutter">     153:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">do</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">a</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">single</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">rotation</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">and</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">flip</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">color</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">bits</SPAN>
+<SPAN CLASS="gutter">     154:</SPAN>            r <SPAN CLASS="syntax18">=</SPAN> __right;
+<SPAN CLASS="gutterH">Java 155:</SPAN>            <SPAN CLASS="syntax8">if</SPAN> ((__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(r <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(r.__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(sw <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax5">0</SPAN>)) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     156:</SPAN>                x <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax6">rotLeft</SPAN>();
+<SPAN CLASS="gutter">     157:</SPAN>                <SPAN CLASS="syntax8">if</SPAN> (x <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     158:</SPAN>                    <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">copy</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">returned</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">to</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">'this'</SPAN>
+<SPAN CLASS="gutter">     159:</SPAN>                    <SPAN CLASS="syntax6">copy</SPAN>(x);
+<SPAN CLASS="gutterH">Java 160:</SPAN>                <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     161:</SPAN>            <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     162:</SPAN>            
+<SPAN CLASS="gutter">     163:</SPAN>            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">flip</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">color</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">bits</SPAN>
+<SPAN CLASS="gutter">     164:</SPAN>            r <SPAN CLASS="syntax18">=</SPAN> __right;
+<SPAN CLASS="gutterH">Java 165:</SPAN>            <SPAN CLASS="syntax8">if</SPAN> (r <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     166:</SPAN>                rr <SPAN CLASS="syntax18">=</SPAN> r.__right;
+<SPAN CLASS="gutter">     167:</SPAN>                <SPAN CLASS="syntax8">if</SPAN> (rr <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     168:</SPAN>                    <SPAN CLASS="syntax8">if</SPAN> ((r.__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)<SPAN CLASS="syntax18">&amp;</SPAN><SPAN CLASS="syntax18">&amp;</SPAN>(rr.__color <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> red)) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     169:</SPAN>                        x <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax6">rotLeft</SPAN>();
+<SPAN CLASS="gutterH">Java 170:</SPAN>                        <SPAN CLASS="syntax8">if</SPAN> (x <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     171:</SPAN>                            <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">copy</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">returned</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">node</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">to</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">'this'</SPAN>
+<SPAN CLASS="gutter">     172:</SPAN>                            <SPAN CLASS="syntax6">copy</SPAN>(x);
+<SPAN CLASS="gutter">     173:</SPAN>                        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     174:</SPAN>                        __color <SPAN CLASS="syntax18">=</SPAN> black;
+<SPAN CLASS="gutterH">Java 175:</SPAN>                        l <SPAN CLASS="syntax18">=</SPAN> __left;
+<SPAN CLASS="gutter">     176:</SPAN>                        <SPAN CLASS="syntax8">if</SPAN> (l <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     177:</SPAN>                           l.__color <SPAN CLASS="syntax18">=</SPAN> red;
+<SPAN CLASS="gutter">     178:</SPAN>                        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     179:</SPAN>                    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutterH">Java 180:</SPAN>                <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     181:</SPAN>            <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     182:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>            
+<SPAN CLASS="gutter">     183:</SPAN>        
+<SPAN CLASS="gutter">     184:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> b;
+<SPAN CLASS="gutterH">Java 185:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     186:</SPAN>    
+<SPAN CLASS="gutter">     187:</SPAN><SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">==================================================</SPAN>
+<SPAN CLASS="gutter">     188:</SPAN><SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">PUBLIC</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">METHODS</SPAN>
+<SPAN CLASS="gutter">     189:</SPAN><SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">==================================================</SPAN>
+<SPAN CLASS="gutterH">Java 190:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax6">RedBlackTree</SPAN>(T x) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     191:</SPAN>        __val      <SPAN CLASS="syntax18">=</SPAN> x;
+<SPAN CLASS="gutter">     192:</SPAN>        __left     <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>;
+<SPAN CLASS="gutter">     193:</SPAN>        __right    <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>;
+<SPAN CLASS="gutter">     194:</SPAN>        __color  <SPAN CLASS="syntax18">=</SPAN> red;
+<SPAN CLASS="gutterH">Java 195:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     196:</SPAN>
+<SPAN CLASS="gutter">     197:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> String <SPAN CLASS="syntax6">toString</SPAN>() <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     198:</SPAN>        String s <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">&quot;</SPAN>;
+<SPAN CLASS="gutter">     199:</SPAN>        s <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">[</SPAN><SPAN CLASS="syntax13">&quot;</SPAN> <SPAN CLASS="syntax18">+</SPAN> __val <SPAN CLASS="syntax18">+</SPAN> <SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">,</SPAN><SPAN CLASS="syntax13">&quot;</SPAN> <SPAN CLASS="syntax18">+</SPAN> __color <SPAN CLASS="syntax18">+</SPAN> <SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">]</SPAN><SPAN CLASS="syntax13">&quot;</SPAN>;
+<SPAN CLASS="gutterH">Java 200:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> s;
+<SPAN CLASS="gutter">     201:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     202:</SPAN>
+<SPAN CLASS="gutter">     203:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> T <SPAN CLASS="syntax6">val</SPAN>() <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     204:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> __val;
+<SPAN CLASS="gutterH">Java 205:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     206:</SPAN>    
+<SPAN CLASS="gutter">     207:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax10">int</SPAN> <SPAN CLASS="syntax6">color</SPAN>() <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     208:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> __color;
+<SPAN CLASS="gutter">     209:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutterH">Java 210:</SPAN>
+<SPAN CLASS="gutter">     211:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax6">find</SPAN>(T key) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     212:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> result <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>;
+<SPAN CLASS="gutter">     213:</SPAN>        <SPAN CLASS="syntax8">if</SPAN> (key <SPAN CLASS="syntax18">=</SPAN><SPAN CLASS="syntax18">=</SPAN> __val) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     214:</SPAN>            result <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">this</SPAN>;
+<SPAN CLASS="gutterH">Java 215:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     216:</SPAN>        <SPAN CLASS="syntax8">else</SPAN> <SPAN CLASS="syntax8">if</SPAN> (key.<SPAN CLASS="syntax6">compareTo</SPAN>(__val) <SPAN CLASS="syntax18">&lt;</SPAN> <SPAN CLASS="syntax5">0</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     217:</SPAN>            <SPAN CLASS="syntax8">if</SPAN> (__left <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     218:</SPAN>                result <SPAN CLASS="syntax18">=</SPAN> __left.<SPAN CLASS="syntax6">find</SPAN>(key);
+<SPAN CLASS="gutter">     219:</SPAN>            <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutterH">Java 220:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     221:</SPAN>        <SPAN CLASS="syntax8">else</SPAN> <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     222:</SPAN>            <SPAN CLASS="syntax8">if</SPAN> (__right <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     223:</SPAN>                result <SPAN CLASS="syntax18">=</SPAN> __right.<SPAN CLASS="syntax6">find</SPAN>(key);
+<SPAN CLASS="gutter">     224:</SPAN>            <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutterH">Java 225:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     226:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> result;
+<SPAN CLASS="gutter">     227:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     228:</SPAN>    
+<SPAN CLASS="gutter">     229:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax10">void</SPAN> <SPAN CLASS="syntax6">inorder</SPAN>(NodeVisitor visitor,<SPAN CLASS="syntax10">int</SPAN> depth) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutterH">Java 230:</SPAN>        <SPAN CLASS="syntax8">if</SPAN> (__left <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     231:</SPAN>            __left.<SPAN CLASS="syntax6">inorder</SPAN>(visitor,depth<SPAN CLASS="syntax18">+</SPAN><SPAN CLASS="syntax5">1</SPAN>);
+<SPAN CLASS="gutter">     232:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     233:</SPAN>        visitor.<SPAN CLASS="syntax6">visit</SPAN>(<SPAN CLASS="syntax14">this</SPAN>,depth);
+<SPAN CLASS="gutter">     234:</SPAN>        <SPAN CLASS="syntax8">if</SPAN> (__right <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutterH">Java 235:</SPAN>            __right.<SPAN CLASS="syntax6">inorder</SPAN>(visitor,depth<SPAN CLASS="syntax18">+</SPAN><SPAN CLASS="syntax5">1</SPAN>);
+<SPAN CLASS="gutter">     236:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     237:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     238:</SPAN>    
+<SPAN CLASS="gutter">     239:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> <SPAN CLASS="syntax6">insert</SPAN>(T k) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutterH">Java 240:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>T<SPAN CLASS="syntax18">&gt;</SPAN> b;
+<SPAN CLASS="gutter">     241:</SPAN>        b <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax6">RBinsert</SPAN>(k,<SPAN CLASS="syntax5">0</SPAN>);
+<SPAN CLASS="gutter">     242:</SPAN>        __color <SPAN CLASS="syntax18">=</SPAN> black;
+<SPAN CLASS="gutter">     243:</SPAN>        <SPAN CLASS="syntax8">return</SPAN> b;
+<SPAN CLASS="gutter">     244:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutterH">Java 245:</SPAN>
+<SPAN CLASS="gutter">     246:</SPAN><SPAN CLASS="syntax1">/*</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">NODE</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">VISITOR</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">interface</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">from</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">'NodeVisitor.java'</SPAN>
+<SPAN CLASS="gutter">     247:</SPAN>
+<SPAN CLASS="gutter">     248:</SPAN><SPAN CLASS="syntax1">public</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">interface</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">NodeVisitor</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">{</SPAN>
+<SPAN CLASS="gutter">     249:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">public</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">void</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">visit(RedBlackTree</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">node,int</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1">depth);</SPAN>
+<SPAN CLASS="gutterH">Java 250:</SPAN><SPAN CLASS="syntax1">}</SPAN>
+<SPAN CLASS="gutter">     251:</SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN><SPAN CLASS="syntax1"> </SPAN>
+<SPAN CLASS="gutter">     252:</SPAN><SPAN CLASS="syntax1">*/</SPAN>
+<SPAN CLASS="gutter">     253:</SPAN>
+<SPAN CLASS="gutter">     254:</SPAN><SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">==================================</SPAN>
+<SPAN CLASS="gutterH">Java 255:</SPAN><SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">test</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">program</SPAN>
+<SPAN CLASS="gutter">     256:</SPAN><SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">==================================</SPAN>
+<SPAN CLASS="gutter">     257:</SPAN>    <SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax8">static</SPAN> <SPAN CLASS="syntax10">void</SPAN> <SPAN CLASS="syntax6">main</SPAN>(String[] args) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     258:</SPAN>        <SPAN CLASS="syntax10">int</SPAN>[] nodelist <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax18">{</SPAN><SPAN CLASS="syntax5">11</SPAN>,<SPAN CLASS="syntax5">4</SPAN>,<SPAN CLASS="syntax5">8</SPAN>,<SPAN CLASS="syntax5">14</SPAN>,<SPAN CLASS="syntax5">17</SPAN>,<SPAN CLASS="syntax5">6</SPAN>,<SPAN CLASS="syntax5">9</SPAN>,<SPAN CLASS="syntax5">7</SPAN>,<SPAN CLASS="syntax5">16</SPAN>,<SPAN CLASS="syntax5">15</SPAN>,<SPAN CLASS="syntax5">13</SPAN>,<SPAN CLASS="syntax5">5</SPAN>,<SPAN CLASS="syntax5">19</SPAN>,<SPAN CLASS="syntax5">18</SPAN>,<SPAN CLASS="syntax5">12</SPAN>,<SPAN CLASS="syntax5">10</SPAN>,<SPAN CLASS="syntax5">3</SPAN>,<SPAN CLASS="syntax5">20</SPAN>,<SPAN CLASS="syntax5">1</SPAN><SPAN CLASS="syntax18">}</SPAN>;
+<SPAN CLASS="gutter">     259:</SPAN>        NodeVisitor v;
+<SPAN CLASS="gutterH">Java 260:</SPAN>        
+<SPAN CLASS="gutter">     261:</SPAN>        <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">insert</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">all</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">data</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">into</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">tree</SPAN>
+<SPAN CLASS="gutter">     262:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>Integer<SPAN CLASS="syntax18">&gt;</SPAN> root <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax8">new</SPAN> RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>Integer<SPAN CLASS="syntax18">&gt;</SPAN>(<SPAN CLASS="syntax5">2</SPAN>);
+<SPAN CLASS="gutter">     263:</SPAN>        <SPAN CLASS="syntax8">for</SPAN>(<SPAN CLASS="syntax10">int</SPAN> n:nodelist) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     264:</SPAN>            root.<SPAN CLASS="syntax6">insert</SPAN>(n);
+<SPAN CLASS="gutterH">Java 265:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     266:</SPAN>        
+<SPAN CLASS="gutter">     267:</SPAN>        <SPAN CLASS="syntax2">//</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">anonymous</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">class</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">implementing</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">the</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">NodeVisitor</SPAN><SPAN CLASS="syntax2"> </SPAN><SPAN CLASS="syntax2">interface</SPAN>
+<SPAN CLASS="gutter">     268:</SPAN>        v <SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax8">new</SPAN> <SPAN CLASS="syntax6">NodeVisitor</SPAN>() <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     269:</SPAN>            <SPAN CLASS="syntax8">public</SPAN> <SPAN CLASS="syntax10">void</SPAN> <SPAN CLASS="syntax6">visit</SPAN>(RedBlackTree node,<SPAN CLASS="syntax10">int</SPAN> depth) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutterH">Java 270:</SPAN>                <SPAN CLASS="syntax8">if</SPAN> (node.<SPAN CLASS="syntax6">val</SPAN>() <SPAN CLASS="syntax18">!</SPAN><SPAN CLASS="syntax18">=</SPAN> <SPAN CLASS="syntax14">null</SPAN>) <SPAN CLASS="syntax18">{</SPAN>
+<SPAN CLASS="gutter">     271:</SPAN>                    System.out.<SPAN CLASS="syntax6">print</SPAN>(<SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">(</SPAN><SPAN CLASS="syntax13">&quot;</SPAN> <SPAN CLASS="syntax18">+</SPAN> node.<SPAN CLASS="syntax6">val</SPAN>().<SPAN CLASS="syntax6">toString</SPAN>() <SPAN CLASS="syntax18">+</SPAN> <SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">:</SPAN><SPAN CLASS="syntax13">&quot;</SPAN> <SPAN CLASS="syntax18">+</SPAN> node.<SPAN CLASS="syntax6">color</SPAN>()  <SPAN CLASS="syntax18">+</SPAN> <SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">:</SPAN><SPAN CLASS="syntax13">&quot;</SPAN> <SPAN CLASS="syntax18">+</SPAN> depth <SPAN CLASS="syntax18">+</SPAN> <SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">),</SPAN><SPAN CLASS="syntax13"> </SPAN><SPAN CLASS="syntax13">&quot;</SPAN>);
+<SPAN CLASS="gutter">     272:</SPAN>                <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     273:</SPAN>            <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     274:</SPAN>        <SPAN CLASS="syntax18">}</SPAN>;
+<SPAN CLASS="gutterH">Java 275:</SPAN>        System.out.<SPAN CLASS="syntax6">print</SPAN>(<SPAN CLASS="syntax13">&quot;</SPAN><SPAN CLASS="syntax13">Java</SPAN><SPAN CLASS="syntax13"> </SPAN><SPAN CLASS="syntax13"> </SPAN><SPAN CLASS="syntax13"> </SPAN><SPAN CLASS="syntax13"> </SPAN><SPAN CLASS="syntax13"> </SPAN><SPAN CLASS="syntax13">=</SPAN><SPAN CLASS="syntax13"> </SPAN><SPAN CLASS="syntax13">&quot;</SPAN>);    
+<SPAN CLASS="gutter">     276:</SPAN>        root.<SPAN CLASS="syntax6">inorder</SPAN>(v,<SPAN CLASS="syntax5">0</SPAN>);
+<SPAN CLASS="gutter">     277:</SPAN>        System.out.<SPAN CLASS="syntax6">println</SPAN>();
+<SPAN CLASS="gutter">     278:</SPAN>        
+<SPAN CLASS="gutter">     279:</SPAN>        RedBlackTree<SPAN CLASS="syntax18">&lt;</SPAN>Integer<SPAN CLASS="syntax18">&gt;</SPAN> x <SPAN CLASS="syntax18">=</SPAN> root.<SPAN CLASS="syntax6">find</SPAN>(<SPAN CLASS="syntax5">16</SPAN>);
+<SPAN CLASS="gutterH">Java 280:</SPAN>        System.out.<SPAN CLASS="syntax6">println</SPAN>(x.<SPAN CLASS="syntax6">toString</SPAN>());
+<SPAN CLASS="gutter">     281:</SPAN>    <SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     282:</SPAN><SPAN CLASS="syntax18">}</SPAN>
+<SPAN CLASS="gutter">     283:</SPAN>
+</PRE></BODY>
+</HTML>
+

@@ -1,0 +1,158 @@
+<html>
+
+<head>
+<title>Java Programming Course - Converting from double to int</title>
+<meta content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<meta name="keywords" content="Java , programming, teaching, learning, typecast, double to int">
+<meta name="author" content="H. Lohninger">
+<link rel="stylesheet" type="text/css" href="img/javacourse.css">
+</head>
+
+<body>
+<center>
+<table align=center border=0 cellspacing=1 cellpadding=4 width=800>
+
+<tr>
+<td>
+<FONT SIZE="1">The <i>Java Course</i> provides a general introduction to programming in Java . It is based on A.B. Downey's book, <i>How to Think Like a Computer Scientist</I>. <a href="editorial.html">Click here</a> for details.
+</FONT><td>
+<td>
+<script type="text/javascript"><!--
+google_ad_client = "pub-9360736568487010";
+google_alternate_ad_url = "http://www.sdlsuite.com/ads/deliver_banner468060.php";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel ="6249130445";
+google_color_border = "1C425A";
+google_color_bg = "FFFFAA";
+google_color_link = "000000";
+google_color_url = "1C425A";
+google_color_text = "1C425A";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</td>
+</tr>
+</table>
+
+<br>
+<a href="http://www.vias.org/" target=_blank><img src="img/javacourse_logo.jpg" border=0></a><br>
+<table background="img/bggrad.gif" border="0" cellpadding="5" cellspacing="0" height="30" width="800" align=center>
+<tr>
+<td class=navig><a class=navig href="index.html">Home</a> <img src="img/linnav_next.png"><a class=navig href="wrapnt_methods21.html">Methods</a> <img src="img/linnav_next.png">Converting from double to int</td>
+<td class=navig><div align=right><a class=navig href="index_a.html">Index</a></div></td>
+</tr>
+<tr>
+<td class=navig>&nbsp;</td>
+<td class=navig><div align=right><a href="chap03_01.html"><img src="img/prev.gif" border=0></a><a href="chap03_03.html"><img src="img/next.gif" border=0></a></div></td>
+</tr>
+
+<tr>
+<td class=navig colspan=2>
+<script type="text/javascript"><!--
+google_ad_client = "pub-9360736568487010";
+google_ad_width = 728;
+google_ad_height = 15;
+google_ad_format = "728x15_0ads_al";
+google_ad_channel ="6249130445";
+google_color_border = "0A4C0A";
+google_color_bg = "0A4C0A";
+google_color_link = "FFFFAA";
+google_color_text = "FFFFAA";
+google_color_url = "FFFFAA";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</td>
+</tr>
+
+<tr>
+<td colspan=2>
+<br>
+<h1 align=center>Converting from double to int</h1>
+
+
+
+
+
+
+
+<p>As I mentioned, Java converts a <span class=code><span class=keyword>int</span></span>s to <span class=code><span class=keyword>double</span></span>s automatically if necessary, because no information is lost in the translation.  On the other hand, going from a <span class=code><span class=keyword>double</span></span> to an <span class=code><span class=keyword>int</span></span> requires rounding off.  Java doesn't perform this operation automatically, in order to make sure that you, as the programmer, are aware of the loss of the fractional part of the number.</p>
+<table align=right border=0 cellspacing=1 cellpadding=4>
+<tr>
+<td valign=top align=right class=borderless>
+<script type="text/javascript"><!--
+google_ad_client = "pub-9360736568487010";
+google_alternate_ad_url = "http://www.sdlsuite.com/ads/deliver_banner300250.php";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "text_image";
+google_ad_channel ="2611384625";
+google_color_border = "E6E6ED";
+google_color_bg = "E6E6ED";
+google_color_link = "000080";
+google_color_url = "000080";
+google_color_text = "000080";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</td>
+</tr>
+</table>
+
+<p>The simplest way to convert a floating-point value to an integer is to use a <b>typecast</b>.  Typecasting is so called because it allows you to take a value that belongs to one type and "cast" it into another type (in the sense of molding or reforming, not throwing).</p>
+
+<p>Unfortunately, the syntax for typecasting is ugly: you put the name of the type in parentheses and use it as an operator. For example,</p>
+
+
+<span class=code>&nbsp; &nbsp; <span class=keyword>int</span> x = (<span class=keyword>int</span>) Math.PI;
+<br></span><p>The <span class=code>(<span class=keyword>int</span>)</span> operator has the effect of converting what follows into an integer, so <span class=code>x</span> gets the value 3.</p>
+
+<p>Typecasting takes precedence over arithmetic operations, so in the following example, the value of <span class=code>PI</span> gets converted to an integer first, and the result is 60, not 62.</p>
+
+
+<span class=code>&nbsp; &nbsp; <span class=keyword>int</span> x = (<span class=keyword>int</span>) Math.PI * 20.0;
+<br></span><p>Converting to an integer always rounds down, even if the fraction part is 0.99999999.</p>
+
+<p>These two properties (precedence and rounding) can make typecasting awkward.</p>
+
+
+
+<br clear=all>
+<p align=center>
+<script type="text/javascript"><!--
+google_ad_client = "pub-9360736568487010";
+google_alternate_ad_url = "http://www.sdlsuite.com/ads/deliver_banner728090.php";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_type = "text_image";
+google_ad_channel ="6249130445";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "000060";
+google_color_url = "000060";
+google_color_text = "000060";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</p>
+
+</td>
+</tr>
+</table>
+<p>
+
+<hr height=1 width=300>
+<FONT SIZE="1">Last Update: 2005-Nov-20</FONT>
+
+</center>
+
+</body>

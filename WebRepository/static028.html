@@ -1,0 +1,2035 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<META content='b55ad112e2243656efe06701808a5273363e10cf' name='mbl'></META>
+<meta content='tIrGy24WCxbo2SLqEt2Y1AR4fZAeiXI2/TalaiS/NCo=' name='verify-v1'/>
+<META content='c9a6da7a37cbd948' name='y_key'></META>
+<script type="text/javascript">(function() { var a=window;function e(b){this.t={};this.tick=function(c,h,d){d=d?d:(new Date).getTime();this.t[c]=[d,h]};this.tick("start",null,b)}var f=new e;a.jstiming={Timer:e,load:f};try{a.jstiming.pt=a.gtbExternal&&a.gtbExternal.pageT()||a.external&&a.external.pageT}catch(g){};a.tickAboveFold=function(b){b=b;var c=0;if(b.offsetParent){do c+=b.offsetTop;while(b=b.offsetParent)}b=c;b<=750&&a.jstiming.load.tick("aft")};var i=false;function j(){if(!i){i=true;a.jstiming.load.tick("firstScrollTime")}}a.addEventListener?a.addEventListener("scroll",j,false):a.attachEvent("onscroll",j); })();</script>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='true' name='MSSmartTagsPreventParsing'/>
+<meta content='blogger' name='generator'/>
+<link href='http://www.blogger.com/favicon.ico' rel='icon' type='image/vnd.microsoft.icon'/>
+<link href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html' rel='canonical'/>
+<link rel="alternate" type="application/atom+xml" title="Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - Atom" href="http://geekexplains.blogspot.com/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - RSS" href="http://geekexplains.blogspot.com/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - Atom" href="http://www.blogger.com/feeds/7955003209126272036/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=7955003209126272036" />
+<link rel="alternate" type="application/atom+xml" title="Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - Atom" href="http://geekexplains.blogspot.com/feeds/7244691409934109115/comments/default" />
+<!-- <title><data:blog.pageTitle/></title> -->
+<title>Can you override Static Methods in Java? |
+       Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving!</title>
+<link type='text/css' rel='stylesheet' href='http://www.blogger.com/static/v1/widgets/1576120009-widget_css_bundle.css' />
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/static/v1/v-css/3727950723-blog_controls.css"/>
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=7955003209126272036&zx=881dc7f3-4476-43e4-a4fd-e7962e6f1fec"/>
+<style type="text/css">#navbar-iframe { display:block }
+</style>
+
+<style id='page-skin-1' type='text/css'><!--
+/*
+-----------------------------------------------
+Name:    Blue Wave Template
+Designer: se7en
+URL:      www.blogsgonewild.net
+Type: Free Blogger Beta XML Skin
+----------------------------------------------- */
+/* Variable definitions
+====================
+<Variable name="bgcolor" description="Page Background Color"
+type="color" default="#fff">
+<Variable name="textcolor" description="Text Color"
+type="color" default="#333">
+<Variable name="linkcolor" description="Link Color"
+type="color" default="#58a">
+<Variable name="pagetitlecolor" description="Blog Title Color"
+type="color" default="#666">
+<Variable name="descriptioncolor" description="Blog Description Color"
+type="color" default="#999">
+<Variable name="titlecolor" description="Post Title Color"
+type="color" default="#c60">
+<Variable name="bordercolor" description="Border Color"
+type="color" default="#ccc">
+<Variable name="sidebarcolor" description="Sidebar Title Color"
+type="color" default="#999">
+<Variable name="sidebartextcolor" description="Sidebar Text Color"
+type="color" default="#666">
+<Variable name="visitedlinkcolor" description="Visited Link Color"
+type="color" default="#999">
+<Variable name="bodyfont" description="Text Font"
+type="font" default="normal normal 100% Georgia, Serif">
+<Variable name="headerfont" description="Sidebar Title Font"
+type="font"
+default="normal normal 78% 'Trebuchet MS',Trebuchet,Arial,Verdana,Sans-serif">
+<Variable name="pagetitlefont" description="Blog Title Font"
+type="font"
+default="normal normal 200% Georgia, Serif">
+<Variable name="descriptionfont" description="Blog Description Font"
+type="font"
+default="normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif">
+<Variable name="postfooterfont" description="Post Footer Font"
+type="font"
+default="normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif">
+*/
+/* Use this with templates/template-twocol.html */
+#navbar-iframe {
+height: 0px;
+visibility: hidden;
+display: none;
+}
+body {
+background:#cccccc;
+margin:0;
+padding:0;
+font:12px Arial, Sans-erif;
+text-align: center;
+color:#000;
+}
+a:link {
+color:#151B66;
+text-decoration:none;
+<!-- Geek: color changed from 444 to 151B66 -->
+}
+a:visited {
+color:#151B66;
+text-decoration:none;
+<!-- Geek: color changed from 444 to 151B66 -->
+}
+a:hover {
+color:#444;
+text-decoration:underline;
+}
+#main .post-body a {
+color:#444;
+text-decoration:underline;
+}
+#sidebar-wrapper a {
+color:#3366cc;
+}
+a img {
+border-width:0;
+}
+.post-body img {
+margin:5px;
+border:1px solid #444;
+}
+/* Header
+-----------------------------------------------
+*/
+/* background: url("http://i161.photobucket.com/albums/t219/freetemplates4/sine-heading-2.jpg") no-repeat; */
+#header-wrapper {
+background: url("http://geekexplains.googlepages.com/GE_Banner_3.PNG") no-repeat;
+width:980px;
+height:100px;
+margin:0;
+padding:0;
+text-align:left;
+color:#CCC;
+border-top:4px ridge #67a1cf;
+border-bottom:6px ridge #67a1cf;
+}
+#header {
+height:40px;
+margin:0;
+padding:0;
+}
+#header h1 {
+margin:0;
+padding:5px 0 0 10px;
+font-size: 1%;
+font-weight:bold;
+line-height: 1.2em;
+letter-spacing:.1em;
+font-style:normal;
+color:#FFFFFF;
+<!-- Geek: font size changed from 150 to 350 -->
+<!-- Geek: font size changed from 350 to 1 to adjust header banner -->
+}
+#header a {
+color:#CCC;
+text-decoration:none;
+}
+#header a:hover {
+color:#777;
+text-decoration:underline;
+}
+.descriptionwrapper p {
+margin:0;
+padding:0 0 0 10px;
+line-height: 1.3em;
+font-style: italic;
+font-weight:bold;
+font-size:90%;
+letter-spacing:.1em;
+color: #FFFFFF;
+}
+#header-wrapper .top-nav a {
+background:#0c4478; <! Geek: changed from 1c5494 to 0c4478 -->
+margin:0;
+padding:2px 10px 3px;
+border-top:1px solid #666;
+border-left:1px solid #555;
+border-right:1px solid #333;
+text-decoration:none;
+color:#FFFFFF;
+}
+#header-wrapper .top-nav a:hover {
+background:#387cb3;
+text-decoration:none;
+}
+.top-nav ul {
+margin:0;
+padding:40px 3px 0px; <!--Geek: chg right from 10 to 3 -->
+list-style:none;
+float:right;
+}
+.top-nav li {
+margin:0;
+padding:0;
+display:inline;
+}
+/* Outer-Wrapper
+----------------------------------------------- */
+#outer-wrapper {
+background:#FFFFFF;
+width: 980px;
+margin:0 auto;
+padding:0;
+text-align:left;
+}
+#footer-wrapper-niraj {
+background:#FFFFFF;
+width: 980px;
+margin:0 auto;
+padding:0;
+text-align:center;
+}
+#main-wrapper {
+width: 510px;
+float: left;
+margin:0;
+padding:0 0 20px 15px;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;     /* fix for long non-text content breaking IE sidebar float */
+}
+#sidebar-wrapper {
+width: 410px;
+float: right;
+margin:0;
+padding:0 15px 20px 0;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;      /* fix for long non-text content breaking IE sidebar float */
+}
+.ad-box {
+margin:0;
+padding:8px 0 0;
+}
+.sidebar-left {
+width:195px;
+float:left;
+margin:0;
+padding:0 15px 0 0;
+}
+.sidebar-right {
+width:190px;
+margin:0;
+padding:0;
+float:right;
+}
+br {
+clear:both;
+}
+/* Headings
+----------------------------------------------- */
+#sidebar-wrapper h2 {
+margin:.6em 0 .6em;
+padding:0;
+font-size:11px;
+font-weight:bold;
+line-height: 1.4em;
+text-transform:uppercase;
+color:#333;
+border-bottom:1px solid #777;
+}
+/* Posts
+-----------------------------------------------
+*/
+h2.date-header {
+margin:.5em 0 0;
+padding:0;
+font-size:75%;
+color:#777;
+}
+.post {
+margin:.5em 0 1em;
+padding-bottom:1em;
+font-size:105%;
+color:#151B66;
+<!-- Geek: font-size and color elements added -->
+}
+.post h3 {
+margin:.5em 0;
+padding:0 0 0;
+font-size:120%;
+font-weight:bold;
+font-style:normal;
+line-height:1.3em;
+color:#151BAA;
+<!-- Geek: color changed from 333 to 151BAA and style to normal-->
+}
+.post h3 a, .post h3 a:visited, .post h3 strong {
+display:block;
+font-size:120%;
+text-decoration:none;
+font-style:normal;
+color:#e61717;
+font-weight:bold;
+<!-- Geek: style changed from italic to normal and color from 333 to e61717 -->
+}
+.post h3 strong, .post h3 a:hover {
+color:#777;
+text-decoration:underline;
+}
+.post {
+margin:0 0 .75em;
+line-height:1.2em;
+}
+.post-body, .post-body p {
+margin:0;
+padding:0;
+line-height:1.3em;
+}
+.post-footer {
+margin: .75em 0 0px;
+color:#777;
+letter-spacing:.1em;
+font-size:70%
+line-height: 1.4em;
+border-bottom:1px solid #444;
+}
+.post-body {
+margin-top:0;
+}
+.comment-link {
+margin-left:.6em;
+}
+.post img {
+margin:8px;
+padding:0;
+border:1px solid #ccc;
+}
+.post blockquote {
+margin:1em 12px;
+padding-left:15px;
+border-left:3px solid #ccc;
+}
+.post blockquote p {
+margin:.75em 0;
+padding-left:15px;
+border-left:3px solid #ccc;
+}
+p.post-footer-line-3 {
+margin:0 auto;
+padding:0;
+}
+/* Comments
+----------------------------------------------- */
+#comments h4 {
+margin:1em 0;
+font-size:16px;
+font-weight: bold;
+line-height: 1.4em;
+text-transform:uppercase;
+letter-spacing:.2em;
+color:#333;
+}
+#comments-block {
+margin:1em 0 1.5em;
+line-height:1.6em;
+}
+#comments-block .comment-author {
+margin:.5em 0;
+}
+#comments-block .comment-body {
+margin:.25em 0 0;
+}
+#comments-block .comment-footer {
+margin:-.25em 0 2em;
+line-height: 1.4em;
+text-transform:uppercase;
+letter-spacing:.1em;
+}
+#comments-block .comment-body p {
+margin:0 0 .75em;
+}
+.deleted-comment {
+font-style:italic;
+color:gray;
+}
+#blog-pager-newer-link {
+float: left;
+}
+#blog-pager-older-link {
+float: right;
+}
+#blog-pager {
+text-align: center;
+}
+.feed-links {
+clear: both;
+line-height: 2.5em;
+}
+/* Sidebar Content
+----------------------------------------------- */
+#sidebar-wrapper ul {
+list-style-type:none;
+}
+#sidebar-wrapper p {
+padding-left:12px;
+}
+#sidebar-wrapper  {
+color:#3366cc;
+line-height: 1.3em;
+}
+#sidebar-wrapper  ul {
+list-style:none;
+margin:0 0 0;
+padding:0 0 8px;
+}
+#sidebar-wrapper  li {
+margin:0;
+padding:0 0 .25em 8px;
+line-height:1.2em;
+}
+#sidebar-wrapper  .widget, .main .widget {
+margin:0 0 1.5em;
+padding:0 0 1.5em;
+}
+.sidebar section {
+margin:0;
+padding:0;
+}
+.main .Blog {
+border-bottom-width: 0;
+}
+#ArchiveList {
+padding-left:10px;
+color:#151B66;
+<!-- Geek: color element added -->
+}
+.widget-content {
+}
+/* Profile
+----------------------------------------------- */
+.profile-img {
+float: left;
+margin: 0 5px 5px 0;
+padding: 2px;
+border: 2px solid #444;
+}
+.profile-data {
+margin:0;
+letter-spacing:.1em;
+font-size:90%;
+font-weight: bold;
+line-height: 1.4em;
+}
+.profile-datablock {
+margin:.5em 0 .5em .5em;
+}
+.profile-textblock {
+margin: 0.5em;
+line-height: 1.6em;
+}
+.profile-link {
+font-size:90%;
+letter-spacing: .1em;
+margin: 0 0 1em .5em;
+}
+/* Footer
+----------------------------------------------- */
+#footer-wrapper {
+background:#0b3f7d;
+width:980px;
+clear:both;
+margin:0 auto;
+text-align:center;
+padding:0;
+border-top:4px solid #67a1cf;
+border-bottom:4px solid #67a1cf;
+}
+#footer-wrapper a {
+color:#FFFFFF;
+text-decoration:none;
+}
+#footer {
+margin:0 auto;
+padding:12px 20px;
+clear:both;
+line-height: 1.2em;
+letter-spacing:.1em;
+text-align: center;
+color:#FFFFFF;
+}
+.credits {
+margin:0;
+padding:8px 0 0;
+font-size:96%; <!-- 75% -->
+}
+/** Page structure tweaks for layout editor wireframe */
+body#layout #header {
+margin-left: 0px;
+margin-right: 0px;
+}
+
+--></style>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</script></head>
+<body>
+<div class='navbar section' id='navbar'><div class='widget Navbar' id='Navbar1'><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener("load",
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<iframe src="http://www.blogger.com/navbar.g?targetBlogID=7955003209126272036&amp;blogName=Geek+Explains%3A+Java%2C+J2EE%2C+Oracle%2C+Pu...&amp;publishMode=PUBLISH_MODE_BLOGSPOT&amp;navbarType=BLUE&amp;layoutType=LAYOUTS&amp;searchRoot=http%3A%2F%2Fgeekexplains.blogspot.com%2Fsearch&amp;blogLocale=en&amp;homepageUrl=http%3A%2F%2Fgeekexplains.blogspot.com%2F&amp;targetPostID=7244691409934109115" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" height="30px" width="100%" id="navbar-iframe" allowtransparency="true" title="Blogger Navigation and Search"></iframe>
+<div></div></div></div>
+<div id='outer-wrapper' style='margin-top:5px;'><div id='wrap2'>
+<!-- skip links for text browsers -->
+<span id='skiplinks' style='display:none;'>
+<a href='#main'>skip to main </a> |
+      <a href='#sidebar'>skip to sidebar</a>
+</span>
+<div id='header-wrapper'>
+<div class='header section' id='header'><div class='widget Header' id='Header1'>
+<div id='header-inner'>
+<div class='titlewrapper'>
+<table border='0' width='100%'>
+<tr colspan='2'>
+<td>
+<h1 class='title'>
+<a href='http://geekexplains.blogspot.com/'>Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving!</a>
+</h1>
+</td>
+<td align='right' valign='bottom'>
+<form action='http://www.google.com/cse' id='cse-search-box' target='_blank'>
+<input name='cx' type='hidden' value='partner-pub-2653201355668223:cf2sz8-8u14'/>
+<input name='ie' type='hidden' value='ISO-8859-1'/>
+<input name='q' size='40' type='text'/>
+<input name='sa' type='submit' value='Search'/>
+</form>
+</td>
+</tr>
+</table>
+</div>
+<div class='descriptionwrapper'>
+<p class='description'><span>
+</span></p>
+</div>
+</div>
+</div></div>
+<div class='top-nav'>
+<ul class='nav'>
+<!-- add or modify your links below using the examples, replace the # with your actual link -->
+<li><a href='/'>Home</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/05/archives-from-category-java-10.html'>Java/J2EE</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/05/archives-from-category-tipshacks-1.html'>Tips/Hacks</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/05/archives-from-category-oracle-2.html'>Oracle</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/05/archives-from-category-puzzles-1.html'>Puzzles</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/05/archived-articles-at-geek-explains.html'>Archives</a></li>
+<!-- <li><a href='http://offersbonanza.blogspot.com'>Offers</a></li> -->
+</ul>
+</div>
+</div><!-- end header-wrapper -->
+<div id='main-wrapper'>
+<div class='main section' id='main'><div class='widget Blog' id='Blog1'>
+<div class='blog-posts hfeed'>
+<!-- google_ad_section_start(name=default) -->
+<h2 class='date-header'>Tuesday, June 3, 2008</h2>
+<div class='post hentry uncustomized-post-template'>
+<a name='7244691409934109115'></a>
+<h3 class='post-title entry-title'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html'>Can you override Static Methods in Java?</a>
+</h3>
+<div class='post-header-line-1'></div>
+<div class='post-body entry-content'>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-2653201355668223";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+/* 468x60, GE - created 8/20/08 */
+google_ad_slot = "4957343502";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<div><br/></div>
+<p><p><span style="font-family:trebuchet ms;"><strong><span style="color: rgb(0, 0, 0);">Question: Can you override Static Methods in Java?</span></strong></span></p><p><br /></p><p><span style="font-family:trebuchet ms;"><strong><span style="color: rgb(0, 0, 0);"></span></strong></span></p><p><span style="font-family:trebuchet ms;"><strong><span style="color: rgb(0, 0, 0);">Answer:</span></strong> Well... the answer is NO if you think from the perspective of how an overriden method should behave in Java. But, you don't get any compiler error if you try to override a static method. That means, if you try to override, Java doesn't stop you doing that; but you certainly don't get the same effect as you get for non-static methods. Overriding in Java simply means that the particular method would be called based on the run time type of the object and not on the compile time type of it (which is the case with overriden static methods). Okay... any guesses for the reason why do they behave strangely? Because they are class methods and hence access to them is always resolved during compile time only using the compile time type information. Accessing them using object references is just an extra liberty given by the designers of Java and we should certainly not think of stopping that practice only when they restrict it :-)</span></p><span style="font-family:trebuchet ms;"><p><br /><strong><span style="color: rgb(0, 0, 0);">Example:</span></strong> let's try to see what happens if we try overriding a static method:-</p><p><br /><span style="color: rgb(0, 0, 0);font-family:courier new;" >class SuperClass{</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >......</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >public static void staticMethod(){</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >System.out.println("SuperClass: inside staticMethod");</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >}</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >......</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >}</span></p><p><br /><span style="color: rgb(0, 0, 0);font-family:courier new;" >public class SubClass extends SuperClass{</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >......</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >//overriding the static method</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >public static void staticMethod(){</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >System.out.println("SubClass: inside staticMethod");</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >}</span></p><p><br /><span style="color: rgb(0, 0, 0);font-family:courier new;" >......</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >public static void main(String []args){</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >......</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >SuperClass superClassWithSuperCons = new SuperClass();</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >SuperClass superClassWithSubCons = new SubClass();</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >SubClass subClassWithSubCons = new SubClass();</span></p><p><br /><span style="color: rgb(0, 0, 0);font-family:courier new;" >superClassWithSuperCons.staticMethod();</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >superClassWithSubCons.staticMethod();</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >subClassWithSubCons.staticMethod();</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >...</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >}</span></p><p><br /><span style="color: rgb(0, 0, 0);font-family:courier new;" >}</span></p><p><br /><strong><span style="color: rgb(0, 0, 0);">Output:-</span></strong></p><p><br /></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >SuperClass: inside staticMethod</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >SuperClass: inside staticMethod</span></p><p><span style="color: rgb(0, 0, 0);font-family:courier new;" >SubClass: inside staticMethod</span></p><p><br />Notice the second line of the output. Had the staticMethod been overriden this line should have been identical to the third line as we're invoking the 'staticMethod()' on an object of Runtime Type as 'SubClass' and not as 'SuperClass'. This confirms that the static methods are always resolved using their compile time type information only.</p><p></p></span><p></p><br /><span style="font-family: trebuchet ms;">Liked the article? You may like to </span><a style="font-weight: bold; color: rgb(204, 0, 0); font-family: trebuchet ms;" href="http://feeds.feedburner.com/GeekExplains">Subscribe</a><span style="font-family: trebuchet ms;"> to this blog for regular updates. You may also like to follow the blog to manage the bookmark easily and </span><span style="font-family: trebuchet ms;"> to tell the world that you enjoy GeekExplains. You can find the '</span><span style="font-weight: bold; font-family: trebuchet ms;">Followers</span><span style="font-family: trebuchet ms;">' widget in the rightmost sidebar.</span></p>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-2653201355668223";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+/* 336x280 - GE - T/I, created 5/14/08 */
+google_ad_slot = "5701058464";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+<br />
+
+<form action="http://www.google.com/cse" id="cse-search-box" target="_blank">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-2653201355668223:cf2sz8-8u14" />
+    <input type="hidden" name="ie" value="ISO-8859-1" />
+    <input type="text" name="q" value="Type & Search other articles here..." size="40" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+
+<table style='width:100%;'><tr><td style='horizontal-align:left;'>
+<script type="text/javascript">var dzone_style = '2';</script>
+<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></td>
+<td style='horizontal-align:left;'><script type="text/javascript">
+digg_skin = 'compact';
+digg_topic = 'programming';
+</script>
+<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script></td>
+<td style='horizontal-align:left;'><a name="a2a_dd" onmouseover="a2a_show_dropdown(this)" onmouseout="a2a_onMouseOut_delay()" href="http://www.addtoany.com/bookmark?linkname=GeekExplains%20-%20Java/J2EE%2C%20C/C++%2C%20Oracle%2C%20Puzzles%2C%20...&amp;linkurl=http%3A//geekexplains.blogspot.com/"><img src="http://static.addtoany.com/buttons/share_save_171_16.gif" width="171" height="16" border="0" alt="Share/Save/Bookmark"/></a><script type="text/javascript">a2a_linkname="GeekExplains - Java/J2EE, C/C++, Oracle, Puzzles, ...";a2a_linkurl="<data:post.url/>";</script><script type="text/javascript" src="http://www.addtoany.com/menu/page.js"></script></td></tr></table>
+
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "pub-2653201355668223";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+/* 468x15 - GE - L - 1, created 5/14/08 */
+google_ad_slot = "2806820360";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4744525-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<div style='clear: both;'></div>
+</div>
+<div class='post-footer'>
+<div class='post-footer-line post-footer-line-1'>
+<span class='post-author vcard'>
+Posted by
+<span class='fn'>Geek</span>
+</span>
+<span class='post-timestamp'>
+at
+<a class='timestamp-link' href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html' rel='bookmark' title='permanent link'><abbr class='published' title='2008-06-03T22:48:00+05:30'>10:48 PM</abbr></a>
+</span>
+<span class='post-comment-link'>
+</span>
+<span class='post-backlinks post-comment-link'>
+</span>
+<span class='post-icons'>
+<span class='item-control blog-admin pid-1457556961'>
+<a href='http://www.blogger.com/post-edit.g?blogID=7955003209126272036&postID=7244691409934109115' title='Edit Post'>
+<img alt='' class='icon-action' height='18' src='http://www.blogger.com/img/icon18_edit_allbkg.gif' width='18'/>
+</a>
+</span>
+</span>
+</div>
+<div class='similiar'>
+<div class='widget-content'>
+<h3>Related Articles...</h3>
+<div id='data2007'></div><br/><br/>
+<script type='text/javascript'>
+
+		var homeUrl3 = "http://geekexplains.blogspot.com/";
+		var maxNumberOfPostsPerLabel = 4;
+		var maxNumberOfLabels = 10;
+
+		maxNumberOfPostsPerLabel = 6;
+		maxNumberOfLabels = 3;
+
+
+		function listEntries10(json) {
+			var ul = document.createElement('ul');
+			var maxPosts = (json.feed.entry.length <= maxNumberOfPostsPerLabel) ? json.feed.entry.length : maxNumberOfPostsPerLabel;
+			for (var i = 0; i < maxPosts; i++) {
+				var entry = json.feed.entry[i];
+				var alturl;
+
+				for (var k = 0; k < entry.link.length; k++) {
+					if (entry.link[k].rel == 'alternate') {
+					alturl = entry.link[k].href;
+					break;
+					}
+			        }
+				var li = document.createElement('li');
+				var a = document.createElement('a');
+			        a.href = alturl;
+
+				if(a.href!=location.href) {
+					var txt = document.createTextNode(entry.title.$t);	
+					a.appendChild(txt);
+					li.appendChild(a);
+					ul.appendChild(li);	
+				}
+			}
+			for (var l = 0; l < json.feed.link.length; l++) {
+				if (json.feed.link[l].rel == 'alternate') {
+					 var raw = json.feed.link[l].href;
+					 var label = raw.substr(homeUrl3.length+13);
+					 var k;
+					 for (k=0; k<20; k++) label = label.replace("%20", " ");
+					 var txt = document.createTextNode(label);
+					 var h = document.createElement('b');
+                                         h.appendChild(txt);
+					      
+                                         var div1 = document.createElement('div');
+                                         div1.appendChild(h);
+					 div1.appendChild(ul); 
+					 document.getElementById('data2007').appendChild(div1);
+				}
+			}
+		}
+		function search10(query, label) {
+
+			var script = document.createElement('script');
+			script.setAttribute('src', query + 'feeds/posts/default/-/' + label + '?alt=json-in-script&callback=listEntries10');
+			script.setAttribute('type', 'text/javascript');
+			document.documentElement.firstChild.appendChild(script);
+		}
+
+		var labelArray = new Array();
+		var numLabel = 0;
+
+		
+
+		textLabel = "Java";
+					    
+		var test = 0;
+		for (var i = 0; i < labelArray.length; i++)
+			if (labelArray[i] == textLabel) test = 1;
+				if (test == 0) { 
+					labelArray.push(textLabel);
+					var maxLabels = (labelArray.length <= maxNumberOfLabels) ? labelArray.length : maxNumberOfLabels;
+					if (numLabel < maxLabels) {
+					      search10(homeUrl3, textLabel);
+					      numLabel++;
+					}
+				}
+		
+</script>
+</div>
+</div>
+<div class='post-footer-line post-footer-line-2'>
+<span class='post-labels'>
+Labels:
+<a href='http://geekexplains.blogspot.com/search/label/Java' rel='tag'>Java</a>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-3'></div>
+</div>
+</div>
+<div class='comments' id='comments'>
+<a name='comments'></a>
+<h4>
+13
+comments:
+        
+</h4>
+<dl class='avatar-comment-indent' id='comments-block'>
+<dt class='comment-author ' id='c679767827072467841'>
+<a name='c679767827072467841'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/16080048988622875661" rel="nofollow" onclick="" class="avatar-hovercard" id="av-0-16080048988622875661"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="saddy">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/16080048988622875661' rel='nofollow'>saddy</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>As per the article, I do agrre what you have written. I just want to add a line that, " You can not override the static method because as per the nature of static method it belongs to specific class, but you can redeclare it in to the subclass but that subclass doesn't know anything about the parent class' static methos because as I said it is specific to only that class in which it has been declared. "</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1230105420000#c679767827072467841' title='comment permalink'>
+December 24, 2008 1:27 PM
+</a>
+<span class='item-control blog-admin pid-1650695141'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=679767827072467841' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c7855214037799658121'>
+<a name='c7855214037799658121'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/00648920090539126396" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1-00648920090539126396"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Geek">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/00648920090539126396' rel='nofollow'>Geek</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Thanks for your inputs, Saddy. You're right in saying that static methods belong to the particular class, but I think you may like to re-consider the second part which says <I>"... that subclass doesn't know anything about the parent class' static methods"</I>. I think a sub class will always know all <B>accessible</B> members/methods of its super class whether it's a static member/method or an instance member/method.<BR/><BR/>Irrespective of whether a method is an instance method or a static method, the object reference of a sub class needs to be casted to the super class for that method to be called on the object reference if the same method is not <B>overridden</B> (in case of an instance method) or re-declared (and hence the super class version of the method is <B>hidden</B> by the subclass version) in the sub class. Having said that an <B>accessible</B> static method is known as much to the sub class as an <B>accessible</B> instance method. <BR/><BR/>The main difference being the way an instance and a static method call are resolved. The former is resolved at run time whereas the latter is resolved at compile-time. All right?</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1230144840000#c7855214037799658121' title='comment permalink'>
+December 25, 2008 12:24 AM
+</a>
+<span class='item-control blog-admin pid-1457556961'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=7855214037799658121' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c218595705221016982'>
+<a name='c218595705221016982'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><img src="http://img1.blogblog.com/img/blank.gif" width="16" height="16" alt="" title="Anonymous">
+
+</span></div>
+Anonymous
+said...
+</dt>
+<dd class='comment-body'>
+<p><I> well said geek,I agree to the point </I></p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1234562460000#c218595705221016982' title='comment permalink'>
+February 14, 2009 3:31 AM
+</a>
+<span class='item-control blog-admin pid-1581417314'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=218595705221016982' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c1903159764196529703'>
+<a name='c1903159764196529703'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/04937065398586665820" rel="nofollow" onclick="" class="avatar-hovercard" id="av-3-04937065398586665820"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Guilherme Garnier">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/04937065398586665820' rel='nofollow'>Guilherme Garnier</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Shouldn&#180;t static methods not be called from objects, just from classes?</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1241099220000#c1903159764196529703' title='comment permalink'>
+April 30, 2009 7:17 PM
+</a>
+<span class='item-control blog-admin pid-483696932'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=1903159764196529703' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c8627693592444744492'>
+<a name='c8627693592444744492'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/00648920090539126396" rel="nofollow" onclick="" class="avatar-hovercard" id="av-4-00648920090539126396"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Geek">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/00648920090539126396' rel='nofollow'>Geek</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Certainly Yes. I've also been saying the same.<br /><br />During compilation any obj-ref based static method call would be changed into a call made on the declared type of the reference only. <br /><br />Therefore, if we directly call static methods on class names then we will not only save compiler from finding the declared type, but will also (and more importantly) make the code more readable and understandable.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1241257140000#c8627693592444744492' title='comment permalink'>
+May 2, 2009 3:09 PM
+</a>
+<span class='item-control blog-admin pid-1457556961'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=8627693592444744492' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c3548244709402562175'>
+<a name='c3548244709402562175'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><img src="http://img1.blogblog.com/img/blank.gif" width="16" height="16" alt="" title="Rajarshi">
+
+</span></div>
+Rajarshi
+said...
+</dt>
+<dd class='comment-body'>
+<p>hi...<br /><br />I really appreciate what you said of the article but when i tried it, it is not even passing the compiler( i mn its givin compilation error!) its not allowing us to override a static method of parent class</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1244523190061#c3548244709402562175' title='comment permalink'>
+June 9, 2009 10:23 AM
+</a>
+<span class='item-control blog-admin pid-587208050'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=3548244709402562175' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c6501586515893888808'>
+<a name='c6501586515893888808'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/00648920090539126396" rel="nofollow" onclick="" class="avatar-hovercard" id="av-6-00648920090539126396"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Geek">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/00648920090539126396' rel='nofollow'>Geek</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Rajarshi, can you please share the code you&#39;re trying with? Did you try the one I&#39;ve given in the article? If yes, then please make sure that you have removed all the dotted lines as they are just placeholders for any valid custom code someone might want to put as per their wish. If not, then your code would probably be having some other issue(s), which I can comment upon only when I see it :-)</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1244651268775#c6501586515893888808' title='comment permalink'>
+June 10, 2009 9:57 PM
+</a>
+<span class='item-control blog-admin pid-1457556961'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=6501586515893888808' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c3761237830110154876'>
+<a name='c3761237830110154876'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><img src="http://img1.blogblog.com/img/blank.gif" width="16" height="16" alt="" title="Anonymous">
+
+</span></div>
+Anonymous
+said...
+</dt>
+<dd class='comment-body'>
+<p>Good one Geek...Appreciate your effort in explaining it very crisply.</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1244891377502#c3761237830110154876' title='comment permalink'>
+June 13, 2009 4:39 PM
+</a>
+<span class='item-control blog-admin pid-1690852971'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=3761237830110154876' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c4132218730152102826'>
+<a name='c4132218730152102826'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/16012871294828623256" rel="nofollow" onclick="" class="avatar-hovercard" id="av-8-16012871294828623256"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="ALIV N NJOIN">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/16012871294828623256' rel='nofollow'>ALIV N NJOIN</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Hey!<br /><br />First of all sorry for not checking your blog for a long time. Well i did not try the code written above but when i tries to override a static method the method which of subclass which was overriding was not marked as static so the IDE was giving compilation error.It was something like this <br /><br />public class synonymResolver{<br />......<br />public static void resolveSynonyms(){..}<br />}//end of class<br /><br />public class specificsynonymResolver extends synonymResolver{<br /><br />public void resolveSynonyms{}  //compilation error<br />}</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1245303626936#c4132218730152102826' title='comment permalink'>
+June 18, 2009 11:10 AM
+</a>
+<span class='item-control blog-admin pid-375463348'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=4132218730152102826' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c8787538672370634501'>
+<a name='c8787538672370634501'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/00648920090539126396" rel="nofollow" onclick="" class="avatar-hovercard" id="av-9-00648920090539126396"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Geek">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/00648920090539126396' rel='nofollow'>Geek</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>The error is being thrown because <b>an instance method <i>can&#39;t</i> override a static method of super class.</b><br /><br />The reason why Java doesn&#39;t allow this is that if allowed it would cause <b>ambiguity</b>. Let&#39;s understand it with your code-snippet:-<br /><br /><b>//super class ref for a sub class obj - valid</b><br />synonymResolver superRef = new specificsynonymResolver();<br /><br /><b>//method call on the ref - ambiguous, right?</b><br />superRef.resolveSynonyms();<br /><br />Now, as we know that static methods are resolved at compile-time whereas instance methods at run-time, what should the compiler do here? Evidently it&#39;s an ambiguous situation to be in and hence NOT ALLOWED! Makes sense?</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1245335886450#c8787538672370634501' title='comment permalink'>
+June 18, 2009 8:08 PM
+</a>
+<span class='item-control blog-admin pid-1457556961'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=8787538672370634501' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c5346909120602249779'>
+<a name='c5346909120602249779'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><img src="http://img1.blogblog.com/img/blank.gif" width="16" height="16" alt="" title="Rajarshi">
+
+</span></div>
+Rajarshi
+said...
+</dt>
+<dd class='comment-body'>
+<p>Thank you...! So since it is resolved at compile time so whenever we refer a subclass obj by a superclass reference the static method of the super class is called....right??<br /><br />Another question why did the designers of the language decide that the resolution should be done at compile but not at run time....I know the question sounds weird but any reasons you know! <br /><br />Thanks <br />Rajarshi</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1245392435861#c5346909120602249779' title='comment permalink'>
+June 19, 2009 11:50 AM
+</a>
+<span class='item-control blog-admin pid-587208050'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=5346909120602249779' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c3993447298512938830'>
+<a name='c3993447298512938830'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/00648920090539126396" rel="nofollow" onclick="" class="avatar-hovercard" id="av-11-00648920090539126396"><img src="http://img2.blogblog.com/img/b16-rounded.gif" width="16" height="16" alt="" title="Geek">
+
+</a></span></div>
+<a href='http://www.blogger.com/profile/00648920090539126396' rel='nofollow'>Geek</a>
+said...
+</dt>
+<dd class='comment-body'>
+<p>Yes. Since static method calls are resolved at compile-time so compiler picks the method based on the declared type of the reference only and <b><i>not</i></b> by the actual type of object it would point to.<br /><br />Before I try to answer your next question, let me tell you that it&#39;s certainly not a weird one.<br /><br />I hope you would agree with the point that <b>compile-time binding will always make the code little faster </b>as the run-time type info and other required steps for run-time binding get avoided here. So, why didn&#39;t they think of only compile-time binding? Because in that case they couldn&#39;t have supported an essential feature called <b>&#39;Run-time Polymorphism&#39;</b> and this could certainly have reduced the capability of the language.<br /><br />So, they probably went with the idea that whenever all the required info for an unambiguous method resolution is available at compile-time, the method would be bind that time only. Otherwise the binding would happen at run-time.<br /><br />As you know, static methods are class methods (having access to only class members i.e., static members) and even though syntactically one may call them on object references, they are noway influenced by particular objects (and hence it&#39;s not advised to call them on object references - this makes the code better readable).<br /><br />Since the compiler has <b>all required info for their resolution available at compile-time itself so no point deferring the binding to happen at run-time</b>. Makes sense?<br /><br />Thanks for your active participation and I hope the discussion will only help other readers to gain/contribute more on the topic. Keep posting!</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1245426890603#c3993447298512938830' title='comment permalink'>
+June 19, 2009 9:24 PM
+</a>
+<span class='item-control blog-admin pid-1457556961'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=3993447298512938830' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+<dt class='comment-author ' id='c4210879162206081740'>
+<a name='c4210879162206081740'></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><img src="http://img1.blogblog.com/img/blank.gif" width="16" height="16" alt="" title="Rajarshi">
+
+</span></div>
+Rajarshi
+said...
+</dt>
+<dd class='comment-body'>
+<p>Yes absolutely if you can do resolve at compile time then why do it at run time !<br />nice answer<br />Thanks<br />Rajarshi !</p>
+</dd>
+<dd class='comment-footer'>
+<span class='comment-timestamp'>
+<a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html?showComment=1245475228093#c4210879162206081740' title='comment permalink'>
+June 20, 2009 10:50 AM
+</a>
+<span class='item-control blog-admin pid-587208050'>
+<a href='http://www.blogger.com/delete-comment.g?blogID=7955003209126272036&postID=4210879162206081740' title='Delete Comment'>
+<img src='http://www.blogger.com/img/icon_delete13.gif'/>
+</a>
+</span>
+</span>
+</dd>
+</dl>
+<p class='comment-footer'>
+<a href='https://www.blogger.com/comment.g?blogID=7955003209126272036&postID=7244691409934109115' onclick=''>Post a Comment</a>
+</p>
+<div id='backlinks-container'>
+<div id='Blog1_backlinks-container'>
+</div>
+</div>
+</div>
+<!-- google_ad_section_end -->
+</div>
+<div class='blog-pager' id='blog-pager'>
+<span id='blog-pager-newer-link'>
+<a class='blog-pager-newer-link' href='http://geekexplains.blogspot.com/2008/06/how-to-tune-sql-queries-for-better.html' id='Blog1_blog-pager-newer-link' title='Newer Post'>Newer Post</a>
+</span>
+<span id='blog-pager-older-link'>
+<a class='blog-pager-older-link' href='http://geekexplains.blogspot.com/2008/06/genericservlet-servletconfig.html' id='Blog1_blog-pager-older-link' title='Older Post'>Older Post</a>
+</span>
+<a class='home-link' href='http://geekexplains.blogspot.com/'>Home</a>
+</div>
+<div class='clear'></div>
+<div class='post-feeds'>
+<div class='feed-links'>
+Subscribe to:
+<a class='feed-link' href='http://geekexplains.blogspot.com/feeds/7244691409934109115/comments/default' target='_blank' type='application/atom+xml'>Post Comments (Atom)</a>
+</div>
+</div>
+</div></div>
+<!-- Geek: Amazon Video Player ad code - Start -->
+<!-- Geek: Amazon Video Player ad code - End -->
+</div>
+<div id='sidebar-wrapper'>
+<div class='ad-box section' id='ad-box'><div class='widget Feed' id='Feed1'>
+<h2>Recently Posted Articles</h2>
+<div class='widget-content' id='Feed1_feedItemListDisplay'>
+<span style='filter: alpha(25); opacity: 0.25;'>
+<a href='http://feeds.feedburner.com/GeekExplains'>Loading...</a>
+</span>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=Feed&widgetId=Feed1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Feed1"));' target='configFeed1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+<div class='sidebar-left'>
+<div class='sidebar-left section' id='sidebar-left'><div class='widget HTML' id='HTML9'>
+<div class='widget-content'>
+<script src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/translatemypage.xml&up_source_language=en&w=160&h=60&title=&border=&output=js"></script>
+<script type="text/javascript"><!--
+google_ad_client = "pub-2653201355668223";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+/* 160x600 - GE - 2, created 5/14/08 */
+google_ad_slot = "4358623294";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script 
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js" type="text/javascript">
+</script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=HTML&widgetId=HTML9&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML9"));' target='configHTML9' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Label' id='Label1'>
+<h2>Category Cloud</h2>
+<div class='widget-content'>
+<script src='http://halotemplates.s3.amazonaws.com/wp-cumulus-example/swfobject.js' type='text/javascript'></script>
+<div id='flashcontent'><a href='http://www.roytanck.com/'>Animated Tag Cloud</a></div>
+<script type='text/javascript'>
+var so = new SWFObject("http://halotemplates.s3.amazonaws.com/wp-cumulus-example/tagcloud.swf", "tagcloud", "170", "180", "7", "#ffffff");
+// uncomment next line to enable transparency
+//so.addParam("wmode", "transparent");
+so.addVariable("tcolor", "0x333333");
+so.addVariable("mode", "tags");
+so.addVariable("distr", "true");
+so.addVariable("tspeed", "100");
+so.addVariable("tagcloud", "<tags><a href='http://geekexplains.blogspot.com/search/label/Adobe%20Interview' style='12'>Adobe Interview</a><a href='http://geekexplains.blogspot.com/search/label/Algorithms' style='12'>Algorithms</a><a href='http://geekexplains.blogspot.com/search/label/Archives' style='12'>Archives</a><a href='http://geekexplains.blogspot.com/search/label/C%20Language' style='12'>C Language</a><a href='http://geekexplains.blogspot.com/search/label/C%2B%2B%20Lang' style='12'>C++ Lang</a><a href='http://geekexplains.blogspot.com/search/label/Data%20Structures' style='12'>Data Structures</a><a href='http://geekexplains.blogspot.com/search/label/Frameworks' style='12'>Frameworks</a><a href='http://geekexplains.blogspot.com/search/label/HR' style='12'>HR</a><a href='http://geekexplains.blogspot.com/search/label/Java' style='12'>Java</a><a href='http://geekexplains.blogspot.com/search/label/JVM' style='12'>JVM</a><a href='http://geekexplains.blogspot.com/search/label/Legal' style='12'>Legal</a><a href='http://geekexplains.blogspot.com/search/label/Miscellaneous' style='12'>Miscellaneous</a><a href='http://geekexplains.blogspot.com/search/label/Multithreading' style='12'>Multithreading</a><a href='http://geekexplains.blogspot.com/search/label/Oracle' style='12'>Oracle</a><a href='http://geekexplains.blogspot.com/search/label/OS' style='12'>OS</a><a href='http://geekexplains.blogspot.com/search/label/Puzzles' style='12'>Puzzles</a><a href='http://geekexplains.blogspot.com/search/label/SOA' style='12'>SOA</a><a href='http://geekexplains.blogspot.com/search/label/Tips' style='12'>Tips</a><a href='http://geekexplains.blogspot.com/search/label/Trivia' style='12'>Trivia</a></tags>");
+so.addParam("allowScriptAccess", "always");
+so.write("flashcontent");
+</script>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=Label&widgetId=Label1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Label1"));' target='configLabel1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget HTML' id='HTML8'>
+<div class='widget-content'>
+<script src="http://feedjit.com/serve/?bc=FFFFFF&amp;tc=3366CC&amp;brd1=000000&amp;lnk=494949&amp;hc=000000&amp;ww=200" type="text/javascript"></script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=HTML&widgetId=HTML8&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML8"));' target='configHTML8' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget LinkList' id='LinkList1'>
+<h2>Resources</h2>
+<div class='widget-content'>
+<ul>
+<li><a href='http://java.sun.com/'>Java Sun</a></li>
+<li><a href='http://www.oracle.com/technology/obe/obe10gdb/index.html'>OTN - Oracle</a></li>
+<li><a href='http://www.javaworld.com/'>Java World</a></li>
+<li><a href='http://www.javaranch.com/'>Java Ranch</a></li>
+<li><a href='http://www.google.com/'>Google :-)</a></li>
+</ul>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=LinkList&widgetId=LinkList1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("LinkList1"));' target='configLinkList1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+</div><!-- end sidebar-left -->
+<div class='sidebar-right'>
+<div class='sidebar-right section' id='sidebar-right'><div class='widget HTML' id='HTML2'>
+<div class='widget-content'>
+<form action="http://www.feedburner.com/fb/a/emailverify" style="border:1px solid #ccc;padding:3px;text-align:center;" target="popupwindow" method="post" onsubmit="window.open('http://www.feedburner.com/fb/a/emailverifySubmit?feedId=1993505', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">Enter your email address:<input style="width:140px" name="email" type="text"/><input value="http://feeds.feedburner.com/~e?ffid=1993505" name="url" type="hidden"/><input value="Geek Explains" name="title" type="hidden"/><input value="en_US" name="loc" type="hidden"/>&nbsp;<input value="Subscribe" type="submit"/></form>
+
+<div><table border="0"><tr><td><span><a href="http://www.mybloglog.com/buzz/members/geekexplains/" target="_blank" title="MyBlogLog"><img style="border:0;" src="http://us.i1.yimg.com/us.yimg.com/i/us/mbl/services/imybloglog.png"/></a></span></td><td><span style="padding-left:0px;"><a onmouseover="a2a_show_dropdown(this)" onmouseout="a2a_onMouseOut_delay()" href="http://www.addtoany.com/subscribe?linkname=&amp;linkurl=http%3A//feeds.feedburner.com/GeekExplains" name="a2a_dd"><img border="0" width="171" alt="Subscribe" src="http://static.addtoany.com/buttons/subscribe_171_16.gif" height="16"/></a><script type="text/javascript">a2a_linkname=document.title;a2a_linkurl="http://feeds.feedburner.com/GeekExplains";</script><script src="http://www.addtoany.com/menu/feed.js" type="text/javascript"></script></span></td></tr></table></div>
+
+<!-- <a href="http://feeds.feedburner.com/GeekExplains" rel="alternate" type="application/rss+xml"><img alt="" style="vertical-align:top;border:0" src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png"/></a>
+-->
+<!-- <a href="http://fusion.google.com/add?feedurl=http://feeds.feedburner.com/GeekExplains"><img width="104" style="border:0" alt="Google" src="http://buttons.googlesyndication.com/fusion/add.gif" height="17"/></a>
+-->
+<!--
+<a href="http://feeds.feedburner.com/GeekExplains" target="_blank" rel="alternate" title="Subscribe to my feed" type="application/rss+xml"><img alt="" style="border:0" src="http://lh3.ggpht.com/geekexplains/SCyq_0Mr9sI/AAAAAAAAABU/qJW02nxIB3M/s288/orange_xml.gif"/></a><a href="http://feeds.feedburner.com/GeekExplains" target="_blank" rel="alternate" title="Subscribe to my feed" type="application/rss+xml"> Subscribe in a reader</a>
+-->
+<!--
+<div style="padding:5px 5px 0px 5px"><span><a href="http://www.mybloglog.com/buzz/members/geekexplains/" target="_blank" title="MyBlogLog"><img style="border:0;" src="http://us.i1.yimg.com/us.yimg.com/i/us/mbl/services/imybloglog.png"/></a></span><span style="padding-left:5px;"><a href="http://del.icio.us/geekexplains" target="_blank"><img style="border: 0;" src="http://us.i1.yimg.com/us.yimg.com/i/us/mbl/services/idelicious.png"/></a></span><span style="padding-left:5px;"><a href="http://mybloglog.com/s/digg/geekexplains/?r" target="_blank"><img style="border: 0;" src="http://us.i1.yimg.com/us.yimg.com/i/us/mbl/services/idigg.png"/></a></span><span style="padding-left:5px;"><a href="http://mybloglog.com/s/technorati/geekexplains/?r" target="_blank"><img style="border: 0;" src="http://us.i1.yimg.com/us.yimg.com/i/us/mbl/services/itechnorati.png"/></a></span><span style="padding-left:5px;"><a href="http://mybloglog.com/s/stumbleupon/geekexplains/?r" target="_blank"><img style="border: 0;" src="http://us.i1.yimg.com/us.yimg.com/i/us/mbl/services/istumbleupon.png"/></a></span>
+<span style="padding-left:5px;"><a href="http://feeds.feedburner.com/GeekExplains" target="_blank"><img style="border: 0;" src="http://lh3.ggpht.com/geekexplains/SCyq_0Mr9sI/AAAAAAAAABU/qJW02nxIB3M/s288/orange_xml.gif"/></a></span>
+</div>
+
+<a href="http://technorati.com/faves?sub=addfavbtn&amp;add=http://geekexplains.blogspot.com"><img alt="Technorati Favorites" src="http://static.technorati.com/pix/fave/tech-fav-1.png"/></a>
+
+-->
+<!--
+<a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/GeekExplains" title="Geek Explains"><img alt="Yahoo" style="border:0" src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif"/></a>
+<a href="http://www.bloglines.com/sub/http://feeds.feedburner.com/GeekExplains" title="Geek Explains" type="application/rss+xml"><img alt="Bloglines" style="border:0" src="http://www.bloglines.com/images/sub_modern11.gif"/></a>
+-->
+<!--
+<a href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://feeds.feedburner.com/GeekExplains" title="Geek Explains"><img alt="NewsGator" style="border:0" src="http://www.newsgator.com/images/ngsub1.gif"/></a>
+
+<a href="http://feeds.my.aol.com/add.jsp?url=http://feeds.feedburner.com/GeekExplains"><img alt="AOL" style="border:0" src="http://favorites.my.aol.com/ffclient/webroot/0.2.1/locale/en_US/aol/images/myAOLButtonSmall.gif"/></a>
+-->
+<!--
+<script charset="utf-8" type="text/javascript" 
+
+src="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822/US/
+
+geekexpl-20/8002/d97b6d7b-fd51-4ad2-b831-f9ef2657e88a"> </script> <noscript><a 
+
+href="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2F
+
+US%2Fgeekexpl-20%2F8002%2Fd97b6d7b-fd51-4ad2-b831-f9ef2657e88a&Operation=NoScript">Amazon.c
+
+om Widgets</a></noscript>
+-->
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=HTML&widgetId=HTML2&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target='configHTML2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Followers' id='Followers1'>
+<h2 class='title'>Followers of GeekExplains</h2>
+<div class='widget-content'>
+<div id='Followers1-wrapper'>
+<div style='margin-right:2px;'>
+<script type="text/javascript">
+        if (!window.google || !google.friendconnect) {
+          document.write('<script type="text/javascript"' +
+              'src="http://www.google.com/friendconnect/script/friendconnect.js">' +
+              '</scr' + 'ipt>');
+        }
+      </script>
+<script type="text/javascript">
+      if (!window.registeredBloggerCallbacks) {
+        window.registeredBloggerCallbacks = true;
+
+        
+
+        
+        gadgets.rpc.register('requestReload', function() {
+          document.location.reload();
+        });
+
+        
+        gadgets.rpc.register('requestSignOut', function(siteId) {
+          
+          google.friendconnect.container.openSocialSiteId = siteId;
+          google.friendconnect.requestSignOut();
+        });
+      }
+    </script>
+<script type="text/javascript">
+    
+    function registerGetBlogUrls() {
+      gadgets.rpc.register('getBlogUrls', function() {
+        var holder = {};
+        
+          
+            
+            
+              holder.currentPost = "http://www.blogger.com/feeds/7955003209126272036/posts/default/7244691409934109115";
+            
+            
+            
+              holder.currentComments = "http://www.blogger.com/feeds/7955003209126272036/7244691409934109115/comments/default";
+            
+          
+          
+          
+            holder.postFeed = "http://www.blogger.com/feeds/7955003209126272036/posts/default";
+          
+          
+          
+            holder.commentFeed = "http://www.blogger.com/feeds/7955003209126272036/comments/default";
+          
+        
+        return holder;
+      });
+    }
+  </script>
+<script type="text/javascript">
+  if (!window.registeredCommonBloggerCallbacks) {
+    window.registeredCommonBloggerCallbacks = true;
+
+    gadgets.rpc.register('resize_iframe', function(height) {
+      var el = document.getElementById(this['f']);
+      if (el) {
+        el.style.height = height + 'px';
+      }
+    });
+
+    // We don't do anything w/ this, but don't let it bubble up and cause an
+    // exception
+    // TODO(henrywong): Don't just one-off this, fix at a more comprehensive
+    // level.
+    gadgets.rpc.register('set_pref', function() {});
+
+    
+    gadgets.rpc.register('registerGadgetForRpcs', function(gadgetDomain, iframeName) {
+      // TODO(sauravshah): We don't need this. Remove it from the google.Blog api
+    });
+
+    registerGetBlogUrls();
+  }
+  </script>
+<div id="div-1tj1jpwirphz" style="width: 100%; "></div>
+<script type="text/javascript">
+    var skin = {};
+    skin['FACE_SIZE'] = '32';
+    skin['HEIGHT'] = "260";
+    skin['TITLE'] = "Followers of GeekExplains";
+    skin['BORDER_COLOR'] = "transparent";
+    skin['ENDCAP_BG_COLOR'] = "transparent";
+    skin['ENDCAP_TEXT_COLOR'] = "#666666";
+    skin['ENDCAP_LINK_COLOR'] = "#5588aa";
+    skin['ALTERNATE_BG_COLOR'] = "transparent";
+    
+    skin['CONTENT_BG_COLOR'] = "transparent";
+    skin['CONTENT_LINK_COLOR'] = "#5588aa";
+    skin['CONTENT_TEXT_COLOR'] = "#666666";
+    skin['CONTENT_SECONDARY_LINK_COLOR'] = "#5588aa";
+    skin['CONTENT_SECONDARY_TEXT_COLOR'] = "#999999";
+    skin['CONTENT_HEADLINE_COLOR'] = "#cc6600";
+    skin['FONT_FACE'] = "normal normal 100% Georgia, Serif";
+    google.friendconnect.container.setParentUrl("/");
+    google.friendconnect.container["renderMembersGadget"](
+    {id: "div-1tj1jpwirphz",
+     height: 260,
+     
+     
+     
+     site: "01997313550825478573",
+      
+     locale: 'en' },
+     skin);
+  </script>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=Followers&widgetId=Followers1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Followers1"));' target='configFollowers1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget Text' id='Text1'>
+<h2 class='title'>About Me</h2>
+<div class='widget-content'>
+An Indian, a Software Engineer, a Web Addict, and a Blogger.<br/><br/>I welcome all relevant questions, answers, and/or suggestions at <a href="mailto:geekexplains@gmail.com">geekexplains@gmail.com</a>.<br/>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=Text&widgetId=Text1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("Text1"));' target='configText1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML10'>
+<div class='widget-content'>
+<script src="http://feedjit.com/popPages/?bc=FFFFFF&amp;tc=3366CC&amp;brd1=000000&amp;lnk=494949&amp;hc=000000&amp;ww=200" type="text/javascript"></script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=HTML&widgetId=HTML10&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML10"));' target='configHTML10' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget BlogArchive' id='BlogArchive1'>
+<h2>Archived Articles</h2>
+<div class='widget-content'>
+<div id='ArchiveList'>
+<div id='BlogArchive1_ArchiveList'>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/search?updated-min=2009-01-01T00%3A00%3A00%2B05%3A30&updated-max=2010-01-01T00%3A00%3A00%2B05%3A30&max-results=29'>2009</a>
+<span class='post-count' dir='ltr'>(29)</span>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/11/why-string-has-been-made-immutable-in.html'>Why String has been made immutable in Java?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/11/memory-leak-in-java-does-static-cause.html'>Memory Leak in Java? Does &#39;static&#39; cause it?</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(3)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/10/marker-interface-in-java-what-why-uses.html'>Marker Interface in Java: what, why, uses, etc.</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/10/connecting-to-http-web-service-from-vba.html'>Connecting to an HTTP Web Service from VBA via Pro...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/10/why-waitnotify-and-notifyall-in-object.html'>Why wait(),notify() and notifyAll() in the Object ...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(1)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/08/per-thread-singleton-and-per-thread.html'>per-thread Singleton and per-thread Logging in Jav...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(3)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/06/choosing-most-specific-method-tricky.html'>Choosing the Most Specific Method - Tricky Overloa...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/06/initializer-blocks-their-alternatives.html'>Initializer Blocks &amp; their alternatives in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/06/static-initialization-blocks-their.html'>Static Initialization Blocks &amp; their alternatives</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(8)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/05/choosing-suitable-access-control.html'>Choosing a suitable access control modifier in Jav...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/05/finding-caller-of-instance-or-static.html'>Finding caller of an instance or static method in ...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/05/passing-n-new-line-on-command-line-in.html'>Passing &#39;\n&#39; (new-line) on command line in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/05/tricky-use-of-static-initializer-in.html'>Tricky use of static initializer in Java - Overrid...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/05/finding-if-number-is-power-of-2-or-not.html'>Finding if a number is a power of 2 or not in Java...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/05/binary-rep-of-negative-numbers-in-java.html'>Binary rep of negative numbers in Java - 2&#39;s compl...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/05/puzzle-circular-table-pile-of-quarters.html'>Puzzle: Circular Table, Pile of Quarters and 2 Pla...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/05/viewingediting-ppt-doc-tiff-etc-without.html'>Viewing/Editing PPT, Doc, TIFF, etc. in your brows...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_04_01_archive.html'>April</a>
+<span class='post-count' dir='ltr'>(3)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/04/implementation-of-sax-parser-in-java.html'>Implementation of SAX Parser in Java using SAX2 AP...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/04/sax-vs-dom-differences-between-dom-and.html'>SAX v/s DOM. How to choose between DOM and SAX?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/04/sax-dom-jaxp-jdom-evolution-of-java-xml.html'>Sax, DOM, JAXP, &amp; JDOM. Evolution of Java-XML comb...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_03_01_archive.html'>March</a>
+<span class='post-count' dir='ltr'>(3)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/03/getting-class-name-in-static-method-in.html'>Getting Class name in a static method in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/03/how-to-recover-shift-deleted.html'>How to recover Shift + Deleted folders/emails in O...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/03/outlook-express-vs-outlook-which-suits.html'>Outlook Express v/s Outlook. Which suits you bette...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_02_01_archive.html'>February</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/02/threadlocal-inheritablethreadlocal-in.html'>ThreadLocal &amp; InheritableThreadLocal in Java, init...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/02/loadlibrary-failed-dll-initialization.html'>LoadLibrary failed - a DLL initialization routine ...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2009_01_01_archive.html'>January</a>
+<span class='post-count' dir='ltr'>(4)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2009/01/javalangunsupportedclassversionerror.html'>java.lang.UnsupportedClassVersionError: why is it ...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/01/25-most-dangerous-programming-errors.html'>The 25 Most Dangerous Programming Errors</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/01/finally-contd-interesting-try-catch.html'>finally contd.: an interesting try-catch-finally s...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2009/01/xml-schema-and-its-anatomy-uses-of-xsds.html'>XML Schema and its anatomy, Uses of XSDs, Namespac...</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>&#9660;&#160;</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/search?updated-min=2008-01-01T00%3A00%3A00%2B05%3A30&updated-max=2009-01-01T00%3A00%3A00%2B05%3A30&max-results=50'>2008</a>
+<span class='post-count' dir='ltr'>(267)</span>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_12_01_archive.html'>December</a>
+<span class='post-count' dir='ltr'>(8)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2008/12/www-vs-www1-vs-www2-role-of-cname-and.html'>www v/s www1 v/s www2. Role of CNAME and DNS.</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/12/how-does-password-encryption-work-in.html'>How does Password Encryption work in real world?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/12/pictorial-rep-of-how-client-side.html'>Pictorial rep of Client-side password encryption</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/12/constructor-injection-how-it-works-impl.html'>Constructor Injection: how it works? Impl using Pi...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/12/spring-beans-container-metadata-ioc.html'>Spring: Beans, Container, Metadata, IoC Instantiat...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/12/spring-ioc-inversion-of-control-di.html'>Spring: Inversion of Control, Dependency Injection...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/12/session-impl-for-web-app-served-by.html'>Session impl of a Web App served by multiple JVMs</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/12/creating-documents-directly-from-emails.html'>Creating documents directly from emails in GMail</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_11_01_archive.html'>November</a>
+<span class='post-count' dir='ltr'>(8)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2008/11/implicit-vs-explicit-cursors-static-vs.html'>Implicit vs Explicit Cursors. Static vs Dynamic Cu...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/11/aspectj-aspect-oriented-programming.html'>AspectJ, Aspect-Oriented Programming, Spring AOP</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/11/using-xsd-to-create-xml-doc-and.html'>Using XSD to create XML Doc and applying an XSL on...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/11/ease-of-dev-in-java-5-generics.html'>Ease of Dev in Java 5: Generics, Autoboxing, Stati...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/11/playing-with-try-catch-finally-in-java.html'>Playing with try-catch-finally in Java. Intersting...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/11/image-processing-in-java-getting-dim.html'>Image Processing in Java. Dim, Regions, Thumbnails...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/11/mvc-pattern-its-importance-push-pull.html'>MVC Pattern &amp; its importance. Push &amp; Pull Mechanis...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/11/creating-windows-nt-services-for-java.html'>Creating Windows NT Services for a Java applicatio...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_10_01_archive.html'>October</a>
+<span class='post-count' dir='ltr'>(10)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2008/10/web-vulnerability-detection-sql.html'>Web Vulnerability Detection: SQL Injection, XSS, G...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/10/xml-whats-it-how-it-different-from-html.html'>XML:  what&#39;s it an how it different from HTML?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/10/orm-object-relational-mapping.html'>ORM: Object Relational Mapping Technology, JDO, JP...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/10/xml-database-nxd-xapi-apache-xindice.html'>XML Database - NXD, XAPI, Apache Xindice, Ozone DB...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/10/evolution-of-agile-methodologies.html'>Evolution of Agile Methodologies. Engineering vs A...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_09_01_archive.html'>September</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_08_01_archive.html'>August</a>
+<span class='post-count' dir='ltr'>(10)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_07_01_archive.html'>July</a>
+<span class='post-count' dir='ltr'>(17)</span>
+</li>
+</ul>
+<ul>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>&#9660;&#160;</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_06_01_archive.html'>June</a>
+<span class='post-count' dir='ltr'>(95)</span>
+<ul class='posts'>
+<li><a href='http://geekexplains.blogspot.com/2008/06/conditional-compilation-conditional.html'>Conditional compilation &amp; Conditional loading of a...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/asserions-in-java-assertions-vs.html'>Asserions in Java? Assertions vs Exception? Its us...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/free-23-column-xml-skinstemplates-for.html'>Free 2/3-column XML Skins/Templates for Blogger</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/inserting-adsense-ads-in-post-body.html'>Inserting AdSense Ads in Post Body, Sidebar, etc.....</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/do-interfaces-really-inherit-from-class.html'>Do Interfaces really inherit the Object class in J...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/errorexception-handling-in-jsp-using.html'>Error/Exception Handling in JSP - using JSPs or Se...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/field-hiding-in-java-fields-are-only.html'>Field Hiding in Java - fields are only hidden not ...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/automating-user-input-for-gui-programs.html'>Automating user input for GUI programs in Java - H...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/how-can-you-detect-shutdown-of-jvm.html'>Detecting the Shutdown of a JVM programmatically</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/common-questions-on-shutdown-hooks-in.html'>Common Questions on Shutdown Hooks in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/overruling-uncaught-exceptions-in-java.html'>Overruling uncaught exceptions in Java - how to?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/finally-explained-common-questions-uses.html'>finally explained - common questions, uses, etc.</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/difference-between-forward-and.html'>Difference between forward and sendRedirect</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/dynamic-binding-vs-static-binding-in.html'>Dynamic Binding vs Static Binding in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/diff-between-include-directive-include.html'>Diff between include directive &amp; include action in...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-are-implicit-objects-in-jsp.html'>What are Implicit Objects in JSP?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/jsp-comment-vs-html-comment-whats.html'>JSP Comment vs HTML Comment - what&#39;s the differenc...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-scope-of-jsp-objects-how-many.html'>What&#39;s Scope of JSP objects? How many types?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/thread-problem-whatll-threadobject-null.html'>Thread problem - what&#39;ll &#39;threadObject = null&#39; do ...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/runtimeexit-vs-runtimehalt-in-java.html'>Runtime.exit() vs Runtime.halt() in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/jvm-shutdown-jvm-shutdown-sequence.html'>JVM Shutdown &amp; JVM Shutdown Sequence?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/shutdown-hooks-in-java-how-are-they.html'>Shutdown Hooks in Java? How are they used?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-jsp-life-cycle-of-jsp-javaserver.html'>What&#39;s JSP? Life Cycle of JSP (JavaServer Pages)</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/modular-response-writers-how-can-we.html'>Modular Response-Writers - how can we have them in...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/can-we-have-constructors-in-servlets.html'>Can we have constructors in Servlets?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/include-before-forward-throws.html'>include() before forward() throws IllegalStateExce...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-servlet-mapping-whats-servlet.html'>What&#39;s Servlet Mapping? What&#39;s Servlet Invoker?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/question-why-and-when-do-we-get.html'>IllegalStateException in a Servlet - when &amp; why do...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-if-destroy-is-called-from-init-in.html'>what if destroy() is called from init() in a servl...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-servlet-preinitialization-lazy.html'>What&#39;s Servlet Preinitialization &amp; Lazy Initializa...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/servletconfig-interface-vs.html'>ServletConfig interface vs ServletContext interfac...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/why-java-needs-inner-classes.html'>Why Java needs Inner Classes?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/why-inner-classes-can-access-only-local.html'>Why inner classes can access only local final vari...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/local-and-anonymous-inner-classes-in.html'>Local and Anonymous Inner Classes in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/why-do-we-use-nested-classes-in-java.html'>Why do we use Nested Classes in Java?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/nested-classes-in-java-inner-classes-in.html'>Nested Classes in Java? Inner Classes in Java?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/annotations-vs-documentation-in-java.html'>Annotations vs Documentation Comments in Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-are-annotations-in-java-what-are.html'>What are Annotations in Java? What are they used f...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-potential-problem-with-overriding.html'>What&#39;s the potential problem with overriding clone...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/clone-not-accessible-from-outside-on.html'>clone() not accessible from outside on a Cloneable...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/difference-between-shallow-copy-and.html'>Difference between Shallow Copy and Deep Copy</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/deep-copy-implementation-in-java-source.html'>Deep Copy Implementation in Java - Source Code</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-jarindex-mechanism-whats-it-used.html'>What&#39;s JarIndex mechanism? What&#39;s it used for?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/objectclone-throwing-exception-for.html'>Object.clone() throwing exception for an Object in...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-is-cloning-how-clone-method-works.html'>What is Cloning? How clone() method works in Java?...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/how-can-you-implement-web-based-file.html'>How can you implement Web-based File Uploading</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-are-reverse-proxies-what-are-they.html'>What are Reverse Proxies? What are they used for?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-are-virtual-hosts-what-are-they.html'>What are Virtual Hosts? What are they used for?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/https-becoming-http-in-case-of.html'>https becoming http in case of sendRedirect - why?...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/puzzle-avg-salary-without-disclosing.html'>Puzzle: Avg Salary without disclosing the salaries...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/puzzle-whats-no-of-trailing-zeroes-in.html'>Puzzle: What&#39;s the no. of trailing zeroes in 100!</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/web-server-web-container-application.html'>Web Server, Web Container &amp; Application Server</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/getrequestdispatcher-for-servletrequest.html'>getRequestDispatcher for ServletRequest and Servle...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/jar-war-and-ear-what-are-these-files.html'>JAR, WAR, and EAR - what are these files used for?...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-web-server-how-does-web-server.html'>What&#39;s a Web Server? How does a Web Server work?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/discuss-life-cycle-of-servlet.html'>Discuss the life cycle of a Servlet</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/puzzle-probability-of-sitting-on-ones.html'>Puzzle: Probability of sitting on one&#39;s own seat?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/puzzle-13-red-15-green-and-17-blue.html'>Puzzle: 13 Red, 15 Green, and 17 Blue Chameleons</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/puzzle-if-hen-and-half-lay-egg-and-half.html'>Puzzle: How many hens for 6 eggs in 6 days?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-http-explain-http-request-and.html'>What&#39;s HTTP? Explain HTTP Request and HTTP Respons...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/session-tracking-in-servlets-how-do-we.html'>Session Tracking in Servlets - How do we do it?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/session-tracking-why-needed-how-many.html'>Session Tracking - why needed &amp; how many ways?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-does-load-on-startup-element-mean.html'>what does load-on-startup element mean in web.xml?...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/physical-db-connections-vs-logical-db.html'>Physical DB Connections vs Logical DB Connections</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-is-connection-pooling-why-do-we.html'>What is Connection Pooling? Why do we need it?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/explain-plan-whats-it-and-how-do-we-use.html'>EXPLAIN PLAN - what&#39;s it and how do we use it?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/difference-between-get-and-post-methods.html'>Difference between GET and POST methods</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/new-features-introduced-by-oracle-9i.html'>New features introduced by Oracle 9i</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/security-risk-with-externalizable-and.html'>Security risk with Externalizable and its inapplic...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/diff-between-externalizable-and.html'>Diff between Externalizable and Serializable in Ja...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/how-to-tune-sql-queries-for-better.html'>How to tune SQL Queries for better performance?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html'>Can you override Static Methods in Java?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/genericservlet-servletconfig.html'>GenericServlet, ServletConfig, ServletContext and ...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/role-of-merge-command-whats-upsert.html'>Role of MERGE command? What&#39;s Upsert Functionality...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/ddl-dml-dcl-and-tcl-what-are-they-used.html'>DDL, DML, DCL, and TCL - what are they used for?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/sql-query-to-find-lowesttop-n-records.html'>SQL Query to find the lowest/top N records on a co...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/difference-between-rank-and-denserank.html'>Difference between RANK() and DENSE_RANK() functio...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-is-difference-between-varchar-and.html'>What is the difference between VARCHAR and VARCHAR...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/sql-query-to-find-every-nth-row-from.html'>SQL Query to find every Nth row from a table?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/sql-query-to-remove-duplicate-records.html'>SQL Query to remove duplicate records from a table...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/difference-between-delete-drop-and.html'>Difference between DELETE, DROP, and TRUNCATE</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/classloaders-in-java-how-do-they-work.html'>Classloaders in Java? How do they work?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/classloading-for-web-apps-or-ejbs-on.html'>Classloading for Web Apps or EJBs on an Apps Svr</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/make-class-available-to-all-apps-on.html'>Make a class available to all apps on an Apps Serv...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/general-hr-interview-questions-set-3.html'>General HR Interview Questions - Set #3</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/whats-concept-of-sequence-point-in-c.html'>What&#39;s the concept of Sequence Point in C?</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/ways-of-handling-complex-declarations.html'>Ways of handling complex declarations in C</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/what-does-expression-b-b-do-in-c.html'>What does the expression &#39;a ^= b ^= a ^= b&#39; do in ...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/question-will-use-of-parentheses-always.html'>Do the parentheses always enforce desired order in...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/question-whats-concept-of-short-circuit.html'>Concept of short-circuit operators in C or Java</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/potential-problem-involving.html'>Potential problem involving overflow/truncation in...</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/sizeof-returns-strange-values-for.html'>sizeof() returns strange values for a struct in C....</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/improper-declaration-causing-core-dump.html'>Improper Declaration causing Core Dump in C</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/incremeting-pointer-not-working-in-c-on.html'>Incremeting a pointer not working in C on casting</a></li>
+<li><a href='http://geekexplains.blogspot.com/2008/06/why-doesnt-statement-ai-i-work-in-c.html'>Why doesn&#39;t the statement &#39;a[i] = i++;&#39; work in C?...</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+          &#9658;&#160;
+        
+</span>
+</a>
+<a class='post-count-link' href='http://geekexplains.blogspot.com/2008_05_01_archive.html'>May</a>
+<span class='post-count' dir='ltr'>(113)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=BlogArchive&widgetId=BlogArchive1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target='configBlogArchive1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget HTML' id='HTML1'>
+<div class='widget-content'>
+<a href="http://www.blogcatalog.com/directory/computers/software/programming" title="Programming Blogs - BlogCatalog Blog Directory"><img alt="BlogCatalog.com" style="border: 0;" src="http://www.blogcatalog.com/images/buttons/blogcatalog5.gif"/></a>
+<a href="http://www.blogadda.com" title="Visit blogadda.com to discover Indian blogs"> <img border="0" width="80" alt="blogadda.com" src="http://www.blogadda.com/images/blogadda.png" height="15"/></a>
+<a href="http://www.blogtopsites.com/academics/"><img style="border:none" alt="Academics - BlogTopSites" src="http://www.blogtopsites.com/v_16668.gif"/></a>
+<a href="http://www.topblogarea.com/academics/" title="Academics blogs"><img border="0" alt="Academics blogs" src="http://www.topblogarea.com/tracker.php?do=in&id=87356"/></a>
+<a href="http://topofblogs.com/programming"><img border="0" alt="TopOfBlogs" src="http://stats.topofblogs.com/send/22820"/></a>
+<a href="http://www.bloggernow.com/" target="_blank"><img border="0" alt="BloggerNow" width="80" src="http://www.bloggernow.com/images/80x15.png" height="15"/></a>
+<a href="http://www.blogarama.com/"><img border="0" alt="blogarama" src="http://www.blogarama.com/images/button_sm_2.gif" title="blogarama"/></a>
+<a href="http://dir.blogflux.com/cat/computers-tech.html"><img border="0" alt="BlogFlux" src="http://dir.blogflux.com/images/80x15.gif"/></a>
+<a href="http://www.blogtoplist.com/software/" title="Software">
+<img border="0" alt="Software" src="http://www.blogtoplist.com/tracker.php?u=93734"/></a>
+<a href="http://www.blogtoplist.com/vote.php?u=93734" target="_blank">
+<img border="0" alt="Top Blogs" src="http://www.blogtoplist.com/images/votebutton.gif"/></a>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=HTML&widgetId=HTML1&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target='configHTML1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+<h2>Subscribe</h2>
+<p>
+<a class='feed-link' href='http://feeds.feedburner.com/GeekExplains' target='_blank' type='application/atom+xml'><img src='http://i161.photobucket.com/albums/t219/freetemplates4/feed-icon-32x32.jpg'/> RSS Feed (xml)</a>
+</p>
+<h2>Credits</h2>
+<p>
+<a href='http://charmskins.com/' target='_blank' title='CharmSkins!'><img alt='CharmSkins!' src='http://charmskins.com/logo.png'/></a>
+</p>
+<p id='powered-by'><a href='http://www.blogger.com' target='_blank'><img alt='Powered by Blogger' src='http://buttons.blogger.com/bloggerbutton1.gif'/></a></p>
+</div><!-- end sidebar-right -->
+</div><!-- end sidebar-wrapper -->
+<!-- spacer for skins that want sidebar and main to be the same height-->
+<div class='clear'>&#160;</div>
+<br/>
+<!-- clear fix do not remove -->
+</div></div>
+<!-- end outer-wrapper -->
+<div id='footer-wrapper-niraj'>
+<!-- footer-wrapper -> footer-wrapper-niraj -->
+<div class='footer section' id='footer'><div class='widget HTML' id='HTML4'>
+<div class='widget-content'>
+<a href="http://geekexplains.blogspot.com/2008/05/archived-articles-at-geek-explains.html">&lt;&lt;View Archived Articles&gt;&gt;</a>
+<div style="padding:5px 5px 0px 5px"><span style="padding-left:5px;"><a 
+
+target="_blank" 
+
+href="http://technorati.com/faves?sub=addfavbtn&amp;add=http://geekexplains.blogspot.com"><img style="border: 0;" 
+
+src="http://lh6.ggpht.com/geekexplains/SFf6rgdoMwI/AAAAAAAAAFg/qBKoexfLpUA/s144/technorati.
+
+png"/></a></span><span style="padding-left:5px;"><a 
+
+target="_blank" href="http://del.icio.us/geekexplains"><img style="border: 0;" 
+
+src="http://lh3.ggpht.com/geekexplains/SFf6tgpRhaI/AAAAAAAAAFw/8v_SFPtj_-k/s144/delicious.p
+
+ng"/></a></span>
+<span style="padding-left:5px;"><a 
+
+target="_blank" href="http://feeds.feedburner.com/GeekExplains"><img style="border: 0;" 
+
+src="http://lh4.ggpht.com/geekexplains/SFf6tqbW-tI/AAAAAAAAAF4/P8ZKTPwAU9M/s144/feeds.png" /
+
+/></a></span>
+<span style="padding-left:5px;"><a 
+
+href="http://mybloglog.com/s/stumbleupon/geekexplains/?r" target="_blank"><img 
+
+style="border: 0;" 
+
+src="http://lh3.ggpht.com/geekexplains/SFf6r3hQ53I/AAAAAAAAAFo/z87E-XsfbSQ/s144/stumble.png"/></a></span></div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=HTML&widgetId=HTML4&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML4"));' target='configHTML4' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' id='HTML5'>
+<div class='widget-content'>
+<!-- Niraj
+<div><iframe scrolling="no" width="728" frameborder="0" src="http://origin-img.shaadi.com/shaadi-rewards/get-banner.php?ptnr=ca1uk&banner_type=buttons&banner_size=728x90&ad_type=iframe" marginheight="0" height="90" marginwidth="0"></iframe></div>
+<br/> -->
+<!-- Niraj: Link Ad in body pre post - Start -->
+<table border="0" align="center">
+<tr>
+<td>
+<script type="text/javascript"><!--
+google_ad_client = "pub-2653201355668223";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+/* 468x15 - GE - L - 1, created 5/14/08 */
+google_ad_slot = "2806820360";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</script>
+<script 
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js" type="text/javascript">
+</script>
+</td>
+</tr>
+</table>
+<!-- Niraj: Link Ad in body pre post - End -->
+<table border="0" align="center"><tr><td><iframe scrolling="no" 
+
+frameborder="0" width="234" src="http://origin-img.shaadi.com/shaadi-rewards/get-
+
+banner.php?ptnr=ca1uk&banner_type=buttons&banner_size=234x60&ad_type=iframe" 
+
+marginheight="0" height="60" marginwidth="0"></iframe></td>
+<td>
+<iframe border="0" 
+
+style="border:none;" frameborder="0" 
+
+width="234" marginwidth="0" height="60" src="http://rcm.amazon.com/e/cm?t=geekexpl-
+
+20&o=1&p=42&l=ur1&category=endless&banner=0TN05KEC0JG13H22NZG2&m=endless&f=ifr" scrolling="no"></iframe>
+</td>
+<td><a href="http://www.rupeemail.in/rupeemail/invite.do?
+
+in=MTcwNzY2JSMlNzVzbWRqS1FEd0pXSHIzTXFnWFVJMjhiYQ==">
+<img border="0" 
+
+height="48" width="114" 
+
+src="http://www.rupeemail.in/rupeemail/pages/rupeemail/images/joinImage.gif"/>
+</a></td>
+</tr>
+</table>
+
+<br/>
+<a href="http://feeds.feedburner.com/GeekExplains" target="_blank" rel="alternate" title="Subscribe to my feed" type="application/rss+xml"><img alt="" style="border:0" src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png"/>&nbsp;</a>
+<a href="http://fusion.google.com/add?feedurl=http://feeds.feedburner.com/GeekExplains" target="_blank"><img width="104" style="border:0" alt="" src="http://buttons.googlesyndication.com/fusion/add.gif" height="17"/>&nbsp;</a>
+<a href="http://add.my.yahoo.com/rss?url=http://feeds.feedburner.com/GeekExplains" target="_blank" title="Geek Explains"><img alt="" style="border:0" src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif"/>&nbsp;</a>
+<a href="http://www.bloglines.com/sub/http://feeds.feedburner.com/GeekExplains" target="_blank" title="Geek Explains" type="application/rss+xml"><img alt="" style="border:0" src="http://www.bloglines.com/images/sub_modern11.gif"/>&nbsp;</a>
+<a href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://feeds.feedburner.com/GeekExplains" target="_blank" title="Geek Explains"><img alt="" style="border:0" src="http://www.newsgator.com/images/ngsub1.gif"/>&nbsp;</a>
+<a href="http://feeds.my.aol.com/add.jsp?url=http://feeds.feedburner.com/GeekExplains" target="_blank"><img alt="" style="border:0" src="http://favorites.my.aol.com/ffclient/webroot/0.2.1/locale/en_US/aol/images/myAOLButtonSmall.gif"/>&nbsp;</a>
+<a href="http://www.netvibes.com/subscribe.php?url=http://feeds.feedburner.com/GeekExplains" target="_blank"><img width="91" alt="" style="border:0" src="http://www.netvibes.com/img/add2netvibes.gif" height="17"/></a>
+
+<!--
+<a href="http://www.plusmo.com/add?url=http://feeds.feedburner.com/GeekExplains" target='_blank'><img alt="" src="http://plusmo.com/res/graphics/fbplusmo.gif"/></a>
+-->
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=7955003209126272036&widgetType=HTML&widgetId=HTML5&action=editWidget' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML5"));' target='configHTML5' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+<div class='credits'>
+<!-- Geek: Disclaimer, Copyright, Terms, etc. added -->
+Copyright  &#169; 2008 <a href='http://geekexplains.blogspot.com/' title='A Comprehensive Technical/HR Interview Preparation Guide'>Geek Explains</a>  | 
+<a href='http://geekexplains.blogspot.com/2008/05/disclaimer.html' title='Disclaimer'>Disclaimer</a>  | 
+<a href='http://geekexplains.blogspot.com/2008/05/terms-of-use.html' title='Terms of Use'>Terms of Use</a>  | 
+<a href='http://geekexplains.blogspot.com/2008/05/privacy-policy.html' title='Privacy Policy'>Privacy Policy</a>  | 
+<a href='http://www.google.com/reader/m/view/feed/http://feeds.feedburner.com/GeekExplains' target='_blank' title='Mobile Edition'>Mobile Edition</a>
+</div><!-- end credits -->
+</div><!-- end footer-wrapper -->
+<br/>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</script><script type="text/javascript" src="http://www.blogger.com/static/v1/widgets/4030489368-widgets.js"></script>
+<script type='text/javascript'>
+_WidgetManager._Init('http://www.blogger.com/rearrange?blogID=7955003209126272036', 'http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html','7955003209126272036');
+_WidgetManager._SetPageActionUrl('http://www.blogger.com/display?blogID=7955003209126272036', '53QgHSP2urAGjDKtYJAxEP8G-O0:1265280661627');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'title': 'Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving!', 'pageType': 'item', 'url': 'http://geekexplains.blogspot.com/2008/06/can-you-override-static-methods-in-java.html', 'homepageUrl': 'http://geekexplains.blogspot.com/', 'enabledCommentProfileImages': true, 'searchLabel': '', 'searchQuery': '', 'pageName': 'Can you override Static Methods in Java?', 'pageTitle': 'Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving!: Can you override Static Methods in Java?', 'encoding': 'UTF-8', 'locale': 'en', 'isPrivate': false, 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - Atom\42 href\75\42http://geekexplains.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - RSS\42 href\75\42http://geekexplains.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - Atom\42 href\75\42http://www.blogger.com/feeds/7955003209126272036/posts/default\42 /\76\n\74link rel\75\42EditURI\42 type\75\42application/rsd+xml\42 title\75\42RSD\42 href\75\42http://www.blogger.com/rsd.g?blogID\0757955003209126272036\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Geek Explains: Java, J2EE, Oracle, Puzzles, and Problem Solving! - Atom\42 href\75\42http://geekexplains.blogspot.com/feeds/7244691409934109115/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var a\75window;function e(b){this.t\75{};this.tick\75function(c,h,d){d\75d?d:(new Date).getTime();this.t[c]\75[d,h]};this.tick(\42start\42,null,b)}var f\75new e;a.jstiming\75{Timer:e,load:f};try{a.jstiming.pt\75a.gtbExternal\46\46a.gtbExternal.pageT()||a.external\46\46a.external.pageT}catch(g){};a.tickAboveFold\75function(b){b\75b;var c\0750;if(b.offsetParent){do c+\75b.offsetTop;while(b\75b.offsetParent)}b\75c;b\74\075750\46\46a.jstiming.load.tick(\42aft\42)};var i\75false;function j(){if(!i){i\75true;a.jstiming.load.tick(\42firstScrollTime\42)}}a.addEventListener?a.addEventListener(\42scroll\42,j,false):a.attachEvent(\42onscroll\42,j); })();\74/script\076'}}]);
+_WidgetManager._SetSystemMarkup({'layout': {'varName': '', 'template': '\74div class\75\47widget-wrap1\47\76\n\74div class\75\47widget-wrap2\47\76\n\74div class\75\47widget-wrap3\47\76\n\74div class\75\47widget-content\47\76\n\74div class\75\47layout-title\47\76\74data:layout-title\76\74/data:layout-title\76\74/div\76\n\74a class\75\47editlink\47 expr:href\75\47data:widget.quickEditUrl\47 expr:onclick\75\47\46quot;return _WidgetManager._PopupConfig(document.getElementById(\\\46quot;\46quot; +       data:widget.instanceId + \46quot;\\\46quot;));\46quot;\47 target\75\47chooseWidget\47\76\74data:edit-link\76\74/data:edit-link\76\74/a\76\n\74/div\76\n\74/div\76\n\74/div\76\n\74/div\076'}, 'quickedit': {'varName': '', 'template': '\74div class\75\47clear\47\76\74/div\76\n\74span class\75\47widget-item-control\47\76\n\74span class\75\47item-control blog-admin\47\76\n\74a class\75\47quickedit\47 expr:href\75\47data:widget.quickEditUrl\47 expr:onclick\75\47\46quot;return _WidgetManager._PopupConfig(document.getElementById(\\\46quot;\46quot; +       data:widget.instanceId + \46quot;\\\46quot;));\46quot;\47 expr:target\75\47\46quot;config\46quot; + data:widget.instanceId\47 expr:title\75\47data:edit-link\47\76\n\74img alt\75\47\47 height\75\04718\47 src\75\47http://img1.blogblog.com/img/icon18_wrench_allbkg.png\47 width\75\04718\47/\76\n\74/a\76\n\74/span\76\n\74/span\76\n\74div class\75\47clear\47\76\74/div\076'}, 'all-head-content': {'varName': 'page', 'template': '\74data:blog.latencyHeadScript\76\74/data:blog.latencyHeadScript\76\n\74meta expr:content\75\47\46quot;text/html; charset\75\46quot; + data:page.encoding\47 http-equiv\75\47Content-Type\47/\76\n\74meta content\75\47true\47 name\75\47MSSmartTagsPreventParsing\47/\76\n\74meta content\75\47blogger\47 name\75\47generator\47/\76\n\74link href\75\47http://www.blogger.com/favicon.ico\47 rel\75\47icon\47 type\75\47image/vnd.microsoft.icon\47/\76\n\74link expr:href\75\47data:blog.url\47 rel\75\47canonical\47/\76\n\74data:blog.feedLinks\76\74/data:blog.feedLinks\76\n\74data:blog.meTag\76\74/data:blog.meTag\76\n\74data:blog.openIdOpTag\76\74/data:blog.openIdOpTag\076'}});
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML4', 'footer',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML4'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML5', 'footer',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML5'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML9', 'sidebar-left',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML9'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebar-left',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\n\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74script src\75\47http://halotemplates.s3.amazonaws.com/wp-cumulus-example/swfobject.js\47 type\75\47text/javascript\47\76\74/script\76\n\74div id\75\47flashcontent\47\76\74a href\75\47http://www.roytanck.com/\47\76Animated Tag Cloud\74/a\76\74/div\76\n\74script type\75\47text/javascript\47\76\nvar so \75 new SWFObject(\46quot;http://halotemplates.s3.amazonaws.com/wp-cumulus-example/tagcloud.swf\46quot;, \46quot;tagcloud\46quot;, \46quot;170\46quot;, \46quot;180\46quot;, \46quot;7\46quot;, \46quot;#ffffff\46quot;);\n// uncomment next line to enable transparency\n//so.addParam(\46quot;wmode\46quot;, \46quot;transparent\46quot;);\nso.addVariable(\46quot;tcolor\46quot;, \46quot;0x333333\46quot;);\nso.addVariable(\46quot;mode\46quot;, \46quot;tags\46quot;);\nso.addVariable(\46quot;distr\46quot;, \46quot;true\46quot;);\nso.addVariable(\46quot;tspeed\46quot;, \46quot;100\46quot;);\nso.addVariable(\46quot;tagcloud\46quot;, \46quot;\74tags\76\74b:loop values\75\47data:labels\47 var\75\47label\47\76\74a expr:href\75\47data:label.url\47 style\75\04712\47\76\74data:label.name\76\74/data:label.name\76\74/a\76\74/b:loop\76\74/tags\76\46quot;);\nso.addParam(\46quot;allowScriptAccess\46quot;, \46quot;always\46quot;);\nso.write(\46quot;flashcontent\46quot;);\n\74/script\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML8', 'sidebar-left',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML8'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LinkListView', new _WidgetInfo('LinkList1', 'sidebar-left',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\74h2\76\74data:title\76\74/data:title\76\74/h2\76\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74ul\76\n\74b:loop values\75\47data:links\47 var\75\47link\47\76\n\74li\76\74a expr:href\75\47data:link.target\47\76\74data:link.name\76\74/data:link.name\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('LinkList1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeedView', new _WidgetInfo('Feed1', 'ad-box',{'main': {'varName': '', 'template': '\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74div class\75\47widget-content\47 expr:id\75\47data:widget.instanceId + \46quot;_feedItemListDisplay\46quot;\47\76\n\74span style\75\47filter: alpha(25); opacity: 0.25;\47\76\n\74a expr:href\75\47data:feedUrl\47\76\74data:loadingMsg\76\74/data:loadingMsg\76\74/a\76\n\74/span\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('Feed1'), {'title': 'Recently Posted Articles', 'showItemDate': false, 'showItemAuthor': false, 'feedUrl': 'http://feeds.feedburner.com/GeekExplains', 'numItemsShow': 5, 'loadingMsg': 'Loading...', 'openLinksInNewWindow': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'sidebar-right',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FollowersView', new _WidgetInfo('Followers1', 'sidebar-right',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74b:if cond\75\47data:codeSnippet !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:totalFollowerCount !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76 (\74data:totalFollowerCount\76\74/data:totalFollowerCount\76)\74/h2\76\n\74/b:if\76\n\74/b:if\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74div expr:id\75\47data:widget.instanceId + \46quot;-wrapper\46quot;\47\76\n\74b:if cond\75\47data:codeSnippet !\75 \46quot;\46quot;\47\76\n\74div style\75\47margin-right:2px;\47\76\n\74data:codeSnippet\76\74/data:codeSnippet\76\n\74/div\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:totalFollowerCount \75\75 \46quot;\46quot;\47\76\n\74span class\75\47item-control following-not-admin\47\76\n\74b\76\74data:failureSnippet\76\74/data:failureSnippet\76\74/b\76\n\74/span\76\n\74span class\75\47item-control blog-admin\47\76\n\74b\76\74data:adminFailureSnippet\76\74/data:adminFailureSnippet\76\74/b\76\n\74/span\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:followingLinkPresent\47\76\n\74div class\75\47follow-this profile-link item-control following-follow-this\47\76\n\74a expr:href\75\47\46quot;javascript:_FollowersView._openPopup(\\\46quot;\46quot; + data:followUri + \46quot;\\\46quot;);\46quot;\47\76\n\74data:followThisMessage\76\74/data:followThisMessage\76\n\74/a\76\n\74/div\76\n\74div class\75\47follow-this profile-link item-control following-stop-following-this\47\76\n\74a expr:href\75\47\46quot;javascript:_FollowersView._openPopup(\\\46quot;\46quot; + data:followUri + \46quot;\\\46quot;);\46quot;\47\76\n\74data:stopFollowingMessage\76\74/data:stopFollowingMessage\76\n\74/a\76\n\74/div\76\n\74/b:if\76\n\74div class\75\47followers-grid\47\76\n\74b:if cond\75\47data:totalFollowerCount \75\75 0\47\76\n\74div class\75\47profile-link item-control following-follow-this\47\76\n\74data:emptyFollowersMessage\76\74/data:emptyFollowersMessage\76\n\74/div\76\n\74/b:if\76\n\74b:loop values\75\47data:followers\47 var\75\47follower\47\76\n\74div class\75\47follower\47\76\n\74a expr:href\75\47data:follower.profileUrl\47 expr:title\75\47data:follower.displayName\47 rel\75\47nofollow\47\76\n\74img class\75\47follower-img\47 expr:alt\75\47data:follower.displayName\47 expr:height\75\47data:follower.imageHeight\47 expr:onerror\75\47\46quot;this.onerror\75null;this.src\75\\\46quot;\46quot; + data:anonFollowerImageUrl + \46quot;\\\46quot;;\46quot;\47 expr:onload\75\47\46quot;setAttributeOnload(this, \\\46quot;src\\\46quot;, \\\46quot;\46quot; + data:follower.imageUrl + \46quot;\\\46quot;)\46quot;\47 expr:width\75\47data:follower.imageWidth\47 src\75\47http://img1.blogblog.com/img/blank.gif\47/\76\n\74/a\76\n\74/div\76\n\74/b:loop\76\n\74div class\75\47clear\47\76\74/div\76\n\74/div\76\n\74div class\75\47followers-canvas profile-link\47\76\n\74data:followersFooterMessage\76\74/data:followersFooterMessage\76\n\74span class\75\47item-control following-not-admin\47\76\n\74a expr:href\75\47data:followersUri\47\76\n\74data:viewAllMessage\76\74/data:viewAllMessage\76\n\74/a\76\n\74/span\76\n\74span class\75\47item-control blog-admin\47\76\n\74a expr:href\75\47data:manageFollowersUri\47\76\n\74data:manageFollowersMessage\76\74/data:manageFollowersMessage\76\n\74/a\76\n\74/span\76\n\74/div\76\n\74/b:if\76\n\74/b:if\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('Followers1'), {'title': 'Followers of GeekExplains', 'codeSnippet': '\74script type\75\42text/javascript\42\76\n        if (!window.google || !google.friendconnect) {\n          document.write(\47\74script type\75\42text/javascript\42\47 +\n              \47src\75\42http://www.google.com/friendconnect/script/friendconnect.js\42\76\47 +\n              \47\74/scr\47 + \47ipt\76\47);\n        }\n      \74/script\76\n\74script type\75\42text/javascript\42\76\n      if (!window.registeredBloggerCallbacks) {\n        window.registeredBloggerCallbacks \75 true;\n\n        \n\n        \n        gadgets.rpc.register(\47requestReload\47, function() {\n          document.location.reload();\n        });\n\n        \n        gadgets.rpc.register(\47requestSignOut\47, function(siteId) {\n          \n          google.friendconnect.container.openSocialSiteId \75 siteId;\n          google.friendconnect.requestSignOut();\n        });\n      }\n    \74/script\76\n\74script type\75\42text/javascript\42\76\n    \n    function registerGetBlogUrls() {\n      gadgets.rpc.register(\47getBlogUrls\47, function() {\n        var holder \75 {};\n        \n          \n            \n            \n              holder.currentPost \75 \42http://www.blogger.com/feeds/7955003209126272036/posts/default/7244691409934109115\42;\n            \n            \n            \n              holder.currentComments \75 \42http://www.blogger.com/feeds/7955003209126272036/7244691409934109115/comments/default\42;\n            \n          \n          \n          \n            holder.postFeed \75 \42http://www.blogger.com/feeds/7955003209126272036/posts/default\42;\n          \n          \n          \n            holder.commentFeed \75 \42http://www.blogger.com/feeds/7955003209126272036/comments/default\42;\n          \n        \n        return holder;\n      });\n    }\n  \74/script\76\n\74script type\75\42text/javascript\42\76\n  if (!window.registeredCommonBloggerCallbacks) {\n    window.registeredCommonBloggerCallbacks \75 true;\n\n    gadgets.rpc.register(\47resize_iframe\47, function(height) {\n      var el \75 document.getElementById(this[\47f\47]);\n      if (el) {\n        el.style.height \75 height + \47px\47;\n      }\n    });\n\n    // We don\47t do anything w/ this, but don\47t let it bubble up and cause an\n    // exception\n    // TODO(henrywong): Don\47t just one-off this, fix at a more comprehensive\n    // level.\n    gadgets.rpc.register(\47set_pref\47, function() {});\n\n    \n    gadgets.rpc.register(\47registerGadgetForRpcs\47, function(gadgetDomain, iframeName) {\n      // TODO(sauravshah): We don\47t need this. Remove it from the google.Blog api\n    });\n\n    registerGetBlogUrls();\n  }\n  \74/script\76\n\74div id\75\42div-gm2y9f1kg6fz\42 style\75\42width: 100%; \42\76\74/div\76\n\74script type\75\42text/javascript\42\76\n    var skin \75 {};\n    skin[\47FACE_SIZE\47] \75 \04732\47;\n    skin[\47HEIGHT\47] \75 \042260\42;\n    skin[\47TITLE\47] \75 \42Followers of GeekExplains\42;\n    skin[\47BORDER_COLOR\47] \75 \42transparent\42;\n    skin[\47ENDCAP_BG_COLOR\47] \75 \42transparent\42;\n    skin[\47ENDCAP_TEXT_COLOR\47] \75 \42#666666\42;\n    skin[\47ENDCAP_LINK_COLOR\47] \75 \42#5588aa\42;\n    skin[\47ALTERNATE_BG_COLOR\47] \75 \42transparent\42;\n    \n    skin[\47CONTENT_BG_COLOR\47] \75 \42transparent\42;\n    skin[\47CONTENT_LINK_COLOR\47] \75 \42#5588aa\42;\n    skin[\47CONTENT_TEXT_COLOR\47] \75 \42#666666\42;\n    skin[\47CONTENT_SECONDARY_LINK_COLOR\47] \75 \42#5588aa\42;\n    skin[\47CONTENT_SECONDARY_TEXT_COLOR\47] \75 \42#999999\42;\n    skin[\47CONTENT_HEADLINE_COLOR\47] \75 \42#cc6600\42;\n    skin[\47FONT_FACE\47] \75 \42normal normal 100% Georgia, Serif\42;\n    google.friendconnect.container.setParentUrl(\42/\42);\n    google.friendconnect.container[\42renderMembersGadget\42](\n    {id: \42div-gm2y9f1kg6fz\42,\n     height: 260,\n     \n     \n     \n     site: \04201997313550825478573\42,\n      \n     locale: \47en\47 },\n     skin);\n  \74/script\076'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text1', 'sidebar-right',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('Text1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML10', 'sidebar-right',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML10'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar-right',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\n\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74div id\75\47ArchiveList\47\76\n\74div expr:id\75\47data:widget.instanceId + \46quot;_ArchiveList\46quot;\47\76\n\74b:if cond\75\47data:style \75\75 \46quot;HIERARCHY\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47interval\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:style \75\75 \46quot;FLAT\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47flat\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:style \75\75 \46quot;MENU\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47menu\47\76\74/b:include\76\n\74/b:if\76\n\74/div\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}, 'flat': {'varName': 'data', 'template': '\74ul\76\n\74b:loop values\75\47data:data\47 var\75\47i\47\76\n\74li class\75\47archivedate\47\76\n\74a expr:href\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76\74/a\76 (\74data:i.post-count\76\74/data:i.post-count\76)\n      \74/li\76\n\74/b:loop\76\n\74/ul\076'}, 'menu': {'varName': 'data', 'template': '\74select expr:id\75\47data:widget.instanceId + \46quot;_ArchiveMenu\46quot;\47\76\n\74option value\75\47\47\76\74data:title\76\74/data:title\76\74/option\76\n\74b:loop values\75\47data:data\47 var\75\47i\47\76\n\74option expr:value\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76 (\74data:i.post-count\76\74/data:i.post-count\76)\74/option\76\n\74/b:loop\76\n\74/select\076'}, 'interval': {'varName': 'intervalData', 'template': '\74b:loop values\75\47data:intervalData\47 var\75\47i\47\76\n\74ul\76\n\74li expr:class\75\47\46quot;archivedate \46quot; + data:i.expclass\47\76\n\74b:include data\75\47i\47 name\75\47toggle\47\76\74/b:include\76\n\74a class\75\47post-count-link\47 expr:href\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76\74/a\76\n\74span class\75\47post-count\47 dir\75\47ltr\47\76(\74data:i.post-count\76\74/data:i.post-count\76)\74/span\76\n\74b:if cond\75\47data:i.data\47\76\n\74b:include data\75\47i.data\47 name\75\47interval\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:i.posts\47\76\n\74b:include data\75\47i.posts\47 name\75\47posts\47\76\74/b:include\76\n\74/b:if\76\n\74/li\76\n\74/ul\76\n\74/b:loop\076'}, 'toggle': {'varName': 'interval', 'template': '\74b:if cond\75\47data:interval.toggleId\47\76\n\74b:if cond\75\47data:interval.expclass \75\75 \46quot;expanded\46quot;\47\76\n\74a class\75\47toggle\47 href\75\47javascript:void(0)\47\76\n\74span class\75\47zippy toggle-open\47\76\46#9660;\46#160;\74/span\76\n\74/a\76\n\74b:else\76\74/b:else\76\n\74a class\75\47toggle\47 href\75\47javascript:void(0)\47\76\n\74span class\75\47zippy\47\76\n\74b:if cond\75\47data:blog.languageDirection \75\75 \46quot;rtl\46quot;\47\76\n          \46#9668;\46#160;\n        \74b:else\76\74/b:else\76\n          \46#9658;\46#160;\n        \74/b:if\76\n\74/span\76\n\74/a\76\n\74/b:if\76\n\74/b:if\076'}, 'posts': {'varName': 'posts', 'template': '\74ul class\75\47posts\47\76\n\74b:loop values\75\47data:posts\47 var\75\47i\47\76\n\74li\76\74a expr:href\75\47data:i.url\47\76\74data:i.title\76\74/data:i.title\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\076'}}, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebar-right',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2 class\75\47title\47\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74data:content\76\74/data:content\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\076'}}, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main',{'main': {'varName': 'top', 'template': '\74div class\75\47blog-posts hfeed\47\76\n\74b:include data\75\47top\47 name\75\47status-message\47\76\74/b:include\76\n\74data:defaultAdStart\76\74/data:defaultAdStart\76\n\74b:loop values\75\47data:posts\47 var\75\47post\47\76\n\74b:if cond\75\47data:post.dateHeader\47\76\n\74h2 class\75\47date-header\47\76\74data:post.dateHeader\76\74/data:post.dateHeader\76\74/h2\76\n\74/b:if\76\n\74b:include data\75\47post\47 name\75\47post\47\76\74/b:include\76\n\74b:if cond\75\47data:blog.pageType \75\75 \46quot;static_page\46quot;\47\76\n\74b:include data\75\47post\47 name\75\47comments\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:blog.pageType \75\75 \46quot;item\46quot;\47\76\n\74b:include data\75\47post\47 name\75\47comments\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:post.includeAd\47\76\n\74b:if cond\75\47data:post.isFirstPost\47\76\n\74data:defaultAdEnd\76\74/data:defaultAdEnd\76\n\74b:else\76\74/b:else\76\n\74data:adEnd\76\74/data:adEnd\76\n\74/b:if\76\n\74div class\75\47inline-ad\47\76\n\74data:adCode\76\74/data:adCode\76\n\74/div\76\n\74data:adStart\76\74/data:adStart\76\n\74/b:if\76\n\74b:if cond\75\47data:post.trackLatency\47\76\n\74data:post.latencyJs\76\74/data:post.latencyJs\76\n\74/b:if\76\n\74/b:loop\76\n\74data:adEnd\76\74/data:adEnd\76\n\74/div\76\n\74b:include name\75\47nextprev\47\76\74/b:include\76\n\74b:include name\75\47feedLinks\47\76\74/b:include\76\n\74b:if cond\75\47data:top.showStars\47\76\n\74script src\75\47http://www.google.com/jsapi\47 type\75\47text/javascript\47\76\74/script\76\n\74script type\75\47text/javascript\47\76\n      google.load(\46quot;annotations\46quot;, \46quot;1\46quot;, {\46quot;locale\46quot;: \46quot;\74data:top.languageCode\76\74/data:top.languageCode\76\46quot;});\n      function initialize() {\n        google.annotations.setApplicationId(\74data:top.blogspotReviews\76\74/data:top.blogspotReviews\76);\n        google.annotations.createAll();\n        google.annotations.fetch();\n      }\n      google.setOnLoadCallback(initialize);\n    \74/script\76\n\74/b:if\076'}, 'nextprev': {'varName': '', 'template': '\74div class\75\47blog-pager\47 id\75\47blog-pager\47\76\n\74b:if cond\75\47data:newerPageUrl\47\76\n\74span id\75\47blog-pager-newer-link\47\76\n\74a class\75\47blog-pager-newer-link\47 expr:href\75\47data:newerPageUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_blog-pager-newer-link\46quot;\47 expr:title\75\47data:newerPageTitle\47\76\74data:newerPageTitle\76\74/data:newerPageTitle\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:if cond\75\47data:olderPageUrl\47\76\n\74span id\75\47blog-pager-older-link\47\76\n\74a class\75\47blog-pager-older-link\47 expr:href\75\47data:olderPageUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_blog-pager-older-link\46quot;\47 expr:title\75\47data:olderPageTitle\47\76\74data:olderPageTitle\76\74/data:olderPageTitle\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:if cond\75\47data:blog.homepageUrl !\75 data:blog.url\47\76\n\74a class\75\47home-link\47 expr:href\75\47data:blog.homepageUrl\47\76\74data:homeMsg\76\74/data:homeMsg\76\74/a\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:newerPageUrl\47\76\n\74a class\75\47home-link\47 expr:href\75\47data:blog.homepageUrl\47\76\74data:homeMsg\76\74/data:homeMsg\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/div\76\n\74div class\75\47clear\47\76\74/div\076'}, 'post': {'varName': 'post', 'template': '\74div class\75\47post hentry uncustomized-post-template\47\76\n\74a expr:name\75\47data:post.id\47\76\74/a\76\n\74b:if cond\75\47data:post.title\47\76\n\74h3 class\75\47post-title entry-title\47\76\n\74b:if cond\75\47data:post.link\47\76\n\74a expr:href\75\47data:post.link\47\76\74data:post.title\76\74/data:post.title\76\74/a\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:post.url\47\76\n\74a expr:href\75\47data:post.url\47\76\74data:post.title\76\74/data:post.title\76\74/a\76\n\74b:else\76\74/b:else\76\n\74data:post.title\76\74/data:post.title\76\n\74/b:if\76\n\74/b:if\76\n\74/h3\76\n\74/b:if\76\n\74div class\75\47post-header-line-1\47\76\74/div\76\n\74div class\75\47post-body entry-content\47\76\n\n\46lt;script type\75\46quot;text/javascript\46quot;\46gt;\46lt;!--\ngoogle_ad_client \75 \46quot;pub-2653201355668223\46quot;;\ngoogle_ad_host \75 \46quot;pub-1556223355139109\46quot;;\ngoogle_ad_host_channel\75\46quot;00000+00031+00005\46quot;;\n/* 468x60, GE - created 8/20/08 */\ngoogle_ad_slot \75 \46quot;4957343502\46quot;;\ngoogle_ad_width \75 468;\ngoogle_ad_height \75 60;\n//--\46gt;\n\46lt;/script\46gt;\n\46lt;script type\75\46quot;text/javascript\46quot;\nsrc\75\46quot;http://pagead2.googlesyndication.com/pagead/show_ads.js\46quot;\46gt;\n\46lt;/script\46gt;\n\46lt;div\46gt;\46lt;br/\46gt;\46lt;/div\46gt;\n\74p\76\74data:post.body\76\74/data:post.body\76\74/p\76\n\n\46lt;script type\75\46quot;text/javascript\46quot;\46gt;\46lt;!--\ngoogle_ad_client \75 \46quot;pub-2653201355668223\46quot;;\ngoogle_ad_host \75 \46quot;pub-1556223355139109\46quot;;\ngoogle_ad_host_channel\75\46quot;00000+00031+00005\46quot;;\n/* 336x280 - GE - T/I, created 5/14/08 */\ngoogle_ad_slot \75 \46quot;5701058464\46quot;;\ngoogle_ad_width \75 336;\ngoogle_ad_height \75 280;\n//--\46gt;\n\46lt;/script\46gt;\n\46lt;script type\75\46quot;text/javascript\46quot;\nsrc\75\46quot;http://pagead2.googlesyndication.com/pagead/show_ads.js\46quot;\46gt;\n\46lt;/script\46gt;\n\46lt;br /\46gt;\n\46lt;br /\46gt;\n\n\46lt;form action\75\46quot;http://www.google.com/cse\46quot; id\75\46quot;cse-search-box\46quot; target\75\46quot;_blank\46quot;\46gt;\n  \46lt;div\46gt;\n    \46lt;input type\75\46quot;hidden\46quot; name\75\46quot;cx\46quot; value\75\46quot;partner-pub-2653201355668223:cf2sz8-8u14\46quot; /\46gt;\n    \46lt;input type\75\46quot;hidden\46quot; name\75\46quot;ie\46quot; value\75\46quot;ISO-8859-1\46quot; /\46gt;\n    \46lt;input type\75\46quot;text\46quot; name\75\46quot;q\46quot; value\75\46quot;Type \46amp; Search other articles here...\46quot; size\75\46quot;40\46quot; /\46gt;\n    \46lt;input type\75\46quot;submit\46quot; name\75\46quot;sa\46quot; value\75\46quot;Search\46quot; /\46gt;\n  \46lt;/div\46gt;\n\46lt;/form\46gt;\n\46lt;script type\75\46quot;text/javascript\46quot; src\75\46quot;http://www.google.com/coop/cse/brand?form\75cse-search-box\46amp;amp;lang\75en\46quot;\46gt;\46lt;/script\46gt;\n\n\46lt;table style\75\46#39;width:100%;\46#39;\46gt;\46lt;tr\46gt;\46lt;td style\75\46#39;horizontal-align:left;\46#39;\46gt;\n\46lt;script type\75\46quot;text/javascript\46quot;\46gt;var dzone_style \75 \46#39;2\46#39;;\46lt;/script\46gt;\n\46lt;script language\75\46quot;javascript\46quot; src\75\46quot;http://widgets.dzone.com/widgets/zoneit.js\46quot;\46gt;\46lt;/script\46gt;\46lt;/td\46gt;\n\46lt;td style\75\46#39;horizontal-align:left;\46#39;\46gt;\46lt;script type\75\46quot;text/javascript\46quot;\46gt;\ndigg_skin \75 \46#39;compact\46#39;;\ndigg_topic \75 \46#39;programming\46#39;;\n\46lt;/script\46gt;\n\46lt;script src\75\46quot;http://digg.com/tools/diggthis.js\46quot; type\75\46quot;text/javascript\46quot;\46gt;\46lt;/script\46gt;\46lt;/td\46gt;\n\46lt;td style\75\46#39;horizontal-align:left;\46#39;\46gt;\46lt;a name\75\46quot;a2a_dd\46quot; onmouseover\75\46quot;a2a_show_dropdown(this)\46quot; onmouseout\75\46quot;a2a_onMouseOut_delay()\46quot; href\75\46quot;http://www.addtoany.com/bookmark?linkname\75GeekExplains%20-%20Java/J2EE%2C%20C/C++%2C%20Oracle%2C%20Puzzles%2C%20...\46amp;amp;linkurl\75http%3A//geekexplains.blogspot.com/\46quot;\46gt;\46lt;img src\75\46quot;http://static.addtoany.com/buttons/share_save_171_16.gif\46quot; width\75\46quot;171\46quot; height\75\46quot;16\46quot; border\75\46quot;0\46quot; alt\75\46quot;Share/Save/Bookmark\46quot;/\46gt;\46lt;/a\46gt;\46lt;script type\75\46quot;text/javascript\46quot;\46gt;a2a_linkname\75\46quot;GeekExplains - Java/J2EE, C/C++, Oracle, Puzzles, ...\46quot;;a2a_linkurl\75\46quot;\46lt;data:post.url/\46gt;\46quot;;\46lt;/script\46gt;\46lt;script type\75\46quot;text/javascript\46quot; src\75\46quot;http://www.addtoany.com/menu/page.js\46quot;\46gt;\46lt;/script\46gt;\46lt;/td\46gt;\46lt;/tr\46gt;\46lt;/table\46gt;\n\n\46lt;br /\46gt;\n\46lt;script type\75\46quot;text/javascript\46quot;\46gt;\46lt;!--\ngoogle_ad_client \75 \46quot;pub-2653201355668223\46quot;;\ngoogle_ad_host \75 \46quot;pub-1556223355139109\46quot;;\ngoogle_ad_host_channel\75\46quot;00000+00031+00005\46quot;;\n/* 468x15 - GE - L - 1, created 5/14/08 */\ngoogle_ad_slot \75 \46quot;2806820360\46quot;;\ngoogle_ad_width \75 468;\ngoogle_ad_height \75 15;\n//--\46gt;\n\46lt;/script\46gt;\n\46lt;script type\75\46quot;text/javascript\46quot;\nsrc\75\46quot;http://pagead2.googlesyndication.com/pagead/show_ads.js\46quot;\46gt;\n\46lt;/script\46gt;\n\46lt;br /\46gt;\n\n\46lt;script type\75\46quot;text/javascript\46quot;\46gt;\nvar gaJsHost \75 ((\46quot;https:\46quot; \75\75 document.location.protocol) ? \46quot;https://ssl.\46quot; : \46quot;http://www.\46quot;);\ndocument.write(unescape(\46quot;%3Cscript src\75\46#39;\46quot; + gaJsHost + \46quot;google-analytics.com/ga.js\46#39; type\75\46#39;text/javascript\46#39;%3E%3C/script%3E\46quot;));\n\46lt;/script\46gt;\n\46lt;script type\75\46quot;text/javascript\46quot;\46gt;\nvar pageTracker \75 _gat._getTracker(\46quot;UA-4744525-1\46quot;);\npageTracker._initData();\npageTracker._trackPageview();\n\46lt;/script\46gt;\n\74div style\75\47clear: both;\47\76\74/div\76\n\74/div\76\n\74div class\75\47post-footer\47\76\n\74div class\75\47post-footer-line post-footer-line-1\47\76\n\74span class\75\47post-author vcard\47\76\n\74b:if cond\75\47data:top.showAuthor\47\76\n\74data:top.authorLabel\76\74/data:top.authorLabel\76\n\74span class\75\47fn\47\76\74data:post.author\76\74/data:post.author\76\74/span\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-timestamp\47\76\n\74b:if cond\75\47data:top.showTimestamp\47\76\n\74data:top.timestampLabel\76\74/data:top.timestampLabel\76\n\74b:if cond\75\47data:post.url\47\76\n\74a class\75\47timestamp-link\47 expr:href\75\47data:post.url\47 rel\75\47bookmark\47 title\75\47permanent link\47\76\74abbr class\75\47published\47 expr:title\75\47data:post.timestampISO8601\47\76\74data:post.timestamp\76\74/data:post.timestamp\76\74/abbr\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-comment-link\47\76\n\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.addCommentUrl\47 expr:onclick\75\47data:post.addCommentOnclick\47\76\74b:if cond\75\47data:post.numComments \75\75 1\47\0761 \74data:top.commentLabel\76\74/data:top.commentLabel\76\74b:else\76\74/b:else\76\74data:post.numComments\76\74/data:post.numComments\76\n\74data:top.commentLabelPlural\76\74/data:top.commentLabelPlural\76\74/b:if\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-backlinks post-comment-link\47\76\n\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:post.showBacklinks\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.url + \46quot;#links\46quot;\47\76\74data:top.backlinkLabel\76\74/data:top.backlinkLabel\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-icons\47\76\n\74b:if cond\75\47data:post.emailPostUrl\47\76\n\74span class\75\47item-action\47\76\n\74a expr:href\75\47data:post.emailPostUrl\47 expr:title\75\47data:top.emailPostMsg\47\76\n\74img alt\75\47\47 class\75\47icon-action\47 src\75\47http://www.blogger.com/img/icon18_email.gif\47/\76\n\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:include data\75\47post\47 name\75\47postQuickEdit\47\76\74/b:include\76\n\74/span\76\n\74/div\76\n\74b:if cond\75\47data:blog.pageType \75\75 \46quot;item\46quot;\47\76\n\74div class\75\47similiar\47\76\n\74div class\75\47widget-content\47\76\n\74h3\76Related Articles...\74/h3\76\n\74div id\75\47data2007\47\76\74/div\76\74br/\76\74br/\76\n\74script type\75\47text/javascript\47\76\n\n		var homeUrl3 \75 \46quot;\74data:blog.homepageUrl\76\74/data:blog.homepageUrl\76\46quot;;\n		var maxNumberOfPostsPerLabel \75 4;\n		var maxNumberOfLabels \75 10;\n\n		maxNumberOfPostsPerLabel \75 6;\n		maxNumberOfLabels \75 3;\n\n\n		function listEntries10(json) {\n			var ul \75 document.createElement(\46#39;ul\46#39;);\n			var maxPosts \75 (json.feed.entry.length \46lt;\75 maxNumberOfPostsPerLabel) ? json.feed.entry.length : maxNumberOfPostsPerLabel;\n			for (var i \75 0; i \46lt; maxPosts; i++) {\n				var entry \75 json.feed.entry[i];\n				var alturl;\n\n				for (var k \75 0; k \46lt; entry.link.length; k++) {\n					if (entry.link[k].rel \75\75 \46#39;alternate\46#39;) {\n					alturl \75 entry.link[k].href;\n					break;\n					}\n			        }\n				var li \75 document.createElement(\46#39;li\46#39;);\n				var a \75 document.createElement(\46#39;a\46#39;);\n			        a.href \75 alturl;\n\n				if(a.href!\75location.href) {\n					var txt \75 document.createTextNode(entry.title.$t);	\n					a.appendChild(txt);\n					li.appendChild(a);\n					ul.appendChild(li);	\n				}\n			}\n			for (var l \75 0; l \46lt; json.feed.link.length; l++) {\n				if (json.feed.link[l].rel \75\75 \46#39;alternate\46#39;) {\n					 var raw \75 json.feed.link[l].href;\n					 var label \75 raw.substr(homeUrl3.length+13);\n					 var k;\n					 for (k\0750; k\46lt;20; k++) label \75 label.replace(\46quot;%20\46quot;, \46quot; \46quot;);\n					 var txt \75 document.createTextNode(label);\n					 var h \75 document.createElement(\46#39;b\46#39;);\n                                         h.appendChild(txt);\n					      \n                                         var div1 \75 document.createElement(\46#39;div\46#39;);\n                                         div1.appendChild(h);\n					 div1.appendChild(ul); \n					 document.getElementById(\46#39;data2007\46#39;).appendChild(div1);\n				}\n			}\n		}\n		function search10(query, label) {\n\n			var script \75 document.createElement(\46#39;script\46#39;);\n			script.setAttribute(\46#39;src\46#39;, query + \46#39;feeds/posts/default/-/\46#39; + label + \46#39;?alt\75json-in-script\46amp;callback\75listEntries10\46#39;);\n			script.setAttribute(\46#39;type\46#39;, \46#39;text/javascript\46#39;);\n			document.documentElement.firstChild.appendChild(script);\n		}\n\n		var labelArray \75 new Array();\n		var numLabel \75 0;\n\n		\74b:loop values\75\47data:posts\47 var\75\47post\47\76\n\74b:loop values\75\47data:post.labels\47 var\75\47label\47\76\n		textLabel \75 \46quot;\74data:label.name\76\74/data:label.name\76\46quot;;\n					    \n		var test \75 0;\n		for (var i \75 0; i \46lt; labelArray.length; i++)\n			if (labelArray[i] \75\75 textLabel) test \75 1;\n				if (test \75\75 0) { \n					labelArray.push(textLabel);\n					var maxLabels \75 (labelArray.length \46lt;\75 maxNumberOfLabels) ? labelArray.length : maxNumberOfLabels;\n					if (numLabel \46lt; maxLabels) {\n					      search10(homeUrl3, textLabel);\n					      numLabel++;\n					}\n				}\n		\74/b:loop\76\n\74/b:loop\76\n\74/script\76\n\74/div\76\n\74/div\76\n\74/b:if\76\n\74div class\75\47post-footer-line post-footer-line-2\47\76\n\74span class\75\47post-labels\47\76\n\74b:if cond\75\47data:post.labels\47\76\n\74data:postLabelsLabel\76\74/data:postLabelsLabel\76\n\74b:loop values\75\47data:post.labels\47 var\75\47label\47\76\n\74a expr:href\75\47data:label.url\47 rel\75\47tag\47\76\74data:label.name\76\74/data:label.name\76\74/a\76\74b:if cond\75\47data:label.isLast !\75 \46quot;true\46quot;\47\76,\74/b:if\76\n\74/b:loop\76\n\74/b:if\76\n\74/span\76\n\74/div\76\n\74div class\75\47post-footer-line post-footer-line-3\47\76\74/div\76\n\74/div\76\n\74/div\076'}, 'postQuickEdit': {'varName': 'post', 'template': '\74b:if cond\75\47data:post.editUrl\47\76\n\74span expr:class\75\47\46quot;item-control \46quot; + data:post.adminClass\47\76\n\74a expr:href\75\47data:post.editUrl\47 expr:title\75\47data:top.editPostMsg\47\76\n\74img alt\75\47\47 class\75\47icon-action\47 height\75\04718\47 src\75\47http://www.blogger.com/img/icon18_edit_allbkg.gif\47 width\75\04718\47/\76\n\74/a\76\n\74/span\76\n\74/b:if\076'}, 'commentDeleteIcon': {'varName': 'comment', 'template': '\74span expr:class\75\47\46quot;item-control \46quot; + data:comment.adminClass\47\76\n\74a expr:href\75\47data:comment.deleteUrl\47 expr:title\75\47data:top.deleteCommentMsg\47\76\n\74img src\75\47http://www.blogger.com/img/icon_delete13.gif\47/\76\n\74/a\76\n\74/span\076'}, 'backlinkDeleteIcon': {'varName': 'backlink', 'template': '\74span expr:class\75\47\46quot;item-control \46quot; + data:backlink.adminClass\47\76\n\74a expr:href\75\47data:backlink.deleteUrl\47 expr:title\75\47data:top.deleteBacklinkMsg\47\76\n\74img src\75\47http://www.blogger.com/img/icon_delete13.gif\47/\76\n\74/a\76\n\74/span\076'}, 'comments': {'varName': 'post', 'template': '\74div class\75\47comments\47 id\75\47comments\47\76\n\74a name\75\47comments\47\76\74/a\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74h4\76\n\74b:if cond\75\47data:post.numComments \75\75 1\47\76\n          1 \74data:commentLabel\76\74/data:commentLabel\76:\n        \74b:else\76\74/b:else\76\n\74data:post.numComments\76\74/data:post.numComments\76\n\74data:commentLabelPlural\76\74/data:commentLabelPlural\76:\n        \74/b:if\76\n\74/h4\76\n\74b:if cond\75\47data:post.commentPagingRequired\47\76\n\74span class\75\47paging-control-container\47\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.oldestLinkUrl\47\76\74data:post.oldestLinkText\76\74/data:post.oldestLinkText\76\74/a\76\n          \46#160;\n          \74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.olderLinkUrl\47\76\74data:post.olderLinkText\76\74/data:post.olderLinkText\76\74/a\76\n          \46#160;\n          \74data:post.commentRangeText\76\74/data:post.commentRangeText\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newerLinkUrl\47\76\74data:post.newerLinkText\76\74/data:post.newerLinkText\76\74/a\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newestLinkUrl\47\76\74data:post.newestLinkText\76\74/data:post.newestLinkText\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74dl expr:class\75\47data:post.avatarIndentClass\47 id\75\47comments-block\47\76\n\74b:loop values\75\47data:post.comments\47 var\75\47comment\47\76\n\74dt expr:class\75\47\46quot;comment-author \46quot; + data:comment.authorClass\47 expr:id\75\47data:comment.anchorName\47\76\n\74b:if cond\75\47data:comment.favicon\47\76\n\74img expr:src\75\47data:comment.favicon\47 height\75\04716px\47 style\75\47margin-bottom:-2px;\47 width\75\04716px\47/\76\n\74/b:if\76\n\74a expr:name\75\47data:comment.anchorName\47\76\74/a\76\n\74b:if cond\75\47data:blog.enabledCommentProfileImages\47\76\n\74data:comment.authorAvatarImage\76\74/data:comment.authorAvatarImage\76\n\74/b:if\76\n\74b:if cond\75\47data:comment.authorUrl\47\76\n\74a expr:href\75\47data:comment.authorUrl\47 rel\75\47nofollow\47\76\74data:comment.author\76\74/data:comment.author\76\74/a\76\n\74b:else\76\74/b:else\76\n\74data:comment.author\76\74/data:comment.author\76\n\74/b:if\76\n\74data:commentPostedByMsg\76\74/data:commentPostedByMsg\76\n\74/dt\76\n\74dd class\75\47comment-body\47\76\n\74b:if cond\75\47data:comment.isDeleted\47\76\n\74span class\75\47deleted-comment\47\76\74data:comment.body\76\74/data:comment.body\76\74/span\76\n\74b:else\76\74/b:else\76\n\74p\76\74data:comment.body\76\74/data:comment.body\76\74/p\76\n\74/b:if\76\n\74/dd\76\n\74dd class\75\47comment-footer\47\76\n\74span class\75\47comment-timestamp\47\76\n\74a expr:href\75\47data:comment.url\47 title\75\47comment permalink\47\76\n\74data:comment.timestamp\76\74/data:comment.timestamp\76\n\74/a\76\n\74b:include data\75\47comment\47 name\75\47commentDeleteIcon\47\76\74/b:include\76\n\74/span\76\n\74/dd\76\n\74/b:loop\76\n\74/dl\76\n\74b:if cond\75\47data:post.commentPagingRequired\47\76\n\74span class\75\47paging-control-container\47\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.oldestLinkUrl\47\76\n\74data:post.oldestLinkText\76\74/data:post.oldestLinkText\76\n\74/a\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.olderLinkUrl\47\76\n\74data:post.olderLinkText\76\74/data:post.olderLinkText\76\n\74/a\76\n          \46#160;\n          \74data:post.commentRangeText\76\74/data:post.commentRangeText\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newerLinkUrl\47\76\n\74data:post.newerLinkText\76\74/data:post.newerLinkText\76\n\74/a\76\n\74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newestLinkUrl\47\76\n\74data:post.newestLinkText\76\74/data:post.newestLinkText\76\n\74/a\76\n\74/span\76\n\74/b:if\76\n\74p class\75\47comment-footer\47\76\n\74b:if cond\75\47data:post.embedCommentForm\47\76\n\74b:if cond\75\47data:post.allowNewComments\47\76\n\74b:include data\75\47post\47 name\75\47comment-form\47\76\74/b:include\76\n\74b:else\76\74/b:else\76\n\74data:post.noNewCommentsText\76\74/data:post.noNewCommentsText\76\n\74/b:if\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74a expr:href\75\47data:post.addCommentUrl\47 expr:onclick\75\47data:post.addCommentOnclick\47\76\74data:postCommentMsg\76\74/data:postCommentMsg\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/p\76\n\74/b:if\76\n\74div id\75\47backlinks-container\47\76\n\74div expr:id\75\47data:widget.instanceId + \46quot;_backlinks-container\46quot;\47\76\n\74b:if cond\75\47data:post.showBacklinks\47\76\n\74b:include data\75\47post\47 name\75\47backlinks\47\76\74/b:include\76\n\74/b:if\76\n\74/div\76\n\74/div\76\n\74/div\076'}, 'comment-form': {'varName': 'post', 'template': '\74div class\75\47comment-form\47\76\n\74a name\75\47comment-form\47\76\74/a\76\n\74h4 id\75\47comment-post-message\47\76\74data:postCommentMsg\76\74/data:postCommentMsg\76\74/h4\76\n\74p\76\74data:blogCommentMessage\76\74/data:blogCommentMessage\76\74/p\76\n\74data:blogTeamBlogMessage\76\74/data:blogTeamBlogMessage\76\n\74a expr:href\75\47data:post.commentFormIframeSrc\47 id\75\47comment-editor-src\47\76\74/a\76\n\74iframe allowtransparency\75\47true\47 class\75\47blogger-iframe-colorize blogger-comment-from-post\47 frameborder\75\0470\47 height\75\047410\47 id\75\47comment-editor\47 name\75\47comment-editor\47 src\75\47\47 width\75\047100%\47\76\74/iframe\76\n\74data:post.friendConnectJs\76\74/data:post.friendConnectJs\76\n\74data:post.cmtfpIframe\76\74/data:post.cmtfpIframe\76\n\74script type\75\47text/javascript\47\76\n      BLOG_CMT_createIframe(\46#39;\74data:post.appRpcRelayPath\76\74/data:post.appRpcRelayPath\76\46#39;, \46#39;\74data:post.communityId\76\74/data:post.communityId\76\46#39;);\n    \74/script\76\n\74/div\076'}, 'backlinks': {'varName': 'post', 'template': '\74a name\75\47links\47\76\74/a\76\74h4\76\74data:post.backlinksLabel\76\74/data:post.backlinksLabel\76\74/h4\76\n\74b:if cond\75\47data:post.numBacklinks !\75 0\47\76\n\74dl class\75\47comments-block\47 id\75\47comments-block\47\76\n\74b:loop values\75\47data:post.backlinks\47 var\75\47backlink\47\76\n\74div class\75\47collapsed-backlink backlink-control\47\76\n\74dt class\75\47comment-title\47\76\n\74span class\75\47backlink-toggle-zippy\47\76\46#160;\74/span\76\n\74a expr:href\75\47data:backlink.url\47 rel\75\47nofollow\47\76\74data:backlink.title\76\74/data:backlink.title\76\74/a\76\n\74b:include data\75\47backlink\47 name\75\47backlinkDeleteIcon\47\76\74/b:include\76\n\74/dt\76\n\74dd class\75\47comment-body collapseable\47\76\n\74data:backlink.snippet\76\74/data:backlink.snippet\76\n\74/dd\76\n\74dd class\75\47comment-footer collapseable\47\76\n\74span class\75\47comment-author\47\76\74data:post.authorLabel\76\74/data:post.authorLabel\76\n\74data:backlink.author\76\74/data:backlink.author\76\74/span\76\n\74span class\75\47comment-timestamp\47\76\74data:post.timestampLabel\76\74/data:post.timestampLabel\76\n\74data:backlink.timestamp\76\74/data:backlink.timestamp\76\74/span\76\n\74/dd\76\n\74/div\76\n\74/b:loop\76\n\74/dl\76\n\74/b:if\76\n\74p class\75\47comment-footer\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.createLinkUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_backlinks-create-link\46quot;\47 target\75\47_blank\47\76\74data:post.createLinkLabel\76\74/data:post.createLinkLabel\76\74/a\76\n\74/p\076'}, 'feedLinks': {'varName': '', 'template': '\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:feedLinks\47\76\n\74div class\75\47blog-feeds\47\76\n\74b:include data\75\47feedLinks\47 name\75\47feedLinksBody\47\76\74/b:include\76\n\74/div\76\n\74/b:if\76\n\74b:else\76\74/b:else\76\n\74div class\75\47post-feeds\47\76\n\74b:loop values\75\47data:posts\47 var\75\47post\47\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74b:if cond\75\47data:post.feedLinks\47\76\n\74b:include data\75\47post.feedLinks\47 name\75\47feedLinksBody\47\76\74/b:include\76\n\74/b:if\76\n\74/b:if\76\n\74/b:loop\76\n\74/div\76\n\74/b:if\076'}, 'feedLinksBody': {'varName': 'links', 'template': '\74div class\75\47feed-links\47\76\n\74data:feedLinksMsg\76\74/data:feedLinksMsg\76\n\74b:loop values\75\47data:links\47 var\75\47f\47\76\n\74a class\75\47feed-link\47 expr:href\75\47data:f.url\47 expr:type\75\47data:f.mimeType\47 target\75\47_blank\47\76\74data:f.name\76\74/data:f.name\76 (\74data:f.feedType\76\74/data:f.feedType\76)\74/a\76\n\74/b:loop\76\n\74/div\076'}, 'status-message': {'varName': '', 'template': '\74b:if cond\75\47data:navMessage\47\76\n\74div class\75\47status-msg-wrap\47\76\n\74div class\75\47status-msg-body\47\76\n\74data:navMessage\76\74/data:navMessage\76\n\74/div\76\n\74div class\75\47status-msg-border\47\76\n\74div class\75\47status-msg-bg\47\76\n\74div class\75\47status-msg-hidden\47\76\74data:navMessage\76\74/data:navMessage\76\74/div\76\n\74/div\76\n\74/div\76\n\74/div\76\n\74div style\75\47clear: both;\47\76\74/div\76\n\74/b:if\076'}}, document.getElementById('Blog1'), {}, 'displayModeFull'));
+</script>
+</body>
+</html>

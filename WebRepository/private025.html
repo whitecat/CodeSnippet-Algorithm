@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="generator" content="Movable Type 3.21" />
+
+   <link rel="stylesheet" href="http://cunning.sharp.fm/styles-site.css" type="text/css" />
+   <link rel="alternate" type="application/atom+xml" title="Atom" href="http://cunning.sharp.fm/atom.xml" />
+   <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://cunning.sharp.fm/index.xml" />
+
+   <title>Cunning: Importing private keys into a Java keystore using keytool</title>
+
+   <link rel="start" href="http://cunning.sharp.fm/" title="Home" />
+   <link rel="prev" href="http://cunning.sharp.fm/2008/03/at_last_a_wireless_bandwidth_s.html" title="At Last, A Wireless Bandwidth Solution" />
+   <link rel="next" href="http://cunning.sharp.fm/2009/10/jaxb2_marshalling_fails_due_to.html" title="JAXB2: Marshalling fails due to validation, but you can't see the error" />
+
+   <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://cunning.sharp.fm/2008/06/importing_private_keys_into_a.html"
+    trackback:ping="https://www.pier29.net/cgi-bin/MT-3.2-en_US/mt-tb.cgi/1872"
+    dc:title="Importing private keys into a Java keystore using keytool"
+    dc:identifier="http://cunning.sharp.fm/2008/06/importing_private_keys_into_a.html"
+    dc:subject="Tips and Tricks"
+    dc:description="For ages the keytool application shipped as part of Java could provide all the functionality to generate a private key and certificate sign request from a Java keystore, but the most basic function, importing a preexisting private key and certificate..."
+    dc:creator="minfrin"
+    dc:date="2008-06-07T21:22:17+02:00" />
+</rdf:RDF>
+-->
+
+
+      <!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://cunning.sharp.fm/2008/06/importing_private_keys_into_a.html">
+<dc:title>Importing private keys into a Java keystore using keytool</dc:title>
+<dc:description>For ages the keytool application shipped as part of Java could provide all the functionality to generate a private key and certificate sign request from a Java keystore, but the most basic function, importing a preexisting private key and certificate...</dc:description>
+<dc:creator>minfrin</dc:creator>
+<dc:date>2008-06-07T21:22:17+02:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-sa/2.5/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-sa/2.5/">
+</License>
+</rdf:RDF>
+-->
+
+   
+
+   <script type="text/javascript" src="http://cunning.sharp.fm/mt-site.js"></script>
+</head>
+<body class="layout-one-column" onload="individualArchivesOnLoad(commenter_name)">
+   <div id="container">
+      <div id="container-inner" class="pkg">
+
+         <div id="banner">
+            <div id="banner-inner" class="pkg">
+               <h1 id="banner-header"><a href="http://cunning.sharp.fm/" accesskey="1">Cunning</a></h1>
+               <h2 id="banner-description">Put a tail on it, call it a weasel.</h2>
+            </div>
+         </div>
+
+         <div id="pagebody">
+            <div id="pagebody-inner" class="pkg">
+               <div id="alpha">
+                  <div id="alpha-inner" class="pkg">
+
+                     <p class="content-nav">
+                        <a href="http://cunning.sharp.fm/2008/03/at_last_a_wireless_bandwidth_s.html">&laquo; At Last, A Wireless Bandwidth Solution</a> |
+                        <a href="http://cunning.sharp.fm/">Main</a>
+                        | <a href="http://cunning.sharp.fm/2009/10/jaxb2_marshalling_fails_due_to.html">JAXB2: Marshalling fails due to validation, but you can't see the error &raquo;</a>
+                     </p>
+
+                     <a id="a004894"></a>
+                     <div class="entry" id="entry-4894">
+                        <h3 class="entry-header">Importing private keys into a Java keystore using keytool</h3>
+                        <div class="entry-content">
+                           <div class="entry-body">
+                              <p>For ages the <a href="http://java.sun.com/javase/6/docs/technotes/tools/windows/keytool.html">keytool</a> application shipped as part of Java could provide all the functionality to generate a private key and certificate sign request from a Java keystore, but the most basic function, importing a preexisting private key and certificate generated externally, remained overlooked.</p>
+
+<p>This is fixed in Java 6, at long last.</p>
+
+<p>The solution is to convert your existing certificate and key into a PKCS12 file, and then use the keytool functionality to merge one keystore with another one. Java 6 can treat a PKCS12 file as a keystore, so putting this together, you get this:</p>
+
+<p><i>keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeystore my-keystore.jks -srckeystore cert-and-key.p12 -srcstoretype PKCS12 -srcstorepass cert-and-key-password -alias 1</i></p>
+
+<p>The alias of 1 is required to choose the certificate in the source PKCS12 file, keytool isn't clever enough to figure out which certificate you want in a store containing one certificate.</p>
+
+<p>At last, it works.<br />
+</p>
+                           </div>
+                           <div id="more" class="entry-more">
+                              
+                           </div>
+                        </div>
+                        <p class="entry-footer">
+                           <span class="post-footers">Posted by Graham Leggett on June  7, 2008 09:22 PM</span> <span class="separator">|</span> <a class="permalink" href="http://cunning.sharp.fm/2008/06/importing_private_keys_into_a.html">Permalink</a>
+                        </p>
+                     </div>
+
+                                          <div class="trackbacks">
+                        <h3 id="trackback" class="trackbacks-header">TrackBack</h3>
+                        <div id="trackbacks-info">
+                           <p>TrackBack URL for this entry:<br />https://www.pier29.net/cgi-bin/MT-3.2-en_US/mt-tb.cgi/1872</p>
+                        </div>
+                        <div class="trackbacks-content">
+                           
+                        </div>
+                     </div>
+                     
+
+                                          <div id="comments" class="comments">
+                        <div class="comments-content">
+                                                      <h3 class="comments-header">Comments</h3>
+                           <a id="c003471"></a>
+                           <div class="comment" id="comment-3471">
+                              <div class="comment-content">
+                                 <p>Thank you for that. I was trying to import into a keystore using JDK 1.4.2 to no avail until I come across your post. The good news is that JDK 6 and JDK 1.4.2 uses the same file format. So, the following works in my Makefile (kt is set to 1.4.2 keytool, and kt6 is set to Java 6 keytool): </p>
+
+<p>add2KS:<br />
+        $(kt6) -importkeystore -deststorepass "destpass" -srckeystore C.pkcs12.PW -srcstoretype PKCS12 -srcstorepass "srcpass"<br />
+        $(kt) -list -v  -storepass "destpass"</p>
+
+<p><br />
+</p>
+                              </div>
+                              <p class="comment-footer">
+                                 Posted by:
+                                 <a href="http://www.geocities.com/lchialing" rel="nofollow">Lee Chia Ling </a>  |
+                                 <a href="#comment-3471">May 20, 2009 06:54 PM</a>
+                              </p>
+                           </div>
+                           
+                        </div>
+
+                         
+                        <form method="post" action="https://www.pier29.net/cgi-bin/MT-3.2-en_US/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie.checked) rememberMe(this)">
+                           <input type="hidden" name="static" value="1" />
+                           <input type="hidden" name="entry_id" value="4894" />
+                           
+                           <div class="comments-open" id="comments-open">
+                              <h2 class="comments-open-header">Post a comment</h2>
+                              
+                              <div class="comments-open-content">
+                                 <script type="text/javascript">
+                                 <!--
+                                 writeTypeKeyGreeting(commenter_name, 4894);
+                                 //-->
+                                 </script>
+                              
+                                                                  <p class="comments-open-moderated">
+                                    (If you haven't left a comment here before, you may need to be approved by the site owner before your comment will appear. Until then, it won't appear on the entry. Thanks for waiting.)
+                                 </p>
+                                 
+
+                                 <div id="comments-open-data">
+                                    <div id="name-email">
+                                       <p>
+                                          <label for="comment-author">Name:</label>
+                                          <input id="comment-author" name="author" size="30" />
+                                       </p>
+                                       <p>
+                                          <label for="comment-email">Email Address:</label>
+                                          <input id="comment-email" name="email" size="30" />
+                                       </p>
+                                    </div>
+
+                                    <p>
+                                       <label for="comment-url">URL:</label>
+                                       <input id="comment-url" name="url" size="30" />
+                                    </p>
+                                    <p>
+                                       <label for="comment-bake-cookie"><input type="checkbox"
+                                          id="comment-bake-cookie" name="bakecookie" onclick="if (!this.checked) forgetMe(document.comments_form)" value="1" />
+                                          Remember personal info?</label>
+                                    </p>
+                                 </div>
+
+                                 <p id="comments-open-text">
+                                    <label for="comment-text">Comments: (you may use HTML tags for style)</label>
+                                    <textarea id="comment-text" name="text" rows="10" cols="30"></textarea>
+                                 </p>
+                                 <div id="comments-open-footer" class="comments-open-footer">
+                                    <input type="submit" accesskey="v" name="preview" id="comment-preview" value="Preview" />
+                                    <input type="submit" accesskey="s" name="post" id="comment-post" value="Post" />
+                                 </div>
+                              </div>
+                           </div>
+                        </form>
+                        
+                     </div>
+                     
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+</html>

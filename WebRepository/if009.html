@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../../notes.css"/>
+  <title>Java: if Statement - Overview</title>
+</head>
+<body><div id="content">
+
+<h1 class="title"><a href="../../index.html">Java Notes</a></h1><h1>if Statement - Overview</h1>
+
+
+
+
+<h2>Purpose</h2>
+
+<p>The purpose of the <code>if</code> statement is to make decisions,
+and execute different parts of your program depending on a boolean true/false value.
+About 99% of the flow decisions are made with <code>if</code>.
+[The other 1% of the decisions use the <code>switch</code> statement.]
+</p>
+ 
+        
+<h2>General Forms</h2>
+
+<p>The <code>if</code> statement has this form, where <i>condition</i> is true or false.</p>
+<pre class="example">
+... // <i>Do these statements before.</i>
+<b>if</b> (<i>condition</i>) {
+    <span class="fragmentBox">... // <i>Do this clause if the condition is true.</i></span>
+}
+... // <i>Do these statements after.</i></pre>
+
+<p>or</p>
+
+<pre class="example">
+... // <i>Do these statements before.</i>
+<b>if</b> (<i>condition</i>) {
+    <span class="fragmentBox">... // <i>Do this clause if the condition is true</i></span>
+} else {
+    <span class="fragmentBox">... // <i>Do this clause if the condition is false</i></span>
+}
+... // <i>Do these statements after.</i></pre>
+   
+
+<h2>Example - EvaluateScore.java</h2>
+
+
+<p>This displays one of two messages, depending on an input value.</p>
+
+<table border='0' summary=''><tr><td valign='top'><pre class='example2'>
+  1 
+  2 
+  3 
+  4 
+  5 
+  6 
+  7 
+  8 
+  9 
+ 10 
+ 11 
+ 12 
+ 13 
+ 14 
+ 15 
+ 16 
+ 17 
+ 18 
+ 19 
+ 20 
+ 21 
+ 22 
+ 23 
+</pre></td><td valign='top'>
+<div class="file"><pre>
+// Description: Evaluate a test score.  Illustrates if statement.
+// File  : if/EvalScore.java
+// Author: Fred Swartz - 2007-04-09 - Placed in public domain.
+
+import javax.swing.*;
+
+public class EvalScore {
+    public static void main(String[] args) {//... Input a score.
+        String scoreStr = JOptionPane.showInputDialog(null, "Enter your score?");
+        int score = Integer.parseInt(scoreStr);
+        
+        //... Create a message.
+        String comment;   // Message to the user.
+        if (score &gt;= 60) {
+            comment = "Not so bad";
+        } else {
+            comment = "This is terrible";
+        }
+        
+        //... Output the message.
+        JOptionPane.showMessageDialog(null, comment);
+    }
+}
+</pre></div>
+</td></tr></table>
+
+<h2>Flowchart representation of <i>if</i> statement</h2>
+<p>The flow of execution in a program is sometimes represented by a <i>flowchart</i>.
+Flowcharts are sometimes a good way to outline the flow in a method, especially
+if it gets complex.  They may be useful in user documentation, but most flowcharting
+is done in quick sketches, which are thrown away once the program is written.
+</p>
+<p><b>Decisions</b> (if statements) are written in diamonds, and <b>computational processes</b>
+are written in boxes.  There are several styles, and here is one of the most common.
+</p>
+<p>
+<img alt="" src="evalscore-flowchart.gif"/>
+</p>
+
+
+<h2>Alternate ways to write the above <i>if</i> statement</h2>
+<p>There are lots of ways to write the above if statement.  Here are some.</p>
+<ol>
+<li>Reverse the condition.  Which to put first?  There are two practices: 
+   Either put the normal case first, or the case that makes the boolean condition easiest to read.
+<pre class="fragmentBox">
+        String comment;   // Message to the user.
+        if (score &lt; 60) {
+            comment = "This is terrible";
+        } else {
+            comment = "Not so bad";
+        }</pre>
+   </li>
+
+<li>Initialize the variable to a default value, and only change it if necessary.
+    This is often used when the condition is only rarely true.
+<pre class="fragmentBox">
+        String comment = "Not so bad;   // Message to the user.
+        if (score &lt; 60) {
+            comment = "This is terrible";
+        }</pre>
+        </li>
+        
+<li>BAD: Two ifs.  This is almost always a bad way to write an if-else.
+    It's confusing to read, border values can slip through, and both conditions
+    must be evaluated (inefficiency).
+<pre class="fragmentBox">
+        // BAD BAD BAD BAD BAD BAD BAD BAD BAD
+        String comment;   // Message to the user.
+        if (score &lt; 60) {
+            comment = "This is terrible";
+        }
+        if (score &gt;= 60) {
+            comment = "Not so bad";
+        }</pre>
+        </li>
+        </ol>
+
+        
+        
+<h2>Brace style</h2>
+<p><b>Always write braces.</b>  
+It is good programming style to always write the curly braces, <code>{}</code>,
+altho they are not needed if the clause contains only a single
+statement.  There are two reasons this is good.
+</p>
+<ul>
+<li><b>Reliability</b>.  When code is modified, the indentation is such a strong
+    indicator of structure that the programmer may not notice that the addition
+    of a statement at the "correct" indentation level really isn't included in 
+    the scope of the <i>if</i> statement.  This is a suprisingly common error.
+    </li>
+<li><b>Readability</b>.  It is faster to read code with the braces because the 
+    reader doesn't have to keep in mind whether they are dealing with an
+    un-braced single statement or a braced block.
+    </li>
+</ul>
+<p><i>History.</i>  Braces have been used in most language that have descended from Algol, including
+   C, C++, Java, C# etc because language designers want to make it easy for
+   programmers in earlier languages to make the transition.
+   Braces are an annoying and error prone, and numerous
+   languages, eg, Visual Basic and Python, have tried to choose better notation.
+   </p>
+   
+
+<div class="footer">
+Copyleft 2007 <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
+</div>
+</div></body>
+</html>
+

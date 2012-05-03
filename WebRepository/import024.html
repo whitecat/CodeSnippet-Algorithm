@@ -1,0 +1,617 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Using the java import utility - Codehaus</title>
+
+        
+
+                        
+    
+            
+<meta id="confluence-context-path" name="confluence-context-path" content="">
+<meta id="atlassian-token" name="atlassian-token" content="RgB67DAc_W">
+<meta id="confluence-space-key" name="confluence-space-key" content="GEOTDOC">
+
+<script type="text/javascript">
+    // Deprecated global variables. To be removed in a future version of Confluence.
+    var contextPath = '';
+    var i18n = [];
+</script>
+
+    
+
+<!-- include system resources -->
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.web.resources:master-styles/confluence.web.resources:master-styles.css" media="all"/>
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.web.resources:master-styles/confluence.web.resources:master-styles.css?ieonly=true" media="all"/>
+<![endif]-->
+<script type="text/javascript" src="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:jquery/com.atlassian.auiplugin:jquery.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:jquery-base/com.atlassian.auiplugin:jquery-base.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:ajs/com.atlassian.auiplugin:ajs.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.macros.profile:network-resources-css/confluence.macros.profile:network-resources-css.css" media="all"/>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.macros.profile:profile-macro-styles/confluence.macros.profile:profile-macro-styles.css" media="all"/>
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.macros.profile:profile-macro-styles/confluence.macros.profile:profile-macro-styles.css?ieonly=true" media="all"/>
+<![endif]-->
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.macros.profile:profile-macro-styles/confluence.macros.profile:profile-macro-styles.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.6.2.8/_/download/batch/confluence.macros.advanced:recently-updated-sidebar-resources/confluence.macros.advanced:recently-updated-sidebar-resources.css" media="all"/>
+<script type="text/javascript" src="/s/1634/11/1.5/_/download/batch/com.atlassian.confluence.extra.officeconnector:editinoffice/com.atlassian.confluence.extra.officeconnector:editinoffice.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:image-effects/confluence.web.resources:image-effects.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:prototype/confluence.web.resources:prototype.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:scriptaculous/confluence.web.resources:scriptaculous.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/resources/confluence.web.resources:dwr/engine.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/resources/confluence.web.resources:dwr/util.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/resources/confluence.web.resources:labels-editor/AddLabeltoEntity.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/resources/confluence.web.resources:labels-editor/RemoveLabelFromEntity.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/resources/confluence.web.resources:labels-editor/SuggestedLabelsForEntity.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/resources/confluence.web.resources:labels-editor/GenerateAutocompleteLabelsListForEntity.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:labels-editor/confluence.web.resources:labels-editor.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.web.resources:labels-editor/confluence.web.resources:labels-editor.css" media="all"/>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:breadcrumbs/confluence.web.resources:breadcrumbs.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.web.resources:print-styles/confluence.web.resources:print-styles.css?media=print" media="print"/>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:safe-ajax/confluence.web.resources:safe-ajax.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:dialog/com.atlassian.auiplugin:dialog.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:dialog/com.atlassian.auiplugin:dialog.css" media="all"/>
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:dialog/com.atlassian.auiplugin:dialog.css?ieonly=true" media="all"/>
+<![endif]-->
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.userstatus:userstatus-resources/confluence.userstatus:userstatus-resources.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.userstatus:userstatus-resources/confluence.userstatus:userstatus-resources.css" media="all"/>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:master-scripts/confluence.web.resources:master-scripts.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/resources/confluence.web.resources:master-scripts/PageNotification.js" ></script>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:contentnamesearch/confluence.web.resources:contentnamesearch.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.web.resources:contentnamesearch/confluence.web.resources:contentnamesearch.css" media="all"/>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:userlink/confluence.web.resources:userlink.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.web.resources:userlink/confluence.web.resources:userlink.css" media="all"/>
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0/_/download/batch/confluence.web.resources:userlink/confluence.web.resources:userlink.css?ieonly=true" media="all"/>
+<![endif]-->
+<script type="text/javascript" src="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:drop-down/com.atlassian.auiplugin:drop-down.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/1634/11/1.0.2/_/download/batch/com.atlassian.auiplugin:drop-down/com.atlassian.auiplugin:drop-down.css" media="all"/>
+<script type="text/javascript" src="/s/1634/11/1.0/_/download/batch/confluence.web.resources:atlassian-effects/confluence.web.resources:atlassian-effects.js" ></script>
+
+<!-- end system resources -->
+
+    <link rel="stylesheet" href="/s/1634/11/10/_/styles/combined.css?spaceKey=GEOTDOC" type="text/css">
+
+    <meta name="confluence-request-time" content="1265240969984">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" href="/s/1634/11/_/images/logo/confluence_16.png">
+
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch/osd.action" title="Codehaus"/>
+
+    
+
+    <script type="text/javascript">
+
+    function toggleMenu(menuId)
+    {
+        var visible = toggleVisibility(menuId);
+        if (visible)
+            setCookie("confluence.leftnav." + menuId, true);
+        else
+            setCookie("confluence.leftnav.", false);
+    }
+
+    function isMenuExpanded(menuId)
+    {
+        return getCookie("confluence.leftnav." + menuId);
+    }
+
+    function initMenuItem(menuId)
+    {
+        if (document.getElementById(menuId))
+        {
+            if (isMenuExpanded(menuId) == 'true')
+            {
+                document.getElementById(menuId).style.display = "block";
+            }
+            else
+            {
+                document.getElementById(menuId).style.display = "none";
+            }
+        }
+    }
+</script>
+
+</head>
+
+            <body onload="placeFocus()" id="com-atlassian-confluence">
+    
+
+
+    
+
+<div id="header">
+        <form id="quick-search" class="quick-search" method="get" action="/dosearchsite.action">
+                <fieldset>
+            <legend>Quick Search</legend>
+            <input class="quick-search-query" id="quick-search-query" type="text" accessKey="q" autocomplete="off" name="queryString" size="25" />
+            <input class="quick-search-submit" id="quick-search-submit" type="submit" value="Search" />
+        </fieldset>
+        <fieldset class="hidden parameters">
+            <input type="hidden" class="quickSearchPlaceholder" id="quickSearchPlaceholder" value="Search" />
+
+            <input type="hidden" id="quickNavEnabled" value="true" />
+             <!-- Quick nav disabled. SettingsManager could not be found -->         </fieldset>
+    </form>
+    
+    
+    <ol id="breadcrumbs">
+                    
+        <li class="first" ><span>
+                                    <a href="/dashboard.action">Dashboard</a>
+                </span></li>
+                    
+        <li><span>
+                                    <a href="/display/GEOTDOC">GeoTools Users Guide</a>
+                </span></li>
+                                        <li id="ellipsis" title="    &#8230;
+                    Home
+             &gt;         Manual
+             &gt;         08 Grid Coverage
+        &#8230;
+"><span><strong>&#8230;</strong></span></li>
+                                    
+        <li class="hidden-crumb" ><span>
+                                    <a href="/display/GEOTDOC/Home">Home</a>
+                </span></li>
+                                
+        <li class="hidden-crumb" ><span>
+                                    <a href="/display/GEOTDOC/Manual">Manual</a>
+                </span></li>
+                                
+        <li class="hidden-crumb" ><span>
+                                    <a href="/display/GEOTDOC/08+Grid+Coverage">08 Grid Coverage</a>
+                </span></li>
+                    
+        <li><span>
+                                    <a href="/display/GEOTDOC/Image+Mosaicing+Pyramidal+JDBC+Plugin">Image Mosaicing Pyramidal JDBC Plugin</a>
+                </span></li>
+                    
+        <li><span>
+                                    Using the java import utility
+                </span></li>
+        </ol>
+
+</div>
+
+<div id="PageContent">
+    <table cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+                    <td width="150px" valign="top" class="sidebar" nowrap>
+                <div class="leftnav">
+                     <div id="logodiv">
+                        					        <a href="/display/GEOTDOC"><img class="logo space custom" src="/download/attachments/68138/GEOTDOC?version=2&modificationDate=1250561328199" alt=""></a>					                          </div>
+                      <div id="menu">
+                        <h1><a name="Usingthejavaimportutility-"></a><a href="http://geotools.org" class="external-link" rel="nofollow"><font color="green">Home</font></a></h1>
+
+<h1><a name="Usingthejavaimportutility-GEOTOOLS%3AHome"></a><a href="/display/GEOTOOLS/Home" title="Home"><font color="green"><b>Geo</b></font><font color="darkblue"><b>Tools</b></font></a></h1>
+
+<h1><a name="Usingthejavaimportutility-Home"></a><a href="/display/GEOTDOC/Home" title="Home"><font color="green"><b>User</b></font><font color="darkblue"><b>Guide</b></font></a></h1>
+<ul><li><a href="/display/GEOTDOC/01+Welcome" title="01 Welcome">01 Welcome</a></li><li><a href="/display/GEOTDOC/02+GeoAPI" title="02 GeoAPI">02 GeoAPI</a></li><li><a href="/display/GEOTDOC/03+JTS+Topology+Suite" title="03 JTS Topology Suite">03 JTS Topology Suite</a></li><li><a href="/display/GEOTDOC/04+API" title="04 API">04 API</a></li><li><a href="/display/GEOTDOC/05+Util" title="05 Util">05 Util</a></li><li><a href="/display/GEOTDOC/06+Metadata" title="06 Metadata">06 Metadata</a></li><li><a href="/display/GEOTDOC/07+Referencing" title="07 Referencing">07 Referencing</a></li><li><a href="/display/GEOTDOC/08+Grid+Coverage" title="08 Grid Coverage">08 Grid Coverage</a></li><li><a href="/display/GEOTDOC/09+Main" title="09 Main">09 Main</a></li><li><a href="/display/GEOTDOC/10+Data" title="10 Data">10 Data</a></li><li><a href="/display/GEOTDOC/11+JDBC" title="11 JDBC">11 JDBC</a></li><li><a href="/display/GEOTDOC/12+Render" title="12 Render">12 Render</a></li><li><a href="/display/GEOTDOC/13+XML" title="13 XML">13 XML</a></li><li><a href="/display/GEOTDOC/14+CQL" title="14 CQL">14 CQL</a></li><li><a href="/display/GEOTDOC/15+Extensions" title="15 Extensions">15 Extensions</a></li><li><a href="/display/GEOTDOC/16+Unsupported" title="16 Unsupported">16 Unsupported</a></li><li><a href="/display/GEOTDOC/17+Advanced" title="17 Advanced">17 Advanced</a></li><li><a href="/display/GEOTDOC/18+Guides" title="18 Guides">18 Guides</a></li><li><a href="/display/GEOTDOC/19+Depreacted" title="19 Depreacted">19 Depreacted</a></li></ul>
+
+<h1><a name="Usingthejavaimportutility-GEOT%3AHome"></a><a href="/display/GEOT/Home" title="Home"><font color="green"><b>Developer</b></font><font color="darkblue"><b>Guide</b></font></a></h1>
+
+<h1><a name="Usingthejavaimportutility-EditInstructionsGEOTOOLS%3AWikiSignup"></a><a href="/display/GEOTOOLS/Wiki+Signup" title="Wiki Signup">Edit Instructions</a></h1>
+                        
+<h5><a href="#" onCLick="toggleMenu('pagenav'); return false;"><img src="/images/icons/docs_16.gif" width=16 height=16 border=0 align=absmiddle >Page Operations</a></h5>
+<div id="pagenav" class="subnav" style="display:none;">
+   <ul>
+	   		   <li><a  id="viewPageLink"  href="/display/GEOTDOC/Using+the+java+import+utility"  class="current"    accessKey="v"><u>V</u>iew</a></li>
+	   		   <li><a  id="view-attachments-link"  href="/pages/viewpageattachments.action?pageId=87720168"    accessKey="a"><u>A</u>ttachments (0)</a></li>
+	   		   <li><a  id="view-page-info-link"  href="/pages/viewinfo.action?pageId=87720168"    accessKey="i"><u>I</u>nfo</a></li>
+	      </ul>
+</div>
+
+                        
+                        
+<h5><a href="#" onCLick="toggleMenu('browsenav'); return false;"><img src="/images/icons/browse_space.gif" height="16" width="16" border="0" align="absmiddle" title="Find Content">Browse Space</a></h5>
+<div id="browsenav" class="subnav" style="display:none;">
+	<ul>
+					<li><a href="/pages/listpages.action?key=GEOTDOC" >Pages</a></li>
+					<li><a href="/pages/viewrecentblogposts.action?key=GEOTDOC" >News</a></li>
+					<li><a href="/labels/listlabels-heatmap.action?key=GEOTDOC" >Labels</a></li>
+					<li><a href="/spaces/listattachmentsforspace.action?key=GEOTDOC" >Attachments</a></li>
+					<li><a href="/spaces/space-bookmarks.action?spaceKey=GEOTDOC" >Bookmarks</a></li>
+					<li><a href="/spaces/viewmailarchive.action?key=GEOTDOC" >Mail</a></li>
+					<li><a href="/spaces/viewspacesummary.action?key=GEOTDOC" >Advanced</a></li>
+			</ul>
+</div>
+
+
+                      </div>
+                    <script type="text/javascript">
+                        initMenuItem("browsenav");
+                        initMenuItem("pagenav");
+                        initMenuItem("addcontent");
+                    </script>
+                </div>
+            </td>
+                    <td valign="top" width="100%">
+                <!-- Inner content table -->
+                <table width="100%" cellpadding="2" cellspacing="0">
+                    <tr>
+                        <td colspan="2" valign="middle" align="right" style="background-color:#F0F0F0">
+                            
+    <ul id="page-view-panel">
+        <li>    <a href="/pages/viewpage.action?spaceKey=GEOTDOC&amp;title=Using+the+java+import+utility&decorator=printable" rel="nofollow" title="View a printable version of the current page." class="print icon">View a printable version of the current page.</a>
+</li>
+                    <li>    
+                </li>
+                 <li>    </li>
+    </ul>
+
+                                        <ul id="user-control-panel">
+                                
+            <li class="first"><a href="/login.action?os_destination=%2Fdisplay%2FGEOTDOC%2FUsing%2Bthe%2Bjava%2Bimport%2Butility">Log In</a></li>
+
+                                            <li><a href="/signup.action">Sign Up</a></li>
+                                            </ul>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td id="mainViewPane">
+                            <div>
+                                <table class="fullWidthBorderless">
+                                    <td><span id="spaceFullNameLink">            <a href="/display/GEOTDOC">GeoTools Users Guide</a>    </span></td>
+                                    <td align="right"></td>
+                                </table>
+                                <h1>
+                                                                                                                                                                                                                        <a href="/display/GEOTDOC/Using+the+java+import+utility">Using the java import utility</a>
+                                                                                                        </h1>
+                            </div>
+                                                        <div id="content">
+                                <!--
+    Root decorator: this is a layer of abstraction that Confluence doesn't need. It will be removed eventually.
+-->
+
+
+
+
+    
+    <!--[if gte IE 5.5000]>
+<script language="JavaScript">
+function correctPNG() // correctly handle PNG transparency in Win IE 5.5 or higher.
+   {
+   for(var i=0; i<document.images.length; i++)
+      {
+	  var img = document.images[i]
+	  var imgName = img.src.toUpperCase()
+	  if (imgName.substring(imgName.length-3, imgName.length) == "PNG")
+	     {
+		 var imgID = (img.id) ? "id='" + img.id + "' " : ""
+		 var imgClass = (img.className) ? "class='" + img.className + "' " : ""
+		 var imgTitle = (img.title) ? "title='" + img.title + "' " : "title='" + img.alt + "' "
+		 var imgStyle = "display:inline-block;" + img.style.cssText
+		 if (img.align == "left") imgStyle = "float:left;" + imgStyle
+		 if (img.align == "right") imgStyle = "float:right;" + imgStyle
+		 if (img.parentElement.href) imgStyle = "cursor:hand;" + imgStyle
+		 var strNewHTML = "<span " + imgID + imgClass + imgTitle
+		 + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
+	     + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+		 + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>"
+		 img.outerHTML = strNewHTML
+		 i = i-1
+	     }
+      }
+   }
+window.attachEvent("onload", correctPNG);
+</script>
+<![endif]-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+    
+    
+<div class="smalltext">
+                Added by <a class="url fn" href="/display/~christian.mueller@nvoe.at">Christian Mueller</a>, last edited by <a class="url fn" href="/display/~christian.mueller@nvoe.at">Christian Mueller</a> on Mar 02, 2009
+                      &nbsp;(<a class="noprint" href="/pages/diffpages.action?pageId=87720168&originalId=117899866">view change</a>)
+              
+    
+    
+    
+    
+    
+
+
+<fieldset class="hidden parameters">
+    <input type="hidden" id="editLabel" value="Edit">
+    <input type="hidden" id="addLabel" value="Add Labels">
+    <input type="hidden" id="domainName" value="http://docs.codehaus.org">
+    <input type="hidden" id="pageId" value="87720168">
+    <input type="hidden" id="spaceKey" value="GEOTDOC">
+</fieldset>
+
+<div id="labels-section">
+    <div class="section-header">
+        <h2 class="section-title">Labels: </h2>
+    </div>
+
+    <div class="labels-editor">
+        <span id="labelsList">
+                    </span>
+
+        
+        <span class="errorMessage error" id="errorSpan"></span>
+        <form name="addLabelForm" method="" action="" id="add-labels-form">
+            <div id="labelInputSpan" class="labels-input">
+                <div id="labelOperationErrorContainer" class="hidden">
+                    <span class="error"><span class="errorMessage" id="labelOperationErrorMessage"></span></span>
+                </div>
+
+                <table width="90%">
+                    <tr>
+                        <td width="50%">
+                            Enter labels to add to this page:<br/>
+                            <input autocomplete="off" type="text" id="labelsString" name="labelsString" value="" class="monospaceInput" size="40">
+                            <input type="submit" class="add-labels" value="Add">
+                            <input type="submit" class="hide-labels-editor" value="Done">
+                            <div id="waitImageAndStatus">
+                                <img alt="Wait Image" border=0 align="absmiddle" src="/s/1634/11/_/images/icons/wait.gif">&nbsp;
+                                <span id="labelOperationStatus" class="smalltext"></span>
+                            </div>
+                            <div class="auto_complete" id="labelsAutocompleteList"></div>
+                            <div class="labels-tip">Looking for a label? Just start typing.</div>
+                        </td>
+                        <td width="50%" valign="top">
+                            <div id="suggestedLabelsSpan"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<div class="wiki-content" style="margin-right:10px;">
+   <!-- wiki content -->
+            <h4><a name="Usingthejavaimportutility-Classpathconsiderations"></a>Classpath considerations</h4>
+
+<p>The classpath for the utility is set in the manifest file of gt-imagemosiac-jdbc.jar, so you do not need<br/>
+to bother about dependencies.</p>
+
+<p>The only problem are the jdbc drivers for the the database. First you need to download the jar files.</p>
+
+<p><b>DB2</b><br/>
+We need db2jcc.jar and db2jcc_license.jar. Download from<br/>
+<a href="https://www14.software.ibm.com/webapp/iwm/web/preLogin.do?lang=en_US&amp;source=swg-idsjs11" class="external-link" rel="nofollow">https://www14.software.ibm.com/webapp/iwm/web/preLogin.do?lang=en_US&amp;source=swg-idsjs11</a></p>
+
+<p><b>Oracle</b><br/>
+We need ojdbc14.jar. Download from<br/>
+<a href="http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/htdocs/jdbc9201.html" class="external-link" rel="nofollow">http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/htdocs/jdbc9201.html</a></p>
+
+<p><b>Postgres</b><br/>
+<a href="http://jdbc.postgresql.org/download.html" class="external-link" rel="nofollow">http://jdbc.postgresql.org/download.html</a></p>
+
+<p><b>MySql</b><br/>
+<a href="http://www.mysql.com/products/connector/j/" class="external-link" rel="nofollow">http://www.mysql.com/products/connector/j/</a></p>
+
+<p><b>Other DB Systems</b><br/>
+Google is your friend</p>
+
+<p>The problem is to put the jars in the classpath. According to the  Sun documentation<br/>
+<a href="http://java.sun.com/j2se/1.5.0/docs/tooldocs/findingclasses.html" class="external-link" rel="nofollow">http://java.sun.com/j2se/1.5.0/docs/tooldocs/findingclasses.html</a><br/>
+<b>a class path in a manifest overrides the CLASSPATH environment variable and the &#45;cp or &#45;classpath  java option.</b></p>
+
+<p>A solution is to copy the jar files into /lib/ext of your java runtime. In this case the extension class loader<br/>
+is responsible to load your jdbc drivers. Another approach is to investigate into the &#45;X options of your java<br/>
+runimte. java &#45;X gives help. if there is an option &#45;Xbootclasspath/a: you can avoid copying the jdbc jar file into the /lib/ext directory and call "java &#45;Xbootclasspath/a:&lt;location of jdbc.jar&gt; &#45;jar ...."</p>
+
+<h4><a name="Usingthejavaimportutility-CallSyntax"></a>Call Syntax</h4>
+
+<p><b>Common options:</b></p>
+<ul>
+	<li>&#45;config<br/>
+the URL or the file name  of the xml config file , e.g "file:/temp/mymap.xml"</li>
+	<li>&#45;commitCount<br/>
+(optional), default 100, insert records in chunks to improve performance</li>
+</ul>
+
+
+<p><b>Importing excactly one level</b></p>
+<ul>
+	<li>&#45;spatialTN<br/>
+the name of the spatial table which must already exist</li>
+	<li>&#45;tileTN<br/>
+the name of the tile table which must already exist. When using a joined table, the tile  table name has to be equal to the spatial table name</li>
+</ul>
+
+
+<p><b>Importing all tiles including the pyramids as produced by gdal_retile.py</b></p>
+<ul>
+	<li>&#45;spatialTNPrefix<br/>
+the prefix of  spatial table names (produced by the ddl generation utility)</li>
+	<li>&#45;tileTNPrefix<br/>
+the prefix of  tiles table names (produced by the ddl generation utility)</li>
+</ul>
+
+
+
+<p><b>To import the output of gdal_retile.py using world files (one level)</b></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+java -jar gt-imagemosaic-jdbc.jar <span class="code-keyword">import</span> -config URLOrFileName -spatialTN spatialTableName -tileTN tileTableName
+[-commitCount commitCount] -dir dir -ext extension
+</pre>
+</div></div>
+<p><b>To import the output of gdal_retile.py using world files (all levels)</b></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+java -jar gt-imagemosaic-jdbc.jar <span class="code-keyword">import</span> -config URLOrFileName -spatialTNPrefix spatialTableNamePrefix -tileTNPrefix tileTableNamePrefix
+[-commitCount commitCount] -dir dir -ext extension
+</pre>
+</div></div>
+
+<p>Options</p>
+<ul>
+	<li>&#45;dir<br/>
+The directory containing tiles</li>
+	<li>&#45;ext<br/>
+The file extension (png,jpg,tif,..). The extension must have exactly 3 chars. The world files must have an extension of "wld" or an extension according to the standard for building word files (removing the 2. character and appending a 'w').<br/>
+image.tif -&gt; image.tfw, image.png -&gt; image.pgw,....</li>
+</ul>
+
+
+<p><b>To import the output of gdal_retile.py using a shape file (one level)</b></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+java -jar gt-imagemosaic-jdbc.jar <span class="code-keyword">import</span> -config URLOrFileName -spatialTN spatialTableName -tileTN tileTableName
+[-commitCount commitCount] -shape shapeURLOrFileName -shapeKeyField shapeKeyField
+</pre>
+</div></div>
+<p><b>To import the output of gdal_retile.py using a shape file (all levels)</b></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+java -jar gt-imagemosaic-jdbc.jar <span class="code-keyword">import</span> -config URLOrFileName -spatialTNPrefix spatialTableNamePrefix -tileTNPrefix tileTableNamePrefix
+[-commitCount commitCount] -shape shapeURLOrFileName -shapeKeyField shapeKeyField
+</pre>
+</div></div>
+
+<p>Options</p>
+<ul>
+	<li>&#45;shape<br/>
+the URL or the file name  of the shape file , e.g "file:/temp/index.shp"</li>
+	<li>&#45;shapeKeyField<br/>
+the name of the attribute in the shape file holding the file names for the tiles</li>
+</ul>
+
+
+<p><b>To import the output of gdal_retile.py using a csv file (one level)</b></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+java -jar gt-imagemosaic-jdbc.jar <span class="code-keyword">import</span> -config URLOrFileName -spatialTN spatialTableName -tileTN tileTableName
+[-commitCount commitCount] -csv csvURLOrFileName -csvDelim csvDelim
+</pre>
+</div></div>
+<p><b>To import the output of gdal_retile.py using a csv file (all levels)</b></p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+java -jar gt-imagemosaic-jdbc.jar <span class="code-keyword">import</span> -config URLOrFileName -spatialTNPrefix spatialTableNamePrefix -tileTNPrefix tileTableNamePrefix
+[-commitCount commitCount] -csv csvURLOrFileName -csvDelim csvDelim
+</pre>
+</div></div>
+<p>Options</p>
+<ul>
+	<li>&#45;csv<br/>
+the URL or the file name of the csv file , e.g "file:/temp/index.csv"</li>
+	<li>&#45;csvDelim<br/>
+The column delimiter in the csv file.</li>
+</ul>
+
+
+<p>The csv file has exactly 5 columns.</p>
+<ol>
+	<li>Filename of the tile</li>
+	<li>minx</li>
+	<li>maxx</li>
+	<li>miny</li>
+	<li>maxy</li>
+</ol>
+
+
+<p>Ensure using a point as decimal separator and do not use grouping speparators for the coordinates. "12345.6789" is ok, "12.345,6789" is not supported.</p>
+
+<p>A csv example</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-java">
+oek4000_1_1.tif;109546.250000;429601.536800;333297.122340;573436.750000
+oek4000_1_2.tif;429601.536800;688046.180892;333297.122340;573436.750000
+oek4000_2_1.tif;109546.250000;429601.536800;272461.750000;333297.122340
+oek4000_2_2.tif;429601.536800;688046.180892;272461.750000;333297.122340
+</pre>
+</div></div>
+</div>
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+         <rdf:Description
+    rdf:about="http://docs.codehaus.org/display/GEOTDOC/Using+the+java+import+utility"
+    dc:identifier="http://docs.codehaus.org/display/GEOTDOC/Using+the+java+import+utility"
+    dc:title="Using the java import utility"
+    trackback:ping="http://docs.codehaus.org/rpc/trackback/87720168"/>
+</rdf:RDF>
+-->
+            
+
+<!--
+    Root decorator: this is a layer of abstraction that Confluence doesn't need. It will be removed eventually.
+-->
+
+
+
+
+    
+    
+
+<div class="wiki-content" style="margin-right:10px;">
+    <p style="clear: both"/><!-- comments should always display underneath the content. we should have a 'clear:both' here just in case there are floats or aligned images in the content -->
+
+    
+    
+    
+    
+                                    </div>
+                            </div>
+                        </td>
+                            
+    
+        
+    
+                                                </tr>
+                </table>
+                <!-- End inner content table -->
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="footer">
+                                                            <p class="license license-opensource">
+                      Powered by a free <b>Atlassian Confluence Open Source Project License</b> granted to Codehaus. <a href="http://www.atlassian.com/c/conf/11461">Evaluate Confluence today</a>.<br>
+                    </p>
+                                            <ul id="poweredby">
+        <li>Powered by <a href="http://www.atlassian.com/software/confluence" class="smalltext">Atlassian Confluence</a> 3.0.1, the <a href="http://www.atlassian.com/software/confluence" class="smalltext">Enterprise Wiki</a>.</li>
+        <li><a href="http://jira.atlassian.com/secure/BrowseProject.jspa?id=10470" class="smalltext">Bug/feature request</a> &#8211;</li>
+        <li><a href="http://www.atlassian.com/about/connected.jsp?s_kwcid=Confluence-stayintouch" class="smalltext">Atlassian news</a> &#8211;</li>
+        <li><a href="/administrators.action">Contact administrators</a></li>
+    </ul>
+</div>

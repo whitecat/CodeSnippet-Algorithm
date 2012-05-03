@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.5 -->
+<!--X-Subject: Patch: fix for Double.java -->
+<!--X-From-R13: Fbz Febzrl <gebzrlNpltahf.pbz> -->
+<!--X-Date: 27 Jun 2000 18:36:03 &#45;0000 -->
+<!--X-Message-Id: 87lmzr0xt5.fsf@creche.i&#45;did&#45;not&#45;set&#45;&#45;mail&#45;host&#45;address&#45;&#45;so&#45;shoot&#45;me -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Patch: fix for Double.java</TITLE>
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--htdig_noindex-->
+<p>This is the mail archive of the 
+<tt>java-patches@sourceware.cygnus.com</tt>
+mailing list for the <a href="/java/">Java project</a>.
+
+
+<!--/htdig_noindex-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<!--htdig_noindex-->
+<HR>
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00253">Date&nbsp;Index</A>] [<a href="subjects.html#00253">Subject&nbsp;Index</a>] [<a href="authors.html#00253">Author&nbsp;Index</a>] [<A HREF="threads.html#00253">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00252.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00254.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00252.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00250.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Patch: fix for Double.java</h1>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Java Patch List &lt;java-patches at sourceware dot cygnus dot com&gt;</LI>
+<LI><em>Subject</em>: Patch: fix for Double.java</LI>
+<LI><em>From</em>: Tom Tromey &lt;tromey at cygnus dot com&gt;</LI>
+<LI><em>Date</em>: 27 Jun 2000 12:43:34 -0600</LI>
+<LI><em>Reply-To</em>: tromey at cygnus dot com</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I don't know how the bug in my Double.java change got past me.  I know
+I rebuilt.  Anyway, here's a fix to the fix.
+
+2000-06-27  Tom Tromey  &lt;tromey@cygnus.com&gt;
+
+	* java/lang/Double.java (valueOf): Call parseDouble().
+
+Tom
+
+Index: java/lang/Double.java
+===================================================================
+RCS file: /cvs/java/libgcj/libjava/java/lang/Double.java,v
+retrieving revision 1.4
+diff -u -r1.4 Double.java
+--- Double.java	2000/06/24 18:11:01	1.4
++++ Double.java	2000/06/27 18:33:57
+@@ -112,7 +112,7 @@
+     if (s == null)
+       throw new NullPointerException ();
+ 
+-    return new Double (doubleValueOf (s));
++    return new Double (parseDouble (s));
+   }
+ 
+   public boolean isNaN ()
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<!--htdig_noindex-->
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00253">Date&nbsp;Index</A>] [<a href="subjects.html#00253">Subject&nbsp;Index</a>] [<a href="authors.html#00253">Author&nbsp;Index</a>] [<A HREF="threads.html#00253">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00252.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00254.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00252.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00250.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name="keywords" content=" Java: Int to String to Char, physics forums, physics help, science forums, science news, math help, gravity, relativity, black holes, stephan hawkings" />
+	<meta name="description" content="[Archive]  Java: Int to String to Char Programming &amp; Comp Sci" />
+	
+	<title> Java: Int to String to Char [Archive]  - Physics Forums</title>
+	<link rel="stylesheet" type="text/css" href="http://www.physicsforums.com/archive/archive.css" />
+</head>
+<body>
+<div class="pagebody">
+<div id="navbar"><a href="http://www.physicsforums.com/archive/index.php">Physics Forums</a> &gt; <a href="http://www.physicsforums.com/archive/index.php/f-6.html">Other Sciences</a> &gt; <a href="http://www.physicsforums.com/archive/index.php/f-188.html">Computing &amp; Technology</a> &gt; <a href="http://www.physicsforums.com/archive/index.php/f-165.html">Programming &amp; Comp Sci</a> &gt;  Java: Int to String to Char</div>
+<hr />
+<div class="pda"><a href="http://www.physicsforums.com/archive/index.php/t-140725.html?pda=1" rel="nofollow">PDA</a></div>
+<p class="largefont">View Full Version : <a href="http://www.physicsforums.com/showthread.php?t=140725">Java: Int to String to Char</a></p>
+<hr />
+
+<div class="post"><div class="posttop"><div class="username">muna580</div><div class="date">Oct30-06, 06:43 PM</div></div><div class="posttext">How come when I exectue this program, I get the follwing error. Just to let you know, what i am trying to do is, check if ever digit in a number is a prime number. <br />
+<br />
+--------------------Configuration: Number21 - JDK version 1.5.0_08 &lt;Default&gt; - &lt;Default&gt;--------------------<br />
+C:\Documents and Settings\Owner\My Documents\School Stuff\Clubs\Number21\PrimeNumbers.java:28: char cannot be dereferenced<br />
+                if((valueStr.charAt(i)).equals(prime2) || (valueStr.charAt(i)).equals(prime3) || <br />
+                   ^<br />
+C:\Documents and Settings\Owner\My Documents\School Stuff\Clubs\Number21\PrimeNumbers.java:28: char cannot be dereferenced<br />
+                if((valueStr.charAt(i)).equals(prime2) || (valueStr.charAt(i)).equals(prime3) || <br />
+                                                          ^<br />
+C:\Documents and Settings\Owner\My Documents\School Stuff\Clubs\Number21\PrimeNumbers.java:29: char cannot be dereferenced<br />
+                (valueStr.charAt(i)).equals(prime5) || (valueStr.charAt(i)).equals(prime7))<br />
+                ^<br />
+C:\Documents and Settings\Owner\My Documents\School Stuff\Clubs\Number21\PrimeNumbers.java:29: char cannot be dereferenced<br />
+                (valueStr.charAt(i)).equals(prime5) || (valueStr.charAt(i)).equals(prime7))<br />
+                                                       ^<br />
+4 errors<br />
+<br />
+Process completed.<br />
+<br />
+<br />
+import java.lang.Math; <br />
+ <br />
+public class PrimeNumbers<br />
+{<br />
+	public static void main (String[] args)<br />
+	{<br />
+		int[] test = {546513, 77777, 24756, 2226};<br />
+		<br />
+		for(int i = 0; i&lt;test.length; i++)<br />
+		{<br />
+			System.out.println (&quot;Integer &quot; + test[i] + &quot; is a prime &quot; + arePrime(test[i]));<br />
+		}<br />
+	}<br />
+	<br />
+	public static boolean arePrime(int value)<br />
+    {<br />
+    	char prime2 = '2'; <br />
+    	char prime3 = '3';<br />
+    	char prime5 = '5';<br />
+    	char prime7 = '7';<br />
+    	<br />
+    	boolean arePrimeDigits = false;<br />
+    	<br />
+    	String valueStr = String.valueOf(value);<br />
+    	<br />
+    	for (int i = 0; i&lt;valueStr.length(); i++)<br />
+    	{<br />
+    		if((valueStr.charAt(i)).equals(prime2) || (valueStr.charAt(i)).equals(prime3) || <br />
+    		(valueStr.charAt(i)).equals(prime5) || (valueStr.charAt(i)).equals(prime7))<br />
+    		{<br />
+    			arePrimeDigits = true;<br />
+    		}<br />
+    		else <br />
+    		{<br />
+    			arePrimeDigits = false;<br />
+				i = valueStr.length();<br />
+    		}<br />
+    	}<br />
+    	<br />
+    	return arePrimeDigits; <br />
+    }<br />
+}</div></div><hr />
+
+
+<div class="post"><div class="posttop"><div class="username">0rthodontist</div><div class="date">Oct30-06, 08:29 PM</div></div><div class="posttext">A char is not an object, so you can't ask if it .equals() anything.  Just use ==.<br />
+<br />
+Also 2 notes on your code style:  First, there's no need to define constants prime2, prime3, etc.  It's good to define constants for anything that might change in the future, but the primes are not going to change.  Second, your loop is a bit clumsy.  Don't set a variable to true every time--just return false if any digit is not prime.  You might write it like<br />
+<br />
+<br />
+    	for (int i = 0; i&lt;valueStr.length(); i++)<br />
+    	{<br />
+    		if any digit is not prime<br />
+    			return false;<br />
+	}<br />
+return true;</div></div><hr />
+
+
+<div class="post"><div class="posttop"><div class="username">muna580</div><div class="date">Oct31-06, 12:02 AM</div></div><div class="posttext">Oh, I see, thanks very much. I removed the equals and replaced it with == and it worked.</div></div><hr />
+
+
+<div id="copyright">vBulletin&reg; v3.7.6, Copyright &copy;2000-2010, Jelsoft Enterprises Ltd.</div>
+</div>
+</body>
+</html>

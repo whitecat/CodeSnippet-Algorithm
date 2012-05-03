@@ -1,0 +1,1529 @@
+<html>
+<title>Introduction to Java</title>
+<head>
+<body bgcolor="white" text="black">
+<link rel="Stylesheet" title="Default Stylesheet" href="default.css">
+<FONT FACE ="georgia,arial, helvetica, sans-serif"</font>
+</head>
+
+<center>
+<h3>Introduction to Java<br>
+Jan Tobochnik and Harvey Gould</h3>
+</center>
+
+<p>Java is an object-oriented programming language with a built-in
+application programming interface (API) that can handle graphics and
+user interfaces and that can be used to create applications or applets. Because of its rich set of API's, similar to Macintosh and Windows, and its platform independence, Java can also be thought of as a platform in itself. Java also has standard libraries for doing mathematics.</p>
+
+<p>Much of the syntax of Java is the same as C and C++. One major difference is that Java does not have pointers. However, the biggest difference is that you must write object oriented code in Java. Procedural pieces of code can only be embedded in objects. In the following we assume that the reader has some familiarity with a programming language. In particular, some familiarity with the syntax of C/C++ is useful.</p>
+
+<p>In Java we distinguish between applications, which are programs that
+perform the same functions as those written in other programming
+languages, and applets, which are programs that can be embedded in a
+Web page and accessed over the Internet. Our initial focus will be on
+writing applications. When a program is compiled, a byte code is
+produced that can be read and executed by any platform that can run
+Java.</p>
+
+<p>To use this tutorial you should run and study each program as you read along, so that you can see how added features affect the programs.</p>
+
+<center>
+<table border = 1 cellspacing=2>
+<caption><strong>Table of Contents</strong></caption>
+<tr>
+<td><a href="#obj">Objects</a> </td>
+<td><a href="#const">Constructors</a> </td>
+<td><a href="#private">Private variables</a></td>
+<td><a href="#extending">Extending a class</a></td>
+<td><a href="#final">Named constants</a></td>
+<td><a href="#static">Static methods</a></td>
+</tr>
+
+<tr>
+<td><a href="#string">String type</a></td>
+<td><a href="#arrays">Arrays</a></td>
+<td><a href="#scope">Methods and Scope</a></td>
+<td><a href="#graphics">Simple graphics</a> </td>
+<td><a href="#loops">Loops</a> </td>
+<td><a href="#images">Offscreen Buffer</a> </td>
+</tr>
+
+<tr>
+<td><a href="#textfield">User Interaction</a> </td>
+<td><a href="#switch">Switch Structure</a> </td>
+<td><a href="#animation">Animation</a> </td>
+<td> <a href="#threads">Threads</a> </td>
+<td> <a href="simphys.html">Utility Package</a> </td>
+<td> <a href="#cf">ControlFrame</a> </td>
+</tr>
+
+<tr>
+<td> <a href="#cm">ControlMenu</a> </td>
+<td> <a href="#table">Table</a> </td>
+<td> <a href="#plot">Plot</a> </td>
+<td> <a href="#world">WorldGraphics</a> </td>
+<td> <a href="#syntax">Syntax Summary</a> </td>
+<td> <a href="#refs">References</a> </td>
+</tr>
+
+</table>
+</center>
+
+<a name="obj">
+<h4>Objects</h4>
+Object-oriented programming focuses on constructs called &#147;objects.&#148; An object consists of data
+and functions known as <em>methods</em> which use or change the data. (Methods are similar to procedures or functions in other languages.) Objects of the same kind are said to have the same type or be in the same class. A <em>class</em> defines
+what data can be in an object, and what operations are performed by the methods. One or more
+objects can be created or &#147;instantiated&#148; from a class. The structure of a Java program
+consists of various objects exchanging messages. The keyword <strong>class</strong> defines a blueprint for objects with similar properties. In our first example we define the class
+<tt>Particle</tt>.
+
+<br><pre>public class Particle
+{
+   double x, y, vx, vy, mass;
+}
+</pre>
+This class does not do anything (because it has no methods), but it can be used to describe a particle by its position, velocity, and mass. For simplicity, we will consider only two dimensions.
+
+<a name="const">
+<h4>Constructors</h4>
+
+Every class has at least one <em>constructor,</em> a method which has the same name as the class. A constructor initializes a new object belonging to the class.
+
+<br><pre>public class Particle
+{
+   double x, y, vx, vy, mass; // these variables can be used by any method in the class
+
+   // example of constructor method
+   public Particle(double x, double y, double vx, double vy, double mass)
+   {
+
+      /* Use <strong>this</strong> keyword to make explicit that a method
+         is accessing its own variables. */
+      this.x = x; // set instance variable x equal to value of x in parameter list
+      this.y = y;
+      this.vx = vx;
+      this.vy = vy;
+      this.mass = mass;
+   }
+}
+</pre>
+The constructor <tt>Particle</tt> creates an object of the <tt>Particle</tt> class by specifying five parameters: the initial position and velocity of a particle and the value of its mass. We say that <tt>Particle</tt> is the constructor for the <tt>Particle</tt> class.
+
+<p>We have used the following properties of Java:
+
+<ul>
+
+<li><strong>Variable Declaration:</strong> The types of all variables must be declared. The primitive types
+are <strong>byte</strong>, <strong>short</strong>, <strong>int</strong>, <strong>long</strong> (8, 16, 32, and 64 bit integer variables, respectively), <strong>float</strong> and <strong>double</strong> (32 and 64-bit floating point variables),
+<strong>boolean</strong> (true or false), and <strong>char</strong>. <strong>Boolean</strong> is a distinct type rather than just another way of using integers. Strings are not a primitive type, but are instances of the <a href="#string"><tt>String</tt></a> class. Because they are so common, string literals may appear in quotes just as in other languages. <a href="primitive.html">Summary of primitive data types</a>.
+
+<p><li><strong>Naming Conventions:</strong> Java distinguishes between upper and lower case variables. The convention is to capitalize the first letter of a class name. If the class name consists of several words, they are run together with successive words capitalized within the name (instead of using underscores to separate the names). The name of the constructor is the same as the name of the class. All <strong>keywords</strong> (words that are part of the language and
+cannot be redefined) are written in lower case.</p>
+
+<p><li>Instance variables and methods can be accessed from any method within the class. The <tt>x</tt> in the argument list of the above constructor refers to the local value of the parameter which is set when <tt>Particle</tt> is called. We use the <strong>this</strong> keyword to refer to those variables defined for the entire class in contrast to those defined locally within a method and those that are arguments to a method. In the above example, <tt>this.x</tt> refers to the variable <tt>x</tt> which is defined just after the first line of the class definition. After we have introduced <a href="#multiple">multiple constructors</a>, we show a more iillustrative <a href="this.html">example</a> of the <strong>this</strong> keyword.</p>
+
+<p><li>Classes are effectively new programmer-defined types; each class defines data (fields) and methods to manipulate the data. Fields in the class are template for the instance variables that are created when objects are instantiated (created) from that class. A new set of instance variables is created each time that an object is instantiated from the class.
+
+<p><li>The members of a class (variables and methods) are accessed by referrring to an object created from thr clas using the <strong>dot operator</strong>. For example, suppose that a class <tt>Particle</tt> contains and instance variable x amd a method <tt>step</tt>. If an object of this class is named <tt>p</tt>, then the instance variable in <tt>p</tt> would be accessed as <tt>p.x</tt> and the method accessed as <tt>p.step</tt>.
+
+<p><li>A semicolon is used to terminate individual statements.</p>
+
+<p><li><strong>Comments</strong>. There are three comment styles in Java. A single line comment starts with <strong>//</strong> and can be included anywhere in the program. Multiple line comments begin with <strong>/*</strong> and end with <strong>*/</strong>; these are also useful for commenting out a portion of the text on a line. Finally, text enclosed within <strong>/** ... */</strong> serves to generate documentation using the <tt>javadoc </tt> command.
+
+<p><li><strong>Assignments</strong>. Java uses the C/C++ shortcuts summarized in Table 2.
+
+<br><br>
+<center>
+<caption>Table 2. Assignment shortcuts.</caption>
+<table border="3" cellspacing="2" cellpadding="1">
+<tr>
+<th width="70" align=center>operator</th>
+<th width="70" align=center>example</th>
+<th width="70" align=center>meaning</th>
+</tr>
+<tr>
+<td align=center>+=</td>
+<td align=center>x += y</td>
+<td align=center>x = x + y</td>
+</tr>
+<tr>
+<td align=center>-=</td>
+<td align=center>x -= y</td>
+<td align=center>x = x - y</td>
+</tr>
+<tr>
+<td align=center>*=</td>
+<td align=center>x *= y</td>
+<td align=center>x = x*y</td>
+</tr>
+<tr>
+<td align=center>/=</td>
+<td align=center>x /= y</td>
+<td align=center>x = x/y</td>
+</tr>
+<tr>
+<td align=center>%=</td>
+<td align=center>x %= y</td>
+<td align=center>x = x % y</td>
+</tr>
+</table>
+</center>
+
+<p>The modulus operator % returns the remainder of a division. For example, 5 % 3 returns 2. The <strong>increment operator</strong> <tt>++</tt> works as follows:
+<pre>i++;</pre> is equivalent to
+<pre>i = i + 1;</pre>
+Similarly, the <strong>decrement operator</strong> <tt>--</tt> works as follows:
+<pre>i--;</pre> is equivalent to
+<pre>i = i - 1;
+</pre>
+
+<p><li><strong>Type casting</strong> changes the type of a value from its normal type to some other type. For example:
+
+<br><pre>double distance;
+distance = 10.0;
+int x;
+x = (int)distance;    // example of a type cast
+</pre>
+What would be the value of x in the above example if distance = 9.9?
+
+</ul>
+
+<a name="multiple">
+<h4>Multiple Constructors</h4>
+The arguments of a constructor specify the parameters for the initialization of an object. Multiple constructors provide the flexibility of initializing objects in the same class with different sets of arguments, as in the following example.
+
+<br><pre>public class Particle
+{
+   double x, y, vx, vy, mass;
+
+   // examples of multiple constructors
+
+   public Particle()
+   {
+      this(0.0,0.0);
+   }
+
+   public Particle(double x, double y)
+   {
+      this(x,y,1.0);
+   }
+
+   public Particle(double x, double y, double m)
+   {
+      this(x,y,0.0,0.0,m);
+   }
+
+   public Particle(double x, double y, double vx, double vy)
+   {
+      this(x,y,vx,vy,1.0);
+   }
+
+   public Particle(double x, double y, double vx, double vy, double mass)
+   {
+      this.x = x;
+      this.y = y;
+      this.vx = vx;
+      this.vy = vy;
+      this.mass = mass;
+   }
+}
+</pre>
+
+<ul>
+<li>The multiple constructors (all named Particle) are distinguished only by the number of arguments. The constructors can be defined in any order. Hence, the keyword <strong>this</strong> in the first constructor refers to the next in the sequence because the latter has two arguments. The first constructor has no arguments and creates a particle of unit mass at the origin; the
+next is defined with two arguments: the spatial coordinates of the particle. The second constructor in turn references the third constructor which uses the spatial coordinates and the mass. The third and fourth constructors each refer to the final constructors which uses all five arguments. (The order of the constructors is unimportant.) Once the <tt>Particle</tt> class with its multiple constructors is defined, any class can call the constructor <tt>Particle</tt> using the number of arguments appropriate to that application. The advantage of having multiple constructors is that applications that use a particular constructor are unaffected by later additions made to the class <tt>Particle</tt>, whether variables or methods. For example, adding acceleration as an argument does not affect applications that rely only on the definitions given above.</p>
+
+<p><li>Using multiple constructors is called <em>method
+overloading</em> -- the method name is used to specify more than one
+method. The rule for overloading is that the argument lists for all
+of the different methods must be unique, including the number of
+arguments and/or the types of the arguments.</p>
+
+<p><li>All classes have at least one implicit constructor method. If no constructor is defined explicitly, the compiler creates one with no arguments.
+
+</ul>
+
+<p>We next give an example of a <tt>Particle class</tt> with methods for computing the weight of a particle and its distance from the origin.
+We will omit the velocity components for now.</p>
+
+<br><pre>public class Particle
+{
+   double x, y, mass;
+
+   public Particle()
+   {
+   }
+
+   public Particle(double x, double y)
+   {
+      this(x,y,1);
+   }
+
+   public Particle(double x, double y, double mass)
+   {
+      this.x = x; this.y = y; this.mass = mass;
+   }
+
+   public double getWeight()
+   {
+      return 9.8*mass;
+   }
+
+   public double distanceFromOrigin()
+   {
+      return Math.sqrt(x*x + y*y);
+   }
+}
+</pre>
+
+<ol>
+<li>The fundamental parts of a method are its name, arguments,
+return type, and the body. Methods can be created only as part of a class. By convention, variable and method names begin with a lower case letter.
+
+<p><li>The keyword <strong>return</strong> followed by an expression returns the value of the expression to the caller of the method. The type of the expression must be the same as specified by the method. (Note that a constructor does not return a value and hence no type is specified.) A method can return only the value of a single expression.
+
+<p><li>The method <tt>distanceFromOrigin</tt> in the class <tt>Particle</tt>
+computes the distance of a particle from the origin using the
+particle coordinates x and y. The square root function
+<tt>Math.sqrt</tt> in this calculation is part of the <tt>Math</tt>
+class, a library of mathematical functions which consists of a
+collection of <a href="#static">static</a> methods. We will postpone
+a discussion of such classes, but their use is clear from the
+context.
+
+</ol>
+
+A program consists of one or more class definitions, each of which
+should be in separate files. The name of the file should be the same
+as the name of the class, for example, MyApplication.java. One of
+these classes must define a method <tt>main</tt>.
+
+<p>The following program creates two objects of type <tt>Particle</tt>.</p>
+
+<pre>public class MyApplication
+{
+   public static void main(String[] args)
+   {
+
+      /* Need an instance of class Particle - a particle object;
+      assign it to the variable a which is of type Particle. */
+
+      Particle a = new Particle(1.0,1.0);
+      System.out.println("Distance of particle a from origin = " + a.distanceFromOrigin());
+      System.out.println("Mass of particle a = " + a.mass);
+      Particle b = new Particle();
+      b.x = 2.0;
+      b.y = 3.0;
+      b.mass = 3;
+      System.out.println("Distance of particle b from origin = " + b.distanceFromOrigin());
+      System.out.println("Mass of particle b = " + b.mass);
+      System.out.println("Weight of particle b = " + b.getWeight());
+   }
+}
+</pre>
+
+<ul>
+
+<li>The first statement in <tt>main</tt> declares <tt>a</tt> to be a
+Particle and uses the <strong>new</strong> keyword to instantiate an object. These two operations could have been done separately in two lines as
+illustrated for <tt>Particle b</tt>. Note that Java already defines primitive
+data types such as <tt>int</tt> and <tt>double</tt>.
+
+<p><li>If a program has more than one class, one and only one of the classes must define <tt>main()</tt>.
+
+<p><li>The statement <strong>System.out.println()</strong> allows us to print the argument to the standard output with a call to the <tt>System class</tt>. <tt>System.out</tt> is an object used for sending output to the screen and <tt>println</tt> is a method that this object invokes.
+
+</ul>
+
+<a name="private">
+<h4>Public and Private Variables</h4>
+
+Java uses three explicit keywords and one implied keyword to set the boundaries in a class: <strong>public</strong>, <strong>private</strong>, and <strong>protected</strong>. The default access specifier for the names of variables and methods is &#147;package visibility&#148; or &#147;friendly,&#148; which means that all the
+other classes in the current package have access to them. (Packages are Java's way of grouping classes to make libraries and will be discussed later.) The access specifier <strong>public</strong> means that the variables and methods are available from any package; <strong>private</strong> implies that the variables and methods can only be accessed inside methods of the same class. The keyword <strong>protected</strong> indicates additional access to variables and methods that are available to subclasses. We will clarify its meaning when we discuss <a href="#extending">inheritance</a>.
+
+<p>One reason to make a variable private is to restrict access to it. Access becomes an issue for <a href="#threads">threading</a> which refers to the sequence of execution of program code. For example, we would want to avoid changing the value of a variable while another portion of the code is trying to read it. Make x private and see
+what <a href="error.html">happens</a> when you run <tt>MyApplication</tt>.
+
+<p>If we declare x, y, and mass as private variables, we have to include explicit methods in <tt>Particle</tt> to allow another class to access the variable information in <tt>Particle</tt>. For simplicity, we will consider only the variables x and mass. Our <tt>Particle</tt> class becomes:
+
+<br><pre>public class Particle
+{
+   private double x;
+   private double mass;
+
+   public Particle(double x)
+   {
+      this(x, 1.0);
+   }
+
+   public Particle(double x, double mass)
+   {
+      this.x = x;
+      this.mass = mass;
+   }
+
+   public double getX()
+   {
+      return x;
+   }
+
+   public void setX(double newX)
+   {
+      x = newX;
+   }
+
+   public double getWeight()
+   {
+      return 9.8*mass;
+   }
+
+   public double distanceFromOrigin()
+   {
+      return Math.abs(x);
+   }
+}
+</pre>
+
+<p>Note the new methods getX and setX. They are used in the following.
+
+<br><pre>public class MyApplication
+{
+   public static void main(String[] args)
+   {
+      Particle p = new Particle(10.0, 2.0);
+      System.out.println("Distance of particle from origin = " + p.distanceFromOrigin());
+      System.out.println("x-coordinate = " + p.getX()); // would have written p.x if x were public
+      System.out.println(weight = " + p.getWeight());
+      p.setX(3.0);    // change value of x
+      System.out.println("new x-coordinate = " + p.getX());
+      System.out.println("new distance from origin = " + p.distanceFromOrigin());
+   }
+}
+</pre>
+In the following, we will not make variables such as x and y private, because they will be used in so many classes.
+
+<a name="using">
+<h4>Using the Particle class</h4>
+We now redefine the class <tt>Particle</tt> to include a method to compute the distance between two particles. The application that follows creates two particles and gives their mutual separation.
+
+<br><pre>public class Particle
+{
+   double x, y, mass;
+
+   public Particle(double x, double y)
+   {
+      this(x, y, 1.0);
+   }
+
+   public Particle(double x, double y, double mass)
+   {
+      this.x = x;
+      this.y = y;
+      this.mass = mass;
+   }
+
+   public double distanceFrom(Particle a)
+   {
+      double r2 = Math.pow(this.x - a.x, 2) + Math.pow(this.y - a.y,2);
+      return Math.sqrt(r2);
+   }
+
+   public double distanceFromOrigin()
+   {
+      return Math.sqrt(x*x + y*y);
+   }
+}
+</pre>
+
+<pre>public class MyApplication
+{
+   public static void main(String[] args)
+   {
+
+      Particle a = new Particle(5.0, 7.0);
+      Particle b = new Particle(1.0, 2.0);
+      System.out.println("Distance of a from b = " + a.distanceFrom(b));
+      System.out.println("Distance of b from a = " + b.distanceFrom(a));
+   }
+}
+</pre>
+
+<a name="extending">
+<h4>Extending a class</h4>
+Object oriented programming allows the user to reuse existing code rather than rewrite it. Classes have a hierarchical relationship, allowing the user to extend or modify the behavior of classes derived from base classes using <em>inheritance.</em> For example, we can expand the <tt>Particle</tt> class to include charged particles. The new class <tt>ChargedParticle</tt> will combine all the behavior and functionality of <tt>Particle</tt> with the ability to have a charge. We can implement <tt>ChargedParticle</tt> as an extension of <tt>Particle</tt> as shown below.
+
+<br><pre>public class ChargedParticle extends Particle
+{
+   // magnitude of electron charge in Coulombs
+   public static final double ELQ = 1.602e-19;
+   private int charge;
+
+   public ChargedParticle(double x,double y, double mass, int charge)
+   {
+      super(x, y, mass);       // constructor for Particle
+      this.charge = charge;
+   }
+
+   public int getCharge()
+   {
+      return charge*ELQ;
+   }
+
+   public void setCharge(int newCharge)
+   {
+      charge = newCharge;
+   }
+
+   public static int netCharge(ChargedParticle a, ChargedParticle b)
+   {
+      return a.charge + b.charge;
+   }
+}
+</pre>
+An example of the use of this new class is given below.
+<br><pre>public class MyApplication
+{
+   public static void main(String[] args)
+   {
+
+   // particle charge is expressed in units of electron charge
+   ChargedParticle a = new ChargedParticle(10.0,0,0,1);
+   System.out.println("distance of a from origin = " + a.distanceFromOrigin());
+   System.out.println("charge of a = " + a.getCharge());
+   System.out.println("charge of a in coulombs = " + ChargedParticle.ELQ*a.getCharge());
+   ChargedParticle b = new ChargedParticle(-5.0,0,0,-1);
+   System.out.println("distance of b from origin: " +  b.distanceFromOrigin());
+   System.out.println("charge of b = " + b.getCharge());
+   System.out.println("net charge of a and b = " + ChargedParticle.netCharge(a,b));
+   b.setCharge(3);
+   System.out.println("new charge of b = " + b.getCharge());
+   System.out.println("net charge of a and b = " + ChargedParticle.netCharge(a,b));
+   }
+}
+</pre>
+Note how the (named) constant <tt>ELQ</tt>, the charge of an electron, has been introduced.
+
+<ul>
+<li>The keyword <strong>super</strong> refers to the constructor of the base class, in this case <tt>Particle</tt>. An inherited subclass contains all the members of the superclass except the private ones. Thus a derived class can receive the same messages as a base class.
+
+<a name="final">
+<p><li>A variable declared <em>final</em> is a constant. Its value must be specified when it is declared and this value cannot be changed. The <em>static</em> keyword means that there is only one copy of this variable, regardless of the number of instances of the class that are created. (A better name is class variable.) The C convention of using CAPITAL letters for constants will be used whenever it will not cause confusion.
+
+<a name="static">
+<p><li>The method <tt>setCharge</tt> defines the behavior of a
+particular object. In contrast, the static method <tt>netCharge</tt> belongs to the class and not to a particular instantiation of the class. To call a static method we use the class name rather than an instance name. Thus, to call the method <tt>netCharge</tt> we use
+<tt>ChargedParticle.netCharge(a,b)</tt> <em>not</em> <tt>a.netCharge(a,b)</tt>. A static method is equivalent to a global function in C.
+
+</ul>
+
+Static methods (class methods) and static variables, belong to a class and not a given instance of the class. The following example illustrates the nature of static variables:
+
+<br><pre>public class StaticTest
+{
+   public static int x = 0;
+   public int y = 0;
+
+   public String getCoordinates()
+   {
+      return "x = " + x + ", y = " + y;
+   }
+
+   public static void main(String[] args)
+   {
+      StaticTest a = new StaticTest();
+      StaticTest b = new StaticTest();
+      a.x = 5;     // static variable
+      a.y = 12;    // instance variable
+      System.out.println(a.getCoordinates());      // outputs 5, 12
+      b.x = 7;
+      b.y = 13;
+      System.out.println(a.getCoordinates());      // outputs 7, 12
+      System.out.println(b.getCoordinates());      // outputs 7, 13
+      StaticTest.x = 2;
+      System.out.println(a.getCoordinates());      // outputs 2, 12
+      System.out.println(b.getCoordinates());      // outputs 2, 13
+   }
+}
+</pre>
+The (static) x member belongs to class Test and hence belongs to a and b. There is only one variable x and thus the value of x is always the one most recently specified. In contrast, y belongs to the instances a and b of the class Test and hence a.y and b.y are distinct variables.
+
+<a name="string">
+<p>The <tt>String</tt> type is unique among all classes because it is the only class to support an operator: the + operator can be used to concatenate strings. When a number is concatenated with a string, the number is converted to a string. Because a <tt>String</tt> variable is an object, it has methods. (The class String is different than other classes.) Some of its associated methods are summarized in <a href="table4.html">Table 4</a>.
+
+<a name="arrays">
+<h4>Arrays</h4>
+An array is a special object containing a group of contigious memory locations that have the same name and the same type and a separate variable containing an integer constant equal to the number of array elements. The elements of Java arrays are numbered starting from 0.
+
+<p>An array must be created before it can be used. We first declare a reference or "handle" to an array that permits Java to locate the object in memory when it is needed. Then we create an array object to assign to the reference using the <strong>new</strong> operator. For example, we can write
+<br><pre>
+double x[];    // create an array reference
+x = new double[5];    // create array object
+</pre>
+Or we can create an array reference and an array object on a single line:
+<pre>
+double x[] = new double[5];
+</pre>
+The number of elements in the array <tt>x</tt> is <tt>x.length</tt>. The elements of the array are written as <tt>x[0], x[1], x[2], x[3], x[4]</tt>.
+
+<p>An array object may be created and initialized when its reference is declared. For example,
+<pre>
+double x[] = {1.0, 1.4, 1.6, 1.8, 3.0};
+</pre>
+It is a good idea to declare array sizes using named constants (final variables) so that the length of the arrays can be easily changed.
+<pre>
+final int ARRAY_SIZE = 1000;
+double x[] = new double[ARRAY_SIZE];
+</pre>
+
+<strong>Two-dimensional arrays</strong></br>
+
+A two-dimensional array is implemented by creating a one-dimensional array each of whose elements is also an array. We first declare a reference to an array of arrays and then create the individual arrays associated with each element. For example
+<pre>
+double x[][];   / create reference to an array of arrays
+</pre>
+Then we can write for example,
+<pre>
+x = new double[3][5]; create array objects
+</pre>
+
+<a name="scope">
+<h4>Methods and Scope</h4>
+
+The general form of a method definition is
+<br><pre>
+return-value-type method-name(parameter list)
+{
+   declarations and statements
+   (return statement)
+}
+</pre>
+
+<ul>
+
+<li>The <em>return-value-type</em> is the data type of the result returned by the method to the caller. If no value is returned, the return-value-type is <strong>void</strong>. If the return-value-type is not void, then there must be a <strong>return</strong> statement.
+
+<p><li>The <em>parameter-list</em> is a comma-separated list containing
+the parameters received by the method whenever it is called. A type
+must be declared for every parameter in the list. If the
+parameter-list is empty, the parentheses is still required.
+
+<p><li>Variables that are used within a method and that are not accessible by calling methods are <strong>local variables</strong>.
+
+<p><li>Java programs communicate with their methods using <em>pass-by-value.</em> The method works with a copy of the original argument, not the argument itself which means that the method cannot modify the original argument even if it modifies the parameter. A program that illustrates pass-by-value os shown below.
+</ul>
+<pre>
+public class TestPassByValue
+{
+   public static void main(String[] args)
+   {
+      // instantiate a TestPassByValue object
+      TestPassByValue t = new TestPassByValue();
+      int i = 1;    // local variable
+      System.out.println("value of i before test = " + i);
+      // pass value of local variable
+      int j = t.test(i);
+      System.out.println("value of i after test = " + i);
+      System.out.println("value of j = " + j);
+      j = t.test2(j);
+      System.out.println("value of i after test2 = " + i);
+      System.out.println("value of j after test2 = " + j);
+   }
+
+   public int test (int i)
+   {
+      i = ++i;   // same as i = i + 1;
+      System.out.println("value of i in test = " + i);
+      return i;
+   }
+
+   public int test2 (int k)
+   {
+      int i = k;   // i refers to instance variable
+      System.out.println("value of k = " + k);
+      i = ++i;
+      System.out.println("value of i in test2 = " + i);
+      return i;
+    }
+}
+</pre>
+
+<p>Variables have either <strong>class scope</strong> or <strong>block scope</strong>. Methods and the instance variables of a class have class scope. Class scope begins at the opening left brace and ends at the closing right brace of the class definition. Class scope allows any method in the class to directly invoke any other method in the class and to directly access any instance variable of the class. In effect, instance variables are global variables within a class. Instance variables can be used to communicate between methods in a class or to retain information between calls of a given method in the class.</p>
+
+<p>A block is a compound statement and consists of all the statements between an opening and closing brace. Variables defined inside a block have block scope. Variables defined within a block have block scope and are visible within the block; they are not visible outside the block.
+
+<p>A variable can have the same name as an instance variable as an instance variable or method in the class in which the method is defined. In this case the instance variable is hidden from the method by the local variable. Example:
+<br><pre>
+public class Point
+{
+   // define instance data
+   public double x,y;   // instance variables
+
+   // define constructors
+
+   public Point()
+   {
+      x = 1;  // same variables as instance variables
+      y = 1;
+   }
+
+   public Point (double x, double y)
+   {
+      this.x = x;  // this.x refers to instance variable
+      this.y = y;
+      this.x++;
+      System.out.println("this.x = " + this.x);
+      System.out.println("x = " + x);    // parameter variable
+   }
+
+   public Point (double x, double y, boolean dummy)
+   {
+      x++;
+      System.out.println("x = " + x);
+   }
+}
+
+public class TestPoint
+{
+   public static void main(String[] args)
+   {
+
+      /* Need an instance of class Particle - a particle object;
+      assign it to the variable a which is of type Particle. */
+
+      Point a = new Point(2.0,1.0);
+      System.out.println("x = " + a.x);
+      Point b = new Point();
+      b.x = 3.0;
+      System.out.println("xb = " + b.x);
+   }
+}
+
+</pre>
+
+<a name="graphics">
+<h4>Simple Graphics</h4>
+A powerful feature of Java is its ability to do graphics relatively simply. We next introduce several methods in the <tt>Particle</tt> class to draw a representation of the particle.
+
+<br><pre>
+import java.awt.*;
+public class Particle
+{
+   double x,y;
+   Color color;    // part of AWT package
+
+   public Particle(double x, double y)
+   {
+      // constructor with color variable
+      this.x = x;
+      this.y = y;
+      color = Color.blue;        // define default color
+   }
+
+   // Draw representation of particle in given graphics context
+   public void draw(Graphics g)
+   {
+      Color oldColor = g.getColor();
+      g.setColor(color);
+      g.fillOval((int)x, (int)y, 12, 12);
+      g.setColor(oldColor);
+   }
+
+   public Color getColor()
+   {
+      return color;
+   }
+
+   public void setColor(Color newColor)
+   {
+      color = newColor;
+   }
+
+   public void move(double dx, double dy)
+   {
+      x += dx;     // same as x = x + dx;
+      y += dy;
+   }
+}
+</pre>
+<ul>
+
+<li>The <strong>import</strong> statement allows us to use the Java libraries. The notation java.awt.* means that all the classes in the java.awt package can be used. This package implements the Java Abstract Window Toolkit (AWT) and contains all the classes and interfaces necessary for creating a user interface. Packages are a way of grouping a collection of related classes. A description of all the packages is given at the <a href="http://java.sun.com/products/jdk/1.1/docs/api/packages.html">Sun Web site</a>.
+
+<p><li>We have used the <tt>java.awt.Graphics</tt> class which provides drawing and painting methods. The method <tt>draw</tt> has
+an argument <tt>g</tt> of type <tt>Graphics</tt>. Think of <tt>g</tt> as a
+part of the screen (a bit map) where painting will take place and
+the methods that are associated with it.
+
+<p><li>The four principal elements need to create a GUI include:
+
+<ol>
+
+<p><li>Components. A <strong>component</strong> is a visual object containing text or graphics that can respond to keyboard or mouse inputs. Examples of components include buttons, labels, text boxes, check boxes, and lists. A blank component is known as a <b>canvas</b>, which can be used as a drawing area for text or graphics. All components inherit a common set of methods, the most common of which is <b>paint</b>.
+
+<p><li>A <b>container</b> is a graphical object that can hold components or other containers. The most important type of container is a <b>Frame</b>.
+
+<p><li><b>Layout Manager</b>. A layout manager is automatically associated with each container when it is created, but the layout manager can be changed. Examples include BorderLayout, BoxLayout, GridLayout.
+
+<p><li><b>Event Handlers</b>. Events, such as the click of a mouse, are handled by creating <b>listener classes</b> which implement <b>listener interfaces</b>. The standard listener interfaces are in <tt>java.awt.event</tt>.
+
+</ol>
+
+</ul>
+
+The following simple class draws the particle:
+
+<br><pre>import java.awt.*;
+public class ParticleDrawer extends Frame
+{
+   public static void main(String[] args)
+   {
+      // Create new frame
+      ParticleDrawer frame = new ParticleDrawer();
+   }
+
+   // Construct ParticleDrawer frame
+   public ParticleDrawer()
+   {
+      // predefined methods
+      setSize(512, 342);    // units of coordinate system in pixels
+      setVisible(true);
+   }
+
+   // Paint particles
+   public void paint(Graphics g)
+   {
+      Particle p = new Particle(3.1, 4.1);
+      p.draw(g);
+      p.move(26.5, 35.8);
+      p.setColor(Color.red);
+      p.draw(g);
+   }
+}
+</pre>
+
+<ul>
+<li>A <tt>frame</tt> is a very simple window, with a border, a place for a title, and a close window button.
+
+<p><li>Note how the {<tt>paint</tt> method is used. It is not called
+directly. Instead, whenever the frame is shown, the paint method
+is called. In addition, if one covers the frame with another
+window, the paint method will be called again when the frame is
+uncovered. To directly call the paint method, use the <tt>repaint()</tt> method.
+
+</ul>
+
+As an example we draw the trajectory of a projectile. To do so we add to <tt>Particle</tt> the method <tt>step</tt>
+to integrate the equations of motion for one time step. The
+arguments of <tt>step</tt> are the time step and the <tt>Force</tt> on the
+particle, which is defined in another class. We also add other
+useful methods.
+
+<br><pre>public class Particle
+{
+   private double x,y,vx,vy,ax,ay;
+   private double mass = 1.0;
+   private boolean firststep = true;
+
+   public Particle(double x, double y, double vx, double vy)
+   {
+      this.x = x;
+      this.y = y;
+      this.vx = vx;
+      this.vy = vy;
+   }
+
+   public double getMass()
+   {
+      return mass;
+   }
+
+   public void setMass(double mass)
+   {
+      this.mass = mass;
+   }
+
+   public double getX()
+   {
+      return x;
+   }
+
+   public double getY()
+   {
+      return y;
+   }
+
+   public double getVx()
+   {
+      return vx;
+   }
+
+   public double getVy()
+   {
+      return vy;
+   }
+
+   public double getAx()
+   {
+      return ax;
+   }
+
+   public double getAy()
+   {
+      return ay;
+   }
+
+   public void setX(double x)
+   {
+      this.x = x;
+   }
+
+   public void setY(double y)
+   {
+      this.y = y;
+   }
+
+   public void setVx(double vx)
+   {
+      this.vx = vx;
+   }
+
+   public void setVy(double vy)
+   {
+      this.vy = vy;
+   }
+
+   public void step(double dt, Force f)
+   {
+      if (firststep)
+      {
+         ax = f.getfx(x,y,vx,vy,this)/mass;  // acceleration at beginning of interval
+         ay = f.getfy(x,y,vx,vy,this)/mass;
+         firststep = false;
+      }
+      // Euler-Richardson algorithm
+      double vxm = vx + 0.5*ax*dt;  // velocity at middle of interval
+      double vym = vy + 0.5*ay*dt;
+      double xm = x + 0.5*vx*dt;    // position at middle of interval
+      double ym = y + 0.5*vy*dt;
+      double axm = f.getfx(xm,ym,vxm,vym,this)/mass;
+      double aym = f.getfy(xm,ym,vxm,vym,this)/mass;
+      vx += axm*dt;            // velocity at end of interval
+      vy += aym*dt;
+      x += vxm*dt;           // position at end of interval
+      y += vym*dt;
+      ax = f.getfx(x,y,vx,vy,this)/mass;  // acceleration at end of interval
+      ay = f.getfy(x,y,vx,vy,this)/mass;
+   }
+}
+
+public class Force
+   {
+   private final static double g = 9.8; // not convention
+   double b = 0;   // used in drag force
+
+   public void setb(double b)
+   {
+      this.b = b;
+   }
+
+   public double getfx(double x, double y, double vx, double vy, Particle p)
+   {
+      return -b*vx;
+   }
+
+   public double getfy(double x, double y, double vx, double vy, Particle p)
+   {
+      return -b*vy - g*p.getMass();
+   }
+}
+</pre>
+
+<p>Note that {\tt If} statements are the same as in C/C++ except that
+Java uses a boolean value to condition the execution. <a href="relations.html">Summary of relational operators</a>.
+
+<p>The <tt>step</tt> method implements the Euler-Richardson integration
+algorithm. We need to compute the acceleration at the beginning of
+the interval the first time the algorithm is used. Then we can
+use the acceleration computed at the end of the previous interval.
+Note how <tt>this</tt> is used in the <tt>step</tt> method to refer
+to the Particle itself; in <tt>Force</tt> we use the
+argument <tt>Particle</tt> to get the particle's mass.
+
+<p>The class that draws the trajectory is given below.
+
+<br><pre>import java.awt.*;
+public class Simulation extends Frame
+{
+   public static void main(String[] args)
+   {
+      Simulation sim = new Simulation();   // set up window for application
+   }
+
+   public Simulation()
+     {
+        setSize(512,342);
+        setVisible(true);
+    }
+
+}
+
+   public void paint(Graphics g)
+   {
+      setBackground(Color.white);
+      calculateTrajectory(g);
+   }
+
+   private void calculateTrajectory(Graphics g)
+   {
+      final double tmax = 10.0;
+      final double dt = 0.5;
+      Particle p = new Particle(0.0, 200.0, 40.0, 25.0);
+      Force f = new Force();
+      g.setColor(Color.blue);
+      double time = 0.0;
+      while (time < tmax)
+      {
+      // draw circle of diameter 10 pixels. note use of casting
+         g.drawOval((int)p.getX(), getSize().height - (int)p.getY(), 10, 10);  
+         p.step(dt,f);
+         time += dt;
+      }
+   }
+}
+</pre>
+
+<ul>
+<li>The <tt>Simulation</tt> class extends the <tt>Frame</tt> class. The
+<tt>paint</tt> method is called when the Frame is first shown and
+anytime <tt>Frame</tt> is brought to the front.
+
+<p><li>Java uses a coordinate system whose origin is at the upper
+left-hand corner with positive x values to the right and positive y
+values down. Because of this choice of screen coordinate system, we
+need to convert world coordinates to screen coordinates when drawing
+an oval to represent the particle. Because the last two arguments of
+<tt>drawOval</tt> are the same, the oval is a circle. (Note that <tt>drawOval</tt> requires integers.)
+
+<a name="loops">
+<p><li>Note the use of the <strong>while</strong> statement which allows all
+the statements within the braces of the <tt>while</tt> statement to
+be executed again and again as long as the argument of the
+<tt>while</tt> statement <tt>(time < tmax) </tt> is true.
+
+<p><li> An alternative to the while loop is the <strong>for</strong> loop which looks like
+<br><pre>
+for (int i = 0; i < 10; i++)
+   statement;
+</pre>
+or
+<br><pre>
+for (int i = 0; i < 10; i++)
+{
+   statement 1;
+   ...
+   statement n;
+}
+</pre>
+Semicolons are used to separate the fields inside the
+parenthesis. The first field initializes a variable. Usually, the
+variable is also declared here. The second field determines under
+what condition the loop will continue. The third field lists how the
+variable in the first field changes at the end of each pass through
+the loop. More information about <a href="loops.html">loops</a>.
+
+</ul>
+
+<a name="images">
+<h4>Offscreen buffers</h4>
+
+<p>When the window of another application covers the
+frame, Java automatically calls <tt>paint</tt> when the user returns to our original program. This action allows us to see the contents of the original window. However, in the above program it means that the trajectory must be recomputed. A better approach is to first draw the trajectory to an offscreen image buffer and then blast the latter to the screen. As long as the buffer is saved, no new calculations need to be done.</p>
+
+<p>First
+we will show how this is done for the <tt>Simulation</tt> class and then we will
+show an example where it is more useful.
+
+// Image and Graphics do not use constructors.
+
+<br><pre>import java.awt.*;
+public class Simulation extends Frame
+{
+   Image offscreen;   // make image class variable so available to all methods
+
+   public static void main(String[] args)
+   {
+       Simulation sim = new Simulation();   // set up window for application
+   }
+
+   public Simulation()
+   {
+      setSize(512, 342);
+      setVisible(true);
+      offscreen = createImage(getSize().width, getSize().height);
+      calculateTrajectory();
+   }
+
+   public void paint(Graphics g)
+   {
+      setBackground(Color.white);
+      g.drawImage(offscreen, 0, 0, this);  // draw image onto screen
+   }
+
+   public void calculateTrajectory()
+   {
+      final double tmax = 10.0;
+      final double dt = 0.5;
+      Graphics g = offscreen.getGraphics();
+      g.setColor(Color.blue);
+      Particle p = new Particle(0.0, 200.0, 40.0, 25.0);
+      Force f = new Force();
+      double time = 0.0;
+      while (time < tmax)
+      {
+         g.drawOval((int)p.getX(), getSize().height - (int)p.getY(), 10, 10);
+         p.step(dt,f);
+         time += dt;
+      }
+   }
+}
+</pre>
+
+<ul>
+<p><li>The Graphics class is used here to provide drawing methods for
+<tt>offscreen</tt>, which is an instantiation of the <tt>Image</tt> class. Both
+Graphics and Image cannot be instantiated directly with a constructor, instead
+we can use the  <tt>getGraphics</tt> and <tt>createImage</tt> methods,
+respectively. The Image class represents a displayable image.</p>
+
+<p><li>Note how we declare <tt>offscreen</tt> outside of any method, and
+instantiate it with the <tt>createImage</tt> method in the constructor. This is
+a common technique for making objects accessible to all the methods of a class,
+and to insure that they continue to exist after a method returns.</p>
+
+</ul>
+
+<a name="textfield">
+<h4>User Interaction</h4>
+Offscreen buffers are useful when we want to draw
+more than one trajectory without running the program over again. To
+do so we want the user to interact with the program. This feature
+is very easy to accomplish using components such as Buttons,
+TextFields, and Menus. Below we show how to use a TextField to
+receive a number from the user. We put the TextField on a separate
+frame and use an <strong>actionListener</strong> to detect whether the user has
+entered a number in the TextField. The number
+entered will be the friction coefficient, b, used in a drag force of the form <strong>-bv</strong>.
+
+<br><pre>import java.awt.*;
+import java.awt.event.*;   // needed for actionListener
+
+class ParameterInput extends Frame
+{
+   TextField tf;
+   Label lb;
+   Simulation sim;
+
+   public FrictionInput (Simulation sim)  // pass address of object
+   {
+      this.sim = sim;
+      setUpFrame();
+   }
+
+   public void setUpFrame()
+   {
+      setTitle("Friction Input");
+      setSize(200,100);
+      setLocation(400,50);  // location for frame
+      setLayout(null);   // not using any layout manager
+      lb = new Label("Friction Coefficient"); // new label for textfield
+      lb.setSize(150,20);
+      lb.setLocation(30,70);
+      add(lb);                                 // add label
+      tf = new TextField();  // new textfield
+      tf.addActionListener(new actionTF());   // add listener
+      tf.setSize(50,20);
+      tf.setLocation(30,40);
+      add(tf);                                  // add textfield
+      setVisible(true);
+   }
+
+   class actionTF implements ActionListener   // example of Internal class
+   // user has to tell ActionLister what to do so have to implement it.
+   {    
+
+      public void actionPerformed(ActionEvent e)
+      {
+         Double R = new Double(tf.getText().trim());  // convert text to number
+         // trim gets rid of extra zeros 
+         sim.calculateTrajectory(R.doubleValue());
+      }
+   }
+}
+</pre>
+
+<ul>
+<p><li>There are two objects attached to the Frame. <tt>Label lb</tt> represents some text that will be placed under the <tt>TextField tf</tt>. The size
+and location of each of these components is specified. There are layout
+managers that automatically decide these specifications for you, but they
+frequently do not look good.</p>
+
+<p><li>One of the
+features of Java is the use of the <strong>actionListener</strong> which is implemented by using
+the <tt>addActionListener</tt> method and an internal class which implements the
+<tt>ActionListener</tt> <em>interface</em>. An interface is like a class except none of the
+methods have implementations. Instead the user must supply these as we have done above for
+the method <tt>actionPerformed(ActionEvent e)</tt>. The beauty of the above event model is
+that the user does not have to write code to check for an occurence of an event in other parts of the program. Whenever, a number is entered into the TextField, the
+<tt>actionPerformed</tt> method will be executed. Here we extract the number by converting
+the string in the TextField to a number using the <tt>Double</tt> class, and then call the
+<tt>calculateTrajectory</tt> method of the object <tt>sim</tt>.
+
+</ul>
+
+<p>The following modification of <tt>Simulation</tt> uses <tt>FrictionInput</tt>.
+
+<br><pre>import java.awt.*;
+
+public class Simulation extends Frame
+{
+   private Image offscreen;
+   private int counter = 0;  // used to change color for each trajecto
+   public static void main(String[] args)
+   {
+      Simulation sim = new Simulation();   // set up window for application
+      FrictionInput fi = new FrictionInput(sim);   // set up second window
+   }
+
+   public Simulation()    // constructor
+   {
+      setSize(512, 342);
+      setVisible(true);
+      offscreen = createImage(getSize().width, getSize().height);
+   }
+
+   public void paint(Graphics g)
+   {
+      setBackground(Color.white);
+      g.drawImage(offscreen, 0, 0, this);   // draw image on screen
+   }
+
+   public void calculateTrajectory(double b)
+   {
+      final double tmax = 10.0;
+      final double dt = 0.5;
+      Graphics g = offscreen.getGraphics();   // create buffer
+      changeColor(g);
+      Particle p = new Particle(0.0, 200.0, 40.0, 25.0);
+      Force f = new Force();
+      f.setb(b);
+      double time = 0.0;
+      while (time < tmax)
+      {
+         g.drawOval((int)p.getX(), getSize().height - (int)p.getY(), 10, 10);
+         p.step(dt,f);
+         time += dt;
+      }
+      repaint();
+   }
+
+   public void changeColor(Graphics g)
+   {
+      switch(counter++)
+      {
+         case 0:
+            g.setColor(Color.red);
+            break;
+         case 1:
+            g.setColor(Color.blue);
+            break;
+         case 2:
+            g.setColor(Color.green);
+            break;
+         case 3:
+            g.setColor(Color.yellow);
+            break;
+         case 4:
+            g.setColor(Color.magenta);
+            break;
+         case 5:
+            g.setColor(Color.orange);
+            break;
+         case 6:
+            g.setColor(Color.cyan);
+            break;
+         case 7:
+            g.setColor(Color.pink);
+            break;
+         default:
+            g.setColor(Color.black);
+       }
+   }
+}
+</pre>
+
+<ul>
+<p><li>Note the use of the method <tt>repaint</tt> which clears the Frame and
+calls <tt>paint</tt>. However, all the trajectories are still on on the
+offscreen buffer so that they will all appear on the screen.
+
+<p><li>We have added a method, <tt>changeColor</tt>, which uses a different color each time a new trajectory is drawn, up to 8 trajectories. Any more trajectories are colored black. Note the use of the <strong>switch</strong> statement. Each time a trajectory is drawn, the value of <tt>counter</tt> is checked and then incremented (using <tt>counter++</tt>. (Note that <tt>counter++;</tt> means that the current value of <tt>counter</tt> is used
+in the switch statement before it is incremented by 1. If we used
+<tt>++counter;</tt> instead, <tt>counter</tt> would be incremented by 1
+first.) The value checked then determines which statement to execute. Also note the use of the <strong>break</strong> statement. Without it every case would be executed.
+
+<a name="switch">
+<p><li>The <tt>switch</tt> statement is useful if there are many possible choices. If there are only a few choices or if the choices cannot be encoded as an integer, then the <strong>if</strong> statement can be used. Examples of the latter are as follows:
+
+<br><pre>
+if (x < 0)
+{
+   y = 20;
+   x = 10;
+}
+
+if (x < 0)
+   y = 10;     // braces not needed for single statement
+else
+   y = 20;
+
+if (x < 0)
+   y = 10;
+else if (x > 0)
+   y = 20;
+else
+   y = 30;
+</pre>
+
+</ul>
+
+<a name="animation">
+<h4>Animation</h4>
+
+<p>We now return to a single trajectory and discuss animation.
+Instead of showing the trajectory we will simply show a ball as it
+moves. The following code does this so that there is very little
+flicker. We have reduced the time step so that the motion of the ball
+will be slowed down.
+
+<br><pre>import java.awt.*;
+
+public class Simulation extends Frame
+{
+   Image offscreen;
+
+   public static void main(String[] args)
+   {
+      Simulation sim = new Simulation();   // set up window for application
+      sim.calculateTrajectory();
+   }
+
+   public Simulation()
+   {  // constructor
+      setSize(512, 342);
+      setVisible(true);
+      offscreen = createImage(getSize().width, getSize().height);
+   }
+
+   public void paint(Graphics g)
+   {
+      setBackground(Color.white);
+      g.drawImage(offscreen,0,0,this);
+   }
+
+   public void calculateTrajectory()
+   {
+      final double tmax = 10.0;
+      final double dt = 0.005;
+      Graphics b = offscreen.getGraphics();
+      Particle p = new Particle(0.0, 200.0, 40.0, 25.0);
+      Force f = new Force();
+      double time = 0.0;
+      while (time < tmax)
+      {
+         Rectangle oldRect = new Rectangle((int)p.getX(),getSize().height -(int)p.getY(),11,11);
+         p.step(dt,f);
+         time += dt;
+         Rectangle newRect = new Rectangle((int)p.getX(),getSize().height -(int)p.getY(),11,11);
+         // new region of ball
+         Rectangle r = newRect.union(oldRect); // new plus old region
+         // b is buffer. key to avoid flicker is not to call repaint
+         b.clearRect(r.x,r.y,r.width,r.height);    // clear new plus old region on buffer
+         b.fillOval((int)p.getX(), getSize().height - (int)p.getY(), 10, 10);
+         Graphics g = getGraphics();
+         g.drawImage(offscreen,0,0,this);
+      }
+   }
+}
+</pre>
+
+<p> The basic strategy used above is to define three rectangles. One containing the old
+position of the ball, one containing the new position, and one which is the union of the two.
+Then we clear the buffer of this latter rectangle, and draw our new ball. We then draw our image to the screen.
+Note how we grab the Graphics object for the screen within <tt>calculateTrajectory</tt> instead of using
+<tt>repaint</tt>. This avoids some of the flickering that would occur from clearing the Frame.</p>
+
+<a name="threads">
+<h4>Threads</h4>
+
+Often we want the user to be able to interrupt a simulation while it is running, and then
+start it going again. For example, we might want to know the coordinates of our ball at some
+instant while we are watching it. One can use <strong>Threads</strong> to accomplish this. Basically, a
+Thread is a process which is running parallel to another process. Below we set up a Thread
+and use a <tt>MouseListener</tt> to interrupt the program. The interface <tt>Runnable</tt>
+contains the methods we need to start, stop, and run the Thread.
+
+<br><pre>import java.awt.*;
+import java.awt.event.*;
+
+public class Simulation extends Frame implements MouseListener, Runnable
+{
+   Image offscreen;
+   Graphics gb;   // graphics buffer
+   Particle p;
+   Force f;
+   boolean running = false;
+   Thread runner;
+
+   public static void main(String[] args)
+   {
+      Simulation sim = new Simulation();  // set up window for application
+   }
+
+   public Simulation()
+   { // constructor
+     setSize(512, 342);
+     setVisible(true);
+     offscreen = createImage(getSize().width, getSize().height);
+     p = new Particle(0.0, 200.0, 40.0, 25.0);
+     f = new Force();
+     gb = offscreen.getGraphics();
+     start();  // method associated with thread
+     addMouseListener(this);   // this refer to frame class
+   }
+
+   public void paint(Graphics g)
+   {
+      setBackground(Color.white);
+      g.drawImage(offscreen,0,0,this);
+   }
+
+   public void start()
+   {
+      runner = new Thread(this);   // this refers to frame
+     runner.start();
+   }
+
+   public void stop()
+   {
+      runner.stop();
+   }
+
+   public void run()
+   {
+      while(true)
+      {
+         try {Thread.sleep(5);}  // delay 5 msec between updates
+         catch (InterruptedException e){};   // would catch the moue click
+         if(running) calculateTrajectory();
+      }
+   }
+
+   public void mouseClicked(MouseEvent e)
+   {
+      // see coordinates
+      Graphics g = getGraphics();
+     g.clearRect(0,0,getSize().width, getSize().height);
+     g.fillOval((int)p.getX(), getSize().height - (int)p.getY(), 10, 10);
+     g.drawString("x = " + String.valueOf(p.getX()),e.getX(),e.getY());
+     g.drawString("y = " + String.valueOf(p.getY()),e.getX(),e.getY() + 30);
+  running = false;
+   }
+
+   public void mouseEntered(MouseEvent e) {running = true;}
+   // move inside frame, runs; otherwise stops
+   public void mouseExited(MouseEvent e) {running = false;}
+   public void mousePressed(MouseEvent e) {}
+   public void mouseReleased(MouseEvent e) {}
+
+   public void calculateTrajectory()
+   {
+      // should be draw trajectory
+     private final double dt = 0.005;
+     Rectangle oldRect = new Rectangle((int)p.getX(),getSize().height -(int)p.getY(),11,11);
+  p.step(dt, f);
+     time += dt;
+     Rectangle newRect = new Rectangle((int)p.getX(),getSize().height -(int)p.getY(),11,11);
+     Rectangle r = newRect.union(oldRect);
+     gb.clearRect(r.x,r.y,r.width,r.height);
+     gb.fillOval((int)p.getX(), getSize().height - (int)p.getY(), 10, 10);
+     Graphics g = getGraphics();
+     g.drawImage(offscreen,0,0,this);
+   }
+}
+</pre>
+
+<p>We have modified <tt>calculateTrajectory</tt> so that it only computes and draws one
+step. We have eliminated the <tt>while</tt> statement. Instead control of the trajectory is
+given to the <tt>run</tt> method of the <tt>Thread runner</tt>. The <tt>try catch </tt> statement is used to interrupt the Thread for 5 milliseconds to
+check to see if any event occurred. The <tt>MouseListener</tt> checks for events. In this case we can
+stop the motion by moving the mouse outside the Frame, and start it again by moving it into
+the Frame and start it again by moving it into the Frame. If the mouse is clicked, we write the x and y coordinates of the ball at the locatiuon of the mouse click, redraw the ball, and stop the motion. Note that the
+interface methods <tt>mousePressed</tt> and <tt>mouseReleased</tt> must
+be defined even though they do not do anything in this example.</p>
+
+<h4>References</h4>
+
+<a name="refs">
+
+<ol>
+<li>Stephen J. Chapman, <em><a
+href="http://chapman_java.prenhall.com">Java for Engineers and
+Scientists</a>,</em> Prentice-Hall (2000).
+
+<p><li>Bruce Eckel, <em><a href="http://www.bruceeckel.com">Thinking
+in Java</a>,</em> Prentice-Hall (1998). Covers all the syntax, plus
+some finer points of OOP.
+
+<p><li>Matthias Felleisen and Daniel Friedman, <em>A Little Java, A
+Few Patterns,</em> MIT Press (1998). Cute little tutorial that does
+not teach much syntax, but is designed to improve your OOP style.
+
+<p><li>David Flanagan, <em>Java in a Nutshell,</em> second edition,
+O'Reilly (1997).
+
+<p><li>David Geary, <em>Graphic
+Java,<em> Addison-Wesley.
+
+<p><li>Joseph O'Neil and Herb Schildt, <em>Teach Yourself Java,</em>
+Osborne (1999). Good language reference for getting up to speed
+quickly.
+
+<p><li>Walter Savitch, <i><a href="www.prenhall.vom/savitch">Java: An introduction to Computer Science and Programming</a>,</i> Prentice-Hall (1999).
+
+<p><li><a href="http://java.sun.com/docs/index.html">Sun's Java
+Documentation</a> or better <a href="http://java.sun.com/j2se/1.3/docs.html">JavaDoc2</a>.
+
+<p><li>Patrick Winston and Sundar Narasimhan, <em>On to Java,</em> 2nd ed., Addison-Wesley (1999).
+
+<p><li>Also see <a href="http://developer.apple.com/java/javaintro/">javaintro</a> and <a href="http://developer.apple.com/java/javatutorial/index.html">Java development tutorial</a>.
+
+<p><li>Peter van der Linden, <i>Just Java and Beyond,</i> Sun Microsystems.
+
+<p><li>Patrick Chan and Rosanna Lee, <i>The Java Developers
+Almanac 2000.</i>
+
+</ol>
+
+</body>
+
+<p>Please send comments and corrections to Jan Tobochnik, <a
+href="mailto:jant@kzoo.edu">jant@kzoo.edu</a> or Harvey Gould, <a
+href="mailto:hgould@physics.clarku.edu">hgould@physics.clarku.edu</a>.
+<small>
+
+<p>Updated 20 July 2000.
+
+</font>
+
+</html>

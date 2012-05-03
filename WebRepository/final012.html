@@ -1,0 +1,471 @@
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Performance tips for the Java final keyword</TITLE>
+<meta name="keywords" lang="en-us" content="java, j2ee, j2se, j2me, performance, tune, tuning,
+monitor, monitoring, bottleneck, scale, scalability, monitoring tools, high performance,
+faster, fast, benchmark, java, optimize, optimization, optimizing, optimized"> 
+</HEAD>
+
+
+
+
+
+
+<BODY BGCOLOR="#FFFFF0">
+<center><font size="+4"><b><i>Java Performance Tuning</i></b></font></center><br>
+<center><font size=1>Java(TM) - see bottom of page</font></center><BR>
+<table summary="Navigation bar" width="100%" bgcolor="#BFD8E3" border="0" cellpadding="0" cellspacing="0"><tr><td align="center"><table summary="Navigation bar" bgcolor="#BFD8E3" BORDER="0" cellpadding="1" cellspacing="0">
+<tr>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/index.shtml">home</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/services.shtml">services</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/training.shtml">training</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/newsletter.shtml">newsletter</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/tips/index.shtml">tuning&nbsp;tips</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/tools/index.shtml">tool&nbsp;reports</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/articles">articles</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/resources.shtml">resources</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/aboutUs.shtml">about&nbsp;us</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/sitemap.shtml">site&nbsp;map</a></FONT></td>
+
+<td>|</td><td height="20"><FONT color="#413AFF"><a href="http://www.JavaPerformanceTuning.com/contactUs.shtml">contact&nbsp;us</a></FONT></td>
+
+<td>|</td>
+</tr></table></td></tr></table>
+
+<BR>
+<center>
+
+<FONT size="-1">Our valued sponsors who help make this site possible</FONT>
+
+<BR>
+<A HREF="http://www.JavaPerformanceTuning.com/cgi-bin/urlon.pl?target=12" target='_blank'><FONT size="+1">Learn to easily find and fix Java Memory Leaks! Read a New White Paper</FONT></A>&nbsp;<BR>
+
+<BR>
+<A HREF="http://www.JavaPerformanceTuning.com/cgi-bin/urlon.pl?target=45" target='_blank'><FONT size="+1">New Relic RPM - The Revolution in Java Performance Management is Here!</FONT></A>&nbsp;<BR>
+
+<BR>
+<A HREF="http://www.JavaPerformanceTuning.com/cgi-bin/urlon.pl?target=34" target='_blank'><FONT size="+1">ManageEngine: Monitor Java EE Transactions, App Servers, JMX, DB @ $795!</FONT></A>&nbsp;<BR>
+
+
+<BR>
+</center>
+
+<!-- We apologize for the recent disruption to service from this site, we have moved hosting provider and service should be normal from now on. Please note that if you sent an email to any address at JavaPerformanceTuning.com in the week starting March 22nd, there is a possibility it may not have reached the target address. Please resend any such emails -->
+
+
+<CENTER><H2>Performance tips for the Java final keyword</H2></CENTER>
+
+<table summary="This table includes adverts and site specific information such as instructions to sign up to the newsletter" align="left" width="200"><tr><td>
+  <table summary="Embedded table, for layout" width="100%"><tr><td>
+
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#eeee60"><td><font color="#B1BAFF"><STRONG>
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=46" target='_blank'>FOR A LIMITED TIME!
+      </A></STRONG></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        TheServerSide Java Symposium 3/17-3/19 Las Vegas - $200 off: code JAVA2
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#eeee60"><td><font color="#B1BAFF"><STRONG>
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=42" target='_blank'>JProfiler
+      </A></STRONG></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        Get rid of your performance problems and memory leaks!
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#eeee60"><td><font color="#B1BAFF"><STRONG>
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=44" target='_blank'>JHawk - Java code metrics
+      </A></STRONG></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        All major metrics. Trial, Standalone, Eclipse and Command line versions.
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.JavaPerformanceTuning.com/cgi-bin/.pl" target='_blank'>
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.JavaPerformanceTuning.com/training.shtml">Java Performance Training Courses
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        COURSES AVAILABLE NOW. We can provide training courses to handle all your Java performance needs
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.JavaPerformanceTuning.com/sponsor.shtml">See Your Message Here
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        You could have your tool advertised here, to be seen by thousands of potential customers
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.amazon.com/exec/obidos/ASIN/0596003773/javaperforman-20" target='_blank'>Java Performance Tuning, 2nd ed
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        The classic and most comprehensive book on tuning Java
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.JavaPerformanceTuning.com/newsletter.shtml">Java Performance Tuning Newsletter
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        Your source of Java performance news. Subscribe now! <FORM ACTION="http://www.JavaPerformanceTuning.com/cgi-bin/subscribe.pl" METHOD=GET> Enter email: <INPUT TYPE="text" NAME="subscriber" VALUE="">  <INPUT TYPE="submit" VALUE="Subscribe"></FORM>
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.JavaPerformanceTuning.com/cgi-bin/.pl" target='_blank'>
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=12" target='_blank'>Quest Software
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        Learn to easily find and fix Java Memory Leaks! Read a New White Paper
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=45" target='_blank'>New Relic
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        New Relic RPM - The Revolution in Java Performance Management is Here!
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=34" target='_blank'>Zoho Corp
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        ManageEngine: Monitor Java EE Transactions, App Servers, JMX, DB @ $795!
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.JavaPerformanceTuning.com/cgi-bin/.pl" target='_blank'>
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=46" target='_blank'>FOR A LIMITED TIME!
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        TheServerSide Java Symposium 3/17-3/19 Las Vegas - $200 off: code JAVA2
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=42" target='_blank'>JProfiler
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        Get rid of your performance problems and memory leaks!
+      </td></tr>
+    </table><br>
+
+    <table summary="Advert or info" CELLSPACING="0" CELLPADDING="3" BORDER="1" width="90%">
+      <tr BGCOLOR="#BFD8E3"><td><font color="#413AFF">
+        <A HREF="http://www.javaperformancetuning.com/cgi-bin/urlon.pl?target=44" target='_blank'>JHawk - Java code metrics
+      </A></font></td></tr>
+      <tr BGCOLOR="#FFFFFF"><td>
+        All major metrics. Trial, Standalone, Eclipse and Command line versions.
+      </td></tr>
+    </table><br>
+
+  </td></tr></table>
+</td></tr></table>
+<br>
+
+
+<P>
+
+
+<! SEARCH finalkey>
+Contrary to the implication of many tips, 
+methods declared as <CODE>final</CODE> cannot be safely inlined by the <EM>compiler</EM>,
+because the method could have a non-<CODE>final</CODE> declaration at runtime.
+
+</P><P>
+To see why, suppose the compiler looks at
+class A and subclass B, and sub-subclass C and sees a <CODE>final</CODE> method in A which
+it inlines into C. But then at runtime the versions loaded for A and B are different
+and the method is not <CODE>final</CODE> in A, and overridden in B. Then C uses the
+incorrectly inlined version. This was a bug in some of the early compilers when used with
+the -O option. So tips suggesting using <CODE>final</CODE> and the -O option are not valid tips.
+
+</P><P>
+On the other hand, <CODE>final</CODE> methods can be inlined <em>after</em> being loaded
+into the JVM, because at that point the JVM knows definitely that the method is
+<CODE>final</CODE>. So compilers that operate after class loading, such as JIT compilers,
+can take advantage of <CODE>final</CODE> methods. Consequently, methods declared
+<CODE>final</CODE> could have some performance benefit.
+
+</P><P>
+Generally, I wouldn't go out of my way to declare a method or class <CODE>final</CODE>
+purely for performance reasons. Only after you've definitely identified a performance
+problem is this even worth considering.
+
+</P><P>
+On the other hand, <CODE>final</CODE> variables,
+especially <CODE>static final</CODE> variables, are well worth using as standard.
+
+
+<HR><P>The following pages have their detailed tips extracted below
+
+</P><P>
+<UL>
+<LI><A HREF="#REF1">Chapter 4 of "Java Performance Tuning", "Object Creation".</A>
+<LI><A HREF="#REF2">For years, Jonathan Hardwick's old but classic site was the only coherent Java performance tuning site on the web</A>
+<LI><A HREF="#REF3">"Cutting Edge Java Game Programming"</A>
+<LI><A HREF="#REF4">Glen McCluskey's paper with 30 tuning tips, now free.</A>
+<LI><A HREF="#REF5">Using the Syslog class for logging</A>
+<LI><A HREF="#REF6">Performance tuning report in German</A>
+<LI><A HREF="#REF7">An assortment of tips</A>
+<LI><A HREF="#REF8">Performance tuning</A>
+<LI><A HREF="#REF9">Both Java specific and Java on OS/390 tips.</A>
+<LI><A HREF="#REF10">Tuning the IBM JVM and Linux</A>
+<LI><A HREF="#REF11">Peter Haggar's Practical Java Programming Language Guide.</A>
+<LI><A HREF="#REF12">Finalizers</A>
+<LI><A HREF="#REF13">Various tips.</A>
+<LI><A HREF="#REF14">Good Java practices, some of which are good for performance.</A>
+<LI><A HREF="#REF15">IBM's list of Java performance tuning tips (same page, two URLs).</A>
+<LI><A HREF="#REF16">Some IBM Java performance tips</A>
+
+</P><P>
+</UL>
+<HR>
+
+<P>The following detailed tips have been extracted from the <A HREF="rawtips.shtml">raw tips</A> page
+
+</P><P>
+<A NAME="REF1"> </A><A HREF="http://www.oreilly.com/catalog/javapt/chapter/ch04.html">http://www.oreilly.com/catalog/javapt/chapter/ch04.html</A><BR>
+Chapter 4 of "Java Performance Tuning", "Object Creation". (Page last updated September 2000, Added 2000-10-23, Author Jack Shirazi, Publisher O'Reilly). Tips:
+<! 10>
+<UL>
+<LI>Use the <CODE>final</CODE> modifier on instance-variable definitions to create immutable internally accessible objects.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF2"> </A><A HREF="http://www.cs.cmu.edu/~jch/java/optimization.html">http://www.cs.cmu.edu/~jch/java/optimization.html</A><BR>
+For years, Jonathan Hardwick's old but classic site was the only coherent Java performance tuning site on the web. He built it while doing his PhD. It wasn't updated beyond March 1998, when he moved to Microsoft, but most tips are still useful and valid. The URL is for the top page, there are another eight pages. Thanks Jonathan. (Page last updated March 1998, Added 2000-10-23, Author Jonathan Hardwick, Publisher Hardwick). Tips:
+<! 9>
+<UL>
+<LI>Use private and static methods, and final classes, to encourage inlining by the compiler.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF3"> </A><A HREF="http://library.cs.tuiasi.ro/programming/java/cutting_edge_java_game_programming/ewtoc.html">http://library.cs.tuiasi.ro/programming/java/cutting_edge_java_game_programming/ewtoc.html</A><BR>
+"Cutting Edge Java Game Programming". Oldish but still useful intro book to games programming using Java. (Page last updated 1996, Added 2001-06-18, Author Neil Bartlett, Steve Simkin , Publisher Coriolis). Tips:
+<! 9>
+<UL>
+<LI>Take advantage of inlining where possible (using final, private and static keywords, and compiling with javac -O)
+</UL>
+
+
+
+</P><P>
+<A NAME="REF4"> </A><A HREF="http://www.glenmccl.com/jperf/">http://www.glenmccl.com/jperf/</A><BR>
+Glen McCluskey's paper with 30 tuning tips, now free. (Page last updated October 1999, Added 2000-10-23, Author Glen McCluskey, Publisher McCluskey). Tips:
+<! 9>
+<UL>
+<LI><CODE>final</CODE> classes can be faster.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF5"> </A><A HREF="http://www.javaworld.com/javaworld/jw-04-2001/jw-0406-syslog.html">http://www.javaworld.com/javaworld/jw-04-2001/jw-0406-syslog.html</A><BR>
+Using the Syslog class for logging (Page last updated April 2001, Added 2001-04-20, Author Nate Sammons, Publisher JavaWorld). Tips:
+<! 9>
+<UL>
+<LI>Use <CODE>static final boolean</CODE>s to wrap logging statements so that they can be easily turned off or eliminated.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF6"> </A><A HREF="http://www.bastie.de/resource/res/mjp.pdf">http://www.bastie.de/resource/res/mjp.pdf</A> and <A HREF="http://www.bastie.de/java/mjperformance/contents.html">http://www.bastie.de/java/mjperformance/contents.html</A><BR>
+Performance tuning report in German. Thanks to Peter Kofler for extracting the tips. (Page last updated November 2001, Added 2001-07-20, Author Sebastian Ritter, Publisher Ritter). Tips:
+<! 8>
+<UL>
+<LI>use the right access modifier: static > private > final > protected > public
+<LI>use the "private final" modifier
+<LI>use methods in order: static > final > instance > interface > synchronized
+</UL>
+
+
+
+</P><P>
+<A NAME="REF7"> </A><A HREF="http://jsl.jcon.org/javaperformance.html">http://jsl.jcon.org/javaperformance.html</A><BR>
+An assortment of tips (Page last updated 2000, Added 2000-10-23, Author Curt Smith, Publisher Smith). Tips:
+<! 7>
+<UL>
+<LI>Declare method arguments final if they are not modified in the method. In general declare all variables final if they are not modified after being initialized or set to some value.
+<LI>Declare methods private and/or final whenever that makes sense. This can help the compiler inline methods. [final methods are of dubious value]
+</UL>
+
+
+
+</P><P>
+<A NAME="REF8"> </A><A HREF="http://www.sys-con.com/java/article.cfm?id=1149">http://www.sys-con.com/java/article.cfm?id=1149</A><BR>
+Performance tuning (Page last updated September 2001, Added 2001-10-22, Author James McGovern, Publisher Java Developers Journal). Tips:
+<! 7>
+<UL>
+<LI>Make classes final.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF9"> </A><A HREF="http://www-1.ibm.com/servers/eserver/zseries/software/java/perform.html">http://www-1.ibm.com/servers/eserver/zseries/software/java/perform.html</A><BR>
+Both Java specific and Java on OS/390 tips. (Page last updated 2000, Added 2000-10-23, Author ?, Publisher IBM). Tips:
+<! 6>
+<UL>
+<LI>Declare methods as final [dubious tip].
+<LI>Use static final when creating constants
+</UL>
+
+
+
+</P><P>
+<A NAME="REF10"> </A><A HREF="http://www-106.ibm.com/developerworks/ibm/library/i-tuning/?open">http://www-106.ibm.com/developerworks/ibm/library/i-tuning/?open</A><BR>
+Tuning the IBM JVM and Linux (Page last updated May 2001, Added 2001-10-22, Authors Duc Vianney and James Phelan, Publisher IBM). Tips:
+<! 6>
+<UL>
+<LI>Declare methods as final. Classes and methods that aren't going to be redefined should be declared as final.
+<LI>Declare constants as static final.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF11"> </A><A HREF="http://www.awlonline.com/product/0,2627,0201616467,00.html">http://www.awlonline.com/product/0,2627,0201616467,00.html</A><BR>
+Peter Haggar's Practical Java Programming Language Guide. (Page last updated 2000, Added 2001-01-19, Author Peter Haggar, Publisher Addison-Wesley). Tips:
+<! 6>
+<UL>
+<LI>Use static, final, and private methods to allow inlining.
+</UL>
+
+
+</P><P>
+<A NAME="REF12"> </A><A HREF="http://www-106.ibm.com/developerworks/java/library/j-jtctips/j-jtc0319a.html">http://www-106.ibm.com/developerworks/java/library/j-jtctips/j-jtc0319a.html</A><BR>
+Finalizers (Page last updated March 2002, Added 2002-04-26, Author Phil Vickers, Publisher IBM). Tips:
+<! 0>
+<UL>
+<LI>Adding finalizers to your code makes GC much more expensive and unpredictable.
+<LI>Finalizers are not executed at a predictable time.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF13"> </A><A HREF="http://www.protomatter.com/nate/java-optimization/">http://www.protomatter.com/nate/java-optimization/</A><BR>
+Various tips. (Page last updated 1999?, Added 2000-10-23, Author Nate Sammons, Publisher Sammons). Tips:
+<! 5>
+<UL>
+<LI>Method call times: static 220ns; final 300ns; instance 550ns; interface methods 750ns; synchronized methods 1,500ns. [But times vary enormously depending on the VM and context].
+<LI>Use static final methods where possible. [And do functional programming too ;-)]
+</UL>
+
+
+
+</P><P>
+<A NAME="REF14"> </A><A HREF="http://www.joot.com/articles/practices.html">http://www.joot.com/articles/practices.html</A><BR>
+Good Java practices, some of which are good for performance. (Page last updated January 2001, Added 2001-01-19, Author Dave Jarvis, Publisher JOOT). Tips:
+<! 4>
+<UL>
+<LI>Use <CODE>final</CODE> classes.
+</UL>
+
+
+
+</P><P>
+<A NAME="REF15"> </A><A HREF="http://www-4.ibm.com/software/os/warp/performance/javatip.htm">http://www-4.ibm.com/software/os/warp/performance/javatip.htm</A><BR>
+IBM's list of Java performance tuning tips (same page, two URLs). (Page last updated 2000, Added 2000-10-23, Author ?, Publisher IBM). Tips:
+<! 4>
+<UL>
+<LI>When possible, declare methods as final. 
+<LI>Use static final when creating constants. 
+</UL>
+
+
+
+</P><P>
+<A NAME="REF16"> </A><A HREF="http://www.as400.ibm.com/developer/java/faq/perffaq.html">http://www.as400.ibm.com/developer/java/faq/perffaq.html</A><BR>
+Some IBM Java performance tips. Although intended for AS/400 Java, many tips are generally applicable (Page last updated ?, Added 2000-10-23, Author ?, Publisher IBM). Tips:
+<! 3>
+<UL>
+<LI>Use <CODE>static final</CODE> when creating constants.
+</UL>
+
+
+
+
+
+
+</P>
+<HR>
+<FONT size="1">
+Last Updated: 2010-01-31<BR>
+Copyright &copy; 2000-2010 Fasterj.com. All Rights Reserved.<BR>
+All trademarks and registered trademarks appearing on JavaPerformanceTuning.com are the property of their respective owners.<BR>
+Java is a trademark or registered trademark of Sun Microsystems, Inc. in the United States and other countries. JavaPerformanceTuning.com is not connected to Sun Microsystems, Inc. and is not sponsored by Sun Microsystems, Inc. <BR>
+URL: <A HREF="http://www.JavaPerformanceTuning.com/tips/final.shtml">http://www.JavaPerformanceTuning.com/tips/final.shtml</A><BR>
+RSS Feed: <A HREF="http://www.JavaPerformanceTuning.com/newsletters.rss">http://www.JavaPerformanceTuning.com/newsletters.rss</A><BR>
+Trouble with this page? <a href="http://www.JavaPerformanceTuning.com/contactUs.shtml">Please contact us</a><BR>
+</FONT>
+
+</BODY>
+</HTML>
+

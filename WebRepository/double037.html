@@ -1,0 +1,447 @@
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<title>Converting type double to type int.                                                                                                                                                                                                                             - Java (Sun) FAQ - Tek-Tips</title>
+	<link rel="stylesheet" type="text/css" href="/css/frame.css" />
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/css/main.css" /><link rel="stylesheet" type="text/css" href="/css/tgml.css" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<script language="javascript1.2" src="/jsource1.js" type="text/javascript"></script>
+	<script language="javascript" src="/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+	<style type="text/css">
+	#scrollerContainer {
+	height:120px;
+	overflow:hidden;
+	margin-bottom: 3px;
+}
+</style>
+
+<script language="javascript" type="text/javascript">
+function gofaq(pid,fid) {
+	var theURL = "faqs.cfm?pid="+pid+"&fid="+fid; window.top.location.href=theURL;
+}
+function gothread(pid,qid) {
+	var theURL = "viewthread.cfm?qid="+qid;
+	window.top.location.href=theURL;
+}
+function goforum(pid) {
+	var theURL = "threadminder.cfm?pid="+pid;
+	window.top.location.href=theURL;
+}
+function golink(pid) {
+	var theURL = "links.cfm?pid="+pid;
+	window.top.location.href=theURL;
+}
+</script><link rel="stylesheet" type="text/css" href="/css/printthread.css" media="print" /></head>
+
+<body>
+
+
+<table id="header">
+	<tr valign="top">
+		<td width="213"><a href="/" class="logo"><img src="/images/logo.gif" alt="Tek-Tips Forums" /></a></td>
+		<td align="center" valign="top"><div class="banner"><script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://xserve.engineering.com/xserve/www/delivery/ajs.php':'http://xserve.engineering.com/xserve/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=59");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://xserve.engineering.com/xserve/www/delivery/ck.php?n=ac8decdc&amp;cb=4642' target='_blank'><img src='http://xserve.engineering.com/xserve/www/delivery/avw.php?zoneid=59&amp;n=ac8decdc' border='0' alt='' /></a></noscript></div></td>
+	</tr>
+</table>
+
+<table id="main" style="table-layout:fixed;">
+	<tr valign="top">
+		<td id="leftcol" width="185" style="width:185px !important;"><div class="cont">
+			<div class="tagline">INTELLIGENT WORK FORUMS<br />FOR COMPUTER PROFESSIONALS</div>
+			
+
+
+
+<div class="wrapper">
+	<h4>Member Login</h4>
+	<div class="a"><div class="b"><div class="c">
+
+<form name="pass" id="pass" action="/passcheck.cfm" method="post">
+<input type="hidden" name="method" value="login"/>
+	<table>
+		<tr>
+			<td>HANDLE<br />
+			<input type="text" name="handle" id="loginhandle" size="8" maxlength="20" style="width:70px;" /><br />
+			<input type="password" name="pass" size=8 maxlength="20" style="width:70px;" /><br />
+			PASSWORD</td>
+			<td><input type="image" src="/images/btn-login.gif" alt="Log In" /></td>
+		</tr>
+	</table>
+<input type="checkbox" name="remember" value="1" /><a href="javascript:rememberme()">Remember Me</a><br />
+<a href="javascript:popforgotpassword();">Forgot Password?</a>
+</form>
+
+
+	</div></div></div></div>
+
+
+
+
+
+
+<div class="wrapper">
+	<h4>Navigation</h4>
+	<div class="a"><div class="b"><div class="c">
+
+	<a href="/register.cfm">Join Us!</a><br />
+	<a href="javascript:openindex(200,200,'http://www.tipmaster.com/includes/gsearchinfo.cfm?w=250&amp;h=250')">Keyword Search</a><br/>
+	<a href="/threadarea.cfm">Browse Forums</a><br/>
+	<a href="http://Tek-Tips.4jobs.com" target="jobs">Jobs</a><br/>
+	<a href="/groups">Start A Group</a><br />
+	<a href="javascript:openindex(600,550,'/pops/emailfriend.cfm?w=600&amp;h=550')">Tell A Friend</a><br />
+	<a href="/supportus.cfm">Donate</a><br /><a href="http://tek-tips.nethawk.net/whitepaper.php" target="_blank">Whitepapers</a>
+
+	</div></div></div></div>
+
+		
+
+
+
+<div class="wrapper">
+	<h4>Come Join Us!</h4>
+	<div class="a"><div class="b"><div class="c">
+
+	<ul>
+		<li>Talk With Other Members</li>
+		<li>Be Notified Of Responses<br />To Your Posts</li>
+		<li>Keyword Search</li>
+		<li>One-Click Access To Your<br />Favorite Forums</li>
+		<li>Automated Signatures<br />On Your Posts</li>
+		<li>Best Of All, It's Free!</li>
+	</ul>
+	<hr width="80%" size="2" />
+	<form action="/registermanager.cfm" method="post" name="register">
+		<div style="text-align:right">E-mail* <input type="text" name="email" size="8" maxlength="50" style="width:85px;" /><br />
+		Handle <input type="text" name="handle" size="8" maxlength=20 style="width:85px;" /><br />
+		<select name="usertype">
+			<option value="Select A Type">Select A Type</option>
+			<option value="MIS">MIS</option>
+			<option value="IS/IT--Management">IS/IT--Management</option>
+			<option value="Programmer">Programmer</option>
+			<option value="ISP">ISP</option>
+			<option value="Instructor">Instructor</option>
+			<option value="Vendor">Vendor</option>
+			<option value="TechnicalUser">TechnicalUser</option>
+		</select><br />
+		Password <input type="password" name="pass" size="8" maxlength=10 style="width:85px;" /><br />
+Verify P'word <input type="password" name="pass2" size="8" maxlength=10 style="width:85px;" /></div>
+<div align="Center">
+		<input type="image" src="/images/btn-join.gif" /></div>
+	</form>
+	<div style="font-size:9px;margin-top:6px;">*Tek-Tips's functionality depends on members receiving e-mail. By joining you are opting in to receive e-mail.</div>
+
+	</div></div></div></div>
+
+
+
+
+
+
+<div class="wrapper">
+	<h4>Partner With Us!</h4>
+	<div class="a"><div class="b"><div class="c">
+		
+	<b>&quot;Best Of Breed&quot; Forums Add Stickiness To Your Site</b><br />
+	<a href="/affiliates/"><img src="/images/partnerbtn120x60.gif" width="120" height="60" alt="Partner Button" /></a><br />
+	(Download This Button Today!)
+
+	</div></div></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+				
+					
+					
+					
+					
+
+	
+
+
+<div class="wrapper">
+	<h4>Member Feedback</h4>
+	<div class="a"><div class="b"><div class="c">
+
+	"...I have to add my thanks and appreciation for your wonderful site... People who frequent the site are the two best things - nice and smart..."
+	<div class="col" align="center"><a href="/feedback.cfm"><b>More...</b></a></div>
+
+	</div></div></div></div>
+
+
+				
+				
+
+
+
+
+
+<div class="wrapper">
+	<h4>Geography</h4>
+	<div class="a"><div class="b"><div class="c">
+
+	Where in the world do Tek-Tips members come from?
+	<div class="col" align="center"><a href="/geography.cfm"><b>Click Here To Find Out!</b></a></div>
+
+	</div></div></div></div>
+
+
+
+
+
+
+
+
+		</div></td>
+		
+		<td class="nonleft">
+		
+		<table style="width:100%;" class="nonleft">
+			<tr>
+		<td id="pagetitle">
+			<div id="search" style="background-color:#cccccc;background-image:url(images/srchfrm-bg2.gif);overflow:auto;padding:2px 2px 8px 2px;"><div class="s">
+<div style="padding-right:10px;float:left;">
+	
+	
+	
+	<form action="/gsearch.cfm" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-8000425157908189:alyf4d-tfhc" />
+    <input type="hidden" name="cof" value="FORID:10" />
+    <input type="hidden" name="ie" value="ISO-8859-1" />
+    <input type="text" name="q" size="25" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+</div>
+		<div style="padding-left:10px;border-left:1px solid #666666;float:left;"><form action="/forumsearch.cfm" method="get"><input type="text" size="25" name="SearchString" class="frmsearch" /> <select name="type"><option value="forum" selected="selected">Find A Forum</option><option value="member">Find An Expert</option></select> <input type="submit" name="sub" value="Search" /></form></div></div></div>
+			<div class="title">
+<div class="bcrumb"><a href="index.cfm">Home</a> &gt;
+<a href="threadarea.cfm">Forums</a> &gt; 
+<a href="threadcategory.cfm?lev2=4">Programmers</a> &gt; 
+<a href="threadforum.cfm?lev3=32">Languages</a> &gt; 
+<a href="threadminder.cfm?pid=269">Java (Sun)</a> &gt;
+<a href="faq.cfm?pid=269">FAQs</a></div>
+<h1>Java (Sun) FAQ</h1>
+</div>
+			
+<div id="tabs">
+<table class="b"><tr>
+	<td><a href="/threadminder.cfm?pid=269" title="Forum Home Page">Forum</a></td>
+	<td><a href="/search.cfm?pid=269" title="Keyword Search">Search</a></td>
+	<td><a href="/faq.cfm?pid=269" title="Forum FAQs" id="current">FAQs</a></td>
+	<td><a href="/links.cfm?pid=269" title="Links">Links</a></td>
+	<td><a href="http://Tek-Tips.4jobs.com" target="jobs">Jobs</a></td>
+	<td><a href="http://tek-tips.nethawk.net" target="nethawk" style="width:77px;">Whitepapers</a></td>
+	<td><a href="/tipmasters.cfm?pid=269" style="width:80px;">Forum&nbsp;MVPs</a></td>
+</tr></table>
+</div>
+		</td>
+		</tr>
+		</table>
+		<table style="width:100%" class="nonleft">
+		<tr>
+		<td id="content" class="nonleft" valign="top">
+
+
+
+
+<div id="bodycontent">
+<div class="tgml">
+<h2 style="padding:0 0 5px 0;background-color:#9999FF;">Starting out with Java</h2>
+<table border=0 width="100%">
+	
+		<tr>
+			<td>
+			<font size=3><b>Converting type double to type int.                                                                                                                                                                                                                            </b></font>
+			<div class="forumshortcut"><a href="javascript:openindex(450,450,'http://www.tipmaster.com/includes/refinfo.cfm?w=450&h=450')">faq269-1093</a></div>
+			<div style="color:#666666;">Posted: 12&nbsp;Sep&nbsp;01</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="tgml"><br /><span id="intelliTxt">To convert a <font color=blue>double</font> to an <font color=blue>int</font> you need to use a cast like this one:<br><br><font color=blue>int</font> i = <font color=red>(</font>int<font color=red>)</font>d;<br><br>Here is a simple Java program that uses a cast to convert a <font color=blue>double</font> to an <font color=blue>int</font>:<br><br><font color=blue>public class</font> DoubleToInt <font color=red>{</font><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>public static void</font> main<font color=red>(</font>String<font color=red>[]</font> args<font color=red>) {</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>double</font> d = 10.5;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=blue>int</font> i = (int)d;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(i);<br>&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>}<br>}</font></span></td>
+		</tr>
+		
+		<tr>
+			<td align="center">
+			<br /><a href="faq.cfm?pid=269"><b>Back to Java (Sun) FAQ Index</b></a><br/>
+			<a href="threadminder.cfm?pid=269"><b>Back to Java (Sun) Forum</b></a><br/>
+<b><a href="archivefaqs.cfm?handle=">My FAQ Archive</a></b><br/>
+			<a href="javascript:openindex(600,400,'/pops/emailfaq.cfm?fid=1093&w=600&h=400',1)"><img src="/images/email.gif"><b>Email This FAQ To A Friend</b></a><script language="javascript">if (window.print) document.write('<br/><a href="javascript:window.print()"><b><img src="/images/printer.gif" width=16 height=14 border=0 vspace=1> Print This FAQ</b></a>');</script></td>
+		</tr>
+	
+</table>
+</div></div>
+<div align="center" style="margin-top:2px;"><script type="text/javascript"><!--
+google_ad_client = "pub-8000425157908189";
+/* Bottom 468x60 Banner 20080314 */
+google_ad_slot = "6426232409";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+
+
+
+	
+	
+	
+		</td>
+
+	
+		<td id="rightcol" width="143" style="width:143px !important;max-width:143px !important;min-width:143px !important;"><div class="cont">
+			
+				
+					
+						
+						
+							
+						
+						
+							
+							
+
+
+<div class="wrapper">
+	<h4>My Archive</h4>
+	<div class="a"><div class="b"><div class="c">
+
+
+</div>
+<div style="margin-top:5px;"><b><a href="archivefaqs.cfm?handle=">My FAQ Archive</a></b></div>
+
+	</div></div></div></div>
+
+							
+					
+				
+
+		</div><img src="/img/inv.gif" height="1" width="143" alt="" /></td>
+	</tr>
+	</table>
+	</td>
+	</tr>
+</table>
+
+<div id="footer"><p class="ftop"><b>Tek-Tips Jobs: </b><a href="http://Tek-Tips.4jobs.com" target="jobs">Job Search</a> <a href="http://Tek-Tips.4jobs.com/JS/Form/SignUpForm.asp" target="jobs">Post Your Resume</a> <a href="http://Tek-Tips.4jobs.com/MKT/Content/EMP/Default.asp" target="jobs">Post A Job Opening</a><br />
+
+<a href="http://www.techsay.com/default.php?page=join.php&p=Tecumseh" target="_blank">Surveys</a> | <a href="/groups" target="_blank">Start A Group</a> | <a href="http://www.tecumsehgroup.com/opportunities.cfm" target="_blank">Advertise With Us</a> | <a href="http://www.tecumsehgroup.com/opportunities.cfm" target="_blank">E-mail Our Members</a> | <a href="/supportus.cfm" style="color:red;">Donate</a> | <a href="javascript:openindex(600,400,'/pops/whitepaperinfo.cfm?w=500&amp;h=400')">Publish A Whitepaper</a><br /><a href="/affiliates/" title="Become a Partner">Partners</a> | <a href="/feedback.cfm">Feedback</a> | <a href="/geography.cfm" title="Where in the world to Tek-Tips members come from?">Geography</a> | <a href="/about.cfm">About Us</a> | <a onMouseOver="window.status='Contact Us';return true;" onMouseOut="window.status='';return true;" href="javascript:cont('')">Contact Us</a> | <a href="http://www.tecumsehgroup.com/administration.htm">Site Policies</a></p>
+	<hr />
+	<p class="fbottom">Copyright &copy; 1998-2010 <a href="http://www.tecumsehgroup.com">Tecumseh Group, Inc.</a>  All rights reserved.<br />Unauthorized reproduction or linking forbidden without express written permission.</p></div>
+
+
+
+
+	<div id="dropin">
+
+<div align="right"><a href="#" onClick="dismissbox();return false">Close Box </a></div>
+
+<h1>Join Tek-Tips<sup>&reg;</sup> Today!</h1>
+<p align="center">Join your peers on the Internet's largest technical computer professional community.<br/>It's easy to <a href="/register.cfm"><b>join</b></a> and it's free.</p>
+<p><b>Here's Why Members Love Tek-Tips Forums:</b></p>
+<ul>
+<li><img src="/images/droplogo.gif" height="55" width="100" align="right" style="margin-right:25px;" vspace="10" alt="Tek-Tips Forums">Talk To Other Members</li>
+<li>Notification Of Responses To Questions</li>
+<li>Favorite Forums One Click Access</li>
+<li>Keyword Search Of All Posts, And More...</li>
+</ul>
+<p align="center"><a href="/register.cfm"><b>Register</b></a> now while it's still free!</p>
+<p align="Center">Already a member?  <a href="javascript:dismissbox()"><b>Close</b></a> this window and log in.</p>
+<p align="center"><font size=3><a href="/register.cfm"><b>Join Us</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:dismissbox()"><b>Close</b></a></font></p>
+
+
+</div>
+
+	
+
+
+
+<!-- start Vibrant Media IntelliTXT script section -->
+<script type="text/javascript" src="http://tek-tips.us.intellitxt.com/intellitxt/front.asp?IPID=1109"></script>
+<!-- end Vibrant Media IntelliTXT script section -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1698869-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body></html>
+
+
+	

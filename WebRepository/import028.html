@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Importing Eclipse Projects into NetBeans IDE - Tutorial</title>
+<meta name="KEYWORDS" content="NETBEANS, TUTORIAL, GUIDE, USER, DOCUMENTATION">
+<meta name="description"
+        content="Overview of Eclipse Import features in NetBeans IDE">
+
+<link rel="SHORTCUT ICON" href="/images_www/favicon.ico">
+<link rel="stylesheet" type="text/css" href="/netbeans.css" media="screen">
+<script type="text/javascript" src="/images_www/js/jquery-1.3.2.min.js"></script>
+<script src="/images_www/js/lang-pulldown.js" type="text/javascript"></script>
+<script src="/images_www/js/switcher.js" type="text/javascript"></script>
+<script src="/images_www/js/companion-projects.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ var username="guest";
+ //-->
+ </script>
+<link rel="stylesheet" href="../../../netbeans.css">
+</head>
+	<body class="blue-bg"><div style="height:50px;"><div id="floating-logo">
+<div id="search">
+<!-- Google CSE Search Box Begins  -->
+<form action="/search_result.html" id="cse-search-box">
+  <input type="hidden" name="cx" value="006102455337629464213:mt38ytkbuak" >
+  <input type="hidden" name="cof" value="FORID:11" >
+   <table>
+     <tr>
+       <td>
+         <a href="http://www.netbeans.org/community/search.html" style="color:#213552;">Search:</a> </td><td><input type="text" name="q" class="text" style="border:1px solid #0B686D;">
+       </td>
+       <td>
+         <input type="image" src="/images_www/v6/search-button.gif" alt="Search netbeans.org" name="sa" value="Search">
+       </td>
+     </tr>
+   </table>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
+<!-- Google CSE Search Box Ends -->
+</div><div  class="lang-dropdown"><script type="text/javascript">startList()</script>
+    <ul id="nav">
+    <li><a href="#" style="text=decoration:none;color:#213552;;">Choose page language<img src="/images_www/v5/ar-down2.gif" border="0" style="margin-left:3px;" alt="choose"></a>
+    <ul class="submenu">
+    <li><a href="import-eclipse_pt_BR.html">Brazilian&nbsp;Portuguese</a></li>
+<li><a href="import-eclipse_ja.html">Japanese</a></li>
+<li><a href="import-eclipse_ru.html">Russian</a></li>
+<li><a href="import-eclipse_zh_CN.html">Simplified&nbsp;Chinese</a></li>
+<li><a href="import-eclipse_es.html">Spanish</a></li>
+</ul></li></ul></div><div class="float-left"><a href="/index.html"><img src="/images_www/v5/nb-logo2.gif" class="logo-link" width="159" height="60" alt="netbeans.org - go to homepage"  title="NetBeans.org - go to the homepage" border="0"  style="padding-top:10px;"></a></div></div></div>
+		<div id="center-container"><!-- layer centering whole page -->
+		<div id="floating-page"><!-- margins for whole page -->
+		<table id="wrap-table"><!-- top level table --><tr><td class="floating-wrap-table">
+			<div id="floating-tabs-container"><img src="/images_www/v6/corner-left.png" class="float-left"  width="11" height="26" style="_margin-left:-3px;" alt="corner image"><img src="/images_www/v6/corner-right.png" class="float-right"  width="14" height="26" style="_margin-right:-3px;"alt="corner image">
+			<div id="floating-tabs">
+<script src="/images_www/js/rollover.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+op_register("optab1","/images_www/v6/home-off.png","/images_www/v6/home-over.png");
+op_register("optab2","/images_www/v6/products-off.png","/images_www/v6/products-over.png");
+op_register("optab3","/images_www/v6/catalogue-off.png","/images_www/v6/catalogue-over.png");
+op_register("optab4","/images_www/v6/platform-off.png","/images_www/v6/platform-over.png");
+op_register("optab5","/images_www/v6/kb-on.png","/images_www/v6/kb-over.png");
+op_register("optab6","/images_www/v6/community-off.png","/images_www/v6/community-over.png");
+op_register("optab7","/images_www/v6/partners-off.png","/images_www/v6/partners-over.png");
+//-->
+</script>
+
+<a href="/index.html" title=""  ><img src="/images_www/v6/home-off.png" alt="" width="120" height="26" border="0" class="iMenu" id="optab1" onmouseover="op_set_over('optab1')" onmouseout="op_set_normal('optab1')"></a><a href="/features/index.html" title="Features"  ><img src="/images_www/v6/products-off.png" alt="Features" width="120" height="26" border="0" class="iMenu" id="optab2" onmouseover="op_set_over('optab2')" onmouseout="op_set_normal('optab2')"></a><a href="http://plugins.netbeans.org/PluginPortal/" title="Plugins"  ><img src="/images_www/v6/catalogue-off.png" alt="Plugins" width="120" height="26" border="0" class="iMenu" id="optab3" onmouseover="op_set_over('optab3')" onmouseout="op_set_normal('optab3')"></a><a href="http://platform.netbeans.org" title="Platform"  ><img src="/images_www/v6/platform-off.png" alt="Platform" width="120" height="26" border="0" class="iMenu" id="optab4" onmouseover="op_set_over('optab4')" onmouseout="op_set_normal('optab4')"></a><a href="/kb/index.html" title="Docs&nbsp;&amp;&nbsp;Support"  ><img src="/images_www/v6/kb-on.png" alt="Docs&nbsp;&amp;&nbsp;Support" width="120" height="26" border="0" class="iMenu" id="optab5" ></a><a href="/community/index.html" title="Community"  ><img src="/images_www/v6/community-off.png" alt="Community" width="120" height="26" border="0" class="iMenu" id="optab6" onmouseover="op_set_over('optab6')" onmouseout="op_set_normal('optab6')"></a><a href="/community/partners/index.html" title="Partners"  ><img src="/images_www/v6/partners-off.png" alt="Partners" width="120" height="26" border="0" class="iMenu" id="optab7" onmouseover="op_set_over('optab7')" onmouseout="op_set_normal('optab7')"></a>
+				</div>
+				</div><div id="navig-breadcrumbs" style="margin:0px;"><a href="/index.html">HOME</a>  / <a href="/kb/index.html">Docs & Support</a> </div>
+		<table id="floating-contenttable" class="colapse">
+		<tr><td class="valign-top"><div id="print"><a href="/kb/docs/java/import-eclipse.html?print=yes"><img src="/images_www/v5/print.gif" alt="" width="105" height="15" border="0"></a></div><div class="f-page-auto-cell" id="doc" >
+
+<h1>Importing Eclipse Projects into NetBeans IDE</h1>
+
+<p><b>Contents</b></p>
+<img  src="../../../images_www/articles/65/netbeans-stamp65-67-68.gif" class="stamp" width="114" height="114" alt="Content on this page applies to NetBeans IDE 6.5" title="Content on this page applies to the NetBeans IDE 6.5">
+<ul class="toc">
+  <li><a href="#intro" title="The Import Eclipse Project Wizard">The Import Eclipse Project Wizard</a></li>
+  <li><a href="#how-it-works" title="How the Import Wizard Works">How the Import Wizard Works</a></li>
+  <li><a href="#import" title="Importing and Configuring Projects">Importing and Configuring Projects</a></li>
+  <li><a href="#build" title="Building and Running a Project">Building and Running a Project</a></li>
+  <li><a href="#metadata" title="NetBeans Project Files">NetBeans Project Files</a></li>
+  <li><a href="#versioning" title="Version Control Considerations">Version Control Considerations</a></li>
+  <li><a href="#resynch" title="Resynchronizing a Project">Resynchronizing a Project</a></li>
+  <li><a href="#problems" title="Resolving Import Problems">Resolving Import Problems</a></li>
+</ul>
+<p><b>To complete this tutorial, you need the following software and resources.</b></p>
+
+<table>
+  <tbody>
+    <tr>
+      <th class="tblheader" scope="col">Software or Resource</th>
+      <th class="tblheader" scope="col">Version Required</th>
+    </tr>
+        <tr>
+            <td class="tbltd1"><a href="http://www.netbeans.org/downloads/index.html">NetBeans IDE</a></td>
+            <td class="tbltd1">version 6.5, 6.7 or 6.8 </td>
+        </tr>
+        <tr>
+            <td class="tbltd1"><a href="http://java.sun.com/javase/downloads/index.jsp">Java Development Kit (JDK)</a></td>
+            <td class="tbltd1">version 6 or<br>
+            version 5</td>
+        </tr>
+  </tbody>
+</table>
+<a name="intro"/><h2>The Import Eclipse Project Wizard</h2>
+<p>An enhanced support for importing Eclipse projects is available in the NetBeans IDE versions 6.5, 6.7, and 6.8. The Import Eclipse Project wizard enables you to use NetBeans to work on Java desktop and web
+  application projects that were created in Eclipse and MyEclipse.</p>
+
+<p>After creating a NetBeans project from an Eclipse project, you can work
+in the following ways:</p>
+<ul>
+  <li>Use NetBeans on a team project where other developers are using Eclipse.
+  </li>
+  <li>Use NetBeans and Eclipse interchangeably on a project.
+  </li>
+  <li>Try out NetBeans on an existing project that was set up in Eclipse.  </li>
+</ul>
+<a name="how-it-works"/><h2>How the Import Wizard Works</h2>
+<p>When you import a project, the IDE analyzes the Eclipse project metadata and then
+  creates a NetBeans project based on that metadata. The project import
+  does not impose changes on the Eclipse project
+structure, so it does not interfere with the way the project works in Eclipse.</p>
+<p>Once you have the project
+  imported, you can use either or both the NetBeans and Eclipse IDEs to
+  edit, build, run, debug, and profile the project.
+  If you make a configuration change in the Eclipse project, you can resynchronize
+  the NetBeans project. This enables you to work on projects in NetBeans even
+  if everybody else on your team is working with Eclipse.
+The build path that you set in Eclipse remains the master build path for the project.</p>
+
+<h2><a name="import"/>Importing and Configuring Projects</h2>
+
+<p><b>To import an Eclipse project into NetBeans:</b></p>
+<ol>
+  <li>Make sure that you have copy of the project that you want to import on your system.
+    <p>Typically, this project would already be in an Eclipse workspace on your
+  system.</p></li>
+  <li>Choose File &gt; Import Project &gt; Eclipse Project.</li>
+  <li>In the Workspace Location page of the wizard, select the Import Projects from Workspace
+    radio button and then specify the workspace location.
+    <img src="../../../images_www/articles/65/java/import-eclipse/eclipse-import-workspace-location.png" height="354" width="604"
+         alt="Image showing the Workspace Location page of the Import Eclipse Project wizard
+         with the Import Projects for Workspace radio button selected and the Eclipse
+         workspace location specified." class="margin-around">
+  </li>
+  <li>In the Projects to Import page, select the projects that you want to
+    import. Then select one of these two options for storing the NetBeans project
+    files:
+    <ul>
+      <li><b>Store NetBeans project data inside Eclipse project folders.</b>
+        NetBeans adds folders and files within the top-level folder of the original
+      project.</li>
+      <li><b>Create imported NetBeans projects in a separate location.</b>
+        NetBeans uses the sources and libraries in the
+        original Eclipse project folder but creates a separate folder to hold
+      NetBeans project metadata and build outputs.</li>
+    </ul>
+    <p>Typically, it is better to store NetBeans project data inside
+      Eclipse project folders. In most cases, this means that the NetBeans project
+      metadata will refer to sources and libraries with the same paths that are used by
+      the Eclipse metadata. Therefore, checking out the project from a version
+      control system on different machines should result in similar behavior
+    both in NetBeans and Eclipse.</p>
+    <p>See <a href="#metadata">NetBeans Project Files</a> below for a list of files and
+  folders that NetBeans creates.</p></li>
+  <li>In the Servers page, register any servers that your projects need with
+  NetBeans IDE. (This page does not appear if you are not importing an web applications.)</li>
+</ol>
+
+<p>After you have completed the wizard, the following dialog boxes might appear:</p>
+<ul>
+<li><b>Import Issues.</b> This dialog provides information about discrepancies
+  between the project structure in Eclipse and in NetBeans and points out
+  actions that you might need to take to correct the discrepancies.
+  <p>You can copy
+  the information from this dialog and paste it elsewhere for future reference.</p>
+  <p>In most cases, you use the project's Project Properties dialog box to
+  resolve those issues. See <a href="#problems">Resolving Import Problems</a>
+  for a guide to resolving the most common problems.</p>
+</li>
+<li><b>Resolve Reference Problems.</b> This dialog box alerts you to a specific
+  reference problem with one of your project libraries. You can solve this problem
+  after dismissing this dialog box by right-clicking the project's node and
+choosing Resolve Reference Problems.</li>
+<li><b>Resolve Missing Server.</b>  This dialog box alerts you that the
+  project can not find a necessary server. You can solve this problem
+  after dismissing this dialog box by right-clicking the project's node and
+choosing Resolve Missing Server.</li>
+</ul>
+<img src="../../../images_www/articles/65/java/import-eclipse/eclipse-import-issues.png" height="335" width="391"
+     alt="Image showing the Import Issues dialog box." class="margin-around">
+<p>After you have completed the wizard and have closed any of the above
+  informational dialog boxes, nodes for the projects will appear in the Projects window.
+</p>
+
+<img src="../../../images_www/articles/65/java/import-eclipse/eclipse-import-projects-window.png" height="134" width="309"
+     alt="Image showing the Projects window after a project has been imported,
+     including a node for the project and subnodes for web pages, configuration files
+     server resources, src files, and Libraries." class="margin-around">
+
+<p>If there are references in your
+  project metadata to servers or other resources that NetBeans can not resolve,
+  the node for the project will appear in red. You can resolve these references
+  immediately by right-clicking the project node and choosing Resolve Reference
+  Problems or Resolve Missing Server.</p>
+<img src="../../../images_www/articles/65/java/import-eclipse/eclipse-import-resolve-reference.png" height="218" width="400"
+     alt="Image showing the Resolve References dialog box after a project has
+     been imported." class="margin-around">
+<p>For other types of project configuration adjustments, you use the
+  Project Properties dialog box. You open the Project Properties dialog box
+by right-clicking the project's node and choosing Properties.</p>
+<p>For more information on configuring your project, see
+<a href="project-setup.html#projects-configuring">Configuring the Classpath and Other Project Settings</a>
+in the Creating, Importing, and Configuring Java Projects guide.</p>
+
+<h2><a name="build"/>Building and Running a Project</h2>
+
+<p>Once you have the project imported into NetBeans, you can build and run the
+project. All artifacts created from NetBeans build and run commands are created in
+the <code>build</code> and <code>dist</code> folders. NetBeans does not
+over-write output created from Eclipe build actions. If the Eclipse project already
+has <code>build</code> and <code>dist</code> folders,
+the NetBeans project creates folders called
+<code>nbbuild</code> and <code>nbdist</code> and uses those for the build outputs.</p>
+<p>The following are some of the build and run commands are available from the Run menu:</p>
+<ul>
+  <li><b>Run Project.</b> Test runs the application in the IDE.</li>
+  <li><b>Clean and Build Project.</b> Deletes the contents of the <code>build</code>
+    (or <code>nbbuild</code>) and <code>dist</code> (or <code>nbdist</code>)
+    folders and rebuilds all of the project's outputs. Uses
+    the NetBeans build script.
+  Similar to the Clean command in Eclipse.</li>
+  <li><b>Clean.</b> Deletes the contents of the <code>nbbuild</code>
+  and <code>nbdist</code> folders.</li>
+  <li><b>Build.</b> Rebuilds the project's outputs. If the Compile on Save
+  feature is enabled, the Build command is disabled. See the
+  <a href="project-setup.html#building-compile-on-save">Compile on Save</a> section
+  of the Creating, Importing, and Configuring Java Projects guide.</li>
+</ul>
+
+<p>For more information on building and running your application as well as
+customizing the build process, see
+<a href="project-setup.html">Creating, Importing, and Configuring Java Projects</a>.
+</p>
+
+<h2><a name="metadata"/>NetBeans Project Files</h2>
+
+<p>After you have imported the project, you will find the following folder and files
+on your system:</p>
+<ul>
+  <li><code>build.xml</code> file or <code>nb-build.xml</code> file. The main NetBeans build
+    script for the project. You can customize this script according to the needs
+    of your project. By default, this file is called <code>build.xml</code>.
+    If such a file already exists in the project folder, the script is called
+  <code>nb-build.xml</code>.</li>
+  <li><code>nbproject</code> folder. Contains most of the NetBeans project metadata,
+    including resources that are called by the main NetBeans build script. If you check
+    this folder and the <code>build.xml</code> file or <code>nb-build.xml</code>
+    into your version control system, other users will be able to
+    open the project in NetBeans. This folder also contains the <code>private</code>
+    folder, which contains data specific to your system. This folder should not
+    be checked in to the version control system since its contents will vary
+  between users. See <a href="#versioning">Version Control Considerations</a> below.</li>
+  <li><code>nbbuild</code> folder. When you build or run your project in NetBeans,
+  the project's sources are compiled into this folder.</li>
+  <li><code>nbdist</code> folder. When you build your project in NetBeans,
+    the project's distributable outputs are created and placed in this folder.
+  Such outputs might be JAR files and WAR files.</li>
+</ul>
+
+  <a name="versioning"/><h2>Version Control Considerations</h2>
+  <p>If the project is checked out of a version control system,
+    the <code>build</code> (or <code>nbbuild</code>),
+    <code>dist</code> (or <code>nbdist</code>), and the <code>nbproject/private</code>
+  folders should not be checked into that version control system. </p>
+  <p>If the project
+    is under the CVS, Subversion, or Mercurial version control systems, the
+    appropriate "ignore" files are created or updated for these directories when
+  the project is imported.</p>
+  <p class="notes">Though <code>nbproject/private</code> should be ignored,
+    <code>nbproject</code> should be checked into the version control system.
+    <code>nbproject</code> contains project metadata that enables others users to
+  open the project in NetBeans without having to import the project first.</p>
+
+<h2><a name="resynch"/>Resynchronizing a Project</h2>
+
+<p>The project importer features synchronization capabilities. If
+  the classpath in the Eclipse has changed since you initially imported it, you can
+  use the Resynchronize Eclipse Projects feature to update the classpath
+in the corresponding NetBeans project.</p>
+<p>Project resynchronization is one-way from Eclipse projects to NetBeans projects.
+If you make changes to the project structure in NetBeans, those changes are not
+propagated to the Eclipse project with the resynchronization feature.
+If you intend to keep both Eclipse and NetBeans projects, use the Eclipse project
+as the "master" project.</p>
+<p>The IDE also resynchronizes the projects automatically if the changes to the
+Eclipse configuration are unambiguous and do not require your input. This
+automatic resynchronization occurs shortly after you open the project.
+If the resynchronization requires your input, you need to manually
+resynchronize the project.</p>
+
+<!-- TODO add information on what gets synchronized-->
+<p><b>To manually resynchronize NetBeans projects with Eclipse projects:</b></p>
+<ul>
+  <li>Choose File &gt; Import Project &gt; Resynchronize Eclipse Projects.</li>
+</ul>
+<p class="notes"><b>Notes:</b> When you resynchronize a project, the resynchronization
+is performed on all projects that you have imported from the workspace.</p>
+
+
+<h2><a name="problems"/>Resolving Import Problems</h2>
+
+<p>When you import a project into NetBeans, there might be some things that can
+  not be automatically resolved in NetBeans IDE. For some of these problems,
+  a menu item, such as Resolve Missing Server Problem, appears in the contextual menu for the project.
+  Other problems can be resolved
+  in the Project Properties dialog box for the imported project in NetBeans IDE.
+</p>
+<p>Here is a list of common import problems and their solutions.</p>
+
+<table>
+  <tr>
+    <th class="tblheader" scope="col">Problem Message</th>
+    <th class="tblheader" scope="col">Solution</th>
+  </tr>
+  <tr>
+    <td class="tbltd1">Resolve Missing Server Problem</td>
+    <td class="tbltd1">Right-click the project node and choose Resolve Missing Server Problem.
+    Then navigate to the file or folder that contains the server.</td>
+  </tr>
+  <tr>
+    <td class="tbltd1">Resolve Reference Problem</td>
+    <td class="tbltd1">Right-click the project's node and choose Resolve Reference
+    Problem. Then navigate to the file or folder that contains the resource that
+    is referred to from the project.</td>
+  </tr>
+  <tr>
+    <td class="tbltd1">Eclipse platform for project <i>ProjectName</i> cannot be used.
+    It is a JRE and the NetBeans project requires a JDK. NetBeans will use the default platform.
+    </td>
+    <td class="tbltd1">If you would like to change the platform that NetBeans uses
+    for the project, choose Tools &gt; Platforms and specify a different platform.</td>
+  </tr>
+  <tr>
+    <td class="tbltd1">Eclipse project <i>ProjectName</i> claims to use JDK from the "{1}" directory. But this directory does not exist. NetBeans will use the default platform.
+    </td>
+    <td class="tbltd1">If you would like to change the platform that NetBeans uses
+    for the project, choose Tools &gt; Platforms and specify a different platform.</td>
+  </tr>
+  <tr>
+    <td class="tbltd1">NetBeans does not support source includes/excludes per
+    source root as Eclipse does. They were merged and it is recommended that
+    you double check them in project's properties in Source panel.
+    </td>
+    <td class="tbltd1">In NetBeans, includes and excludes are declared in one
+    place for the whole project. To check the includes and excludes in the
+    NetBeans project, right-click the project's node and the Projects window
+    and choose Properties. In the Project Properties dialog box, select the
+    Sources tab and then click the Includes/Excludes button.</td>
+  </tr>
+  <tr>
+    <td class="tbltd1">Import failed due to <i>...</i>. More details can be found in IDE's log file.</td>
+    <td class="tbltd1">You can open the IDE's log file by choosing View &gt; IDE Log.</td>
+  </tr>
+  <tr>
+    <td class="tbltd1">Unknown project type - it cannot be imported.</td>
+    <td class="tbltd1">You can only import the following Eclipse project types:
+    Java Project, Java Project from Existing Ant File, Static Web, Dynamic Web,
+    and JPA Project.</td>
+  </tr>
+</table>
+<!-- TODO link to a wiki with other troubleshooting info-->
+
+    <!-- ======================================================================================= -->
+<br>
+<div class="feedback-box" ><a href="/about/contact_form.html?to=3&amp;subject=Feedback: Importing Eclipse Projects into NetBeans IDE">Send Us Your Feedback</a></div>
+<br style="clear:both;" />
+<h2><a name="nextsteps"></a>See Also</h2>
+<ul>
+  <li><a href="http://wiki.netbeans.org/NetBeansForEclipseUsers">NetBeans For Eclipse Users</a></li>
+  <li><a href="project-setup.html">Creating, Importing, and Configuring Java Projects</a></li>
+  <li><a href="../../trails/java-se.html">General Java Development Learning Trail</a></li>
+  <li><a href="../../trails/matisse.html">Java and JavaFX GUI Learning Trail</a></li>
+  <li><a href="../../trails/java-ee.html">Java EE &amp; Java Web Learning Trail</a></li>
+</ul>
+
+</div>
+<td class="valign-top" style="border-left: 1px solid #adadad;">
+				   	<div id="floating-col-right"><!-- right content column -->
+<div class="b-bottom f-page-cell">
+<div style="padding-bottom:20px;" class="align-center"><a href="/downloads/index.html" class="nobg"><img src="/images_www/v5/download-nb-button3.gif" width="165" height="27" alt="Download NetBeans" title="Download NetBeans" border="0"></a></div>
+<img src="/images_www/v6/training_smaller.gif" width="34" height="41" class="float-left" alt="get training on NetBeans">
+<a href="/kb/training.html"><h1 class="blue normal" style="margin:7px 0px 0px 44px;">Training</h1></a><br class="clear">
+<div class="rrrarticle"><div class="rarticletitle"><a href="http://www.sun.com/training/catalog/courses/SL-275-SE6.xml?intcmp=1366">Java Programming Language</a></div></div>
+		<div class="rrrarticle"><div class="rarticletitle"><a href="http://www.sun.com/training/catalog/courses/FJ-310.xml?intcmp=1366">Developing Applications for the Java EE Platform</a></div></div>
+</div>
+
+<div class="b-bottom f-page-cell">
+<img src="/images_www/v6/support_smaller.gif" width="34" height="41" class="float-left" alt="get support for the NetBeans">
+<a href="/kb/support.html"><h1 class="blue normal" style="margin:7px 0px 0px 44px;">Support</h1></a><br class="clear">
+<script type="text/javascript" language="javascript">
+renderRandomSupportLinks();
+</script>
+</div>
+
+<div class="f-page-cell b-bottom">
+<h2 style="border:0px;">Documentation</h2>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/java-se.html">General Java Development</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/tools.html">External Tools and Services</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/matisse.html">Java and JavaFX GUIs</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/java-ee.html">Java EE & Java Web Development</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/web.html">Web Services Applications</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/platform.html">NetBeans Platform (RCP) and Module Development </a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/php.html">PHP Applications</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/ruby.html">JavaScript and Dynamic Languages </a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/cnd.html">C/C++ Applications</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/trails/mobility.html">Mobile Applications</a></div></div>
+<br>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/samples/index.html">Sample Applications</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/docs/screencasts.html">Demos and Screencasts</a></div></div>
+</div>
+
+<div class="f-page-cell b-bottom">
+<h2 style="border:0px;">More</h2>
+<div class="rrrarticle"><div class="rarticletitle"><a href="http://wiki.netbeans.org/NetBeansUserFAQ">FAQs</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="http://wiki.netbeans.org/wiki/view/CommunityDocs">Contribute Documentation!</a></div></div>
+<div class="rrrarticle"><div class="rarticletitle"><a href="/kb/previous.html">Docs for Earlier Releases</a></div></div>
+</div>
+</div>
+					</td></tr></table>
+	</td></tr><tr><td class="floating-wrap-table">
+	<!-- flexible page footer -->
+	<div id="floating-footer" class="clear">
+		<img src="/images_www/v6/footer-floating-corner-r.png" class="float-right" width="14" height="36" style="_margin-right:-3px;" alt="corner image">
+		<img src="/images_www/v6/footer-floating-corner-l.png" width="10" height="36" class="float-left" style="_margin-left:-3px;" alt="corner image">
+		<div id="footer-text">
+			<div id="footer-navig" class="float-left font-12">
+				<a href="http://www.cafeshops.com/netbeans/" >Shop</a> &nbsp;
+				<a href="/sitemaps/www_map.html">SiteMap</a> &nbsp;
+				<a href="/about/index.html">About Us</a> &nbsp;
+				<a href="/about/contact.html">Contact</a> &nbsp;
+				<a href="/about/legal/index.html">Legal</a> &nbsp;
+			</div>
+		<div id="tof" class="float-right">
+			By use of this website, you agree to the <a href="/about/legal/terms-of-use.html">NetBeans Policies and Terms of Use</a>
+		</div>
+		</div>
+	</div>
+	</td>
+  </tr>
+  </table></div>
+<div id="companion-projects">
+    <script type="text/javascript">
+    document.write(renderCompanionProjectIcons());
+    </script>
+</div>
+
+<!-- Begin SiteCatalyst code -->
+<script language="JavaScript" src="/images_www/js/s_code_remote.js" type="text/javascript"></script>
+<!-- End SiteCatalyst code -->
+
+<!-- Begin Google webtracking analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2149007-1");
+pageTracker._setDomainName("netbeans.org");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<!-- End Google webtracking analytics -->
+
+	</div>
+	</body>
+</html>

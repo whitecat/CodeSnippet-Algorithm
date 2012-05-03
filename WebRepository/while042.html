@@ -1,0 +1,1226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="distribution" content="global" />
+<meta name="robots" content="follow, all" />
+<meta name="language" content="en, sv" />
+<meta name="verify-v1" content="9zZTGKLGg//zWC70D8Vf3COJezPerNXeOHYrebj1q1M=" />
+
+<title>While loop, For loop and Iterator Performance Test &#8211; Java | Java</title>
+<meta name="generator" content="WordPress 2.8.5" />
+<!-- leave this for stats please -->
+<link rel="shortcut icon" href="http://www.mkyong.com/picture/favicon.ico" type="image/x-icon" />
+
+
+<link rel="pingback" href="http://www.mkyong.com/xmlrpc.php" />
+
+<link rel="alternate" type="application/rss+xml" title="Mkyong Dot Com &raquo; While loop, For loop and Iterator Performance Test &#8211; Java Comments Feed" href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/feed/" />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://www.mkyong.com/wp-content/plugins/contact-form-7/styles.css?ver=2.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.mkyong.com/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.mkyong.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.mkyong.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Mkyong Dot Com' href='http://www.mkyong.com' />
+<link rel='start' title='MUSE- StarLight' href='http://www.mkyong.com/boring/muse-starlight/' />
+<link rel='prev' title='How to setup Wicket Examples in Eclipse' href='http://www.mkyong.com/wicket/how-do-setup-wicket-examples-in-eclipse/' />
+<link rel='next' title='Reverse loop versus Forward loop in Performance &#8211; Java' href='http://www.mkyong.com/java/reverse-loop-versus-forward-loop-in-performance-java/' />
+<meta name="generator" content="WordPress 2.8.5" />
+
+<!-- All in One SEO Pack 1.6.10 by Michael Torbert of Semper Fi Web Design[500,590] -->
+<meta name="description" content="Do you wonder which of the following methods are the faster way to loop through a list or collection before? 1) While Loop 2) For Loop 3) Iterator" />
+<meta name="keywords" content="for,iterator,java,while" />
+<link rel="canonical" href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/" />
+<!-- /all in one seo pack -->
+<script type="text/javascript">
+//<![CDATA[
+var _wpcf7 = { cached: 1 };
+//]]>
+</script>
+<link rel="stylesheet" href="http://www.mkyong.com/wp-content/plugins/digg-digg/diggdigg-style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://www.mkyong.com/wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+
+<style type="text/css" media="screen">
+<!-- @import url( http://www.mkyong.com/wp-content/themes/adsensationblue/style.css ); -->
+</style>
+
+</head>
+<body>
+<div id="wrap">
+<div id="header">
+
+  <h1><a href="http://www.mkyong.com/">
+    Mkyong Dot Com    </a></h1>
+  <p class="tagline">
+    Thoughts on Java / J2EE / Ajax web development  </p>
+
+<!--
+  <div class="Menu">
+    <div class="Menuright">
+        <ul>
+          <li><a href="http://www.mkyong.com/">Home</a></li>
+          <li><a href="http://www.mkyong.com/contact-me/">Contact Me</a></li>
+        </ul>
+    </div>
+  </div>
+-->
+
+<!--
+   <div id="rss">
+    <a href="http://feeds.feedburner.com/Mkyong-UnofficialGuide" title="Subscribe to RSS Feed" alt="Subscribe to RSS Feed"></a>
+    </div>
+-->
+
+<div class="top-right-ads">
+<script type="text/javascript">
+Vertical1244242 = false;
+ShowAdHereBanner1244242 = false;
+RepeatAll1244242 = false;
+NoFollowAll1244242 = false;
+BannerStyles1244242 = new Array(
+    "a{display:block;float:left;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+    "img{border:0;clear:right;}",
+    "a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+    "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+);
+document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1244242/1244242.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+
+<!--
+  <div class="search">
+    <form id="searchform" method="get" action="/index.php">
+      <input type="text" value="To search, type and hit enter" name="s" id="s" onfocus="if (this.value == 'To search, type and hit enter') {this.value = '';}" onblur="if (this.value == '') {this.value = 'To search, type and hit enter';}"/>
+    </form>
+  </div>
+-->
+
+<!-- End Ad -->
+</div>
+
+
+
+<script language="javascript" type="text/javascript">
+<!--
+		function collapseThread( theId ) {
+			var comment = document.getElementById(theId);
+			if(!comment)
+			{
+				alert("ERROR:\nThe document structure is different\nfrom what Threaded Comments expects.\nYou are missing the element '"+theId+"'");
+				return;
+			}
+			var theBody = findBody(comment);
+			if(comment.className.indexOf("collapsed") > -1) {
+				comment.className = comment.className.replace(" collapsed", "");;
+			} else {
+				comment.className += " collapsed";
+			}
+		}
+
+		function expandThread( theId ) {
+			var comment = document.getElementById(theId);
+			if(!comment)
+			{
+				alert("ERROR:\nThe document structure is different\nfrom what Threaded Comments expects.\nYou are missing the element '"+theId+"'");
+				return;
+			}
+			var theBody = findBody(comment);
+			if(comment.className.indexOf("collapsed") > -1) {
+				comment.className = comment.className.replace(" collapsed", "");;
+			} 
+		}
+		
+		function findBody(el)
+		{
+			var divs = el.getElementsByTagName("div");
+			var ret;
+			for(var i = 0; i < divs.length; ++i) {
+				if(divs.item(i).className.indexOf("body") > -1)
+					return divs.item(i);
+			}
+			return false;
+		}
+	
+		function onAddComment() {
+			//checkDocumentIntegrity();
+			var el = document.getElementById("commentform");
+			// Future release: Check if form is filled correctly and mark the form fields.
+			el.submit();
+		}
+		
+		function moveAddCommentBelow(theId, threadId, collapse)
+		{
+			expandThread( theId );
+			var addComment = document.getElementById("addcomment");
+			if(!addComment)
+			{
+			  	alert("ERROR:\nThreaded Comments can't find the 'addcomment' div.\nThis is probably because you have changed\nthe comments.php file.\nMake sure there is a tag around the form\nthat has the id 'addcomment'"); 
+				return
+			}
+			var comment = document.getElementById(theId);
+			if(collapse)
+			{
+				for(var i = 0; i < comment.childNodes.length; ++i) {
+					var c = comment.childNodes.item(i);
+					if(typeof(c.className) == "string" && c.className.indexOf("collapsed")<0) {
+						c.className += " collapsed";
+					}
+				}
+			}
+			addComment.parentNode.removeChild(addComment);
+
+			comment.appendChild(addComment);
+			if(comment.className.indexOf("alt")>-1) {
+				addComment.className = addComment.className.replace(" alt", "");					
+			} else {
+				addComment.className += " alt";
+			}
+		        var replyId = document.getElementById("comment_reply_ID");
+			if(replyId == null)
+			{
+				alert("Brians Threaded Comments Error:\nThere is no hidden form field called\n'comment_reply_ID'. This is probably because you\nchanged the comments.php file and forgot\nto include the field. Please take a look\nat the original comments.php and copy the\nform field over.");
+			}
+			replyId.value = threadId;
+			var reRootElement = document.getElementById("reroot");
+			if(reRootElement == null)
+			{
+				alert("Brians Threaded Comments Error:\nThere is no anchor tag called 'reroot' where\nthe comment form starts.\nPlease compare your comments.php to the original\ncomments.php and copy the reroot anchor tag over.");
+			}
+			reRootElement.style.display = "block";
+			var aTags = comment.getElementsByTagName("A");
+			var anc = aTags.item(0).id;
+			//document.location.href = "#"+anc;
+			document.getElementById("comment").focus();
+		}
+
+		function checkDocumentIntegrity()
+		{
+			str = "";
+			
+			str += checkElement("reroot","div tag");
+			str += checkElement("addcomment", "div tag");
+			str += checkElement("comment_reply_ID", "hidden form field");
+			str += checkElement("content", "div tag");
+			str += checkElement("comment", "textfield");
+			str += checkElement("addcommentanchor", "anchor tag");
+			
+			if(str != "")
+			{
+				str = "Brian's Threaded Comments are missing some of the elements that are required for it to function correctly.\nThis is probably the because you have changed the original comments.php that was included with the plugin.\n\nThese are the errors:\n" + str;
+				str += "\nYou should compare your comments.php with the original comments.php and make sure the required elements have not been removed.";
+
+				alert(str);
+			}
+		}
+               
+		function checkElement(theId, elDesc)
+		{
+			var el = document.getElementById(theId);
+			if(!el)
+			{
+				if(elDesc == null)
+					elDesc = "element";
+				return "- The "+elDesc+" with the ID '" +theId + "' is missing\n"; 
+			}
+			else 
+				return "";
+		}
+		
+		function reRoot()
+		{
+			var addComment = document.getElementById("addcomment");			
+			var reRootElement = document.getElementById("reroot");
+			reRootElement.style.display = "none";
+			var content = document.getElementById("content-main");
+			if( !content )
+				content = document.getElementById("content");
+			if( content )
+			{
+				addComment.parentNode.removeChild(addComment);
+				content.appendChild(addComment);
+			}
+			addComment.className = addComment.className.replace(" alt", "");
+			document.location.href = "#addcommentanchor";
+			document.getElementById("comment").focus();				
+			document.getElementById("comment_reply_ID").value = "0";
+		}			
+		
+		function changeCommentSize(d)
+		{
+			var el = document.getElementById("comment");
+			var height = parseInt(el.style.height);
+			if(!height && el.offsetHeight)
+				height = el.offsetHeight;
+			height += d;
+			if(height < 20) 
+				height = 20;
+			el.style.height = height+"px";
+		}		
+-->
+</script>
+
+<!--INFOLINKS_ON-->
+
+<div id="content">
+  <div class="postwrap">
+
+            <div class="post" id="post-875">
+
+      <div class="posthead">
+        <h1>
+            <a title="While loop, For loop and Iterator Performance Test &#8211; Java" href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/" rel="bookmark">
+            While loop, For loop and Iterator Performance Test &#8211; Java           </a>
+        </h1>
+
+        <small class="postauthor">Written on
+           January 20, 2009 at 7:16 am by 
+           mkyong                   </small>
+
+      </div>
+
+      <div class="postcontent">
+        <div> <center>
+<div class="content-up-ads">
+<script type="text/javascript"><!--
+google_ad_client = "pub-2836379775501347";
+/* 336x280, created 12/29/08 */
+google_ad_slot = "2541584370";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+</center></div><p>Do you wonder which of the following methods are the faster way to loop through a list or collection before? </p>
+<p>1) While Loop<br />
+2) For Loop<br />
+3) Iterator Loop</p>
+<h2>Performance Test &#8211; While , For and Iterator</h2>
+<p>Here i create a simple program to loop through a List with <b>1,5,10 and 15 millions of data in While loop, For loop and Iterator loop</b>. It&#8217;s will calculate and display the elapsed time in output.</p>
+<p><b>Here is the performance test source code</b></p>
+
+<div class="wp_syntax"><table><tr><td class="line_numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+</pre></td><td class="code"><pre class="java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.util.Arrays</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.util.Date</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.util.Iterator</span><span style="color: #339933;">;</span>
+<span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.util.List</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">class</span> ArrayToList <span style="color: #009900;">&#123;</span>
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #000066; font-weight: bold;">void</span> main<span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> argv<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+&nbsp;
+	  <span style="color: #003399;">String</span> sArray<span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> createArray<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #666666; font-style: italic;">//convert array to list</span>
+	  <span style="color: #003399;">List</span> lList <span style="color: #339933;">=</span> <span style="color: #003399;">Arrays</span>.<span style="color: #006633;">asList</span><span style="color: #009900;">&#40;</span>sArray<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;<span style="color: #000099; font-weight: bold;">\n</span>--------- Iterator Loop -------<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #000066; font-weight: bold;">long</span> lIteratorStartTime <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Start: &quot;</span> <span style="color: #339933;">+</span> lIteratorStartTime<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #666666; font-style: italic;">//iterator loop</span>
+	  Iterator<span style="color: #339933;">&lt;</span>String<span style="color: #339933;">&gt;</span> iterator <span style="color: #339933;">=</span> lList.<span style="color: #006633;">iterator</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #000000; font-weight: bold;">while</span> <span style="color: #009900;">&#40;</span> iterator.<span style="color: #006633;">hasNext</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	      <span style="color: #003399;">String</span> stemp <span style="color: #339933;">=</span> iterator.<span style="color: #006633;">next</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #009900;">&#125;</span>
+	  <span style="color: #000066; font-weight: bold;">long</span> lIteratorEndTime <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;End: &quot;</span> <span style="color: #339933;">+</span> lIteratorEndTime<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #000066; font-weight: bold;">long</span> lIteratorDifference <span style="color: #339933;">=</span> lIteratorEndTime <span style="color: #339933;">-</span> lIteratorStartTime<span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Iterator - Elapsed time in milliseconds: &quot;</span> <span style="color: #339933;">+</span> lIteratorDifference<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;<span style="color: #000099; font-weight: bold;">\n</span>-------END-------&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+&nbsp;
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;<span style="color: #000099; font-weight: bold;">\n</span>--------- For Loop --------<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #000066; font-weight: bold;">long</span> lForStartTime <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Start: &quot;</span> <span style="color: #339933;">+</span> lForStartTime<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #666666; font-style: italic;">//for loop</span>
+	  <span style="color: #000000; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">int</span> i<span style="color: #339933;">=</span><span style="color: #cc66cc;">0</span><span style="color: #339933;">;</span> i<span style="color: #339933;">&lt;</span> lList.<span style="color: #006633;">size</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> i<span style="color: #339933;">++</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+		  <span style="color: #003399;">String</span> stemp <span style="color: #339933;">=</span> <span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span><span style="color: #009900;">&#41;</span>lList.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span>i<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #009900;">&#125;</span>
+&nbsp;
+	  <span style="color: #000066; font-weight: bold;">long</span> lForEndTime <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;End: &quot;</span> <span style="color: #339933;">+</span> lForEndTime<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #000066; font-weight: bold;">long</span> lForDifference <span style="color: #339933;">=</span> lForEndTime <span style="color: #339933;">-</span> lForStartTime<span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;For - Elapsed time in milliseconds: &quot;</span> <span style="color: #339933;">+</span> lForDifference<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;<span style="color: #000099; font-weight: bold;">\n</span>-------END-------&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;<span style="color: #000099; font-weight: bold;">\n</span>--------- While Loop -------<span style="color: #000099; font-weight: bold;">\n</span>&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #000066; font-weight: bold;">long</span> lWhileStartTime <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Start: &quot;</span> <span style="color: #339933;">+</span> lWhileStartTime<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #666666; font-style: italic;">//while loop</span>
+	  <span style="color: #000066; font-weight: bold;">int</span> j<span style="color: #339933;">=</span><span style="color: #cc66cc;">0</span><span style="color: #339933;">;</span> 
+	  <span style="color: #000000; font-weight: bold;">while</span> <span style="color: #009900;">&#40;</span>j<span style="color: #339933;">&lt;</span> lList.<span style="color: #006633;">size</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>
+	  <span style="color: #009900;">&#123;</span>
+		  <span style="color: #003399;">String</span> stemp <span style="color: #339933;">=</span> <span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span><span style="color: #009900;">&#41;</span>lList.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span>j<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+		  j<span style="color: #339933;">++;</span>
+	  <span style="color: #009900;">&#125;</span>
+	  <span style="color: #000066; font-weight: bold;">long</span> lWhileEndTime <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">Date</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">getTime</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;End: &quot;</span> <span style="color: #339933;">+</span> lWhileEndTime<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #000066; font-weight: bold;">long</span> lWhileDifference <span style="color: #339933;">=</span> lWhileEndTime <span style="color: #339933;">-</span> lWhileStartTime<span style="color: #339933;">;</span>
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;While - Elapsed time in milliseconds: &quot;</span> <span style="color: #339933;">+</span> lWhileDifference<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #003399;">System</span>.<span style="color: #006633;">out</span>.<span style="color: #006633;">println</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;<span style="color: #000099; font-weight: bold;">\n</span>-------END-------&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+&nbsp;
+&nbsp;
+  <span style="color: #009900;">&#125;</span>
+&nbsp;
+  <span style="color: #000000; font-weight: bold;">static</span> <span style="color: #003399;">String</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> createArray<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+&nbsp;
+	  <span style="color: #003399;">String</span> sArray<span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">String</span> <span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">15000000</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #000000; font-weight: bold;">for</span><span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">int</span> i<span style="color: #339933;">=</span><span style="color: #cc66cc;">0</span><span style="color: #339933;">;</span> i<span style="color: #339933;">&lt;</span><span style="color: #cc66cc;">15000000</span><span style="color: #339933;">;</span> i<span style="color: #339933;">++</span><span style="color: #009900;">&#41;</span>
+		  sArray<span style="color: #009900;">&#91;</span>i<span style="color: #009900;">&#93;</span> <span style="color: #339933;">=</span> <span style="color: #0000ff;">&quot;Array &quot;</span> <span style="color: #339933;">+</span> i<span style="color: #339933;">;</span>
+&nbsp;
+	  <span style="color: #000000; font-weight: bold;">return</span> sArray<span style="color: #339933;">;</span>
+  <span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span></pre></td></tr></table></div>
+
+<h2>Output</h2>
+
+<div class="wp_syntax"><div class="code"><pre class="java" style="font-family:monospace;">D<span style="color: #339933;">:</span>\test<span style="color: #339933;">&gt;</span>java <span style="color: #339933;">-</span>Xms1024m <span style="color: #339933;">-</span>Xmx1024m ArrayToList
+&nbsp;
+&nbsp;
+<span style="color: #339933;">---------</span> <span style="color: #003399;">Iterator</span> Loop <span style="color: #339933;">-------</span>
+&nbsp;
+Start<span style="color: #339933;">:</span> <span style="color: #cc66cc;">1232435614372</span>
+End<span style="color: #339933;">:</span> <span style="color: #cc66cc;">1232435614763</span>
+<span style="color: #003399;">Iterator</span> <span style="color: #339933;">-</span> Elapsed time in milliseconds<span style="color: #339933;">:</span> <span style="color: #cc66cc;">390</span>
+&nbsp;
+<span style="color: #339933;">-------</span>END<span style="color: #339933;">-------</span>
+&nbsp;
+<span style="color: #339933;">---------</span> <span style="color: #000000; font-weight: bold;">For</span> Loop <span style="color: #339933;">--------</span>
+&nbsp;
+Start<span style="color: #339933;">:</span> <span style="color: #cc66cc;">1232435614763</span>
+End<span style="color: #339933;">:</span> <span style="color: #cc66cc;">1232435614997</span>
+<span style="color: #000000; font-weight: bold;">For</span> <span style="color: #339933;">-</span> Elapsed time in milliseconds<span style="color: #339933;">:</span> <span style="color: #cc66cc;">234</span>
+&nbsp;
+<span style="color: #339933;">-------</span>END<span style="color: #339933;">-------</span>
+&nbsp;
+<span style="color: #339933;">---------</span> <span style="color: #000000; font-weight: bold;">While</span> Loop <span style="color: #339933;">-------</span>
+&nbsp;
+Start<span style="color: #339933;">:</span> <span style="color: #cc66cc;">1232435614997</span>
+End<span style="color: #339933;">:</span> <span style="color: #cc66cc;">1232435615232</span>
+<span style="color: #000000; font-weight: bold;">While</span> <span style="color: #339933;">-</span> Elapsed time in milliseconds<span style="color: #339933;">:</span> <span style="color: #cc66cc;">234</span>
+&nbsp;
+<span style="color: #339933;">-------</span>END<span style="color: #339933;">-------</span></pre></div></div>
+
+<h2>Performance Test Result (in milliseconds)</h2>
+<p><img src="http://www.mkyong.com/wp-content/uploads/2009/01/performance-test-in-loop.jpg" alt="" title="performance-test-in-loop" /></p>
+<h2>Conclusion</h2>
+<p>Well&#8230; the result show <b>Iterator mechanism is the slowest method to loop through a list</b>. There&#8217;s not much performance different between For and While loop. </p>
+<p>Iterator provides a very handy way to loop through a list or collection, but it is slower than For and While loop. Please be remind that the different is just in milliseconds (not even 1 second for 15 millions of data looping). So, just choose any looping mechanism you want, there&#8217;s not much performance different.</p>
+<p><b>P.S</b> 15 millions of data and java -Xms1024m -Xmx1024m is the limit of my computer , may be someone can help me test this in 20 millions of data? Thanks ~</p>
+<!-- Generated by Digg Digg plugin, 
+    Author : Yong Mook Kim
+    Website : http://www.mkyong.com/blog/digg-digg-wordpress-plugin/ -->      </div>    
+  </div>
+
+<!--TV ads-->
+<div class="post_meta">
+
+<h4>Tire of <span class="red">Programming?</span> </h4>
+Go watch thousands of TV channels on your computer.
+<div class="container">
+     <div class="rss_box">
+
+         <a target="_blank" href="http://00c03isw29mwdz365nmbwocwfe.hop.clickbank.net/?tid=TVSATELITE">            
+           <img src="http://www.mkyong.com/image/satelitedirect.gif" alt='satelite' />
+         </a>
+
+      </div>
+</div>
+
+  <div class="clear"></div>
+
+</div>
+<!-- end of post_meta -->
+
+<div class="clear"></div>
+
+<!-- social bookmark -->
+<div class="post_meta">
+
+<h4>Share this <span class="red">Post</span></h4>
+<div class="container">
+
+        <div class="box_silver">
+
+          <div class="dd_style_button">
+            <iframe src='http://digg.com/api/diggthis.php?w=new&amp;u=http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/&amp;t=While+loop%2C+For+loop+and+Iterator+Performance+Test+-+Java&amp;s=normal' height='80' width='52' frameborder='0' scrolling='no'></iframe>          </div>
+          <div class="dd_style_button">
+            <iframe src='http://widgets.dzone.com/links/widgets/zoneit.html?url=http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/&amp;title=While+loop%2C+For+loop+and+Iterator+Performance+Test+-+Java&amp;t=1' height='80' width='52' frameborder='0' scrolling='no'></iframe>          </div>
+          <div class="dd_style_button">
+            <iframe src='http://api.tweetmeme.com/button.js?url=http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/&amp;source=mkyong&amp;style=normal' height='61' width='50' frameborder='0' scrolling='no'></iframe>          </div>
+          <div class="dd_style_button">
+            <script type='text/javascript'> var fbShare = {url: 'http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/',size:'large'}</script> <script type='text/javascript' src='http://widgets.fbshare.me/files/fbshare.js'></script>          </div>
+          <div class="dd_style_button">
+            <a href='http://www.stumbleupon.com/submit?url=http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/&amp;title=While+loop%2C+For+loop+and+Iterator+Performance+Test+-+Java'><img src='http://www.mkyong.com/wp-content/plugins/digg-digg/image/stumbleupon.png' width='56' height='56' alt='Stumbleupon' /></a>          </div> 
+          <div class="dd_style_button">
+            <a href='http://delicious.com/save' onclick="window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&url='+encodeURIComponent('http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/')+'&amp;title='+encodeURIComponent('While+loop%2C+For+loop+and+Iterator+Performance+Test+-+Java'),'delicious', 'toolbar=no,width=550,height=550'); return false;"><img src='http://www.mkyong.com/wp-content/plugins/digg-digg/image/delicious.png' width='54' height='54' alt='Delicious' /></a>          </div> 
+          <div class="clear"></div>
+        
+       </div>
+
+</div>
+
+  <div class="clear"></div>
+
+</div>
+<!-- end of post_meta -->
+
+<div class="clear"></div>
+
+<!-- Popular Posts -->
+<div class="post_meta">
+   
+  <h4>Popular <span class="red">Post</span></h4>
+  <div class="container">
+
+     <div class="box_silver">
+
+          <div class="popular_post">
+
+             <ul>
+               <li>
+                  <a href="http://www.mkyong.com/regular-expressions/10-java-regular-expression-examples-you-should-know/" target="_blank">10 Java Regular Expression Examples You Should Know </a>
+               </li>
+               <li>
+                  <a href="http://www.mkyong.com/collection/top-10-open-source-forums-in-my-collection/" target="_blank">Top 10 open source forums in my collection</a>
+               </li>
+               <li>
+                  <a href="http://www.mkyong.com/hibernate/quick-start-maven-hibernate-mysql-example/" target="_blank">Maven + Hibernate + MySQL Example</a>
+               </li>
+               <li>
+                  <a href="http://www.mkyong.com/unittest/junit-4-vs-testng-comparison/" target="_blank">JUnit 4 Vs TestNG â?? Comparison</a>
+               </li>
+               <li>
+                  <a href="http://www.mkyong.com/java/java-web-start-jnlp-tutorial-unofficial-guide/" target="_blank">Java Web Start (Jnlp) Tutorial</a>
+               </li>
+               <li>
+                  <a href="http://www.mkyong.com/computer-tips/top-5-secrets-to-increase-computer-hard-disk-space/" target="_blank">Top 5 secrets to increase computer hard disk space </a>
+               </li>
+               <li>
+                  <a href="http://www.mkyong.com/blog/digg-digg-wordpress-plugin/" target="_blank">Digg Digg Wordpress Plugin</a>
+               </li>
+             </ul>
+         </div>
+         <!-- end of popular post -->
+
+       </div>
+       <!--end of box_silver -->
+
+  </div>
+  
+  <div class="clear"></div>
+
+</div>
+<!-- end of post_meta -->
+
+
+<div class="clear"></div>
+
+
+<!--related post -->
+<div class="post_meta">
+ 
+<h4>Related <span class="red">Post</span></h4>
+<div class="container">
+   <div class="related_post">
+      <div class="box_silver">
+        <ul class="related_post"><li><a href="http://www.mkyong.com/java/how-do-loop-iterate-a-list-in-java/" title="How to loop / iterate a List in Java?">How to loop / iterate a List in Java?</a></li><li><a href="http://www.mkyong.com/java/how-to-read-an-image-from-file-or-url/" title="How to read an image from file or URL">How to read an image from file or URL</a></li><li><a href="http://www.mkyong.com/java/how-to-decompress-serialized-object-from-a-gzip-file/" title="How to decompress serialized object from a Gzip file">How to decompress serialized object from a Gzip file</a></li><li><a href="http://www.mkyong.com/java/how-to-compress-serialized-object-into-file/" title="How to compress serialized object into file">How to compress serialized object into file</a></li><li><a href="http://www.mkyong.com/java/how-to-decompress-file-from-gzip-file/" title="How to decompress file from GZIP file">How to decompress file from GZIP file</a></li></ul>      </div>
+    </div>
+    <!-- end of related post -->
+
+</div>
+
+  <div class="clear"></div>
+
+</div>
+<!-- end of post_meta -->
+
+<div class="clear"></div>
+
+    
+<!-- You can start editing here. -->
+
+	<h3 id="comments">14 Comments</h3>
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+	<ol class="commentlist">
+           <li class="comment even thread-even depth-1" id="li-comment-990">
+     <div id="comment-990">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/86500a091de6e47457debc197fefbd9f?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">Ran Biron</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-990">January 29, 2009 at 7:43 am</a></div>
+
+      <p>Ugh, yet more micro benchmarks.<br />
+THEY DON&#8217;T WORK.</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=990#respond' onclick='return addComment.moveForm("comment-990", "990", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-885">
+     <div id="comment-885">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/2140d4a5cdff3d2ecd558dba8e9804be?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">andrew</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-885">January 21, 2009 at 1:37 am</a></div>
+
+      <p><code><br />
+	public static void test2(String[] lst)<br />
+	{<br />
+		int size = (lst.length &amp; -1);</p>
+<p>		int i = 0;<br />
+		while (i &lt; size)<br />
+		{<br />
+			String s;<br />
+			s = lst[i++];<br />
+			s = lst[i++];<br />
+		}</p>
+<p>		while (i &lt; lst.length)<br />
+		{<br />
+			String s = lst[i];<br />
+		}<br />
+	}<br />
+</code></p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=885#respond' onclick='return addComment.moveForm("comment-885", "885", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+<ul class='children'>
+   <li class="comment even depth-2" id="li-comment-886">
+     <div id="comment-886">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/2140d4a5cdff3d2ecd558dba8e9804be?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">andrew</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-886">January 21, 2009 at 1:45 am</a></div>
+
+      <p><code><br />
+public static void test2(String[] lst) {<br />
+  int size = (lst.length &amp; -2);</p>
+<p>  int i = 0;<br />
+  while (i &lt; size) {<br />
+    String s;<br />
+    s = lst[i++];<br />
+    s = lst[i++];<br />
+  }</p>
+<p>  while (i &lt; lst.length) {<br />
+    String s = lst[i++];<br />
+  }<br />
+}<br />
+</code></p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=886#respond' onclick='return addComment.moveForm("comment-886", "886", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-mkyong bypostauthor odd alt depth-3" id="li-comment-889">
+     <div id="comment-889">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/622c70d2908e68ecc070ca6754245bb2?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">mkyong</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-889">January 21, 2009 at 3:58 am</a></div>
+
+      <p>can you give some explanation here about what are you trying to say?</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=889#respond' onclick='return addComment.moveForm("comment-889", "889", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-883">
+     <div id="comment-883">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/6dfc1ee22b4a0bb5bc712963b567a32f?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn"><a href='http://richard-wilkinson.co.uk' rel='external nofollow' class='url'>Richard Wilkinson</a></cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-883">January 20, 2009 at 11:48 pm</a></div>
+
+      <p>I had been told that looping through a loop backwards is faster, since you are always comparing to 0 which is apparently faster, but i&#8217;m not sure how accurate that is.  Tests I have done don&#8217;t really show any improvement.</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=883#respond' onclick='return addComment.moveForm("comment-883", "883", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-mkyong bypostauthor odd alt depth-2" id="li-comment-888">
+     <div id="comment-888">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/622c70d2908e68ecc070ca6754245bb2?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">mkyong</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-888">January 21, 2009 at 3:56 am</a></div>
+
+      <p>yes i agree with you, here is the testing i made for loop backward </p>
+<p><a href="http://www.mkyong.com/java/reverse-loop-versus-forward-loop-in-performance-java/" rel="nofollow">http://www.mkyong.com/java/reverse-loop-versus-forward-loop-in-performance-java/</a></p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=888#respond' onclick='return addComment.moveForm("comment-888", "888", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-880">
+     <div id="comment-880">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/9db8f865b1d5f3e3978b37e7a3480cc4?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn"><a href='http://architecturerules.org' rel='external nofollow' class='url'>Mike</a></cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-880">January 20, 2009 at 8:45 pm</a></div>
+
+      <p>Thanks for the stats.</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=880#respond' onclick='return addComment.moveForm("comment-880", "880", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-879">
+     <div id="comment-879">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/72ae665d2d39e760f982d0e17855a223?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">BlogReader</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-879">January 20, 2009 at 7:24 pm</a></div>
+
+      <p>Try changing the order of the loops in your code and see if that changes their times</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=879#respond' onclick='return addComment.moveForm("comment-879", "879", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-mkyong bypostauthor even depth-2" id="li-comment-890">
+     <div id="comment-890">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/622c70d2908e68ecc070ca6754245bb2?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">mkyong</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-890">January 21, 2009 at 4:00 am</a></div>
+
+      <p>Thanks for tips, ya&#8230; it did change result a bit, however the stats i show is taking by the 5 execution average time. So the result should be correct.</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=890#respond' onclick='return addComment.moveForm("comment-890", "890", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+<ul class='children'>
+   <li class="comment odd alt depth-3" id="li-comment-1020">
+     <div id="comment-1020">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/5b1eb2e323283eb4cf69b8e47269ccc9?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">Gazi</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-1020">January 31, 2009 at 5:44 pm</a></div>
+
+      <p>Why Many Java Performance Tests are Wrong<br />
+<a href="http://java.dzone.com/articles/why-many-java-performance-test" rel="nofollow">http://java.dzone.com/articles/why-many-java-performance-test</a></p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=1020#respond' onclick='return addComment.moveForm("comment-1020", "1020", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-878">
+     <div id="comment-878">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/ef40d73b63230249c20a5739e8d31f0a?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">Jeff Martin</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-878">January 20, 2009 at 7:13 pm</a></div>
+
+      <p>My favorite loop is: for(int i=0, iMax=list.size(); i&lt;iMax; i++) &#8230;</p>
+<p>I wonder how that compares to an iterator loop, given that you take the list size method out of the loop.</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=878#respond' onclick='return addComment.moveForm("comment-878", "878", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-mkyong bypostauthor odd alt depth-2" id="li-comment-891">
+     <div id="comment-891">
+      <div class="comment-author vcard">
+         <div class="avatar-img">
+
+           <img alt='' src='http://www.gravatar.com/avatar/622c70d2908e68ecc070ca6754245bb2?s=48&amp;d=%3Cpath_to_url%3E&amp;r=G' class='avatar avatar-48 photo' height='48' width='48' />
+ 
+
+         </div>
+
+         <cite class="fn">mkyong</cite> <span class="says">says:</span>      </div>
+      
+      <div class="comment-meta commentmetadata"><a href="http://www.mkyong.com/java/while-loop-for-loop-and-iterator-performance-test-java/comment-page-1/#comment-891">January 21, 2009 at 5:33 am</a></div>
+
+      <p>sorry , can you elaborate more about it?</p>
+
+      <div class="reply">
+         <a rel='nofollow' class='comment-reply-link' href='/java/while-loop-for-loop-and-iterator-performance-test-java/?replytocom=891#respond' onclick='return addComment.moveForm("comment-891", "891", "respond", "875")'>Reply</a>      </div>
+
+     </div>
+</li>
+</ul>
+</li>
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+
+
+<div id="respond">
+
+<h3>Leave a Reply</h3>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/java/while-loop-for-loop-and-iterator-performance-test-java/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://www.mkyong.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+<label for="author"><small>Name (required)</small></label></p>
+
+<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+<label for="email"><small>Mail (will not be published) (required)</small></label></p>
+
+<p><input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+<label for="url"><small>Website</small></label></p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; &lt;pre lang=&quot;&quot; line=&quot;&quot; escaped=&quot;&quot;&gt; </code></small></p>-->
+
+<p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='875' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+
+</form>
+
+</div>
+
+
+    
+  </div>
+  <!--INFOLINKS_OFF-->
+
+<div id="sidebar">
+
+  <div id="sidebar-top">
+    
+    <div id="top-sidebarwidgets">
+
+      <h2>About ...</h2>
+      <div class="sidebar-top-box">
+        <div class="box-padding">
+          
+             <div class="about_me">
+               <img src="http://www.mkyong.com/image/mypic.jpg" alt="mypic" />
+             </div>
+             <p> 
+             This website is sharing many Java, J2EE and Ajax web development tutorials, tips and examples, hope you like it.
+              </p>
+             <div class="rss_top">
+             <div class="rss">
+             <a href="http://feeds.feedburner.com/FeedForMkyong">Subscribe to Mkyong Dot Com via RSS</a>
+             </div>
+             </div>
+        </div>
+      </div>
+   
+          
+      
+    </div>
+
+  </div>
+  
+  <div style="clear:both;" />
+
+  <div id="sidebar-left">
+
+    <div id="l_sidebarwidgets">
+
+           
+      
+<div class="sidebarads">
+<link rel="stylesheet" type="text/css" href="http://cache.blogads.com/78664566/feed.css" />
+<script language="javascript" type="text/javascript" src="http://cache.blogads.com/78664566/feed.js"></script><br/><a href="http://www.blogads.com">blog advertising</a> is good for you
+</div>
+
+
+<div class="sidebarads">
+<script type="text/javascript"><!--
+google_ad_client = "pub-2836379775501347";
+/* 160x600, created 12/25/08 */
+google_ad_slot = "0382211546";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+<div class="sidebarads">
+<script type="text/javascript"><!--
+google_ad_client = "pub-2836379775501347";
+/* 160x600, created 9/19/09 */
+google_ad_slot = "9967397837";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+    </div>
+    <!-- end of l_sidebarwidgets-->
+
+  </div>
+  <!-- end of sidebar-left -->
+
+
+  <div id="sidebar-right">
+
+<h2>Book Reviewed</h2>
+<div class="bookads">
+<a href="http://www.mkyong.com/book-review/review-apache-maven-2-effective-implementation/" target="_blank">
+<img src="http://www.mkyong.com/book-reviewed/images/review-Maven-2-effective-implementation.jpg" alt="review-Maven-2-effective-implementation" title="review-Maven-2-effective-implementation" width="120" height="140" />
+</a>
+</div>
+
+    <div id="r_sidebarwidgets">
+
+      <h2>Categories</h2>		<ul>
+	<li class="cat-item cat-item-305"><a href="http://www.mkyong.com/category/apache/" title="View all posts filed under Apache">Apache</a> (8)
+</li>
+	<li class="cat-item cat-item-528"><a href="http://www.mkyong.com/category/applet/" title="View all posts filed under Applet">Applet</a> (16)
+</li>
+	<li class="cat-item cat-item-76"><a href="http://www.mkyong.com/category/blog/" title="View all posts filed under Blog">Blog</a> (11)
+</li>
+	<li class="cat-item cat-item-606"><a href="http://www.mkyong.com/category/book-review/" title="View all posts filed under Book review">Book review</a> (1)
+</li>
+	<li class="cat-item cat-item-601"><a href="http://www.mkyong.com/category/bookmark-link/" title="View all posts filed under Bookmark-link">Bookmark-link</a> (12)
+</li>
+	<li class="cat-item cat-item-225"><a href="http://www.mkyong.com/category/boring/" title="View all posts filed under Boring">Boring</a> (11)
+</li>
+	<li class="cat-item cat-item-211"><a href="http://www.mkyong.com/category/c/" title="View all posts filed under C / C++">C / C++</a> (2)
+</li>
+	<li class="cat-item cat-item-583"><a href="http://www.mkyong.com/category/collection/" title="View all posts filed under Collection">Collection</a> (1)
+</li>
+	<li class="cat-item cat-item-64"><a href="http://www.mkyong.com/category/computer-tips/" title="View all posts filed under Computer Tips">Computer Tips</a> (15)
+</li>
+	<li class="cat-item cat-item-482"><a href="http://www.mkyong.com/category/css/" title="View all posts filed under CSS">CSS</a> (2)
+</li>
+	<li class="cat-item cat-item-303"><a href="http://www.mkyong.com/category/design-pattern/" title="View all posts filed under Design Pattern">Design Pattern</a> (1)
+</li>
+	<li class="cat-item cat-item-69"><a href="http://www.mkyong.com/category/game/" title="View all posts filed under Game">Game</a> (8)
+</li>
+	<li class="cat-item cat-item-383"><a href="http://www.mkyong.com/category/hibernate/" title="View all posts filed under Hibernate">Hibernate</a> (30)
+</li>
+	<li class="cat-item cat-item-61"><a href="http://www.mkyong.com/category/html/" title="View all posts filed under Html">Html</a> (4)
+</li>
+	<li class="cat-item cat-item-336"><a href="http://www.mkyong.com/category/hudson/" title="View all posts filed under Hudson">Hudson</a> (2)
+</li>
+	<li class="cat-item cat-item-209"><a href="http://www.mkyong.com/category/hyper-estraier/" title="View all posts filed under Hyper Estraier">Hyper Estraier</a> (2)
+</li>
+	<li class="cat-item cat-item-55"><a href="http://www.mkyong.com/category/java/" title="View all posts filed under Java">Java</a> (107)
+</li>
+	<li class="cat-item cat-item-637"><a href="http://www.mkyong.com/category/java-best-practices/" title="View all posts filed under Java Best Practices">Java Best Practices</a> (2)
+</li>
+	<li class="cat-item cat-item-247"><a href="http://www.mkyong.com/category/javascript/" title="View all posts filed under Javascript">Javascript</a> (15)
+</li>
+	<li class="cat-item cat-item-351"><a href="http://www.mkyong.com/category/jquery/" title="View all posts filed under JQuery">JQuery</a> (6)
+</li>
+	<li class="cat-item cat-item-631"><a href="http://www.mkyong.com/category/logging/" title="View all posts filed under Logging">Logging</a> (1)
+</li>
+	<li class="cat-item cat-item-431"><a href="http://www.mkyong.com/category/maven/" title="View all posts filed under Maven">Maven</a> (21)
+</li>
+	<li class="cat-item cat-item-562"><a href="http://www.mkyong.com/category/mysql/" title="View all posts filed under MySQL">MySQL</a> (6)
+</li>
+	<li class="cat-item cat-item-448"><a href="http://www.mkyong.com/category/news/" title="View all posts filed under News">News</a> (3)
+</li>
+	<li class="cat-item cat-item-93"><a href="http://www.mkyong.com/category/database/" title="View all posts filed under PostgreSQL">PostgreSQL</a> (21)
+</li>
+	<li class="cat-item cat-item-530"><a href="http://www.mkyong.com/category/python/" title="View all posts filed under Python">Python</a> (1)
+</li>
+	<li class="cat-item cat-item-597"><a href="http://www.mkyong.com/category/regular-expressions/" title="View all posts filed under Regular Expressions">Regular Expressions</a> (12)
+</li>
+	<li class="cat-item cat-item-487"><a href="http://www.mkyong.com/category/review/" title="View all posts filed under Review">Review</a> (13)
+</li>
+	<li class="cat-item cat-item-84"><a href="http://www.mkyong.com/category/security/" title="View all posts filed under Security">Security</a> (4)
+</li>
+	<li class="cat-item cat-item-610"><a href="http://www.mkyong.com/category/servlet/" title="View all posts filed under Servlet">Servlet</a> (13)
+</li>
+	<li class="cat-item cat-item-464"><a href="http://www.mkyong.com/category/spring/" title="View all posts filed under Spring">Spring</a> (1)
+</li>
+	<li class="cat-item cat-item-402"><a href="http://www.mkyong.com/category/swt/" title="View all posts filed under SWT">SWT</a> (12)
+</li>
+	<li class="cat-item cat-item-255"><a href="http://www.mkyong.com/category/tomcat/" title="View all posts filed under Tomcat">Tomcat</a> (9)
+</li>
+	<li class="cat-item cat-item-511"><a href="http://www.mkyong.com/category/unittest/" title="View all posts filed under unittest">unittest</a> (15)
+</li>
+	<li class="cat-item cat-item-135"><a href="http://www.mkyong.com/category/linux/" title="View all posts filed under Unix / Linux">Unix / Linux</a> (30)
+</li>
+	<li class="cat-item cat-item-330"><a href="http://www.mkyong.com/category/web/" title="View all posts filed under Web">Web</a> (3)
+</li>
+	<li class="cat-item cat-item-495"><a href="http://www.mkyong.com/category/web-development/" title="View all posts filed under Web Development">Web Development</a> (7)
+</li>
+	<li class="cat-item cat-item-435"><a href="http://www.mkyong.com/category/wicket/" title="View all posts filed under Wicket">Wicket</a> (15)
+</li>
+		</ul>
+<h2>Friends &amp; Links</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.chankelwin.com/" title="My personal views on Malaysia and the world around me" target="_blank">ChanKelwin</a></li>
+<li><a href="http://www.dhgate.com" title="China wholesale" target="_blank">China Wholesale</a></li>
+<li><a href="http://findicons.com" title="Free Icons Search Engine" target="_blank">Find Free Icons</a></li>
+<li><a href="http://www.ebloggy.net" target="_blank">Internet Blogger</a></li>
+<li><a href="http://www.tuneprofit.com/" target="_blank">Investment Life</a></li>
+<li><a href="http://www.adamsinfo.com/php-mysql-developer/" target="_blank">MySQL Tutorials</a></li>
+<li><a href="http://www.videophpblog.com" target="_blank">PHP Tutorials</a></li>
+<li><a href="http://tanwanmei.blogspot.com/" title="TanWanMei Blog" target="_blank">TanWanMei</a></li>
+<li><a href="http://www.tenthofmarch.com/" title="Technology, Reviews, Tutorials, Make Money Online" target="_blank">TenthOfMarch</a></li>
+<li><a href="http://www.web2secure.com" title="Web Security Weblog" target="_blank">Web Security Weblog</a></li>
+<li><a href="http://www.lovingtech.net/webmaster-forum/" target="_blank">Webmaster Forum</a></li>
+
+	</ul>
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+</div>
+<!-- wrap end -->
+
+</div>
+
+<!-- begin footer -->
+<script type='text/javascript' src='http://www.mkyong.com/wp-includes/js/jquery/jquery.form.js?ver=2.02m'></script>
+<script type='text/javascript' src='http://www.mkyong.com/wp-content/plugins/contact-form-7/scripts.js?ver=2.1'></script>
+
+<div id="footer-wrap">
+
+<!-- footer start-->
+<div id="footer">
+ 
+  <!-- infolink start-->
+  <script type="text/javascript">
+   var infolink_pid = 27184;
+   var infolink_wsid = 0;
+  </script>
+  <script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script>
+  <!-- infolink end-->
+
+<center>
+
+&copy; 2008-2010 <a href="http://www.mkyong.com/">Mkyong Dot Com</a> | <a href="http://feeds.feedburner.com/FeedForMkyong">RSS Feed</a> | <a href="http://www.mkyong.com/privacy-policy/">Privacy Policy</a> | <a href="http://www.mkyong.com/advertise-on-mkyong/">Advertise with Us</a> | <a href="http://www.mkyong.com/contact-mkyong/"> Contact Us</a>
+
+
+
+</center>
+
+</div>
+<!-- footer end-->
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-752408-5");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body></html>

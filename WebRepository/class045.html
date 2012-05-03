@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Java - Dynamic loading of class and jar file | twit88.com</title>
+
+<meta name="generator" content="WordPress 2.3.3" />
+
+<link rel="stylesheet" href="http://twit88.com/blog/wp-content/themes/Simplicity10/style.css" type="text/css" media="screen" />
+
+<link rel="alternate" type="application/rss+xml" title="twit88.com RSS Feed" href="http://twit88.com/blog/feed/" />
+
+<link rel="pingback" href="http://twit88.com/blog/xmlrpc.php" />
+
+	<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://twit88.com/blog/xmlrpc.php?rsd" />
+ <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://twit88.com/blog/wp-includes/wlwmanifest.xml" /> 
+<!-- all in one seo pack 1.4.6.1 [288,356] -->
+<meta name="description" content="Java - Dynamic loading of class and jar file" />
+<meta name="keywords" content="java, class loading, dynamic, jar,programming,open source" />
+<!-- /all in one seo pack -->
+<script type="text/javascript">var infolink_pid = 59500;</script>
+<script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2574688-1";
+urchinTracker();
+</script><style type="text/css">.recentcomments a{display:inline !important;padding: 0 !important;margin: 0 !important;}</style>
+
+</head>
+
+<body>
+
+<div id="wrap">
+
+<div id="nav">
+<ul class="nav">
+<li class="first"><a href="http://twit88.com/blog">Home</a></li>
+<li class="second"><a href="http://twit88.com/home">My Open Source</a></li>
+</ul>
+
+<form id="searchform" method="get" action="http://twit88.com/blog/" ><input type="text" value="search" onfocus="if (this.value == 'search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'search';}" size="18" maxlength="50" name="s" id="s" /><input name="submit" type="submit" id="submit" value="search" /></form>
+</div>
+
+<div id="header" onclick="location.href='http://twit88.com/blog';" style="cursor: pointer;">
+<h1 class="blogtitle">twit88.com</h1>
+<p class="description">New SMS Library at http://twit88.com/platform/projects/show/messagingtoolkit !</p>
+</div>
+	<div id="page">
+
+		<div id="contentleft">
+
+			<div id="content">
+
+
+				<h2 class="sectionhead"><a href="http://twit88.com/blog/2007/10/04/java-dynamic-loading-of-class-and-jar-file/feed"><img src="http://twit88.com/blog/wp-content/themes/Simplicity10/images/rss.gif" alt="RSS Feed for This Post" title="RSS Feed for This Post" style="float:right;margin: 2px 0 0 5px;" /></a>Current Article</h2>
+
+			
+				<div class="post" id="post-124">
+
+					<h1><a href="http://twit88.com/blog/2007/10/04/java-dynamic-loading-of-class-and-jar-file/" rel="bookmark" title="Permanent Link to Java - Dynamic loading of class and jar file">Java - Dynamic loading of class and jar file</a></h1>
+
+					<p class="postinfo">By <a href="http://twit88.com/blog/author/admin/" title="Posts by admin">admin</a> on Oct 4, 2007 in <a href="http://twit88.com/blog/category/java/" title="View all posts in Java" rel="category tag">Java</a>,  <a href="http://twit88.com/blog/category/programming/" title="View all posts in Programming" rel="category tag">Programming</a>,  <a href="http://twit88.com/blog/category/open-source/" title="View all posts in open source" rel="category tag">open source</a></p>
+			
+
+					<div class="entry">
+                                            
+<!-- You will NOT be able to see the ad on your site! This unit is hidden on your page, and will only display to your search engine traffic (from US and CA). To preview, paste the code up on your site, then add #chitikatest=mortgage to the end of your URL in your browser's address bar.  Example:  www.yourwebsite.com#chitikatest=mortgage. This will show you what the ad would look like to a user who is interested in "mortgages." -->
+<script type="text/javascript"><!--
+ch_client = "mengwangk";
+ch_type = "mpu";
+ch_width = 450;
+ch_height = 90;
+ch_non_contextual = 4;
+ch_vertical ="premium";
+ch_sid = "Chitika Premium";
+ch_alternate_ad_url = "http://www.twit88.com/bid.html";
+var ch_queries = new Array( );
+var ch_selected=Math.floor((Math.random()*ch_queries.length));
+if ( ch_selected < ch_queries.length ) {
+ch_query = ch_queries[ch_selected];
+}
+//--></script>
+<script  src="http://scripts.chitika.net/eminimalls/amm.js" type="text/javascript">
+</script>
+
+
+	
+
+						<p><a href="http://twit88.com/blog/wp-content/uploads/2007/10/classloaderutil.java">Download Source Code </a></p>
+<p><a href='http://twit88.com/blog/wp-content/uploads/2008/02/objectfactory.java' title='objectfactory.java'>Additional Download</a></p>
+<p><!--adsense--><br />
+I was asked this question recently to load class or jar file dynamically in Java application. There are few things to take note here</p>
+<p><u><strong>Dynamic Class Loading</strong></u></p>
+<p>To load a class dynamically is straightforward. Just make sure the classpath is defined when your program starts up. E.g., if you define <strong>/myapp/classes </strong>folder as your classpath during start up, and you have created a new class called <strong>com.myapp.NewClass</strong> aftert this. All you need to do is to copy <strong>NewClass</strong> into <strong>/myapp/classes/com/myapp</strong></p>
+<p><span id="more-124"></span><br />
+<u><strong>Dynamic Jar Loading </strong></u></p>
+<p>To load a jar dynamically is a bit tricky. There are 2 parts here</p>
+<ol>
+<li>You can load the jar using URLClassLoader. But the existing classpath that you defined during application startup is not changed</li>
+<li>To change the existing classpath, you have to do a bit of hacking to use <strong>reflection </strong>to modify the existing classpath.</li>
+</ol>
+<p>Below is the code snippet I used to load a jar file using URLClassLoader</p>
+<blockquote><p> URLClassLoader clazzLoader ;<br />
+Class clazz;<br />
+try {<br />
+ClassLoaderUtil.addFile(filePath);<br />
+filePath = &#8220;jar:file://&#8221; + filePath + &#8220;!/&#8221;;<br />
+URL url = new File(filePath).toURL();<br />
+clazzLoader = new URLClassLoader(new URL[]{url});<br />
+clazz = clazzLoader.loadClass(name);<br />
+return clazz.newInstance();</p>
+<p>&#8230;&#8230;.</p></blockquote>
+<p>Take note of the <strong>jar:file://</strong> pattern. ClassLoaderUtil will add the new jar file to the existing classpath</p>
+<blockquote><p> public static void addURL(URL u) throws IOException {</p>
+<p>URLClassLoader sysLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();<br />
+URL urls[] = sysLoader.getURLs();<br />
+for (int i = 0; i &lt; urls.length; i++) {<br />
+if (StringUtils.equalsIgnoreCase(urls[i].toString(), u.toString())) {<br />
+if (log.isDebugEnabled()) {<br />
+log.debug(&#8221;URL &#8221; + u + &#8221; is already in the CLASSPATH&#8221;);<br />
+}<br />
+return;<br />
+}<br />
+}<br />
+Class sysclass = URLClassLoader.class;<br />
+try {<br />
+Method method = sysclass.getDeclaredMethod(&#8221;addURL&#8221;, parameters);<br />
+method.setAccessible(true);<br />
+method.invoke(sysLoader, new Object[]{u});<br />
+} catch (Throwable t) {<br />
+t.printStackTrace();<br />
+throw new IOException(&#8221;Error, could not add URL to system classloader&#8221;);<br />
+}<br />
+}</p></blockquote>
+<p>This also bring me another question. How to dynamically unload and reload a class or Jar file ? So far I still don&#8217;t know how to do this yet.</p>
+					</div>
+				</div>
+
+<!-- Begin BidVertiser code -->
+<p>
+<SCRIPT LANGUAGE="JavaScript1.1" SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=136001&bid=328753" type="text/javascript"></SCRIPT>
+<noscript><a href="http://www.bidvertiser.com" onclick="javascript:urchinTracker('/outbound/www.bidvertiser.com');">make money online</a></noscript>
+<!-- End BidVertiser code --> 
+</p>
+				<h2 class="related">Related Posts</h2>
+				<div class="related">
+					<ul><li><a href="http://twit88.com/blog/2008/06/12/jadclipse-eclipse-plug-in-for-better-class-file-viewing/" rel="bookmark" title="Permanent Link: JadClipse: Eclipse Plug-in for Better Class File Viewing">JadClipse: Eclipse Plug-in for Better Class File Viewing</a></li><li><a href="http://twit88.com/blog/2007/10/07/develop-a-java-plugin-framework/" rel="bookmark" title="Permanent Link: Develop a Java Plugin Framework">Develop a Java Plugin Framework</a></li><li><a href="http://twit88.com/blog/2009/05/04/open-source-java-pdf-library/" rel="bookmark" title="Permanent Link: Open Source Java PDF Library">Open Source Java PDF Library</a></li><li><a href="http://twit88.com/blog/2010/01/26/analysing-tools-for-java-class-and-package-dependencies/" rel="bookmark" title="Permanent Link: Analysing Tools for Java Class and Package Dependencies">Analysing Tools for Java Class and Package Dependencies</a></li><li><a href="http://twit88.com/blog/2008/10/20/java-data-distribution-platform/" rel="bookmark" title="Permanent Link: Java Data Distribution Platform">Java Data Distribution Platform</a></li><li><a href="http://twit88.com/blog/2007/12/16/java-native-compiler-java-executable-wrapper/" rel="bookmark" title="Permanent Link: Java Native Compiler, Java Executable Wrapper">Java Native Compiler, Java Executable Wrapper</a></li></ul>
+				</div>
+				<p class="tb">
+                                 <br/>
+                                 <a href="http://twit88.com/blog/2007/10/04/java-dynamic-loading-of-class-and-jar-file/trackback/">Trackback URL</a></p>
+
+<br/>
+
+				
+
+
+<!-- You can start editing here. -->
+
+<div class="allcomments">
+
+
+
+
+	<h2 id="comments"><a href="http://twit88.com/blog/2007/10/04/java-dynamic-loading-of-class-and-jar-file/feed"><img src="http://twit88.com/blog/wp-content/themes/Simplicity10/images/rss.gif" alt="RSS Feed for This Post" title="RSS Feed for This Post" style="float:right;margin: 2px 0 0 5px;" /></a>9 Comment(s)</h2>
+
+	<ol class="commentlist">
+	
+				
+<li class="odd" id="comment-288">
+
+		<p><strong>Ink</strong> | <a href="#comment-288" title="">Oct 30, 2007</a> | <a href="#respond">Reply</a></p>
+				<p>use OSGI to these type of operations</p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+			
+<li class="odd" id="comment-3103">
+
+		<p><strong>Josh</strong> | <a href="#comment-3103" title="">Feb 5, 2008</a> | <a href="#respond">Reply</a></p>
+				<p>Given the standard class name like(&#8221;package1.className&#8221;), you could load a class dynamically using java.lang.reflect.Class&#8217;s static forName method:<br />
+Class c = Class.forName(&#8221;yourClass&#8221;);</p>
+<p>.. but I want to know how to get an appropriate class name from a file path.  That first example omits explaining where the &#8220;name&#8221; variable came from.  It is easy when there are no packages to strip out paths and the file extension but how can you get the appropriate class name with its preceding packages?</p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+			
+<li class="mycomment" id="comment-3118">
+
+		<p><strong><a href='http://www.twit88.com' rel='external nofollow' onclick="javascript:urchinTracker('/outbound/www.twit88.com');">admin</a></strong> | <a href="#comment-3118" title="">Feb 5, 2008</a> | <a href="#respond">Reply</a></p>
+				<p>Attached the additional code for download..</p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+			
+<li class="odd" id="comment-3630">
+
+		<p><strong>Adam</strong> | <a href="#comment-3630" title="">Feb 22, 2008</a> | <a href="#respond">Reply</a></p>
+				<p>&gt; How to dynamically unload and<br />
+&gt; reload a class or Jar file ?</p>
+<p><a href="http://site.red-illusions.dk/2006/11/04/simple-dynamic-loadingunloading-of-code/" rel="nofollow" onclick="javascript:urchinTracker('/outbound/site.red-illusions.dk/2006/11/04/simple-dynamic-loadingunloading-of-code/');">http://site.red-illusions.dk/2006/11/04/simple-dynamic-loadingunloading-of-code/</a></p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+			
+<li class="odd" id="comment-4776">
+
+		<p><strong><a href='http://xeustech.blogspot.com' rel='external nofollow' onclick="javascript:urchinTracker('/outbound/xeustech.blogspot.com');">xeus</a></strong> | <a href="#comment-4776" title="">Mar 28, 2008</a> | <a href="#respond">Reply</a></p>
+				<p>try using JCL&#8230; <a href="http://jcloader.sourceforge.net" rel="nofollow" onclick="javascript:urchinTracker('/outbound/jcloader.sourceforge.net');">http://jcloader.sourceforge.net</a></p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+			
+<li class="odd" id="comment-5233">
+
+		<p><strong>Heff</strong> | <a href="#comment-5233" title="">Apr 7, 2008</a> | <a href="#respond">Reply</a></p>
+				<p>You don&#8217;t need to unload java classes, the classes will be garbage collected once the classloader is no longer referenced by any objects on the heap. Remember that Classes are also Objects.</p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+			
+<li class="odd" id="comment-7509">
+
+		<p><strong>Kris</strong> | <a href="#comment-7509" title="">May 7, 2008</a> | <a href="#respond">Reply</a></p>
+				<p>From where can I get the class ClassLoaderUtil ?</p>
+<p>and why is it needed ?</p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+			
+<li class="odd" id="comment-9869">
+
+		<p><strong>sandipan</strong> | <a href="#comment-9869" title="">Jun 12, 2008</a> | <a href="#respond">Reply</a></p>
+				<p>after loading a class using the above method i am not able to delete the jar file. The url class loader is not releasing the handle of the jar. </p>
+<p>How can i delete the jar after class loading?</p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+				
+<li class="odd" id="comment-87126">
+
+		<p><strong><a href='http://www.geeksww.com' rel='external nofollow' onclick="javascript:urchinTracker('/outbound/www.geeksww.com');">shahryar ghazi</a></strong> | <a href="#comment-87126" title="">Jun 14, 2009</a> | <a href="#respond">Reply</a></p>
+				<p>thanks for sharing .. very helpful</p>
+		<p style="font-size:8pt;"></p>
+	</li>
+		
+		
+		
+	</ol>
+	
+	
+
+	<h2 id="trackbacks">2 Trackback(s)</h2>
+
+	<ol class="tblist">
+	
+
+	<li id="comment-61">
+		<strong>From <a href='http://twit88.com/blog/2007/10/07/develop-a-java-plugin-framework/' rel='external nofollow'>Develop a Java Plugin Framework | twit88.com</a></strong> | <a href="#comment-61" title="">Oct 7, 2007</a>			</li>
+	
+		
+
+	<li id="comment-26755">
+		<strong>From <a href='http://kintespace.com/rasxlog/?p=1218' rel='external nofollow' onclick="javascript:urchinTracker('/outbound/kintespace.com/rasxlog/?p=1218');">the rasx() context &raquo; Blog Archive &raquo; My Humble Java</a></strong> | <a href="#comment-26755" title="">Nov 7, 2008</a>			</li>
+	
+		
+
+	</ol>
+
+	
+
+
+	<h2 id="respond"><a href="http://twit88.com/blog/2007/10/04/java-dynamic-loading-of-class-and-jar-file/feed"><img src="http://twit88.com/blog/wp-content/themes/Simplicity10/images/rss.gif" alt="RSS Feed for This Post" title="RSS Feed for This Post" style="float:right;margin: 2px 0 0 5px;" /></a>Post a Comment</h2>
+	
+	
+	<form action="http://twit88.com/blog/wp-comments-post.php" method="post" id="commentform">
+
+		
+	
+		<p><label for="author">Name (required)</label>
+		<input type="text" name="author" id="author" value="" size="22" tabindex="1" /></p>
+				
+		<p><label for="email">E-mail (will not be published) (required)</label>
+		<input type="text" name="email" id="email" value="" tabindex="2" size="22" /></p>		
+		
+		<p><label for="url">Website</label>
+		<input type="text" name="url" id="url" value="" size="22" tabindex="3" /></p>
+	
+	
+		<p><textarea name="comment" id="comment" cols="5" rows="10" tabindex="4"></textarea></p>
+
+		<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+		<input type="hidden" name="comment_post_ID" value="124" /></p>
+	
+	
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+
+	</form>
+
+
+</div>
+
+
+
+
+
+				<div class="navigation">
+					<div class="alignleft">
+											</div>
+					<div class="alignright">
+											</div>
+	               		</div>
+
+			</div>
+
+
+	<div id="midcontent">
+		<ul> 
+				<li id="text-2" class="widget widget_text">			<h2 class="widgettitle">Subscribe</h2>
+			<div class="textwidget"><p>
+<center>
+<a href="http://feeds.feedburner.com/thoughtworks" title="Subscribe to my feed" rel="alternate" type="application/rss+xml" onclick="javascript:urchinTracker('/outbound/feeds.feedburner.com/thoughtworks');"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="" style="border:0"/></a><a href="http://feeds.feedburner.com/thoughtworks" title="Subscribe to my feed" rel="alternate" type="application/rss+xml" onclick="javascript:urchinTracker('/outbound/feeds.feedburner.com/thoughtworks');"></a>
+</center>
+</p></div>
+		</li>
+		<li id="recent-posts" class="widget widget_recent_entries">			<h2 class="widgettitle">Recent Posts</h2>
+			<ul>
+						<li><a href="http://twit88.com/blog/2010/02/01/gui-automation-with-screenshots/">GUI Automation with Screenshots </a></li>
+						<li><a href="http://twit88.com/blog/2010/02/01/eclipse-er-diagram-plugin/">Eclipse ER Diagram Plugin </a></li>
+						<li><a href="http://twit88.com/blog/2010/02/01/java-framework-vaadin/">Java Framework: Vaadin </a></li>
+						<li><a href="http://twit88.com/blog/2010/02/01/binding-business-requirements-to-code/">Binding Business Requirements to Code </a></li>
+						<li><a href="http://twit88.com/blog/2010/02/01/open-source-raw-photo-editor/">Open Source Raw Photo Editor </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/31/build-a-open-source-helicopter-autopilot/">Build a Open Source Helicopter Autopilot </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/30/open-source-stock-market-analysis-system/">Open Source Stock Market Analysis System </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/30/unit-testing-for-bpel/">Unit Testing for BPEL </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/29/firefox-webmail-notifier/">Firefox WebMail Notifier </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/29/firefox-blocking-ads/">Firefox: Blocking Ads </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/29/tor-to-be-anonymous-online/">Tor - To be Anonymous Online </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/29/open-source-bpel-engine-fro-jboss/">Open Source BPEL Engine fro JBOSS </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/29/firefox-proxy-tool/">Firefox Proxy Tool </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/29/firefox-view-and-modify-httphttps-data/">Firefox: View and Modify HTTP/HTTPS Data </a></li>
+						<li><a href="http://twit88.com/blog/2010/01/29/net-convert-to-local-timezone/">.NET: Convert to Local Timezone </a></li>
+						</ul>
+		</li>
+		<li id="text-1" class="widget widget_text">						<div class="textwidget"><!-- You will NOT be able to see the ad on your site! This unit is hidden on your page, and will only display to your search engine traffic (from US and CA). To preview, paste the code up on your site, then add #chitikatest=mortgage to the end of your URL in your browser's address bar.  Example:  www.yourwebsite.com#chitikatest=mortgage. This will show you what the ad would look like to a user who is interested in "mortgages." -->
+<script type="text/javascript"><!--
+ch_client = "mengwangk";
+ch_type = "mpu";
+ch_width = 120;
+ch_height = 600;
+ch_non_contextual = 4;
+ch_vertical ="premium";
+ch_backfill =1;
+ch_sid = "Chitika Premium";
+var ch_queries = new Array( );
+var ch_selected=Math.floor((Math.random()*ch_queries.length));
+if ( ch_selected < ch_queries.length ) {
+ch_query = ch_queries[ch_selected];
+}
+//--></script>
+<script  src="http://scripts.chitika.net/eminimalls/amm.js" type="text/javascript">
+</script></div>
+		</li>
+		<li id="text-3" class="widget widget_text">						<div class="textwidget"><center>
+<script type="text/javascript" src="http://feedjit.com/serve/?bc=FFFFFF&amp;tc=494949&amp;brd1=336699&amp;lnk=494949&amp;hc=336699&amp;ww=160"></script><noscript><a href="http://feedjit.com/" onclick="javascript:urchinTracker('/outbound/feedjit.com/');">Feedjit Live Blog Stats</a></noscript>
+</center></div>
+		</li>
+<li id="categories-1" class="widget widget_categories"><h2 class="widgettitle">Categories</h2>
+		<ul>
+			<li class="cat-item cat-item-6"><a href="http://twit88.com/blog/category/net/" title="View all posts filed under .NET">.NET</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://twit88.com/blog/category/ai/" title="View all posts filed under AI">AI</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="http://twit88.com/blog/category/cc/" title="View all posts filed under C/C++">C/C++</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="http://twit88.com/blog/category/certification/" title="View all posts filed under certification">certification</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="http://twit88.com/blog/category/database/" title="View all posts filed under database">database</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="http://twit88.com/blog/category/design-pattern/" title="View all posts filed under design pattern">design pattern</a>
+	<ul class='children'>
+	<li class="cat-item cat-item-31"><a href="http://twit88.com/blog/category/design-pattern/net-design-pattern/" title="View all posts filed under .NET">.NET</a>
+		<ul class='children'>
+	<li class="cat-item cat-item-32"><a href="http://twit88.com/blog/category/design-pattern/net-design-pattern/creational-net-design-pattern-design-pattern/" title="View all posts filed under Creational">Creational</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://twit88.com/blog/category/design-pattern/net-design-pattern/enterprise/" title="View all posts filed under Enterprise">Enterprise</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://twit88.com/blog/category/design-pattern/net-design-pattern/structural-net-design-pattern-design-pattern/" title="View all posts filed under Structural">Structural</a>
+</li>
+		</ul>
+</li>
+	<li class="cat-item cat-item-27"><a href="http://twit88.com/blog/category/design-pattern/java-design-pattern/" title="View all posts filed under Java">Java</a>
+		<ul class='children'>
+	<li class="cat-item cat-item-30"><a href="http://twit88.com/blog/category/design-pattern/java-design-pattern/behavioral/" title="View all posts filed under Behavioral">Behavioral</a>
+</li>
+	<li class="cat-item cat-item-28"><a href="http://twit88.com/blog/category/design-pattern/java-design-pattern/creational/" title="View all posts filed under Creational">Creational</a>
+</li>
+	<li class="cat-item cat-item-39"><a href="http://twit88.com/blog/category/design-pattern/java-design-pattern/enterprise-java-design-pattern-design-pattern/" title="View all posts filed under Enterprise">Enterprise</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://twit88.com/blog/category/design-pattern/java-design-pattern/framework/" title="View all posts filed under Framework">Framework</a>
+</li>
+	<li class="cat-item cat-item-37"><a href="http://twit88.com/blog/category/design-pattern/java-design-pattern/others/" title="View all posts filed under Others">Others</a>
+</li>
+		</ul>
+</li>
+	<li class="cat-item cat-item-66"><a href="http://twit88.com/blog/category/design-pattern/refactoring/" title="View all posts filed under Refactoring">Refactoring</a>
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-24"><a href="http://twit88.com/blog/category/firefox-plugin/" title="View all posts filed under firefox plugin">firefox plugin</a>
+</li>
+	<li class="cat-item cat-item-44"><a href="http://twit88.com/blog/category/free-ebook/" title="View all posts filed under free ebook">free ebook</a>
+	<ul class='children'>
+	<li class="cat-item cat-item-45"><a href="http://twit88.com/blog/category/free-ebook/net-free-ebook/" title="View all posts filed under .NET">.NET</a>
+		<ul class='children'>
+	<li class="cat-item cat-item-51"><a href="http://twit88.com/blog/category/free-ebook/net-free-ebook/aspnet/" title="View all posts filed under ASP.NET">ASP.NET</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://twit88.com/blog/category/free-ebook/net-free-ebook/c/" title="View all posts filed under C#">C#</a>
+</li>
+	<li class="cat-item cat-item-46"><a href="http://twit88.com/blog/category/free-ebook/net-free-ebook/linq/" title="View all posts filed under LINQ">LINQ</a>
+</li>
+	<li class="cat-item cat-item-52"><a href="http://twit88.com/blog/category/free-ebook/net-free-ebook/silverlight/" title="View all posts filed under Silverlight">Silverlight</a>
+</li>
+	<li class="cat-item cat-item-63"><a href="http://twit88.com/blog/category/free-ebook/net-free-ebook/sql-server/" title="View all posts filed under SQL Server">SQL Server</a>
+</li>
+		</ul>
+</li>
+	<li class="cat-item cat-item-47"><a href="http://twit88.com/blog/category/free-ebook/java-free-ebook/" title="View all posts filed under Java">Java</a>
+		<ul class='children'>
+	<li class="cat-item cat-item-72"><a href="http://twit88.com/blog/category/free-ebook/java-free-ebook/jxta/" title="View all posts filed under JXTA">JXTA</a>
+</li>
+	<li class="cat-item cat-item-48"><a href="http://twit88.com/blog/category/free-ebook/java-free-ebook/maven/" title="View all posts filed under Maven">Maven</a>
+</li>
+	<li class="cat-item cat-item-49"><a href="http://twit88.com/blog/category/free-ebook/java-free-ebook/troubleshooting/" title="View all posts filed under Troubleshooting">Troubleshooting</a>
+</li>
+	<li class="cat-item cat-item-64"><a href="http://twit88.com/blog/category/free-ebook/java-free-ebook/web/" title="View all posts filed under Web">Web</a>
+</li>
+		</ul>
+</li>
+	<li class="cat-item cat-item-73"><a href="http://twit88.com/blog/category/free-ebook/nlp/" title="View all posts filed under NLP">NLP</a>
+</li>
+	<li class="cat-item cat-item-74"><a href="http://twit88.com/blog/category/free-ebook/unix/" title="View all posts filed under Unix">Unix</a>
+</li>
+	<li class="cat-item cat-item-53"><a href="http://twit88.com/blog/category/free-ebook/websites/" title="View all posts filed under websites">websites</a>
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://twit88.com/blog/category/freebies/" title="View all posts filed under freebies">freebies</a>
+</li>
+	<li class="cat-item cat-item-75"><a href="http://twit88.com/blog/category/games/" title="View all posts filed under Games">Games</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://twit88.com/blog/category/general/" title="View all posts filed under general">general</a>
+</li>
+	<li class="cat-item cat-item-50"><a href="http://twit88.com/blog/category/good-reading/" title="View all posts filed under Good Reading">Good Reading</a>
+	<ul class='children'>
+	<li class="cat-item cat-item-61"><a href="http://twit88.com/blog/category/good-reading/academic/" title="View all posts filed under Academic">Academic</a>
+</li>
+	<li class="cat-item cat-item-54"><a href="http://twit88.com/blog/category/good-reading/ajax/" title="View all posts filed under AJAX">AJAX</a>
+</li>
+	<li class="cat-item cat-item-70"><a href="http://twit88.com/blog/category/good-reading/mobility/" title="View all posts filed under Mobility">Mobility</a>
+</li>
+	<li class="cat-item cat-item-55"><a href="http://twit88.com/blog/category/good-reading/sdp/" title="View all posts filed under SDP">SDP</a>
+</li>
+	<li class="cat-item cat-item-56"><a href="http://twit88.com/blog/category/good-reading/soa/" title="View all posts filed under SOA">SOA</a>
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://twit88.com/blog/category/hacking/" title="View all posts filed under hacking">hacking</a>
+</li>
+	<li class="cat-item cat-item-40"><a href="http://twit88.com/blog/category/interesting/" title="View all posts filed under interesting">interesting</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://twit88.com/blog/category/j2me/" title="View all posts filed under J2ME">J2ME</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://twit88.com/blog/category/java/" title="View all posts filed under Java">Java</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://twit88.com/blog/category/linux/" title="View all posts filed under Linux">Linux</a>
+</li>
+	<li class="cat-item cat-item-77"><a href="http://twit88.com/blog/category/messagingtoolkit/" title="View all posts filed under MessagingToolkit">MessagingToolkit</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://twit88.com/blog/category/network/" title="View all posts filed under network">network</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://twit88.com/blog/category/open-source/" title="Open source software on Java, .NET, and PHP">open source</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="http://twit88.com/blog/category/oracle/" title="View all posts filed under Oracle">Oracle</a>
+</li>
+	<li class="cat-item cat-item-20"><a href="http://twit88.com/blog/category/personal/" title="View all posts filed under personal">personal</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://twit88.com/blog/category/php/" title="View all posts filed under php">php</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://twit88.com/blog/category/plsql/" title="View all posts filed under PL/SQL">PL/SQL</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://twit88.com/blog/category/programming/" title="View all posts filed under Programming">Programming</a>
+</li>
+	<li class="cat-item cat-item-76"><a href="http://twit88.com/blog/category/python/" title="View all posts filed under python">python</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="http://twit88.com/blog/category/research/" title="View all posts filed under research">research</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://twit88.com/blog/category/security/" title="View all posts filed under security">security</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="http://twit88.com/blog/category/semantic-web/" title="View all posts filed under semantic web">semantic web</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://twit88.com/blog/category/side-not/" title="Side blog">side note</a>
+</li>
+	<li class="cat-item cat-item-65"><a href="http://twit88.com/blog/category/system-tools/" title="View all posts filed under system tools">system tools</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://twit88.com/blog/category/telco/" title="View all posts filed under telco">telco</a>
+</li>
+	<li class="cat-item cat-item-42"><a href="http://twit88.com/blog/category/web-20/" title="View all posts filed under web 2.0">web 2.0</a>
+</li>
+	<li class="cat-item cat-item-22"><a href="http://twit88.com/blog/category/windows/" title="View all posts filed under windows">windows</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://twit88.com/blog/category/windows-tips/" title="Tips on Windows operating system">windows tips</a>
+</li>
+		</ul>
+</li>
+	
+		</ul>
+	</div>	
+
+		</div>
+
+
+<div id="contentright">
+
+	<div id="sidebar">
+		<ul>
+		<li id="popular-posts" class="widget JAWPopularPostsWidget_widget"><h2 class="widgettitle">Popular Posts</h2>
+<ul>
+<li><a href="http://twit88.com/blog/2007/09/28/add-multithreading-function-to-java-application-using-executorservice/">Add Multithreading Function to Java Application using ExecutorService</a></li><li><a href="http://twit88.com/blog/2008/01/24/fabforcenet-dbdesigner-a-handy-mysql-database-designer/">fabFORCE.net DBDesigner - A Handy MySQL Database Designer</a></li><li><a href="http://twit88.com/blog/2007/10/16/cain-abel-a-useful-hacking-tool/">Cain & Abel - A useful hacking tool</a></li><li><a href="http://twit88.com/blog/2007/10/02/develop-a-java-file-watcher/">Develop a Java File Watcher</a></li><li><a href="http://twit88.com/blog/2007/10/04/java-dynamic-loading-of-class-and-jar-file/">Java - Dynamic loading of class and jar file</a></li><li><a href="http://twit88.com/blog/2007/09/23/send-vcard-vcalendar-and-wap-push-message/">Send vCard, vCalendar and WAP Push Message</a></li><li><a href="http://twit88.com/blog/2008/04/13/reset-your-password-on-windows-vista-windows-xp-windows-2000-windows-2003-server-windows-nt-using-usb-drive/">Reset Your Password on Windows Vista, Windows XP, Windows 2000, Windows 2003 Server, Windows NT using USB Drive</a></li><li><a href="http://twit88.com/blog/2007/09/16/bulk-sms-gateway-using-the-open-source-net-sms-library/">Bulk SMS Gateway using the Open Source .NET SMS Library</a></li><li><a href="http://twit88.com/blog/2007/09/09/free-net-refactoring-tools/">Free .NET Refactoring Tools </a></li><li><a href="http://twit88.com/blog/2007/09/16/send-sms-through-gms-modem-or-cellphone-using-net-sms-library/">Send SMS through GMS modem or CellPhone using .NET SMS Library</a></li><li><a href="http://twit88.com/blog/2007/09/14/remote-desktop-max-connection-exceeded-cannot-login-anymore-to-servers/">Remote Desktop max connection exceeded. Cannot login anymore to servers</a></li><li><a href="http://twit88.com/blog/2007/10/12/java-checked-exception-and-runtimeexception-throw-exception-from-static-block/">Java Checked Exception and RuntimeException - throw Exception from static block ? </a></li><li><a href="http://twit88.com/blog/2008/12/21/lua-a-powerful-scripting-language/">Lua: A Powerful Scripting Language</a></li><li><a href="http://twit88.com/blog/2008/01/06/java-writing-a-web-page-scraper-or-web-data-extraction-tool/">Java - Writing a Web Page Scraper or Web Data Extraction Tool</a></li><li><a href="http://twit88.com/blog/2008/03/02/superfish-an-excellent-jquery-menu-plugin/">Superfish - An Excellent JQuery Menu Plugin</a></li><li><a href="http://twit88.com/blog/2007/09/15/free-net-obfuscation-tools/">Free .NET Obfuscation Tools</a></li><li><a href="http://twit88.com/blog/2007/09/27/do-a-graceful-shutdown-of-your-java-application-when-ctr-c-kill/">Do a graceful shutdown of your Java Application when Ctr-C, Kill...</a></li><li><a href="http://twit88.com/blog/2007/11/19/solvent-firefox-extension-for-screen-scraping-and-xquery-generator/">Solvent - Firefox Extension for Screen Scraping and XQuery Generator</a></li><li><a href="http://twit88.com/blog/2007/09/21/open-source-net-application-generator/">Open Source .NET Application Generator</a></li><li><a href="http://twit88.com/blog/2008/03/09/maven-compile-your-application-to-be-14-15-or-16-compatible/">Maven: Compile Your Application to be JDK 1.4, 1.5 or 1.6 Compatible</a></li><li><a href="http://twit88.com/blog/2007/10/22/java-use-json-for-data-transfer/">Java - Use JSON for Data Transfer</a></li><li><a href="http://twit88.com/blog/2007/09/29/develop-a-network-packet-sendingcapturing-tool-in-java-using-jpcap/">Develop a network packet sending/capturing tool in Java using Jpcap</a></li><li><a href="http://twit88.com/blog/2008/02/04/php-write-a-web-page-scraper/">PHP: Write a Web Page Scraper</a></li><li><a href="http://twit88.com/blog/2007/09/11/comparisons-of-open-source-bpel-engine-versus-oracle-bpel/">Comparisons of Open Source BPEL Engine Versus Oracle BPEL</a></li><li><a href="http://twit88.com/blog/2007/11/20/serialize-java-object-to-json-string/">Serialize Java Object to JSON String</a></li><li><a href="http://twit88.com/blog/2007/10/02/extending-j2me-gui-with-a-custom-ticker-component/">Extending J2ME GUI with a Custom Ticker Component</a></li><li><a href="http://twit88.com/blog/2007/09/18/xml-configuration-for-java-program/">XML Configuration for Java Program</a></li><li><a href="http://twit88.com/blog/2007/09/23/how-to-receive-sms-using-net-sms-library/">How to Receive SMS using .NET SMS Library</a></li><li><a href="http://twit88.com/blog/2007/10/24/web-scraping-using-web-harvest/">Web Scraping using Web-Harvest</a></li><li><a href="http://twit88.com/blog/2009/02/14/java-engine-for-processing-xml-and-non-xml-data/">Java Engine for Processing XML and Non XML Data</a></li><li><a href="http://twit88.com/blog/2007/09/19/open-source-software-to-start-up-java-as-windows-serviceunix-daemon/">Open Source Software to start up Java as Windows Service/Unix Daemon</a></li><li><a href="http://twit88.com/blog/2007/09/15/pduspy-a-useful-utility-for-sms-programming/">PDUSpy - A useful utility for SMS programming</a></li><li><a href="http://twit88.com/blog/2007/09/23/open-source-business-solutions-ecm-crm-cms/">Open Source Business Solutions - ECM, CRM, CMS...</a></li><li><a href="http://twit88.com/blog/2007/09/24/sending-sms-through-wavecomm-gsmgprs-modem/">Sending SMS through WaveComm GSM/GPRS Modem</a></li><li><a href="http://twit88.com/blog/2007/10/18/open-source-php-e-commerce-solutions/">Open Source PHP E-Commerce Solutions</a></li><li><a href="http://twit88.com/blog/2007/10/08/open-source-bpel-engine/">Open Source BPEL Engine</a></li><li><a href="http://twit88.com/blog/2008/03/14/ibatis-support-for-arrays-or-list-parameters-in-with-sql-in-keyword/">iBatis: Support for Array or List Parameter with SQL IN Keyword</a></li><li><a href="http://twit88.com/blog/2008/01/26/design-pattern-in-java-101-command-pattern-behavioral-pattern/">Design Pattern in Java 101 - Command Pattern (Behavioral Pattern)</a></li><li><a href="http://twit88.com/blog/2008/02/29/maven-jarwar-final-name-excluding-jar-files-from-war/">Maven: JAR/WAR Final Name, Excluding JAR Files from WAR</a></li><li><a href="http://twit88.com/blog/2007/10/21/compile-and-reload-java-class-dynamically-using-apache-commons-jci/">Compile and Reload Java Class Dynamically using Apache Commons JCI</a></li></ul>
+</li>
+<li id="links" class="widget widget_links"><h2 class="widgettitle">Links</h2>
+
+	<ul>
+<li><a href="http://www.twit88.com/home" title="ThoughtWorks Open Source Solutions" onclick="javascript:urchinTracker('/outbound/www.twit88.com/home');">twit88 Open Source</a></li>
+
+	</ul>
+</li>
+
+<li id="links" class="widget widget_links"><h2 class="widgettitle">semantic web</h2>
+
+	<ul>
+<li><a href="http://www.mkbergman.com//?p=347" title=" Listing of 500 Semantic Web and Related Tools" onclick="javascript:urchinTracker('/outbound/www.mkbergman.com//?p=347');">Semantic Tools</a></li>
+<li><a href="http://simile.mit.edu/" title="Semantic Interoperability of Metadata and Information in unLike Environments" onclick="javascript:urchinTracker('/outbound/simile.mit.edu/');">SIMILE Project</a></li>
+
+	</ul>
+</li>
+
+
+		<li id="recent-comments" class="widget widget_recent_comments">			<h2 class="widgettitle">Recent Comments</h2>
+			<ul id="recentcomments"><li class="recentcomments">Chung Woo on <a href="http://twit88.com/blog/2008/07/11/java-json-parser-performance/#comment-145371">Java: JSON Parser Performance</a></li><li class="recentcomments">anabert on <a href="http://twit88.com/blog/2008/04/13/reset-your-password-on-windows-vista-windows-xp-windows-2000-windows-2003-server-windows-nt-using-usb-drive/#comment-144366">Reset Your Password on Windows Vista, Windows XP, Windows 2000, Windows 2003 Server, Windows NT using USB Drive</a></li><li class="recentcomments">Chris on <a href="http://twit88.com/blog/2008/04/13/reset-your-password-on-windows-vista-windows-xp-windows-2000-windows-2003-server-windows-nt-using-usb-drive/#comment-144109">Reset Your Password on Windows Vista, Windows XP, Windows 2000, Windows 2003 Server, Windows NT using USB Drive</a></li><li class="recentcomments">darkplayer on <a href="http://twit88.com/blog/2008/04/13/reset-your-password-on-windows-vista-windows-xp-windows-2000-windows-2003-server-windows-nt-using-usb-drive/#comment-143498">Reset Your Password on Windows Vista, Windows XP, Windows 2000, Windows 2003 Server, Windows NT using USB Drive</a></li><li class="recentcomments">dao on <a href="http://twit88.com/blog/2007/10/21/compile-and-reload-java-class-dynamically-using-apache-commons-jci/#comment-143431">Compile and Reload Java Class Dynamically using Apache Commons JCI</a></li><li class="recentcomments">Eliva on <a href="http://twit88.com/blog/2008/04/13/reset-your-password-on-windows-vista-windows-xp-windows-2000-windows-2003-server-windows-nt-using-usb-drive/#comment-143196">Reset Your Password on Windows Vista, Windows XP, Windows 2000, Windows 2003 Server, Windows NT using USB Drive</a></li><li class="recentcomments">Cilna on <a href="http://twit88.com/blog/2008/04/13/reset-your-password-on-windows-vista-windows-xp-windows-2000-windows-2003-server-windows-nt-using-usb-drive/#comment-143176">Reset Your Password on Windows Vista, Windows XP, Windows 2000, Windows 2003 Server, Windows NT using USB Drive</a></li><li class="recentcomments"><a href='http://www.webresourcesdepot.com/open-source-digital-asset-manager-raxuna/' rel='external nofollow' onclick="javascript:urchinTracker('/outbound/www.webresourcesdepot.com/open-source-digital-asset-manager-raxuna/');">Free Web Resources - Web Resources Depot</a> on <a href="http://twit88.com/blog/2010/01/24/open-source-digital-asset-management/#comment-142299">Open Source Digital Asset Management</a></li><li class="recentcomments">liliam on <a href="http://twit88.com/blog/2008/08/27/java-always-overwrite-equals-hashcode-and-tostring-in-value-object/#comment-142093">Java: Always Overwrite equals, hashCode and toString in Value Object</a></li><li class="recentcomments">SMougenot on <a href="http://twit88.com/blog/2008/03/14/ibatis-support-for-arrays-or-list-parameters-in-with-sql-in-keyword/#comment-141059">iBatis: Support for Array or List Parameter with SQL IN Keyword</a></li></ul>
+		</li>
+	
+		</ul>
+	</div>
+
+</div>
+	</div>
+
+<div id="footer">
+	<p>&copy; Copyright <a href="http://twit88.com/blog">twit88.com</a> 2007. All rights reserved.</p>
+</div>
+</div>
+</body>
+</html>

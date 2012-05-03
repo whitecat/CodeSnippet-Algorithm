@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Re: error while compiling java code generated from .jws file</title>
+   <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>Mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/beehive-user" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/beehive-user/200506.mbox/%3ce5b8e97905061514196cf67279@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/beehive-user/200506.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/beehive-user/200506.mbox/%3c42B16D68.6030902@ieee.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/beehive-user/200506.mbox/%3c42B08963.700@ieee.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/beehive-user/200506.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/beehive-user/200506.mbox/%3c42B08ABF.7070809@ieee.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/beehive-user/200506.mbox/%3ce5b8e97905061514196cf67279@mail.gmail.com%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/beehive-user/200506.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/beehive-user/200506.mbox/%3c42B16D68.6030902@ieee.org%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/beehive-user/200506.mbox/%3c42B08963.700@ieee.org%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/beehive-user/200506.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/beehive-user/200506.mbox/%3c42B08ABF.7070809@ieee.org%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">Daryoush Mehrtash &lt;dmehrt...@gmail.com&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">Re: error while compiling java code generated from .jws file</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Wed, 15 Jun 2005 22:00:19 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+The error that you are getting is from compilation of the JWS by
+JWSHanlder.    Something is configured terribly wrong here
+...JWSHandler should have never been called.
+
+FYI,  JWS handler is the handler that implements the Instant
+Deployment in Axis see:
+http://ws.apache.org/axis/java/user-guide.html#JWSJavaWebServiceFilesInstantDeployment
+
+Your code should have never ended up there!
+
+Here are some of my questions:
+
+a) why do you even have the JWS file in your deployment?  If you
+follow the build process of the wsm-blank in the beehive distribution
+samples you should only have class files to deploy.  I suggest you try
+to build the wsm-blank sample from distribution
+http://incubator.apache.org/beehive/wsm/sample_wsm-blank.html .   Try
+building the war file and deploy it to tomcat.   You can examine the
+war file that gets built, there are no JWS source code in it, your war
+file should look very similar.
+
+
+b) Why didn't the AnnotatedWebServiceDeploymentHandler intercept the
+message?  Make sure your WEB-INF/server-config.wsdd file is the same
+as the wsm-blank sample's wsdd file in the distribution.
+
+
+
+
+On 6/15/05, Jeremiah Johnson &lt;jerjohns@bea.com&gt; wrote:
+&gt; Did you rebuild Beehive from latest source with the Axis 1.2.1, or did
+&gt; you just swap out the axis.jar and axis-ant.jar files?
+&gt; 
+&gt; I will try your JWS, but I am curious about the answer above while I am
+&gt; pulling Axis, etc.
+&gt; 
+&gt; - jeremiah
+&gt; 
+&gt; &gt; -----Original Message-----
+&gt; &gt; From: James Black [mailto:jblack@ieee.org]
+&gt; &gt; Sent: Wednesday, June 15, 2005 1:29 PM
+&gt; &gt; To: Beehive Users
+&gt; &gt; Subject: re: error while compiling java code generated from .jws file
+&gt; &gt;
+&gt; &gt; -----BEGIN PGP SIGNED MESSAGE-----
+&gt; &gt; Hash: SHA1
+&gt; &gt;
+&gt; &gt; I am using the jar files from axis 1.2.1, and that may be the reason
+&gt; for
+&gt; &gt; this problem, but, following is the error I get, and I am including
+&gt; the
+&gt; &gt; .jws file, and the .java file, but the .jws file will be in the next
+&gt; &gt; email.
+&gt; &gt;
+&gt; &gt; I will see if I can get a smaller test file that doesn't require any
+&gt; &gt; other jar files to, as a test case, if desired.
+&gt; &gt;
+&gt; &gt; AxisFault
+&gt; &gt;  faultCode: {http://xml.apache.org/axis/}Server.compileError
+&gt; &gt;  faultSubcode:
+&gt; &gt;  faultString: Error while compiling:
+&gt; &gt; /opt/apps/jakarta-tomcat-5.0.27/webapps/lmsstats/WEB-
+&gt; &gt; INF/jwsClasses/AxisLMSServerStub.java
+&gt; &gt;  faultActor:
+&gt; &gt;  faultNode:
+&gt; &gt;  faultDetail:
+&gt; &gt;       {}Errors:Error compiling
+&gt; &gt; /opt/apps/jakarta-tomcat-5.0.27/webapps/lmsstats/WEB-
+&gt; &gt; INF/jwsClasses/AxisLMSServerStub.java:
+&gt; &gt; Line 38, column -1:  cannot find symbol
+&gt; &gt; Line 47, column -1:  cannot find symbol
+&gt; &gt; Line 58, column -1:  cannot find symbol
+&gt; &gt; Line 64, column -1:  cannot find symbol
+&gt; &gt; Line 47, column -1:  cannot find symbol
+&gt; &gt; Line 58, column -1:  cannot find symbol
+&gt; &gt; Line 64, column -1:  cannot find symbol
+&gt; &gt; Line 83, column -1:  cannot find symbol
+&gt; &gt;
+&gt; &gt; [There are 100 lines of this]
+&gt; &gt;
+&gt; &gt; /jwsClasses/AxisLMSServerStub.java
+&gt; &gt;       at
+&gt; &gt; org.apache.axis.handlers.JWSHandler.setupService(JWSHandler.java:232)
+&gt; at
+&gt; &gt; org.apache.axis.handlers.JWSHandler.invoke(JWSHandler.java:72)
+&gt; &gt;       at
+&gt; &gt;
+&gt; org.apache.axis.strategies.InvocationStrategy.visit(InvocationStrategy.j
+&gt; av
+&gt; &gt; a:32)
+&gt; &gt;       at org.apache.axis.SimpleChain.doVisiting(SimpleChain.java:118)
+&gt; &gt;       at org.apache.axis.SimpleChain.invoke(SimpleChain.java:83)
+&gt; &gt;       at org.apache.axis.server.AxisServer.invoke(AxisServer.java:249)
+&gt; &gt;       at
+&gt; &gt;
+&gt; org.apache.axis.transport.http.AxisServlet.doPost(AxisServlet.java:699)
+&gt; &gt;       at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+&gt; &gt;       at
+&gt; &gt;
+&gt; org.apache.axis.transport.http.AxisServletBase.service(AxisServletBase.j
+&gt; av
+&gt; &gt; a:327)
+&gt; &gt; - --
+&gt; &gt; "Love is mutual self-giving that ends in self-recovery." Fulton Sheen
+&gt; &gt; James Black    james@usf.edu
+&gt; &gt; -----BEGIN PGP SIGNATURE-----
+&gt; &gt; Version: GnuPG v1.4.1 (MingW32)
+&gt; &gt; Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+&gt; &gt;
+&gt; &gt; iD8DBQFCsIFjikQgpVn8xrARApt8AJ99BZY6ELqFWT4pZzBqm4llo6+F6QCgkwSz
+&gt; &gt; 7K56AaHkqL5MdGdsKp5AVsE=
+&gt; &gt; =v95b
+&gt; &gt; -----END PGP SIGNATURE-----
+&gt; 
+&gt; 
+
+
+-- 
+Daryoush
+
+Weblog:  http://perlustration.blogspot.com/
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/beehive-user/200506.mbox/raw/<e5b8e97905061515002bcec862@mail.gmail.com>/">Unnamed text/plain</a> (inline, Quoted Printable, 4635 bytes)</li>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/beehive-user/200506.mbox/raw/%3ce5b8e97905061515002bcec862@mail.gmail.com%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

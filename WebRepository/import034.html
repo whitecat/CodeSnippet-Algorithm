@@ -1,0 +1,545 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Eclipse Tip: Organize Imports and Java Import Style &laquo; Vasanth Dharmaraj&#8217;s Blog</title>
+
+<link rel="alternate" type="application/rss+xml" title="Vasanth Dharmaraj&#8217;s Blog RSS Feed" href="http://www.vasanth.in/feed/" />
+<link rel="alternate" type="application/atom+xml" title="Vasanth Dharmaraj&#8217;s Blog Atom Feed" href="http://www.vasanth.in/feed/atom/" />
+<link rel="pingback" href="http://www.vasanth.in/xmlrpc.php" />
+<link rel="shortcut icon" href="http://www.vasanth.in/wp-content/themes/fusion/favicon.ico" />
+
+<style type="text/css" media="all">
+@import "http://www.vasanth.in/wp-content/themes/fusion/style.css";
+@import "http://www.vasanth.in/wp-content/themes/fusion/options/leftsidebar.css";
+li.gReader-item, li.delicious-item, li.ad-item, #wp-text-ads-sell-ads ul li {
+   background: transparent url(/wp-content/themes/fusion/images/b3.gif) no-repeat left 6px;
+}
+
+li.gReader-item a, li.delicious-item a, li.ad-item a{
+   color: #8b8b89;
+   text-decoration: none;
+   margin-left: 10px;
+   display: inline-block;
+}
+
+ li.gReader-item a:hover, li.delicious-item a:hover, li.ad-item a:hover{
+   color:#ed1f24;
+   background: none;
+   text-decoration: underline;
+}
+
+#sidebar .widget h2.title a,
+#sidebar2 .widget h2.title a{
+   background: transparent url(images/div-h2.gif) repeat-x left bottom;
+   color: #8b8b89;
+   padding-bottom: 0px;
+   font-size: 115%;
+   text-decoration:none;
+}</style>
+
+
+<!--[if lte IE 6]>
+<script type="text/javascript">
+/* <![CDATA[ */
+   blankimgpath = 'http://www.vasanth.in/wp-content/themes/fusion/images/blank.gif';
+ /* ]]> */
+</script>
+<style type="text/css" media="screen">
+  @import "http://www.vasanth.in/wp-content/themes/fusion/ie6.css";
+  body{ behavior:url("http://www.vasanth.in/wp-content/themes/fusion/js/ie6hoverfix.htc"); }
+  img{ behavior: url("http://www.vasanth.in/wp-content/themes/fusion/js/ie6pngfix.htc"); }
+</style>
+<![endif]-->
+
+
+  
+<link rel="alternate" type="application/rss+xml" title="Vasanth Dharmaraj&#039;s Blog &raquo; Eclipse Tip: Organize Imports and Java Import Style Comments Feed" href="http://www.vasanth.in/2008/11/18/eclipse-tip-organize-imports-and-java-import-style/feed/" />
+<link rel='stylesheet' id='wp_dlmp_styles-css'  href='http://www.vasanth.in/wp-content/plugins/download-monitor/page-addon/styles.css?ver=2.9.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.vasanth.in/wp-includes/js/comment-reply.js?ver=20090102'></script>
+<script type='text/javascript' src='http://www.vasanth.in/wp-includes/js/jquery/jquery.js?ver=1.3.2'></script>
+<script type='text/javascript' src='http://www.vasanth.in/wp-content/themes/fusion/js/fusion.js?ver=2.9.1'></script>
+<script type='text/javascript' src='http://www.vasanth.in/wp-content/plugins/google-analyticator/external-tracking.min.js?ver=6.0.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.vasanth.in/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.vasanth.in/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Vasanth Dharmaraj&#039;s Blog' href='http://www.vasanth.in' />
+<link rel='start' title='1,474-Megapixel or 1.5 Gigapixel Photo of President Obamaâ??s Inaugural Address' href='http://www.vasanth.in/2009/01/23/1474-megapixel-or-15-gigapixel-photo-of-president-obama%e2%80%99s-inaugural-address/' />
+<link rel='prev' title='BMW Sauber F1.08B &#8211; This is how next year&#8217;s cars will look like?' href='http://www.vasanth.in/2008/11/18/bmw-sauber-f108b-this-is-how-next-years-cars-will-look-like/' />
+<link rel='next' title='Free Tool: Synergy' href='http://www.vasanth.in/2008/11/24/free-tool-synergy/' />
+<meta name="generator" content="WordPress 2.9.1" />
+<link rel='canonical' href='http://www.vasanth.in/2008/11/18/eclipse-tip-organize-imports-and-java-import-style/' />
+
+<!-- Protected by WP-SpamFree v2.1.1.0 :: JS BEGIN -->
+<script type="text/javascript" src="http://www.vasanth.in/wp-content/plugins/wp-spamfree/js/wpsf-js.php"></script> 
+<!-- Protected by WP-SpamFree v2.1.1.0 :: JS END -->
+
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<!-- Google Analytics Tracking by Google Analyticator 6.0.2: http://ronaldheft.com/code/analyticator/ -->
+<script type="text/javascript">
+	var analyticsFileTypes = [''];
+	var analyticsOutboundPrefix = '/outgoing/';
+	var analyticsDownloadsPrefix = '/download/';
+	var analyticsEventTracking = 'ga_enable';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-2185874-2']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+ jQuery(document).ready(function(){
+  // body .safari class
+  if (jQuery.browser.safari) jQuery('body').addClass('safari');
+
+  // layout controls
+     jQuery("#layoutcontrol a").click(function() {
+     switch (jQuery(this).attr("class")) {
+	   case 'setFont' : setFontSize();	break;
+	   case 'setLiquid'	: setPageWidth();	break;
+	 }
+	 return false;
+    });
+   // set the font size from cookie
+   var font_size = jQuery.cookie('fontSize');
+   if (font_size == '.70em') { jQuery('body').css("font-size",".70em"); }
+   if (font_size == '.95em') { jQuery('body').css("font-size",".95em"); }
+   if (font_size == '.75em') { jQuery('body').css("font-size",".75em"); }
+
+   // set the page width from cookie
+   var page_width = jQuery.cookie('pageWidth');
+   if (page_width) jQuery('#page').css('width', page_width);
+  
+  jQuery('#post-extra-content').minitabs(333, 'slide');
+
+  if (document.all && !window.opera && !window.XMLHttpRequest && jQuery.browser.msie) { var isIE6 = true; }
+  else { var isIE6 = false;} ;
+  jQuery.browser.msie6 = isIE6;
+  if (!isIE6) {
+    initTooltips({
+		timeout: 6000
+   });
+  }
+  tabmenudropdowns();
+
+  // some jquery effects...
+  jQuery('#sidebar ul.nav li ul li a').mouseover(function () {
+   	jQuery(this).animate({ marginLeft: "4px" }, 100 );
+  });
+  jQuery('#sidebar ul.nav li ul li a').mouseout(function () {
+    jQuery(this).animate({ marginLeft: "0px" }, 100 );
+  });
+  // scroll to top
+  jQuery("a#toplink").click(function(){
+    jQuery('html').animate({scrollTop:0}, 'slow');
+  });
+
+  // set roles on some elements (for accessibility)
+  jQuery("#tabs").attr("role","navigation");
+  jQuery("#mid-content").attr("role","main");
+  jQuery("#sidebar").attr("role","complementary");
+  jQuery("#searchform").attr("role","search");
+
+ });
+
+ /* ]]> */
+</script>
+
+</head>
+<body class="eclipse-tip-organize-imports-and-java-import-style">
+  <!-- page wrappers (100% width) -->
+  <div id="page-wrap1">
+    <div id="page-wrap2">
+      <!-- page (actual site content, custom width) -->
+      <div id="page" class="with-sidebar">
+
+       <!-- main wrapper (side & main) -->
+       <div id="main-wrap">
+        <!-- mid column wrap -->
+    	<div id="mid-wrap">
+          <!-- sidebar wrap -->
+          <div id="side-wrap">
+            <!-- mid column -->
+    	    <div id="mid">
+              <!-- header -->
+              <div id="header">
+                <div id="topnav" class="description"> my thoughts on dot net, java, tablet pc, formula one, xbox gaming&#8230;</div>
+
+                                <h1 id="title"><a href="http://www.vasanth.in/">Vasanth Dharmaraj&#8217;s Blog</a></h1>
+                
+                <!-- top tab navigation -->
+                <div id="tabs">
+                 <ul>
+                                     <li id="nav-homelink"><a href="http://www.vasanth.in" title="Click for Home"><span><span>Home</span></span></a></li>
+                                   <li class="page_item page-item-2092"><a href="http://www.vasanth.in/eclipse-tips/" title="Eclipse Tips"><span><span>Eclipse Tips</span></span></a></li>
+<li class="page_item page-item-475"><a href="http://www.vasanth.in/resume/" title="Resume"><span><span>Resume</span></span></a></li>
+<li class="page_item page-item-1815"><a href="http://www.vasanth.in/software/" title="Software"><span><span>Software</span></span></a>
+<ul>
+	<li class="page_item page-item-1820"><a href="http://www.vasanth.in/software/comparator/" title="Comparator"><span><span>Comparator</span></span></a></li>
+	<li class="page_item page-item-1871"><a href="http://www.vasanth.in/software/css-editor/" title="CSS Editor"><span><span>CSS Editor</span></span></a></li>
+	<li class="page_item page-item-1869"><a href="http://www.vasanth.in/software/dasblog-extra-macros/" title="dasBlog Extra Macros"><span><span>dasBlog Extra Macros</span></span></a></li>
+	<li class="page_item page-item-1861"><a href="http://www.vasanth.in/software/google-box/" title="Google Box"><span><span>Google Box</span></span></a></li>
+	<li class="page_item page-item-1858"><a href="http://www.vasanth.in/software/links-bin/" title="Links Bin"><span><span>Links Bin</span></span></a></li>
+	<li class="page_item page-item-1852"><a href="http://www.vasanth.in/software/newsalloy-notifier/" title="NewsAlloy Notifier"><span><span>NewsAlloy Notifier</span></span></a></li>
+	<li class="page_item page-item-1850"><a href="http://www.vasanth.in/software/pop2rss-get-your-main-as-rss/" title="pop2rss &#8211; Get your main as RSS"><span><span>pop2rss &#8211; Get your main as RSS</span></span></a></li>
+	<li class="page_item page-item-1846"><a href="http://www.vasanth.in/software/renamer-dasblog-category-renamer/" title="Renamer &#8211; dasBlog category renamer"><span><span>Renamer &#8211; dasBlog category renamer</span></span></a></li>
+	<li class="page_item page-item-1844"><a href="http://www.vasanth.in/software/rss-google/" title="RSS Google"><span><span>RSS Google</span></span></a></li>
+	<li class="page_item page-item-1839"><a href="http://www.vasanth.in/software/tasks-an-outlook-tasks-tool/" title="Tasks &#8211; An Outlook Tasks Tool"><span><span>Tasks &#8211; An Outlook Tasks Tool</span></span></a></li>
+	<li class="page_item page-item-1835"><a href="http://www.vasanth.in/software/turnhout-search-from-eclipse/" title="Turnhout &#8211; Search from Eclipse"><span><span>Turnhout &#8211; Search from Eclipse</span></span></a></li>
+	<li class="page_item page-item-1832"><a href="http://www.vasanth.in/software/twink/" title="Twink"><span><span>Twink</span></span></a></li>
+	<li class="page_item page-item-2264"><a href="http://www.vasanth.in/software/google-reader-notifier-for-chrome/" title="Google Reader Notifier for Chrome"><span><span>Google Reader Notifier for Chrome</span></span></a></li>
+	<li class="page_item page-item-2277"><a href="http://www.vasanth.in/software/page-rank-for-chrome/" title="PageRank for Chrome"><span><span>PageRank for Chrome</span></span></a></li>
+</ul>
+</li>
+<li class="page_item page-item-2"><a href="http://www.vasanth.in/about/" title="About"><span><span>About</span></span></a></li>
+                 </ul>
+                </div>
+                <!-- /top tabs -->
+
+              </div><!-- /header -->
+
+  <!-- mid content -->
+  <div id="mid-content">
+      <div class="navigation">
+      <div class="alignleft">&laquo; <a href="http://www.vasanth.in/2008/11/18/bmw-sauber-f108b-this-is-how-next-years-cars-will-look-like/" rel="prev">BMW Sauber F1.08B &#8211; This is how next year&#8217;s cars will look like?</a></div>
+      <div class="alignright"><a href="http://www.vasanth.in/2008/11/24/free-tool-synergy/" rel="next">Free Tool: Synergy</a> &raquo;</div>
+      <div class="clear"></div>
+    </div>
+
+    <div id="post-505" class="post-505 post hentry category-technologyeclipse category-technologyjava category-technologysoftware">
+       <h2 class="title">Eclipse Tip: Organize Imports and Java Import Style</h2>       <br />
+	    <div class="entry">
+          <div class="postbody entry clearfix">
+	       <div align="center"><img src="http://www.vasanth.in/content/binary/Java%20import%20style%201.png" border="0"><br /><font color="#808080" size="1">Default import style in Eclipse</font><br /><img src="http://www.vasanth.in/content/binary/Java%20import%20style%202.png" border="0"><br /><font color="#808080" size="1">Change it to suite your style</font></div>
+<p>How<br />
+do you import class in Java? Do you import each class explicitly or use<br />
+the wildcard character to import the complete package? There are<br />
+aesthetic pros and cons with either approach. There is no performance<br />
+impact with either approach.</p>
+<div style="float: left;margin: 3px;"><script type="text/javascript"><!--
+google_ad_client = "pub-6320001331315450";
+google_alternate_color = "FFFFFF";
+google_ad_width = 336;
+google_ad_height = 280;
+google_ad_format = "336x280_as";
+google_ad_type = "text_image";
+google_ad_channel ="2976611801";
+google_color_border = "FFFFFF";
+google_color_link = "8B8B89";
+google_color_bg = "FFFFFF";
+google_color_text = "000000";
+google_color_url = "8B8B89";
+google_ui_features = "rc:0";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div><p>Eclipse provides a useful shortcut to Organize Imports: <b>Ctrl + Shift + O</b>. By default this imports each class explicitly. Not very useful when you want to import using the wildcard character.
+</p>
+<div align="center"><img src="http://www.vasanth.in/content/binary/Organize%20Imports%20and%20Java%20Import%20Style.png" border="0"></div>
+<p>There is a way to control how Eclipse organizes imports. Go to <b>Window&gt;Preferences&gt;Java&gt;Code Style&gt;Organize Imports</b>. There is an option to set the &#8220;<b>Number of imports needed for .*</b>&#8220;. Set that to &#8220;<b>1</b>&#8220;. This way you will always have the imports organized with the wildcard character.</p>
+<p>You can also go hybrid by setting this value to say &#8220;<b>5</b>&#8221; and Eclipse will start using .* after five explicit imports. Cool.</p>
+<span style="clear:both;display:none;"><img src="http://www.vasanth.in/wp-content/plugins/wp-spamfree/img/wpsf-img.php" width="0" height="0" alt="" style="border-style:none;width:0px;height:0px;display:none;" /></span>
+
+<p>Related posts:<ol><li><a href='http://www.vasanth.in/2008/08/12/eclipse-tip-add-imports-with-code-templates/' rel='bookmark' title='Permanent Link: Eclipse Tip: Add imports with Code Templates'>Eclipse Tip: Add imports with Code Templates</a></li>
+<li><a href='http://www.vasanth.in/2004/05/26/eclipse-tip-restoring-old-21-look-and-feel/' rel='bookmark' title='Permanent Link: Eclipse tip: Restoring &#8216;old&#8217; 2.1 look and feel'>Eclipse tip: Restoring &#8216;old&#8217; 2.1 look and feel</a></li>
+<li><a href='http://www.vasanth.in/2005/12/06/eclipse-tip-code-clean-up/' rel='bookmark' title='Permanent Link: Eclipse Tip: Code Clean Up'>Eclipse Tip: Code Clean Up</a></li>
+<li><a href='http://www.vasanth.in/2009/04/15/changing-java-appengines-port-number/' rel='bookmark' title='Permanent Link: Changing Java AppEngine&#8217;s port number'>Changing Java AppEngine&#8217;s port number</a></li>
+<li><a href='http://www.vasanth.in/2006/05/30/eclipse-tip-java-type-indicator/' rel='bookmark' title='Permanent Link: Eclipse Tip: Java Type Indicator'>Eclipse Tip: Java Type Indicator</a></li>
+</ol></p>          </div>
+                              <p class="postmetadata alt">
+			<small>
+                This entry was posted on November 18, 2008, 8:58 PM and is filed under <a href="http://www.vasanth.in/category/technologyeclipse/" title="View all posts in Eclipse" rel="category tag">Eclipse</a>,  <a href="http://www.vasanth.in/category/technologyjava/" title="View all posts in Java" rel="category tag">Java</a>,  <a href="http://www.vasanth.in/category/technologysoftware/" title="View all posts in Software" rel="category tag">Software</a>. You can follow any responses to this entry through <a href="http://www.vasanth.in/2008/11/18/eclipse-tip-organize-imports-and-java-import-style/feed/" title="RSS 2.0">RSS 2.0</a>.
+                Both comments and pings are currently closed.                            </small>
+		  </p>
+	   </div>
+    </div>
+	
+
+<div id="post-extra-content">
+      <!-- comments and trackback tabs -->
+    <ul class="secondary-tabs">
+      <li><a href="#tab-1"><span><span>Comments (4)</span></span></a></li>
+                </ul>
+    <!-- /comments and trackback tabs -->
+    <!-- comments -->
+  <div id="tab-1">
+   <ol id="comments">
+     <!-- comment entry -->
+	<li class="comment even thread-even depth-1 with-avatars" id="comment-877">
+      <div class="wrap tiptrigger">
+              <div class="avatar">
+         <a class="gravatar"><img alt='' src='http://www.gravatar.com/avatar/?d=identicon&amp;s=64' class='avatar avatar-64 photo avatar-default' height='64' width='64' /></a>
+       </div>
+              <div class="details regularcomment">
+        <p class="head">
+         <span class="info">
+          <a href="#comment-877">#1</a> by <b id="commentauthor-877">Kellindil</b> on November 19, 2008 - 9:02 AM         </span>
+        </p>
+        <!-- comment contents -->
+        <div class="text">
+		 		 <div id="commentbody-877">
+          <p>Well there is a slight performance impact as far as compilation is concerned, yet so minor it isn&#8217;t noticeable in most cases.</p>
+<p>That being said, I find wildcard imports to really hinder readability of the source. Guess this is all about taste <img src='http://www.vasanth.in/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> .</p>
+         </div>
+       </div>
+       <!-- /comment contents -->
+       </div>
+   	   <div class="act tip">
+                	   </div>
+
+      </div>
+</li>
+ <!-- comment entry -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 with-avatars" id="comment-878">
+      <div class="wrap tiptrigger">
+              <div class="avatar">
+         <a class="gravatar"><img alt='' src='http://www.gravatar.com/avatar/40c7f1664579598d65994d4aca903112?s=64&amp;d=identicon&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></a>
+       </div>
+              <div class="details admincomment">
+        <p class="head">
+         <span class="info">
+          <a href="#comment-878">#2</a> by <a id="commentauthor-878" href="http://www.vasanth.in">Vasanth</a> on November 19, 2008 - 12:39 PM         </span>
+        </p>
+        <!-- comment contents -->
+        <div class="text">
+		 		 <div id="commentbody-878">
+          <p>I personally do not have a preference either way. But when you are a contractor you see different preferences and can not force preferences. Anyway I always collapse the imports section and never see them&#8230;</p>
+         </div>
+       </div>
+       <!-- /comment contents -->
+       </div>
+   	   <div class="act tip">
+                	   </div>
+
+      </div>
+</li>
+ <!-- comment entry -->
+	<li class="comment even thread-even depth-1 with-avatars" id="comment-879">
+      <div class="wrap tiptrigger">
+              <div class="avatar">
+         <a class="gravatar"><img alt='' src='http://www.gravatar.com/avatar/873eccd208028001f9c263158f827200?s=64&amp;d=identicon&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></a>
+       </div>
+              <div class="details regularcomment">
+        <p class="head">
+         <span class="info">
+          <a href="#comment-879">#3</a> by <a id="commentauthor-879" href="http://www.jillesvangurp.com/">jillesvangurp</a> on November 19, 2008 - 5:35 PM         </span>
+        </p>
+        <!-- comment contents -->
+        <div class="text">
+		 		 <div id="commentbody-879">
+          <p>ctrl+shift+o indeed, I import only what I need. Any redundant import results in a warning. Finally, I never type an import manually. Just organize imports whenever eclipse can&#8217;t find something.</p>
+<p>I actually like it this way. Minimizing dependencies is a good thing.</p>
+         </div>
+       </div>
+       <!-- /comment contents -->
+       </div>
+   	   <div class="act tip">
+                	   </div>
+
+      </div>
+</li>
+ <!-- comment entry -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 with-avatars" id="comment-880">
+      <div class="wrap tiptrigger">
+              <div class="avatar">
+         <a class="gravatar"><img alt='' src='http://www.gravatar.com/avatar/40c7f1664579598d65994d4aca903112?s=64&amp;d=identicon&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /></a>
+       </div>
+              <div class="details admincomment">
+        <p class="head">
+         <span class="info">
+          <a href="#comment-880">#4</a> by <a id="commentauthor-880" href="http://www.vasanth.in">Vasanth</a> on November 20, 2008 - 2:15 AM         </span>
+        </p>
+        <!-- comment contents -->
+        <div class="text">
+		 		 <div id="commentbody-880">
+          <p>I often open up java files in a simple text editor. Too many imports just makes it tough to read the code&#8230;</p>
+         </div>
+       </div>
+       <!-- /comment contents -->
+       </div>
+   	   <div class="act tip">
+                	   </div>
+
+      </div>
+</li>
+    </ol>
+          </div>
+  <!-- /comments -->
+
+  <!-- trackbacks -->
+    <!-- /trackbacks -->
+
+  <!-- related posts -->
+    <!-- /related posts -->
+
+</div>
+
+  <p>Comments are closed.</p>
+ 
+
+   </div>
+    <!-- mid content -->
+   </div>
+   <!-- /mid -->
+
+   
+<!-- sidebar -->
+<div id="sidebar">
+ <!-- sidebar 1st container -->
+ <div id="sidebar-wrap1">
+  <!-- sidebar 2nd container -->
+  <div id="sidebar-wrap2">
+     <ul id="sidelist">
+     	
+        <li><div id="fusion-search" class="widget fusion_SearchWidget">         <!-- wp search form -->
+          <div id="searchtab">
+            <div class="inside">
+              <form method="get" id="searchform" action="http://www.vasanth.in/">
+              <fieldset>
+                <input type="text" name="s" id="searchbox" class="searchfield" value="Search" onfocus="if(this.value == 'Search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search';}" />
+                 <input type="submit" value="Go" class="searchbutton" />
+              </fieldset>
+              </form>
+            </div>
+          </div>
+         <!-- /wp search form -->
+  </div></li><li><div id="text-3" class="widget widget_text"><h2 class="title">Ads By Google</h2>			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "pub-6320001331315450";
+/* Main Blog Sidebar */
+google_ad_slot = "5600494566";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+		</div></li><li><div id="rec-reading" class="widget rr_grs_widget_output"><h2 class="title">Recommended Reading</h2><ul class="gReader-list"><li class="gReader-item gReader-item-1"><a href="http://feeds.gawker.com/~r/lifehacker/full/~3/7twO762PpRk/which-media-center-is-right-for-you-boxee-xbmc-and-windows-media-center-compared" title="link to post"  rel="nofollow" class="gReader-title">Which Media Center Is Right for You: Boxee, XBMC, and Windows Media Center Compared [Lifehacker Showdown]</a></li><li class="gReader-item gReader-item-2"><a href="http://www.ilounge.com/index.php/news/comments/the-white-house-launches-app-for-iphone-ipod-touch1/" title="link to post"  rel="nofollow" class="gReader-title">News: The White House launches app for iPhone, iPod touch</a></li><li class="gReader-item gReader-item-3"><a href="http://community.winsupersite.com/blogs/paul/archive/2010/01/06/exclusive-microsoft-to-announce-tablet-pc-before-apple.aspx" title="link to post"  rel="nofollow" class="gReader-title">Exclusive! Microsoft To Announce Tablet PC Before Apple!</a></li><li class="gReader-item gReader-item-4"><a href="http://feeds.gawker.com/~r/lifehacker/full/~3/BpyYFsD4s5Y/use-multiple-exchange-accounts-on-your-jailbroken-iphone" title="link to post"  rel="nofollow" class="gReader-title">Use Multiple Exchange Accounts on Your Jailbroken iPhone [IPhone]</a></li><li class="gReader-item gReader-item-5"><a href="http://oddlyspecific.com/2009/12/stop-dont-move/" title="link to post"  rel="nofollow" class="gReader-title">STOP:  Donâ??t Move.</a></li></ul></div></li>		<li><div id="recent-posts-2" class="widget widget_recent_entries">		<h2 class="title">Recent Posts</h2>		<ul>
+				<li><a href="http://www.vasanth.in/2010/02/02/rule-changes-for-2010-f1-season/" title="Rule changes for 2010 F1 season">Rule changes for 2010 F1 season </a></li>
+				<li><a href="http://www.vasanth.in/2010/02/02/gordon-an-open-source-flash-runtime-written-in-pure-javascript/" title="Gordon: An open source Flash&trade; runtime written in pure JavaScript">Gordon: An open source Flash&trade; runtime written in pure JavaScript </a></li>
+				<li><a href="http://www.vasanth.in/2010/01/29/mclaren-launch-mp4-25/" title="McLaren Launch MP4-25">McLaren Launch MP4-25 </a></li>
+				<li><a href="http://www.vasanth.in/2010/01/28/ferrari-unveil-the-2010-contender-f10/" title="Ferrari Unveil The 2010 Contender: F10">Ferrari Unveil The 2010 Contender: F10 </a></li>
+				<li><a href="http://www.vasanth.in/2010/01/28/thoughts-on-ipad/" title="Thoughts on iPad">Thoughts on iPad </a></li>
+				</ul>
+		</div></li><li><div id="linkcat-133" class="widget widget_links"><h2 class="title">Feeds</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://feeds2.feedburner.com/e71">E71</a></li>
+<li><a href="http://feeds2.feedburner.com/vasantheclipse">Eclipse</a></li>
+<li><a href="http://feeds2.feedburner.com/vasanthf1">Formula 1</a></li>
+<li><a href="http://feeds2.feedburner.com/vasanthindia">India</a></li>
+<li><a href="http://feeds2.feedburner.com/vasanthjava">Java</a></li>
+<li><a href="http://feeds2.feedburner.com/vasanthmozilla">Mozilla</a></li>
+<li><a href="http://feeds2.feedburner.com/vasanthtabletpc">Tablet PC</a></li>
+
+	</ul>
+</div></li>
+<li><div id="categories-3" class="widget widget_categories"><h2 class="title">Categories</h2><select name='cat' id='cat' class='postform' >
+	<option value='-1'>Select Category</option>
+	<option class="level-0" value="107">8525</option>
+	<option class="level-0" value="142">Chrome</option>
+	<option class="level-0" value="100">dasBlog</option>
+	<option class="level-0" value="108">Dot Net</option>
+	<option class="level-0" value="109">DS</option>
+	<option class="level-0" value="110">E61</option>
+	<option class="level-0" value="111">E71</option>
+	<option class="level-0" value="112">Eclipse</option>
+	<option class="level-0" value="101">Formula 1</option>
+	<option class="level-0" value="113">Gadgets</option>
+	<option class="level-0" value="102">General</option>
+	<option class="level-0" value="141">Google</option>
+	<option class="level-0" value="103">India</option>
+	<option class="level-0" value="143">iPhone</option>
+	<option class="level-0" value="114">Java</option>
+	<option class="level-0" value="115">Linux</option>
+	<option class="level-0" value="116">Mac</option>
+	<option class="level-0" value="117">Mozilla</option>
+	<option class="level-0" value="118">N810</option>
+	<option class="level-0" value="119">Netbeans</option>
+	<option class="level-0" value="104">Personal</option>
+	<option class="level-0" value="105">Photos</option>
+	<option class="level-0" value="120">Smartphone</option>
+	<option class="level-0" value="121">Software</option>
+	<option class="level-0" value="122">Tablet PC</option>
+	<option class="level-0" value="106">Technology</option>
+	<option class="level-0" value="123">Touch</option>
+	<option class="level-0" value="131">US</option>
+	<option class="level-0" value="124">Vista</option>
+	<option class="level-0" value="125">W810i</option>
+	<option class="level-0" value="126">Web</option>
+	<option class="level-0" value="127">Wii</option>
+	<option class="level-0" value="128">Win7</option>
+	<option class="level-0" value="132">Wish List</option>
+	<option class="level-0" value="135">Wordpress</option>
+	<option class="level-0" value="129">X61</option>
+	<option class="level-0" value="130">XBox</option>
+</select>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+	var dropdown = document.getElementById("cat");
+	function onCatChange() {
+		if ( dropdown.options[dropdown.selectedIndex].value > 0 ) {
+			location.href = "http://www.vasanth.in/?cat="+dropdown.options[dropdown.selectedIndex].value;
+		}
+	}
+	dropdown.onchange = onCatChange;
+/* ]]> */
+</script>
+
+</div></li><li><div id="delicious-1" class="widget widget_delicious"><h2 class="title"><a href="http://delicious.com/notablelist" class="delicious_title_link">Links</a></h2><ul class="delicious"><li>No bookmarks avaliable.</li></ul></div></li>     </ul>
+  </div>
+  <!-- /sidebar 2nd container -->
+ </div>
+ <!-- /sidebar 1st container -->
+</div>
+<!-- /sidebar -->
+
+
+
+  </div>
+  <!-- /side wrap -->
+ </div>
+ <!-- /mid column wrap -->
+</div>
+<!-- /main wrapper -->
+
+<!-- clear main & sidebar sections -->
+<div class="clearcontent"></div>
+<!-- /clear main & sidebar sections -->
+
+ 
+<!-- footer -->
+ <div id="footer">
+
+   
+   <!-- please do not remove this. respect the authors :) -->
+   <p>
+    Fusion theme by <a href="http://digitalnature.ro/projects/fusion">digitalnature</a> | powered by <a href="http://wordpress.org/">WordPress</a>    <br />
+   <a class="rss" href="http://www.vasanth.in/feed/">Entries (RSS)</a> and <a href="http://www.vasanth.in/comments/feed/">Comments (RSS)</a> <a href="javascript:void(0);" id="toplink">^</a>
+   <!-- 52 queries. 1.799 seconds. -->
+   <br><!-- P.1.2.521.1116992152 --><a href="http://www.creditadvisors.com">Credit Counseling</a> - <a href="http://www.bloomingdesert.com">Arizona Landscaping</a> - <a href="http://www.creditadvisors.org">Debt Consolidation</a> - <a href="http://www.creditmotorsports.com">Renegade Motorhomes</a>   </p>
+ </div>
+ <!-- /footer -->
+   <div id="layoutcontrol">
+   <a href="javascript:void(0);" class="setFont" title="Increase/Decrease text size"><span>SetTextSize</span></a>
+   <a href="javascript:void(0);" class="setLiquid" title="Switch between full and fixed width"><span>SetPageWidth</span></a>
+ </div>
+ </div>
+<!-- /page -->
+
+</div>
+</div>
+<!-- /page wrappers -->
+
+
+</body>
+</html>

@@ -1,0 +1,1092 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Java Remoting: Protocol Benchmarks &laquo; A Public Scratchpad</title>
+		
+	<link rel="stylesheet" href="http://s1.wordpress.com/wp-content/themes/pub/thirteen/style.css?m=1245873790g" type="text/css" media="screen" />
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://daniel.gredler.net/feed/" />
+	<link rel="pingback" href="http://daniel.gredler.net/xmlrpc.php" />
+			<script src='http://wordpress.com/remote-login.php?action=js&amp;host=daniel.gredler.net&amp;id=887150&amp;back=daniel.gredler.net%2F2008%2F01%2F07%2Fjava-remoting-protocol-benchmarks%2F' type="text/javascript"></script>
+		<link rel="alternate" type="application/rss+xml" title="A Public Scratchpad &raquo; Java Remoting: Protocol&nbsp;Benchmarks Comments Feed" href="http://daniel.gredler.net/2008/01/07/java-remoting-protocol-benchmarks/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' href='http://s.wordpress.com/wp-content/themes/h4/global.css?m=1256671583g' type='text/css' />
+<script type='text/javascript' src='http://s1.wordpress.com/wp-includes/js/comment-reply.js?ver=20090102'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://daniel.gredler.net/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://daniel.gredler.net/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='A Public Scratchpad' href='http://daniel.gredler.net' />
+<link rel='start' title='Giving Groovy a&nbsp;Chance' href='http://daniel.gredler.net/2007/03/18/giving-groovy-a-chance/' />
+<link rel='prev' title='Embedding Jetty 6 in&nbsp;Spring' href='http://daniel.gredler.net/2007/12/31/embedding-jetty-6-in-spring/' />
+<link rel='next' title='Space vs&nbsp;Time' href='http://daniel.gredler.net/2008/01/26/space-vs-time/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://daniel.gredler.net/2008/01/07/java-remoting-protocol-benchmarks/' />
+<link rel="shortcut icon" type="image/x-icon" href="http://www.gravatar.com/blavatar/6be108f5ec5e461f6115235e1d0f5814?s=16&#038;d=http://s.wordpress.com/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="http://www.gravatar.com/blavatar/6be108f5ec5e461f6115235e1d0f5814?s=16&#038;d=http://s.wordpress.com/favicon.ico" />
+<link rel="apple-touch-icon" href="http://www.gravatar.com/blavatar/e02d03261ade2963f044fba243814f10?s=158&#038;d=http://s.wordpress.com/wp-content/themes/h4/i/webclip.png" />
+<link rel='openid.server' href='http://gredler.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://gredler.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://daniel.gredler.net/osd.xml" title="A Public Scratchpad" />
+<link rel="shortlink" href="http://wp.me/p3IMS-H" />
+<script defer="defer" id="snap_preview_anywhere" type="text/javascript" src="http://spa.snap.com/snap_preview_anywhere.js?ap=0&amp;si=1&amp;sb=1&amp;key=e5a3c1e6dff5de35b1c6e7c470411886&amp;domain=&amp;fl=wordpress&amp;pub=pub-2311827-www.wordpress.com&amp;es=all&amp;lang=en"></script>
+
+
+</head>
+
+<body>
+
+<div id="headwrapper">
+	<div id="header">
+		<h1 id="title"><a href="http://daniel.gredler.net">A Public Scratchpad</a></h1>
+	</div>
+</div>
+
+<div id="wrapper">
+
+<div id="content">
+				
+		
+		<div class="post-43 post hentry category-benchmarking category-java category-rmi category-rpc" id="post-43">
+			<h2 class="posttitle"><a href="http://daniel.gredler.net/2008/01/07/java-remoting-protocol-benchmarks/" rel="bookmark" title="Permanent link to Java Remoting: Protocol&nbsp;Benchmarks">Java Remoting: Protocol&nbsp;Benchmarks</a></h2>
+			
+			<p class="postdate">
+				January 7, 2008 at 6:15 pm									(<a href="http://en.wordpress.com/tag/benchmarking/" title="View all posts in Benchmarking" rel="category tag">Benchmarking</a>,  <a href="http://en.wordpress.com/tag/java/" title="View all posts in Java" rel="category tag">Java</a>,  <a href="http://en.wordpress.com/tag/rmi/" title="View all posts in RMI" rel="category tag">RMI</a>,  <a href="http://en.wordpress.com/tag/rpc/" title="View all posts in RPC" rel="category tag">RPC</a>)
+										<br />							</p>
+			
+			<div class="postentry">
+				<div class='snap_preview'><p>I&#8217;ve been analyzing Java remoting protocols at work over the past couple of days, and thought I&#8217;d share some of the results here. Specifically, I&#8217;m going to share the results of our protocol benchmarking.</p>
+<p>Every application will have different requirements in this area, but most criteria will include performance. At the very least, you will want to know how much (if any) performance you are sacrificing for the sake of your other requirements.</p>
+<p><b>The Protocols</b></p>
+<p>The protocols under consideration are Java&#8217;s <a href="http://java.sun.com/j2se/1.5.0/docs/guide/rmi/spec/rmiTOC.html">RMI/JRMP</a>, Oracle&#8217;s <a href="http://www.oracle.com/technology/products/oc4j">ORMI</a> (with and without HTTP tunneling enabled), Spring&#8217;s <a href="http://static.springframework.org/spring/docs/2.0.x/reference/remoting.html#remoting-httpinvoker">HttpInvoker</a>, Caucho&#8217;s <a href="http://hessian.caucho.com/">Hessian and Burlap</a>, and three flavors of <a href="http://ws.apache.org/xmlrpc/">Apache XML-RPC</a> (Sun-based, HttpClient-based and Lite-based).</p>
+<p>RMI/JRMP is Java&#8217;s default binary remoting protocol, and its big advantage is that it supports full object serialization of <i>Serializable</i> and <i>Externalizable</i> objects. RMI/JRMP has historically not been as easy to use as some of the other options, but if you&#8217;re using Spring (as we are), it&#8217;s as easy to use as anything else (except Apache XML-RPC; see below).</p>
+<p>ORMI is OC4J&#8217;s EJB remoting protocol, which we&#8217;re currently using in production. This protocol was originally developed as part of the <a href="http://orionserver.com/">Orion</a> application server, whose codebase formed the basis for OC4J. The only differentiator between ORMI and RMI/JRMP is likely to be performance. Of course, this protocol probably won&#8217;t be an option unless your serverside component is deployed on OC4J. ORMI supports tunneling via HTTP and HTTPS, should you run into firewall or proxy problems.</p>
+<p>Spring&#8217;s HttpInvoker is another Java-to-Java binary remoting protocol. It&#8217;s also very easy to use and supports full object serialization of <i>Serializable</i> and <i>Externalizable</i> objects. The big difference between HttpInvoker and RMI/JRMP is that HttpInvoker transports data via HTTP, which makes it easier to use when you start running into proxy and firewall issues. Unfortunately, HttpInvoker isn&#8217;t an option if you&#8217;re not using Spring on both the server and the client.</p>
+<p>Caucho&#8217;s Hessian protocol is a slim, binary cross-platform remoting protocol. Most cross-platform protocols are XML-based, and thus sacrifice a significant amount of performance in order to achieve interoperability. Hessian&#8217;s draw is that it achieves cross-platform interoperability with minimal performance degradation. However, Hessian uses a custom reflection-based <a href="http://www.caucho.com/resin-javadoc/com/caucho/hessian/io/AbstractSerializerFactory.html">serialization mechanism</a> which can be troublesome in certain scenarios (think Hibernate proxies).</p>
+<p>Currently in a draft state, Hessian 2 is the second incarnation of the Hessian protocol. You probably don&#8217;t want to use it in your production applications quite yet, but it looks very promising. Of course, it&#8217;s so easy to switch between Hessian and Hessian 2 that you might want to have a peek just for the heck of it [1].</p>
+<p>As far as I can tell, Caucho&#8217;s Burlap is essentially Hessian-in-XML. As such, Burlap is not a binary protocol and should be expected to suffer accordingly in the performance department. This being the case, I haven&#8217;t been able to figure out exactly why anyone would choose to use Burlap instead of Hessian&#8230; aside from a requirement from the marketing department that your RPC be buzzword compliant.</p>
+<p>Apache XML-RPC is Apache&#8217;s implementation of <a href="http://www.xmlrpc.com/">XML-RPC</a>, an XML-based RPC specification which focuses on interoperability. Apache XML-RPC may be a bit more difficult to set up than the other options if you&#8217;re using Spring. The infrastructure for the other protocols is built into the Spring framework, but you&#8217;ll have to write the Apache XML-RPC / Spring integration yourself.</p>
+<p>Apache XML-RPC supports a number of transport factories under the covers. The three transport factories tested were the default transport factory (based on Sun&#8217;s <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/net/HttpURLConnection.html">HttpURLConnection</a>), the HttpClient transport factory (based on <a href="http://hc.apache.org/httpclient-3.x/">HttpClient</a>) and the Lite transport factory (based on an Apache XML-RPC minimal HTTP client implementation).</p>
+<p><b>The Configuration</b></p>
+<p>The test consisted of remote invocations to a single method which takes an integer size parameter and returns a list of the specified size. The objects in the returned list each contained 10 instance variables (4 strings of about 40 characters each, 2 dates, 1 long, 1 integer, 1 double and 1 float, none of which were null). The lists returned were static, so there was no list construction overhead.</p>
+<p>The results of the first 10 invocations were thrown away, in order to allow the VMs to &#8220;warm up.&#8221; The next 100 invocations were tallied and averaged.</p>
+<p>The tests were performed on a Windows XP SP2 machine with 2GB of RAM and a 2Ghz Core 2 Duo CPU, using Sun&#8217;s JVM 1.5.0_09. The client and server were run in two separate VMs on the same host, in order to avoid spurious networking artifacts [2].</p>
+<p>The following library versions were used: Spring 2.0.6, Jetty 6.1.5, OC4J 10.1.3.2.0, slf4j 1.4.3, log4j 1.2.14, Apache XML-RPC 3.1, Commons HttpClient 3.1, and Caucho Hessian 3.1.3.</p>
+<p>Spring was used on both the clientside and on the serverside in order to hide the remoting details from the interface consumer and implementor. All serverside components were run inside a single Jetty servlet container, except for the ORMI serverside testing components which were run in OC4J.</p>
+<p>Vendor extensions and GZIP requesting were enabled for all Apache XML-RPC tests. Streaming and GZIP compressing were enabled for all Apache XML-RPC tests except the Lite tests (the Lite transport factory does not support these options). These configurations represent the best performance optimizations available to the various Apache XML-RPC flavors.</p>
+<p><b>The Results</b></p>
+<p>The following graph illustrates the response times of the various protocols for invocations returning smaller lists:</p>
+<p><img src="http://gredler.files.wordpress.com/2008/01/protocol-benchmark-smaller-lists-3.png?w=477" alt="protocol-benchmark-smaller-lists-3.png" /></p>
+<p>The following graph illustrates the response times of the various protocols for invocations returning larger lists:</p>
+<p><img src="http://gredler.files.wordpress.com/2008/01/protocol-benchmark-larger-lists-3.png?w=477" alt="protocol-benchmark-larger-lists-3.png" /></p>
+<p><b>Conclusion</b></p>
+<p>It&#8217;s important to note that no general conclusions can be derived from the absolute numbers represented above. Rather, the numbers must be examined relative to each other.</p>
+<p>That said, the following observations may be made:</p>
+<ol>
+<li>The binary protocols (RMI, ORMI, HttpInvoker and Hessian) are always faster than the XML-based protocols (Burlap and the Apache XML-RPC variants) &#8212; except for ORMI with HTTP tunneling enabled.</li>
+<li>Performance is pretty even amongst the binary protocols &#8212; except for Hessian, which performs well only when compared to the XML-based protocols, and ORMI with HTTP tunneling enabled, which performs on a par with the XML-RPC variants.</li>
+<li>Burlap has much better performance than the XML-RPC variants.</li>
+<li>Native RMI and Hessian 2 have the best performance until the remote method invocations start returning larger lists, at which point vanilla ORMI takes a slight lead.</li>
+<li>Changing Apache XML-RPC&#8217;s transport factory does not seem to have a very large effect on performance.</li>
+<li>It&#8217;s amazing how fast standard ORMI is, compared to ORMI with HTTP tunneling enabled.</li>
+<li>Hessian 2 bears watching!</li>
+</ol>
+<p><b>Other Interesting Links</b></p>
+<p><a href="http://labs.jboss.com/jbossremoting/docs/benchmark/performance_benchmark.html">JBoss Remoting Framework Benchmarks</a>: Tom Elrod&#8217;s benchmark of the JBoss Remoting framework. Includes part of the Spring Remoting framework.</p>
+<p><a href="http://blog.nominet.org.uk/tech/2007/03/13/middleware-remoting-protocol-migration/">Nominet&#8217;s Protocol Benchmarks</a>: Interesting benchmark of many of the protocols here considered. Intriguingly, HttpInvoker is found to have consistently better performance than RMI/JRMP, a finding which contradicts our results.</p>
+<p><b>Footnotes</b></p>
+<p>[1] If you&#8217;re using Spring&#8217;s Hessian integration and the latest Hessian JARs, moving to Hessian 2 is as easy as adding the following property to your <i>HessianProxyFactoryBean</i>:<br />
+<i> </i></p>
+<pre><i>    &lt;property name="proxyFactory"&gt;
+        &lt;bean class="com.caucho.hessian.client.HessianProxyFactory"&gt;
+            &lt;property name="hessian2Request" value="true" /&gt;
+            &lt;property name="hessian2Reply" value="true" /&gt;
+        &lt;/bean&gt;
+    &lt;/property&gt;</i></pre>
+<p>[2] The tests were later run on two separate machines over a controlled network, in order to verify that the local tests are representative; they are.</p>
+<div style="margin-top: 1em" class="possibly-related"><hr /><p><strong>Possibly related posts: (automatically generated)</strong></p><ul><li><a rel='related nofollow' href='http://scourmanop.wordpress.com/2008/01/18/sotd-new-blade-test-protocol/'>SOTD &#8211; New blade test protocol</a></li></ul></div></div>							</div>
+		</div>
+			
+			<h3 id="comments">50 Comments</h3>
+
+	<ol id="commentlist" class="snap_preview">
+	<li class="comment even thread-even depth-1" id="comment-350">
+	<div id="div-comment-350">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/4a8f3deb92423191a93754a92bca04a5?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://www.caucho.com/' rel='external nofollow' class='url'>Emil Ong</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 8, 2008 at <a href="#comment-350" title="Permanent link to this comment">1:44 am</a> 
+					</p>
+		<p>Great article!  It might be nice to do a comparison of bandwidth used as well.  I think Hessian 2 should beat RMI in a lot of the tests in that case.</p>
+<p>Emil</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=350#respond' onclick='return addComment.moveForm("div-comment-350", "350", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-352">
+	<div id="div-comment-352">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Calum Shaw-Mackay</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 8, 2008 at <a href="#comment-352" title="Permanent link to this comment">6:26 am</a> 
+					</p>
+		<p>It would be interesting to see how JERI (Jini Extensible Remote Invocation) compares to Standard JRMP, especialliy as you can more or less configure the entire Invocation Layer stack for things like security etc, and there are differing endpoints (HTTP, TCP and Memory) etc.</p>
+<p>Calum</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=352#respond' onclick='return addComment.moveForm("div-comment-352", "352", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-353">
+	<div id="div-comment-353">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Shoaib Akhtar</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 8, 2008 at <a href="#comment-353" title="Permanent link to this comment">10:01 am</a> 
+					</p>
+		<p>Can you please provide the link for Hessian 2?</p>
+<p>Thanks,<br />
+Shoaib</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=353#respond' onclick='return addComment.moveForm("div-comment-353", "353", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-354">
+	<div id="div-comment-354">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/07dcfb72deb729f957a503f89a1d7b63?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">anonymous</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 8, 2008 at <a href="#comment-354" title="Permanent link to this comment">10:22 am</a> 
+					</p>
+		<p><a href="http://hessian.caucho.com/" rel="nofollow">http://hessian.caucho.com/</a></p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=354#respond' onclick='return addComment.moveForm("div-comment-354", "354", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-355">
+	<div id="div-comment-355">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Anonymous</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 8, 2008 at <a href="#comment-355" title="Permanent link to this comment">11:24 am</a> 
+					</p>
+		<p>Corba?</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=355#respond' onclick='return addComment.moveForm("div-comment-355", "355", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment byuser comment-author-gredler bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-356">
+	<div id="div-comment-356">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/d71895d31422ff2da109a665d5f6d256?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Daniel Gredler</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 8, 2008 at <a href="#comment-356" title="Permanent link to this comment">12:37 pm</a> 
+					</p>
+		<p>Emil: You&#8217;re right. As Christian <a href="http://maillist.caucho.com/pipermail/hessian-interest/2008-January/000266.html" rel="nofollow">noted</a> in the mailing list discussion, these numbers assume optimal network conditions. It would be interesting to have a test which weighs bandwidth use appropriately. Maybe another time <img src='http://s.wordpress.com/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+<p>Calum and Anonymous: Yep, both JERI and CORBA would be interesting additions. But I had to draw the line somewhere.</p>
+<p>Shoaib: Just follow the Hessian/Burlap link at the top of the article; the link is the same for Hessian and Hessian 2. The latest Hessian JAR includes support for both protocols.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=356#respond' onclick='return addComment.moveForm("div-comment-356", "356", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-358">
+	<div id="div-comment-358">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/3f86009a3702cec43af88c707fdd04f2?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Paul Keeble</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 8, 2008 at <a href="#comment-358" title="Permanent link to this comment">5:08 pm</a> 
+					</p>
+		<p>Would it be possible to get hold of the source code? I&#8217;d like to add a few other tests within the same framework (such as Axis and other webservices implementations) to see just how much those web service calls are really costing comparatively to the tests you&#8217;ve already done.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=358#respond' onclick='return addComment.moveForm("div-comment-358", "358", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-363">
+	<div id="div-comment-363">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/ae1e8435b445ec691d8e27b747222f43?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://jabsorb.org' rel='external nofollow' class='url'>Sasha Ovsankin</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-363" title="Permanent link to this comment">3:52 am</a> 
+					</p>
+		<p>Daniel &#8211;</p>
+<p>Thanks for the interesting article. </p>
+<p>You may also want to consider JSON-RPC (<a href="http://json-rpc.org" rel="nofollow">http://json-rpc.org</a>) which has several open source  Java implementations, including <a href="http://jabsorb.org" rel="nofollow">http://jabsorb.org</a>. The protocol is simple and has good chances to be fast. There are implementations in many languages, most notably in JavaScript which makes it a good choice for Web and hybrid thin/fat-client applications.</p>
+<p>&#8211; Sasha</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=363#respond' onclick='return addComment.moveForm("div-comment-363", "363", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-364">
+	<div id="div-comment-364">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Richard Henderson</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-364" title="Permanent link to this comment">4:10 am</a> 
+					</p>
+		<p>httpinvoker! Very quick. So it isn&#8217;t about the base64 or http protocol overhead. Just the XML tax?</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=364#respond' onclick='return addComment.moveForm("div-comment-364", "364", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-365">
+	<div id="div-comment-365">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/6f97846f4aa019779dc9a5b76e65846c?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://stephan.reposita.org' rel='external nofollow' class='url'>Stephan Schmidt</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-365" title="Permanent link to this comment">4:26 am</a> 
+					</p>
+		<p>CORBA would be interesting for companies sill running CORBA legacy apps.</p>
+<p>Peace<br />
+-stephan</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=365#respond' onclick='return addComment.moveForm("div-comment-365", "365", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-366">
+	<div id="div-comment-366">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/41a970cccd1d25e5d15f714f65ccf5d3?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Shiv Prakash Ojha</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-366" title="Permanent link to this comment">5:34 am</a> 
+					</p>
+		<p>Quite inlined with what we did some 12 months back.</p>
+<p>I wanted to share my experience regarding Hessian &amp; Burlap. They have issues in serialization when </p>
+<p> &#8211; Object Graph is complex and contains Inner/annonymous classes<br />
+ &#8211; They use reflection to create object instance &#8211; so if you have validations in constructors &amp; don&#8217;t have support for default constructors &#8211; they fail to de-serialize.</p>
+<p>I hope this would be useful info for others as well.</p>
+<p>Thanks,<br />
+Shiv</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=366#respond' onclick='return addComment.moveForm("div-comment-366", "366", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-367">
+	<div id="div-comment-367">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/37acd19ad0e31a53796db24734ac8693?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Giampaolo Tranchida</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-367" title="Permanent link to this comment">5:55 am</a> 
+					</p>
+		<p>Good job.</p>
+<p>it will be interesting to compare also with the last JAX-WS Web Service implementation (CXF or Axis2)</p>
+<p>Thanks</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=367#respond' onclick='return addComment.moveForm("div-comment-367", "367", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment byuser comment-author-athanazio even thread-even depth-1" id="comment-368">
+	<div id="div-comment-368">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/7bd994a4987dc55b10652ef109439fc6?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://athanazio.wordpress.com/' rel='external nofollow' class='url'>athanazio</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-368" title="Permanent link to this comment">8:04 am</a> 
+					</p>
+		<p>would be great to have the code of the benchmark so we an add other protocols  to the test, and have a richer result data&#8230; what you think ?<br />
+I would suggest to test HTTP request with JSON result data.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=368#respond' onclick='return addComment.moveForm("div-comment-368", "368", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-369">
+	<div id="div-comment-369">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://athanazio.wordpress.com/2008/01/09/pretty-cool-protocol-test/' rel='external nofollow' class='url'>pretty cool protocol test &laquo; athanazio</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-369" title="Permanent link to this comment">8:08 am</a> 
+					</p>
+		<p>[...] Â http://daniel.gredler.net/2008/01/07/java-remoting-protocol-benchmarks/ [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=369#respond' onclick='return addComment.moveForm("div-comment-369", "369", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment byuser comment-author-gredler bypostauthor even thread-even depth-1" id="comment-371">
+	<div id="div-comment-371">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/d71895d31422ff2da109a665d5f6d256?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Daniel Gredler</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-371" title="Permanent link to this comment">12:14 pm</a> 
+					</p>
+		<p>Paul and Athanazio:</p>
+<p>Sure thing! I&#8217;ll get you the code within the next couple of days.</p>
+<p>Two caveats:</p>
+<p>1. Please share the modified code and results, so we all benefit;</p>
+<p>2. I can&#8217;t provide the OC4J serverside component, because it&#8217;s grafted onto a proprietary EAR which I had laying around. You&#8217;ll be able to test all of the other protocols, though.</p>
+<p>Suggestions for enhancements have included: Jini&#8217;s JERI, CORBA, JSON-RPC, CXF, Axis, Axis2 and probably some others I&#8217;ve forgotten <img src='http://s.wordpress.com/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+<p>Also, people have suggested testing different sizes of object graphs, in addition to the existing list tests.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=371#respond' onclick='return addComment.moveForm("div-comment-371", "371", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment byuser comment-author-gredler bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-372">
+	<div id="div-comment-372">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/d71895d31422ff2da109a665d5f6d256?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Daniel Gredler</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 9, 2008 at <a href="#comment-372" title="Permanent link to this comment">1:05 pm</a> 
+					</p>
+		<p>Richard: It looks that way. Keep in mind that the binary protocols are free to add all kinds of optimizations, too. For example, I think Hessian 2 has special short encodings for common integers.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=372#respond' onclick='return addComment.moveForm("div-comment-372", "372", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-374">
+	<div id="div-comment-374">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/89e1437732a3cdd7accf78e6bc253096?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Mileta Cekovic</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 10, 2008 at <a href="#comment-374" title="Permanent link to this comment">8:28 am</a> 
+					</p>
+		<p>Including ICE would be nice also, as ICE was event faster then the RMI in my latests tests.</p>
+<p>Also do not expect wonders from CORBA, it is 10-20% slower then RMI as it has to use platform interoperable protocol IIOP, and because of that it has to be slower then Java optimized RMI.</p>
+<p>At the end, if your environment needs best performance and lowest bandwidth &#8216;custom socketing&#8217; with custom protocol and custom binary serialization is the way to go. Even Java binary serialization has a lot of overhead compared to custom serialization as Java serialization has to be aware of JVM and class versions and thus stores full class and property names with the serialized objects which can be such an overhead.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=374#respond' onclick='return addComment.moveForm("div-comment-374", "374", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-375">
+	<div id="div-comment-375">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://thecodist.com' rel='external nofollow' class='url'>codist</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 10, 2008 at <a href="#comment-375" title="Permanent link to this comment">11:38 am</a> 
+					</p>
+		<p>Be interesting (but difficult) to compare these with TerraCotta&#8217;s approach.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=375#respond' onclick='return addComment.moveForm("div-comment-375", "375", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-377">
+	<div id="div-comment-377">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://www.jroller.com/amin' rel='external nofollow' class='url'>Amin Abbasopour</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 11, 2008 at <a href="#comment-377" title="Permanent link to this comment">2:54 pm</a> 
+					</p>
+		<p>Good work! I would like to add a few notes;<br />
+1) Why did you forget about BEA&#8217;s t3 RMI if you are looking for performance? You&#8217;d better give it a try and I&#8217;m sure you will be fascinated by the results. The same about JBoss JNP and (dead!) JBoss serialization! But still t3 rules <img src='http://s.wordpress.com/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /><br />
+2) I guess you should add another chart showing JVM&#8217;s thread number for each remoting scenario. I did this once and results were very interesting in fact. To have the best performance it great, but to reach it with minimal thread/resources is greater. You will see that some protocols do not fully utilize thread pooling/multiplexing while some others do.<br />
+3) Again if you really care about performance (and can ignore standards a bit) have a look at MINA in combination with its object serialization codec.<br />
+4) Space based remoting (gigaspaces for example) is also a great absent of the show <img src='http://s.wordpress.com/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /><br />
+Regards</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=377#respond' onclick='return addComment.moveForm("div-comment-377", "377", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-382">
+	<div id="div-comment-382">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://yoshy.wordpress.com/2008/01/15/links-for-2008-01-14/' rel='external nofollow' class='url'>links for 2008-01-14 &laquo; å??äººç??ã?ªé??è¨?</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 14, 2008 at <a href="#comment-382" title="Permanent link to this comment">5:21 pm</a> 
+					</p>
+		<p>[...] Java Remoting: Protocol Benchmarks Â« A Public Scratchpad (tags: remoting java performance webservices) [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=382#respond' onclick='return addComment.moveForm("div-comment-382", "382", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-394">
+	<div id="div-comment-394">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/aa82a93be6e216f88e56ede3adde473f?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">sanjay Radia</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 25, 2008 at <a href="#comment-394" title="Permanent link to this comment">12:36 pm</a> 
+					</p>
+		<p>Good benchmark.<br />
+2 points:<br />
+ 1. If you could publish the sources to your benchmark I would like to add RMI/JERI and ICE.<br />
+I will post back the additional code.</p>
+<p>2. Failure semantics.<br />
+It would be useful to list the failure  semantics of each of the RPC systems.<br />
+For example, RMI is at-most-once &#8212; very useful for building diverse distributed applications.<br />
+For example Hessian does not state their semantics on their specs page (or at least I could not<br />
+find it).</p>
+<p>thanks</p>
+<p>sanjay</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=394#respond' onclick='return addComment.moveForm("div-comment-394", "394", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment byuser comment-author-gredler bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-395">
+	<div id="div-comment-395">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/d71895d31422ff2da109a665d5f6d256?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Daniel Gredler</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 25, 2008 at <a href="#comment-395" title="Permanent link to this comment">12:44 pm</a> 
+					</p>
+		<p>Sanjay: I just sent you the code via email (unfortunately I&#8217;m not allowed to post ZIP files here). Looking forward to seeing your results!</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=395#respond' onclick='return addComment.moveForm("div-comment-395", "395", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback even thread-even depth-1" id="comment-440">
+	<div id="div-comment-440">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://www.jeedev.de/webservices/rest-vs-hessian.html' rel='external nofollow' class='url'>JEE Development &raquo; Blog Archive &raquo; REST vs. Hessian ?</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			February 7, 2008 at <a href="#comment-440" title="Permanent link to this comment">4:27 pm</a> 
+					</p>
+		<p>[...] Gredler wrote a very good article about the performance of Java remoting protocols. Hessian is fast as we can see but what about a [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=440#respond' onclick='return addComment.moveForm("div-comment-440", "440", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-443">
+	<div id="div-comment-443">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://www.solutionhacker.com/2008/02/24/java-remoting-benchmark/' rel='external nofollow' class='url'>Java Remoting - Benchmark | Solution Hacker</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			February 24, 2008 at <a href="#comment-443" title="Permanent link to this comment">4:05 am</a> 
+					</p>
+		<p>[...] remoting spectrum in order to ship a large number of objects across the net. Here I found a great article that experimented several popular remoting protocols and did a comparison. The protocols covered [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=443#respond' onclick='return addComment.moveForm("div-comment-443", "443", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-455">
+	<div id="div-comment-455">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/bb853280d96d47b4f9399351eb366bbd?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://www.jroller.com/afuentes' rel='external nofollow' class='url'>afuentes</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			March 16, 2008 at <a href="#comment-455" title="Permanent link to this comment">10:51 am</a> 
+					</p>
+		<p>Very interesting.<br />
+Questions ???<br />
+Do you know performance issues  with client c++  to have http keep connection alive (5) ???<br />
+This client make many request per second  on same connection.<br />
+For me hessian is good options for that.<br />
+Waht do you think ??</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=455#respond' onclick='return addComment.moveForm("div-comment-455", "455", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-464">
+	<div id="div-comment-464">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://www.samuelphotos.com/blog/archives/64' rel='external nofollow' class='url'>SamuelPhotos Blog &raquo; Blog Archive &raquo; Java Remoting: Protocol Benchmarks</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			April 8, 2008 at <a href="#comment-464" title="Permanent link to this comment">6:50 am</a> 
+					</p>
+		<p>[...] <a href="http://daniel.gredler.net/2008/01/07/java-remoting-protocol-benchmarks/" rel="nofollow">http://daniel.gredler.net/2008/01/07/java-remoting-protocol-benchmarks/</a> [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=464#respond' onclick='return addComment.moveForm("div-comment-464", "464", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-502">
+	<div id="div-comment-502">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">surender</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			June 4, 2008 at <a href="#comment-502" title="Permanent link to this comment">9:47 am</a> 
+					</p>
+		<p>Wonderful comparison.And as someone mentioned above, for really loaded distributed systems, threads/resource consumption should also be considered. For example, Sun&#8217;s RMI creates thread on each connection and doesn&#8217;t use thread pool where hessian can use containers thread pool. I wonder though when it can become bottleneck if production grade servers run on 4GB ram on clustered environment.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=502#respond' onclick='return addComment.moveForm("div-comment-502", "502", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-504">
+	<div id="div-comment-504">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">SaaSMan</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			June 8, 2008 at <a href="#comment-504" title="Permanent link to this comment">9:53 am</a> 
+					</p>
+		<p>I found this blog entry while researching Java serialization performance. My objective is to efficiently serialize 5,000 to 10,000 pojo objects and store these as a blob on Amazon S3 storage service. Does the wide range of results here effectively highlight the performance of the underlying serialization implementations?</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=504#respond' onclick='return addComment.moveForm("div-comment-504", "504", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-531">
+	<div id="div-comment-531">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/dc54184b3a7850a84686f00d4c5d9c4c?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Jimmy Zhang</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			August 2, 2008 at <a href="#comment-531" title="Permanent link to this comment">5:38 pm</a> 
+					</p>
+		<p>I think you guys should investigate latest XML parsing technology such as VTD-XML<br />
+http//vtd-xml.sf.net</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=531#respond' onclick='return addComment.moveForm("div-comment-531", "531", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-536">
+	<div id="div-comment-536">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/e80efcd7d80d4136e4299bd4de423267?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Maneesh Chauhan</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			August 14, 2008 at <a href="#comment-536" title="Permanent link to this comment">1:15 pm</a> 
+					</p>
+		<p>Hi<br />
+We are using the Hessian for the data transfer from server to client side. I have few question how the Hessian works in case of the Bulk Data </p>
+<p>Is there any constraint of bulk data ?</p>
+<p>Can we use the Hessian to send the 200 , 000 objects  and each object contains 100 bytes </p>
+<p>Thanks in advance for your prompt answer</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=536#respond' onclick='return addComment.moveForm("div-comment-536", "536", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-547">
+	<div id="div-comment-547">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/f3c746629b2c36f50648acf5a28a8e8b?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Abhishek Kumar</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			September 11, 2008 at <a href="#comment-547" title="Permanent link to this comment">6:25 am</a> 
+					</p>
+		<p>Hey guys i rebuilt the test, but for ArrayList with 5000 elements i am getting for Hessian about 40 ms and for HTTP Invoker 45 ms avg time ..its way better than in graph .. i am wondering why!!!!</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=547#respond' onclick='return addComment.moveForm("div-comment-547", "547", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-570">
+	<div id="div-comment-570">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://blog.nominet.org.uk/tech/2008/10/03/using-hessiancpp-to-call-java-servlets-from-c/' rel='external nofollow' class='url'>techblog &raquo; Blog Archive &raquo; Using hessiancpp to call Java servlets from C++</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			October 3, 2008 at <a href="#comment-570" title="Permanent link to this comment">6:29 am</a> 
+					</p>
+		<p>[...] is a binary web service protocol. It&#8217;s quite efficient (see Daniel Gredler&#8217;s and Miquel&#8217;s benchmarks) and it&#8217;s dynamically [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=570#respond' onclick='return addComment.moveForm("div-comment-570", "570", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback even thread-even depth-1" id="comment-571">
+	<div id="div-comment-571">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://cache.develop.noc4.eu/wordpress/2008/10/using-hessiancpp-to-call-java-servlets-from-c/' rel='external nofollow' class='url'>Cache&#8217;s Blog &raquo; Using hessiancpp to call Java servlets from C++</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			October 3, 2008 at <a href="#comment-571" title="Permanent link to this comment">5:07 pm</a> 
+					</p>
+		<p>[...] is a binary web service protocol. It&#8217;s quite efficient (see Daniel Gredler&#8217;s and Miquel&#8217;s benchmarks) and it&#8217;s dynamically [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=571#respond' onclick='return addComment.moveForm("div-comment-571", "571", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-582">
+	<div id="div-comment-582">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/18c69af2753f50dd88cef1f4ee239165?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://jroller.com/vschiavoni' rel='external nofollow' class='url'>Valerio Schiavoni</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			October 23, 2008 at <a href="#comment-582" title="Permanent link to this comment">6:48 am</a> 
+					</p>
+		<p>Interesting comparison. Thanks for sharing it.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=582#respond' onclick='return addComment.moveForm("div-comment-582", "582", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-584">
+	<div id="div-comment-584">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/dbd0a817677be5304a3b6f4d6add1015?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://peterpascale.com' rel='external nofollow' class='url'>Peter Pascale</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			October 31, 2008 at <a href="#comment-584" title="Permanent link to this comment">8:50 am</a> 
+					</p>
+		<p>Daniel &#8211; I&#8217;d be interested in receiving the test code package. Would love to update it with a CORBA test just for comparison, and possibly also CXF and Axis. Anything I did I&#8217;d of course ship back/make available. Thanks.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=584#respond' onclick='return addComment.moveForm("div-comment-584", "584", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-589">
+	<div id="div-comment-589">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://noor.ojuba.org/2008/11/a-ride-with-hessian/' rel='external nofollow' class='url'>noor - Ù?Ù?Ø± &raquo; A ride with hessian</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			November 30, 2008 at <a href="#comment-589" title="Permanent link to this comment">11:56 pm</a> 
+					</p>
+		<p>[...] is an interesting benchmark, demonistrating how hessian perform against classical binary [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=589#respond' onclick='return addComment.moveForm("div-comment-589", "589", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-592">
+	<div id="div-comment-592">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/27d59126b9ce5f290b7a11bb7e8cc353?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Nilesh Wani</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			December 15, 2008 at <a href="#comment-592" title="Permanent link to this comment">6:33 am</a> 
+					</p>
+		<p>Hi Daniel,</p>
+<p>Is it possible for you to please share the source code for this comparison? That would be very helpful for many developers. We have to decide on a remoting protocol and the code can be very help us in taking the right decision.</p>
+<p>Thanks<br />
+Nilesh</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=592#respond' onclick='return addComment.moveForm("div-comment-592", "592", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-594">
+	<div id="div-comment-594">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/39af9f256e0d4232f407fc2a4181092e?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Nullio</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			January 13, 2009 at <a href="#comment-594" title="Permanent link to this comment">3:51 pm</a> 
+					</p>
+		<p>Danil,</p>
+<p>I would really appreciate if you could send me a copy of the source code used in this test.<br />
+It will be very helpfull for my current assignments.</p>
+<p>Thanks in Advance</p>
+<p>Nullio.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=594#respond' onclick='return addComment.moveForm("div-comment-594", "594", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-596">
+	<div id="div-comment-596">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/b19c7f3c13cda6bf826a383eb3a34501?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Abhishek Kumar</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			February 2, 2009 at <a href="#comment-596" title="Permanent link to this comment">6:37 am</a> 
+					</p>
+		<p>hey nullio send me ur mail id at <a href="mailto:abhishek9852@gmail.com">abhishek9852@gmail.com</a><br />
+ill mail u the source code , i also did the same thing for my project !</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=596#respond' onclick='return addComment.moveForm("div-comment-596", "596", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-614">
+	<div id="div-comment-614">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/32dd0671db8b9a096e10ec57813accbd?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Rich</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			April 7, 2009 at <a href="#comment-614" title="Permanent link to this comment">3:17 pm</a> 
+					</p>
+		<p>I think it&#8217;s important to contract remoting framework overhead (RMI, Spring, Servlet, HttpInvoker) and serialization (Hessian1+2, java Object*Stream, JBoss serialization).</p>
+<p>Im my testing of serialization libraries over plain TCP and UDP sockets, Hessian2 was significantly compressed in relation to its competitors and performed much better. </p>
+<p>The latencies resulting from the remoting frameworks themselves are a separate issue.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=614#respond' onclick='return addComment.moveForm("div-comment-614", "614", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-615">
+	<div id="div-comment-615">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/32dd0671db8b9a096e10ec57813accbd?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Rich</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			April 7, 2009 at <a href="#comment-615" title="Permanent link to this comment">3:18 pm</a> 
+					</p>
+		<p>contract = constrast</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=615#respond' onclick='return addComment.moveForm("div-comment-615", "615", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-616">
+	<div id="div-comment-616">
+	<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Stefan Scheidt</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			April 9, 2009 at <a href="#comment-616" title="Permanent link to this comment">2:53 pm</a> 
+					</p>
+		<p>Wouldn&#8217;t it be nice to make your test suite open source, e.g. on googlecode?</p>
+<p>Stefan</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=616#respond' onclick='return addComment.moveForm("div-comment-616", "616", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback even thread-even depth-1" id="comment-617">
+	<div id="div-comment-617">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://karussell.wordpress.com/2009/04/10/hessian-web-service-protocol-hello-world-example/' rel='external nofollow' class='url'>Hessian Web Service Protocol - Hello World Example &laquo; Java and more &#8230;</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			April 10, 2009 at <a href="#comment-617" title="Permanent link to this comment">5:05 am</a> 
+					</p>
+		<p>[...] from Caucho is released under the Apache License 2.0. Hessian is well integrated into Spring and seems to perform well for version 3.2 (one year old!). An ORM tool which supports Hessian out of the box is [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=617#respond' onclick='return addComment.moveForm("div-comment-617", "617", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-618">
+	<div id="div-comment-618">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/b933bb996e69fe85fac91b8d2b23a45c?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Juan</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			April 21, 2009 at <a href="#comment-618" title="Permanent link to this comment">9:32 am</a> 
+					</p>
+		<p>For updated bechmarks:<br />
+<a href="http://code.google.com/p/thrift-protobuf-compare/wiki/Benchmarking" rel="nofollow">http://code.google.com/p/thrift-protobuf-compare/wiki/Benchmarking</a></p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=618#respond' onclick='return addComment.moveForm("div-comment-618", "618", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-619">
+	<div id="div-comment-619">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/360bca90c76c754da41c9d2d380efa82?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Mojahedul Hoque Abul Hasanat</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			May 12, 2009 at <a href="#comment-619" title="Permanent link to this comment">12:23 am</a> 
+					</p>
+		<p>A very useful article.  I was just looking for this information.  Thanks for sharing.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=619#respond' onclick='return addComment.moveForm("div-comment-619", "619", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-620">
+	<div id="div-comment-620">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/9ec15ba8ada8c985dfabba9c0d4244ff?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn">Chris</span> said,</h4>
+	</div>
+		<p class="commentdate">
+			May 28, 2009 at <a href="#comment-620" title="Permanent link to this comment">7:10 am</a> 
+					</p>
+		<p>Nice piece of work! Again, thanks for sharing this information.</p>
+<p>In case speed an excellent scaling behaviour is an issue, it would be indespensable to obey main semantic rules of the web &#8211; i.e. using GET where clients need a view to a centralized model and POST where clients change the model. GET requests meight be cached by clients and proxies, POST requests cannot.</p>
+<p>As far as I can see, all the lightweight candidates (Hessian, Burlap, HttpInvoker) allways use POST, which means the whole HTTP Caching infrastructure is turned off.</p>
+<p>Does anybody know a framework which uses HTTP, is leightweight AND offers to switch to GET where it is appropriate? (And, yes, I know it is a challenge to map method parameters to URL parameters.)</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=620#respond' onclick='return addComment.moveForm("div-comment-620", "620", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-626">
+	<div id="div-comment-626">
+	<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/1802a860eb25d450e7436e5f5786186c?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />		<h4 class="commentauthor"><span class="fn"><a href='http://www.paraware.com/blogs/brian' rel='external nofollow' class='url'>Brian Bonner</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			June 18, 2009 at <a href="#comment-626" title="Permanent link to this comment">3:36 pm</a> 
+					</p>
+		<p>I&#8217;m curious have you been able to stream complex objects across the wire with burlap, hessian or hessian2,  Strings seem to work fine, but any complex user defined objects seem to fail.</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=626#respond' onclick='return addComment.moveForm("div-comment-626", "626", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-640">
+	<div id="div-comment-640">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://www.activepeople.net/burlap/' rel='external nofollow' class='url'>&nbsp; &nbsp; &nbsp; |&gt;&gt; Burlap</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			September 24, 2009 at <a href="#comment-640" title="Permanent link to this comment">4:42 pm</a> 
+					</p>
+		<p>[...] Verwendung2 Siehe auch zu &#8220;&gt;Weblinks zu  zu Burlap Design NotesJava Remoting: Protocol Benchmarks, Performancevergleich von Daniel Gredler zwischen Hessian, Burlap, Oracles ORMI, RMI, XML-RPC [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=640#respond' onclick='return addComment.moveForm("div-comment-640", "640", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback even thread-even depth-1" id="comment-641">
+	<div id="div-comment-641">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://blog.dynatrace.com/2009/09/28/performance-considerations-in-distributed-applications/' rel='external nofollow' class='url'>Performance Considerations in Distributed Applications Performance, Scalability and Architecture &#8211; Java and .NET Application Performance Management (dynaTrace Blog)</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			September 29, 2009 at <a href="#comment-641" title="Permanent link to this comment">6:26 pm</a> 
+					</p>
+		<p>[...] are using SOAP as an RPC protocol although there are no advantages in following this approach. Measurementshave shown that the overhead of SOAP compared to RMI-JRMP is significant. Performance degradation by [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=641#respond' onclick='return addComment.moveForm("div-comment-641", "641", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-651">
+	<div id="div-comment-651">
+	<div class="comment-author vcard">
+				<h4 class="commentauthor"><span class="fn"><a href='http://kari.world.dy.fi/2009/11/20/custom-rmi/' rel='external nofollow' class='url'>Kari&#8217;s World &raquo; Blog Archive &raquo; Custom RMI?</a></span> said,</h4>
+	</div>
+		<p class="commentdate">
+			November 22, 2009 at <a href="#comment-651" title="Permanent link to this comment">1:16 pm</a> 
+					</p>
+		<p>[...] Update 22.11.2009 Wireless Java RMI  Efficient Support of Java RMI over Heterogeneous Wireless Networks Wireless Optimization for Java RMI Java: Expected overhead of the rmi protocol Java Remoting: Protocol Benchmarks [...]</p>
+
+	<div class="reply">
+		<a rel='nofollow' class='comment-reply-link' href='/2008/01/07/java-remoting-protocol-benchmarks/?replytocom=651#respond' onclick='return addComment.moveForm("div-comment-651", "651", "respond", "43")'>Reply</a>	</div>
+	</div>
+</li>
+	</ol>
+	
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+	<br />
+
+ 
+
+<div id="respond">
+<h3 id="postcomment">Post a Comment</h3>
+<div id="cancel-comment-reply"><small><a rel="nofollow" id="cancel-comment-reply-link" href="/2008/01/07/java-remoting-protocol-benchmarks/#respond" style="display:none;">Click here to cancel reply.</a></small></div>
+
+
+<form action="http://daniel.gredler.net/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<input type="text" name="author" id="author" value="" size="28" tabindex="1" />
+<label for="author">Name </label>
+</p>
+
+<p>
+<input type="text" name="email" id="email" value="" size="28" tabindex="2" />
+<label for="email">E-mail </label>
+</p>
+
+<p>
+<input type="text" name="url" id="url" value="" size="28" tabindex="3" />
+<label for="url"><abbr title="Uniform Resource Identifier">URI</abbr></label>
+</p>
+
+
+<p>
+<textarea name="comment" id="comment" cols="60" rows="8" tabindex="4"></textarea>
+</p>
+
+<p>
+<input name="submit" type="submit" id="submit" class="submit" tabindex="5" value="Submit Comment" />
+<input type='hidden' name='comment_post_ID' value='43' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+
+
+<input type="hidden" name="genseq" value="1265264518" />
+		<p>
+			<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/>
+			<label class="subscribe-label" id="subscribe-label" for="subscribe">Notify me of follow-up comments via email.</label>
+		</p>
+			<p>
+			<input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"/>
+			<label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts via email.</label>
+		</p>
+	
+</form>
+
+</div>
+	
+		
+</div>
+
+<div id="sidebar">
+
+<ul>
+	<li>
+		<h2>Search</h2>
+		<form method="get" action="/">
+		<p>
+		<input type="text" value="" name="s" />
+		<input type="submit" class="submit" value="Search" />
+		</p>
+		</form>
+	</li>
+	<li class="pagenav"><h2>Pages</h2><ul><li class="page_item page-item-5"><a href="http://daniel.gredler.net/about-me/" title="About&nbsp;Me">About&nbsp;Me</a></li>
+</ul></li>	<li>
+		<h2>Archives</h2>
+		<ul>
+			<li><a href='http://daniel.gredler.net/2010/01/' title='January 2010'>January 2010</a></li>
+	<li><a href='http://daniel.gredler.net/2009/09/' title='September 2009'>September 2009</a></li>
+	<li><a href='http://daniel.gredler.net/2009/08/' title='August 2009'>August 2009</a></li>
+	<li><a href='http://daniel.gredler.net/2009/06/' title='June 2009'>June 2009</a></li>
+	<li><a href='http://daniel.gredler.net/2009/03/' title='March 2009'>March 2009</a></li>
+	<li><a href='http://daniel.gredler.net/2009/02/' title='February 2009'>February 2009</a></li>
+	<li><a href='http://daniel.gredler.net/2009/01/' title='January 2009'>January 2009</a></li>
+	<li><a href='http://daniel.gredler.net/2008/12/' title='December 2008'>December 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2008/10/' title='October 2008'>October 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2008/09/' title='September 2008'>September 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2008/08/' title='August 2008'>August 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2008/07/' title='July 2008'>July 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2008/04/' title='April 2008'>April 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2008/03/' title='March 2008'>March 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2008/01/' title='January 2008'>January 2008</a></li>
+	<li><a href='http://daniel.gredler.net/2007/12/' title='December 2007'>December 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/11/' title='November 2007'>November 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/10/' title='October 2007'>October 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/08/' title='August 2007'>August 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/07/' title='July 2007'>July 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/06/' title='June 2007'>June 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/05/' title='May 2007'>May 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/04/' title='April 2007'>April 2007</a></li>
+	<li><a href='http://daniel.gredler.net/2007/03/' title='March 2007'>March 2007</a></li>
+		</ul>
+	</li>
+	<li>
+		<h2>Categories</h2>
+		<ul>
+			<li class="cat-item cat-item-655294"><a href="http://daniel.gredler.net/category/antlr/" title="View all posts filed under ANTLR">ANTLR</a>
+</li>
+	<li class="cat-item cat-item-2290"><a href="http://daniel.gredler.net/category/architecture/" title="View all posts filed under Architecture">Architecture</a>
+</li>
+	<li class="cat-item cat-item-93654"><a href="http://daniel.gredler.net/category/benchmarking/" title="View all posts filed under Benchmarking">Benchmarking</a>
+</li>
+	<li class="cat-item cat-item-367314"><a href="http://daniel.gredler.net/category/chrome/" title="View all posts filed under Chrome">Chrome</a>
+</li>
+	<li class="cat-item cat-item-58204"><a href="http://daniel.gredler.net/category/dsl/" title="View all posts filed under DSL">DSL</a>
+</li>
+	<li class="cat-item cat-item-883"><a href="http://daniel.gredler.net/category/groovy/" title="View all posts filed under Groovy">Groovy</a>
+</li>
+	<li class="cat-item cat-item-17907"><a href="http://daniel.gredler.net/category/hibernate/" title="View all posts filed under Hibernate">Hibernate</a>
+</li>
+	<li class="cat-item cat-item-1019328"><a href="http://daniel.gredler.net/category/htmlunit/" title="View all posts filed under HtmlUnit">HtmlUnit</a>
+</li>
+	<li class="cat-item cat-item-1603348"><a href="http://daniel.gredler.net/category/httpunit/" title="View all posts filed under HttpUnit">HttpUnit</a>
+</li>
+	<li class="cat-item cat-item-376"><a href="http://daniel.gredler.net/category/humor/" title="View all posts filed under Humor">Humor</a>
+</li>
+	<li class="cat-item cat-item-1017"><a href="http://daniel.gredler.net/category/java/" title="View all posts filed under Java">Java</a>
+</li>
+	<li class="cat-item cat-item-457"><a href="http://daniel.gredler.net/category/javascript/" title="View all posts filed under JavaScript">JavaScript</a>
+</li>
+	<li class="cat-item cat-item-403647"><a href="http://daniel.gredler.net/category/jetty/" title="View all posts filed under Jetty">Jetty</a>
+</li>
+	<li class="cat-item cat-item-17441"><a href="http://daniel.gredler.net/category/jruby/" title="View all posts filed under JRuby">JRuby</a>
+</li>
+	<li class="cat-item cat-item-1543006"><a href="http://daniel.gredler.net/category/jwebunit/" title="View all posts filed under JWebUnit">JWebUnit</a>
+</li>
+	<li class="cat-item cat-item-47862"><a href="http://daniel.gredler.net/category/maven/" title="View all posts filed under Maven">Maven</a>
+</li>
+	<li class="cat-item cat-item-2659"><a href="http://daniel.gredler.net/category/note-to-self/" title="View all posts filed under Note to Self">Note to Self</a>
+</li>
+	<li class="cat-item cat-item-133147"><a href="http://daniel.gredler.net/category/optimization/" title="View all posts filed under Optimization">Optimization</a>
+</li>
+	<li class="cat-item cat-item-3766"><a href="http://daniel.gredler.net/category/oracle/" title="View all posts filed under Oracle">Oracle</a>
+</li>
+	<li class="cat-item cat-item-755"><a href="http://daniel.gredler.net/category/quotes/" title="View all posts filed under Quotes">Quotes</a>
+</li>
+	<li class="cat-item cat-item-238847"><a href="http://daniel.gredler.net/category/rhino/" title="View all posts filed under Rhino">Rhino</a>
+</li>
+	<li class="cat-item cat-item-12949"><a href="http://daniel.gredler.net/category/rmi/" title="View all posts filed under RMI">RMI</a>
+</li>
+	<li class="cat-item cat-item-148989"><a href="http://daniel.gredler.net/category/rpc/" title="View all posts filed under RPC">RPC</a>
+</li>
+	<li class="cat-item cat-item-581"><a href="http://daniel.gredler.net/category/software/" title="View all posts filed under Software">Software</a>
+</li>
+	<li class="cat-item cat-item-9486"><a href="http://daniel.gredler.net/category/spring/" title="View all posts filed under Spring">Spring</a>
+</li>
+	<li class="cat-item cat-item-7845"><a href="http://daniel.gredler.net/category/tapestry/" title="View all posts filed under Tapestry">Tapestry</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://daniel.gredler.net/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+		</ul>
+	</li>
+		<li>
+		<h2>Meta</h2>
+		<ul>
+				<li><a href="http://gredler.wordpress.com/wp-login.php">Log in</a></li>
+		<li><a href="http://daniel.gredler.net/feed/" title="Syndicate this site using RSS">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+		<li><a href="http://daniel.gredler.net/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+				</ul>
+	</li>
+
+</ul>
+
+</div>
+
+
+	<div id="footer">
+		<p>
+		<a href='http://wordpress.com/' rel='generator'>Blog at WordPress.com</a>.
+		&#183;
+		Theme: Thirteen by <a href="http://beccary.com" rel="designer">Beccary</a>
+
+		</p>
+	</div>
+
+</div>
+
+
+<script type="text/javascript" src="http://wordpresscom.skimlinks.com/api/wordpress.js"></script>
+<script type="text/javascript">
+var skimlinks_pub_id = "725X1342";
+var skimlinks_sitename = "gredler.wordpress.com";
+var skimlinks_domain = "go2.wordpress.com";
+skimlinks();
+</script><script type="text/javascript" src="//secure.quantserve.com/quant.js"></script>
+<script type="text/javascript">_qoptions = { labels:"adt.0,language.en" };_qacct="p-18-mFEk4J448M";quantserve();</script>
+<noscript><p><img src="//secure.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=adt.0%2Clanguage.en" style="display: none" height="1" width="1" alt="" /></p></noscript>
+<script src="http://s.stats.wordpress.com/w.js?19" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'887150','v':'wpcom','user_id':'0','post':'43','subd':'gredler'});
+ex_go({'crypt':'RDZ8LFkxbXF2UixFTGtnWzJkcS9ZcVtLLHhNNFg4V0VhNWklcG0zaCw/aS9kNlsvOTByVy5kMEp3TG1aQjFubGsuT2dWQW5vSkN1WW58bHJiZU1CRT9UXy9QV0pMfnJiPzNRN3Y2MmdJZj9qTyssdFlQVFZCa0pKc2hpeHBCTDZVUlQlOVg1byw2WDM5LUFdXz9fUlQzSEl3MCw9djVUc05xSkk1TER8bHh4QkR0V1BFfHolRnErSExteUdidlAxek9CM24lWEV1dm95TzBoQy1LNVQ4MlNuMHQ1SjdVS3ZmLnQvUS1tW35Scg=='});
+re_go({'d[scourmanop.wordpress.com]':'1','v':'sph','b':'887150','p':'43'});
+addLoadEvent(function(){linktracker_init('887150',43);});
+	</script>
+
+</body>
+</html>

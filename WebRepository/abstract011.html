@@ -1,0 +1,1118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
+<head>
+<base href="http://www.codemiles.com/"/><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-language" content="en-gb" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="title" content="java abstract class,concrete class and interface" />
+<meta name="description" lang="en" content="what is the meaning of abstract class,concrete class and interface ? can give example of each. thanks" />
+<meta name="keywords"    content="class, concrete, abstract, meaning, pls, and, java, interface" />
+<meta name="category"    content="general" />
+<meta name="robots"      content="index,follow" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="copyright" content="Codemiles.com Programming Forums" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>java abstract class,concrete class and interface</title>
+<!-- MOD : MSSTI RSS Feeds (V1.2.1) - Start //--><link rel="alternate" type="application/rss+xml" title="RSS Feeds - Codemiles.com Programming Forums" href="http://www.codemiles.com/rss.php" />
+<link rel="alternate" type="application/rss+xml" title="RSS Feeds - New posts" href="http://www.codemiles.com/rss.php?mode=newposts" /><link rel="alternate" type="application/rss+xml" title="RSS Feeds - All forums" href="http://www.codemiles.com/rss.php?mode=forums" /><link rel="alternate" type="application/rss+xml" title="RSS Feeds - All Topics" href="http://www.codemiles.com/rss.php?mode=topics" /><link rel="alternate" type="application/rss+xml" title="RSS Feeds - All posts" href="http://www.codemiles.com/rss.php?mode=posts" /><link rel="alternate" type="application/rss+xml" title="RSS Feeds - Attachments" href="http://www.codemiles.com/rss.php?mode=attachments" /><link rel="alternate" type="application/rss+xml" title="RSS Feeds - Forum Java" href="http://www.codemiles.com/rss.php?f=20" /><link rel="alternate" type="application/rss+xml" title="RSS Feeds - Topic java abstract class,concrete class and interface" href="http://www.codemiles.com/rss.php?f=20&amp;t=3409" /><!-- MOD : MSSTI RSS Feeds (V1.2.1) - End //--><!-- // MOD : MSSTI RSS Feeds (V1.0.5) - End -->
+<LINK REL="icon" HREF="http://www.codemiles.com/styles/subsilver2/theme/images/icon.png" TYPE="image/ico">
+<script type="text/javascript" src="./styles/mileX/template/scripts.js"></script>
+<link rel="stylesheet" href="./styles/mileX/theme/stylesheet.css" type="text/css" />
+
+<script type="text/javascript">
+// <![CDATA[
+
+function popup(url, width, height, name)
+{
+	if (!name)
+	{
+		name = '_popup';
+	}
+
+	window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
+	return false;
+}
+
+// www.phpBB-SEO.com SEO TOOLKIT BEGIN
+function jumpto() {
+	var page = prompt('Enter the page number you wish to go to:', '1');
+	var perpage = '';
+	var base_url = '';
+	var seo_delim_start = '-';
+	var seo_static_pagination = 'page';
+	var seo_ext_pagination = '.html';
+	if (page !== null && !isNaN(page) && page == Math.floor(page) && page > 0) {
+		var seo_page = (page - 1) * perpage;
+		if ( base_url.indexOf('?') >= 0 ) {
+			document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + seo_page;
+		} else if ( seo_page > 0 ) {
+			var seo_type1 = base_url.match(/\.[a-z0-9]+$/i);
+			if (seo_type1 !== null) {
+				document.location.href = base_url.replace(/\.[a-z0-9]+$/i, '') + seo_delim_start + seo_page + seo_type1;
+			}
+			var seo_type2 = base_url.match(/\/$/);
+			if (seo_type2 !== null) {
+				document.location.href = base_url + seo_static_pagination + seo_page + seo_ext_pagination;
+			}
+		} else {
+			document.location.href = base_url;
+		}
+	}
+}
+// www.phpBB-SEO.com SEO TOOLKIT END
+
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
+
+/**
+* Mark/unmark checklist
+* id = ID of parent container, name = name prefix, state = state [true/false]
+*/
+function marklist(id, name, state)
+{
+	var parent = document.getElementById(id);
+	if (!parent)
+	{
+		eval('parent = document.' + id);
+	}
+
+	if (!parent)
+	{
+		return;
+	}
+
+	var rb = parent.getElementsByTagName('input');
+
+	for (var r = 0; r < rb.length; r++)
+	{
+		if (rb[r].name.substr(0, name.length) == name)
+		{
+			rb[r].checked = state;
+		}
+	}
+}
+
+
+// ]]>
+</script>
+</head>
+<body class="ltr">
+
+<a name="top"></a>
+
+
+	<div id="logodesc">
+		<table width="100%" cellspacing="0">
+ 	<tr>
+
+			<td><a href="http://www.codemiles.com/"><img src="./styles/mileX/imageset/site_logo.gif" alt="" title="" /></a></td>
+
+			 <td>
+
+
+
+
+<form action="http://www.google.com/cse" id="cse-search-box" target="_blank">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-1974979321499009:inkbc6sm1xu" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" size="31" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script> 
+
+
+ 
+ 
+</td>
+		</tr>
+		</table>
+
+	</div>
+	<div id="wrap">
+  <div id="wrapheader">
+	<div id="uphead" >
+	<table  width="100%" height="18" border="0"  cellspacing="0" style="margin:0px;padding:0px;">
+<tr>
+			<td  class="uperimg"><img src="./styles/mileX/theme/images/c1.gif" width="18" height="18" alt="" /></td>
+			<td  class="uperimg" background="./styles/mileX/theme/images/l1.gif"   colspan="3" width="100%" height="18"></td>
+
+			<td  class="uperimg"><img src="./styles/mileX/theme/images/c2.gif" width="18" height="18" alt="" /></td>
+		</tr>
+			 </table>
+
+ </div>
+	<div id="main">
+
+	<div id="menubar">
+
+
+
+
+			<ul id="menumade">
+			                 <li class="top"><a href="./ucp.php?mode=login&amp;sid=1b58797e62ee1684e824b6b68e4b21c5" class="top_link"><span>Login</span></a></li>
+                                        <li class="top"><a href="./ucp.php?mode=register&amp;sid=1b58797e62ee1684e824b6b68e4b21c5" class="top_link"><span>Register</span></a></li>
+                                        <li class="top"><a href="http://www.codemiles.com/" id="forumlinks" class="top_link"><span class="down">Forum</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+                    <!--[if lte IE 6]><table><tr><td><![endif]-->
+					    <ul class="sub">
+                        <li><b>Information</b></li>
+                        <li><a href="./faq.php?sid=1b58797e62ee1684e824b6b68e4b21c5">FAQ</a></li>
+                                                <li><b>Manage</b></li>
+                                            </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                </li>
+                                <li class="top"><a href="./search.php?sid=1b58797e62ee1684e824b6b68e4b21c5" id="forumsearch" class="top_link"><span class="down">Search</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+                    <!--[if lte IE 6]><table><tr><td><![endif]--><ul class="sub">
+                        <li><b>Common Searches</b></li>
+                        <li><a href="./search.php?search_id=unanswered&amp;sid=1b58797e62ee1684e824b6b68e4b21c5">View unanswered posts</a></li>
+                        <li><a href="./search.php?search_id=active_topics&amp;sid=1b58797e62ee1684e824b6b68e4b21c5">View active topics</a></li>
+                                                <li><b>Custom Searches</b></li>
+                        <li><a href="./search.php?sid=1b58797e62ee1684e824b6b68e4b21c5">Advanced Search</a></li>
+                    </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                </li>
+                
+
+                <li class="top"><a href="http://www.codemiles.com/search.php?search_id=unanswered" class="top_link"><span > Topics need reply</span></a></li>
+
+
+			 <li class="top"><a href="http://www.codemiles.com/support.php" class="top_link" target="_blank"><span >Help us</span></a></li>
+			</ul>
+
+
+
+	</div>
+  <table width="100%" border="0">
+<tr>
+
+<td valign="top">
+
+	<div id="datebar">
+
+		<table width="100%" cellspacing="0">
+
+		<tr>
+			<td class="gensmall"></td>
+			<td class="gensmall" align="right">It is currently Thu Feb 04, 2010 8:45 am<br /></td>
+		</tr>
+		</table>
+	</div>
+
+
+<div id="wrapcentre">
+
+
+ <br clear="right" />
+ <br/>
+	<table class="tablebg" width="100%" cellspacing="1" cellpadding="0" style="margin-top: 5px;">
+	<tr>
+		<td class="row1">
+			<p class="breadcrumbs"> <a href="http://www.codemiles.com/">Codemiles.com</a> &#187; <a href="http://www.codemiles.com/programming-forums/">Programming Forums</a> &#187; <a href="http://www.codemiles.com/java/">Java</a></p>
+			<p class="datetime">All times are UTC [ <abbr title="Daylight Saving Time">DST</abbr> ]</p>     
+		</td>
+                 
+	</tr>
+    
+	</table>
+
+<div align="right">
+
+
+
+
+</div>
+<br /><div id="CodeTop"></div>
+ <table width="100%" cellspacing="0" class='tips' bgcolor="#2B4370" style="background-color:#2B4370"> 
+<tr class="cat"  >
+<td colspan="2" >
+<b><u>Ask on Codemiles community and get answers Free and Fast  : </u></b>
+ 
+</td>
+</tr>
+ <tr style="padding:3px">
+<td >
+<script type="text/javascript"><!--
+google_ad_client = "pub-1974979321499009";
+/* 300x250, created 10/2/09 */
+google_ad_slot = "6056286570";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</td>
+<td>
+<script type="text/javascript"><!--
+google_ad_client = "pub-1974979321499009";
+/* 300x250, created 10/2/09 */
+google_ad_slot = "6056286570";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</td>
+<td></td>
+</tr>
+	<tr>
+
+<td colspan="2" align="left">
+<p style="color:#E6E6E6;font-size:15px;padding:0px;">
+ 			 
+			Java is a high level programming language .Here ask your java questions ,and get answers free. Read java articles.			 
+
+	<br  />
+
+</p>
+ 
+
+<p style="padding:3px;color:#ffffff"  >
+
+ 
+   Our guest   share  with us your code snippets ,    your programming problems    , 
+ your    open source projects ,read articles and post yours . 
+</p>
+<br/> <br/>
+ <p style="color:#E6E6E6">
+  Registration to Codemiles.com is FAST and FREE.<b> <a href="http://www.codemiles.com/ucp.php?mode=register" style="color:#EAFF00"><u>Join Now!</u> 
+ </a></b>  
+</p>
+  
+</td>
+</tr>
+
+  </table>
+<br><br> 
+
+
+<div id="pageheader">
+	<h2><a class="titles" href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html">java abstract class,concrete class and interface</a></h2>
+
+</div>
+
+<br   /><br />
+
+<div id="pagecontent">
+
+	<table width="100%" cellspacing="1">
+	<tr>
+		<td align="left" valign="middle" nowrap="nowrap">
+		<a href="./posting.php?mode=post&amp;f=20&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/button_topic_new.gif" alt="Post new topic" title="Post new topic" /></a>&nbsp;<a href="./posting.php?mode=reply&amp;f=20&amp;t=3409&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/button_topic_reply.gif" alt="Reply to topic" title="Reply to topic" /></a>
+					</td>
+					<td class="nav" valign="middle" nowrap="nowrap">&nbsp;Page <strong>1</strong> of <strong>1</strong><br /></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 4 posts ]&nbsp;</td>
+			<td class="gensmall" width="100%" align="right" nowrap="nowrap"></td>
+			</tr>
+	</table>
+	<table  width="100%" height="28" border="0"  cellspacing="0">
+<tr>
+<td class="uperimg"><img src="./styles/mileX/theme/images/cellpic4_l.gif" width="17" height="28" alt="" /></td>
+			<td  class="cat" background="./styles/mileX/theme/images/cellpic4_m.gif"   colspan="3" width="75%" height="28">&nbsp;
+				<a class="hlink" href="http://www.codemiles.com/viewtopic.php?f=20&amp;t=3409&amp;start=0&amp;&amp;view=print&amp;sid=1b58797e62ee1684e824b6b68e4b21c5" title="Print view">Print view</a></td>
+				<td  class="cat" align="right" background="./styles/mileX/theme/images/cellpic4_m.gif"   colspan="3" width="25%" height="28">
+				<a href="http://www.codemiles.com/viewtopic.php?f=20&amp;t=3409&amp;view=previous&amp;sid=1b58797e62ee1684e824b6b68e4b21c5">Previous topic</a> | <a class="hlink" href="http://www.codemiles.com/viewtopic.php?f=20&amp;t=3409&amp;view=next&amp;sid=1b58797e62ee1684e824b6b68e4b21c5">Next topic</a>&nbsp;</td>
+		 
+			<td  class="uperimg"><img src="./styles/mileX/theme/images/cellpic4_r.gif" width="16" height="28" alt="" /></td>
+		</tr>
+			 </table>
+	<table class="tablebg" width="100%" cellspacing="1">
+
+		
+		 
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+			<tr>
+			<th>Author</th>
+			<th>Message</th>
+		</tr>
+	<tr class="row1">
+			<td align="center" valign="middle">
+				<a name="p4514"></a>
+				<b class="postauthor" style="color: #0099FF">Dummies In Java</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+									<td><img src="./images/icons/misc/fire.gif" width="16" height="16" alt="" title="" /></td>
+									<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> java abstract class,concrete class and interface</div><div style="float: right;"><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#p4514"><img src="./styles/mileX/imageset/icon_post_target.gif" width="12" height="9" alt="Post" title="Post" /></a><b>Posted:</b> Thu Jan 22, 2009 5:22 pm&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+							<tr>
+					<td><img src="./styles/mileX/imageset/en/icon_user_offline.gif" alt="Offline" title="Offline" /></td>
+				</tr>
+							<tr>
+					<td><img src="./images/ranks/Newbie.gif" alt="Newbie" title="Newbie" /></td>
+				</tr>
+							<tr>
+					<td><img src="./images/avatars/gallery/Ga1/codemiles.gif" width="60" height="60" alt="User avatar" /></td>
+				</tr>
+							</table>
+
+				<span class="postdetails">
+					<br /><b>Joined:</b> Thu Jan 22, 2009 3:52 am<br /><b>Posts:</b> 4<br /><b>Has&nbsp;thanked:</b> 0 time<br /><b>Have&nbsp;thanks:</b> 0 time				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+						<div class="postbody">
+what is the meaning of abstract class,concrete class and interface ?<br />can give example of each.<br /><br />thanks
+<br/>
+<script type="text/javascript"><!--
+google_ad_client = "pub-1974979321499009";
+/* 200x200, created 11/30/08 */
+google_ad_slot = "6501703756";
+google_ad_width = 200;
+google_ad_height = 200;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script><br/>
+ 
+
+</div>
+
+												<br /><br />
+							<table class="tablebg" width="100%" cellspacing="1">
+							<tr>
+								<td class="row3"><span class="gensmall">Last edited by <a href="http://www.codemiles.com/member53.html" style="color: #0099FF;" class="username-coloured">msi_333</a> on Thu Jan 22, 2009 8:09 pm, edited 1 time in total.</span></td>
+							</tr>
+							<tr>
+								<td class="row2"><span class="genmed">edit title</span></td>
+							</tr>
+							</table>
+						<br   /><br />
+						<table width="100%" cellspacing="0">
+						<tr valign="middle">
+							<td class="gensmall" align="right">
+														</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+ 			<div align="right" >
+
+ 
+
+</div></td>
+		</tr>
+
+		<tr class="row1">
+			<td class="profile">
+			
+			<strong><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#pageheader" ><img src="./styles/mileX/theme/images/Top.gif" width="55" height="18" alt="TOP" /></a></strong></td>
+			<td>
+		 
+<div class="gensmall" style="float: left;">&nbsp;<a href="http://www.codemiles.com/member4537.html"><img src="./styles/mileX/imageset/en/icon_user_profile.gif" alt="Profile" title="Profile" /></a> <a href="./ucp.php?i=pm&amp;mode=compose&amp;action=quotepost&amp;p=4514&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/icon_contact_pm.gif" alt="Send private message" title="Send private message" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;<br/>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_email"></a>
+<a class="addthis_button_favorites"></a>
+<a class="addthis_button_print"></a>
+<span class="addthis_separator">|</span>
+<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=msi_333" class="addthis_button_expanded">More</a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pub=msi_333"></script>
+<!-- AddThis Button END -->
+</div></td>
+
+		</tr>
+
+		
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+	 
+ 	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+			<td align="center" valign="middle">
+				<a name="p4516"></a>
+				<b class="postauthor" style="color: #0099FF">msi_333</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+									<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> Re: Pls Help me..</div><div style="float: right;"><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#p4516"><img src="./styles/mileX/imageset/icon_post_target.gif" width="12" height="9" alt="Post" title="Post" /></a><b>Posted:</b> Thu Jan 22, 2009 8:09 pm&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+							<tr>
+					<td><img src="./styles/mileX/imageset/en/icon_user_offline.gif" alt="Offline" title="Offline" /></td>
+				</tr>
+							<tr>
+					<td><img src="./images/ranks/Master.gif" alt="Mastermind" title="Mastermind" /></td>
+				</tr>
+							<tr>
+					<td><img src="./download/file.php?avatar=53_1254581434.png" width="100" height="100" alt="User avatar" /></td>
+				</tr>
+							</table>
+
+				<span class="postdetails">
+					<br /><b>Joined:</b> Tue Mar 27, 2007 10:55 pm<br /><b>Posts:</b> 1481<br /><b>Location:</b> Earth<br /><b>Has&nbsp;thanked:</b> 3 time<br /><b>Have&nbsp;thanks:</b> 11 time				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+						<div class="postbody">
+1. In Java there is no multipliable inheritance like in C++ .But you can implement more thank one interface .<br />The interface  methods are all abstract , this means contain no body ,and all properties are public static final  (Means can't be changed later) . In interface you just say what is the class but don't say how to do it . Methods of interface are public and abstract by defaults  and you don't need write the modifiers. interface can extend one or more interfaces  . <br /><br />Example <br /><div class="codetitle"><b>Code:</b></div><div class="codecontent"> interface shape <br />{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;public abstract void&nbsp; &nbsp;draw(); <br /><br /><br /> } <br /></div>   <br />Here a class circle implements the shape interface. <br /><br /><div class="codetitle"><b>Code:</b></div><div class="codecontent">class shape implements shape<br />{<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; public void draw()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Draw body <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br /><br /><br />}&nbsp; <br /><br /></div><br /><br />2. Abstract class  can have implemented methods and others not , you can't have an abstract method in non abstract class. you have alway to remember to that abstract methods end with semicolon . example <br /><br /><div class="codetitle"><b>Code:</b></div><div class="codecontent">public abstract class Vehicle {<br />private String type;<br />public abstract void goUpHill(); // Abstract method<br />public String getType() { // Non-abstract method<br />return type;<br />}<br />}<br />public abstract class Car extends Vehicle {<br />public abstract void goUpHill(); // Still abstract<br />public void doCarThings() {<br />// special car code goes here<br />}<br />}<br />public class Mini extends Car {<br />public void goUpHill() {<br />// Mini-specific going uphill code<br />}<br />}<br /></div><br /><br /><br /> <br />i hope i helped you .
+ 
+
+</div>
+
+											<span class="postbody"><br />_________________<br />Currenlty programming with :  java , html , php , and javascript  .</span>
+					<br   /><br />
+						<table width="100%" cellspacing="0">
+						<tr valign="middle">
+							<td class="gensmall" align="right">
+														</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+ </td>
+		</tr>
+
+		<tr class="row2">
+			<td class="profile">
+			
+			<strong><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#pageheader" ><img src="./styles/mileX/theme/images/Top.gif" width="55" height="18" alt="TOP" /></a></strong></td>
+			<td>
+		 
+<div class="gensmall" style="float: left;">&nbsp;<a href="http://www.codemiles.com/member53.html"><img src="./styles/mileX/imageset/en/icon_user_profile.gif" alt="Profile" title="Profile" /></a> <a href="./ucp.php?i=pm&amp;mode=compose&amp;action=quotepost&amp;p=4516&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/icon_contact_pm.gif" alt="Send private message" title="Send private message" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;<br/>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_email"></a>
+<a class="addthis_button_favorites"></a>
+<a class="addthis_button_print"></a>
+<span class="addthis_separator">|</span>
+<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=msi_333" class="addthis_button_expanded">More</a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pub=msi_333"></script>
+<!-- AddThis Button END -->
+</div></td>
+
+		</tr>
+
+		
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+	 
+ 	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+			<td align="center" valign="middle">
+				<a name="p5201"></a>
+				<b class="postauthor" style="color: #0099FF">Bluerose</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+									<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> Re: java abstract class,concrete class and interface</div><div style="float: right;"><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#p5201"><img src="./styles/mileX/imageset/icon_post_target.gif" width="12" height="9" alt="Post" title="Post" /></a><b>Posted:</b> Sat Mar 21, 2009 4:53 am&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+							<tr>
+					<td><img src="./styles/mileX/imageset/en/icon_user_offline.gif" alt="Offline" title="Offline" /></td>
+				</tr>
+							<tr>
+					<td><img src="./images/ranks/Newbie.gif" alt="Newbie" title="Newbie" /></td>
+				</tr>
+							<tr>
+					<td><img src="./images/avatars/gallery/Ga1/codemiles.gif" width="60" height="60" alt="User avatar" /></td>
+				</tr>
+							</table>
+
+				<span class="postdetails">
+					<br /><b>Joined:</b> Fri Mar 20, 2009 4:03 am<br /><b>Posts:</b> 21<br /><b>Location:</b> Indonesia<br /><b>Has&nbsp;thanked:</b> 0 time<br /><b>Have&nbsp;thanks:</b> 0 time				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+						<div class="postbody">
+<div style="text-align: center;"><span style="color: #4000FF">Thank you for this information. I was facing an exam and the difference of these abstracts and interfaces confuses me a bit and now i am cleared. Thank you for the question raised by Dummies in Java and the explanation as well from msi_333 </span></div>
+ 
+
+</div>
+
+											<span class="postbody"><br />_________________<br /><span style="color: #FFFF00">***</span><span style="color: #BF80FF"><div style="text-align: center;"><span style="font-weight: bold">Miracle&#39;s in your hands</span></div></span><span style="color: #FFFF00">***</span><br /><div style="text-align: center;"><span style="color: #BF4040">Do you Love stories? visit this : <a href="http://melyablackrose.blogspot.com/" class="postlink">http://melyablackrose.blogspot.com/</a>. I bet you won&#39;t be sorry</span></div></span>
+					<br   /><br />
+						<table width="100%" cellspacing="0">
+						<tr valign="middle">
+							<td class="gensmall" align="right">
+														</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+ </td>
+		</tr>
+
+		<tr class="row1">
+			<td class="profile">
+			
+			<strong><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#pageheader" ><img src="./styles/mileX/theme/images/Top.gif" width="55" height="18" alt="TOP" /></a></strong></td>
+			<td>
+		 
+<div class="gensmall" style="float: left;">&nbsp;<a href="http://www.codemiles.com/member7311.html"><img src="./styles/mileX/imageset/en/icon_user_profile.gif" alt="Profile" title="Profile" /></a> <a href="./ucp.php?i=pm&amp;mode=compose&amp;action=quotepost&amp;p=5201&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/icon_contact_pm.gif" alt="Send private message" title="Send private message" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;<br/>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_email"></a>
+<a class="addthis_button_favorites"></a>
+<a class="addthis_button_print"></a>
+<span class="addthis_separator">|</span>
+<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=msi_333" class="addthis_button_expanded">More</a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pub=msi_333"></script>
+<!-- AddThis Button END -->
+</div></td>
+
+		</tr>
+
+		
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+	 
+ 	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+			<td align="center" valign="middle">
+				<a name="p5209"></a>
+				<b class="postauthor" style="color: #0099FF">msi_333</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+									<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> Re: java abstract class,concrete class and interface</div><div style="float: right;"><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#p5209"><img src="./styles/mileX/imageset/icon_post_target.gif" width="12" height="9" alt="Post" title="Post" /></a><b>Posted:</b> Sat Mar 21, 2009 5:10 pm&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+							<tr>
+					<td><img src="./styles/mileX/imageset/en/icon_user_offline.gif" alt="Offline" title="Offline" /></td>
+				</tr>
+							<tr>
+					<td><img src="./images/ranks/Master.gif" alt="Mastermind" title="Mastermind" /></td>
+				</tr>
+							<tr>
+					<td><img src="./download/file.php?avatar=53_1254581434.png" width="100" height="100" alt="User avatar" /></td>
+				</tr>
+							</table>
+
+				<span class="postdetails">
+					<br /><b>Joined:</b> Tue Mar 27, 2007 10:55 pm<br /><b>Posts:</b> 1481<br /><b>Location:</b> Earth<br /><b>Has&nbsp;thanked:</b> 3 time<br /><b>Have&nbsp;thanks:</b> 11 time				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+						<div class="postbody">
+you are welcome .
+ 
+
+</div>
+
+											<span class="postbody"><br />_________________<br />Currenlty programming with :  java , html , php , and javascript  .</span>
+					<br   /><br />
+						<table width="100%" cellspacing="0">
+						<tr valign="middle">
+							<td class="gensmall" align="right">
+														</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+ </td>
+		</tr>
+
+		<tr class="row2">
+			<td class="profile">
+			
+			<strong><a href="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html#pageheader" ><img src="./styles/mileX/theme/images/Top.gif" width="55" height="18" alt="TOP" /></a></strong></td>
+			<td>
+		 
+<div class="gensmall" style="float: left;">&nbsp;<a href="http://www.codemiles.com/member53.html"><img src="./styles/mileX/imageset/en/icon_user_profile.gif" alt="Profile" title="Profile" /></a> <a href="./ucp.php?i=pm&amp;mode=compose&amp;action=quotepost&amp;p=5209&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/icon_contact_pm.gif" alt="Send private message" title="Send private message" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;<br/>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_email"></a>
+<a class="addthis_button_favorites"></a>
+<a class="addthis_button_print"></a>
+<span class="addthis_separator">|</span>
+<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=msi_333" class="addthis_button_expanded">More</a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pub=msi_333"></script>
+<!-- AddThis Button END -->
+</div></td>
+
+		</tr>
+
+		
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+	 
+ 
+	<table width="100%" cellspacing="1" class="tablebg">
+	<tr align="center">
+		<td class="cat"><form name="viewtopic" method="post" action="http://www.codemiles.com/java/java-abstract-class-concrete-class-and-interface-t3409.html"><span class="gensmall">Display posts from previous:</span> <select name="st" id="st"><option value="0" selected="selected">All posts</option><option value="1">1 day</option><option value="7">7 days</option><option value="14">2 weeks</option><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365">1 year</option></select>&nbsp;<span class="gensmall">Sort by</span> <select name="sk" id="sk"><option value="a">Author</option><option value="t" selected="selected">Post time</option><option value="s">Subject</option></select> <select name="sd" id="sd"><option value="a" selected="selected">Ascending</option><option value="d">Descending</option></select>&nbsp;<input class="btnlite" type="submit" value="Go" name="sort" /></form></td>
+	</tr>
+	</table>
+
+	<table width="100%" cellspacing="1">
+	<tr>
+		<td align="left" valign="middle" nowrap="nowrap">
+		<a href="./posting.php?mode=post&amp;f=20&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/button_topic_new.gif" alt="Post new topic" title="Post new topic" /></a>&nbsp;<a href="./posting.php?mode=reply&amp;f=20&amp;t=3409&amp;sid=1b58797e62ee1684e824b6b68e4b21c5"><img src="./styles/mileX/imageset/en/button_topic_reply.gif" alt="Reply to topic" title="Reply to topic" /></a>		</td>
+					<td class="nav" valign="middle" nowrap="nowrap">&nbsp;Page <strong>1</strong> of <strong>1</strong><br /></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 4 posts ]&nbsp;</td>
+			<td class="gensmall" width="100%" align="right" nowrap="nowrap"></td>
+			</tr>
+	</table>
+ </div>
+
+<div id="pagefooter"></div>
+ 
+  
+ 
+<br   />
+<br clear="all" />
+
+   <table class="tablebg" width="100%" cellspacing="1">
+   <tr>
+     <th colspan="4" align="left">&nbsp;Similar topics</th>
+   </tr>
+   <tr>
+      <td class="cat">&nbsp;Topic title&nbsp;</td>
+      <td class="cat">&nbsp;Forum&nbsp;</td>
+      <td class="cat">&nbsp;Author&nbsp;</td>
+      <td class="cat">&nbsp;Replies&nbsp;</td>
+   </tr>
+               <tr>
+            <td nowrap="nowrap" class="row1">&nbsp;<a href="http://www.codemiles.com/c/about-packet-tracer-for-my-web-application-in-java-t6026.html" class="topictitle">about packet tracer for my web application in java....</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/c/">C#</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/member15159.html" style="color: #0099FF;" class="username-coloured">senthil</a></td>
+            <td class="row1">&nbsp;1</td>
+   </tr>
+               <tr>
+            <td nowrap="nowrap" class="row1">&nbsp;<a href="http://www.codemiles.com/c/need-java-code-for-cpu-utilization-and-live-log-viewer-t6027.html" class="topictitle">need java code for cpu utilization and live log viewer...</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/c/">C#</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/member15159.html" style="color: #0099FF;" class="username-coloured">senthil</a></td>
+            <td class="row1">&nbsp;0</td>
+   </tr>
+               <tr>
+            <td nowrap="nowrap" class="row1">&nbsp;<a href="http://www.codemiles.com/java/posting-from-java-to-html-t6011.html" class="topictitle">posting from java to html</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/java/">Java</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/member15108.html" style="color: #0099FF;" class="username-coloured">esenkanova</a></td>
+            <td class="row1">&nbsp;1</td>
+   </tr>
+               <tr>
+            <td nowrap="nowrap" class="row1">&nbsp;<a href="http://www.codemiles.com/java/need-help-i-am-a-beginner-in-java-t6023.html" class="topictitle">Need HELP- I am a beginner in Java</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/java/">Java</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/member15138.html" style="color: #0099FF;" class="username-coloured">PapakEliminator</a></td>
+            <td class="row1">&nbsp;1</td>
+   </tr>
+               <tr>
+            <td nowrap="nowrap" class="row1">&nbsp;<a href="http://www.codemiles.com/java/java-array-help-needed-for-brginner-t6024.html" class="topictitle">java Array.! (help needed for brginner)</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/java/">Java</a></td>
+            <td class="row1">&nbsp;<a href="http://www.codemiles.com/member15139.html" style="color: #0099FF;" class="username-coloured">quidenise</a></td>
+            <td class="row1">&nbsp;1</td>
+   </tr>
+            </table>
+
+<table class="tablebg" width="100%" cellspacing="1" cellpadding="0" style="margin-top: 5px;">
+	<tr>
+		<td class="row1">
+			<p class="breadcrumbs"> <a href="http://www.codemiles.com/">Codemiles.com</a> &#187; <a href="http://www.codemiles.com/programming-forums/">Programming Forums</a> &#187; <a href="http://www.codemiles.com/java/">Java</a></p>
+			<p class="datetime">All times are UTC [ <abbr title="Daylight Saving Time">DST</abbr> ]</p>     
+		</td>
+                 
+	</tr>
+    
+	</table>	<br   />
+<table  width="100%" height="28" border="0"  cellspacing="0">
+<tr>
+<td class="uperimg"><img src="./styles/mileX/theme/images/cellpic4_l.gif" width="17" height="28" alt="" /></td>
+			<td   background="./styles/mileX/theme/images/cellpic4_m.gif" class="cat" colspan="3" width="100%" height="28"><h4>Who is online</h4></td>
+		 
+			<td  class="uperimg"><img src="./styles/mileX/theme/images/cellpic4_r.gif" width="16" height="28" alt="" /></td>
+		</tr>
+			 </table>
+	<table class="tablebg" width="100%" cellspacing="1">
+ 
+	<tr>
+		<td class="row1"><p class="gensmall">Users browsing this forum: <span style="color: #FF9900;" class="username-coloured">Google [Bot]</span> and 4 guests</p></td>
+	</tr>
+	</table>
+
+<br   />
+
+<table width="100%" cellspacing="1">
+<tr>
+	<td width="40%" valign="top" nowrap="nowrap" align="left"></td>
+	<td align="right" valign="top" nowrap="nowrap"><span class="gensmall">You <strong>cannot</strong> post new topics in this forum<br />You <strong>cannot</strong> reply to topics in this forum<br />You <strong>cannot</strong> edit your posts in this forum<br />You <strong>cannot</strong> delete your posts in this forum<br />You <strong>cannot</strong> post attachments in this forum<br /></span></td>
+</tr>
+</table>
+
+<br  />
+ 
+	 
+ 
+<table width="100%" cellspacing="0">
+<tr>
+	<td>
+ 
+
+<form action="http://www.google.com/cse" id="cse-search-box" target="_blank">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-1974979321499009:inkbc6sm1xu" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" size="31" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script> 
+</td>
+	<td align="right">	<form method="post" name="jumpbox" action="http://www.codemiles.com/viewforum.php" onsubmit="if(document.jumpbox.f.value == -1){return false;}">
+
+	<table cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td nowrap="nowrap"><span class="gensmall">Jump to:</span>&nbsp;<select name="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+
+					<option value="-1">Select a forum</option>
+		<option value="-1">------------------</option>			<option value="121">General Topics Forums</option>
+					<option value="122">&nbsp; &nbsp;General Discussion</option>
+					<option value="123">&nbsp; &nbsp;Announcements &amp; Rules</option>
+					<option value="130">&nbsp; &nbsp;Finished Projects</option>
+					<option value="156">&nbsp; &nbsp;Member Introductions</option>
+					<option value="160">&nbsp; &nbsp;Code library</option>
+					<option value="161">&nbsp; &nbsp;&nbsp; &nbsp;Java codes</option>
+					<option value="159">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;JSP Examples</option>
+					<option value="150">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;java examples</option>
+					<option value="164">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;GUI</option>
+					<option value="166">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Jaxb</option>
+					<option value="169">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Collections</option>
+					<option value="162">&nbsp; &nbsp;&nbsp; &nbsp;C++ codes</option>
+					<option value="153">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;C++ examples</option>
+					<option value="163">&nbsp; &nbsp;&nbsp; &nbsp;C# codes</option>
+					<option value="158">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Csharp examples</option>
+					<option value="133">Tutorials Forums</option>
+					<option value="134">&nbsp; &nbsp;PHP Tutorials</option>
+					<option value="141">&nbsp; &nbsp;&nbsp; &nbsp;offers</option>
+					<option value="165">&nbsp; &nbsp;XSD Tutorials</option>
+					<option value="19">Programming Forums</option>
+					<option value="20" selected="selected">&nbsp; &nbsp;Java</option>
+					<option value="144">&nbsp; &nbsp;&nbsp; &nbsp;offers</option>
+					<option value="21">&nbsp; &nbsp;C-C++</option>
+					<option value="145">&nbsp; &nbsp;&nbsp; &nbsp;offers</option>
+					<option value="25">&nbsp; &nbsp;C#</option>
+					<option value="146">&nbsp; &nbsp;&nbsp; &nbsp;offers</option>
+					<option value="26">Web Development Forums</option>
+					<option value="27">&nbsp; &nbsp;PHP</option>
+					<option value="29">&nbsp; &nbsp;Servlets / JSP</option>
+					<option value="31">&nbsp; &nbsp;Scripting Language</option>
+					<option value="120">&nbsp; &nbsp;AJAX</option>
+					<option value="138">&nbsp; &nbsp;ASP.NET</option>
+					<option value="147">&nbsp; &nbsp;&nbsp; &nbsp;offers</option>
+					<option value="32">Database Forums</option>
+					<option value="34">&nbsp; &nbsp;SQL Server</option>
+					<option value="35">&nbsp; &nbsp;MySQL</option>
+					<option value="102">Communications  Forums</option>
+					<option value="103">&nbsp; &nbsp;Networks</option>
+					<option value="139">&nbsp; &nbsp;CISCO systems</option>
+					<option value="140">&nbsp; &nbsp;&nbsp; &nbsp;offers</option>
+					<option value="142">&nbsp; &nbsp;Microsoft</option>
+					<option value="143">&nbsp; &nbsp;&nbsp; &nbsp;offers</option>
+					<option value="167">SEO</option>
+					<option value="168">&nbsp; &nbsp;Google</option>
+					<option value="124">PHPbb3 Forums</option>
+					<option value="125">&nbsp; &nbsp;PHPbb3 styles</option>
+					<option value="131">&nbsp; &nbsp;PHPbb3 support</option>
+					<option value="149">&nbsp; &nbsp;&nbsp; &nbsp;PHPBB3 styles library</option>
+					<option value="154">&nbsp; &nbsp;Photoshop tutorials</option>
+					<option value="155">&nbsp; &nbsp;Macromedia Flash tutorials</option>
+					<option value="127">Extra</option>
+					<option value="128">&nbsp; &nbsp;Job Opportunities</option>
+					<option value="152">&nbsp; &nbsp;&nbsp; &nbsp;INDIA Jobs</option>
+					<option value="151">&nbsp; &nbsp;&nbsp; &nbsp;USA Jobs</option>
+					<option value="129">&nbsp; &nbsp;Suggestions &amp; Comments</option>
+					<option value="132">&nbsp; &nbsp;Games</option>
+		
+		</select>&nbsp;<input class="btnlite" type="submit" value="Go" /></td>
+	</tr>
+	</table>
+
+	</form>
+</td>
+</tr>
+</table>
+
+<br/><br/>
+
+</div>
+  
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<!--
+	We request you retain the full copyright notice below including the link to www.phpbb.com.
+	This not only gives respect to the large amount of time given freely by the developers
+	but also helps build interest, traffic and use of phpBB3. If you (honestly) cannot retain
+	the full copyright we ask you at least leave in place the "Powered by phpBB" line, with
+	"phpBB" linked to www.phpbb.com. If you refuse to include even this then support on our
+	forums may be affected.
+
+	The phpBB Group : 2006
+//-->
+
+</td>
+
+<td valign="top">
+  <br/><br/><br/><br/><br/><br/><br/>
+<table class="tablebg" width="120" border="0" cellspacing="1"  style="background-color:#2B4370;" >
+<tr class="nav">
+	<td class="cat"   valign="middle" align="left" height="5"><u>Navigation menu</u></td>
+		</tr>
+	<tr>
+		<td>
+		<a href="http://www.codemiles.com"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;" 
+       >Home</a>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<a href="http://www.codemiles.com/general-discussion/" style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">General Talks</a>
+		</td>
+		</tr>
+<tr>
+		<td>
+		<a href="http://www.codemiles.com/finished-projects/" style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;" >Finished Projects</a>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<a href="http://www.codemiles.com/code-library/" style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Code Library</a>
+		</td>
+		</tr>
+<tr>
+		<td>
+		<a href="http://www.codemiles.com/games/" style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;" >Games</a>
+		</td>
+		</tr>
+<tr>
+		<td>
+		<a href="http://www.codemiles.com/tutorials-forums/" style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;" >Tutorials</a>
+		</td>
+ 
+		<tr>
+		<td class="cat">
+		<a href="http://www.codemiles.com/programming-forums/"  style="text-decoration:underline;font-weight:bold;">Programming help</a>
+		</td>
+		</tr>
+
+				<tr>
+		<td>
+		<a href="http://www.codemiles.com/java/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Java</a>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<a href="http://www.codemiles.com/c-c/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">C/C++</a>
+		</td>
+		</tr>
+	<tr>
+		<td>
+		<a href="http://www.codemiles.com/c/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">C-sharp</a>
+		</td>
+		</tr>
+
+				<tr>
+		<td class="cat" >
+		<a href="http://www.codemiles.com/webdevelopmentforums/"  style="text-decoration:underline;">Web Development</a>
+		</td>
+		</tr>
+	<tr>
+		<td>
+		<a href="http://www.codemiles.com/php/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">php</a>
+		</td>
+		</tr>
+	<tr>
+		<td>
+		<a href="http://www.codemiles.com/scripting-language/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Script</a>
+		</td>
+		</tr>
+	<tr>
+		<td>
+		<a href="http://www.codemiles.com/servlets-jsp/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">JSP/Servlets</a>
+		</td>
+		</tr>
+	<tr>
+		<td>
+		<a href="http://www.codemiles.com/ajax/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Ajax</a>
+		</td>
+		</tr>
+<tr>
+		<td>
+		<a href="http://www.codemiles.com/asp-net/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">ASP/ASP.net</a>
+		</td>
+		</tr>
+	<tr>
+		<td class="cat">
+		<a href="http://www.codemiles.com/seo/"  style="text-decoration:underline;">SEO</a>
+		</td>
+		</tr>
+
+				<tr>
+		<td>
+		<a href="http://www.codemiles.com/google/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Google SEO</a>
+		</td>
+		</tr>
+		<tr>
+
+			<tr>
+		<td class="cat"  style="text-decoration:underline;"> 
+		 Others
+		</td>
+		</tr>
+					<tr>
+		<td>
+		<a href="http://www.codemiles.com/database-forums/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Database</a>
+		</td>
+		</tr>
+
+
+					 
+								<tr>
+		<td>
+		<a href="http://www.codemiles.com/communicationsforums/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Communications</a>
+		</td>
+		</tr>
+					<tr>
+					
+											<tr>
+		<td>
+		<a href="http://www.codemiles.com/phpbb3-styles/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Phpbb3 styles</a>
+		</td>
+		</tr>
+ 
+											<tr>
+		<td>
+		<a href="http://www.codemiles.com/photoshop-tutorials/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Photoshop tutorials</a>
+		</td>
+		</tr>
+ 										<tr>
+		<td>
+		<a href="http://www.codemiles.com/flash-tutorials/" style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Flash tutorials</a>
+		</td>
+		</tr>
+ 
+										<tr>
+		<td>
+		<a href="http://www.codemiles.com/job-opportunities/"  style="text-decoration:underline;font-weight:bold;font-size:12px;color:#EAFF00;">Find a job</a>
+		</td>
+		</tr>
+
+  
+		</table>
+<hr/><br/>
+<a href="http://www.codemiles.com/ucp.php?mode=register" target="_blank" rel="nofollow"><img src="http://www.codemiles.com/SmallAds.gif"  /></a>
+</td>
+</tr>
+</table>
+  
+</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-6055034-1");
+pageTracker._trackPageview();
+</script>
+
+</body>
+
+
+<br/><br/>
+
+ 
+<br />
+
+<div id="wrapfooter">
+
+<br/>
+
+ 
+		<span class="copyright">Powered by <a href="http://www.phpbb.com/" target="_blank">phpBB</a> &copy; 2000, 2002, 2005, 2007 phpBB Group
+	</span><br/>
+   <span class="copyright">All copyrights reserved to codemiles.com 2007-2009</span><br/>
+       <span class="copyright">mileX v1.0 designed by codemiles team</span><br/>
+ 
+
+	
+</div>
+<div id="uphead">
+<table  width="100%" height="18" border="0"  cellspacing="0" style="margin:0px;padding:0px;">
+<tr>
+			<td  class="uperimg"><img src="./styles/mileX/theme/images/c4.gif" width="18" height="18" alt="" /></td>
+			<td  class="uperimg" background="./styles/mileX/theme/images/l2.gif"   colspan="3" width="100%" height="18"></td>
+		 
+			<td  class="uperimg"><img src="./styles/mileX/theme/images/c3.gif" width="18" height="18" alt="" /></td>
+		</tr>
+			 </table></div></div>
+			 <br/><br/>
+ 
+<br/><br/>
+</html>

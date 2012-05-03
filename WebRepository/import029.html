@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>  What is a static import in java?</title>
+<meta name="description" content="First lets understand what does &#8220;java import&#8221; does to your java program!
+Consider the java import statements:
+1) import package.ClassA;
+2) import package.*;
+Java statement (1) gives you a license to use ClassA inside the whole program without the package reference. That is you can use like ClassA obj = new ClassA(); or ClassA.getStatic(); Java statement (2) allows you [...]" />
+<meta name="keywords" content="  What is a static import in java?" />
+<meta name="verify-v1" content="1OVd8tvioq4O1NR0pxuDN93LbCUNz3uxPbkbevsrObw=" />
+<meta http-equiv="Content-Type" content="UTF-8" />
+<meta name="robots" content="index,follow" /><link rel="stylesheet" href="http://javapapers.com/wp-content/themes/tiles/style.css" type="text/css" media="screen, projection" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://javapapers.com/feed/" />
+<link rel="alternate" type="text/xml" title="RSS .92" href="http://javapapers.com/feed/rss/" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://javapapers.com/feed/atom/" />
+<link rel="pingback" href="http://javapapers.com/xmlrpc.php" />
+<link rel="shortcut icon" href="http://javapapers.com/favicon.ico" type="image/x-icon" />
+<link rel="alternate" type="application/rss+xml" title="Java Blog &raquo; What is a static import in java? Comments Feed" href="http://javapapers.com/core-java/what-is-a-static-import-in-java/feed/" />
+<link rel='stylesheet' id='syntaxhighlighter-core-css'  href='http://javapapers.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/styles/shCore.css?ver=2.0.320' type='text/css' media='all' />
+<link rel='stylesheet' id='syntaxhighlighter-theme-default-css'  href='http://javapapers.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/styles/shThemeDefault.css?ver=2.0.320' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://javapapers.com/wp-content/themes/tiles/pagenavi-css.css?ver=2.50' type='text/css' media='all' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://javapapers.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://javapapers.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Java Blog' href='http://javapapers.com' />
+<link rel='start' title='What is an abstract method?' href='http://javapapers.com/core-java/abstract-and-interface-core-java-2/what-is-an-abstract-method/' />
+<link rel='prev' title='Explain the scope of JSP objects.' href='http://javapapers.com/jsp/explain-the-scope-of-jsp-objects/' />
+<link rel='next' title='What is scoped memory and why java uses it?' href='http://javapapers.com/core-java/what-is-scoped-memory-and-why-java-uses-it/' />
+<meta name="generator" content="WordPress 2.9" />
+<link rel='canonical' href='http://javapapers.com/core-java/what-is-a-static-import-in-java/' />
+<style type="text/css">img.nothumb{border:0;}</style>	<style type="text/css">.syntaxhighlighter { }</style>
+</head>
+<body>
+<div align="center">
+<div id="container"><div id="content"><div class="entry single"><h1>What is a static import in java?</h1><em class="date">June 14th, 2008<!-- at 11:58am--></em><p>First lets understand what does &#8220;java import&#8221; does to your java program!<br />
+Consider the java import statements:<br />
+1) <em>import package.ClassA;<br />
+</em>2) <em>import package.*;</em></p>
+<p>Java statement (1) gives you a license to use ClassA inside the whole program without the package reference. That is you can use like <em>ClassA obj = new ClassA();</em> or <em>ClassA.getStatic();</em> Java statement (2) allows you to use all the java classes that belong the imported package in the above manner. That is without the package reference.</p>
+<p>If you don&#8217;t use import statement, you can still use the classes of that package. But you should invoke it with package reference whereever you use.</p>
+<p>That is like, <em>package.ClassA obj = new package.ClassA();</em> &#8211; looks very ugly isn&#8217;t it?</p>
+<p>Now coming to the <a title="Java Static" href="http://javapapers.com/core-java/explain-the-java-static-modifier/">static</a> import part. Like the above ugly line we have been unknowingly using (abusing) the java static feature.</p>
+<p>Consider the java example: <em><strong>double r = Math.cos(Math.PI * theta);</strong></em></p>
+<p>How about writing the same java code like: <em><strong>double r = cos(PI * theta);</strong></em> &#8211; looks more readable right?</p>
+<p>This is where static import in java comes to help you.</p>
+<p>import static java.lang.Math.PI;<br />
+import static java.lang.Math.cos;</p>
+<p>Do the above static imports and then you can write it in the more readable  way!</p>
+<p><strong>Definition: </strong>The normal import declaration imports classes from packages, so that they can be used without package reference. Similarly the static import declaration imports static members from classes and allowing them to be used without class reference.</p>
+<p>Now, we have got an excellent java feature from java 1.5. Ok now we shall see how we can abuse this!</p>
+<p>Can i static import everything?<br />
+like, <em>import static java.lang.Math.*;</em> &#8211; yes it is allowed! Similarly you do for class import.</p>
+<p>Please don&#8217;t use this feature, because over a period you may not understand which static method or static attribute belongs to which class inside the java program. The program may become unreadable.</p>
+<p>General guidelines to use static java import:</p>
+<p>1) Use it to declare local copies of java constants<br />
+2) When you require frequent access to static members from one or two java classes</p>
+<p id="filedunder"></p>
+
+<div class="questionslist"><strong>Next: <a href="http://javapapers.com/core-java/how-many-types-of-java-variables-are-there/" rel="prev">How many types of java variables are there?</a></strong></div></div><!-- comments ................................. -->
+<div id="comments">
+
+
+				<div class="commenttile">
+	<div id="comment-1" class="comment">
+	<p class="header">
+	<p>Interesting , I never knew that you can import a static method. Looks cool. But to me , it would be easy to read / understand if we associate the class name. i.e Math.cos rather calling cos()</p>
+<img alt='' src='http://www.gravatar.com/avatar/46555fc725184051f840889b0eb2f6d9?s=40&amp;d=identicon&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />	Divakar on November 17th, 2009 9:53 pm</p>		
+		</div></div>
+
+	
+			<div class="admincomment">
+	<div id="comment-2" class="comment">
+	<p class="header alt">
+	<p>Yes that is right. Avoid using static import in general straight forward cases.</p>
+<p>But consider using in following two scenarios:</p>
+<p>1) When you have to only one or max two static imports in a class many number(say atleast 20) of times.<br />
+2) Constant Interface Antipattern</p>
+<p>Example for above case 2):<br />
+When you create a interface with constants and extend it to use (note below &#8216;PI&#8217; referring the constant). In this scenario, better use the bottom code.</p>
+<p>public interface MyConstant {<br />
+	public static final double PI = 3.14159;<br />
+}</p>
+<p>public class MyMath implements MyConstant {<br />
+	public double myComplexMathMethod() {<br />
+		return (PI * 100);<br />
+	}<br />
+}</p>
+<p>&#8212;&#8212;&#8212;&#8212;&#8211;</p>
+<p>public final class MyConstant {<br />
+	private MyConstant() {}<br />
+	public static final double PI = 3.14159;<br />
+}</p>
+<p>import static MyConstant.PI;<br />
+public class MyMath {<br />
+	public double myComplexMathMethod() {<br />
+		return (PI * 100);<br />
+	}<br />
+}</p>
+<p><a href="http://en.wikipedia.org/wiki/Constant_interface" rel="nofollow">http://en.wikipedia.org/wiki/Constant_interface</a> &#8211; has good information related to the topic.</p>
+<img alt='' src='http://www.gravatar.com/avatar/f72e3bab8fa8c93f8b2d83cfb9a65f3e?s=40&amp;d=identicon&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />	<a href='http://javapapers.com' rel='external nofollow' class='url'>Joe</a> on November 17th, 2009 11:23 pm</p>		
+		</div></div>
+
+	
+			<div class="commenttile">
+	<div id="comment-3" class="comment">
+	<p class="header">
+	<p>Hi,</p>
+<p>I happened to see your post and find it quite informative. I am sharing a link where a software engineer has shared a tips on &#8220;Static import in Java&#8221;.</p>
+<p>Here is the link:<br />
+<a href="http://www.mindfiresolutions.com/Static%C2%A0-import-in-Java-298.php" rel="nofollow">http://www.mindfiresolutions.com/Static%C2%A0-import-in-Java-298.php</a></p>
+<p>Hope you find it useful and of assistance.</p>
+<p>Thanks for sharing valuable knowmledge.<br />
+Bizz..</p>
+<img alt='' src='http://www.gravatar.com/avatar/ea74e47241459d04bd7232823657b329?s=40&amp;d=identicon&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />	<a href='http://www.mindfiresolutions.com/' rel='external nofollow' class='url'>Bizz</a> on January 22nd, 2010 10:14 am</p>		
+		</div></div>
+
+	
+
+
+
+
+
+<!-- BlogPageFoot -->
+<div style="padding-bottom:10px;text-align:center;">
+
+</div>
+<div class="commenttile">
+
+	
+	<form action="http://javapapers.com/wp-comments-post.php" method="post" id="commentform">
+
+	
+			<p><label for="author">Name: </label> <br></br><input style="width:35%" type="text" name="author" id="author" value="" tabindex="1" /> </p>
+			<p><label for="email">Email:</label> <br></br><input style="width:35%" type="text" name="email" id="email" value="" tabindex="2" /> <em>hidden and gravatar enabled.</em></p>
+			<p><label for="url">Website:</label> <br></br><input style="width:35%" type="text" name="url" id="url" value="" tabindex="3" /></p>
+
+
+			<p><label for="comment">Your comments:</label> <br></br><textarea style="width:90%" name="comment"  id="comment" cols="45" rows="10" tabindex="4"></textarea></p>
+			<p><input type="hidden" name="comment_post_ID" value="65" />
+			<input type="submit" name="submit" value="Post Comment" tabindex="5" /></p>
+
+		</form>
+<!-- 
+	<p><em>Some HTML allowed:</em><br/><em>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </em></p> -->
+
+</div>
+
+<!-- <p><a href="http://javapapers.com/core-java/what-is-a-static-import-in-java/trackback/" rel="nofollow">Trackback</a> &nbsp;|&nbsp; <a href='http://javapapers.com/core-java/what-is-a-static-import-in-java/feed/'>Subscribe to the comments via RSS Feed</a></p> -->
+
+
+</div> <!-- /comments -->
+</div><div id="subcontent">
+<div class="logocomponent">
+<div class="logo"><a href="http://javapapers.com"><img width="187px" height="46px" src="/img/logo.png" alt="Home of Java Interview Questions" title="Home of Java Interview Questions" /></a></div>
+<p><a href="/about-me/" title="About Me">About Me</a></p></div>
+
+<div class="hiadcomponent"><p><a href="http://twitter.com/javapapers/" title="Follow Me on Twitter"><img style="padding:15px;" src="/img/twitter.png"></a>&nbsp;&nbsp;<a href="/feed/" title="Subscribe Using Feed"><img style="padding:15px;" src="/img/rss.png"></a></p><form style="text-align:left;" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=javapapers/java-interview-questions', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Subscribe by Email: <input type="text" style="width: 140px; height:18px; background: url('/img/add.png') no-repeat #FFFFFF; border: 2px solid #ffd97a; padding: 2px 0 0 15px;" name="email"/>
+<input type="hidden" value="javapapers/java-interview-questions" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Go" /></p></form></div>
+
+<div class="adcomponent"><div id="headermenu">  <ul>      <li><a href="/category/core-java/">Core Java</a></li>      <li><a href="/category/servlet/">Servlet</a></li>      <li><a href="/category/jsp/">JSP</a></li><li><a href="/category/design-patterns/">Design Patterns</a></li><li><a href="/site-map/">All Questions</a></li>   </ul></div><div id="search"><form action="/index.php" method="get"><input style="width:65%" value="" name="s" /><input type="submit" value="Search" class="searchbutton" name="searchbutton" /></form></div></div></div><div id="footer"><p>&copy; 2008-2009 javapapers.com</p></div></div><script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">var pageTracker = _gat._getTracker("UA-4275351-1");pageTracker._initData();pageTracker._trackPageview();</script><!-- Start Quantcast tag -->
+<script type="text/javascript">
+_qoptions={
+qacct:"p-10Or4YnwAo1HE"
+};
+</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<noscript>
+<img src="http://pixel.quantserve.com/pixel/p-10Or4YnwAo1HE.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+<!-- End Quantcast tag --></div></body></html>

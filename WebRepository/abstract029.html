@@ -1,0 +1,445 @@
+ 
+  
+
+ 
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html>
+<head>
+ <title>
+  Java Practices -> Abstract Factory
+ </title>
+ <link rel="stylesheet" type="text/css" href="../stylesheet6.css" media="all">
+ 
+ <link rel="shortcut icon" href='/images/favicon.ico;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE' type="image/vnd.microsoft.icon">
+ <meta name="description" content="Concise presentations of java programming practices, tasks, and conventions, amply illustrated with syntax highlighted code examples.">
+ 
+ <meta name='keywords' content='design pattern,factory,java,java programming,java practices,java idiom,java style,java design patterns,java coding conventions,'>
+ 
+ 
+</head>
+ 
+<body>
+
+
+<div class='menu-bar'>
+ 
+  <a href='/home/HomeAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE' title='Table of Contents'>Home</a> |
+  <a href='/vote/VoteSummaryAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE' title='View Poll Results'>Poll</a> |
+   
+  <A href='/feedback/FeedbackAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE?Operation=Show' title='Send Your Feedback'>Wiki</a> |
+  <b><a href='/source/SourceAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE' title='Grab Source Code'>Source Code</a></b><IMG class='no-margin' SRC="../images/goldstar.gif" ALT=""> |
+
+  <a href='http://www.web4j.com/Java_Web_Application_Framework_Overview.jsp?From=1' title='Free Download - Java Web Application Framework'><b>WEB4J</b></a> |
+
+   <a href='/references/ReferencesAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE' title='References'>Links</a>
+   
+  <form action='/search/SearchAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE' method='get' class='search-form'>
+   <input type='text' name='SearchTerms' value="" size=12 maxlength=50 class='search'>
+   <input type='submit' value="Search">
+  </form>
+ 
+</div>
+
+<P>
+
+
+  
+
+ 
+
+
+
+
+
+
+<p class="display-messages">
+
+ 
+
+ 
+
+</p>
+
+
+<div class="main-layout">
+ 
+   
+
+ 
+
+
+
+
+<div class='page-title'>Abstract Factory</div>
+
+<div class='main-body'>
+ 
+<br>Using references to interfaces instead of references to concrete classes
+is an important way of <a href="Topic123.cjp">minimizing ripple effects</a>.
+The user of an interface reference is always protected from changes to
+the underlying implementation.
+<p>The Abstract Factory pattern is one example of this technique.
+Users of an Abstract Factory can create families of related objects without
+any knowledge of their concrete classes. (<em>A typical business application would 
+usually not need to use this technique - it is more suitable for toolkits or libraries.</em>)
+
+<p><b>Example</b>
+<p>An Abstract Factory is a major part of the <em>full</em> <a href="Topic66.cjp">Data
+Access Object</a> scheme. Here, the idea is to allow the business layer
+to interact with the data layer almost entirely through interface references.
+The business layer remains ignorant of the concrete classes which implement
+the datastore.
+
+<p>There are two distinct families of items here :
+<ul>
+<li>
+the various datastore implementations (MySql, FileScheme)</li>
+
+<li>
+the various business objects which need persistence (<tt>User</tt>, <tt>Device</tt>,
+etc.)</li>
+</ul>
+This corresponds to the two operations which must be done to return a persisted
+object. The type of datastore is first determined (an implementation of
+<tt>DAOFactory</tt>
+is returned), using a Factory Method.
+
+<P>(This example would be <em>much</em> improved by not having imports of <tt>ServletConfig</tt> all over the place.)
+
+<br>
+<PRE>
+
+<span class='keyword'>package</span> myapp.data;
+
+<span class='keyword'>import</span> javax.servlet.ServletConfig;
+
+<span class='comment'>/**
+* Allows selection of a DAOFactory, without the user being
+* aware of what choices are available.
+*
+* This style allows the data layer to make the decision regarding what
+* DAOFactory is to be used by the business layer.
+*/</span>
+<span class='keyword'>public</span> <span class='keyword'>final</span> <span class='keyword'>class</span> DatastoreSelector {
+
+  <span class='comment'>/**
+  * @param aConfig is non-null.
+  */</span>
+  <span class='keyword'>public</span> <span class='keyword'>static</span> DAOFactory getDAOFactory( ServletConfig aConfig ){
+    <span class='comment'>//demonstrate two implementation styles :
+</span>    <span class='keyword'>return</span> stringMappingImpl( aConfig );
+    <span class='comment'>//return classNameImpl( aConfig );
+</span>  }
+
+  <span class='comment'>// PRIVATE //
+</span>
+  <span class='comment'>/**
+  * Use an ad hoc String mapping scheme, and introduce an if-else
+  * branch for each alternative.
+  */</span>
+  <span class='keyword'>private</span> <span class='keyword'>static</span> DAOFactory stringMappingImpl( ServletConfig aConfig ){
+    <span class='keyword'>if</span> ( aConfig == <span class='keyword'>null</span> ) {
+      <span class='keyword'>throw</span> <span class='keyword'>new</span> IllegalArgumentException(<span class='literal'>"ServletConfig must not be null."</span>);
+    }
+    <span class='comment'>//examine the config to extract the db identifier
+</span>    <span class='keyword'>final</span> String storageMechanism = aConfig.getInitParameter(<span class='literal'>"DatastoreName"</span>);
+    <span class='keyword'>if</span> ( storageMechanism.equals(<span class='literal'>"MySql"</span>)) {
+      <span class='keyword'>return</span> <span class='keyword'>new</span> DAOFactoryMySql( aConfig );
+    }
+    <span class='keyword'>else</span> <span class='keyword'>if</span> ( storageMechanism.equals(<span class='literal'>"FileScheme"</span>) ) {
+      <span class='keyword'>return</span> <span class='keyword'>new</span> DAOFactoryFileScheme( aConfig );
+    }
+    <span class='keyword'>else</span> {
+      <span class='keyword'>throw</span> <span class='keyword'>new</span> IllegalArgumentException(<span class='literal'>"Unknown datastore identifier."</span>);
+    }
+  }
+
+  <span class='comment'>/**
+  * Make direct use of the class name, and use reflection to create the
+  * object.
+  */</span>
+  <span class='keyword'>private</span> <span class='keyword'>static</span> DAOFactory classNameImpl( ServletConfig aConfig ){
+    DAOFactory result = <span class='keyword'>null</span>;
+    <span class='comment'>//examine the config to extract the class name
+</span>    <span class='keyword'>final</span> String storageClassName = aConfig.getInitParameter(<span class='literal'>"DatastoreClassName"</span>);
+    <span class='keyword'>try</span> {
+      Class storageClass = Class.forName(storageClassName);
+      <span class='comment'>//Class.newInstance can be used only if there is a no-arg constructor ;
+</span>      <span class='comment'>//otherwise, use Class.getConstructor and Constructor.newInstance.
+</span>      Class[] types = { javax.servlet.ServletConfig.<span class='keyword'>class</span> };
+      java.lang.reflect.Constructor constructor = storageClass.getConstructor(types);
+      Object[] params = { aConfig };
+      result = (DAOFactory) constructor.newInstance( params );
+    }
+    <span class='keyword'>catch</span> (Exception ex){
+      System.err.println(<span class='literal'>"Cannot create DAOFactory using name: "</span> + storageClassName);
+      ex.printStackTrace();
+    }
+    <span class='keyword'>return</span> result;
+  }
+} 
+</PRE>
+<br>
+<br>
+<PRE>
+
+<span class='keyword'>package</span> myapp.data;
+
+<span class='comment'>/**
+* Returns an implementation of all XXXDAO interfaces.
+*/</span>
+<span class='keyword'>public</span> <span class='keyword'>interface</span> DAOFactory {
+
+  <span class='comment'>/**
+  * Returns an implementation of DeviceDAO, specific to a
+  * particular datastore.
+  */</span>
+  DeviceDAO getDeviceDAO() <span class='keyword'>throws</span> DataAccessException;
+
+  <span class='comment'>/**
+  * Returns an implementation of UserDAO, specific to a
+  * particular datastore.
+  */</span>
+  UserDAO getUserDAO() <span class='keyword'>throws</span> DataAccessException;
+} 
+</PRE>
+<br>
+<br>Then, each <tt>DAOFactory</tt> implementation can return its implementations
+of the <tt>XXXDAO</tt> interfaces (<tt>DeviceDAO</tt>, <tt>UserDAO</tt>),
+which are the concrete worker classes which implement persistence.
+<br>
+<PRE>
+
+<span class='keyword'>package</span> myapp.data;
+
+<span class='keyword'>import</span> javax.servlet.ServletConfig;
+
+<span class='comment'>/**
+* Package-private implementation of DAOFactory.
+* This is for a MySql database.
+*/</span>
+<span class='keyword'>final</span> <span class='keyword'>class</span> DAOFactoryMySql <span class='keyword'>implements</span> DAOFactory {
+
+  DAOFactoryMySql( ServletConfig aServletConfig ){
+    <span class='keyword'>if</span> ( aServletConfig == <span class='keyword'>null</span> ) {
+      <span class='keyword'>throw</span> <span class='keyword'>new</span> IllegalArgumentException(<span class='literal'>"ServletConfig must not be null."</span>);
+    }
+    fConfig = aServletConfig;
+  }
+
+  <span class='keyword'>public</span> UserDAO getUserDAO() <span class='keyword'>throws</span> DataAccessException {
+    <span class='keyword'>return</span> <span class='keyword'>new</span> UserDAOMySql(fConfig);
+  }
+
+  <span class='keyword'>public</span> DeviceDAO getDeviceDAO() <span class='keyword'>throws</span> DataAccessException {
+    <span class='keyword'>return</span> <span class='keyword'>new</span> DeviceDAOMySql(fConfig);
+  }
+
+  <span class='comment'>/// PRIVATE ////
+</span>  <span class='keyword'>private</span> <span class='keyword'>final</span> ServletConfig fConfig;
+} 
+</PRE>
+<br>
+<br>
+<PRE>
+
+<span class='keyword'>package</span> myapp.data;
+
+<span class='keyword'>import</span> javax.servlet.ServletConfig;
+
+<span class='comment'>/**
+* Package-private implementation of DAOFactory.
+* This is for an ad hoc file scheme.
+*/</span>
+<span class='keyword'>final</span> <span class='keyword'>class</span> DAOFactoryFileScheme <span class='keyword'>implements</span> DAOFactory {
+
+  DAOFactoryFileScheme( ServletConfig aServletConfig ){
+    <span class='keyword'>if</span> ( aServletConfig == <span class='keyword'>null</span> ) {
+      <span class='keyword'>throw</span> <span class='keyword'>new</span> IllegalArgumentException(<span class='literal'>"ServletConfig must not be null."</span>);
+    }
+    fConfig = aServletConfig;
+  }
+
+  <span class='keyword'>public</span> UserDAO getUserDAO() <span class='keyword'>throws</span> DataAccessException {
+    <span class='keyword'>return</span> <span class='keyword'>new</span> UserDAOFileScheme(fConfig);
+  }
+
+  <span class='keyword'>public</span> DeviceDAO getDeviceDAO() <span class='keyword'>throws</span> DataAccessException {
+    <span class='keyword'>return</span> <span class='keyword'>new</span> DeviceDAOFileScheme(fConfig);
+  }
+
+  <span class='comment'>/// PRIVATE ////
+</span>  <span class='keyword'>private</span> <span class='keyword'>final</span> ServletConfig fConfig;
+} 
+</PRE>
+<br>
+<br>Here is an example of a <tt>XXXDAO</tt> interface, and a toy implementation
+for a MySql database.
+<br>
+<PRE>
+
+<span class='keyword'>package</span> myapp.data;
+
+<span class='keyword'>import</span> myapp.business.Device;
+
+<span class='comment'>/**
+* The business layer talks to the data layer about storage of Device objects
+* through a DeviceDAO reference.
+*
+* DataAccessException is a wrapper class, which exists only to wrap
+* low-level exceptions specific to each storage mechanism (for example,
+* SQLException and IOException). When an implementation class throws
+* an exception, it is caught, wrapped in a DataAccessException, and then
+* rethrown. This protects the business layer from ripple effects caused by
+* changes to the datastore implementation.
+*/</span>
+<span class='keyword'>public</span> <span class='keyword'>interface</span> DeviceDAO {
+  Device fetch( String aId ) <span class='keyword'>throws</span> DataAccessException;
+  <span class='keyword'>void</span> add( Device aDevice ) <span class='keyword'>throws</span> DataAccessException;
+  <span class='keyword'>void</span> change( Device aDevice ) <span class='keyword'>throws</span> DataAccessException;
+  <span class='keyword'>void</span> delete( Device aDevice ) <span class='keyword'>throws</span> DataAccessException;
+}
+ 
+</PRE>
+<br>
+<br>
+<PRE>
+
+<span class='keyword'>package</span> myapp.data;
+
+<span class='keyword'>import</span> myapp.business.Device;
+<span class='keyword'>import</span> java.net.InetAddress;
+<span class='keyword'>import</span> javax.servlet.ServletConfig;
+
+<span class='comment'>/**
+* An implementation of DeviceDAO which is specific to a MySql database.
+*
+* This class must be package-private, to ensure that the business layer
+* remains unaware of its existence.
+*
+* Any or all of these methods can be declared as synchronized. It all depends
+* on the details of your implementation.
+*
+* Note that it is often possible to use properties files (or ResourceBundles) to
+* keep SQL out of compiled code, which is often advantageous.
+*/</span>
+<span class='keyword'>final</span> <span class='keyword'>class</span> DeviceDAOMySql <span class='keyword'>implements</span> DeviceDAO {
+
+  DeviceDAOMySql( ServletConfig aConfig ) {
+    <span class='comment'>//..elided
+</span>  }
+
+  <span class='keyword'>public</span> Device fetch( String aId ) <span class='keyword'>throws</span> DataAccessException {
+    <span class='comment'>//create a SELECT using aId, fetch a ResultSet, and parse it into a Device
+</span>    <span class='keyword'>return</span> <span class='keyword'>null</span>; <span class='comment'>//toy implementation
+</span>  }
+
+  <span class='keyword'>synchronized</span> <span class='keyword'>public</span> <span class='keyword'>void</span>  add( Device aDevice ) <span class='keyword'>throws</span> DataAccessException{
+    <span class='comment'>//parse aDevice into its elements, create an INSERT statement
+</span>  }
+
+  <span class='keyword'>synchronized</span> <span class='keyword'>public</span> <span class='keyword'>void</span> change( Device aDevice )  <span class='keyword'>throws</span> DataAccessException{
+    <span class='comment'>//parse aDevice into its elements, create an UPDATE statement
+</span>  }
+
+  <span class='keyword'>synchronized</span> <span class='keyword'>public</span> <span class='keyword'>void</span> delete( Device aDevice )  <span class='keyword'>throws</span> DataAccessException {
+    <span class='comment'>//extract the Id from aDevice, create a DELETE statement
+</span>  }
+} 
+</PRE>
+<br>
+<br>It is important to note most of the data layer's concrete classes are
+package-private - only <tt>DatastoreSelector</tt> and <tt>DataAccessException</tt>
+are public.
+<br>
+<br>
+
+</div>
+
+
+
+
+<div class='topic-section'>See Also :</div>
+<div class='main-body'>
+ 
+  
+  <a href='/topic/TopicAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE?Id=21'>Factory methods</a> <br>
+ 
+  
+  <a href='/topic/TopicAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE?Id=66'>Data access objects</a> <br>
+ 
+  
+  <a href='/topic/TopicAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE?Id=77'>Data exception wrapping</a> <br>
+ 
+  
+  <a href='/topic/TopicAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE?Id=113'>Construct Object using class name</a> <br>
+ 
+  
+  <a href='/topic/TopicAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE?Id=123'>Minimize ripple effects</a> <br>
+ 
+  
+  <a href='/topic/TopicAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE?Id=138'>Parse parameters into domain objects</a> <br>
+ 
+</div>
+
+
+<div class='topic-section'>Would you use this technique?</div>
+<div class='main-body'>
+  
+  <form action="/vote/AddVoteAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE" method='post'>
+    Yes<input type='radio' name='Choice' value='Y' >
+    &nbsp;&nbsp;No<input type='radio' name='Choice' value='N'>
+    &nbsp;&nbsp;Undecided<input type='radio' name='Choice' value="?" >
+    &nbsp;&nbsp;<input type=submit value="Vote" >
+    <input type='hidden' name='Operation' value='Apply'>
+    <input type='hidden' name='TopicId' value='128'>
+  </form>
+</div>
+
+<div style='height:10.0em;'></div>
+
+ 
+ 
+</div>
+
+  
+
+ 
+
+
+
+
+
+<div align='center' class='legalese'>  
+&copy; 2010 Hirondelle Systems |
+<a href='/source/SourceAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE'><b>Source Code</b></a><IMG class='no-margin' SRC="/images/goldstar.gif" ALT=""> |
+<a href="mailto:webmaster@javapractices.com">Contact</a> |
+<a href="http://creativecommons.org/licenses/by-nc-sa/1.0/">License</a> |
+<a href="/quotes/SlideshowAction.do;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE">Quotes</a> |
+<a href='/apps/cjp.rss;jsessionid=24A6CC0A5F87D182E1C8DEA114723CEE'>RSS</a>
+<!-- ukey="2AC36CD2" -->
+<!-- ckey="16DF3D87" -->
+<br>
+
+ Individual code snippets can be used under this <a href='../LICENSE.txt'>BSD license</a> - Last updated on January 4, 2009.<br>
+ Over 100,000 unique IPs last month - <span title='Java Practices 2.6.4, Sun Jan 10 00:00:00 EST 2010'>Built with</span> <a href='http://www.web4j.com'>WEB4J</a>.<br>
+ - In Memoriam : Bill Dirani -
+</div>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2633428-1";
+urchinTracker();
+</script>
+
+
+
+</body>
+</html>

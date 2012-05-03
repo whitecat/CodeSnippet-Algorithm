@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <title>Unable to import openssl key to java keystore | Chris Searle</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/elf/elf.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/aggregator/aggregator.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/book/book.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/node/node.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/poll/poll.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/defaults.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/cck/theme/content-module.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/gallery/gallery.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/gallery/gallery_filter.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/img_assist/img_assist.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/tagadelic/tagadelic.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/wishlist/wishlist.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/comment/comment.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/stopie6/stopie6.css?T" />
+<link type="text/css" rel="stylesheet" media="all" href="/themes/garland/style.css?T" />
+<link type="text/css" rel="stylesheet" media="print" href="/themes/garland/print.css?T" />
+    <script type="text/javascript" src="/misc/jquery.js?T"></script>
+<script type="text/javascript" src="/misc/drupal.js?T"></script>
+<script type="text/javascript" src="/sites/all/modules/img_assist/img_assist.js?T"></script>
+<script type="text/javascript" src="/modules/comment/comment.js?T"></script>
+<script type="text/javascript" src="/misc/textarea.js?T"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "googleanalytics": { "trackOutgoing": 1, "trackMailto": 1, "trackDownload": 1, "trackDownloadExtensions": "7z|aac|avi|csv|doc|exe|flv|gif|gz|jpe?g|js|mp(3|4|e?g)|mov|pdf|phps|png|ppt|rar|sit|tar|torrent|txt|wma|wmv|xls|xml|zip" } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var BASE_URL = "/";
+//--><!]]>
+</script>
+    <!--[if lt IE 7]>
+      <link type="text/css" rel="stylesheet" media="all" href="/themes/garland/fix-ie.css" />    <![endif]-->
+  </head>
+  <body class="sidebars">
+
+<!-- Layout -->
+  <div id="header-region" class="clear-block"><div id="block-stopie6-0" class="clear-block block block-stopie6">
+
+
+  <div class="content"><!--[if lte IE 6]><div id="ie6msg"><h4>Did you know that your browser is out of date?</h4><p>To get the best possible experience using our website we recommend that you upgrade your browser to a newer version. The current version is <a class="getie7" href="http://iallenkelhet.no/ie6/eng/index.html">Internet Explorer 7</a> and <a class="getie7" href="http://www.microsoft.com/windows/Internet-explorer/beta/default.aspx">Internet Explorer 8</a> is available as a beta. The upgrade is free. If you're using a PC at work you should contact your IT-administrator.</p><p>If you want to you may also try some other popular Internet browsers like <a class="ie6expl" href="http://www.opera.com">Opera</a>, <a class="ie6expl" href="http://firefox.com">Firefox</a> or <a class="ie6expl" href="http://www.apple.com/safari/download/">Safari</a></p><p><a class="ie6expl" href="http://ie6.forteller.net">Here's why we're doing this.</a></div><![endif]--></div>
+</div>
+</div>
+
+    <div id="wrapper">
+    <div id="container" class="clear-block">
+
+      <div id="header">
+        <div id="logo-floater">
+        <h1><a href="/" title="Chris Searle"><img src="/system/files/images/garland_logo_0.png" alt="Chris Searle" id="logo" /><span>Chris Searle</span></a></h1>        </div>
+
+                  <ul class="links primary-links"><li class="menu-153 first"><a href="http://huts.chrissearle.net/huts/">Huts</a></li>
+<li class="menu-281"><a href="http://dev.chrissearle.net/paste/">Pastebin</a></li>
+<li class="menu-231"><a href="http://www.flickr.com/photos/chrissearle">Flickr Photos</a></li>
+<li class="menu-100"><a href="/gallery">Photo Album</a></li>
+<li class="menu-607"><a href="http://delicious.com/chrissearle" title="">Links</a></li>
+<li class="menu-38 last"><a href="/contact">Contact Form</a></li>
+</ul>                          <ul class="links secondary-links"><li class="menu-282 first"><a href="/certificate_authority">Certificate Authority</a></li>
+<li class="menu-86"><a href="/cryptographic_keys">Cryptographic Keys</a></li>
+<li class="menu-82 last"><a href="/wishlist">Wish Lists</a></li>
+</ul>        
+      </div> <!-- /header -->
+
+              <div id="sidebar-left" class="sidebar">
+                    <div id="block-tagadelic-3" class="clear-block block block-tagadelic">
+
+  <h2>Technical</h2>
+
+  <div class="content"><a href="/technical/debian" class="tagadelic level6" rel="tag">debian</a> 
+<a href="/technical/mac" class="tagadelic level5" rel="tag">mac</a> 
+<a href="/technical/linux" class="tagadelic level4" rel="tag">linux</a> 
+<a href="/technical/java" class="tagadelic level3" rel="tag">java</a> 
+<a href="/technical/ssl" class="tagadelic level3" rel="tag">ssl</a> 
+<a href="/technical/drupal" class="tagadelic level3" rel="tag">drupal</a> 
+<a href="/technical/exim4" class="tagadelic level2" rel="tag">exim4</a> 
+<a href="/technical/maven" class="tagadelic level2" rel="tag">maven</a> 
+<a href="/technical/bluetooth" class="tagadelic level2" rel="tag">bluetooth</a> 
+<a href="/technical/glassfish" class="tagadelic level1" rel="tag">glassfish</a> 
+<a href="/technical/web" class="tagadelic level1" rel="tag">web</a> 
+<a href="/technical/osx" class="tagadelic level1" rel="tag">osx</a> 
+<div class='more-link'><a href="/tagadelic/chunk/3">more tags</a></div></div>
+</div>
+<div id="block-user-1" class="clear-block block block-user">
+
+  <h2>Navigation</h2>
+
+  <div class="content"><ul class="menu"><li class="leaf first"><a href="/drafts">My drafts</a></li>
+<li class="leaf"><a href="/tracker">Recent posts</a></li>
+<li class="collapsed last"><a href="/aggregator">Feed aggregator</a></li>
+</ul></div>
+</div>
+<div id="block-adsense_managed-1" class="clear-block block block-adsense_managed">
+
+
+  <div class="content"><div class="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6208435820744910";
+/* 200x90_5 */
+google_ad_slot = "9045054249";
+google_ad_width = 200;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div></div>
+</div>
+<div id="block-user-0" class="clear-block block block-user">
+
+  <h2>User login</h2>
+
+  <div class="content"><form action="/blog/technical/unable_import_openssl_key_java_keystore?destination=node%2F308"  accept-charset="UTF-8" method="post" id="user-login-form">
+<div><div class="form-item" id="edit-name-1-wrapper">
+ <label for="edit-name-1">Username: <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" maxlength="60" name="name" id="edit-name-1" size="15" value="" class="form-text required" />
+</div>
+<div class="form-item" id="edit-pass-wrapper">
+ <label for="edit-pass">Password: <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" name="pass" id="edit-pass"  maxlength="60"  size="15"  class="form-text required" />
+</div>
+<input type="submit" name="op" id="edit-submit" value="Log in"  class="form-submit" />
+<div class="item-list"><ul><li class="first"><a href="/user/register" title="Create a new user account.">Create new account</a></li>
+<li class="last"><a href="/user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" id="form-9c5734e4a9c8b484dd7418c29380cd48" value="form-9c5734e4a9c8b484dd7418c29380cd48"  />
+<input type="hidden" name="form_id" id="edit-user-login-block" value="user_login_block"  />
+
+</div></form>
+</div>
+</div>
+        </div>
+      
+      <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
+          <div class="breadcrumb"><a href="/">Home</a> â?º <a href="/blog">Blogs</a> â?º <a href="/blog/chris">chris&#039;s blog</a></div>                              <h2>Unable to import openssl key to java keystore</h2>                                                  <div class="clear-block">
+            <div id="node-308" class="node">
+
+
+
+      <span class="submitted">Fri, 2008-07-11 10:42 â?? chris</span>
+  
+  <div class="content clear-block">
+    <!-- google_ad_section_start --><p><strong>UPDATE - progress - see end of article</strong></p>
+<p>I have an openssl self-signed certificate for some websites. These are based on an openssl RSA key. I can use them successfully as client keys - but - it seems that glassfish (perhaps all others - I don't know) need the key in the keystore as well as the certificate.</p>
+<p>So - I have an RSA key file and a PEM certificate file.</p>
+<p>keytool only imports the certificate (this works fine for this certificate for java processes that act as an SSL client - but here I want to act as the SSL server) - so here are the other things I have tried:</p>
+<p><strong>Jetty PKCS12Import</strong></p>
+<p>From <a href="http://number9.hellooperator.net/articles/category/security" title="http://number9.hellooperator.net/articles/category/security" class="external-link">http://number9.hellooperator.net/articles/category/security</a></p>
+<p>Pre-requisite</p>
+<p><pre><code>curl -O <a href="http://dist.codehaus.org/jetty/jetty-6.1.11/jetty-6.1.11.zip" title="http://dist.codehaus.org/jetty/jetty-6.1.11/jetty-6.1.11.zip" class="external-link">http://dist.codehaus.org/jetty/jetty-6.1.11/jetty-6.1.11.zip</a>
+unzip -j jetty-6.1.11.zip jetty-6.1.11/lib/jetty-6.1.11.jar</code></pre></p>
+<p>Now - convert to pkcs12</p>
+<p><pre><code>openssl pkcs12 -export -out keystore.pcks12 -in /etc/apache2/ssl/certificate.crt -inkey /etc/ssl/private/key.key</code></pre></p>
+<p>And then import</p>
+<p><pre><code>java -cp jetty-6.1.11.jar org.mortbay.jetty.security.PKCS12Import keystore.pcks12 keystore.jks</code></pre></p>
+<p>Problem is that I get:</p>
+<p><pre><code>Exception in thread "main" java.io.IOException: failed to decrypt safe contents entry: java.lang.ArithmeticException: / by zero
+        at com.sun.net.ssl.internal.pkcs12.PKCS12KeyStore.engineLoad(PKCS12KeyStore.java:1277)
+        at java.security.KeyStore.load(KeyStore.java:1185)
+        at org.mortbay.jetty.security.PKCS12Import.main(PKCS12Import.java:95)
+Caused by: java.lang.ArithmeticException: / by zero
+        at com.sun.crypto.provider.PKCS12PBECipherCore.a(DashoA13<em>..)
+        at com.sun.crypto.provider.PKCS12PBECipherCore.a(DashoA13</em>..)
+        at com.sun.crypto.provider.PKCS12PBECipherCore.a(DashoA13<em>..)
+        at com.sun.crypto.provider.PKCS12PBECipherCore.a(DashoA13</em>..)
+        at com.sun.crypto.provider.PKCS12PBECipherCore$PBEWithSHA1AndRC2_40.engineInit(DashoA13<em>..)
+        at javax.crypto.Cipher.a(DashoA13</em>..)
+        at javax.crypto.Cipher.a(DashoA13<em>..)
+        at javax.crypto.Cipher.init(DashoA13</em>..)
+        at javax.crypto.Cipher.init(DashoA13*..)
+        at com.sun.net.ssl.internal.pkcs12.PKCS12KeyStore.engineLoad(PKCS12KeyStore.java:1273)
+        ... 2 more</code></pre></p>
+<p><strong>Neal Groothius</strong></p>
+<p>From: <a href="http://www.nealgroothuis.name/import-a-private-key-into-a-java-keystore/" title="http://www.nealgroothuis.name/import-a-private-key-into-a-java-keystore/" class="external-link">http://www.nealgroothuis.name/import-a-private-key-into-a-java-keystore/</a></p>
+<p>This wants the certificate and key in DER form:</p>
+<p><pre><code>openssl rsa -in /etc/ssl/private/key.key -out key.der -outform DER
+openssl x509 -in /etc/apache2/ssl/certificate.crt -out cert.der -outform DER</code></pre></p>
+<p>Then import:</p>
+<p><pre><code>java -cp . KeyStoreImport keystore.jks cert.der key.der keyalias</code></pre></p>
+<p>But that gives:</p>
+<p><pre><code>java.security.spec.InvalidKeySpecException: java.security.InvalidKeyException: IOException : algid parse error, not a sequence
+        at sun.security.rsa.RSAKeyFactory.engineGeneratePrivate(RSAKeyFactory.java:175)
+        at java.security.KeyFactory.generatePrivate(KeyFactory.java:342)
+        at KeyStoreImport.main(KeyStoreImport.java:80)
+Caused by: java.security.InvalidKeyException: IOException : algid parse error, not a sequence
+        at sun.security.pkcs.PKCS8Key.decode(PKCS8Key.java:344)
+        at sun.security.pkcs.PKCS8Key.decode(PKCS8Key.java:350)
+        at sun.security.rsa.RSAPrivateCrtKeyImpl.(RSAPrivateCrtKeyImpl.java:74)
+        at sun.security.rsa.RSAPrivateCrtKeyImpl.newKey(RSAPrivateCrtKeyImpl.java:58)
+        at sun.security.rsa.RSAKeyFactory.generatePrivate(RSAKeyFactory.java:274)
+        at sun.security.rsa.RSAKeyFactory.engineGeneratePrivate(RSAKeyFactory.java:171)
+        ... 2 more</code></pre></p>
+<p><strong>Not yet commons-ssl</strong></p>
+<p>From: <a href="http://juliusdavies.ca/commons-ssl/" title="http://juliusdavies.ca/commons-ssl/" class="external-link">http://juliusdavies.ca/commons-ssl/</a></p>
+<p><pre><code>java -cp not-yet-commons-ssl-0.3.10.jar org.apache.commons.ssl.KeyStoreBuilder pass key.key /etc/apache2/ssl/certificate.crt</code></pre></p>
+<p>Gives:</p>
+<p><pre><code>Exception in thread "main" java.util.NoSuchElementException
+        at java.util.LinkedList$ListItr.next(LinkedList.java:698)
+        at java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1010)
+        at org.apache.commons.ssl.KeyStoreBuilder.build(KeyStoreBuilder.java:167)
+        at org.apache.commons.ssl.KeyStoreBuilder.build(KeyStoreBuilder.java:97)
+        at org.apache.commons.ssl.KeyStoreBuilder.main(KeyStoreBuilder.java:555)</code></pre></p>
+<p><strong>UPDATE</strong></p>
+<p>Progress. Julius Davies (not yet commons-ssl) got back to me and said - bug in 0.3.10 - try 0.3.9. Now - checking the download page it <em>says</em> that 0.3.10 is alpha - but I never made it that far down the page.</p>
+<p><pre><code>java -cp not-yet-commons-ssl-0.3.9.jar org.apache.commons.ssl.KeyStoreBuilder pass_for_new_keystore key.key /etc/apache2/ssl/certificate.crt</code></pre></p>
+<p>This worked. Created a new keystore for me (named &lt;certificate's OU&gt;.jks). This has the certificate in it as well as the key (keytool -list shows it as a PrivateKeyEntry rather than a trustedCertEntry).</p>
+<p>You can get it into the glassfish keystore too:</p>
+<p><pre><code>keytool -importkeystore -srckeystore keystore.jks -destkeystore glassfish/domains/domain1/keystore.jks -srcstorepass pass_for_new_keystore -deststorepass changeit</code></pre></p>
+<p>I'll test to see if it can use it next week. If so - this article will be superseded with a new one :)</p>
+<!-- google_ad_section_end --><div class="technorati_tags"><img alt="Technorati Tags:" src="/sites/all/modules/technorati/technobubble.gif"/><strong>Technorati Tags: </strong><a href="http://technorati.com/tag/keystore" rel="tag">keystore</a> <a href="http://technorati.com/tag/openssl" rel="tag">openssl</a> <a href="http://technorati.com/tag/English" rel="tag">English</a></div><div class="service-links"><div class="service-label">Bookmark/Search this post with: </div><ul class="links"><li class="service_links_delicious first"><a href="http://del.icio.us/post?url=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;title=Unable+to+import+openssl+key+to+java+keystore" title="Bookmark this post on del.icio.us." rel="nofollow"><img src="/sites/all/modules/service_links/images/delicious.png" alt="Delicious" /></a></li>
+<li class="service_links_digg"><a href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;title=Unable+to+import+openssl+key+to+java+keystore" title="Digg this post on digg.com." rel="nofollow"><img src="/sites/all/modules/service_links/images/digg.png" alt="Digg" /></a></li>
+<li class="service_links_stumbleupon"><a href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;title=Unable+to+import+openssl+key+to+java+keystore" title="Thumb this up at StumbleUpon." rel="nofollow"><img src="/sites/all/modules/service_links/images/stumbleit.png" alt="StumbleUpon" /></a></li>
+<li class="service_links_reddit"><a href="http://reddit.com/submit?url=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;title=Unable+to+import+openssl+key+to+java+keystore" title="Submit this post on reddit.com." rel="nofollow"><img src="/sites/all/modules/service_links/images/reddit.png" alt="Reddit" /></a></li>
+<li class="service_links_furl"><a href="http://www.furl.net/storeIt.jsp?u=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;t=Unable+to+import+openssl+key+to+java+keystore" title="Submit this post on furl.net." rel="nofollow"><img src="/sites/all/modules/service_links/images/furl.png" alt="Furl" /></a></li>
+<li class="service_links_facebook"><a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;t=Unable+to+import+openssl+key+to+java+keystore" title="Share on Facebook." rel="nofollow"><img src="/sites/all/modules/service_links/images/facebook.png" alt="Facebook" /></a></li>
+<li class="service_links_google"><a href="http://www.google.com/bookmarks/mark?op=add&amp;bkmk=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;title=Unable+to+import+openssl+key+to+java+keystore" title="Bookmark this post on Google." rel="nofollow"><img src="/sites/all/modules/service_links/images/google.png" alt="Google" /></a></li>
+<li class="service_links_yahoo"><a href="http://myweb2.search.yahoo.com/myresults/bookmarklet?u=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore&amp;t=Unable+to+import+openssl+key+to+java+keystore" title="Bookmark this post on Yahoo." rel="nofollow"><img src="/sites/all/modules/service_links/images/yahoo.png" alt="Yahoo" /></a></li>
+<li class="service_links_technorati last"><a href="http://technorati.com/cosmos/search.html?url=http%3A%2F%2Fwww.chrissearle.org%2Fblog%2Ftechnical%2Funable_import_openssl_key_java_keystore" title="Search Technorati for links to this post." rel="nofollow"><img src="/sites/all/modules/service_links/images/technorati.png" alt="Technorati" /></a></li>
+</ul></div>  </div>
+
+  <div class="clear-block">
+    <div class="meta">
+          <div class="terms"><ul class="links inline"><li class="taxonomy_term_195 first"><a href="/technical/keystore" rel="tag" title="">keystore</a></li>
+<li class="taxonomy_term_271"><a href="/technical/openssl" rel="tag" title="">openssl</a></li>
+<li class="taxonomy_term_1 last"><a href="/language/english" rel="tag" title="">English</a></li>
+</ul></div>
+        </div>
+
+          <div class="links"><ul class="links inline"><li class="blog_usernames_blog first last"><a href="/blog/chris" title="Read chris&#039;s latest blog entries.">chris&#039;s blog</a></li>
+</ul></div>
+      </div>
+
+</div>
+<div id="comments"><h2 class="comments">Comments</h2><a id="comment-105"></a>
+<div class="comment comment-published odd">
+
+  <div class="clear-block">
+      <span class="submitted">Wed, 2009-06-03 01:27 â?? Steve K (not verified)</span>
+  
+  
+  <div class="picture">
+  <img src="http://www.gravatar.com/avatar/5da43935e42470efb510d57b141c657a?d=default&amp;s=48&amp;r=PG" alt="Anonymous&#039;s picture" title="Anonymous&#039;s picture"  width="48" height="48" /></div>
+
+    <h3><a href="/blog/technical/unable_import_openssl_key_java_keystore#comment-105" class="active">Thank you, very helpful.</a></h3>
+
+    <div class="content">
+      <p>Thank you, very helpful.</p>
+          </div>
+  </div>
+
+      <div class="links"><ul class="links"><li class="comment_reply first last"><a href="/comment/reply/308/105">reply</a></li>
+</ul></div>
+  </div>
+<a id="comment-93"></a>
+<div class="comment comment-published even">
+
+  <div class="clear-block">
+      <span class="submitted">Wed, 2009-04-08 21:41 â?? Mark Brown (not verified)</span>
+  
+  
+  <div class="picture">
+  <img src="http://www.gravatar.com/avatar/affb7264fcb459dc1c2ee9c2c7a4af9e?d=default&amp;s=48&amp;r=PG" alt="Anonymous&#039;s picture" title="Anonymous&#039;s picture"  width="48" height="48" /></div>
+
+    <h3><a href="/blog/technical/unable_import_openssl_key_java_keystore#comment-93" class="active">Thanks for this Solution!</a></h3>
+
+    <div class="content">
+      <p>Thanks so much for having this out there on the web. I experienced a similar situation to the above in creating a JKS for use in my production environments.</p>
+<p>At my site we utilize a Cisco SSL Accelerator to load balance between multiple web servers. The Cisco device was used to obtain a certificate from Entrust (and as a result had the key generated on it versus one of my web servers) and their certificate had intermediate (or chained) certificates between it and the RootCA. Using your method as an example I was able to create a JKS for my web servers that had a complete chain. Here's what I did:</p>
+<p>1) Obtain the key, certificate, intermediary certificates and root certificate in 64 bit format PEM format.<br />
+2) Create a new text file called "allcerts.txt" and copy and paste the text contents of the certificate, intermediary certificates and root certificates (in this order) into the text file. Ensure that it saves as a text file, and not RTF or some other odd format.<br />
+3) Obtain the not-yet-commons-ssl-0.3.9.jar file from the following website: <a href="http://juliusdavies.ca/commons-ssl/download.html" title="http://juliusdavies.ca/commons-ssl/download.html" class="external-link">http://juliusdavies.ca/commons-ssl/download.html</a><br />
+4) Save the allcerts.txt, key file and JAR file in the same folder.<br />
+5) Open up a command prompt and navigate to the folder where you saved the files and type the following (changing the pass_for_new_keystore to whatever you want the keystore pass to be):<br />
+java -cp not-yet-commons-ssl-0.3.9.jar org.apache.commons.ssl.KeyStoreBuilder pass_for_new_keystore ./key.txt ./allcerts.txt<br />
+This should create the new JKS file with the CN of the certificate that was issued to your site.<br />
+6) Check your work with keytool by running the following command:<br />
+keytool -list -v -keystore (path and filename of where you saved the JKS file)</p>
+<p>The above should create a keystore with one entry and as many certificates as you had in your allcerts.txt file. Kudos to Julius Davies for this awesome tool, as it was the only way I could create the entire certificate chain for my multiple web servers.</p>
+          </div>
+  </div>
+
+      <div class="links"><ul class="links"><li class="comment_reply first last"><a href="/comment/reply/308/93">reply</a></li>
+</ul></div>
+  </div>
+<a id="comment-88"></a>
+<div class="comment comment-published odd">
+
+  <div class="clear-block">
+      <span class="submitted">Thu, 2009-02-05 13:40 â?? <a href="http://blog.xebia.com" rel="nofollow">Jeroen van Erp</a> (not verified)</span>
+  
+  
+  <div class="picture">
+  <img src="http://www.gravatar.com/avatar/4bc2bb34380f25a0dfd240c9ab0e6cfe?d=default&amp;s=48&amp;r=PG" alt="Anonymous&#039;s picture" title="Anonymous&#039;s picture"  width="48" height="48" /></div>
+
+    <h3><a href="/blog/technical/unable_import_openssl_key_java_keystore#comment-88" class="active">Also works...</a></h3>
+
+    <div class="content">
+      <p>Hi Chris,</p>
+<p>Neal Groothuis' method also works, but you have to use a different conversion for your private key part. The correct openssl line is:<br />
+<code>openssl pkcs8 -topk8 -nocrypt -in key.pem -inform PEM -out key.der -outform DER</code></p>
+<p>Regards,<br />
+Jeroen</p>
+          </div>
+  </div>
+
+      <div class="links"><ul class="links"><li class="comment_reply first last"><a href="/comment/reply/308/88">reply</a></li>
+</ul></div>
+  </div>
+<div class="box">
+
+  <h2>Post new comment</h2>
+
+  <div class="content"><form action="/comment/reply/308"  accept-charset="UTF-8" method="post" id="comment-form">
+<div><div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Your name: </label>
+ <input type="text" maxlength="60" name="name" id="edit-name" size="30" value="Anonymous" class="form-text" />
+</div>
+<div class="form-item" id="edit-mail-wrapper">
+ <label for="edit-mail">E-mail: </label>
+ <input type="text" maxlength="64" name="mail" id="edit-mail" size="30" value="" class="form-text" />
+ <div class="description">The content of this field is kept private and will not be shown publicly.</div>
+</div>
+<div class="form-item" id="edit-homepage-wrapper">
+ <label for="edit-homepage">Homepage: </label>
+ <input type="text" maxlength="255" name="homepage" id="edit-homepage" size="30" value="" class="form-text" />
+</div>
+<div class="form-item" id="edit-subject-wrapper">
+ <label for="edit-subject">Subject: </label>
+ <input type="text" maxlength="64" name="subject" id="edit-subject" size="60" value="" class="form-text" />
+</div>
+<div class="form-item" id="edit-comment-wrapper">
+ <label for="edit-comment">Comment: <span class="form-required" title="This field is required.">*</span></label>
+ <textarea cols="60" rows="15" name="comment" id="edit-comment"  class="form-textarea resizable required"></textarea>
+</div>
+<ul class="tips"><li>You can use <a href="/filter/tips">Markdown syntax</a> to format and style the text. Also see <a href="http://michelf.com/projects/php-markdown/extra/">Markdown Extra</a> for tables, footnotes, and more.</li><li>Allowed HTML tags:  &lt;a&gt; &lt;p&gt; &lt;span&gt; &lt;div&gt; &lt;h1&gt; &lt;h2&gt; &lt;h3&gt; &lt;h4&gt; &lt;h5&gt; &lt;h6&gt; &lt;img&gt; &lt;map&gt; &lt;area&gt; &lt;hr&gt; &lt;br&gt; &lt;br /&gt; &lt;ul&gt; &lt;ol&gt; &lt;li&gt; &lt;dl&gt; &lt;dt&gt; &lt;dd&gt; &lt;table&gt; &lt;tr&gt; &lt;td&gt; &lt;em&gt; &lt;b&gt; &lt;u&gt; &lt;i&gt; &lt;strong&gt; &lt;font&gt; &lt;del&gt; &lt;ins&gt; &lt;sub&gt; &lt;sup&gt; &lt;quote&gt; &lt;blockquote&gt; &lt;pre&gt; &lt;address&gt; &lt;code&gt; &lt;cite&gt; &lt;embed&gt; &lt;object&gt; &lt;strike&gt; &lt;caption&gt;</li><li>Lines and paragraphs break automatically.</li><li>Web page addresses and e-mail addresses turn into links automatically.</li><li>Insert Flickr images: [flickr-photo:id=230452326,size=s] or [flickr-photoset:id=72157594262419167,size=m].</li><li>Replace [debbug:xxxxx] with a link to the relevant debian bug. xxxxxx can be a bug id, package, or any of several others - see http://www.debian.org/Bugs/ and scroll down to the list of URL forms for other examples.</li><li>You may link to Gallery2 items on this site <a href="/filter/tips#filter-gallery-0">using a special syntax</a>.</li><li>Insert Google Map macro.</li><li>Images can be added to this post.</li><li>You can link nodes to other nodes using the following syntax:<br>
+    [node:<em>node_id</em>,title="val2"]</li></ul><p><a href="/filter/tips">More information about formatting options</a></p><input type="hidden" name="form_build_id" id="form-3f1176b11560acfa074b799a84fb56b9" value="form-3f1176b11560acfa074b799a84fb56b9"  />
+<input type="hidden" name="form_id" id="edit-comment-form" value="comment_form"  />
+<input type="submit" name="op" id="edit-preview" value="Preview"  class="form-submit" />
+
+</div></form>
+</div>
+</div>
+</div>          </div>
+                    <div id="footer">&copy; Chris Searle
+<a href="http://www.chrissearle.org/rightaboutworried.php"></a><div id="block-adsense_managed-2" class="clear-block block block-adsense_managed">
+
+
+  <div class="content"><div class="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6208435820744910";
+/* 468x60 */
+google_ad_slot = "6188068620";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div></div>
+</div>
+</div>
+      </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
+
+              <div id="sidebar-right" class="sidebar">
+                    <div id="block-adsense_cse-0" class="clear-block block block-adsense_cse">
+
+
+  <div class="content"><div class='adsense adsense_cse'>
+<form action="http://www.chrissearle.org/adsense/cse" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-6208435820744910:ugqluxjjdez" />
+    <input type="hidden" name="cof" value="FORID:11" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="as_q" size="20" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.chrissearle.org/sites/all/modules/adsense/cse/adsense_cse.js"></script>
+</div></div>
+</div>
+<div id="block-adsense_managed-0" class="clear-block block block-adsense_managed">
+
+
+  <div class="content"><div class="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6208435820744910";
+/* 200x200 */
+google_ad_slot = "1629645194";
+google_ad_width = 200;
+google_ad_height = 200;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div></div>
+</div>
+        </div>
+      
+    </div> <!-- /container -->
+  </div>
+<!-- /layout -->
+
+  <script type="text/javascript" src="/sites/all/modules/google_analytics/googleanalytics.js?T"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var pageTracker = _gat._getTracker("UA-2221544-1");pageTracker._trackPageview();
+//--><!]]>
+</script>
+  </body>
+</html>

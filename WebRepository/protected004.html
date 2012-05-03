@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>Why does the &quot;protected&quot; modifier in Java allow access to other classes in same package? - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6226">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/902922/why-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Why does the &quot;protected&quot; modifier in Java allow access to other classes in same package?'" href="/feeds/question/902922">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(902922);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f902922%2fwhy-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/902922/why-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p" class="question-hyperlink">Why does the &ldquo;protected&rdquo; modifier in Java allow access to other classes in same package?</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,protected,inheritance">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="902922">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        6
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b>1</b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>What is the reason that in Java, a member with a "protected" modifier can not only be accessed by the same class and by subclasses, but also by everyone in the same package? </p>
+
+<p>I am wondering about language design reasons, not actual applications (e.g., testing)</p>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/protected" class="post-tag" title="show questions tagged 'protected'" rel="tag">protected</a> <a href="/questions/tagged/inheritance" class="post-tag" title="show questions tagged 'inheritance'" rel="tag">inheritance</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-902922" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2009-05-24 02:18:58Z" class="relativetime">May 24 at 2:18</span></div><div class="user-gravatar32"><a href="/users/23072/uri"><img src="http://www.gravatar.com/avatar/d424a19f6688970e23e728ebd39e73cf?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/23072/uri" >Uri</a><br><span class="reputation-score" title="reputation score">26.2k</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="24 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">24</span></span><span title="79 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">79</span></span></div></div>
+            <br class="cbt">
+            <div class="accept-rate cool" title="this user has accepted an answer for 89 of 116 eligible questions">77% accept rate</div>
+            
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-902922" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-710769" class="comment">
+        <td class="comment-actions"><table><tbody><tr>
+<td class="comment-score">
+<span title="number of 'great comment' votes received" class="cool">1</span>
+</td>
+<td>
+&nbsp;
+</td></tr>
+</tbody></table></td>
+        <td class="comment-text"><div>+1 Frankly I want know why as well. It always struck me as one of the dumbest design decisions in Java. &ndash;&nbsp;<a href="/users/18393/cletus" title="83811" class="comment-user">cletus</a> <span class="comment-date"><span title="2009-05-24 02:28:58Z">May 24 at 2:28</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>5 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/902922?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/902922?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/902922?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="902930"></a>
+    
+    <div id="answer-902930" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="902930">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        7
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+<img src="http://sstatic.net/so/img/vote-accepted-on.png"
+    class="vote-accepted"
+    style="cursor:default"
+    width="30"
+    height="31"
+    alt="check"
+    title="The question owner accepted this as the best answer Sep 10 at 16:53" >
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>This design is based on the idea that the package is the appropriate unit, maintained and released by one internally consistent team; inheritance relationships have much less to do with who's maintaining and releasing what when.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/902922/why-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p/902930#902930" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-902930" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-05-24 02:22:30Z" class="relativetime">May 24 at 2:22</span></div><div class="user-gravatar32"><a href="/users/95810/alex-martelli"><img src="http://www.gravatar.com/avatar/e8d5fe90f1fe2148bf130cccd4dc311c?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/95810/alex-martelli" >Alex Martelli</a><br><span class="reputation-score" title="reputation score">68.2k</span><span title="3 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">3</span></span><span title="69 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">69</span></span><span title="181 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">181</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-902930" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,protected,inheritance">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="902952"></a>
+    
+    <div id="answer-902952" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="902952">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        5
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Basically it has to do with the view of a package as an api controlled unit (hence the recommendation to start your package with your domain name - guaranteed global uniqueness), so visibility grows from private -> package-private -> protected -> public. If protected weren't an increase over package-private, rather a different type of visibility, there would have to be some way to combine the two types of visibility when needed.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/902922/why-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p/902952#902952" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-902952" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-05-24 02:41:56Z" class="relativetime">May 24 at 2:41</span></div><div class="user-gravatar32"><a href="/users/77779/yishai"><img src="http://www.gravatar.com/avatar/23a41191ed7d92d65ed2fa3a0ccf96a5?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/77779/yishai" >Yishai</a><br><span class="reputation-score" title="reputation score">13.7k</span><span title="5 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">5</span></span><span title="25 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">25</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-902952" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="902956"></a>
+    
+    <div id="answer-902956" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="902956">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Given progressive levels of access, private, package, protected and public, it would be unnecessarily limiting if it went protected then package since that would force me to allow subclasses access in order to grant other members of the same package.  Yet, intuitively, it should be that other classes in the same package are more trustworthy than other classes "out there".  So protected is between package and public in that it allows a wider exposure of access.</p>
+
+<p>I think the basic reason relies on the intuition that there's a basic level of "trust" between classes in the same package; you can reasonably expect them to do the right thing with each other - in most cases the package will be the responsibility of a single engineer or team so there should be a consistent harmony of design.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/902922/why-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p/902956#902956" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-902956" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-05-24 02:44:19Z" class="relativetime">May 24 at 2:44</span></div><div class="user-gravatar32"><a href="/users/8946/software-monkey"><img src="http://www.gravatar.com/avatar/0ad5f7ab8744c90bde77377d9b151957?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/8946/software-monkey" >Software Monkey</a><br><span class="reputation-score" title="reputation score">9,088</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">10</span></span><span title="40 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">40</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-902956" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="902995"></a>
+    
+    <div id="answer-902995" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="902995">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>The modifiers are well-described <a href="http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html" rel="nofollow">at <a href="http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html" rel="nofollow">http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html</a></a>.  From there we see this figure.</p>
+
+<pre><code>Modifier        Class     Package   Subclass  World
+public          Y         Y         Y         Y
+protected       Y         Y         Y         N
+no modifier     Y         Y         N         N
+private         Y         N         N         N
+</code></pre>
+
+<p>From this the reason for the design decision is obvious: it's to have a nice symmetric matrix.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/902922/why-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p/902995#902995" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-902995" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-05-24 03:18:04Z" class="relativetime">May 24 at 3:18</span></div><div class="user-gravatar32"><a href="/users/29771/glenn"><img src="http://www.gravatar.com/avatar/e4ceb77a72219a81e50d2ec4f9df2486?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/29771/glenn" >Glenn</a><br><span class="reputation-score" title="reputation score">1,111</span><span title="1 silver badge"><span class="badge2">&#9679;</span><span class="badgecount">1</span></span><span title="8 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">8</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-902995" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-710912" class="comment">
+        <td class="comment-actions"><table><tbody><tr>
+<td class="comment-score">
+<span title="number of 'great comment' votes received" class="cool">1</span>
+</td>
+<td>
+&nbsp;
+</td></tr>
+</tbody></table></td>
+        <td class="comment-text"><div>It would be symmetric anyway... &ndash;&nbsp;<a href="/users/13531/mmyers" title="23773" class="comment-user">mmyers</a> <span class="comment-date"><span title="2009-05-24 04:09:52Z">May 24 at 4:09</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="903050"></a>
+    
+    <div id="answer-903050" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="903050">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>In Java 1.0 there was a fifth access modifier: <code>private protected</code>. This was <code>protected</code> without the default access. Apparently it never actually worked properly and was dropped in 1.1. So it looks like claims the <code>protected</code> is defined the way it is for total ordering appear to be spurious. The <code>module</code> access modifier in Java 7 has a few design questions in this area.</p>
+
+<p>Given that it was thought that it would be a good idea for the default access modifier for members to be "package private", it seems reasonable that <code>protected</code> should have be at least this level of access. For my money, <code>protected</code> doesn't pay its way in the language at all.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/902922/why-does-the-protected-modifier-in-java-allow-access-to-other-classes-in-same-p/903050#903050" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-903050" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-05-24 04:06:30Z" class="relativetime">May 24 at 4:06</span></div><div class="user-gravatar32"><a href="/users/4725/tom-hawtin-tackline"><img src="http://www.gravatar.com/avatar/66d75405b2c8ef6f38e1ba2af321f239?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/4725/tom-hawtin-tackline" >Tom Hawtin - tackline</a><br><span class="reputation-score" title="reputation score">24.2k</span><span title="2 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">2</span></span><span title="12 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">12</span></span><span title="39 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">39</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-903050" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-710937" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I've never heard of that one, but I got into Java at 1.1... Thanks!  &ndash;&nbsp;<a href="/users/23072/uri" title="26247" class="comment-user owner">Uri</a> <span class="comment-date"><span title="2009-05-24 04:32:11Z">May 24 at 4:32</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/902922/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/protected" class="post-tag" title="show questions tagged 'protected'" rel="tag">protected</a> <a href="/questions/tagged/inheritance" class="post-tag" title="show questions tagged 'inheritance'" rel="tag">inheritance</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/902922/ivc/3c54" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34050</span><br>
+<a href="/questions/tagged/inheritance" class="post-tag" title="show questions tagged 'inheritance'" rel="tag">inheritance</a>&nbsp;<span class="item-multiplier">&times;&nbsp;1369</span><br>
+<a href="/questions/tagged/protected" class="post-tag" title="show questions tagged 'protected'" rel="tag">protected</a>&nbsp;<span class="item-multiplier">&times;&nbsp;47</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2009-05-24 02:18:58Z">8 months ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">518 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-05-24 04:06:30Z">8 months ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,protected,inheritance">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?6053">' +
+	   ".NET UI Developer @ Growing Start-up" +
+	   ' at ' +
+	   "homeboodle.com</a> (" +
+	   "San Francisco, CA" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/902922" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/902922" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6228</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

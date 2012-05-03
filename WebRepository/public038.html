@@ -1,0 +1,523 @@
+<html>
+
+<head>
+<title>Top Ten Errors Java Programmers Make</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+</head>
+
+<body>
+
+<div align="center">
+  <!-- Insert for header -->
+  <!--webbot bot="Include" u-include="../nav/top.html" tag="BODY" startspan -->
+
+<!-- New to Java -->
+<p align=left><font color="green" size="2"><a style="color: #008080">New to
+Java? We'll help you get started with our </a></font><a href="../tutorials/gettingstarted/index.html" style="color: #008080"><font color="green" size="2">revised
+beginner's tutorial</font></a><font color="green" size="2"><a style="color: #008080" href="../books/extracts/javanotesv3/index.html">,</a><a style="color: #008080">
+or our</a></font> <a style="color: #008080" href="../books/extracts/javanotesv3/index.html"><font color="green" size="2">free
+online textbook.</font></a></p>
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" width="600">
+	 <!-- Advertising to support JavaCoffeeBreak -->
+    <tr>
+      <!-- Left table contains 480x600 advertising banner for our sponsors -->
+      <td valign="top" align="left">
+
+
+<p align="center">
+
+
+<!-- BEGIN RICH-MEDIA BURST! CODE -->
+<script language="JavaScript">
+rnum=Math.round(Math.random() * 100000);
+
+document.write('<scr'+'ipt src="http://www.burstnet.com/cgi-bin/ads/ad2350a.cgi/v=2.0S/sz=468x60A/'+rnum+'/RETURN-CODE/JS/"></scr'+'ipt>');
+
+</script>
+<noscript><a href="http://www.burstnet.com/ads/ad2350a-map.cgi/ns/v=2.0S/sz=468x60A/" target="_top">
+<img src="http://www.burstnet.com/cgi-bin/ads/ad2350a.cgi/ns/v=2.0S/sz=468x60A/" border="0" alt="Click Here"></a>
+</noscript>
+<!-- END BURST CODE -->
+
+  
+
+
+</p>
+
+
+
+      </td>
+      <!-- Right table contains 120x60  button for our sponsors -->
+      <td valign="top" align="right">
+         
+
+
+        <a href="http://www.amazon.com/exec/obidos/redirect?tag=davidreillysprog&amp;path=subst/books/computers/java/java.html"><img border="0" src="../images/javashop.gif" width="120" height="60"></a><br>
+        <font face="Times New Roman" size="1"><a href="http://www.amazon.com/exec/obidos/redirect?tag=davidreillysprog&amp;path=subst/books/computers/java/java.html">Get the latest Java books</a></font>
+
+
+      </td>
+    </tr>
+    <!-- JavaCoffeeBreak branding and navigation -->
+    <tr>
+      <td colspan="2">
+        <div align="center">
+          <font size="1">h t t p : / /w w w . j a v a c o f f e e b r e a k . c
+          o m /</font>
+          <table border="1" cellpadding="0" cellspacing="0" width="400" bgcolor="#000000">
+            <tr>
+              <td>
+                <p align="center"><img src="../images/header.gif" alt="Java Coffee Break" width="400" height="50"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
+
+<!--webbot bot="Include" endspan i-checksum="22437" -->
+  <table border="0" width="600" cellspacing="5" 10 cellpadding="5">
+    <tr>
+      <td width="125" valign="top"><!--webbot bot="Include"
+        u-include="../nav/left.html" tag="BODY" startspan -->
+
+<p><font color="#000080">Menu</font></p>
+<hr color="#000080">
+<p><font size="2"><a href="http://javacoffeebreak.mail.everyone.net/"><br>
+</a></font><i>Learning Java</i></p>
+<p><font size="2"><a href="index.html">Articles<br>
+</a><a href="authorprofiles/index.html">Author Profiles</a><br>
+<a href="../tutorials/index.html">Lessons<br>
+</a><a href="../faq/index.html">FAQ's<br>
+</a><a href="../books/index.html">Books</a><br>
+<a href="../newsletter/index.html">Newsletter<br>
+</a><a href="../tutorials/index.html">Tutorials<br>
+</a><a href="../javatalk/index.html">Talk Java!</a></font></p>
+<p><i>Using Java</i></p>
+<p><font size="2"><a href="../applets/index.html">Applets</a><br>
+<a href="../beans/index.html">JavaBeans</a><br>
+<a href="../servlets/index.html">Servlets</a><br>
+<a href="../links.html">Resources<br>
+</a><a href="../javatalk/index.html">Discuss Java</a></font></p>
+<hr color="#000080">
+
+<p><a href="http://www.milehighcomics.com/cgi-bin/welcome.cgi?wdreil">
+<img src="../advertising/milehigh/school.jpg" width="100" height="200"></a></p>
+
+<p><font size="2">
+Looking for Java resources? Check out the <a href="../directory/index.html">Java
+Coffee Break directory</a>!</font></p>
+
+
+
+<!--webbot bot="Include" endspan i-checksum="60686" --></td>
+      <td valign="top">
+        <h1 align="center">Top Ten Errors Java Programmers Make</h1>
+        <h3 align="center">(How to spot them. How to fix/prevent them.)</h3>
+        <p align="center">By David Reilly</p>
+        <p>Whether you program regularly in Java, and know it like the back of
+        your hand, or whether you're new to the language or a casual programmer,
+        you'll make mistakes. It's natural, it's human, and guess what? You'll
+        more than likely make the same mistakes that others do, over and over
+        again. Here's my top ten list of errors that we all seem to make at one
+        time or another,&nbsp; how to spot them, and how to fix them.</p>
+        <h3>10. Accessing non-static member variables from static methods (such
+        as main)</h3>
+        <p>Many programmers, particularly when first introduced to Java, have
+        problems with accessing member variables from their <em>main</em>
+        method. The method signature for main is marked static - meaning that we
+        don't need to create an instance of the class to invoke the main method.
+        For example, a Java Virtual Machine (JVM) could call the class
+        MyApplication like this :-</p>
+        <blockquote>
+          <p>MyApplication.main ( command_line_args );</p>
+        </blockquote>
+        <p>This means, however, that there isn't an instance of MyApplication -
+        it doesn't have any member variables to access! Take for example the
+        following application, which will generate a compiler error message.</p>
+        <pre>public class StaticDemo
+{
+        public String my_member_variable = &quot;somedata&quot;;</pre>
+        <pre>        public static void main (String args[])
+        {
+		// Access a non-static member from static method
+                System.out.println (&quot;This generates a compiler error&quot; +
+			my_member_variable );
+        }
+}</pre>
+        <p>If you want to access its member variables from a non-static method
+        (like <em>main</em>), you must create an instance of the object. Here's
+        a simple example of how to correctly write code to access non-static
+        member variables, by first creating an instance of the object.</p>
+        <pre>public class NonStaticDemo
+{
+        public String my_member_variable = &quot;somedata&quot;;
+
+        public static void main (String args[])
+        {
+                NonStaticDemo demo = new NonStaticDemo();
+
+		// Access member variable of demo
+                System.out.println (&quot;This WON'T generate an error&quot; +
+                        demo.my_member_variable );
+        }
+}</pre>
+        <h3>9. Mistyping the name of a method when overriding</h3>
+        <p>Overriding allows programmers to replace a method's implementation
+        with new code. Overriding is a handy feature, and most OO programmers
+        make heavy use of it. If you use the AWT 1.1 event handling model,
+        you'll often override listener implementations to provide custom
+        functionality. One easy trap to fall into with overriding, is to mistype
+        the method name. If you mistype the name, you're no longer overriding a
+        method - you're creating an entirely new method, but with the same
+        parameter and return type.</p>
+        <pre>public class MyWindowListener extends WindowAdapter {
+	// This should be WindowClose<strong>d</strong>
+	public void WindowClose(WindowEvent e) {
+		// Exit when user closes window
+		System.exit(0);
+	}
+});
+</pre>
+        <p>Compilers won't pick up on this one, and the problem can be quite
+        frustrating to detect. In the past, I've looked at a method, believed
+        that it was being called, and taken ages to spot the problem. The
+        symptom of this error will be that your code isn't being called, or you
+        think the method has skipped over its code. The only way to ever be
+        certain is to add a println statement, to record a message in a log
+        file, or to use good trace debugger (like Visual J++ or Borland
+        JBuilder) and step through line by line. If your method still isn't
+        being called, then it's likely you've mistyped the name.</p>
+        <h3>8. Comparison assignment (&nbsp; = rather than == )</h3>
+        <p>This is an easy error to make. If you're used other languages before,
+        such as Pascal, you'll realize just how poor a choice this was by the
+        language's designers. In Pascal, for example, we use the := operator for
+        assignment, and leave = for comparison. This looks like a throwback to
+        C/C++, from which Java draws its roots.</p>
+        <p>Fortunately, even if you don't spot this one by looking at code on
+        the screen, your compiler will. Most commonly, it will report an error
+        message like this : &quot;Can't convert xxx to boolean&quot;, where xxx
+        is a Java type that you're assigning instead of comparing.</p>
+        <h3>7. Comparing two objects ( == instead of .equals)</h3>
+        <p>When we use the == operator, we are actually comparing two object
+        references, to see if they point to the same object. We cannot compare,
+        for example, two strings for equality, using the == operator. We must
+        instead use the .equals method, which is a method inherited by all
+        classes from java.lang.Object.</p>
+        <p>Here's the correct way to compare two strings.</p>
+        <pre>String abc = &quot;abc&quot;; String def = &quot;def&quot;;
+
+// Bad way
+if ( (abc + def) == &quot;abcdef&quot; )
+{
+&nbsp;&nbsp;&nbsp; ......
+}</pre>
+        <pre>// Good way
+if ( (abc + def).equals(&quot;abcdef&quot;) )
+{
+&nbsp;&nbsp; .....
+}</pre>
+        <h3>6. Confusion over passing by value, and passing by reference</h3>
+        <p>This can be a frustrating problem to diagnose, because when you look
+        at the code, you might be sure that its passing by reference, but find
+        that its actually being passed by value. Java uses <strong>both</strong>,
+        so you need to understand when you're passing by value, and when you're
+        passing by reference.</p>
+        <p>When you pass a primitive data type, such as a char, int, float, or
+        double, to a function then you are <strong>passing by value</strong>.
+        That means that a copy of the data type is duplicated, and passed to the
+        function. If the function chooses to modify that value, it will be
+        modifying the copy only. Once the function finishes, and control is
+        returned to the returning function, the &quot;real&quot; variable will
+        be untouched, and no changes will have been saved. If you need to modify
+        a primitive data type, make it a return value for a function, or wrap it
+        inside an object.</p>
+        <p>When you pass a Java object, such as an array, a vector, or a string,
+        to a function then you are <strong>passing by reference</strong>. Yes -
+        a String is actually an object, not a primitive data type.&nbsp; So that
+        means that if you pass an object to a function, you are passing a
+        reference to it, not a duplicate. Any changes you make to the object's
+        member variables will be permanent - which can be either good or bad,
+        depending on whether this was what you intended.</p>
+        <p>On a side note, since String contains no methods to modify its
+        contents, you might as well be passing by value.</p>
+        <h3>5. Writing blank exception handlers</h3>
+        <p>I know it's very tempting to write blank exception handlers, and to
+        just ignore errors. But if you run into problems, and haven't written
+        any error messages, it becomes almost impossible to find out the cause
+        of the error. Even the simplest exception handler can be of benefit. For
+        example, put a try { .. } catch Exception around your code, to catch ANY
+        type of exception, and print out the message. You don't need to write a
+        custom handler for every exception (though this is still good
+        programming practice). Don't ever leave it blank, or you won't know
+        what's happening.</p>
+        <p>For example</p>
+        <pre>public static void main(String args[])
+{
+&nbsp;&nbsp;&nbsp; try {
+	// Your code goes here..
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; catch (Exception e)
+&nbsp;&nbsp;&nbsp; {
+	System.out.println (&quot;Err - &quot; + e );
+&nbsp;&nbsp;&nbsp; }
+}</pre>
+        <h3>4. Forgetting that Java is zero-indexed</h3>
+        <p>If you've come from a C/C++ background, you may not find this quite
+        as much a problem as those who have used other languages. In Java,
+        arrays are zero-indexed, meaning that the first element's index is
+        actually 0. Confused? Let's look at a quick example.</p>
+        <pre>// Create an array of three strings
+String[] strArray = new String[3];
+
+// First element's index is actually 0
+strArray[0] = &quot;First string&quot;;
+
+// Second element's index is actually 1
+strArray[1] = &quot;Second string&quot;;
+
+// Final element's index is actually 2
+strArray[2] = &quot;Third and final string&quot;;</pre>
+        <p>In this example, we have an array of three strings, but to access
+        elements of the array we actually subtract one. Now, if we were to try
+        and access strArray[3], we'd be accessing the fourth element. This will
+        case an ArrayOutOfBoundsException to be thrown - the most obvious sign
+        of forgetting the zero-indexing rule.</p>
+        <p>Other areas where zero-indexing can get you into trouble is with
+        strings. Suppose you wanted to get a character at a particular offset
+        within a string. Using the String.charAt(int) function you can look this
+        information up - but under Java, the String class is also zero-indexed.
+        That means than the first character is at offset 0, and second at offset
+        1. You can run into some very frustrating problems unless you are aware
+        of this - particularly if you write applications with heavy string
+        processing. You can be working on the wrong character, and also throw
+        exceptions at run-time. Just like the ArrayOutOfBoundsException, there
+        is a string equivalent. Accessing beyond the bounds of a String will
+        cause a StringIndexOutOfBoundsException to be thrown, as demonstrated by
+        this example.</p>
+        <pre>public class StrDemo
+{
+ public static void main (String args[])
+ {
+        String abc = &quot;abc&quot;;
+
+        System.out.println (&quot;Char at offset 0 : &quot; + abc.charAt(0) );
+        System.out.println (&quot;Char at offset 1 : &quot; + abc.charAt(1) );
+        System.out.println (&quot;Char at offset 2 : &quot; + abc.charAt(2) );
+
+	// This line should throw a StringIndexOutOfBoundsException
+        System.out.println (&quot;Char at offset 3 : &quot; + abc.charAt(3) );
+ }
+}</pre>
+        <p>Note too, that zero-indexing doesn't just apply to arrays, or to
+        Strings. Other parts of Java are also indexed, but not always
+        consistently. The java.util.Date, and java.util.Calendar classes start
+        their months with 0, but days start normally with 1. This problem is
+        demonstrated by the following application.</p>
+        <pre>import java.util.Date;
+import java.util.Calendar;
+
+public class ZeroIndexedDate
+{
+        public static void main (String args[])
+        {
+                // Get today's date
+                Date today = new Date();
+	
+		// Print return value of getMonth
+		System.out.println (&quot;Date.getMonth() returns : &quot; +
+			 today.getMonth());
+
+		// Get today's date using a Calendar
+		Calendar rightNow = Calendar.getInstance();
+
+		// Print return value of get ( Calendar.MONTH )
+		System.out.println (&quot;Calendar.get (month) returns : &quot; +
+			rightNow.get ( Calendar.MONTH ));</pre>
+        <pre>        }
+}</pre>
+        <p>Zero-indexing is only a problem if you don't realize that its
+        occurring. If you think you're running into a problem, always consult
+        your API documentation.</p>
+        <h3>3. Preventing concurrent access to shared variables by threads</h3>
+        <p>When writing multi-threaded applications, many programmers (myself
+        included) often cut corners, and leave their applications and applets
+        vulnerable to thread conflicts. When two or more threads access the same
+        data concurrently, there exists the possibility (and Murphy's law
+        holding, the probability) that two threads will access or modify the
+        same data at the same time. Don't be fooled into thinking that such
+        problems won't occur on single-threaded processors. While accessing some
+        data (performing a read), your thread may be suspended, and another
+        thread scheduled. It writes its data, which is then overwritten when the
+        first thread makes its changes.</p>
+        <p>Such problems are not just limited to multi-threaded applications or
+        applets. If you write Java APIs, or JavaBeans, then your code may not be
+        thread-safe. Even if you never write a single application that uses
+        threads, people that use your code WILL. For the sanity of others, if
+        not yourself, you should always take precautions to prevent concurrent
+        access to shared data.</p>
+        <p>How can this problem be solved? The simplest method is to make your
+        variables private (but you do that already,&nbsp; right?) and to use
+        synchronized accessor methods. Accessor methods allow access to private
+        member variables, but in a controlled manner. Take the following
+        accessor methods, which provide a safe way to change the value of a
+        counter.</p>
+        <pre>public class MyCounter
+{
+	private int count = 0; // count starts at zero
+
+	public synchronized void setCount(int amount)
+	{ 
+		count = amount;
+	}
+	
+	public synchronized int getCount()
+	{
+		return count;
+	}
+}</pre>
+        <h3>2. Capitalization errors</h3>
+        <p>This is one of the most frequent errors that we all make. It's so
+        simple to do, and sometimes one can look at an uncapitalized variable or
+        method and still not spot the problem. I myself have often been puzzled
+        by these errors, because I recognize that the method or variable does
+        exist, but don't spot the lack of capitalization.</p>
+        <p>While there's no silver bullet for detecting this error, you can
+        easily train yourself to make less of them. There's a very simple trick
+        you can learn :-
+        <ul>
+          <li>all methods and member variables in the Java API begin with
+            lowercase letters</li>
+          <li>all methods and member variables use capitalization where a new
+            word begins e.g - getDoubleValue()</li>
+        </ul>
+        <p>If you use this pattern for all of your member variables and classes,
+        and then make a conscious effort to get it right, you can gradually
+        reduce the number of mistakes you'll make. It may take a while, but it
+        can save some serious head scratching in the future.</p>
+        <h2 align="center">(drum roll)</h2>
+        <h2 align="center">And the number one error that Java programmers make
+        !!!!!</h2>
+        <p>&nbsp;</p>
+        <h1 align="center">1. Null pointers!</h1>
+        <p>Null pointers are one of the most common errors that Java programmers
+        make. Compilers can't check this one for you - it will only surface at
+        runtime, and if you don't discover it, your users certainly will.</p>
+        <p>When an attempt to access an object is made, and the reference to
+        that object is null, a NullPointerException will be thrown. The cause of
+        null pointers can be varied, but generally it means that either you
+        haven't initialized an object, or you haven't checked the return value
+        of a function.</p>
+        <p>Many functions return null to indicate an error condition - but
+        unless you check your return values, you'll never know what's happening.
+        Since the cause is an error condition, normal testing may not pick it up
+        - which means that your users will end up discovering the problem for
+        you. If the API function indicates that null may be returned, be sure to
+        check this before using the object reference!</p>
+        <p>Another cause is where your initialization has been sloppy, or where
+        it is conditional. For example, examine the following code, and see if
+        you can spot the problem.</p>
+        <pre>public static void main(String args[])
+{
+	// Accept up to 3 parameters
+	String[] list = new String[3];
+
+	int index = 0;
+
+	while ( (index &lt; args.length) &amp;&amp; ( index &lt; 3 ) )
+	{
+		list[index++] = args[index];
+	}
+
+	// Check all the parameters 
+	for (int i = 0; i &lt; list.length; i++)
+	{
+		if (list[i].equals &quot;-help&quot;)
+		{
+			// .........
+		}
+		else
+		if (list[i].equals &quot;-cp&quot;)
+		{
+			// .........
+		}
+		// else .....
+	}	
+}</pre>
+        <p>This code (while a contrived example), shows a common mistake. Under
+        some circumstances, where the user enters three or more parameters, the
+        code will run fine. If no parameters are entered, you'll get a
+        NullPointerException at runtime. Sometimes your variables (the array of
+        strings) will be initialized, and other times they won't. One easy
+        solution is to check BEFORE you attempt to access a variable in an array
+        that it is not equal to null.</p>
+        <h3>Summary</h3>
+        <p>These errors represent but some of the many that we all make. Though
+        it is impossible to completely eliminate errors from the coding process,
+        with care and practice you can avoid repeating the same ones. Rest
+        assured, however, that all Java programmers encounter the same sorts of
+        problems. It's comforting to know, that while you work late into the
+        night tracking down an error, someone, somewhere, sometime, will make
+        the same mistake!</p>
+        <div align="center">
+          <center>
+          <table border="0" width="80%">
+            <tr>
+              <td width="100%" bgcolor="#EAF8FF">We'd like to thank the readers
+                of the comp.lang.java.programmer newsgroup for their suggestions
+                for the top ten. Regrettably, due to the number of submissions,
+                not every error could be featured - but we think this &quot;Top
+                Ten&quot; list represents the most popular and frequent errors
+                people make.</td>
+            </tr>
+          </table>
+          </center>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><!--webbot bot="Include"
+        u-include="../_private/footer.html" tag="BODY" startspan -->
+
+<p align="center"><a href="../index.html">Back to main</a></p>
+
+<hr>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td width="451">
+      <div align="left">
+        <address>
+          <font face="Arial" size="2">Copyright 1998, 1999, 2000 David Reilly</font>
+        </address>
+      </div>
+    </td>
+    <td width="310">
+      <p align="right"><font face="Arial" size="2"><a href="../legal/privacy.html">Privacy</a>
+      | <a href="../legal/index.html">Legal</a> | <a href="../legal/linking.html">Linking</a>
+      | <a href="../advertising/index.html" style="color: #FF9966">Advertise!</a></font></td>
+  </tr>
+  <tr>
+    <td width="451">
+      <div align="left">
+        <address>
+          <font face="Arial" size="2">Last updated: 
+          Monday, June 05, 2006</font>
+        </address>
+      </div>
+    </td>
+    <td width="310"></td>
+  </tr>
+</table>
+<!--webbot bot="Include" endspan i-checksum="52576" --></td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>

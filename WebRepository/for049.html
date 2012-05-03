@@ -1,0 +1,1783 @@
+<HTML>
+<HEAD>
+
+<TITLE>
+Enterprise Java for Linux HOWTO
+</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+
+<HR>
+<H1>Enterprise Java for Linux HOWTO</H1>
+
+<H2>Greg Wilkins <CODE>gregw@mortbay.org
+<A NAME="sec: author"></A> </CODE> original by Gary Meyer <CODE>gary@meyer.net</CODE></H2>v0.2, 2001-11-07
+<P><HR>
+<EM>How to set up an Enterprise Java environment on Linux including a Java
+ Development Kit, a Web server, supporting Java servlets, accessing a database
+ via JDBC, and supporting Enterprise Java Beans (EJBs). </EM>
+<HR>
+<P>
+<H2><A NAME="toc1">1.</A> <A HREF="#s1">Introduction</A></H2>
+
+<UL>
+<LI><A HREF="#ss1.1">1.1 Background</A>
+<LI><A HREF="#ss1.2">1.2 Audience</A>
+<LI><A HREF="#ss1.3">1.3 New Versions </A>
+<LI><A HREF="#ss1.4">1.4 Copyright and License </A>
+<LI><A HREF="#ss1.5">1.5 Disclaimers</A>
+<LI><A HREF="#ss1.6">1.6 Potential Future Sections </A>
+<LI><A HREF="#ss1.7">1.7 Other Resources</A>
+<LI><A HREF="#ss1.8">1.8 Feedback </A>
+</UL>
+<P>
+<H2><A NAME="toc2">2.</A> <A HREF="#s2">How to Setup the Java Development Kit </A></H2>
+
+<UL>
+<LI><A HREF="#ss2.1">2.1 Blackdown JDK </A>
+<LI><A HREF="#ss2.2">2.2 IBM Java Developer Kit </A>
+<LI><A HREF="#ss2.3">2.3 Kaffe</A>
+<LI><A HREF="#ss2.4">2.4 Sun J2SE </A>
+</UL>
+<P>
+<H2><A NAME="toc3">3.</A> <A HREF="#s3">How to Setup the Web Server </A></H2>
+
+<UL>
+<LI><A HREF="#ss3.1">3.1 Apache </A>
+<LI><A HREF="#ss3.2">3.2 IBM Domino </A>
+<LI><A HREF="#ss3.3">3.3 IBM HTTP Server </A>
+<LI><A HREF="#ss3.4">3.4 Jetty HTTP Server and Servlet Container </A>
+</UL>
+<P>
+<H2><A NAME="toc4">4.</A> <A HREF="#s4">How to Setup Java Servlet Support </A></H2>
+
+<UL>
+<LI><A HREF="#ss4.1">4.1 Allaire JRun</A>
+<LI><A HREF="#ss4.2">4.2 Apache Tomcat </A>
+<LI><A HREF="#ss4.3">4.3 BEA WebLogic </A>
+<LI><A HREF="#ss4.4">4.4 Enhydra</A>
+<LI><A HREF="#ss4.5">4.5 IBM WebSphere </A>
+<LI><A HREF="#ss4.6">4.6 Locomotive</A>
+<LI><A HREF="#ss4.7">4.7 Jetty</A>
+</UL>
+<P>
+<H2><A NAME="toc5">5.</A> <A HREF="#s5">How to Setup Java Server Pages (JSP) Support</A></H2>
+
+<UL>
+<LI><A HREF="#ss5.1">5.1 Apache Jakarta</A>
+<LI><A HREF="#ss5.2">5.2 Caucho Resin</A>
+<LI><A HREF="#ss5.3">5.3 Jetty</A>
+</UL>
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="#s6">How to Setup JDBC Support </A></H2>
+
+<UL>
+<LI><A HREF="#ss6.1">6.1 IBM DB2 </A>
+<LI><A HREF="#ss6.2">6.2 MiniSQL </A>
+<LI><A HREF="#ss6.3">6.3 MySQL </A>
+<LI><A HREF="#ss6.4">6.4 Oracle </A>
+<LI><A HREF="#ss6.5">6.5 PostgreSQL </A>
+<LI><A HREF="#ss6.6">6.6 Sybase </A>
+</UL>
+<P>
+<H2><A NAME="toc7">7.</A> <A HREF="#s7">How to Setup Enterprise Java Bean (EJB) Support </A></H2>
+
+<UL>
+<LI><A HREF="#ss7.1">7.1 BEA WebLogic </A>
+<LI><A HREF="#ss7.2">7.2 EJBoss</A>
+<LI><A HREF="#ss7.3">7.3 Bullsoft JOnAS EJB </A>
+</UL>
+<HR>
+<H2><A NAME="sec: intro"></A> <A NAME="s1">1.</A> <A HREF="#toc1">Introduction</A></H2>
+
+<P>
+<P>
+<H2><A NAME="ss1.1">1.1 Background</A>
+</H2>
+
+<P>This document was started January, 1999 by Gary Meyer (
+<A HREF="mailto:gary@meyer.net">gary@meyer.net</A>) after several weeks
+of installing various open source and proprietary Enterprise Java products
+for Linux.  "Enterprise Java" is defined as using the Java Enterprise APIs.
+<P>Some updates were added by Greg Wilkins 
+(
+<A HREF="mailto:gregw@mortbay.org">gregw@mortbay.org</A>) in November
+2001 however parts of the document are still out of date.
+<P>
+<H2><A NAME="ss1.2">1.2 Audience</A>
+</H2>
+
+<P>This HOWTO is intended to benefit software professionals who are
+interested in evaluating, developing, or deploying Enterprise Java on
+Linux.  Limited knowledge or experience in either Linux or Java is
+assumed.
+<P>
+<H2><A NAME="ss1.3">1.3 New Versions </A>
+</H2>
+
+<P>The newest version of this document can be found at the Linux Documentation
+Project website at:
+<A HREF="http://linuxdoc.org/HOWTO/Enterprise-Java-for-Linux-HOWTO.html">http://linuxdoc.org/HOWTO/Enterprise-Java-for-Linux-HOWTO.html</A><P>
+<P>
+<H2><A NAME="ss1.4">1.4 Copyright and License </A>
+</H2>
+
+<P>This document is Copyright (c) 1999-2001 by Gary Meyer and Greg
+Wilkins.  Permission is granted to copy, distribute and/or modify
+this document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections, with no Front-Cover Texts,
+and with no Back-Cover Texts. A copy of the license is available at
+<A HREF="http://www.gnu.org/copyleft/fdl.html">http://www.gnu.org/copyleft/fdl.html</A><P>
+<H2><A NAME="ss1.5">1.5 Disclaimers</A>
+</H2>
+
+<P>
+<P>The suggestions in this document are provided to help you get a Enterprise
+Java environment on Linux up and running as quickly as possible.  The suggestions
+are not product  recommendations or endorsements.  As you become familiar with
+the options available, you can do you own product evaluations and determine
+what options are best for your particular purpose. 
+<P>For the purpose of this HOWTO, "Enterprise Java" is defined as using
+the Java Enterprise APIs. This HOWTO does not address scalability, availability,
+manageability, and other such aspects of software that are often associated
+with the word "enterprise."
+<H2><A NAME="ss1.6">1.6 Potential Future Sections </A>
+</H2>
+
+<P>
+<P>This HOW has focused on the most popular aspects of Enterprise Java. The
+following sections may be added to this HOWTO. 
+<UL>
+<LI>Integrated Development Environments (IDEs) that Support Enterprise Java
+for Linux </LI>
+<LI>Java Naming and Directory Interface (JNDI) Support </LI>
+<LI>Java Mail API (JMAPI) Support </LI>
+<LI>Java Transaction Service (JTS) Support </LI>
+<LI>Java Interface Definition Language (JIDL) Support </LI>
+<LI>Java Messaging Service (JMS) Support </LI>
+<LI>Common Object Request Broker Architecture (CORBA) Support </LI>
+</UL>
+<P>Interested in authoring a section? 
+<P>Please contact the author, Gary Meyer, at (
+<A HREF="mailto:gary@meyer.net">gary@meyer.net</A>). 
+<H2><A NAME="ss1.7">1.7 Other Resources</A>
+</H2>
+
+<P>
+<P>The App-Serv Center website at 
+<A HREF="http://www.app-serv.com/">http://www.app-serv.com/</A>.
+<P>Java Enterprise in a Nutshell by David Flanagan et al at 
+<A HREF="http://www.oreilly.com/catalog/jentnut/">http://www.oreilly.com/catalog/jentnut/</A>.
+<H2><A NAME="ss1.8">1.8 Feedback </A>
+</H2>
+
+<P>
+<P>Please submit all additions and corrections to the author, Gary Meyer,
+at (
+<A HREF="mailto:gary@meyer.net">gary@meyer.net</A>). 
+<HR>
+<H2><A NAME="sec: jdk"></A> <A NAME="s2">2.</A> <A HREF="#toc2">How to Setup the Java Development Kit </A></H2>
+
+<P>
+<P>There are several Java Development Kits available for Linux.  These include:
+<P>
+<UL>
+<LI>
+<A HREF="#sec: blackdown">Blackdown JDK</A></LI>
+<LI>
+<A HREF="#sec: ibmjdk">IBM Java Developer Kit </A></LI>
+<LI>
+<A HREF="#sec: j2se">Sun J2SE </A></LI>
+<LI>
+<A HREF="#sec: kaffe">Kaffe </A></LI>
+</UL>
+<P>If you are going to try just one JDK, I suggest you initially try the Sun
+J2SE, unless you are recommended otherwise by specific software you are using
+or want to use. Additionally, if you are interested in an open source implementation,
+you will need to use Kaffe.
+<H2><A NAME="sec: blackdown"></A> <A NAME="ss2.1">2.1 Blackdown JDK </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>
+<P>The Blackdown JDK is a port of Sun JDK to Linux.  As of the time of this
+writing, the Blackdown JDK is current with JDK 1.2.2 on the Intel architecture
+and 1.1.8 on the PowerPC. 
+<P>In December 1999, Sun announced availability of the Java 2 Platform, Standard
+Endition (J2SE) on Linux.  This Sun release has significant impact on Blackdown
+because Blackdown is a port. In a press release, Sun states, &quot;This week's
+announcement would not have been possible without the  collaboration of Blackdown,
+a group of developers and enthusiasts around the globe.  Since its inception,
+Blackdown has been a provider of Java technology for the Linux platform.  Their
+dedicated effort over a number of years has laid the foundation for this release
+of the Java 2 platform port to Linux; in particular their effort was critical
+to the success of this release.&quot; 
+<P>Additionally, the Sun press release continues, &quot;Blackdown.org continues
+to be a valuable source for Java technology for Linux, including JDK 1.1.x
+releases.&quot; 
+<H3>Download </H3>
+
+<P>
+<P>The Blackdown JDK can be obtained from 
+<A HREF="http://www.blackdown.org">http://www.blackdown.org</A>. 
+<P>>From the Blackdown home page, select download and a mirror site. 
+<P>Select the version of the JDK you want.  If other software that you are
+wanting to use does not recommend a specific version, I suggest the most current,
+which is at the time of this writing, JDK 1.2.2. 
+<P>Select the machine architecture you are installing on.  For Intel architecture,
+select i386. 
+<P>Select the release candidate you want.  If other software that you are
+wanting to use does not recommend a specific release candidate, I suggest the
+most recent or final version if available. 
+<P>For the Blackdown JDK, there are possibly a number of different files available
+in different packaging formats.  Additionally you have to be sure you get support
+for the right libc for your Linux distribution. 
+<P>The files available include: 
+<UL>
+<LI><EM>jdk</EM> - The Java Development Kit contains everything you need to compile,
+run, and debug Java.  It does not contain international character converters.
+ </LI>
+<LI><EM>jre</EM> - The Java Runtime Environment, including international character converters.
+ </LI>
+<LI><EM>rt</EM> - A minimal Java Runtime Environment that does not include  international
+character converters. </LI>
+<LI><EM>i18n</EM> - The internationalization font mappings and a JAR containing the
+international character converters. </LI>
+<LI><EM>native</EM> - Additional binaries providing native thread support. </LI>
+</UL>
+<P>I suggest downloading only the jdk for Java development in English.
+<P>When downloading the Blackdown files, you may need to select between libc5
+and glibc as well as potentially a specific version of glibc. The libc options
+include: 
+<UL>
+<LI>libc5 - The older, and still most common, Linux libc is libc5. </LI>
+<LI>glibc - The new Linux libc. </LI>
+</UL>
+<P>If you are using a newer distribution of Linux, you will most likely have
+glibc. I suggest initially trying glibc.
+<H3>Installation </H3>
+
+<P>
+<P>I suggest installing files in the /usr/local directory. After downloading
+the files, run: 
+<PRE>
+mkdir /usr/local/blackdown
+mv jdk* /usr/local/blackdown
+</PRE>
+<P>If you downloaded the tarball format, run: 
+<PRE>
+tar zxvf [filename].tar.gz
+</PRE>
+<P>Where [filename] is the name of the file. 
+<P>Under the /usr/local/blackdown directory, you now should see a directory
+such as jdk1.2.2. 
+<P>The above example shows JDK 1.2.2 release candidate 3 for the Intel architecture.
+Substitute the file name, version number, release candidate number, and architecture
+as appropriate.  You will need to open each distribution package file in the
+above manner. 
+<H3>Setting up Your Environment </H3>
+
+<P>
+<P>The environment variables to set up are: 
+<UL>
+<LI>JAVA_HOME</LI>
+<LI>PATH</LI>
+<LI>CLASSPATH</LI>
+</UL>
+<P>The JAVA_HOME environment variable references the home directory of your
+JDK installation.  Set your JAVA_HOME environment variable to the directory
+into which you just installed a version of the Blackdown JDK. 
+<PRE>
+export JAVA_HOME=/usr/local/blackdown/jdk1.2.2
+</PRE>
+<P>The $JAVA_HOME/bin directory has the Java compiler (javac) and the
+Java Virtual Machine (java) as well as other necessary programs for development.
+Add $JAVA_HOME/bin to your PATH. 
+<PRE>
+export PATH=$JAVA_HOME/bin:$PATH
+</PRE>
+<P>Note that $JAVA_HOME/bin was added to the front of the PATH so that
+the installed JDK will be used rather than any JDK that might have come with
+your Linux distribution. 
+<P>To confirm that your PATH is correctly set up, check which Java compiler
+and JVM will be used. 
+<PRE>
+which javac
+which java
+</PRE>
+<P>The output should reference javac and java in your $JAVA_HOME/bin
+directory. 
+<P>The CLASSPATH environment variable references all JARs and directories
+that you will need to compile and run Java programs. 
+<P>For JDK 1.2.2, you don't need to initially add any JARs to your CLASSPATH.
+JARs can be packaged in either .jar or .zip files. 
+<PRE>
+export CLASSPATH=$CLASSPATH:.
+</PRE>
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>You are now ready to compile and run a simple application.  Create the
+following program. 
+<PRE>
+class HelloWorld {
+  public static void main (String[] args) {
+    System.out.println(&quot;Hello, World!&quot;);
+  }
+}
+</PRE>
+<P>Compile the program with the Java compiler. 
+<PRE>
+javac HelloWorld.java
+</PRE>
+<P>If the compiler produces errors, double check the syntax and confirm your
+PATH and CLASSPATH. 
+<P>Run the program with the JVM. 
+<PRE>
+java HelloWorld
+</PRE>
+<P>If the JVM produces errors, confirm your PATH and CLASSPATH. 
+<P>You should see the following output: 
+<PRE>
+Hello, World!
+</PRE>
+<P>Congratulations, you have installed, set up an environment for, and tested
+the Blackdown JDK on Linux. 
+<H3>More Information </H3>
+
+<P>
+<P>For more information on the Blackdown JDK, see the Blackdown website at
+<A HREF="http://www.blackdown.org">http://www.blackdown.org</A>. 
+There is an excellent FAQ available. 
+<H2><A NAME="sec: ibmjdk"></A> <A NAME="ss2.2">2.2 IBM Java Developer Kit </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>
+<P>The IBM Java Developer Kit and Runtime Environment pass Sun's Java compatibility
+test and include the latest maintenance.  (From the IBM website.)
+<P>As of the time of this writing, the IBM Java Developer Kit is current with
+JDK 1.1.8 and is available only on the Intel architecture. 
+<H3>Download </H3>
+
+<P>
+<P>The IBM Java Developer Kit can be obtained from 
+<A HREF="http://www.ibm.com/java/jdk/118/linux">http://www.ibm.com/java/jdk/118/linux</A>.
+<P>
+<P>In order to download, you will have to register with the IBM website and
+agree to the license online. 
+<P>The files available include: 
+<UL>
+<LI><EM>ibm-jdk-l118-linux-x86.tgz</EM> - The Java Development Kit contains everything
+you need to compile, run, and debug Java. </LI>
+<LI><EM>ibm-jre-l118-linux-x86.tgz</EM> - The Java Runtime Environment contains everything
+you need to run Java. </LI>
+</UL>
+<P>Since you will be doing Java development, I suggest downloading the ibm-jdk
+tarball file. 
+<H3>Installation </H3>
+
+<P>
+<P>I suggest installing files in the /usr/local directory. After downloading
+the files, run: 
+<PRE>
+mkdir /usr/local/ibm
+mv ibm-jdk-l118-linux-x86.tgz /usr/local/ibm
+</PRE>
+<P>You can now open the distribution package.  To do this, type: 
+<PRE>
+tar zxvf ibm-jdk-l118-linux-x86.tgz
+</PRE>
+<P>Under the /usr/local/ibm directory, you now should see  the jdk118 directory.
+<P>
+<P>The above example shows JDK 1.1.8 for the Intel architecture.  Substitute
+the filenames as appropriate. 
+<H3>Setting up Your Environment </H3>
+
+<P>
+<P>The environment variables to set up are: 
+<UL>
+<LI>JAVA_HOME </LI>
+<LI>PATH </LI>
+<LI>CLASSPATH </LI>
+</UL>
+<P>The JAVA_HOME environment variable references the home directory of your
+JDK installation.  Set your JAVA_HOME environment variable to the directory
+into which you just installed a version of the IBM Java Developer Kit. 
+<PRE>
+export JAVA_HOME=/usr/local/ibm/jdk118
+</PRE>
+<P>The $JAVA_HOME/bin directory has the Java compiler (javac) and the
+Java Virtual Machine (java) as well as other necessary programs for development.
+Add $JAVA_HOME/bin to your PATH. 
+<PRE>
+export PATH=$JAVA_HOME/bin:$PATH
+</PRE>
+<P>Note that $JAVA_HOME/bin was added to the front of the PATH so that
+the installed JDK will be used rather than any JDK that might have come with
+your Linux distribution. 
+<P>To confirm that your PATH is correctly set up, check which Java compiler
+and JVM will be used. 
+<PRE>
+which javac
+which java
+</PRE>
+<P>The output should reference javac and java in your $JAVA_HOME/bin
+directory. 
+<P>The CLASSPATH environment variable references all JARs and directories
+that you will need to compile and run Java programs. 
+<P>Initially I suggest adding the following JARs to your CLASSPATH. JARs can
+be packaged in either .jar or .zip files. 
+<P>For instance: 
+<PRE>
+export CLASSPATH=$JAVA_HOME/lib/classes.zip
+export CLASSPATH=$CLASSPATH:.
+</PRE>
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>You are now ready to compile and run a simple application.  Create the
+following program. 
+<PRE>
+class HelloWorld {
+  public static void main (String[] args) {
+    System.out.println(&quot;Hello, World!&quot;);
+  }
+}
+</PRE>
+<P>Compile the program with the Java compiler. 
+<PRE>
+javac HelloWorld.java
+</PRE>
+<P>If the compiler produces errors, double check the syntax and confirm your
+PATH and CLASSPATH. 
+<P>Run the program with the JVM. 
+<PRE>
+java HelloWorld
+</PRE>
+<P>If the JVM produces errors, confirm your PATH and CLASSPATH. 
+<P>You should see the following output: 
+<PRE>
+Hello, World!
+</PRE>
+<P>Congratulations, you have installed, set up an environment for, and tested
+the IBM Java Developer Kit on Linux. 
+<H3>More Information </H3>
+
+<P>
+<P>For more information on the IBM Java Developer Kit, see the IBM Java website
+at 
+<A HREF="http://www.ibm.com/java">http://www.ibm.com/java</A>.
+<P>
+<H2><A NAME="sec: kaffe"></A> <A NAME="ss2.3">2.3 Kaffe</A>
+</H2>
+
+<P>
+<H3>Background</H3>
+
+<P>
+<P>Kaffe is a cleanroom, open source implmentation of a Java Virtual Machine
+and class libraries.  As of the time of this writing, Kaffe &quot;mostly complies
+with JDK 1.1, except for a few missing parts.&quot;  And &quot;parts of it
+are already JDK 1.2 (Java 2) compatible.&quot;  (From the Kaffe website.)
+<P>
+<P>Kaffe may have already been shipped with your Linux distribution because
+of its open source license. 
+<H3>Download and Installation</H3>
+
+<P>
+<P>Rather than downloading from Kaffe, I suggest you initially try the Kaffe
+that most likely came with your Linux distribution. 
+<P>Alternatively, Kaffe can be obtained from 
+<A HREF="http://www.kaffe.org">http://www.kaffe.org</A>. 
+<P>>From the Kaffe home page, select the current release.  At the time of this
+writing, the current release is 1.0.5. The Kaffe version number has no relationship
+to JDK specification version numbers.
+<H3>Setting up Your Environment </H3>
+
+<P>
+<P>The environment variables to set up are: 
+<UL>
+<LI>PATH </LI>
+<LI>CLASSPATH </LI>
+</UL>
+<P>To confirm that your PATH is correctly set up, check which Java compiler
+and JVM will be used. 
+<PRE>
+which javac
+which java
+</PRE>
+<P>The CLASSPATH environment variable references all JARs and directories
+that you will need to compile and run Java programs. 
+<P>Initially I suggest you add the following JARs to your CLASSPATH. JARs
+can be packaged in either .jar or .zip files. 
+<P>For instance: 
+<PRE>
+export CLASSPATH=/usr/local/share/kaffe/Klasses.zip
+export CLASSPATH=$CLASSPATH:.
+</PRE>
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>You are now ready to compile and run a simple application.  Create the
+following program. 
+<PRE>
+class HelloWorld {
+  public static void main (String[] args) {
+    System.out.println(&quot;Hello, World!&quot;);
+  }
+}
+</PRE>
+<P>Compile the program with the Java compiler. 
+<PRE>
+javac HelloWorld.java
+</PRE>
+<P>If the compiler produces errors, double check the syntax and confirm your
+PATH and CLASSPATH. 
+<P>Run the program with the JVM. 
+<PRE>
+java HelloWorld
+</PRE>
+<P>If the JVM produces errors, confirm your PATH and CLASSPATH. 
+<P>You should see the following output: 
+<PRE>
+Hello, World!
+</PRE>
+<P>Congratulations, you have installed, set up an environment for, and tested
+Kaffe on Linux. 
+<H3>More Information </H3>
+
+<P>
+<P>For more information on Kaffe, see the Kaffe website at 
+<A HREF="http://www.kaffe.org">http://www.kaffe.org</A>.  
+<H2><A NAME="sec: j2se"></A> <A NAME="ss2.4">2.4 Sun J2SE </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>
+<P>The Sun Java 2, Standard Edition (J2SE) is Sun's production release of
+the Java 2 Platform for the Linux operating system. As of the time of this
+writing, J2SE is current with JDK 1.2.2 on the Intel architecture. 
+<H3>Download </H3>
+
+<P>
+<P>J2SE can be obtained from 
+<A HREF="http://developer.java.sun.com/developer/earlyAccess/j2sdk122">http://developer.java.sun.com/developer/earlyAccess/j2sdk122</A>.
+<P>
+<P>You will need to register with Sun and agree to the license online before
+downloading. 
+<H3>Installation </H3>
+
+<P>
+<P>I suggest installing files in the /usr/local directory. After downloading
+the files, run: 
+<PRE>
+mkdir /usr/local/sun
+mv jdk1_2_2rc1-linux-i386.tar.gz /usr/local/sun
+</PRE>
+<P>You can now open the distribution package.  To do this, type: 
+<PRE>
+tar zxvf jdk1_2_2rc1-linux-i386.tar.gz
+</PRE>
+<P>Under the /usr/local/sun directory, you now should see  the jdk1.2.2 directory.
+<P>
+<P>The above example shows JDK 1.2.2 release candidate 1 for the Intel architecture.
+Substitute the filenames as appropriate.  
+<H3>Setting up Your Environment </H3>
+
+<P>
+<P>The environment variables to set up are: 
+<UL>
+<LI>JAVA_HOME </LI>
+<LI>PATH </LI>
+<LI>CLASSPATH </LI>
+</UL>
+<P>The JAVA_HOME environment variable references the home directory of your
+JDK installation.  Set your JAVA_HOME environment variable to the directory
+into which you just installed a version of J2SE. 
+<PRE>
+export JAVA_HOME=/usr/local/sun/jdk1.2.2
+</PRE>
+<P>The $JAVA_HOME/bin directory has the Java compiler (javac) and the
+Java Virtual Machine (java) as well as other necessary programs for development.
+Add $JAVA_HOME/bin to your PATH. 
+<PRE>
+export PATH=$JAVA_HOME/bin:$PATH
+</PRE>
+<P>Note that $JAVA_HOME/bin was added to the front of the PATH so that
+the installed JDK will be used rather than any JDK that might have come with
+your Linux distribution. 
+<P>To confirm that your PATH is correctly set up, check which Java compiler
+and JVM will be used. 
+<PRE>
+which javac
+which java
+</PRE>
+<P>The output should reference javac and java in your $JAVA_HOME/bin
+directory. 
+<P>The CLASSPATH environment variable references all JARs and directories
+that you will need to compile and run Java programs. 
+<P>For JDK 1.2.2, you don't need to initially add any JARs to your CLASSPATH.
+JARs can be packaged in either .jar or .zip files. 
+<PRE>
+export CLASSPATH=$CLASSPATH:.
+</PRE>
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>You are now ready to compile and run a simple application.  Create the
+following program. 
+<PRE>
+class HelloWorld {
+  public static void main (String[] args) {
+    System.out.println(&quot;Hello, World!&quot;);
+  }
+}
+</PRE>
+<P>Compile the program with the Java compiler. 
+<PRE>
+javac HelloWorld.java
+</PRE>
+<P>If the compiler produces errors, double check the syntax and confirm your
+PATH and CLASSPATH. 
+<P>Run the program with the JVM. 
+<PRE>
+java HelloWorld
+</PRE>
+<P>If the JVM produces errors, confirm your PATH and CLASSPATH. 
+<P>You should see the following output: 
+<PRE>
+Hello, World!
+</PRE>
+<P>Congratulations, you have installed, set up an environment for, and tested
+the Sun J2SE for Linux. 
+<H3>More Information </H3>
+
+<P>
+<P>For more information on Sun J2SE, see the Sun Java website at 
+<A HREF="http://java.sun.com">http://java.sun.com</A>. There are excellent
+discussion forums available where you might be able to find answers to various
+questions.
+<HR>
+<H2><A NAME="sec: web"></A> <A NAME="s3">3.</A> <A HREF="#toc3">How to Setup the Web Server </A></H2>
+
+<P>
+<P>There are several Web Servers available for Linux.  These include: 
+<UL>
+<LI>
+<A HREF="#sec: apache">Apache </A></LI>
+<LI>
+<A HREF="#sec: domino">IBM Domino </A></LI>
+<LI>
+<A HREF="#sec: ibmhttp">IBM HTTP Server </A></LI>
+<LI>
+<A HREF="#sec: jetty">Jetty HTTP Server</A></LI>
+</UL>
+<P>If you are going to try just one Web Server, I suggest you initially try
+Apache, principally because it comes with most major Linux distributions and
+may already be installed, and perhaps running, on your system. 
+<H2><A NAME="sec: apache"></A> <A NAME="ss3.1">3.1 Apache </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>
+<P>Apache is the most popular HTTP server on the Internet.  It was originally
+based upon the NCSA httpd and has since been completely rewritten.  It is Open
+Source licensed.  (From the Apache website.) 
+<H3>Download, Installation, and Setting up Your Environment </H3>
+
+<P>
+<P>Rather than downloading from Apache, I suggest you initially try the Apache
+that most likely came with your Linux distribution. 
+<P>Alternatively, Apache can be obtained from 
+<A HREF="http://www.apache.org">http://www.apache.org</A>. 
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>To confirm that Apache is installed and running on your computer, open
+your web browser, and enter the URL: &quot;http://127.0.0.1&quot;.  (127.0.0.1
+is the IP address for the localhost.) 
+<P>You should see a web page to the effect of &quot;It Worked!&quot; 
+<P>If it did not work, you can confirm that Apache is installed by typing
+the following on a RedHat Package Manager (RPM)-based Linux distribution. 
+<PRE>
+rpm -q | grep apache
+</PRE>
+<P>To start Apache, type:
+<PRE>
+cd /etc/rc.d/init.d
+./httpd start
+</PRE>
+<P>Note: The httpd script used at boot time may be in a different location
+on other Linux distributions. 
+<P>For more assistance, I suggest you look into the Apache FAQ at 
+<A HREF="http://www.apache.org/docs/misc/FAQ.html">http://www.apache.org/docs/misc/FAQ.html</A>.
+<P>
+<H2><A NAME="sec: domino"></A> <A NAME="ss3.2">3.2 IBM Domino </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www.lotus.com/dominolinux">http://www.lotus.com/dominolinux</A>for
+more information.
+<H2><A NAME="sec: ibmhttp"></A> <A NAME="ss3.3">3.3 IBM HTTP Server </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>
+<P>The IBM HTTP Server is an IBM repackaging of Apache.  You might consider
+using the IBM HTTP Server if you plan on working with IBM WebSphere.
+<P>At the time of this writing, the most recent version is 1.3.6.1. 
+<H3>Download </H3>
+
+<P>
+<P>The IBM HTTP Server can be obtained from 
+<A HREF="http://www-4.ibm.com/software/webservers/httpservers/download.html">http://www-4.ibm.com/software/webservers/httpservers/download.html</A>.
+<P>
+<P>Click on the download link and select 56-bit or 128-bit SSL encryption.
+<P>
+<P>You will need to register with IBM, fill out a marketing survey, and accept
+the license agreement before downloading. The IBM HTTP Server requires glibc
+either version 2.0 or 2.1. glibc is the new Linux libc.  If you have an older
+distribution that is based upon libc5, you will not be able to use the IBM
+HTTP Server. 
+<P>On an RedHat Package Manager (RPM)-based Linux distribution, you can run:
+<P>
+<PRE>
+rpm -qa | grep libc
+</PRE>
+<P>You will see output such as: 
+<PRE>
+glibc-2.1.2-11
+libc-5.3.12-31
+</PRE>
+<P>This will show you which versions of libc5 and glibc you have installed
+on your Linux distribution.  In my above example I have both glibc and libc5
+installed on my system.  glibc is version 2.1, so I would want to download
+the files for glibc2.1. 
+<P>I suggest downloading all of the tar files for the glib version of Linux
+that you have as they are relatively small.  However, minimally you will need
+the server file.  For RedHat 6.0 and distributions derived from  Redhat 6.0
+you will also need the redhat60only.  For glibc2.0 based distributions you
+will also need the libstdc file. 
+<H3>Installation </H3>
+
+<P>
+<P>I suggest installing files in the /usr/local directory. After downloading
+the files, run: 
+<PRE>
+mkdir /usr/local/ibm
+mv HTTPServer.linux.* /usr/local/ibm
+</PRE>
+<P>You can now open the distribution package file or files. 
+<PRE>
+tar xvf [filename].tar
+</PRE>
+<P>Where [filename] is the name of the file. 
+<P>Under the /usr/local/ibm directory, you now should see the directory IHS.
+<P>
+<P>Use the RedHat Package Manager (RPM) to install the rpm files that the
+tar file produced.  If you needed the libstdc file, you will need to install
+that file first.  Then you would install the server RPM file such as: 
+<PRE>
+cd IHS
+rpm -i IBM_HTTP_Server-1.3.6-2.i386.rpm
+</PRE>
+<P>The above example shows version 1.3.6 for the Intel architecture. Substitute
+the filename as appropriate.   
+<P>After installing you can delete the rpm files as they can be easily  recreated
+from the tar files. 
+<H3>Setting up Your Environment </H3>
+
+<P>
+<P>The environment variables to set up are: 
+<UL>
+<LI>PATH</LI>
+</UL>
+<P>The IBM HTTP Server installed itself into /opt/IBMHTTPServer.  You need
+to add its bin directory to your PATH. 
+<PRE>
+export PATH=/opt/IBMHTTPServer/bin:$PATH
+</PRE>
+<P>Note that /opt/IBMHTTPServer/bin was added to the front of the PATH so
+that the installed Web Server will be used rather than any Web Server that
+might have come with your Linux distribution. 
+<P>To confirm that your PATH is correctly set up, check which Apache controller
+will be used.  Type: 
+<PRE>
+which apachectl
+</PRE>
+<P>The output should reference apachectl in the /opt/IBMHTTPServer/bin directory.
+<P>
+<P>Note: because the IBM HTTP Server is based upon Apache, it uses the Apache
+controller to start and stop it.  When you have both the IBM HTTP Server and
+Apache installed on a computer, take particular care to your PATH to make sure
+you are working with the correct server. 
+<P>You may need to modify the IBM HTTP Server configuration file.  The configuration
+file was installed in /opt/IBMHTTPServer/conf/httpd.conf.  The most common
+two entries that need to be changed are the ServerName and the Listen port
+number.  Look for the key words &quot;ServerName&quot; and &quot;Listen&quot;
+in the httpd.conf file.  The ServerName should be set to either your hostname
+or IP address.  If your computer uses DHCP to acquire an IP address, the hostname
+is a better candidate.  However, in order to use your computer's hostname,
+your computer's hostname and IP address must be properly registered in DNS.
+<P>
+<P>Additionally if you are running another Web server on the computer you
+need to assign the IBM HTTP Server to another port so you can run both Web
+servers simultaneously if necessary.   
+<P>The following is an example entry in httpd.conf. 
+<PRE>
+ServerName 192.168.0.4
+Listen 3000
+</PRE>
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>To start the IBM HTTP Server, type the following: 
+<PRE>
+/opt/IBMHTTPServer/bin/apachectl start
+</PRE>
+<P>To confirm that the IBM HTTP Server is installed and running on your computer,
+open your web browser, and enter the URL: &quot;http://192.168.0.4:3000&quot;
+substituting the correct IP address and port number entered into httpd.conf.
+<P>
+<P>You should see a web page to the effect of &quot;Welcome to the IBM HTTP
+Server&quot;. Contratulations, you have installed, set up an environment for,
+and tested the IBM HTTP Server for Linux. 
+<H3>More Information</H3>
+
+<P>
+<P>For more information, I suggest you look into the IBM HTTP Server Support
+page at 
+<A HREF="http://www-4.ibm.com/software/webservers/httpservers/support.html">http://www-4.ibm.com/software/webservers/httpservers/support.html</A>.
+<P>
+<H2><A NAME="sec: jetty"></A> <A NAME="ss3.4">3.4 Jetty HTTP Server and Servlet Container </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>Jetty is an Open Source HTTP Servlet Server written in 100% Java. 
+It is both a full featured HTTP/1.1 server and a Servlet Container. 
+It is designed to be light weight, high performance, embeddable, extensible 
+and flexible, thus making it an ideal platform for serving dynamic HTTP 
+requests from any Java application. 
+<P>Jetty can be used as a stand-alone HTTP server and servlet container or 
+it can be embedded in another java application (eg. the JBoss EJB container 
+is using Jetty as it's prefered server and container solution). 
+<P>As a combined server and servlet container, both these functions run 
+efficiently in a single unix process. Installation and configuration 
+is also simpler as a single application.
+<P>
+<H3>Download</H3>
+
+<P>The Jetty HTTP Server and Servlet container may be downloaded via:
+<P>
+<A HREF="http://jetty.mortbay.org">http://jetty.mortbay.org</A>. 
+<P>Jetty is distributed under the artistic license, full source is included and
+it can be used and distributed commercially.
+<P>
+<H3>Installation </H3>
+
+<P>The package is distributed as a gzipped tar file, which can be
+unpacked with:
+<PRE>
+gunzip &lt; Jetty-x.x.x.tgz | tar xf - 
+</PRE>
+<P>Which will create a Jetty-x.x.x directory where x.x.x is the version 
+number.   
+<P> 
+To run the demo server:
+<PRE>
+export JETTY_HOME=&lt;jetty install directory>
+export JAVA_HOME=&lt;JRE install directory>
+$JETTY_HOME/bin/jetty.sh run 
+</PRE>
+
+Then to see the Jetty demo and tutorial point a browser at 
+<A HREF="http://localhost:8080">http://localhost:8080</A>. 
+<P>Jetty can also be installed and run via JMX or as part of the JBoss
+distributions.  See 
+<A HREF="http://jetty.mortbay.org">http://jetty.mortbay.org</A>
+or the README.TXT file for more details.
+<P>
+<HR>
+<H2><A NAME="sec: servlet"></A> <A NAME="s4">4.</A> <A HREF="#toc4">How to Setup Java Servlet Support </A></H2>
+
+<P>
+<P>There are several Web Server plug-ins and Application Servers available
+for Linux that provide support for Java Servlets.  These include: 
+<UL>
+<LI>
+<A HREF="#sec: jrun">Allaire JRun</A></LI>
+<LI>
+<A HREF="#sec: jserv">Apache Tomcat</A></LI>
+<LI>
+<A HREF="#sec: weblogicservlet">BEA WebLogic</A></LI>
+<LI>
+<A HREF="#sec: enhydra">Enhydra</A></LI>
+<LI>
+<A HREF="#sec: locomotive">Locomotive</A></LI>
+<LI>
+<A HREF="#sec: websphere">IBM Websphere </A></LI>
+<LI>
+<A HREF="#sec: jettyservlet">Jetty</A></LI>
+</UL>
+<P>
+<H2><A NAME="sec: jrun"></A> <A NAME="ss4.1">4.1 Allaire JRun</A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www.allaire.com/products/jrun/">http://www.allaire.com/products/jrun/</A>for
+more information.
+<H2><A NAME="sec: jserv"></A> <A NAME="ss4.2">4.2 Apache Tomcat </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>JServ has been replaced with Tomcat from the Apache Jakarta project: 
+<A HREF="http://jakarta.apache.org/">http://jakarta.apache.org/</A>.
+This section is still written for JServ and needs to be updated.
+<P>Apache JServe is a 100% pure Java servlet engine fully compliant
+with the Java Servlet 2.0 specification.  Apache JServ is part of the Java
+Apache  Project. (From the Apache Java Project website).
+<H3>Download </H3>
+
+<P>
+<P>Apache JServ can be obtained from 
+<A HREF="http://java.apache.org/jserv/index.html">http://java.apache.org/jserv/index.html</A>.
+<P>
+<P>>From the Apache JServ Project home page, follow the Download Apache JServ
+link. 
+<P>Currently RPM distributions are available for RedHat Linux.  For other
+Linux distributions you will have to build from source.  The following  example
+describes how install the RPM for RedHat 6x. 
+<P>As of the time of this writing, the current version is 1.1b3. 
+<H3>Installation </H3>
+
+<P>
+<P>I suggest installing files in the /usr/local directory. After downloading
+the files, run: 
+<PRE>
+mkdir /usr/local/apachejserv  
+mv ApacheJServ*.rpm /usr/local/apachejserv 
+</PRE>
+<P>For RedHat and RedHat-derived distributions, use the RedHat Package Manager
+(RPM) to install the rpm file such as: 
+<PRE>
+rpm -i ApacheJServ-1.1-b2_RH6x.i386.rpm  
+</PRE>
+<P>The above example shows version 1.1-b2 for the RedHat 6x on the Intel architecture.
+<P>
+<H3>Setting up Your Environment </H3>
+
+<P>
+<P>You will need to stop, set your Java environment variables, and restart
+Apache to register Apache JServ. 
+<P>To stop Apache, type: 
+<PRE>
+cd /etc/rc.d/init.d
+./httpd stop
+</PRE>
+<P>Note: The httpd script used at boot time may be in a different location
+on other Linux distributions 
+<P>To set you Java environment, see the How to Install the JDK section of
+this document, specifically for the JDK you intend to use.  You need to set
+several properties in the jserv.properties file installed in /etc/httpd/conf/jserv.
+Specifically, look for: 
+<UL>
+<LI>wrapper.bin - to reference the JDK you installed </LI>
+<LI>wrapper.classpath - to minimally include /usr/lib/apache/ApacheJServ.jar
+and /home/httpd/classes/servlet-2.0.jar </LI>
+<LI>bindaddress=localhost </LI>
+<LI>port=8007 </LI>
+</UL>
+<P>To restart Apache, type: 
+<PRE>
+cd /etc/rc.d/init.d
+./httpd start
+</PRE>
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>To confirm that the Apache JServ is installed and running on your computer,
+open your web browser, and enter the URL: &quot;http://127.0.0.1/servlet/IsItWorking&quot;
+substituting the correct IP address if you are browsing from another machine.
+<P>
+<P>You should see a web page to the effect of &quot;Yes, It's Working!&quot;.
+Contratulations, you have installed, set up an environment for, and tested
+the Apache JServ for Linux. 
+<P>For more assistance, I suggest you look into the Apache JServ website at
+<P>
+<A HREF="http://java.apache.org/jserv/index.html">http://java.apache.org/jserv/index.html</A>.
+<P>
+<P>Now, to compile and run your own servlet.  Enter the following Java servlet
+program. 
+<PRE>
+import java.io.*;  
+import javax.servlet.*; 
+import javax.servlet.http.*; 
+ 
+public class HelloWorldServlet extends HttpServlet { 
+  public void service (HttpServletRequest request, 
+    HttpServletResponse response) throws ServletException, IOException { 
+  } 
+}
+</PRE>
+<H3>More Information</H3>
+
+<P>
+<P>For more information, I suggest you look into the Java Apache Project website
+at 
+<A HREF="http://java.apache.org/">http://java.apache.org/</A>.
+<P>
+<H2><A NAME="sec: weblogicservlet"></A> <A NAME="ss4.3">4.3 BEA WebLogic </A>
+</H2>
+
+<P>
+<P>See 
+<A HREF="#sec: weblogic">BEA WegLogic </A>below.
+<H2><A NAME="sec: enhydra"></A> <A NAME="ss4.4">4.4 Enhydra</A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www.enhydra.org">http://www.enhydra.org</A>for more
+information.
+<H2><A NAME="sec: websphere"></A> <A NAME="ss4.5">4.5 IBM WebSphere </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www-4.ibm.com/software/webservers/appserv/linux.html">http://www-4.ibm.com/software/webservers/appserv/linux.html</A>for
+more information.
+<H2><A NAME="sec: locomotive"></A> <A NAME="ss4.6">4.6 Locomotive</A>
+</H2>
+
+<P>
+<P>To be written.
+<P>See 
+<A HREF="http://www.locomotive.org/">://www.locomotive.org/</A>for
+more information.
+<P>
+<H2><A NAME="sec: jettyservlet"></A> <A NAME="ss4.7">4.7 Jetty</A>
+</H2>
+
+<P>The Jetty HTTP server is a combined server and servlet container.  Installation 
+of the HTTP server (see above) provides servlet support.  More information
+can be obtained via the demo server and tutorial installed with the HTTP server.
+<P>
+<P>
+<HR>
+<H2><A NAME="sec: jsp"></A> <A NAME="s5">5.</A> <A HREF="#toc5">How to Setup Java Server Pages (JSP) Support</A></H2>
+
+<P>
+<P>To be written.
+<H2><A NAME="sec: jakarta"></A> <A NAME="ss5.1">5.1 Apache Jakarta</A>
+</H2>
+
+<P>
+<P>To be written.
+<P>See 
+<A HREF="http://jakarta.apache.com/">://jakarta.apache.com/</A>for
+more information.
+<H2><A NAME="sec: resin"></A> <A NAME="ss5.2">5.2 Caucho Resin</A>
+</H2>
+
+<P>
+<P>To be written.
+<P>See 
+<A HREF="http://www.caucho.com/">://www.caucho.com/</A>for
+more information.
+<P>
+<H2><A NAME="sec: jettyjsp"></A> <A NAME="ss5.3">5.3 Jetty</A>
+</H2>
+
+<P>The Jetty HTTP server comes with the Jasper JSP engine.  Installation 
+of the HTTP server (see 3.4 above) provides JSP support.  More information
+can be obtained via the demo server and tutorial installed with the HTTP server.
+<P>
+<P>
+<HR>
+<H2><A NAME="sec: jdbc"></A> <A NAME="s6">6.</A> <A HREF="#toc6">How to Setup JDBC Support </A></H2>
+
+<P>
+<P>There are several databases that run on Linux that also support a JDBC
+interface.  These include: 
+<UL>
+<LI>
+<A HREF="#sec: db2">IBM DB2 </A></LI>
+<LI>
+<A HREF="#sec: minisql">MiniSQL </A></LI>
+<LI>
+<A HREF="#sec: mysql">MySQL </A></LI>
+<LI>
+<A HREF="#sec: oracle">Oracle </A></LI>
+<LI>
+<A HREF="#sec: postgresql">PostgreSQL </A></LI>
+<LI>
+<A HREF="#sec: sybase">Sybase </A></LI>
+</UL>
+<P>If you are going to try just one DBMS, I suggest you initially try PostgreSQL,
+principally because it comes with most major Linux distributions and may already
+be installed on your system. 
+<H2><A NAME="sec: db2"></A> <A NAME="ss6.1">6.1 IBM DB2 </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www-4.ibm.com/software/data/db2/linux/">http://www-4.ibm.com/software/data/db2/linux/</A>for
+more information.
+<H2><A NAME="sec: minisql"></A> <A NAME="ss6.2">6.2 MiniSQL </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www.hughes.com.au/">http://www.hughes.com.au/</A>for
+more information.
+<H2><A NAME="sec: mysql"></A> <A NAME="ss6.3">6.3 MySQL </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www.mysql.org/">http://www.mysql.org/</A>for
+more information.
+<H2><A NAME="sec: oracle"></A> <A NAME="ss6.4">6.4 Oracle </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://platforms.oracle.com/linux/">http://platforms.oracle.com/linux/</A><H2><A NAME="sec: postgresql"></A> <A NAME="ss6.5">6.5 PostgreSQL </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>
+<P>PostgreSQL is a sophisticated Object-Relational DBMS, supporting almost
+all SQL constructs, including subselects, transactions, and user-defined types
+and functions.  It is the most advanced open-source database available anywhere.
+Commercial Support is also available from PostgreSQL, Inc.  The current version
+is 6.5.3 and is available at any of the many mirror sites or on CD.  (From
+the PostgreSQL website.) 
+<P>PostgreSQL may have already been shipped with your Linux distribution because
+of its open source license. 
+<H3>Download and Installation </H3>
+
+<P>
+<P>Rather than downloading from PostgreSQL, I suggest you initially try the
+PostgreSQL that most likely came with your Linux distribution. 
+<P>Alternatively, PostgreSQL can be obtained from 
+<A HREF="http://www.postgresql.org">http://www.postgresql.org</A>.
+<P>
+<P>To confirm that PostgreSQL is installed on your computer, type: 
+<PRE>
+rpm -qa | grep postgresql
+</PRE>
+<P>or 
+<PRE>
+which postmaster
+which psql
+</PRE>
+<P>You need the postgresql, postgresql-server, and postgresql-java packages
+installed to use Java with PostgreSQL. 
+<P>Make sure PostgreSQL is running.  Type: 
+<PRE>
+ps -f -u postgres
+</PRE>
+<P>You should see postmaster, the PostgreSQL daemon, running.   
+<P>If postmaster is not running, there will probably be a Sys V Init script
+that you can use to start it.  In many distributions it is located in /etc/rc.d/init.d.
+To start PostgreSQL, type: 
+<PRE>
+cd /etc/rc.d/init.d
+./postgresql start
+</PRE>
+<P>You can use the above &quot;ps&quot; command to confirm that PostgreSQL
+is running. 
+<P>Note: To use JDBC, PostgreSQL needs to have been started with the '-i'
+parameter indicating support for TCP/IP connections rather than solely UNIX
+domain sockets.  Confirm that postmaster&gt; was started with the '-i' paramter.
+<P>
+<P>Create a test database by typing: 
+<PRE>
+su - postgres
+createdb javatest
+</PRE>
+<P>You should see no error messages. 
+<P>Create a test table with one test row.  First, log in to the interactive
+PostgreSQL tool and connect to the javatest database you just created by typing
+(as the postgres user): 
+<PRE>
+psql javatest
+</PRE>
+<P>You should see confirmation that you are connected to the database: javatest.
+<P>
+<P>Then, create the test table by typing (within psql): 
+<PRE>
+create table test (col1 varchar(255));
+</PRE>
+<P>You should see the &quot;CREATE&quot; confirmation message. 
+<P>Next, insert one row by typing (within psql): 
+<PRE>
+insert into test (col1) values ('Hello, from PostgreSQL!');
+</PRE>
+<P>You should see the &quot;INSERT&quot; confirmation message. 
+<P>Finally, confirm that the row is there by typing (within psql): 
+<PRE>
+select col1 from test;  
+</PRE>
+<P>You should see the row you just created. 
+<P>You can exit psql by typing &quot;\ q&quot;. 
+<P>For more assistance on working with PostgreSQL, I suggest you look into
+the Database-SQL-RDBMS HOW-TO document for Linux (PostgreSQL Object Relational
+Database System) at 
+<A HREF="http://metalab.unc.edu/mdw/HOWTO/PostgreSQL-HOWTO.html">http://metalab.unc.edu/mdw/HOWTO/PostgreSQL-HOWTO.html</A>.
+<P>
+<P>You will need to add the appropriate JAR to your CLASSPATH.  The PostgreSQL
+JARs come in the <EM>postgresql-jdbc</EM> package. 
+<PRE>
+export CLASSPATH=$CLASSPATH:/usr/lib/pgsql/jdbc6.5-1.2.jar
+</PRE>
+<P>You may need to substitute the path depending you where PostgreSQL is installed
+on your system. 
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>You are now ready to compile and run a simple JDBC application that uses
+PostgreSQL.  Create the following program. 
+<PRE>
+import java.sql.*;
+
+class PostgreSQLTest {
+  public static void main (String[] args) {
+    try {
+      Driver driver = (Driver)
+        Class.forName(&quot;postgresql.Driver&quot;).newInstance();
+      DriverManager.registerDriver(driver);
+
+      String     url = &quot;jdbc:postgresql:javatest&quot;; 
+      Connection con = DriverManager.getConnection(url, &quot;postgres&quot;, &quot;&quot;); 
+      Statement  stm = con.createStatement(); 
+ 
+      stm.setQueryTimeout(10); 
+      ResultSet  rs  = stm.executeQuery(&quot;select col1 from test&quot;); 
+ 
+      rs.next(); 
+ 
+      System.out.println(rs.getString(1)); 
+ 
+    } catch (SQLException e) { 
+ 
+      System.out.println(&quot;Exception!&quot;); 
+      System.out.println(e.toString()); 
+  } 
+} 
+</PRE>
+<P>Compile the program with the Java compiler. 
+<PRE>
+javac PostgreSQLTest.java  
+</PRE>
+<P>If the compiler produces errors, double check the syntax and confirm your
+PATH and CLASSPATH. 
+<P>Run the program with the JVM. 
+<PRE>
+java PostgreSQLTest  
+</PRE>
+<P>If the JVM produces errors, confirm your PATH and CLASSPATH. 
+<P>You should see the following output: 
+<PRE>
+Hello, from PostgreSQL!  
+</PRE>
+<P>Congratulations, you have installed, set up an environment for, and tested
+a JDBC interface to PostgreSQL. 
+<H3>More Information</H3>
+
+<P>
+<P>For more information, I suggest you look into the PostgreSQL website at
+<P>
+<A HREF="http://www.postgresql.org/">http://www.postgresql.org/</A>.
+<P>
+<H2><A NAME="sec: sybase"></A> <A NAME="ss6.6">6.6 Sybase </A>
+</H2>
+
+<P>
+<H3>Background </H3>
+
+<P>
+<P>Sybase Adaptive Server Enterprise is a commericial RDBMS that is available
+for the Linux operating system.  While Sybase has recently released version
+12.0, version 11.9.2 is available for Linux. 
+<P>According to the Sybase website, &quot;By porting ASE to Linux, Sybase
+provides the Linux development community with the first highly scalable, high-performance
+database engine available for the platform.  The package includes the standard
+features of Adaptive Server Enterprise and all related connectivity components.
+Adaptive Server Enterprise 11.9.2 is offered FREE for development.&quot;
+<P>
+<H3>Download </H3>
+
+<P>
+<P>The Sybase ASE can be obtained from 
+<A HREF="http://www.sybase.com/products/databaseservers/linux/linux1192_reg.html">http://www.sybase.com/products/databaseservers/linux/linux1192_reg.html</A>.
+<P>
+<P>In order to download, you will have to register with the Sybase website
+and agree to the license online. 
+<P>The Sybase JDBC driver can be obtained from 
+<A HREF="http://www.sybase.com/products/internet/jconnect/">http://www.sybase.com/products/internet/jconnect/</A>.
+<P>
+<P>Select download jConnect 4.2/5.2.   
+<P>If you have access to a Sybase server on the network, you only need to
+download and install the JDBC driver. 
+<H3>Installation </H3>
+
+<P>
+<P>Installation of Sybase is beyond the scope of this HOWTO.  This HOWTO will
+assume that Sybase has been correctly installed and configured and that you
+can get to Sybase using isql. 
+<P>Log into isql as sa and create a test user and test database by typing:
+<P>
+<PRE>
+create database javatest  
+go 
+sp_addlogin javatest, javatest, javatest 
+go 
+use javatest 
+go 
+sp_dbowner javatest 
+go 
+</PRE>
+<P>You should see no error messages. 
+<P>Create a test table with one test row.  First, log in to isql as the javatest
+user and type: 
+<PRE>
+create table test (col1 varchar(255))  
+go 
+</PRE>
+<P>You should see no error messages. 
+<P>Next, insert one row by typing: 
+<PRE>
+insert into test (col1) values ('Hello, from Sybase!')  
+go 
+</PRE>
+<P>You should see no error messages. 
+<P>Finally, confirm that the row is there by typing: 
+<PRE>
+select col1 from test  
+go 
+</PRE>
+<P>You should see the row you just created. 
+<P>You can exit isql by typing &quot;exit&quot;. 
+<P>For more assistance on working with Sybase, review the documentation that
+can be downloaded with Sybase. 
+<P>You will need to add the appropriate JAR to your CLASSPATH. 
+<PRE>
+export CLASSPATH=$CLASSPATH:/usr/local/sybase/jConnect-5_2/classes/jconn2.jar  
+</PRE>
+<P>You may need to substitute the path depending you where jConnect is installed
+on your system. 
+<H3>Confirming Your Installation </H3>
+
+<P>
+<P>You are now ready to compile and run a simple JDBC application that uses
+Sybase.  Create the following program. 
+<PRE>
+import java.sql.*;  
+ 
+class SybaseTest { 
+  public static void main (String[] args) { 
+    try { 
+      Driver driver = (Driver) 
+        Class.forName(&quot;com.sybase.jdbc2.jdbc.SybDriver&quot;).newInstance(); 
+      DriverManager.registerDriver(driver); 
+ 
+      String     host = &quot;127.0.0.1&quot;; 
+      String     port = &quot;4100&quot;; 
+ 
+      String     url = &quot;jdbc:sybase:Tds:&quot; + host + &quot;:&quot; + port; 
+      Connection con = DriverManager.getConnection(url, &quot;javatest&quot;, &quot;javatest&quot;); 
+      Statement  stm = con.createStatement(); 
+ 
+      stm.setQueryTimeout(10); 
+      ResultSet  rs  = stm.executeQuery(&quot;select col1 from test&quot;); 
+ 
+      rs.next(); 
+ 
+      System.out.println(rs.getString(1)); 
+ 
+    } catch (SQLException e) { 
+ 
+      System.out.println(&quot;Exception!&quot;); 
+      System.out.println(e.toString()); 
+  } 
+} 
+</PRE>
+<P>You will need to substitute the host and port number of you Sybase server
+as appropriate.  See $SYBASE/interfaces and the $DSQUERY entry
+for what values to use for the host and port number. 
+<P>Compile the program with the Java compiler. 
+<PRE>
+javac SybaseTest.java  
+</PRE>
+<P>If the compiler produces errors, double check the syntax and confirm your
+PATH and CLASSPATH. 
+<P>Run the program with the JVM. 
+<PRE>
+java SybaseTest  
+</PRE>
+<P>If the JVM produces errors, confirm your PATH and CLASSPATH. 
+<P>You should see the following output: 
+<PRE>
+Hello, from Sybase!  
+</PRE>
+<P>Congratulations, you have installed, set up an environment for, and tested
+a JDBC interface to Sybase. 
+<H3>More Information</H3>
+
+<P>
+<P>For more information, I suggest you look into the Sybase jConnect website
+at 
+<A HREF="http://www.sybase.com/products/internet/jconnect/">http://www.sybase.com/products/internet/jconnect/</A>.
+<P>
+<HR>
+<H2><A NAME="sec: ejb"></A> <A NAME="s7">7.</A> <A HREF="#toc7">How to Setup Enterprise Java Bean (EJB) Support </A></H2>
+
+<P>
+<P>To be written.
+<H2><A NAME="sec: weblogic"></A> <A NAME="ss7.1">7.1 BEA WebLogic </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www.beasys.com/linux/">http://www.beasys.com/linux/</A>for
+more information.
+<P>
+<H2><A NAME="sec: ejboss"></A> <A NAME="ss7.2">7.2 EJBoss</A>
+</H2>
+
+<P>
+<H3>Background</H3>
+
+<P>EJBoss has been renamed JBoss and is well advanced with stable J2EE compliant
+releases at 
+<A HREF="http://www.jboss.org/">http://www.jboss.org/</A>.
+<P>This section was written when it was still EJBoss 0.95 and needs to be updated.
+<P>
+<H3>Download</H3>
+
+<P>
+<P>JBoss can be downloaded from the JBoss website at 
+<A HREF="http://www.jboss.org/">http://www.jboss.org/</A>.
+<P>
+<H3>Installation</H3>
+
+<P>
+<P>I suggest installing files in the /usr/local directory. After downloading,
+run:
+<PRE>
+mkdir /usr/local/ejboss 
+mv ejboss* /usr/local/ejboss
+</PRE>
+<P>Unjar the file:
+<PRE>
+jar xvf ejboss095_jdk122.jar
+</PRE>
+<P>You should see various files and directories created under /usr/local/ejboss.
+<P>The above example shows EJBoss 0.95 for JDK 1.2.2. Substitute the file
+names as appropriate.
+<H3>Setting up Your Environment</H3>
+
+<P>
+<P>The environment variables to set up are:
+<UL>
+<LI>CLASSPATH</LI>
+</UL>
+<P>The CLASSPATH environment variable references all JARs and directories
+that you will need to compile and run Java programs.
+<P>Include the EJBoss JAR and the beans/generated directory in your CLASSPATH.
+<PRE>
+export CLASSPATH=/usr/local/ejboss/lib/ejboss095_jdk122.jar:/usr/local/ejboss/beans/generated:$CLASSPATH
+</PRE>
+<H3>Confiming Your Installation</H3>
+
+<P>
+<P>You are now ready to compile and run a simple EJB application. Create the
+following three source files for the server.
+<P>First, the business interface.
+<PRE>
+// EJBTest.java
+
+import javax.ejb.*;
+import java.rmi.RemoteException;
+
+public
+ interface EJBTest extends EJBObject { 
+  public String greet() throws
+ RemoteException;
+
+}
+</PRE>
+<P>Second, the home interface.
+<PRE>
+// EJBTestHome.java
+
+import javax.ejb.*;
+import java.rmi.RemoteException;
+
+public
+ interface EJBTestHome extends EJBHome {
+
+  public EJBTest create() throws
+ 
+   CreateException, RemoteException;
+}
+</PRE>
+<P>Third, the bean implementation class.
+<PRE>
+// EJBTestBean.java
+
+import javax.ejb.*;
+import java.rmi.RemoteException;
+
+public
+ interface EJBTestBean implements SessionBean {
+
+  private SessionContext
+ mContext = null;
+
+  public void ejbPassivate() {
+    System.out.println(&quot;EJBTestBean
+ passivated.&quot;);
+}
+
+  public void ejbActivate() {
+    System.out.println(&quot;EJBTestBean
+ activated.&quot;);
+}
+
+  public void ejbCreate() {
+    System.out.println(&quot;EJBTestBean
+ created.&quot;);
+}
+
+  public void ejbRemove() {
+    System.out.println(&quot;EJBTestBean
+ removed.&quot;);
+}
+
+  public void setSessionContext() {
+    System.out.println(&quot;EJBTestBean
+ context set.&quot;);
+    mContext = context;
+}
+
+  public String greet()
+ {
+    return &quot;Hello, I'm an EJB!&quot;;
+}
+
+}
+</PRE>
+<P>Compile the server source files with the Java compiler:
+<PRE>
+javac EJBTest*.java
+</PRE>
+<P>If the compiler produces errors, double check the syntax and confirm your
+PATH and CLASSPATH.
+<P>Now that you have successfully written and compiled the server source files,
+you need to deploy your bean to EJBoss. Deploying a bean to EJBoss requires
+several steps that must be performed exactly.
+<P>First, create the file ejb-jar.xml.
+<PRE>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;Cp1252&quot;?&gt;
+</PRE>
+
+<PRE>
+ 
+</PRE>
+
+<PRE>
+&lt;ejb-jar ID=&quot;&quot;&gt;
+</PRE>
+
+<PRE>
+     &lt;description&gt;&lt;/description&gt;
+</PRE>
+
+<PRE>
+     &lt;display-name&gt;&lt;/display-name&gt;
+</PRE>
+
+<PRE>
+     &lt;small-icon&gt;&lt;/small-icon&gt;
+</PRE>
+
+<PRE>
+     &lt;large-icon&gt;&lt;/large-icon&gt;
+</PRE>
+
+<PRE>
+     &lt;ejb-client-jar&gt;&lt;/ejb-client-jar&gt;
+</PRE>
+
+<PRE>
+     &lt;enterprise-beans&gt;
+</PRE>
+
+<PRE>
+       &lt;session&gt;
+</PRE>
+
+<PRE>
+         &lt;description&gt;Nextgen bean&lt;/description&gt;
+</PRE>
+
+<PRE>
+         &lt;ejb-name&gt;nextgen.EJBTest&lt;/ejb-name&gt;
+</PRE>
+
+<PRE>
+         &lt;home&gt;EJBTestHome&lt;/home&gt;
+</PRE>
+
+<PRE>
+         &lt;remote&gt;EJBTest&lt;/remote&gt;
+</PRE>
+
+<PRE>
+         &lt;ejb-class&gt;EJBTestBean&lt;/ejb-class&gt;
+</PRE>
+
+<PRE>
+         &lt;session-type&gt;Stateful&lt;/session-type&gt;
+</PRE>
+
+<PRE>
+         &lt;transaction-type&gt;Bean&lt;/transaction-type&gt;
+</PRE>
+
+<PRE>
+         &lt;env-entry&gt;
+</PRE>
+
+<PRE>
+           &lt;description&gt;&lt;/description&gt;
+</PRE>
+
+<PRE>
+           &lt;env-entry-name&gt;&lt;/env-entry-name&gt;
+</PRE>
+
+<PRE>
+           &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
+</PRE>
+
+<PRE>
+           &lt;env-entry-value&gt;&lt;/env-entry-value&gt;
+</PRE>
+
+<PRE>
+         &lt;/env-entry&gt;
+</PRE>
+
+<PRE>
+         &lt;resource-ref&gt;
+</PRE>
+
+<PRE>
+           &lt;description&gt;&lt;/description&gt;
+</PRE>
+
+<PRE>
+           &lt;res-ref-name&gt;&lt;/res-ref-name&gt;
+</PRE>
+
+<PRE>
+           &lt;res-type&gt;&lt;/res-type&gt;
+</PRE>
+
+<PRE>
+           &lt;res-auth&gt;Container&lt;/res-auth&gt;
+</PRE>
+
+<PRE>
+         &lt;/resource-ref&gt;
+</PRE>
+
+<PRE>
+       &lt;/session&gt;
+</PRE>
+
+<PRE>
+     &lt;/enterprise-beans&gt;
+</PRE>
+
+<PRE>
+     &lt;assembly-descriptor /&gt;
+</PRE>
+
+<PRE>
+   &lt;/ejb-jar&gt;
+</PRE>
+<P>The above file, which must be named ejb-jar.xml identifies the interface
+and class names of files that you just created as well as a name for the object.
+<P>Second, relative to the directory of the three class files you just created,
+create a META-INF directory.
+<PRE>
+mkdir META-INF
+mv ejb-jar.xml META-INF
+</PRE>
+<P>Third, package all four files into a jar.
+<PRE>
+jar cvf EJBTest.jar EJBTest*.class META-INF/ejb-jar.xml
+</PRE>
+<P>You should see that it added the manifest as well as the three class files
+and the XML deployment descriptor file.
+<P>Fourth, put the JAR you just created in the EJBoss beans directory.
+<PRE>
+mv EJBTest.jar /usr/local/ejboss/beans
+</PRE>
+<P>Fifth, move the class files you created to the EJBoss beans/generated directory.
+<PRE>
+mv EJBTest*.class /usr/local/ejboss/beans/generated
+</PRE>
+<P>(This fifth step is redudant due to a bug in EJBoss 0.95. )
+<P>You are now ready to start the EJBoss server.
+<P>cd /usr/local/ejboss
+<P>sh server.sh
+<P>You should see the proxy files compile automatically and confirmation that
+your EJB is deployed.
+<P>You are now ready to write, compile and test the simple client applicaiton.
+<H2><A NAME="sec: jonas"></A> <A NAME="ss7.3">7.3 Bullsoft JOnAS EJB </A>
+</H2>
+
+<P>
+<P>To be written. 
+<P>See 
+<A HREF="http://www.bullsoft.com/ejb/">http://www.bullsoft.com/ejb/</A>for
+more information.
+<P>
+<HR>
+</BODY>
+</HTML>

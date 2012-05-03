@@ -1,0 +1,418 @@
+<HTML>
+
+<HEAD>
+<TITLE>Java Programming: Section 3.3</TITLE>
+</HEAD>
+
+<BODY bgcolor="#FFFFFF" text="#000000" link="#0000CC" alink="#CC2222" vlink="#553377">
+<BLOCKQUOTE>
+<H3>Section 3.3<br>
+    The <tt>while</tt> and <tt>do..while</tt> Statements</H3>
+
+<HR align=center width="33%">
+
+<P><font size="+2">S</font>TATEMENTS IN JAVA CAN BE either simple
+statements or compound statements.  Simple statements, such 
+as assignments statements and subroutine call statements, are
+the basic building blocks of a program.  Compound statements, such
+as <tt>while</tt> loops and <tt>if</tt> statements, are used to
+organize simple statements into complex structures, which are called
+control structures because they control the order in which the statements
+are executed.  The next four sections explore the details of
+all the control structures that are available in Java, starting
+with the <tt>while</tt> statement and the <tt>do..while</tt>
+statement in this section.  At the same time, we'll look at examples
+of programming with each control structure and apply the techniques
+for designing algorithms that were introduced in the 
+<a href="s2.html">previous section</a>.
+</p>
+
+<HR align=center width="33%">
+
+<H3>The <tt>while</tt> Statement</H3>
+
+
+<p>The <tt>while</tt> statement was already introduced in <a href="s1.html">Section 1</a>.
+A <tt>while</tt> loop has the form</p>
+
+<pre>           while ( <font color="#009000"><b>boolean-expression</b></font> )
+              <font color="#009000"><b>statement</b></font>
+</pre>
+
+<p>The <font color="#009000"><b>statement</b></font> can, of course, be a block
+statement consisting of several statements grouped together between a pair of braces.
+This statement is called the <font color="#E70000">body of the loop</font>.  The body
+of the loop is repeated as long as the <font color="#009000"><b>boolean-expression</b></font>
+is true.  This boolean expression is called the <font color="#E70000">continuation condition</font>,
+or more simply the <font color="#E70000">test</font>, of the loop.
+There are a few points that might need some clarification.  What happens if
+the condition is false in the first place, before the body of the loop is executed
+even once?  In that case, the body of the loop is never executed at all.  The body of
+a while loop can be executed any number of times, including zero.  What happens if
+the condition is true, but it becomes false somewhere in the <strong>middle</strong>
+of the loop body?  Does the loop end as soon as this happens?  It does not, because
+the computer continues executing the body of the loop until it gets to the end.
+Only then does it jump back to the beginning of the loop and test the condition,
+and only then can the loop end.</p>
+
+<p>Let's look at a typical problem that can be solved using a <tt>while</tt> loop:
+finding the average of a set of positive integers entered by the user.  The average
+is the sum of the integers, divided by the number of integers.  The program will
+ask the user to enter one integer at a time.  It will keep count of the number of
+integers entered, and it will keep a running total of all the numbers it has
+read so far.  Here is a pseudocode algorithm for the program:</p>
+
+<pre>             Let sum = 0
+             Let count = 0
+             while there are more integers to process:
+                 Read an integer
+                 Add it to the sum
+                 Count it
+             Divide sum by count to get the average
+             Print out the average
+</pre>
+
+<p>But how can we test whether there are more integers to process?  A typical solution
+is to tell the user to type in zero after all the data have been entered.  This will work
+because we are assuming that all the data are positive numbers, so zero is not a
+legal data value.  The zero is not itself part of the data to be averaged.  It's just
+there to mark the end of the real data.  A data value used in this way is sometimes
+called a <font color="#E70000">sentinel value</font>.  So now the test in the
+while loop becomes &quot;while the input integer is not zero&quot;.  But there is
+another problem!  The first time the test is evaluated, before the body of the
+loop has ever been executed, no integer has yet been read.  There is no &quot;input
+integer&quot; yet, so testing whether the input integer is zero doesn't make sense.
+So, we have to do something <strong>before</strong> the while loop to make sure
+that the test makes sense.  Setting things up so that the test in a <tt>while</tt>
+loop makes sense the first time it is executed is called <font color="#E70000">priming
+the loop</font>.  In this case, we can simply read the first integer before
+the beginning of the loop.  Here is a revised algorithm:</p>
+
+<pre>             Let sum = 0
+             Let count = 0
+             Read an integer
+             while the integer is not zero:
+                 Add the integer to the sum
+                 Count it
+                 Read an integer
+             Divide sum by count to get the average
+             Print out the average
+</pre>
+
+<p>Notice that I've rearranged the body of the loop.  Since an integer is read
+before the loop, the loop has to begin by processing that integer.  At the end of
+the loop, the computer reads a new integer.  The computer then jumps back to
+the beginning of the loop and tests the integer that it has just read.  Note that
+when the computer finally reads the sentinel value, the loop ends before the
+sentinel value is processed.  It is not added to the sum, and it is not counted.
+This is the way it's supposed to work.  The sentinel is not part of the data.
+The original algorithm, even if it could have been made to work without priming,
+was incorrect since it would have summed and counted all the integers, including
+the sentinel.  (Since the sentinel is zero, the sum would still be correct,
+but the count would be off by one.  Such so-called <font color="#E70000">off-by-one errors</font>
+are very common.  Counting turns out to be harder than it looks!)</p>
+
+<p>We can easily turn the algorithm into a complete program.  Note that the program 
+cannot use the statement &quot;<tt>average = sum/count</tt>;&quot; to compute
+the average.  Since <tt>sum</tt> and <tt>count</tt> are both variables of
+type <tt>int</tt>, the value of <tt>sum/count</tt> is an integer.  The average
+should be a real number.  We've seen this problem before: we have to convert
+one of the <tt>int</tt> values to a <tt>double</tt> to force the computer
+to compute the quotient as a real number.  This can be done by type-casting
+one of the variables to type <tt>double</tt>.  The type cast &quot;(double)sum&quot;
+converts the value of <tt>sum</tt> to a real number, so in the program the
+average is computed as &quot;<tt>average = ((double)sum) / count</tt>;&quot;.
+Another solution in this case would have been to declare <tt>sum</tt> to be
+a variable of type <tt>double</tt> in the first place.</p>
+
+<p>One other issue is addressed by the program:  If the user enters zero as the
+first input value, there are no data to process.  We can test for this case by
+checking whether <tt>count</tt> is still equal to zero after the <tt>while</tt>
+loop.  This might seem like a minor point, but a careful programmer should
+cover all the bases.</p>
+
+<p>Here is the program and an applet that simulates it:</p>
+
+<pre>
+     public class ComputeAverage {
+     
+         /*  This program reads a sequence of positive integers input
+             by the user, and it will print out the average of those
+             integers.  The user is prompted to enter one integer at a
+             time.  The user must enter a 0 to mark the end of the
+             data.  (The zero is not counted as part of the data to
+             be averaged.)  The program does not check whether the
+             user's input is positive, so it will actually work for
+             both positive and negative input values.
+         */
+        
+        public static void main(String[] args) {
+           
+           int inputNumber;   // One of the integers input by the user.
+           int sum;           // The sum of the positive integers.
+           int count;         // The number of positive integers.
+           double average;    // The average of the positive integers.
+           
+           /* Initialize the summation and counting variables. */
+           
+           sum = 0;
+           count = 0;
+           
+           /* Read and process the user's input. */
+           
+           TextIO.put("Enter your first positive integer: ");
+           inputNumber = TextIO.getlnInt();
+           
+           while (inputNumber != 0) {
+              sum += inputNumber;   // Add inputNumber to running sum.
+              count++;              // Count the input by adding 1 to count.
+              TextIO.put("Enter your next positive integer, or 0 to end: ");
+              inputNumber = TextIO.getlnInt();
+           }
+           
+           /* Display the result. */
+           
+           if (count == 0) {
+              TextIO.putln("You didn't enter any data!");
+           }
+           else {
+              average = ((double)sum) / count;
+              TextIO.putln();
+              TextIO.putln("You entered " + count + " positive integers.");
+              TextIO.putln("Their average is " + average + ".");
+           }
+
+        } // end main()
+        
+     } // end class ComputeAverage
+     
+</pre>
+
+<p align=center>
+   <applet code="ComputeAverageConsole" height=270 width=500
+        alt="(Applet 'ComputeAverageConsole' should be displayed here.)">
+     <font color="#E70000">
+     (Applet "ComputeAverageConsole" would be displayed here<br>
+     if Java were available.)</font>
+   </applet>
+</p>
+
+
+<HR align=center width="33%">
+
+<H3>The <tt>do..while</tt> Statement</H3> 
+
+<p>Sometimes it is more convenient to test the continuation condition at the end
+of a loop, instead of at the beginning, as is done in the <tt>while</tt> loop.
+The <tt>do..while</tt> statement is very similar to the <tt>while</tt> statement,
+except that the word &quot;while,&quot; along with the condition that it
+tests, has been moved to the end.  The word &quot;do&quot; is added to mark
+the beginning of the loop.  A <tt>do..while</tt> statement has the form
+
+<pre>          do
+              <font color="#009000"><b>statement</b></font>
+          while ( <font color="#009000"><b>boolean-expression</b></font> );
+</pre>
+
+<p>or, since, as usual, the <font color="#009000"><b>statement</b></font>
+can be a block,</p>
+
+<pre>          do {
+              <font color="#009000"><b>statements</b></font>
+          } while ( <font color="#009000"><b>boolean-expression</b></font> );
+</pre>
+
+<p>Note the semicolon, ';', at the end.  This semicolon is part of the
+statement, just as the semicolon at the end of an assignment statement
+or declaration is part of the statement.  Omitting it is a syntax error.
+(More generally, <strong>every</strong> statement in Java ends either with a 
+semicolon or a right brace, '}'.)</p>
+
+<p>To execute a <tt>do</tt> loop, the computer first executes the body
+of the loop -- that is, the statement or statements inside the loop --
+and then it evaluates the boolean expression.  If the value of the
+expression is <tt>true</tt>, the computer returns to the beginning
+of the do loop and repeats the process; if the value is <tt>false</tt>,
+it ends the loop and continues with the next part of the program.
+Since the condition is not tested until the end of the loop,
+the body of a <tt>do</tt> loop is executed at least once.</p>
+
+<p>For example, consider the following pseudocode for a 
+game-playing program.  The <tt>do</tt> loop makes sense here
+instead of a <tt>while</tt> loop because with the <tt>do</tt> loop,
+you know there will be at least one
+game.  Also, the test that is used at the end of the loop
+wouldn't even make sense at the beginning:</p>
+
+<pre>         do {
+            Play a Game
+            Ask user if he wants to play another game
+            Read the user's response
+         } while ( the user's response is yes );
+</pre>
+
+<p>Let's convert this into proper Java code.  Since I don't want to talk about
+game playing at the moment, let's say that we have a class named <tt>Checkers</tt>,
+and that the <tt>Checkers</tt> class contains a static member subroutine named
+<tt>playGame()</tt> that plays one game of checkers against the user.
+Then, the pseudocode &quot;Play a game&quot; can be expressed as the subroutine
+call statement &quot;<tt>Checkers.playGame();</tt>&quot;.  We need a variable
+to store the user's response.  The <tt>TextIO</tt> class makes it convenient
+to use a <tt>boolean</tt> variable to store the answer to a yes/no question.
+The input function <tt>TextIO.getlnBoolean()</tt> allows the user to enter
+the value as &quot;yes&quot; or &quot;no&quot;.  &quot;Yes&quot; is considered to
+be <tt>true</tt>, and &quot;no&quot; is considered to be <tt>false</tt>. So,
+the algorithm can be coded as</p>
+
+<pre>         boolean wantsToContinue;  // True if user wants to play again.
+         do {
+            Checkers.playGame();
+            TextIO.put(&quot;Do you want to play again? &quot;);
+            wantsToContinue = TextIO.getlnBoolean();
+         } while (wantsToContinue == true);
+</pre>
+
+
+<p>When the value of the <tt>boolean</tt> variable is set to <tt>true</tt>,
+it is a signal that the loop should end.  When a <tt>boolean</tt> variable
+is used in this way -- as a signal that is set in one part of the program 
+and tested in another part -- it is sometimes called a <font color="#E70000">flag</font>
+or <font color="#E70000">flag variable</font> (in the sense of a signal flag).</p>
+
+<p>By the way, a more-than-usually-pedantic programmer would sneer at the
+test &quot;<tt>while (wantsToContinue == true)</tt>&quot;.  This test is
+exactly equivalent to &quot;<tt>while (wantsToContinue)</tt>&quot;.
+Testing whether
+&quot;<tt>wantsToContinue == true</tt>&quot;  is true amounts to the
+same thing as testing whether &quot;<tt>wantsToContinue</tt>&quot; is true.
+A little less offensive is an expression of the form &quot;<tt>flag == false</tt>&quot;,
+where <tt>flag</tt> is a boolean variable.  The value of &quot;<tt>flag == false</tt>&quot;
+is exactly the same as the value of "<tt>!flag</tt>", where <tt>!</tt> is the boolean
+negation operator.  So you can write
+&quot;<tt>while (!flag)</tt>&quot; instead of &quot;<tt>while (flag == false)</tt>&quot;,
+and you can write &quot;<tt>if (!flag)</tt>&quot; instead of 
+&quot;<tt>if (flag == false)</tt>&quot;.</p>
+
+<p>Although a <tt>do..while</tt> statement is sometimes more convenient than
+a <tt>while</tt> statement, having two kinds of loops does not make the
+language more powerful.  Any problem that can be solved using <tt>do..while</tt>
+loops can also be solved using only <tt>while</tt> statements, and vice versa.
+In fact, if <font color="#009000"><b>doSomething</b></font> represents
+any block of program code, then</p>
+
+<pre>          do {
+              <font color="#009000"><b>doSomething</b></font>
+          } while ( <font color="#009000"><b>boolean-expression</b></font> );
+</pre>
+
+<p>has exactly the same effect as</p>
+
+<pre>          <font color="#009000"><b>doSomething</b></font>
+          while ( <font color="#009000"><b>boolean-expression</b></font> ) {
+              <font color="#009000"><b>doSomething</b></font>
+          } 
+</pre>
+
+<p>Similarly,</p>
+
+<pre>          while ( <font color="#009000"><b>boolean-expression</b></font> ) {
+              <font color="#009000"><b>doSomething</b></font>
+          } 
+</pre>
+
+<p>can be replaced by</p>
+
+<pre>          if ( <font color="#009000"><b>boolean-expression</b></font> ) {
+             do {
+                 <font color="#009000"><b>doSomething</b></font>
+             } while ( <font color="#009000"><b>boolean-expression</b></font> );
+          }
+</pre>
+
+<p>without changing the meaning of the program in any way.</p>
+
+<HR align=center width="33%">
+
+
+<H3>The <tt>break</tt> and <tt>continue</tt> Statements</H3>
+
+<p>The syntax of the <tt>while</tt> and <tt>do..while</tt> loops
+allows you to test the continuation condition at either the beginning of a loop or at the end.
+Sometimes, it is more natural to have the test in the middle
+of the loop, or to have several tests at different places
+in the same loop.  Java provides a general method for
+breaking out of the middle of any loop.  It's called the
+<tt>break</tt> statement, which takes the form</p>
+
+<p align=center><tt>break;</tt></p>
+
+<p>When the computer executes a <tt>break</tt> statement in a loop, it will immediately
+jump out of the loop.  It then continues on to whatever follows
+the loop in the program.  Consider for example:</p>
+
+<pre>            while (true) {  // looks like it will run forever!
+               TextIO.put(&quot;Enter a positive number: &quot;);
+               N = TextIO.getlnlnt();
+               if (N &gt; 0)   // input is OK; jump out of loop
+                  break;
+               TextIO.putln(&quot;Your answer must be &gt; 0.&quot;);
+            }
+            // continue here after break
+</pre>
+
+<p>If the number entered by the user is greater than zero, the <tt>break</tt>
+statement will be executed and the computer will jump out of the loop.
+Otherwise, the computer will print out &quot;Your answer must be &gt; 0.&quot;
+and will jump back to the start of the loop to read another input value.</p>
+
+<p>(The first line of the loop, &quot;<tt>while (true)</tt>&quot; might look
+a bit strange, but it's perfectly legitimate.  The condition in a <tt>while</tt>
+loop can be any boolean-valued expression.  The computer evaluates this
+expression and checks whether the value is <tt>true</tt> or <tt>false</tt>.
+The boolean literal &quot;<tt>true</tt>&quot; is just a boolean expression
+that always evaluates to true.  So &quot;<tt>while (true)</tt>&quot; can
+be used to write an infinite loop, or one that can be terminated only
+by a <tt>break</tt> statement.)</p>
+
+<p>A <tt>break</tt> statement terminates the loop that immediately encloses
+the <tt>break</tt> statement.  It is possible to have <font color="#E70000">nested</font>
+loops, where one loop statement is contained inside another.
+If you use a <tt>break</tt> statement inside a nested loop, it will only
+break out of that loop, not out of the loop that contains the
+nested loop.  There is something called a &quot;labeled break&quot;
+statement that allows you to specify which loop you want to break.
+I won't give the details here; you can look them up if you
+ever need them.</p>
+
+<p>The <tt>continue</tt> statement is related to <tt>break</tt>,
+but less commonly used.  A <tt>continue</tt> statement tells the
+computer to skip the rest of the current iteration of the loop.
+However, instead of jumping out of the loop altogether, it
+jumps back to the beginning of the loop and continues with the
+next iteration (after evaluating the loop's continuation 
+condition to see whether any further iterations are required).</p>
+
+<p><tt>break</tt> and <tt>continue</tt> can be used in <tt>while</tt>
+loops and <tt>do..while</tt> loops.  They can also be used in <tt>for</tt> loops,
+which are covered in the <a href="s4.html">next section</a>.  In <a HREF="s6.html">Section 6</a>,
+we'll see that <tt>break</tt> can also be used to break out of a <tt>switch</tt> statement.
+Note that when a <tt>break</tt> occurs inside an
+<tt>if</tt> statement, it breaks out of the loop or <tt>switch</tt> statement that
+contains the <tt>if</tt> statement.  If the <tt>if</tt> statement is not contained
+inside a loop or <tt>switch</tt>, then the <tt>if</tt> statement cannot legally contain
+a <tt>break</tt> statement.  A similar consideration applies to <tt>continue</tt> statements.
+</p>
+
+<HR>
+</BLOCKQUOTE>
+
+<p align=center><font size=-1>
+[ <A HREF="s4.html">Next Section</A>
+| <A HREF="s2.html">Previous Section</A>
+| <A HREF="index.html">Chapter Index</A>
+| <A HREF="../index.html">Main Index</A>
+]</font></p>
+
+</BODY>
+
+</HTML>

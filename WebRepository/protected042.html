@@ -1,0 +1,1061 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+    <title>[#CONF-14292] Indexing fails on password-protected MS Excel workbooks with java.lang.reflect.InvocationTargetException - Atlassian JIRA </title>
+
+    <meta content="issuesummary" name="decorator" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <link rel="shortcut icon" href="/s/471/1/_/favicon.ico">
+    <link rel="icon" type="image/png" href="/s/471/1/_/images/icons/favicon.png">
+    
+
+
+	
+
+
+
+
+<link rel="stylesheet" type="text/css" media="print" href="/s/471/1/_/styles/combined-printable.css">
+<link type="text/css" rel="StyleSheet" media="all" href="/s/471/1/_/styles/combined.css"/>
+<link type="text/css" rel="StyleSheet" media="all" href="/s/471/1/78/_/styles/global.css"/>
+
+    
+    <script type="text/javascript">var contextPath = '';</script>
+<link type="text/css" rel="stylesheet" href="/s/471/1/1.2.4/_/download/batch/com.atlassian.auiplugin:ajs/com.atlassian.auiplugin:ajs.css" media="all">
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" href="/s/471/1/1.2.4/_/download/batch/com.atlassian.auiplugin:ajs/com.atlassian.auiplugin:ajs.css?ieonly=true" media="all">
+<![endif]-->
+<script type="text/javascript" src="/s/471/1/1.2.4/_/download/batch/com.atlassian.auiplugin:ajs/com.atlassian.auiplugin:ajs.js" ></script>
+<script type="text/javascript" src="/s/471/1/1.0/_/download/batch/jira.webresources:jira-global/jira.webresources:jira-global.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/471/1/1.0/_/download/batch/jira.webresources:jira-global/jira.webresources:jira-global.css" media="all">
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" href="/s/471/1/1.0/_/download/batch/jira.webresources:jira-global/jira.webresources:jira-global.css?ieonly=true" media="all">
+<![endif]-->
+<script type="text/javascript" src="/s/471/1/1.0/_/download/batch/jira.webresources:autocomplete/jira.webresources:autocomplete.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/471/1/1.0/_/download/batch/jira.webresources:autocomplete/jira.webresources:autocomplete.css" media="all">
+<link type="text/css" rel="stylesheet" href="/s/471/1/2.3-rc2/_/download/batch/com.atlassian.jira.plugin.labels:labels-files/com.atlassian.jira.plugin.labels:labels-files.css" media="all">
+<script type="text/javascript" src="/s/471/1/2.3-rc2/_/download/batch/com.atlassian.jira.plugin.labels:labels-files/com.atlassian.jira.plugin.labels:labels-files.js" ></script>
+<script type="text/javascript" src="/s/471/1/1.0/_/download/batch/jira.webresources:header/jira.webresources:header.js" ></script>
+
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body id="jira"  >
+
+
+<div id="header">
+    <div id="header-top">
+        <a id="logo" href="/secure/Dashboard.jspa">
+                        <img class="logo" src="/s/471/1/_/images/jira111x30.png" width="111" height="30" border="0" alt="Atlassian JIRA">
+                    </a>
+                <form id="quicksearch" action="/secure/QuickSearch.jspa" method="post">
+            <label for="quickSearchInput" class="overlabel">Quick Search
+                <span id="quicksearchhelp" class="informationBox">
+                                                 Learn more about <a href='http://docs.atlassian.com/jira/docs-040/Using+Quick+Search?clicked=jirahelp' target='_jirahelp'>Quick Search</a>
+                </span>
+            </label>
+            <input id="quickSearchInput" class="quickSearchInput" title="Go directly to an issue by typing a valid issue key, or run a free-text search." type="text" size="25" name="searchString" accessKey="q"  valign="absmiddle" />
+        </form>
+                
+        <div id="header-details-user" class="aui-dd-parent header-link-container">
+         <a class="lnk" rel="nofollow" href="/login.jsp?os_destination=%2Fbrowse%2FCONF-14292">Log In</a>
+        <span class="drop-wrap">
+        <a class="drop aui-dd-link"
+                        href="#"><span>Access more options</span>
+        </a>
+    </span>
+    <div class="aui-dropdown standard hidden">
+                                                                <ul id="jira-help" class="  first     last  ">
+                                            <li><a  id="view_help"   class=""  title="Goto the online documentation for JIRA" href="http://docs.atlassian.com/jira/docs-040/Home?clicked=jirahelp">Online Help</a></li>
+                                            <li><a  id="user_history"   class=""  title="Get more information about JIRA" href="http://www.atlassian.com/software/jira">About JIRA</a></li>
+                                    </ul>
+                        </div>
+</div>
+        
+    </div>
+    <div id="header-bottom">
+                <div id="menu">
+            
+            
+<ul id="main-nav" class="menu-bar">
+                        <li class="aui-dd-parent lazy  ">
+                    <a class="lnk"
+                href="/secure/Dashboard.jspa"
+                 id="home_link"                 accessKey="h"                 title="View your current Dashboard"                >Dashboards</a>
+
+                    <span class="drop-wrap">
+            <a class="drop aui-dd-link"
+                                    id="home_link_drop"
+                    rel="home_link"
+                    accessKey="d"
+                    title="Access more options (Alt+D)"
+                                href="#"><span>Access more options (Alt+D)</span></a></span>
+            <div class="aui-dropdown standard hidden"></div>
+                </li>
+                        <li class="aui-dd-parent lazy  ">
+                    <a class="lnk"
+                href="/browse/CONF"
+                 id="browse_link"                 accessKey="b"                 title="Browse currently active project 'Confluence'"                >Projects</a>
+
+                    <span class="drop-wrap">
+            <a class="drop aui-dd-link"
+                                    id="browse_link_drop"
+                    rel="browse_link"
+                    accessKey="p"
+                    title="Access more options (Alt+P)"
+                                href="#"><span>Access more options (Alt+P)</span></a></span>
+            <div class="aui-dropdown standard hidden"></div>
+                </li>
+                        <li class="aui-dd-parent lazy  selected  ">
+                    <a class="lnk"
+                href="/secure/IssueNavigator.jspa"
+                 id="find_link"                 accessKey="f"                 title="View your current filter"                >Issues</a>
+
+                    <span class="drop-wrap">
+            <a class="drop aui-dd-link"
+                                    id="find_link_drop"
+                    rel="find_link"
+                    accessKey="i"
+                    title="Access more options (Alt+I)"
+                                href="#"><span>Access more options (Alt+I)</span></a></span>
+            <div class="aui-dropdown standard hidden"></div>
+                </li>
+                        <li class="aui-dd-parent nonlazy  ">
+                    <a class="lnk"
+                href="/secure/GreenHopper.jspa"
+                 id="greenhopper_menu"                                 title="Manage your project with GreenHopper"                >Agile</a>
+
+                                                                                                            <span class="drop-wrap">
+                            <a class="drop aui-dd-link"
+                                                                    id="greenhopper_menu_drop"
+                                    accessKey="g"
+                                    rel="greenhopper_menu"
+                                    title="Access more options (Alt+G)"
+                                                                href="#"><span>Access more options</span></a></span>
+                            <div class="aui-dropdown standard hidden"><div>
+                                                                        <ul id="greenhopper_menu_dropdown" class=" first   last  ">
+                                                            <li class="dropdown-item"><a
+                                     id="planningboard-mlink"                                     class="    "
+                                                                                                            href="/secure/VersionBoard.jspa">Planning Board</a></li>
+                                                            <li class="dropdown-item"><a
+                                     id="taskboard-mlink"                                     class="    "
+                                                                                                            href="/secure/TaskBoard.jspa">Task Board</a></li>
+                                                            <li class="dropdown-item"><a
+                                     id="chartboard-mlink"                                     class="    "
+                                                                                                            href="/secure/ChartBoard.jspa">Chart Board</a></li>
+                                                            <li class="dropdown-item"><a
+                                     id="releasedboard-mlink"                                     class="    "
+                                                                                                            href="/secure/ArchiveChartBoard.jspa">Released Board</a></li>
+                                                    </ul>
+                                                                        </div></div>
+                                            </li>
+    </ul>
+
+            
+        </div>
+
+    </div>
+</div>
+
+
+
+<fieldset class="hidden parameters">
+    <input type="hidden" id="dirtyMessage" value="You have entered new data on this page. If you navigate away from this page without first saving your data, the changes will be lost.">
+</fieldset>
+
+<!--This should always be included as it is not part of a themable plugin, instead it is core functionality-->
+
+
+
+
+
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td width="200" bgcolor="#f0f0f0" valign="top" style="border-right:1px solid #bbb">
+            <table cellpadding="0" cellspacing="0" border="0" width="200">
+<tr><td>
+        <table cellpadding="3" cellspacing="0" border="0" width="100%">
+    <tr><td bgcolor="#dddddd">
+        <span style="float:left"><b>Issue Details</b></span>
+        <span class="small" style="float:right">
+                                        (<a rel="nofollow" class="small" href="/si/jira.issueviews:issue-xml/CONF-14292/CONF-14292.xml">XML</a> | <a rel="nofollow" class="small" href="/si/jira.issueviews:issue-word/CONF-14292/CONF-14292.doc">Word</a> | <a rel="nofollow" class="small" href="/si/jira.issueviews:issue-html/CONF-14292/CONF-14292.html">Printable</a>)
+                    </span>
+    </td></tr>
+    </table>
+                        <img src="/images/bluepixel.gif" width="100%" height="1" border="0" alt=""><br>
+                <table id="issuedetails" cellpadding="3" cellspacing="0" border="0">
+            <tr>
+                <td valign="top"><b>Key:</b></td>
+                <td valign="top">
+                    <b><a id="issue_key_CONF-14292" href="/browse/CONF-14292">CONF-14292</a></b>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top"><b>Type:</b></td>
+                <td valign="top">
+                                                                <img src="/images/icons/bug.gif" height="16" width="16" border="0" align="absmiddle" alt="Bug" title="Bug - A problem which impairs or prevents the functions of the product.">
+             Bug
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top"><b>Status:</b></td>
+                <td valign="top">
+                                                                <img src="/images/icons/status_open.gif" height="16" width="16" border="0" align="absmiddle" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it.">
+             Open
+                </td>
+            </tr>
+
+            
+                        <tr>
+                <td valign="top"><b>Priority:</b></td>
+                <td valign="top">
+                                                                <img src="/images/icons/priority_major.gif" height="16" width="16" border="0" align="absmiddle" alt="Major" title="Major - Major loss of function.">
+             Major
+                </td>
+            </tr>
+            
+
+                        <tr>
+                <td valign="top"><b>Assignee:</b></td>
+                <td valign="top">
+                    Unassigned
+                </td>
+            </tr>
+            
+                        <tr>
+                <td valign="top"><b>Reporter:</b></td>
+                <td valign="top">
+                            <a id="issue_summary_reporter_jfleming" href="/secure/ViewProfile.jspa?name=jfleming">James Fleming [Atlassian]</a>
+                </td>
+            </tr>
+            
+                        <tr>
+                <td valign="top"><b>Votes:</b></td>
+                <td valign="top">
+                                                                        0
+                                                            </td>
+            </tr>
+            
+                        <tr>
+                <td valign="top"><b>Watchers:</b></td>
+                <td valign="top">
+                                                                                    0
+                                    </td>
+            </tr>
+                    </table>
+        
+        
+                <div class="operations">
+        <table cellpadding="3" cellspacing="0" border="0" width="100%">
+        <tr><td bgcolor="#dddddd">
+            <b>Operations</b>
+        </td></tr>
+        </table>
+        <img src="/images/bluepixel.gif" width="100%" height="1" border="0" alt=""><br>
+        <table cellpadding="3" cellspacing="0" border="0" id="operationsSection">
+                    <tr><td class="issueOperation lazyOperation">
+                <img src="/images/icons/bullet_creme.gif" height=8 width=8 border=0 align=absmiddle> <b><a href="/plugins/servlet/com.balsamiq.mockups?do=add&issue=CONF-14292">Add/Edit UI Mockup</a></b> to this issue
+            </td></tr>
+                    <tr><td class="issueOperation lazyOperation">
+                If you were <a class="lnk" rel="nofollow" href="/login.jsp?os_destination=%2Fbrowse%2FCONF-14292">logged in</a> you would be able to see more operations.
+            </td></tr>
+                </table>
+        </div>
+            </td></tr>
+</table>
+        </td>
+        <td bgcolor="#ffffff" valign="top">
+            <div style="padding:1em" id="issueContent">
+                <style type="text/css">
+<!--
+.fieldArea .fieldLabelArea { width: 10%; }
+.fieldArea .fieldValueArea { width: 90%; }
+#pinCommentContainer { float: right; font-size: 10px; }
+#pinCommentContainer a { margin: 0 0.2em; }
+-->
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table cellpadding="1" cellspacing="0" border="0" bgcolor="#bbbbbb" width="100%" align="center">
+<tr><td width="100%" colspan="2" valign="top">
+<table id="issue_header" cellpadding="4" cellspacing="0" border="0" width="100%" bgcolor="#ffffff">
+<tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+    <table id="issue_header_summary" width="100%" cellpadding="0" cellspacing="0">
+        <tr><td bgcolor="#f0f0f0" width="80%" valign="top">
+            <b><a href="/browse/CONF">
+                Confluence</a></b><br>
+
+            
+
+            <h3 class="formtitle"><img src="/images/icons/link_out_bot.gif" width="16" height="16"
+                              border="0" alt="" /> Indexing fails on password-protected MS Excel workbooks with java.lang.reflect.InvocationTargetException </h3>
+            <font size="1">
+                Created: <span class="date">26/Jan/09 06:03 PM</span> &nbsp;
+                Updated: <span class="date">19/Feb/09 06:39 PM</span>
+
+                
+                    
+                
+                
+            </font>
+        </td>
+            
+            
+        </tr></table>
+</tr>
+
+
+    
+        <tr>
+            <td width="20%"><b>Component/s:</b></td>
+            <td width="80%">
+                
+                    
+
+
+    
+        <a href="/browse/CONF/component/10350" title="Searching / Indexing ">Searching / Indexing</a>
+    
+
+
+
+                
+            </td>
+        </tr>
+    
+
+    
+        <tr>
+            <td width="20%"><b>Affects Version/s:</b></td>
+            <td width="80%">
+                
+                    
+
+
+    
+        2.6.0
+    
+
+
+
+                
+            </td>
+        </tr>
+    
+
+    
+        <tr>
+            <td width="20%"><b>Fix Version/s:</b></td>
+            <td width="80%">
+                
+                    
+
+
+
+    None
+
+
+                
+            </td>
+        </tr>
+    
+    
+        
+        
+            
+        
+    
+
+</table>
+</td></tr></table>
+
+
+
+
+    
+        
+
+
+<br/>
+<table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <table cellpadding="4" cellspacing="1" class="tt_outer">
+                <tr>
+                    <td id="tt_heading" class="tt_heading" style="line-height:150%;">
+                        Time Tracking:
+                        
+                    </td>
+                    <td class="tt_infoarea">
+                        
+                        
+                            
+
+
+<table id="tt_single_table_info" class="tt_inner">
+    
+        <tr>
+            <td>
+                Not Specified
+            </td>
+        </tr>
+    
+    
+</table>
+
+
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+
+    
+    
+        <br>
+        <table cellpadding="0" cellspacing="0" border="0" bgcolor="#bbbbbb" WIDTH="100%" align="center"><tr><td>
+        <table cellpadding="4" cellspacing="1" border="0" width="100%" bgcolor="#bbbbbb" id="issueDetailsTable">
+
+        
+
+
+
+
+
+
+
+        
+
+        
+
+
+<tr>
+	<td bgcolor="#f0f0f0" width="20%" valign="top">
+        <a href="/secure/ManageLinks.jspa?id=79583" title="View links in more detail"><b>Issue Links:</b></a>
+    </td>
+	<td bgcolor="#ffffff" valign="top" class="noPadding">
+		<table cellpadding="4" cellspacing="0" border="0" width="100%">
+		
+        
+            <tr>
+                <td colspan="2" bgcolor="#f0f0f0">
+                    <b>Reference</b><br>
+                </td>
+            </tr>
+            <tr>
+                
+<td bgcolor="#ffffff" valign="top" width="50%">
+	
+	
+	&nbsp;
+	
+</td>
+
+                
+<td bgcolor="#ffffff" valign="top" width="50%">
+	
+	
+		<table id="inwardLinks_table" cellpadding="0" cellspacing="0" width="100%">
+		<tr><td colspan="4" valign="top">
+			This issue <i>is related to</i>:
+		</td></tr>
+			
+			<tr><td width="1%"><img src="/images/icons/link_in_only.gif" width="16" height="16">
+				
+				
+				</td>
+				
+
+<td width="100%">
+    <table class="autotrim" cellpadding="0">
+        <tr>
+            <td>
+                <font size="1"><a href="/browse/CONF-5825" title="Confluence can't index certain types of PDF files">
+                
+                CONF-5825</a> Confluence can't index certain types of PDF files</font>
+            </td>
+        </tr>
+    </table>
+</td>
+
+<td nowrap width="1%">
+
+ 
+
+
+
+
+<img src="/images/icons/priority_major.gif" height="16" width="16" border="0" align="absmiddle" alt="Major" title="Major - Major loss of function.">
+
+
+
+
+
+
+</td>
+
+
+<td nowrap width="1%">
+
+ 
+
+
+
+
+<img src="/images/icons/status_open.gif" height="16" width="16" border="0" align="absmiddle" alt="Open" title="Open - The issue is open and ready for the assignee to start work on it.">
+
+
+
+
+
+
+</td>
+
+			</tr>
+			
+		</table>
+	
+	
+	
+</td>
+
+            </tr>
+        
+		
+		</table>
+	</td>
+</tr>
+
+
+        
+
+
+
+
+        </table>
+        </td></tr></table>
+    
+
+
+<br>
+
+
+
+
+
+
+
+<table id="tab1" class="gridTabBox" cellpadding="3" cellspacing="1" align="center" width="100%">
+    
+    
+        
+             
+            
+                <tr id="rowForcustomfield_10150">
+                    <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Participants:</b></td>
+                    <td bgcolor="#ffffff" width="80%">
+                                    <a class="nowrap" title="Find all issues James Fleming [Atlassian] participated in" href="/secure/IssueNavigator.jspa?reset=true&customfield_10150=jfleming">James Fleming [Atlassian]</a> and             <a class="nowrap" title="Find all issues Per Fragemann [Atlassian] participated in" href="/secure/IssueNavigator.jspa?reset=true&customfield_10150=pfragemann">Per Fragemann [Atlassian]</a>    
+                    </td>
+                </tr>
+            
+        
+    
+        
+             
+            
+                <tr id="rowForcustomfield_10160">
+                    <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Since last comment:</b></td>
+                    <td bgcolor="#ffffff" width="80%">
+                                    50 weeks, 1 day ago
+                        <style>
+        <!--
+            #issuerow79583 *
+            {
+                color: #cc0000;
+            }
+        -->
+        </style>
+                        <style>
+        <!--
+            #issuerow79583 *
+            {
+                font-weight: bold;
+            }
+        -->
+        </style>
+            
+                    </td>
+                </tr>
+            
+        
+    
+        
+             
+            
+                <tr id="rowForcustomfield_10432">
+                    <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Internal Complexity:</b></td>
+                    <td bgcolor="#ffffff" width="80%">
+                          4
+
+                    </td>
+                </tr>
+            
+        
+    
+        
+             
+            
+                <tr id="rowForcustomfield_10433">
+                    <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Internal Value:</b></td>
+                    <td bgcolor="#ffffff" width="80%">
+                          3
+
+                    </td>
+                </tr>
+            
+        
+    
+        
+             
+            
+                <tr id="rowForcustomfield_10490">
+                    <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Labels:</b></td>
+                    <td bgcolor="#ffffff" width="80%">
+                            <!-- This is separated out here so I can quickly change between debuging where I want scripts and css loaded from the file system
+      and runtime when I want it all laoded from the class loaded via jira methos. -->
+<!-- Load Via JIRA -->
+
+    <span class="suggestedlabels plugin_label_labels_79583_customfield_10490">  <a href='/secure/IssueNavigator.jspa?reset=true&amp;pid=10420&amp;pid=11011&amp;pid=11772&amp;pid=10470&amp;pid=11291&amp;pid=11771&amp;pid=11830&amp;pid=12200&amp;pid=10240&amp;customfield_10490='></a>
+</span>
+    
+                    </td>
+                </tr>
+            
+        
+    
+</table>
+
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+<div id="description-open">
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td bgcolor="#bbbbbb" width="1%" nowrap align="center">
+			&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
+	</td>
+    <td align="right"><a id="description-hide" href="" onClick="toggleDivsWithCookie('description-closed', 'description-open'); return false;" class="smallgrey">&laquo; Hide</a></td>
+</tr>
+</table>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr>
+	<td id="descriptionArea">
+        <div id="description_full">
+            <p>Only occurs when the whole workbook has been encrypted, not where individual sheets are protected.</p>
+
+<p>The problem actually lies with the Poi library, but the maintainers have closed the issue as "won't fix" because they won't touch anything involving encryption. They won't even detect the encryption and throw an informative exception, for fear of MS' lawyers, but note that users are welcome to write and maintain their own modules:<br/>
+<span class="nobr"><a href="http://poi.apache.org/faq.html#faq-N10055">http://poi.apache.org/faq.html#faq-N10055<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span></p>
+
+<p>Stack trace (snipped for brevity):<br/>
+java.lang.reflect.InvocationTargetException<br/>
+	at sun.reflect.GeneratedConstructorAccessor397.newInstance(Unknown Source)<br/>
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)<br/>
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:494)<br/>
+	at org.apache.poi.hssf.record.RecordFactory.createRecord(RecordFactory.java:257)<br/>
+	at org.apache.poi.hssf.eventusermodel.HSSFEventFactory.genericProcessEvents(HSSFEventFactory.java:221)<br/>
+	at org.apache.poi.hssf.eventusermodel.HSSFEventFactory.processEvents(HSSFEventFactory.java:139)<br/>
+	at com.atlassian.bonnie.search.extractor.MsExcelContentExtractor.extractText(MsExcelContentExtractor.java:90)<br/>
+...<br/>
+Caused by: java.lang.IllegalArgumentException: Illegal length<br/>
+	at org.apache.poi.util.StringUtil.getFromUnicodeHigh(StringUtil.java:114)<br/>
+	at org.apache.poi.hssf.record.FontRecord.fillFields(FontRecord.java:172)<br/>
+	at org.apache.poi.hssf.record.Record.fillFields(Record.java:127)<br/>
+	at org.apache.poi.hssf.record.Record.&lt;init&gt;(Record.java:92)<br/>
+	at org.apache.poi.hssf.record.FontRecord.&lt;init&gt;(FontRecord.java:125)</p><br />
+        </div>
+    </td>
+</tr>
+</table>
+</div>
+
+<div id="description-closed" style="display:none;">
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center" class="table-layout: fixed;">
+<tr>
+	<td bgcolor="#bbbbbb" width="1%" nowrap align="center">
+			&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
+	</td>
+    <td style="padding: 1px; margin: 0px; border-bottom: #bbb 1px solid;"><div style="height: 1.2em; overflow: hidden; text-overflow: ellipsis;">&nbsp; &nbsp;Only occurs when the whole workbook has been encrypted, not where individual sheets are protected.
+
+The problem actually lies with the Poi library, but the maintainers have closed the issue as "won't fix" because they won't touch anything involving encryption. They won't even detect the encryption and throw an informative exception, for fear of MS' lawyers, but note that users are welcome to write and maintain their own modules:
+<span class="nobr"><a href="http://poi.apache.org/faq.html#faq-N10055">http://poi.apache.org/faq.html#faq-N10055<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span>
+
+Stack trace (snipped for brevity):
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.GeneratedConstructorAccessor397.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:494)
+	at org.apache.poi.hssf.record.RecordFactory.createRecord(RecordFactory.java:257)
+	at org.apache.poi.hssf.eventusermodel.HSSFEventFactory.genericProcessEvents(HSSFEventFactory.java:221)
+	at org.apache.poi.hssf.eventusermodel.HSSFEventFactory.processEvents(HSSFEventFactory.java:139)
+	at com.atlassian.bonnie.search.extractor.MsExcelContentExtractor.extractText(MsExcelContentExtractor.java:90)
+...
+Caused by: java.lang.IllegalArgumentException: Illegal length
+	at org.apache.poi.util.StringUtil.getFromUnicodeHigh(StringUtil.java:114)
+	at org.apache.poi.hssf.record.FontRecord.fillFields(FontRecord.java:172)
+	at org.apache.poi.hssf.record.Record.fillFields(Record.java:127)
+	at org.apache.poi.hssf.record.Record.&lt;init&gt;(Record.java:92)
+	at org.apache.poi.hssf.record.FontRecord.&lt;init&gt;(FontRecord.java:125)</div></td>
+    <td width="1%" align="right" nowrap style="padding: 1px; margin: 0px; border-bottom: #bbb 1px solid;"><a id="description-show" href="" onClick="toggleDivsWithCookie('description-open', 'description-closed'); return false;" class="smallgrey">Show &raquo;</a></td>
+</tr>
+</table>
+</div>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+    restoreDivFromCookie('description-open', 'jira.viewissue.cong.cookie', '1');
+    restoreDivFromCookie('description-closed', 'jira.viewissue.cong.cookie', '0');
+//-->
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
+    <div class="tabwrap">
+        
+            <div class="sortwrap">
+                Sort Order:
+                
+                    <a rel="nofollow" href="/browse/CONF-14292?actionOrder=desc"><img src="/images/icons/arrow_down_blue_small.gif" class="sortArrow" alt="Ascending order - Click to sort in descending order" title="Ascending order - Click to sort in descending order" border="0" /></a>
+                
+                
+            </div>
+        
+        <ul class="tabs horizontal">
+        
+            
+            
+                <li><a href="/browse/CONF-14292?page=com.atlassian.jira.plugin.system.issuetabpanels%3Aall-tabpanel"><strong>All</strong></a></li>
+            
+        
+            
+                <li class="active"><strong>Comments</strong></li>
+            
+            
+        
+            
+            
+                <li><a href="/browse/CONF-14292?page=com.atlassian.jira.plugin.system.issuetabpanels%3Aworklog-tabpanel"><strong>Work Log</strong></a></li>
+            
+        
+            
+            
+                <li><a href="/browse/CONF-14292?page=com.atlassian.jira.plugin.system.issuetabpanels%3Achangehistory-tabpanel"><strong>Change History</strong></a></li>
+            
+        
+            
+            
+                <li><a href="/browse/CONF-14292?page=com.atlassian.streams.streams-jira-plugin%3Aactivity-stream-issue-tab"><strong>Activity Stream</strong></a></li>
+            
+        
+        </ul>
+    </div>
+
+    
+        <div class="issuePanelContainer" id="issue_actions_container">
+        
+            
+                
+                <div id="comment-142056-open">
+<div class="actionContainer">
+    <div class="action-links subText smallgrey">
+    [
+        <a href="/browse/CONF-14292?focusedCommentId=142056&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_142056" title="A permanent link to this comment." class="smallgrey">Permalink</a>
+                      | <a id="comment-142056-hide" href="" onClick="toggleDivsWithCookie('comment-142056-closed', 'comment-142056-open'); return false;" class="smallgrey">&laquo; Hide</a>
+    ]
+    </div>
+    <div class="action-details">    <a name="action_142056" />
+    
+    
+    
+                <a id="comment_142056_header_jfleming" href="/secure/ViewProfile.jspa?name=jfleming">James Fleming [Atlassian]</a> added a comment  - <span class=subText><span class=date>26/Jan/09 06:04 PM</span></span>  </div>
+    <div class="action-body"><p>Raised in response to CSP-27731.</p> </div>
+</div>
+</div>
+
+
+<div id="comment-142056-closed" style="display: none;">
+<div class="actionContainer" style="background-color:#f0f0f0;">
+    <div class="action-links subText smallgrey">
+    [ <a id="comment-142056-show" href="" onClick="toggleDivsWithCookie('comment-142056-open', 'comment-142056-closed'); return false;" class="smallgrey">Show &raquo;</a> ]
+    </div>
+    <div class="action-details" style="overflow: hidden; height: 1em;">
+                <a name="action_142056" />
+    
+    
+    
+                <a id="comment_142056_header_jfleming" href="/secure/ViewProfile.jspa?name=jfleming">James Fleming [Atlassian]</a> added a comment  - <span class=subText><span class=date>26/Jan/09 06:04 PM</span></span>               Raised in response to CSP-27731.     </div>
+</div>
+</div>
+<br clear="all" />
+<script language="JavaScript" type="text/javascript">
+<!--
+    restoreDivFromCookie('comment-142056-open', 'jira.viewissue.cong.cookie', '1');
+    restoreDivFromCookie('comment-142056-closed', 'jira.viewissue.cong.cookie', '0');
+//-->
+</script>
+
+                
+            
+                
+                <div id="comment-144677-open">
+<div class="actionContainer">
+    <div class="action-links subText smallgrey">
+    [
+        <a href="/browse/CONF-14292?focusedCommentId=144677&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_144677" title="A permanent link to this comment." class="smallgrey">Permalink</a>
+                      | <a id="comment-144677-hide" href="" onClick="toggleDivsWithCookie('comment-144677-closed', 'comment-144677-open'); return false;" class="smallgrey">&laquo; Hide</a>
+    ]
+    </div>
+    <div class="action-details">    <a name="action_144677" />
+    
+    
+    
+                <a id="comment_144677_header_pfragemann" href="/secure/ViewProfile.jspa?name=pfragemann">Per Fragemann [Atlassian]</a> added a comment  - <span class=subText><span class=date>17/Feb/09 06:01 PM</span></span>  </div>
+    <div class="action-body"><p>james, please don't mark all affects-versions, the first known occurence is fine. see <span class="nobr"><a href="http://confluence.atlassian.com/display/Support/JIRA+usage+guidelines">http://confluence.atlassian.com/display/Support/JIRA+usage+guidelines<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span> <img class="emoticon" src="/images/icons/emoticons/smile.gif" height="20" width="20" align="absmiddle" alt="" border="0"/></p>
+
+<p> Especially the trunk-versions should not be selected, unless it is really a new bug. clutters our stats.</p> </div>
+</div>
+</div>
+
+
+<div id="comment-144677-closed" style="display: none;">
+<div class="actionContainer" style="background-color:#f0f0f0;">
+    <div class="action-links subText smallgrey">
+    [ <a id="comment-144677-show" href="" onClick="toggleDivsWithCookie('comment-144677-open', 'comment-144677-closed'); return false;" class="smallgrey">Show &raquo;</a> ]
+    </div>
+    <div class="action-details" style="overflow: hidden; height: 1em;">
+                <a name="action_144677" />
+    
+    
+    
+                <a id="comment_144677_header_pfragemann" href="/secure/ViewProfile.jspa?name=pfragemann">Per Fragemann [Atlassian]</a> added a comment  - <span class=subText><span class=date>17/Feb/09 06:01 PM</span></span>               james, please don't mark all affects-versions, the first known occurence is fine. see <span class="nobr"><a href="http://confluence.atlassian.com/display/Support/JIRA+usage+guidelines">http://confluence.atlassian.com/display/Support/JIRA+usage+guidelines<sup><img class="rendericon" src="/images/icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="" border="0"/></sup></a></span> <img class="emoticon" src="/images/icons/emoticons/smile.gif" height="20" width="20" align="absmiddle" alt="" border="0"/>
+
+ Especially the trunk-versions should not be selected, unless it is really a new bug. clutters our stats.     </div>
+</div>
+</div>
+<br clear="all" />
+<script language="JavaScript" type="text/javascript">
+<!--
+    restoreDivFromCookie('comment-144677-open', 'jira.viewissue.cong.cookie', '1');
+    restoreDivFromCookie('comment-144677-closed', 'jira.viewissue.cong.cookie', '0');
+//-->
+</script>
+
+                
+            
+                
+                <div id="comment-144693-open">
+<div class="actionContainer">
+    <div class="action-links subText smallgrey">
+    [
+        <a href="/browse/CONF-14292?focusedCommentId=144693&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_144693" title="A permanent link to this comment." class="smallgrey">Permalink</a>
+                      | <a id="comment-144693-hide" href="" onClick="toggleDivsWithCookie('comment-144693-closed', 'comment-144693-open'); return false;" class="smallgrey">&laquo; Hide</a>
+    ]
+    </div>
+    <div class="action-details">    <a name="action_144693" />
+    
+    
+    
+                <a id="comment_144693_header_jfleming" href="/secure/ViewProfile.jspa?name=jfleming">James Fleming [Atlassian]</a> added a comment  - <span class=subText><span class=date>17/Feb/09 06:30 PM</span></span>  </div>
+    <div class="action-body"><p>My apologies. I'll remember this in future.</p> </div>
+</div>
+</div>
+
+
+<div id="comment-144693-closed" style="display: none;">
+<div class="actionContainer" style="background-color:#f0f0f0;">
+    <div class="action-links subText smallgrey">
+    [ <a id="comment-144693-show" href="" onClick="toggleDivsWithCookie('comment-144693-open', 'comment-144693-closed'); return false;" class="smallgrey">Show &raquo;</a> ]
+    </div>
+    <div class="action-details" style="overflow: hidden; height: 1em;">
+                <a name="action_144693" />
+    
+    
+    
+                <a id="comment_144693_header_jfleming" href="/secure/ViewProfile.jspa?name=jfleming">James Fleming [Atlassian]</a> added a comment  - <span class=subText><span class=date>17/Feb/09 06:30 PM</span></span>               My apologies. I'll remember this in future.     </div>
+</div>
+</div>
+<br clear="all" />
+<script language="JavaScript" type="text/javascript">
+<!--
+    restoreDivFromCookie('comment-144693-open', 'jira.viewissue.cong.cookie', '1');
+    restoreDivFromCookie('comment-144693-closed', 'jira.viewissue.cong.cookie', '0');
+//-->
+</script>
+
+                
+            
+        
+        
+        </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="footer">
+<div  class="poweredbymessage" >
+        <a class="seo-link" href="http://www.atlassian.com/software/jira/bug-tracking.jsp">Bug tracking</a>, <a class="seo-link" href="http://www.atlassian.com/software/jira/issue-tracking.jsp">issue tracking</a> and <a class="seo-link" href="http://www.atlassian.com/software/jira/tour/project-management.jsp">project management software</a> powered by <a href="http://www.atlassian.com/software/jira" class="smalltext">Atlassian JIRA</a>
+        <span id="footer-build-information"  style="color: #666666;" >(v4.0.1#471)</span>        | <a href="http://support.atlassian.com/secure/CreateIssue.jspa?issuetype=1&pid=10000">Report a problem</a>
+        | <a href="http://jira.atlassian.com/secure/CreateIssue.jspa?pid=10240&issuetype=2">Request a feature</a>
+        | <a href="/secure/Administrators.jspa">Contact administrators</a>
+    </div>
+                
+    
+
+    
+
+
+
+    
+</div>
+
+
+
+<!--
+	                 REQUEST ID : 3632x10198977x4
+	          REQUEST TIMESTAMP : [04/Feb/2010:01:00:32 -0600]
+	               REQUEST TIME : 0.1680
+	                 ASESSIONID : 1dlkqox
+-->
+
+</body>
+</html>
+
+
+

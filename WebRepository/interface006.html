@@ -1,0 +1,202 @@
+<html><head><!-- This document was created from RTF source by rtftohtml version
+2.7.5 --></head>
+<body bgcolor="white">
+<h2 align="center"><b><font color="red">Programming with Interfaces in Java</font></b> 
+</h2>
+<p align="center"> <b>Joseph Bergin, 1996</b></p>
+<p>
+<b></b><p>
+<p>
+In Java an interface is similar to an abstract class in that its members are
+not implemented.  In interfaces, _none_ of the methods are implemented.  There
+is no code at all associated with an interface.  For example, from my personal
+library:<p>
+<p> <code>
+<pre>
+<font color="blue">	public interface Comparable      
+	{	boolean less(Object m);
+		boolean greater(Object m);
+		boolean lessEqual(Object m);
+		boolean greaterEqual(Object m);
+	}</font></pre>
+</code>
+<p>
+All instance methods are implicitly public and abstract.  You can mark them as
+such, but are discouraged from doing so as the marking is considered obsolete
+practice.  The interfaces themselves need not be public and several interfaces
+in the standard libraries are not public and thus used only internally.  <p>
+<p>
+An interface creates a protocol that classes may implement.  Note that one can
+extend an interface (to get a new interface) just as you can extend a class.
+One can actually extend several interfaces.  Interfaces thus enjoy the benefits
+of multiple inheritance.  (Classes do not.)  There are almost no disadvantages
+to multiple inheritance of interface (small name conflict problems are one
+exception).  There are large disadvantages to multiple inheritance of
+implementation as in C++.  These include efficiency considerations as well as
+the semantic difficulty of determining just what code will be executed in some
+circumstances.  <p>
+<p>
+The Polynomial class that implements Comparable will need to implement all of
+the functions declared in the interface. <p>
+<p><code>
+<pre>
+<font color="blue">	public class Polynomial implements Comparable
+	{	. . .
+		boolean less(Object m){ . . . }
+		boolean greater(Object m){ . . . }
+		boolean lessEqual(Object m){ . . . }
+		boolean greaterEqual(Object m){ . . . }
+	
+		Polynomial multiply(Polynomial P){ . . . }
+		. . .
+	}</font></pre>
+</code>
+<p> A class may choose to implement any number of interfaces. A class that implements 
+  an interface must provide bodies for all methods of that interface. Also, I 
+  expect that an abstract class can choose to implement part of an interface leaving 
+  the rest for non-abstract subclasses. I can't find this in the documentation, 
+  however. Anyone that needs to know can, of course, construct a simple example 
+  and try it to see if the compilers accept it. I call this technique "probing" 
+  and use it often when I'm not sure about how something works. In Java, with 
+  its more complete definition than other languages, this should be an even more 
+  valuable technique, since compilers should differ very little (actually not 
+  at all). 
+<p>
+ <p>
+ The usefulness of interfaces goes far beyond simply publishing protocols for
+other programmers.  Any function can have parameters that are of interface
+type.  Any object from a class that implements the interface may be passed as
+an argument.  <p>
+ <p><code>
+<pre>
+<font color="blue"> 	class Foo
+	 {	Vector bar(Vector v, Comparable c){...}
+		 ...
+	 }</font></pre>
+</code>
+ 
+<p> One can apply <font color="blue">bar</font> to a Vector and a Polynomial, 
+  since Polynomial implements Comparable. 
+<p>
+ 
+<p> The body of instance method (member function) <font color="blue">bar</font> 
+  will only be able to apply Comparable methods to parameter c. Dynamic Binding 
+  assures that the actual class methods for the object passed will be applied. 
+  Other instance methods of objects passed, such as the multiply method from Polynomial 
+  cannot be used within <font color="blue">bar</font>. 
+<p>
+ 
+<p> Therefore the <font color="blue">bar</font> function is polymorphic in its 
+  second parameter as many actual types may be passed for this value. Note that 
+  classes implementing Comparable don't need to be otherwise related to each other. 
+  This means that a class that uniformly uses an interface type for some method 
+  parameters, behaves very much like a class template in C++. 
+<p>
+ <p>
+ We can also have variables (not just parameters) of type Comparable, or in
+general, of any interface type.  These variables may refer to any object from
+any class that implements the interface.  These variables may have only members
+defined within the interface applied to them however.  They may also be passed
+to methods that name that interface as a parameter type.  <p>
+ 
+<p> Note that interface declarations never declare variables, though they may 
+  declare constants. You can actually use variable syntax for defining them (with 
+  initializers, of course). You don't need to say "static final" though you may. 
+  They will be constants in any case. 
+<p>
+ <p>
+ If you have a variable of some interface type and you know that it refers to
+an object of a specific class, say Polynomial, then you can cast it to
+Polynomial.  A run-time check will be inserted to guarantee correctness.  If
+you need to check the type of any reference, you can use the instanceof
+operator.  Use of instanceof should be rare.  If you find yourself using it
+often, you haven't yet absorbed object-oriented programming, and the power of
+the dynamic binding principle.  If you cast a reference incorrectly, then at
+runtime the ClassCastException will be thrown.  Note _importantly_ that a cast
+can never make an incorrect program correct.  It won't fix up problems.  It
+simply affirms what must otherwise be true.  <p>
+ <p>
+ Notice that C++ templates are a form of _implicit_ interface.  When you define
+a class template in C++ and then use the template parameter in the body of the
+class, the uses of that name impose requirements on the actual arguments that
+can be used to instantiate the template.  If you apply operator&lt; to such a
+parameter, then the actual argument needs to support operator&lt;.  In Java we
+have the advantage that such interfaces are explicit.  We name the interface
+and the interface defines a list of requirements that the objects must
+implement.  Note, however, that adhering to an interface requires saying that
+the class implements it in its class header.  Adherence to interfaces is,
+therefore, explicit rather than implicit as with C++ templates.  <p>
+ <p>
+A method in Java that has a parameter of interface type is nearly the same as a
+function template in C++.  A class that uses interfaces to type any variables
+or parameters behaves very similarly to a class template in C++.  Just think of
+the interface names as if they were template arguments.  If a "template" puts
+_no_ restrictions on an object, then just use type Object rather than an
+interface type.  <p>
+ <p>
+One of the very important interfaces in Java (in package java.util) is <p>
+ <p><code>
+<pre>
+<font color="blue">	 interface Enumeration
+	 {	boolean 	hasMoreElements();
+	 	Object    	nextElement();
+	 }</font></pre>
+</code>
+ <p>
+ If an object implements Enumeration, we can use the object to control a while
+loop.<p>
+ <p><code>
+<pre>
+<font color="blue">	 Enumeration e = ...
+	 while(e.hasMoreElements())
+ 		doSomethingWith(e.nextElement());</font></pre>
+</code>
+	<p>
+Collection objects like stacks and hashtables return enumeration objects so
+that we can process all elements of the collection with a while loop without
+needing access to the internal storage mechanism of the collection.  Vector,
+for example has an instance method<p>
+ <p><code>
+<pre>
+<font color="blue">	public final synchronized Enumeration elements();</font></pre>
+</code>
+<p>
+that returns an enumeration over the elements of the Vector.  Enumerations are
+called iterators in other languages.  To implement an enumeration properly, you
+must guarantee that each call of nextElement will return an element of the
+collection not yet returned, and that hasMoreElements will be true if and only
+if not all elements have yet been returned by nextElement.  Therefore to print
+all elements in Vector V, you can write<p>
+ <p><code>
+<pre>
+<font color="blue">	Enumeration e = V.elements();
+	while(e.hasMoreElements())
+ 		println("Value is " + e.nextElement());</font></pre>
+</code> 
+<p>When you create a new container type (like Vector) you also create a class 
+  that implements Enumeration so that users can get access to the elements of 
+  the container for such processes. 
+<p>
+<p>
+See also. Pages 154 and following in Core Java and 76 and following in the
+Nutshell book.  <p>
+<p>
+Note that the model-view ideas depend on an interface and Threads also make use
+of interfaces.  Page 383 in the Nutshell book has a list of what classes
+implement which interfaces in the Java libraries.  In general, the cross
+reference that begins on page 365 in the Nutshell book is excellent.  So is the
+Glossary on page 399ff.  <p>
+<p>
+Summary.  A class can extend one other class and implement any number of
+interfaces.  An interface can extend any number of interfaces.  When a class
+implements an interface it implements all of the methods declared in that
+interface.  You can have variables and parameters of an interface type.  You
+can also cast these as needed.  <p>
+<p>
+Note that one mechanism in Java (interfaces) supports most of the functionality
+of two mechanisms of C++ (templates and multiple inheritance).  One of the
+designers of C++ has stated that if templates had been added to C++ earlier
+then multiple inheritance probably would not have been seen as needed.  This is
+because templates and multiple inheritance can be used to solve many of the
+same problems.  <p>
+</body></html>

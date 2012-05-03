@@ -1,0 +1,1218 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>java double comparison epsilon - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6230">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/356807/java-double-comparison-epsilon">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'java double comparison epsilon'" href="/feeds/question/356807">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(356807);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f356807%2fjava-double-comparison-epsilon">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/356807/java-double-comparison-epsilon" class="question-hyperlink">java double comparison epsilon</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=floating-point,java,currency">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="356807">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        4
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b>1</b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>i wrote a class that tests for equality, less than, and greater than with two doubles in java.  My general case is comparing price that can have an accuracy of a half cent.  59.005 compared to 59.395.  Is the epsilon i chose adequate for those cases? thanks...</p>
+
+<pre><code>private final static double EPSILON = 0.00001;
+/**
+ * Returns true if two doubles are considered equal.  Tests if the absolute 
+ * difference between two doubles has a difference less then .00001.   This 
+ * should be fine when comparing prices, because prices have a precision of 
+ * .001. 
+ * 
+ * @param a double to compare.
+ * @param b double to compare.
+ * @return true true if two doubles are considered equal. 
+ */
+public static boolean equals(double a, double b){
+	return a == b ? true : Math.abs(a - b) &lt; EPSILON;
+}
+/**
+ * Returns true if two doubles are considered equal. Tests if the absolute 
+ * difference between the two doubles has a difference less then a given 
+ * double (epsilon). Determining the given epsilon is highly dependant on the 
+ * precision of the doubles that are being compared.  
+ *  
+ * @param a double to compare.
+ * @param b double to compare
+ * @param epsilon double which is compared to the absolute difference of two 
+ * doubles to determine if they are equal. 
+ * @return true if a is considered equal to b.
+ */
+public static boolean equals(double a, double b, double epsilon){
+	return a == b ? true : Math.abs(a - b) &lt; epsilon;
+}
+/** 
+ * Returns true if the first double is considered greater than the second 
+ * double.  Test if the difference of first minus second is greater then 
+ * .00001.  This should be fine when comparing prices, because prices have a 
+ * precision of .001.
+ * 
+ * @param a first double  
+ * @param b second double 
+ * @return true if the first double is considered greater than the second 
+ *              double
+ */
+public static boolean greaterThan(double a, double b){
+	return greaterThan(a, b, EPSILON);
+}
+/** 
+ * Returns true if the first double is considered greater than the second 
+ * double.  Test if the difference of first minus second is greater then 
+ * a given double (epsilon).  Determining the given epsilon is highly 
+ * dependant on the precision of the doubles that are being compared.
+ * 
+ * @param a first double  
+ * @param b second double 
+ * @return true if the first double is considered greater than the second 
+ *              double
+ */
+public static boolean greaterThan(double a, double b, double epsilon){
+	return a - b &gt; epsilon;
+}
+/** 
+ * Returns true if the first double is considered less than the second 
+ * double.  Test if the difference of second minus first is greater then 
+ * .00001.  This should be fine when comparing prices, because prices have a 
+ * precision of .001.
+ * 
+ * @param a first double  
+ * @param b second double 
+ * @return true if the first double is considered less than the second 
+ *              double
+ */
+public static boolean lessThan(double a, double b){
+	return lessThan(a, b, EPSILON);
+}
+/** 
+ * Returns true if the first double is considered less than the second 
+ * double.  Test if the difference of second minus first is greater then 
+ * a given double (epsilon).  Determining the given epsilon is highly 
+ * dependant on the precision of the doubles that are being compared.
+ * 
+ * @param a first double  
+ * @param b second double 
+ * @return true if the first double is considered less than the second 
+ *              double
+ */
+public static boolean lessThan(double a, double b, double epsilon){
+	return b - a &gt; epsilon;
+}
+}
+</code></pre>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/floating-point" class="post-tag" title="show questions tagged 'floating-point'" rel="tag">floating-point</a> <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/currency" class="post-tag" title="show questions tagged 'currency'" rel="tag">currency</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-356807" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/356807/revisions" title="show all edits to this post"><span title="2009-04-25 14:25:06Z" class="relativetime">Apr 25 at 14:25</span></a></div><div class="user-gravatar32"><a href="/users/33611/elijah"><img src="http://www.gravatar.com/avatar/31e70bc52c40f56805487f8940ef44c8?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/33611/elijah" >Elijah</a><br><span class="reputation-score" title="reputation score">3,653</span><span title="4 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">4</span></span><span title="20 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">20</span></span></div></div>
+            
+            </td>
+            
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2008-12-10 17:11:15Z" class="relativetime">Dec 10 '08 at 17:11</span></div><div class="user-gravatar32"><img src="http://sstatic.net/so/img/anonymous-user-gravatar.png" width="32" height="32" alt=""></div><div class="user-details">rich<br></div></div>
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356807" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-188240" class="comment">
+        <td></td>
+        <td class="comment-text"><div>You have awaken the wrath of some people here! See here if you really want to use floating point numbers: <a href="http://docs.sun.com/source/806-3568/ncg_goldberg.html" rel="nofollow">docs.sun.com/source/806-3568/ncg_goldberg.html</a> &ndash;&nbsp;<a href="/users/39057/loki" title="3436" class="comment-user">Loki</a> <span class="comment-date"><span title="2008-12-10 17:31:52Z">Dec 10 '08 at 17:31</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>9 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/356807?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/356807?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/356807?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="356865"></a>
+    
+    <div id="answer-356865" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356865">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        21
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>You do NOT use double to represent money. Not ever. Use java.math.BigDecimal instead.</p>
+
+<p>Then you can specify how exactly to do rounding (which is sometimes dictated by law in financial applications!) and don't have to do stupid hacks like this epsilon thing.</p>
+
+<p>Seriously, using floating point types to represent money is extremely unprofessional.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356865#356865" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356865" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:24:11Z" class="relativetime">Dec 10 '08 at 17:24</span></div><div class="user-gravatar32"><a href="/users/16883/michael-borgwardt"><img src="http://www.gravatar.com/avatar/0382297f273df0a544b0c6c2734de096?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/16883/michael-borgwardt" >Michael Borgwardt</a><br><span class="reputation-score" title="reputation score">34.4k</span><span title="6 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">6</span></span><span title="23 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">23</span></span><span title="79 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">79</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356865" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=floating-point,java,currency">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="356891"></a>
+    
+    <div id="answer-356891" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356891">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        4
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>If you are dealing with money I suggest checking the Money design pattern (originally from <a href="http://rads.stackoverflow.com/amzn/click/0321127420" rel="nofollow">Martin Fowler's book on enterprise architectural design</a>).</p>
+
+<p>I suggest reading this link for the motivation:
+<a href="http://wiki.moredesignpatterns.com/space/Value+Object+Motivation+v2" rel="nofollow">http://wiki.moredesignpatterns.com/space/Value+Object+Motivation+v2</a></p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356891#356891" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356891" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/356891/revisions" title="show all edits to this post"><span title="2008-12-10 18:48:16Z" class="relativetime">Dec 10 '08 at 18:48</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:30:29Z" class="relativetime">Dec 10 '08 at 17:30</span></div><div class="user-gravatar32"><a href="/users/24545/yuval-a"><img src="http://www.gravatar.com/avatar/921951b0d056f2295dd31cfeec25b60e?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/24545/yuval-a" >Yuval A</a><br><span class="reputation-score" title="reputation score">16k</span><span title="2 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">2</span></span><span title="24 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">24</span></span><span title="71 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">71</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356891" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="356852"></a>
+    
+    <div id="answer-356852" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356852">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Whoa whoa whoa. Is there a specific reason you're using floating-point for currency, or would things be better off with an <a href="http://stackoverflow.com/questions/285680/representing-monetary-values-in-java">arbitrary-precision, fixed-point number format</a>? I have no idea what the specific problem that you're trying to solve is, but you should think about whether or not half a cent is really something you want to work with, or if it's just an artifact of using an imprecise number format.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356852#356852" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356852" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:21:13Z" class="relativetime">Dec 10 '08 at 17:21</span></div><div class="user-gravatar32"><a href="/users/19750/jleedev"><img src="http://www.gravatar.com/avatar/13b41b2620da0b1e630715e0c91a0b03?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/19750/jleedev" >jleedev</a><br><span class="reputation-score" title="reputation score">5,580</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="8 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">8</span></span><span title="21 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">21</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356852" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="356825"></a>
+    
+    <div id="answer-356825" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356825">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Yes.  Java doubles will hold their precision better than your given epsilon of 0.00001.  </p>
+
+<p>Any rounding error that occurs due to the storage of floating point values will occur smaller than 0.00001. I regularly use <code>1E-6</code> or 0.000001 for a double epsilon in Java with no trouble.   </p>
+
+<p>On a related note, I like the format of <code>epsilon = 1E-5;</code> because I feel it is more readable (1E-5 in Java = 1 x 10^-5).  1E-6 is easy to distinguish from 1E-5 when reading code whereas 0.00001 and 0.000001 look so similar when glancing at code I think they are the same value.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356825#356825" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356825" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:15:12Z" class="relativetime">Dec 10 '08 at 17:15</span></div><div class="user-gravatar32"><a href="/users/6180/alex-b"><img src="http://www.gravatar.com/avatar/44a93d237941f727ab6dbd652ed516f7?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/6180/alex-b" >Alex B</a><br><span class="reputation-score" title="reputation score">5,136</span><span title="2 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">2</span></span><span title="9 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">9</span></span><span title="24 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">24</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356825" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="356868"></a>
+    
+    <div id="answer-356868" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356868">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Floating point numbers only have so many significant digits, but they can go much higher.  If your app will ever handle large numbers, you will notice the epsilon value should be different.</p>
+
+<p>0.001+0.001 = 0.002
+BUT
+12,345,678,900,000,000,000,000+1=12,345,678,900,000,000,000,000
+if you are using floating point and double.  It's not a good representation of money, unless you are damn sure you'll never handle more than a million dollars in this system. </p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356868#356868" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356868" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:24:55Z" class="relativetime">Dec 10 '08 at 17:24</span></div><div class="user-gravatar32"><a href="/users/36093/karl"><img src="http://www.gravatar.com/avatar/7e695b0854cfa6836c75c248b51ee0de?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/36093/karl" >Karl</a><br><span class="reputation-score" title="reputation score">2,013</span><span title="4 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">4</span></span><span title="15 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">15</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356868" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-188275" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Floating point does not represent values like 0.1 accurately since internally it stores the value as 2^exponent * (1 + fraction). Even within reasonable range like 0.001 + 0.001. Run &quot;print int(1.13 * 100.0) / 100.0&quot; if you have perl. It returns 1.12. &ndash;&nbsp;<a href="/users/3827/eed3si9n" title="15045" class="comment-user">eed3si9n</a> <span class="comment-date"><span title="2008-12-10 17:45:28Z">Dec 10 '08 at 17:45</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="356881"></a>
+    
+    <div id="answer-356881" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356881">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Cents? If you're calculationg money values you really shouldn't use float values. Money is actually countable values. The cents or pennys etc. could be considered the two (or whatever) least significant digits of an integer. You could store, and calculate money values as integers and divide by 100 (e.g. place dot or comma two before the two last digits). Using float's can lead to strange rounding errors...</p>
+
+<p>Anyway, if your epsilon is supposed to define the accuracy, it looks a bit too small (too accurate)...</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356881#356881" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356881" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:27:41Z" class="relativetime">Dec 10 '08 at 17:27</span></div><div class="user-gravatar32"><a href="/users/26115/stein-gauslaa-strindhaug"><img src="http://www.gravatar.com/avatar/cc0a3afafc6f58f2a916df898c6c2d60?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/26115/stein-gauslaa-strindhaug" >Stein Gauslaa Strindhaug</a><br><span class="reputation-score" title="reputation score">1,371</span><span title="3 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">3</span></span><span title="16 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">16</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356881" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="356885"></a>
+    
+    <div id="answer-356885" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356885">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>I definately agree with brazzy: always use BigDecimal for money.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356885#356885" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356885" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:29:06Z" class="relativetime">Dec 10 '08 at 17:29</span></div><div class="user-gravatar32"><a href="/users/45064/markus"><img src="http://www.gravatar.com/avatar/05762fe30779e5592ac7ccaab54aca41?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/45064/markus" >Markus</a><br><span class="reputation-score" title="reputation score">184</span><span title="1 silver badge"><span class="badge2">&#9679;</span><span class="badgecount">1</span></span><span title="3 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">3</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356885" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="356963"></a>
+    
+    <div id="answer-356963" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="356963">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>yes i totally agree i don't want to be using double, but this is a legacy system and it is not trivial to change every thing to long or BigDecimal.  So i'm trying to provide some consistency.  hopefully i'll eventually be able to remove it.</p>
+
+<p>thanks much</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/356963#356963" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-356963" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 17:51:23Z" class="relativetime">Dec 10 '08 at 17:51</span></div><div class="user-gravatar32"><img src="http://sstatic.net/so/img/anonymous-user-gravatar.png" width="32" height="32" alt=""></div><div class="user-details">rich<br></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-356963" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-188329" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Please tell me you're not working for a Financial Services company! &ndash;&nbsp;<a href="/users/8709/ken-gentle" title="5521" class="comment-user">Ken Gentle</a> <span class="comment-date"><span title="2008-12-10 18:07:01Z">Dec 10 '08 at 18:07</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-188373" class="comment">
+        <td></td>
+        <td class="comment-text"><div>You can have your internal classes translate to BigDecimal and back to double when output is needed to the legacy system! &ndash;&nbsp;<a href="/users/36093/karl" title="2013" class="comment-user">Karl</a> <span class="comment-date"><span title="2008-12-10 18:25:55Z">Dec 10 '08 at 18:25</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="357057"></a>
+    
+    <div id="answer-357057" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="357057">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>For further discussion of Money and the use of BigDecimal check out:
+<a href="http://stackoverflow.com/questions/285680/representing-monetary-values-in-java">http://stackoverflow.com/questions/285680/representing-monetary-values-in-java</a></p>
+
+<p>Thanks <a href="http://stackoverflow.com/users/39057/loki">Loki</a> for the <a href="http://docs.sun.com/source/806-3568/ncg_goldberg.html" rel="nofollow">interesting read</a>. I'd never read that and it's great to get a better understanding of this topic. </p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/356807/java-double-comparison-epsilon/357057#357057" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-357057" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-10 18:23:46Z" class="relativetime">Dec 10 '08 at 18:23</span></div><div class="user-gravatar32"><a href="/users/32595/dshaw"><img src="http://www.gravatar.com/avatar/a4e47260000407f5cd0b0637493d67a9?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/32595/dshaw" >dshaw</a><br><span class="reputation-score" title="reputation score">484</span><span title="1 silver badge"><span class="badge2">&#9679;</span><span class="badgecount">1</span></span><span title="10 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">10</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-357057" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/356807/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/floating-point" class="post-tag" title="show questions tagged 'floating-point'" rel="tag">floating-point</a> <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/currency" class="post-tag" title="show questions tagged 'currency'" rel="tag">currency</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/356807/ivc/0b80" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34319</span><br>
+<a href="/questions/tagged/floating-point" class="post-tag" title="show questions tagged 'floating-point'" rel="tag">floating-point</a>&nbsp;<span class="item-multiplier">&times;&nbsp;338</span><br>
+<a href="/questions/tagged/currency" class="post-tag" title="show questions tagged 'currency'" rel="tag">currency</a>&nbsp;<span class="item-multiplier">&times;&nbsp;110</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2008-12-10 17:11:15Z">1 year ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">2,716 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-04-25 14:25:06Z">9 months ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=floating-point,java,currency">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?6094">' +
+	   "Ruby virtuoos gezocht" +
+	   ' at ' +
+	   "OGD ict-diensten</a> (" +
+	   "Delft, Netherlands" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+    <div class="module">
+    <h4>Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="/questions/750941/double-epsilon-vs-stdnumeric-limitsdoublemin" class="question-hyperlink">double.Epsilon vs. std::numeric_limits&lt;double&gt;::min()</a>
+</div>
+<div class="spacer">
+<a href="/questions/17333/most-effective-way-for-float-and-double-comparison" class="question-hyperlink">Most effective way for float and double comparison</a>
+</div>
+<div class="spacer">
+<a href="/questions/96233/why-would-i-use-2s-complement-to-compare-two-doubles-instead-of-comparing-their" class="question-hyperlink">Why would I use 2&rsquo;s complement to compare two doubles instead of comparing their differences against an epsilon value?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1336767/what-is-the-next-normalised-floating-point-number-afterbefore-a-normalised-floa" class="question-hyperlink">What is the next normalised floating point number after(before) a normalised floating point number f?</a>
+</div>
+<div class="spacer">
+<a href="/questions/165175/confusing-return-statement" class="question-hyperlink">Confusing return statement</a>
+</div>
+<div class="spacer">
+<a href="/questions/1043816/how-to-get-a-0-result-in-floating-point-calculations-and-distinguish-it-from-0" class="question-hyperlink">How to get a -0 result in floating point calculations and distinguish it from +0 in C#?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1726254/why-is-javas-double-comparedouble-double-implemented-the-way-it-is" class="question-hyperlink">Why is Java&rsquo;s Double.compare(double, double) implemented the way it is?</a>
+</div>
+<div class="spacer">
+<a href="/questions/264937/how-to-check-if-a-double-has-at-most-n-decimal-places" class="question-hyperlink">How to check if a double has at most n decimal places?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2154484/what-are-the-other-nan-values" class="question-hyperlink">What are the other NaN values?</a>
+</div>
+<div class="spacer">
+<a href="/questions/434548/almostequal2scomplement-or-bigdecimal-scaling" class="question-hyperlink">AlmostEqual2sComplement or BigDecimal Scaling</a>
+</div>
+<div class="spacer">
+<a href="/questions/328475/should-we-compare-floating-point-numbers-for-equality-against-a-relative-error" class="question-hyperlink">Should we compare floating point numbers for equality against a *relative* error?</a>
+</div>
+<div class="spacer">
+<a href="/questions/394174/how-best-to-sum-up-lots-of-floating-point-numbers" class="question-hyperlink">How best to sum up lots of floating point numbers?</a>
+</div>
+<div class="spacer">
+<a href="/questions/503436/how-to-deal-with-excess-precision-in-floating-point-computations" class="question-hyperlink">How to deal with excess precision in floating-point computations?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1849334/is-there-a-way-to-get-the-number-of-places-after-the-decimal-point-in-a-java-doub" class="question-hyperlink">Is there a way to get the number of places after the decimal point in a java double?</a>
+</div>
+<div class="spacer">
+<a href="/questions/649090/how-are-floating-point-literals-in-c-interpreted" class="question-hyperlink">How are floating point literals in C interpreted?</a>
+</div>
+<div class="spacer">
+<a href="/questions/617826/whats-a-c-regular-expression-thatll-validate-currency-float-or-integer" class="question-hyperlink">What&rsquo;s a c# regular expression that&rsquo;ll validate currency, float or integer</a>
+</div>
+<div class="spacer">
+<a href="/questions/618056/what-is-the-best-way-to-store-a-money-value-in-the-database" class="question-hyperlink">What is the best way to store a money value in the database?</a>
+</div>
+<div class="spacer">
+<a href="/questions/638227/net-currency-exponent-iso-4217" class="question-hyperlink">.NET Currency exponent ISO_4217</a>
+</div>
+<div class="spacer">
+<a href="/questions/599083/best-practises-for-dealing-with-monetary-amounts-in-c" class="question-hyperlink">Best practises for dealing with monetary amounts in C#</a>
+</div>
+
+    </div>
+    </div>
+
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/356807" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/356807" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6250</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

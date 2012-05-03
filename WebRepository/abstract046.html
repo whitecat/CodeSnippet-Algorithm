@@ -1,0 +1,531 @@
+
+<!doctype HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head id="Head1"><title>
+	Data Structures in Java:From Abstract Data Types to the Java Collections Framework - Simon Gray - 9780321392794 - Computer Science - Algorithms and Data Structures - Pearson Education Schweiz AG - Der Fachverlag fuer Bildungsmedien - 978-0-3213-9279-4
+</title><meta name="ROBOTS" content="INDEX,FOLLOW">
+	<meta name="keywords" content="Data Structures in Java:From Abstract Data Types to the Java Collections Framework,Simon Gray,9780321392794,978-0-3213-9279-4,0-321-39279-5,0321392795,Computer Science,Algorithms and Data Structures,Data Structures in Java:From Abstract Data Types to the Java Collections Framework,Pearson Education Schweiz, Markt+Technik, Addison-Wesley, Adobe Press, CAMPUS Press, Prentice Hall, Markt + Technik, Cisco-Press, New Riders, Que, Sams, Markt+ Technik, Wrox, ERPI, Pearson Education, Book, Markt & Technik, Books, Buecher, B&uuml;cher, Prentice Hall, New Riders,Markt&Technik, M&T, QUE, SUN, bloc notes publishing, Bookshop, Longman, Penguin, Brady Games, Allyn Bacon, IBM Press, Adobe Press, Markt+Technik Verlag, Addison-Wesley, Brady Games, Campus Press, Cisco Press, Edition Oracle, IBM Software Press, Integrata, Lynda.com, Macromedia Press, Manning, Markt+Technik, New Riders, Peachpit Press, Prentice Hall PTR, QUE Publishing, Sams Publishing, Sunsoft Press, Wrox Press, Davies Black, Financial ">
+	<meta name="description" content="Data Structures in Java:From Abstract Data Types to the Java Collections Framework,Simon Gray,9780321392794,978-0-3213-9279-4,0-321-39279-5,0321392795,Computer Science,Algorithms and Data Structures,Mehr als 70.000 Fachbuecher der Verlage Markt+Technik, Ad">
+	<meta name="abstract" content="Data Structures in Java:From Abstract Data Types to the Java Collections Framework,Simon Gray,9780321392794,978-0-3213-9279-4,0-321-39279-5,0321392795,Computer Science,Algorithms and Data Structures,Mehr als 70.000 Fachbuecher der Verlage Markt+Technik, Ad">
+	<meta scheme="ISBN13" name="identifier" content="9780321392794">
+	<meta scheme="ISBN" name="identifier" content="0-321-39279-5">
+	<meta name="Content-Language" content="de, en, fr, it">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><meta content="Pearson Education Schweiz AG" name="Author" /><meta content="Pearson Education Schweiz AG" name="Publisher" /><meta content="Pearson Education Schweiz AG" name="Copyright" /><meta content="Branche Produkt" name="page-topic" /><meta content="Katalog Verzeichnis" name="page-topic" /><meta content=" Alle " name="audience" /><meta content="JavaScript" name="vs_defaultClientScript" /><meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema" /><LINK href="/css/ie16.css" type="text/css" rel="stylesheet"><link rel="icon" href="/images/pearson.ico" type="image/x-icon">
+		<script language="JavaScript" src="/scripts/function.js" type="text/javascript"></script>
+		<script type="text/javascript">function pageLoad() {}</script>
+		
+<STYLE TYPE="text/css"> BODY {background-image: url(/images/page_images/pearson.jpg); background-repeat: no-repeat; }
+</STYLE>
+
+</head>
+	<body bottomMargin="0" leftMargin="0" topMargin="0" rightMargin="0">				
+		<form name="Form1" method="post" action="default.aspx?1461=3&amp;1462=564&amp;g=403&amp;1471=9780321392794" id="Form1">
+<input type="hidden" name="__ctl25_ctl126_ctl19_State__" id="__ctl25_ctl126_ctl19_State__" value="0" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTgzODk1ODkwMw9kFgICAw9kFggCBw9kFgJmD2QWAgIBDxYCHgdWaXNpYmxlaGQCCw9kFgICAg8WAh4HYmdjb2xvcgUHIzAwMDBBMBYCZg9kFgICAw9kFgICAQ9kFgICAQ9kFgICAg9kFgICAQ8PFgQeB1Rvb2xUaXAFFFN1Y2hiZWdyaWZmIGVpbmdlYmVuHgRUZXh0ZRYCHgdvbkNsaWNrBQtEZWxTdWNoZSgpO2QCDw9kFgJmD2QWAgICD2QWBAIBD2QWAmYPZBYCZg9kFgICAw9kFgJmD2QWAmYPZBYCZg8PFgQeDEhlcnN0ZWxsZXJJRGQeClBhZ2VUZXh0SURkZBYIAgIPEGRkFgBkAgcPEGRkFgBkAgkPEGRkFgBkAg0PFgIfAGhkAgIPZBYCZg9kFgJmD2QWAgICDxYCHwBoZAIVD2QWBGYPZBYGZg8WAh8AaGQCBA88KwALAgAPFgIfAGhkARQrABI8KwAEAQAWAh4KSGVhZGVyVGV4dAUuPGRpdiAgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWQnPkFydGlrZWxOcjwvZGl2PjwrAAQBABYCHwcFLTxkaXYgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWQnPkFydGlrZWxOcjwvZGl2PjwrAAQBABYCHwcFLTxkaXYgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWQnPkFydGlrZWxOcjwvZGl2PjwrAAQBABYCHwcFLjxkaXYgIGNsYXNzPSdBcnRpa2VsTGlzdGVIZWFkJz5XYXJlbmtvcmI8L2Rpdj48KwAEAQAWAh8HBS88ZGl2IGNsYXNzPSdBcnRpa2VsTGlzdGVIZWFkJz5CZXplaWNobnVuZzwvZGl2PjwrAAQBABYCHwcFLzxkaXYgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWQnPkJlemVpY2hudW5nPC9kaXY+ZDwrAAQBABYCHwcFLzxkaXYgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWRUYWInPihFbXAuVlApPC9kaXY+PCsABAEAFgIfBwUtPGRpdiBjbGFzcz0nQXJ0aWtlbExpc3RlSGVhZFRhYic+U3lzdGVtPC9kaXY+PCsABAEAFgIfBwUoPGRpdiBjbGFzcz0nQXJ0aWtlbExpc3RlSGVhZFRhYic+UzwvZGl2PjwrAAQBABYEHwcFLTxkaXYgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWRUYWInPlN0w7xjazwvZGl2Ph8AaDwrAAQBABYCHwcFLTxkaXYgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWRUYWInPlN0w7xjazwvZGl2PjwrAAQBABYCHwBoPCsABAEAFgIfAGg8KwAEAQAWAh8HBS08ZGl2IGNsYXNzPSdBcnRpa2VsTGlzdGVIZWFkVGFiJz5CcnV0dG88L2Rpdj48KwAEAQAWBB8HBSw8ZGl2IGNsYXNzPSdBcnRpa2VsTGlzdGVIZWFkVGFiJz5OZXR0bzwvZGl2Ph8AaDwrAAQBABYCHwcFLzxkaXYgY2xhc3M9J0FydGlrZWxMaXN0ZUhlYWRUYWInPlN1YnRvdGFsPC9kaXY+PCsABAEAFgQfAGcfBwUtPGRpdiBjbGFzcz0nQXJ0aWtlbExpc3RlSGVhZCc+V2FyZW5rb3JiPC9kaXY+ZAILDxYCHwBoZAIBD2QWDGYPFgIfAGhkAgQPPCsACwEADxYCHwBoZGQCBg8WAh8AaGQCCA8PFgQfA2QfAGhkZAIODzwrAAsBAA8WAh8AaGRkAhAPFgIfAGhkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYEBRJjdGwyNSRjdGwxMjYkY3RsMTkFFXVjbFNpdGVfbmF2JGlidFN1Y2hlbgU4Y3RsMjUkY3RsMTI2JGFydGlrZWxfbGlzdGUwJERhdGFHcmlkMSRjdGwwMiRjYnhJQW56ZWlnZW4FNWN0bDI1JGN0bDEyNiRhcnRpa2VsX2xpc3RlMCREYXRhR3JpZDEkY3RsMDIkQ2hlY2tCb3gx" />
+
+
+<script src="/ScriptResource.axd?d=_KAgPYayzTYpCRIF6rWk7piejaaQ3FbL9w1SWShXlWd-PnfPPxf2hdRKJZWinewEPXM9i8HhwQb31xIXi59P6FM6KCb3Evcl5-6k1S7yHPs1&amp;t=2d5c9086" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCwLArOLABwKApY2UBQKq18PKDwLF9oPpAgLJ9sfXCALzg66tDgLwg66tDgL0g66tDgLqg66tDgLzg8KIBwL0g8KIBw==" />
+			
+        
+        <img src="/images/0.gif" id="imgSearch" height="0" width="0" border="0" alt="Data Structures in Java:From Abstract Data Types to the Java Collections Framework - Simon Gray - 9780321392794 - Computer Science - Algorithms and Data Structures - Pearson Education Schweiz AG - Der Fachverlag fuer Bildungsmedien - 978-0-3213-9279-4" /><div id="master">
+				<div id="topnav"><div id="uclTop_nav_all_TopNav_inner"><div class="topleft"><a title="Kontakt" href="/default.aspx?pageid=39">Kontakt</a><span>&nbsp;|&nbsp;</span><a title="AGB" href="/default.aspx?pageid=40">AGB</a><span>&nbsp;|&nbsp;</span><a title="Jobs" href="/default.aspx?pageid=53">Jobs</a><span>&nbsp;|&nbsp;</span><a title="Warenkorb" href="/default.aspx?pageid=38">Warenkorb</a><span>&nbsp;|&nbsp;</span><a title="Mein Account" href="/default.aspx?pageid=4">Mein Account</a></div>
+<div class="topright"><a title="Login" href="/default.aspx?pageid=1">Login</a></div><div style="clear: both;"></div></div>
+
+<!--<img src="/images/0.gif" id="imgSearch1" height="0" width="0" border="0" />--></div>
+				<div id="header">
+	<script language="javascript">
+<!--
+function DelSuche()
+{var Suchstring = document.getElementById("uclSite_nav_tbxSuchkriterium1");if(Suchstring.value == ""){Suchstring.value = "";}}
+
+function AnzahlZeichen()
+{var Suchstring = document.getElementById("uclSite_nav_tbxSuchkriterium1");
+if(Suchstring.value == ""){alert('Suchbegriff eingeben.');return false;}
+else {if(Suchstring.value.length < 3){alert('Suchbegriff (min. 3 Zeichen)');return false;}else {return true;}}}
+//-->
+	</script>
+
+
+<table id="uclSite_nav_tblSiteNav" height="35" cellspacing="0" cellpadding="0" width="100%" bgcolor="#0000A0" border="0">
+	<tr>
+		<td width="144"><a id="uclSite_nav_hplHome" href="/default.aspx"><img src="/images/logo_pearson.gif" border="0" /></a></td>
+		<td><img height="10" src="/images/0.gif" width="15"></td>
+		<td align="left">
+			<table id="uclSite_nav_tblNavRechts" height="20" cellspacing="2" cellpadding="0" width="260" border="0">
+			<tr>
+				<td nowrap="nowrap"><a title="Home" class="navsite" href="/default.aspx?pageid=32">Home</a></td>
+				<td width="80%">&nbsp;</td>
+			</tr>
+		</table>
+		
+		</td>
+		<td align="right" width="70%" height="35">
+			<table height="35" cellSpacing="0" cellPadding="0" width="100%" border="0">
+				<tr>
+					<td width="5">&nbsp;</td>
+					<td width="230"><div id="uclSite_nav_pnlSuche">
+			
+					<table id="tblSuchen" height="35" cellSpacing="0" cellPadding="0" width="230" border="0">
+							<tr id="uclSite_nav_trSuchen">
+				<td class="Textweiss" valign="middle" nowrap="nowrap" width="60" style="height: 35px"><b><span id="uclSite_nav_lblSchnellsuche" class="Textweiss"><b>Schnellsuche:</b></span></b></td>
+				<td align="right" style="height: 35px">&nbsp;</td>
+				<td valign="middle" nowrap="nowrap" width="155" style="height: 35px">&nbsp;<input name="uclSite_nav$tbxSuchkriterium1" type="text" id="uclSite_nav_tbxSuchkriterium1" title="Suchbegriff eingeben" class="Textbox" name="tbxSuchkriterium1" onClick="DelSuche();" />&nbsp;</td>
+				<td width="40" style="height: 35px"><input type="image" name="uclSite_nav$ibtSuchen" id="uclSite_nav_ibtSuchen" src="/images/de/suchen.gif" onclick="return AnzahlZeichen();" border="0" /></td>
+				<td width="5" style="height: 35px"><img height="10" src="/images/0.gif" width="5"></td>
+				<td valign="middle" width="10" style="height: 35px"><span id="uclSite_nav_lblSuchinfo" class="fehler"></span></td>
+				<td width="20" style="height: 35px"><img height="10" src="/images/0.gif" width="20"></td>
+			</tr>
+			
+						</table>
+		</div></td>
+					<td id="uclSite_nav_tdSprache" align="right"><div id="uclSite_nav_pnlSprache" class="Textweiss"><b>
+			
+							
+							<table id="Table11" cellspacing="0" cellpadding="0" width="190" border="0">
+								<tr>
+									<td class="Textweiss" style="FONT-WEIGHT: bold" nowrap>
+										<a id="uclSite_nav_btnFR" class="navsite" href="javascript:__doPostBack('uclSite_nav$btnFR','')">Français</a>
+										&nbsp;|&nbsp;
+										
+										<span id="uclSite_nav_lblSpracheDE"><font color="Red">Deutsch</font></span>&nbsp;|&nbsp;
+										<a id="uclSite_nav_btnEN" class="navsite" href="javascript:__doPostBack('uclSite_nav$btnEN','')">English</a>
+										</td>
+									<td width="35">&nbsp;
+									</td>
+								</tr>
+							</table>
+						
+		</b></div></td>
+		
+					<td align="right">&nbsp;
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+</div>
+				<div id="wrap">
+					<div id="wrap-inner">
+						<div id="wrapmain">
+							<div id="main-body">
+								<div id="content">
+									<div id="top">
+										<div id="divPageInfo"><span><a title="Home" class="pageinfo" href="/default.aspx">Home</a></span><span><span class="info">&nbsp;>&nbsp;</span><a title="Higher Education" class="pageinfo" href="/HigherEducation/Economics/">Higher Education</a></span><span><span class="info">&nbsp;>&nbsp;</span><a title="Computer Science" class="pageinfo" href="/HigherEducation/ComputerScience/">Computer Science</a></span><span><span class="info">&nbsp;>&nbsp;</span><a title="Algorithms and Data Structures" class="pageinfo" href="/HigherEducation/ComputerScience/AlgorithmsandDataStructures/">Algorithms and Data Structures</a></span><span><span class="info">&nbsp;>&nbsp;</span><span title="Data Structures in Java:From Abstract Data Types to the Java Collections Framework" class="info">Data Structures in Java:From Abstract Data Types to the Java Collections Framework</span></span></div>
+									</div>
+									<div>
+										<!-- Content -->
+										<div id="tdContent"><table id="ctl25_tblTitel" cellspacing="0" cellpadding="0" width="100%" border="0">
+	<tr>
+		<td width="90%"><h1 title="9780321392794 - Data Structures in Java:From Abstract Data Types to the Java Collections Framework - Addison-Wesley (E) - 0321392795 - 978-0-3213-9279-4">Data Structures in Java:From Abstract Data Types to the Java Collections Framework</h1></td>
+		<td valign="right"><table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td align="right" nowrap="nowrap"><a title="Senden Sie diese Seite einem Freund, Mitarbeiter oder Kollegen." class="pageinfo" href="javascript:OpenWindow('site.aspx?pageid=36&amp;li=1461=3%_11462=564%_1g=403%_11471=9780321392794')">Seite senden!</a>&nbsp;</td>
+				<td><a title="Senden Sie diese Seite einem Freund, Mitarbeiter oder Kollegen." href="javascript:OpenWindow('site.aspx?pageid=36&amp;li=1461=3%_11462=564%_1g=403%_11471=9780321392794')"><img title="Senden Sie diese Seite einem Freund, Mitarbeiter oder Kollegen." src="/images/cart1.gif" border="0" /></a></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<table id="ctl25_tblBuchInfo" cellspacing="0" cellpadding="0" width="100%" border="0">
+	<tr>
+		<td><br><table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td width="100"><a title="Grossansicht - 9780321392794 - Data Structures in Java:From Abstract Data Types to the Java Collections Framework - Addison-Wesley (E) - 0321392795 - 978-0-3213-9279-4" href="/bigcovers/9780321392794.aspx" target="_blank"><img title="Grossansicht - 9780321392794 - Data Structures in Java:From Abstract Data Types to the Java Collections Framework - Addison-Wesley (E) - 0321392795 - 978-0-3213-9279-4" src="/images/buecher/books/9780321392794.jpg" border="0" /></a><Span style="TEXT-ALIGN:center;WIDTH:85%;"><a title="Grossansicht - 9780321392794 - Data Structures in Java:From Abstract Data Types to the Java Collections Framework - Addison-Wesley (E) - 0321392795 - 978-0-3213-9279-4" class="pageinfo" href="/bigcovers/9780321392794.aspx" target="_blank">Grosses Bild</a></Span></td>
+				<td width="5"><IMG height="0" src="/images/0.gif" border="0" width="5"></td>
+				<td valign="top"><IMG height="5" src="/images/0.gif" border="0" width="100"><table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td><span>Titel:</span></td>
+						<td>&nbsp;</td>
+						<td><span title="Data Structures in Java:From Abstract Data Types to the Java Collections Framework">Data Structures in Java:From Abstract Data Types to the Java Collections Framework</span></td>
+					</tr>
+					<tr>
+						<td><span>Reihe:</span></td>
+						<td>&nbsp;</td>
+						<td><span>Addison-Wesley</span></td>
+					</tr>
+					<tr>
+						<td valign="top"><span>Autor:</span></td>
+						<td>&nbsp;</td>
+						<td><a title="Simon Gray, College of Wooster" href="/autor/15889/Simon-Gray.aspx"><font color="#2163C6">Simon Gray</font></a></td>
+					</tr>
+					<tr>
+						<td><span>Verlag:</span></td>
+						<td>&nbsp;</td>
+						<td><a href="http://vig.pearsoned.co.uk/catalog/academic/product?ISBN=0321392795" target="_blank"><font color="#2163C6">Addison-Wesley (E)</font></a></td>
+					</tr>
+					<tr>
+						<td><span>Einband:</span></td>
+						<td>&nbsp;</td>
+						<td><span>Softcover</span></td>
+					</tr>
+					<tr>
+						<td><span>Auflage:</span></td>
+						<td>&nbsp;</td>
+						<td><span>1</span></td>
+					</tr>
+					<tr>
+						<td><span>Sprache:</span></td>
+						<td>&nbsp;</td>
+						<td><span>Englisch</span></td>
+					</tr>
+					<tr>
+						<td><span>Seiten:</span></td>
+						<td>&nbsp;</td>
+						<td><span>688 </span></td>
+					</tr>
+					<tr>
+						<td><span>Erschienen:</span></td>
+						<td>&nbsp;</td>
+						<td><span>November 2006</span></td>
+					</tr>
+					<tr>
+						<td><span>ISBN13:</span></td>
+						<td>&nbsp;</td>
+						<td><span title="978-0-3213-9279-4">9780321392794</span></td>
+					</tr>
+					<tr>
+						<td><span>ISBN10:</span></td>
+						<td>&nbsp;</td>
+						<td><span>0-321-39279-5</span></td>
+					</tr>
+				</table>
+				</td>
+				<td align="right"><table border="0" cellpadding="0" cellspacing="0" width="160">
+					<tr>
+						<td><IMG height="0" src="/images/0.gif" border="0" width="10"></td>
+						<td><IMG height="0" src="/images/0.gif" border="0" width="110"></td>
+						<td><IMG height="0" src="/images/0.gif" border="0" width="40"></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2" align="Center"><a href="/AddToCart.aspx?art=1&amp;artikel=39279AW">Unser Service für Dozenten</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2" align="Center"><a href="/AddToCart.aspx?art=1&amp;artikel=39279AW"><img src="/images/scopy.jpg" border="0" /></a></td>
+					</tr>
+					<tr>
+						<td colspan="3"><IMG height="10" src="/images/0.gif" border="0" width="10"></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+<TABLE id="Table6" cellSpacing="0" cellPadding="0" width="100%" border="0">
+	<TR>
+		<TD id="ctl25_ctl126_tdProduktTab" align="right" width="100%"><table cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tr>
+				<td width="100%"><span></span>&nbsp;</td>
+				<td align="right" width="50"><table cellspacing="0" cellpadding="0" border="0" width="50">
+					<tr>
+						<td valign="top" width="3" bgcolor="#dcdcdc" height="18px" rowspan="2"><img src="/images/tab/qtab_left_corner.gif" border="0" /></td>
+						<td height="3" bgcolor="#dcdcdc"><img src="/images/0.gif" border="0" /></td>
+						<td valign="top" width="3" bgcolor="#dcdcdc" height="18" rowspan="2"><img src="/images/tab/qtab_right_corner.gif" border="0" /></td>
+					</tr>
+					<tr>
+						<td height="17"><table id="ctl25_ctl126_tblTab" cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tr>
+								<td><script language="javascript">document.Form1.__ctl25_ctl126_ctl19_State__.value=0;</script>
+								<table cellspacing="0" cellpadding="0" border="0" id="ctl25_ctl126_ctl19">
+									<tr>
+										<td nowrap align="center" height="17" bgcolor="#0000A0" style="font-size:8pt;text-align:center;height:17;padding:2px 3px 2px 3px;background-color:#0000A0;color:#fffff;"><font color="#fffff" size="1">&nbsp;Bestellen&nbsp;</font></td>
+
+									</tr>
+								</table></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" height="7" width="100%"><img src="/images/page_images/rtopline2shade.gif" height="7" width="100%" border="0" /></td>
+			</tr>
+		</table>
+		</TD>
+		
+	</TR>
+	<tr>
+		<td id="ctl25_ctl126_tdMultiPage" colspan="1"><table id="ctl25_ctl126_mgpProduktTyp" width="100%" style="display:inline-block;">
+			<tr>
+				<td id="ctl25_ctl126_pgvPage0" valign="top"><table class="ArtikelListe" cellspacing="0" cellpadding="2" border="0" id="ctl25_ctl126_artikel_liste0_DataGrid1" width="100%">
+					<tr class="ArtikelListeHead">
+						<td width="75"><font color="White"><b><a href="javascript:__doPostBack('ctl25$ctl126$artikel_liste0$DataGrid1$ctl01$ctl01','')"><font color="White"><div title='ISBN' class="ArtikelListeHead">ISBN</div></font></a></b></font></td><td width="400"><font color="White"><b><a href="javascript:__doPostBack('ctl25$ctl126$artikel_liste0$DataGrid1$ctl01$ctl02','')"><font color="White"><div title='Artikel Bezeichnung' class="ArtikelListeHead">Artikel</div></font></a></b></font></td><td width="50"><font color="White"><b><a href="javascript:__doPostBack('ctl25$ctl126$artikel_liste0$DataGrid1$ctl01$ctl06','')"><font color="White"><div title='Verlag' class="ArtikelListeHead">Verlag</div></font></a></b></font></td><td width="10"><font color="White"><b><a href="javascript:__doPostBack('ctl25$ctl126$artikel_liste0$DataGrid1$ctl01$ctl08','')"><font color="White"><div title='Sprache' class="ArtikelListeHead">S</div></font></a></b></font></td><td><font color="White"><b>&nbsp;</b></font></td><td align="right" width="60" nowrap="nowrap"><font color="White"><b><a href="javascript:__doPostBack('ctl25$ctl126$artikel_liste0$DataGrid1$ctl01$ctl11','')"><font color="White"><div title='Ihr Preis inkl. MWST.' class="ArtikelListeHead">Preis SFr</div></font></a></b></font></td><td align="center" width="40"><font color="White"><b><a href="javascript:__doPostBack('ctl25$ctl126$artikel_liste0$DataGrid1$ctl01$ctl16','')"><font color="White"><div title='Verfügbar' class="ArtikelListeHead">Verfügbar</div></font></a></b></font></td><td><font color="White"><b>&nbsp;</b></font></td>
+					</tr><tr>
+						<td nowrap="nowrap">
+			    9780321392794
+				
+			</td><td>Data Structures in Java:From Abstract Data Types to the Java Collections Framework</td><td>Addison-Wesley (E)</td><td>E</td><td>
+				<a id="ctl25_ctl126_artikel_liste0_DataGrid1_ctl02_hplSampleCopy" title="Produkt auf meiner Shopping-Liste notieren." rel="nofollow" href="/AddToCart.aspx?art=1&amp;artikel=39279AW"><img src='/images/SampleCopy.gif' border='0' alt='Produkt auf meiner Shopping-Liste notieren.'></a>
+			</td><td align="right" nowrap="nowrap">
+				<span>135.00</span>
+			</td><td>
+				<table height="15" cellspacing="0" cellpadding="0" align="center" border="0" width="90%">
+					<!--<tr><td height="0px"><img height="0" src="/images/0.gif" width="20" border="0"></td></tr>-->
+					<tr>
+						<td id="ctl25_ctl126_artikel_liste0_DataGrid1_ctl02_tdVerfuegbar" height="100%" align="center" width="80px">ca. 7-9 Tage</td>
+						
+					</tr>
+				</table>
+			</td><td>
+				<a id="ctl25_ctl126_artikel_liste0_DataGrid1_ctl02_HyperLink1" rel="nofollow" href="/AddToCart.aspx?artikel=39279AW" style="display:inline-block;"><img src="/images/bestellenp.gif" alt="Produkt auf meiner Shopping-Liste notieren." border="0" /></a>
+			</td>
+					</tr>
+				</table><span id="ctl25_ctl126_artikel_liste0_lblDGStrich"><TABLE id="tblPreisTotal" cellSpacing="0" cellPadding="0" width="100%" border="0"><TR><TD height=1 colspan=1 bgColor=#003366><IMG src="/images/0.gif" height="1"></TD></TR></TABLE></span>
+
+</td>
+			</tr>
+		</table></td>
+		
+	</tr>
+</TABLE>
+<br>
+</td>
+	</tr>
+	<tr>
+		<td>
+
+
+</td>
+	</tr>
+	<tr>
+		<td><IMG height="10" src="/images/0.gif" border="0" width="10">
+<table id="ctl25_ctl132_tbTitelmitText" cellspacing="0" cellpadding="0" width="100%" border="0">
+			<tr>
+				<td valign="top"><table cellpadding="0" cellspacing="0" border="0" width="100%">
+					<tr>
+						<td width="100%" align="left"><a name="Description"></a><span title="Data Structures in Java:From Abstract Data Types to the Java Collections Framework"><h1>Data Structures in Java:From Abstract Data Types to the Java Collections Framework</h1></span><span><h3>Description</h3></span></td>
+					</tr>
+					<tr>
+						<td colspan="1" Class="textform"><span><P>Simon Gray's consistent and coherent approach to data structures teaches students to focus on software design and testing as they learn to develop high-quality software programs. He introduces each collection as an abstract data type and then guides students through a design process. This effective model illustrates that construction of high-quality software requires careful planning. </P><P>&nbsp;</P><P>With Gray's methodology, students become independent problem solvers by repeated practice planning, creating, testing, implementing, and then analyzing their work. Students also gain experience using an industry-standard library, while developing an understanding of what goes into creating such a library.</P> <IMG height="10" src="/images/0.gif" width="250"></span></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		
+
+<br>
+<table id="ctl25_ctl134_tbTitelmitText" cellspacing="0" cellpadding="0" width="100%" border="0">
+			<tr>
+				<td><table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="100%"><span><a name="Features"></a><h2>Features</h2></span></td>
+					</tr>
+					<tr>
+						<td><span><UL><LI>Uses the <B>Java Collections Framework (JCF) </B>to introduce collection types, giving students practical programming experience with an industry-standard library. The <B>JCF</B> is also used to address issues such as generic types, inheritance, polymorphism, and design problems. </LI><LI>Extensive use of UML with complete examples making difficult concepts such as inheritance and composition more concrete. </LI><LI>Emphasizes software testing through development of a unit test for each collection type prior to presentation of the implementation. </LI><LI>Consistent approach to introducing each collection type provides students with an effective model to follow as they develop their problem-solving skills. </LI><LI>Includes <I>Investigate </I>sections, giving students the opportunity to further explore topics from most chapters.</LI></UL></span></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right"><span><a href="#top"><IMG alt="Zum Seitenanfang" src="/images/top.gif" border="0"></a></span><br></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td><table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="100%"><span><a name="Table of Contents"></a><h2>Table of Contents</h2></span></td>
+					</tr>
+					<tr>
+						<td><span><B>Chapter 0&nbsp;&nbsp;&nbsp;&nbsp; Introduction to What We Will be Studying</B> <P>0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Abstraction</P><P>0.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Algorithms</P><P>0.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Object-Oriented Programming</P><P>0.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Software Life Cycle</P><P>0.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Software Testing</P><P>0.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Unified Modeling Language: Using Pictures to Express Design</P><P>0.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Software Design Patterns: Applying Proven Solutions to New Problems</P><P>0.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Collections and the Java Collections Framework</P><P>Exercises</P><P>&nbsp;</P><B>Chapter 1&nbsp;&nbsp;&nbsp;&nbsp; Object-Oriented Programming and Java</B> <P>1.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Abstraction and Abstract Data Types</P><P>1.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Object-Oriented Approach</P><P>1.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Code Reuse Through Composition and Inheritance</P><P><I>Investigate</I>: Inheritance, Packages, and Access Modifiers</P><P>1.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Polymorphism and Generic Programming</P><P>1.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Case Study: a Shapes Hierarchy</P><P>1.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Java Generic Types</P><P>Exercises</P><P>&nbsp;</P><P><B>Chapter 2&nbsp;&nbsp; Error Handling, Software Testing, and Program Efficiency</B></P><P>2.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Error Handling with Exceptions</P><P>2.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Software Testing</P><P>2.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Analysis and Measurement of Algorithms</P><P>Exercises</P><P>&nbsp;</P><P><B>Chapter 3&nbsp;&nbsp; Fundamental Data Structures: The Array and Linked Data Structures</B></P><P>3.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Array Data Structure</P><P>3.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Array Operations</P><P>3.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Linked Data Structure</P><P>3.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A Generic Singly Linked Data Structure</P><P>3.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Doubly Linked Data Structure</P><P>3.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Circular Linked List</P><P>3.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Selecting a Data Structure</P><P>3.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: The ACME Courier Company </P><P>Exercises</P><P>&nbsp;</P><P><B>Chapter 4&nbsp;&nbsp;&nbsp;&nbsp; A Basic Collection Class</B></P><P>4.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Collection Interface in the Java Collections Framework</P><P>4.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iterators and the Iterator Design Pattern</P><P>4.3&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Collection Basics: Objects, Casting, Operations, and Iterators</P><P>4.4&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Developing a Test Plan for BasicCollection</P><P>4.5&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Testing with JUnit</P><P>4.6&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; The java.util.AbstractCollection Abstract Class</P><P>4.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; More Java Generics: Inheritance, Wildcards, and Generic Methods</P><P>4.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Implementation of the BasicCollection Class</P><P>4.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Analysis of the Implementation</P><P><I>Investigate</I>: equals(), hashcode(), and toArray()</P><P>4.10&nbsp;&nbsp;&nbsp;&nbsp; Cloning</P><P>Exercises</P><P>&nbsp;</P><P><B>Chapter 5&nbsp;&nbsp; The List Abstract Data Type</B></P><P>5.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List Description</P><P>5.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The List ADT</P><P>5.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The List Interface in the Java Collections Framework</P><P>5.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designing a Test Plan</P><P>5.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: CourierModel Revisited</P><P><I>Investigate</I>: The Serializable Interface - Adding Persistence to the Courier Application </P><P>5.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A Linked List Implementation of the List ADT</P><P>5.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Implementing the Test Plan</P><P>5.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Analysis and Measurement</P><P>Exercises</P><P>&nbsp;</P><P>&nbsp;</P><P><B>Chapter 6&nbsp;&nbsp;&nbsp; The Stack Abstract Data Type</B></P><P>6.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stack Description </P><P>6.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stack Specification</P><P>6.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Stack Interface</P><P>6.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designing a Test Plan</P><P>6.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: Evaluation of Postfix Expressions</P><P>6.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stack Implementation: ListStack-Using the Adapter Design Pattern</P><P>6.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stack Implementation: ListStack-Using a Linked Data Structure</P><P>6.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Implementing the Test Plan</P><P>6.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evaluation of the Implementations</P><P><I>Investigate</I>: Measuring the Cost of Using and Adapter</P><P>Exercises</P><P>&nbsp;</P><P><B>Chapter 7&nbsp;&nbsp;&nbsp; The Queue Abstract Data Type</B></P><P>7.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Queue Description</P><P>7.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Queue Specification </P><P>7.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Queue Interface</P><P>7.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designing a Test Plan</P><P>7.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: The Leaky Bucket Algorithm</P><P>7.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; List Implementation Using the Adapter Design Pattern</P><P>7.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ArrayQueue: Implementing Queue Using an Array</P><P>7.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Testing the Implementation</P><P>7.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evaluation of the Implementations</P><P><I>Investigate</I>: A First Look at Priority Queues</P><P>Exercises</P><P>&nbsp;</P><P><B>&nbsp;</B></P><P><B>Chapter 8&nbsp;&nbsp;&nbsp; Recursion</B></P><P>8.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What Is Recursion?</P><P>8.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Recursive Definitions</P><P>8.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Problem Definitions and Recursive Programming</P><P>8.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Recursion as Iteration</P><P>8.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evaluating Recursion</P><P>8.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: Cell Identification in MineSweeper</P><P><I>Investigate</I>: Simulating Recursion Using Loops and a Stack</P><P>Exercises</P><P>&nbsp;</P><P>&nbsp;</P><P><B>Chapter 9&nbsp;&nbsp;&nbsp; Sorting and Searching</B></P><P>9.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorting Terminology</P><P>9.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorting Primitive Types in an Array</P><P>9.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Comparing Objects</P><P>9.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sorting Lists and Linked Lists</P><P><I>Investigate</I>: Using Comparators to Sort WorkOrders</P><P>9.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Searching for Objects</P><P>9.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: External Sorting</P><P>&nbsp;Exercises</P><P><B>Chapter 10&nbsp;&nbsp;&nbsp; Trees</B></P><P>10.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tree Terminology</P><P>10.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Binary Tree Description</P><P>10.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Binary Tree Specification</P><P>10.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Implementations of the Binary Tree ADT</P><P>10.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Heaps and Binary Trees</P><P>10.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: Data Compression Using Huffman Trees</P><P><I>Investigate</I>: A Second Look at Priority Queues</P><P>Exercises</P><P>&nbsp;</P><P><B>Chapter 11&nbsp;&nbsp;&nbsp; Binary Search Trees</B></P><P>11.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Binary Search Tree ADT</P><P>11.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Linked Implementation of BinarySearchTree</P><P>11.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: A Modifiable Spell Checker</P><P>11.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Need for a Balanced Search Tree</P><P>11.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AVL Tree: A Balanced Binary Search Treee</P><P><I>Investigate</I>: Finding the kth Smallest Element in a Binary Search Tree</P><P>11.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Splay Tree: A Self-Adjusting Binary Search Tree</P><P>Exercises</P><P>&nbsp;</P><P>&nbsp;</P><P><B>Chapter 12&nbsp;&nbsp;&nbsp; The Map ADT</B></P><P>12.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Map ADT</P><P>12.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus on Problem Solving: A Pizza Ordering System</P><P>12.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hashing and Hash Tables</P><P>12.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HashMap: A Hash Table Implementation of Map</P><P>12.3.1&nbsp;&nbsp;&nbsp;&nbsp; Testing HashMap</P><P><I>Investigate</I>: Radix Sort</P><P>12.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ordered Map</P><P>12.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MultiMap</P><P>Exercises</P></span></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right"><span><a href="#top"><IMG alt="Zum Seitenanfang" src="/images/top.gif" border="0"></a></span><br></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		
+
+</td>
+	</tr>
+</table>
+
+<br>
+
+
+</div>
+									</div>
+								</div>
+								<div id="sidebar">
+									<div>
+										<!-- linke Nav-->
+										<div id="navLeftTop"><table id="tblNav" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="2"><span><b>Data Structures in Java:From Abstract Data Types to the Java Collections Framework</b></span></td>
+	</tr>
+	<tr>
+		<td colspan="2" height="20px"><A href="#Description"><IMG alt="Description" src="/images/link1.gif" border="0">Description</A></td>
+	</tr>
+	<tr>
+		<td colspan="2" height="20px"><A href="#Features"><IMG alt="Features" src="/images/link1.gif" border="0">Features</A></td>
+	</tr>
+	<tr>
+		<td colspan="2" height="20px"><A href="#Table of Contents"><IMG alt="Table of Contents" src="/images/link1.gif" border="0">Table of Contents</A></td>
+	</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0">
+</table>
+<br><IMG height="0" src="/images/0.gif" border="0" width="0"></div>
+										<div id="navLeft"><div id="divCourseCode"><b>Related Titles</b><ul id="crsListe">
+	<li title="Java--Data Structures/CS2"><a href="/crscode/CS0309/Java-Data-StructuresCS2.aspx">Java--Data Structures/CS2</a></li>
+</ul></div><!--	<style type="text/css">.MPanel {
+	BORDER-RIGHT: #0076c0 3px solid; BORDER-TOP: #0076c0 3px solid; BORDER-LEFT: #0076c0 3px solid; BORDER-BOTTOM: #0076c0 3px solid; BACKGROUND-COLOR: #0076c0
+}
+A.KGHR {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+A.KGHR:link {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+A.KGHR:visited {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+.KGHR {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+A.KGHR:hover {
+	COLOR: #003366; TEXT-DECORATION: none
+}
+	</style>-->
+<div id="ctl24_divMenuR" style="WIDTH:139px;"><!--style="BACKGROUND-COLOR: #0076c0;"-->
+	<div id="ctl24_divnavmaster" class="navmaster"><div class="navmaster-inner" onclick="document.location.href='/HigherEducation/PearsonStudium/';"><div class="navpanel_l"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Higher Education" href="/HigherEducation/PearsonStudium/"><strong>Higher Education</strong></a></div></div></div></div><div class="navpanel_item"><div style="margin-top: 1px; margin-left: 1px;margin-right: 1px;margin-bottom: 1px;"><ul><li><a href="/HigherEducation/Addison-Wesley/" style="BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; BORDER-LEFT: #999 1px solid; BORDER-BOTTOM: #999 1px solid; BACKGROUND-COLOR: #99ccff">Addison-Wesley (E)</a></li><li><a href="/HigherEducation/AllynBacon/">Allyn & Bacon</a></li><li><a href="/HigherEducation/BenjaminCummings/">Benjamin Cummings</a></li><li><a href="/HigherEducation/ERPICanada/">ERPI Canada</a></li><li><a href="/HigherEducation/FTPrenticeHall/">FT Prentice Hall</a></li><li><a href="/HigherEducation/Longman/">Longman</a></li><li><a href="/HigherEducation/PearsonEducation/">Pearson Education</a></li><li><a href="/HigherEducation/PearsonFrance/">Pearson France</a></li><li><a href="/HigherEducation/PearsonStudium/">Pearson Studium</a></li><li><a href="/HigherEducation/PrenticeHall/">Prentice Hall</a></li></ul></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/Informatik/Addison-WesleyDeutsch/';"><div class="navpanel_l"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Informatik" href="/Informatik/Addison-WesleyDeutsch/"><strong>Informatik</strong></a></div></div></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/Business/FTPrenticeHall/';"><div class="navpanel_l"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Business" href="/Business/FTPrenticeHall/"><strong>Business</strong></a></div></div></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/LanguageTeaching/';"><div class="navpanel_l"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="English Language Teaching" href="/LanguageTeaching/"><strong>English Language Teaching</strong></a></div></div></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/Software/';"><div class="navpanel_l"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Software" href="/Software/"><strong>Software</strong></a></div></div></div></div></div></div></div>
+</div>
+<br>
+
+<br>
+<table id="ctl27_tblTeaserText" cellspacing="0" cellpadding="0" width="100%" border="0">
+	<tr>
+		<td align="center"><a title="Accounting an introduction with MyAccountingLab" href="/1471/9780273732785/Accounting-an-introduction-with.aspx"><img title="Accounting an introduction with MyAccountingLab" src="/images/buecher/books/9780273732785.jpg" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td align="center"><IMG height="5" src="/images/0.gif" width="5" border="0"><br><a title="Accounting an introduction with MyAccountingLab" class="pageinfo" href="/1471/9780273732785/Accounting-an-introduction-with.aspx">Accounting an introduction with MyAccountingLab</a><br><IMG height="10" src="/images/0.gif" width="5" border="0"></td>
+	</tr>
+	<tr>
+		<td align="center"><a title="Physik" href="/1471/9783868940237/Physik.aspx"><img title="Physik" src="/images/buecher/books/9783868940237.jpg" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td align="center"><IMG height="5" src="/images/0.gif" width="5" border="0"><br><a title="Physik" class="pageinfo" href="/1471/9783868940237/Physik.aspx">Physik</a><br><IMG height="10" src="/images/0.gif" width="5" border="0"></td>
+	</tr>
+	<tr>
+		<td align="center"><a title="Maschinenelemente 2" href="/1471/9783827371461/Maschinenelemente-2.aspx"><img title="Maschinenelemente 2" src="/images/buecher/books/9783827371461.jpg" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td align="center"><IMG height="5" src="/images/0.gif" width="5" border="0"><br><a title="Maschinenelemente 2" class="pageinfo" href="/1471/9783827371461/Maschinenelemente-2.aspx">Maschinenelemente 2</a><br><IMG height="10" src="/images/0.gif" width="5" border="0"></td>
+	</tr>
+	<tr>
+		<td align="center"><a title="SPSS 18 (ehemals PASW )" href="/1471/9783868940282/SPSS-18-ehemals-PASW-.aspx"><img title="SPSS 18 (ehemals PASW )" src="/images/buecher/books/9783868940282.jpg" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td align="center"><IMG height="5" src="/images/0.gif" width="5" border="0"><br><a title="SPSS 18 (ehemals PASW )" class="pageinfo" href="/1471/9783868940282/SPSS-18-ehemals-PASW-.aspx">SPSS 18 (ehemals PASW )</a><br><IMG height="10" src="/images/0.gif" width="5" border="0"></td>
+	</tr>
+</table>
+
+<br>
+</div> <!-- end #main-body --></div>
+								</div> <!-- end #sidebar --></div> <!-- end #main-body -->
+							<div id="sidebar-2">
+								<div class="gutter"><!---->
+									<div id="tdTeaser">
+<div id="ctl26_divBonus"></div>
+
+<table id="Table1" cellSpacing="0" cellPadding="0" width="100%" border="0">
+	<tr>
+		<td id="ctl26_tdWarenkorb"></td>
+
+	</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--	<style type="text/css">.MPanel {
+	BORDER-RIGHT: #0076c0 3px solid; BORDER-TOP: #0076c0 3px solid; BORDER-LEFT: #0076c0 3px solid; BORDER-BOTTOM: #0076c0 3px solid; BACKGROUND-COLOR: #0076c0
+}
+A.KGHR {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+A.KGHR:link {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+A.KGHR:visited {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+.KGHR {
+	FONT-WEIGHT: bold; CURSOR: hand; COLOR: #0076c0; LINE-HEIGHT: 9pt; TEXT-DECORATION: none
+}
+A.KGHR:hover {
+	COLOR: #003366; TEXT-DECORATION: none
+}
+	</style>-->
+<div id="ctl29_divMenuR" style="WIDTH:175px;"><!--style="BACKGROUND-COLOR: #0076c0;"-->
+	<div id="ctl29_divnavmaster" class="navmaster"><div class="navmaster-inner" onclick="document.location.href='/HigherEducation/Economics/';"><div class="navpanel_r"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Higher Education" href="/HigherEducation/Economics/"><strong>Higher Education</strong></a></div></div></div></div><div class="navpanel_item"><div style="margin-top: 1px; margin-left: 1px;margin-right: 1px;margin-bottom: 1px;"><ul><li><a href="/HigherEducation/AccountingandTaxation/">Accounting and Taxation</a></li><li><a href="/HigherEducation/Agriculture/">Agriculture</a></li><li><a href="/HigherEducation/AmericanStudies/">American Studies</a></li><li><a href="/HigherEducation/Anthropology/">Anthropology</a></li><li><a href="/HigherEducation/Art/">Art</a></li><li><a href="/HigherEducation/Biology/">Biology</a></li><li><a href="/HigherEducation/BusinessCommunications/">Business Communications</a></li><li><a href="/HigherEducation/ChemicalEngineering/">Chemical Engineering</a></li><li><a href="/HigherEducation/Chemistry/">Chemistry</a></li><li><a href="/HigherEducation/CivilandEnvironmentalEngineering/">Civil and Environmental Engineering</a></li><li><a href="/HigherEducation/Communication/">Communication</a></li><li><a href="/HigherEducation/ComputerScience/" style="BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; BORDER-LEFT: #999 1px solid; BORDER-BOTTOM: #999 1px solid; BACKGROUND-COLOR: #99ccff">Computer Science</a></li><li><a href="/HigherEducation/DecisionSciences/">Decision Sciences</a></li><li><a href="/HigherEducation/Economics/">Economics</a></li><li><a href="/HigherEducation/Education/">Education</a></li><li><a href="/HigherEducation/ElectricalEngineering/">Electrical Engineering</a></li><li><a href="/HigherEducation/ElectronicsandComputer/">Electronics and Computer Technology</a></li><li><a href="/HigherEducation/EnglishComposition/">English Composition</a></li><li><a href="/HigherEducation/Finance/">Finance</a></li><li><a href="/HigherEducation/FurtherEducation/">Further Education</a></li><li><a href="/HigherEducation/GeneralEngineering/">General Engineering</a></li><li><a href="/HigherEducation/Geography/">Geography</a></li><li><a href="/HigherEducation/Geology/">Geology</a></li><li><a href="/HigherEducation/HealthKinesiology/">Health & Kinesiology</a></li><li><a href="/HigherEducation/History/">History</a></li><li><a href="/HigherEducation/HospitalityTravelTourism/">Hospitality, Travel & Tourism</a></li><li><a href="/HigherEducation/IndustrialEngineering/">Industrial Engineering</a></li><li><a href="/HigherEducation/Journalism/">Journalism</a></li><li><a href="/HigherEducation/LawandCriminology/">Law and Criminology</a></li><li><a href="/HigherEducation/Linguistics/">Linguistics</a></li><li><a href="/HigherEducation/Literature/">Literature</a></li><li><a href="/HigherEducation/Management/">Management</a></li><li><a href="/HigherEducation/Marketing/">Marketing</a></li><li><a href="/HigherEducation/MathematicsStatistics/">Mathematics Statistics</a></li><li><a href="/HigherEducation/MechanicalEngineering/">Mechanical Engineering</a></li><li><a href="/HigherEducation/MediaandFilmStudies/">Media and Film Studies</a></li><li><a href="/HigherEducation/Medizin/">Medizin</a></li><li><a href="/HigherEducation/MISManagementInformation/">MIS (Management Information Systems)</a></li><li><a href="/HigherEducation/Music/">Music</a></li><li><a href="/HigherEducation/Nursing/">Nursing</a></li><li><a href="/HigherEducation/Philosophy/">Philosophy</a></li><li><a href="/HigherEducation/PhysicsAstronomy/">Physics / Astronomy</a></li><li><a href="/HigherEducation/Politics/">Politics</a></li><li><a href="/HigherEducation/Psychology/">Psychology</a></li><li><a href="/HigherEducation/Religion/">Religion</a></li><li><a href="/HigherEducation/SociologyCulturalStudies/">Sociology & Cultural Studies</a></li><li><a href="/HigherEducation/SportsScience/">Sports Science</a></li><li><a href="/HigherEducation/StudySkills/">Study Skills</a></li><li><a href="/HigherEducation/Theatre/">Theatre</a></li></ul></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/Informatik/VideoTrainingDVDs/';"><div class="navpanel_r"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Informatik" href="/Informatik/VideoTrainingDVDs/"><strong>Informatik</strong></a></div></div></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/Business/Management/';"><div class="navpanel_r"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Business" href="/Business/Management/"><strong>Business</strong></a></div></div></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/LanguageTeaching/';"><div class="navpanel_r"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="English Language Teaching" href="/LanguageTeaching/"><strong>English Language Teaching</strong></a></div></div></div></div></div></div><div class="navmaster-inner" onclick="document.location.href='/Software/';"><div class="navpanel_r"><div class="navpanel-inner"><div class="navpanel_close"><div class="navpanel_titel"><div><a title="Software" href="/Software/"><strong>Software</strong></a></div></div></div></div></div></div></div>
+	
+</div>
+<br>
+
+<br>
+<table id="ctl30_tblTeaserText" cellspacing="0" cellpadding="0" width="100%" border="0">
+	<tr>
+		<td align="center"><a title="Project Management:International Version" href="/1471/9780135097557/Project-Management-International-Version.aspx"><img title="Project Management:International Version" src="/images/buecher/books/9780135097557.jpg" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td align="center"><IMG height="5" src="/images/0.gif" width="5" border="0"><br><a title="Project Management:International Version" class="pageinfo" href="/1471/9780135097557/Project-Management-International-Version.aspx">Project Management:International Version</a><br><IMG height="10" src="/images/0.gif" width="5" border="0"></td>
+	</tr>
+	<tr>
+		<td align="center"><a title="Softwaretechnik" href="/1471/9783868940077/Softwaretechnik.aspx"><img title="Softwaretechnik" src="/images/buecher/books/9783868940077.jpg" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td align="center"><IMG height="5" src="/images/0.gif" width="5" border="0"><br><a title="Softwaretechnik" class="pageinfo" href="/1471/9783868940077/Softwaretechnik.aspx">Softwaretechnik</a><br><IMG height="10" src="/images/0.gif" width="5" border="0"></td>
+	</tr>
+	<tr>
+		<td align="center"><a title="Absolute Java:International Version" href="/1471/9780131365896/Absolute-Java-International-Version.aspx"><img title="Absolute Java:International Version" src="/images/buecher/books/9780131365896.jpg" border="0" /></a></td>
+	</tr>
+	<tr>
+		<td align="center"><IMG height="5" src="/images/0.gif" width="5" border="0"><br><a title="Absolute Java:International Version" class="pageinfo" href="/1471/9780131365896/Absolute-Java-International-Version.aspx">Absolute Java:International Version</a><br><IMG height="10" src="/images/0.gif" width="5" border="0"></td>
+	</tr>
+</table>
+
+<br>
+</div>
+									<!-- rechte Nav --></div>
+							</div> <!-- end #sidebar-2 --></div> <!-- end #wrapmain -->
+						<div id="footer">
+							<div id="footer-inner">
+								<div id="divFooter"><span id="lblFooter" class="Footer">© 2010 Pearson Education Schweiz AG, Chollerstrasse 37, CH - 6300 Zug, Schweiz<br>Telefon: ++41 (0)41 747 47 47, Fax: ++41 (0)41 747 47 77, Email:<a href="m&#97;&#105;&#108;&#116;o:&#109;&#97;&#105;&#108;&#98;&#111;&#120;&#64;&#112;&#101;&#97;&#114;&#115;&#111;&#110;&#46;&#99;&#104;"><FONT color="white" size="1">&#109;&#97;&#105;&#108;&#98;&#111;&#120;&#64;&#112;&#101;&#97;&#114;&#115;&#111;&#110;&#46;&#99;&#104;</FONT></a></span></div>
+							</div>
+						</div>
+					</div> <!-- end #wrap-inner --></div> <!-- end #wrap --></div> <!-- end #master -->
+
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.initialize();
+//]]>
+</script>
+</form>
+	</body>
+</html>

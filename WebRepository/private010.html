@@ -1,0 +1,926 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>Java Private Field Visibility - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6226">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/312168/java-private-field-visibility">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Java Private Field Visibility'" href="/feeds/question/312168">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(312168);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f312168%2fjava-private-field-visibility">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/312168/java-private-field-visibility" class="question-hyperlink">Java Private Field Visibility</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,visibility,language-features">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="312168">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        6
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b></b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>So I was making a class the other day and used Eclipse's method to create the equals method when I realized that it generated the following <strong>working</strong> code:</p>
+
+<pre><code>class Test {
+  private int privateInt;
+  [...]
+  public boolean equals(Object obj) {
+    [...]
+    Test t = (Test) obj;
+    if ( t.privateInt == privateInt ) {
+    [...]
+  }
+}
+</code></pre>
+
+<p>t.privateInt..???? It's suppose to be private! So I guess there is one more field visibility other than private, protected, package protected and public.</p>
+
+<p>So what is happening here? How is this called? <strong>Where would somebody use this?</strong> Doesn't this break encapsulation? What if the class didn't have a mutator and I changed this? Does this happen to C++ as well? Is this an OO idiom? If not, then why did Java do it?</p>
+
+<p>Generally, where can I find information about this?</p>
+
+<p>Thank you.</p>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/visibility" class="post-tag" title="show questions tagged 'visibility'" rel="tag">visibility</a> <a href="/questions/tagged/language-features" class="post-tag" title="show questions tagged 'language-features'" rel="tag">language-features</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-312168" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/312168/revisions" title="show all edits to this post"><span title="2008-11-26 15:21:54Z" class="relativetime">Nov 26 '08 at 15:21</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            
+            </td>
+            
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2008-11-23 05:43:24Z" class="relativetime">Nov 23 '08 at 5:43</span></div><div class="user-gravatar32"><a href="/users/2644/pek"><img src="http://www.gravatar.com/avatar/5da59ab173fba3587f7e5ff907956d28?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/2644/pek" >pek</a><br><span class="reputation-score" title="reputation score">3,080</span><span title="8 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">8</span></span><span title="30 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">30</span></span></div></div>
+            <br class="cbt">
+            <div class="accept-rate accept-answer-link" title="this user has accepted an answer for 35 of 42 eligible questions">83% accept rate</div>
+            
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-312168" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>5 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/312168?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/312168?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/312168?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="312178"></a>
+    
+    <div id="answer-312178" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="312178">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        13
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+<img src="http://sstatic.net/so/img/vote-accepted-on.png"
+    class="vote-accepted"
+    style="cursor:default"
+    width="30"
+    height="31"
+    alt="check"
+    title="The question owner accepted this as the best answer Nov 26 '08 at 15:18" >
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>It's accessible from different instances of the same class.</p>
+
+<p>According to <a href="http://java.sun.com/docs/books/tutorial/java/javaOO/accesscontrol.html" rel="nofollow">this page</a> (bolding mine):</p>
+
+<blockquote>
+  <p>At the member level, you can also use the public modifier or no modifier (package-private) just as with top-level classes, and with the same meaning. For members, there are two additional access modifiers: private and protected. <b>The private modifier specifies that the member can only be accessed in its own class.</b></p>
+</blockquote>
+
+<p>For clarity I'll rewrite this line:</p>
+
+<pre><code>if ( t.privateInt == this.privateInt )
+</code></pre>
+
+<p>We can agree that "this.privateInt" should be allowed: you are accessing it from within the instance of class Test that the message "equals" has been sent to.</p>
+
+<p>It's less clear that "t.privateInt" should be visible, because t is a separate instance of class Test and we are not executing inside its equals method.  However java allows this since both objects (t and this) are of the same class Test and can see each others private members.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/312168/java-private-field-visibility/312178#312178" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-312178" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/312178/revisions" title="show all edits to this post"><span title="2008-11-26 06:25:40Z" class="relativetime">Nov 26 '08 at 6:25</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-23 05:52:32Z" class="relativetime">Nov 23 '08 at 5:52</span></div><div class="user-gravatar32"><a href="/users/1958/michael-sharek"><img src="http://www.gravatar.com/avatar/a2de4f809f3587f21db9eedb36baf886?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/1958/michael-sharek" >Michael Sharek</a><br><span class="reputation-score" title="reputation score">1,850</span><span title="4 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">4</span></span><span title="15 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">15</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-312178" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-161562" class="comment">
+        <td></td>
+        <td class="comment-text"><div>OK... I understand now... But WHY? Why did Java let this happen? Can you think of some real life examples. I get why it should work in equals.. But there must be a better example.. &ndash;&nbsp;<a href="/users/2644/pek" title="3080" class="comment-user owner">pek</a> <span class="comment-date"><span title="2008-11-26 15:20:04Z">Nov 26 '08 at 15:20</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-161784" class="comment">
+        <td></td>
+        <td class="comment-text"><div>The only other examples would be similar to equals where you are given another instance of your class as an argument.  As for why Java did it, it's pretty standard in OO languages - C++ works the same way. Overloading == in C++ : <a href="http://artis.imag.fr/~Xavier.Decoret/resources/C++/operator==.html" rel="nofollow">artis.imag.fr/~Xavier.Decoret/resources/C++/&hellip;</a> &ndash;&nbsp;<a href="/users/1958/michael-sharek" title="1850" class="comment-user">Michael Sharek</a> <span class="comment-date"><span title="2008-11-26 16:37:10Z">Nov 26 '08 at 16:37</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-161802" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Soooo... its pretty useless trivia? &ndash;&nbsp;<a href="/users/2644/pek" title="3080" class="comment-user owner">pek</a> <span class="comment-date"><span title="2008-11-26 16:45:46Z">Nov 26 '08 at 16:45</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-161814" class="comment">
+        <td></td>
+        <td class="comment-text"><div>LOL...I guess so.  :) &ndash;&nbsp;<a href="/users/1958/michael-sharek" title="1850" class="comment-user">Michael Sharek</a> <span class="comment-date"><span title="2008-11-26 16:54:24Z">Nov 26 '08 at 16:54</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-1034502" class="comment">
+        <td class="comment-actions"><table><tbody><tr>
+<td class="comment-score">
+<span title="number of 'great comment' votes received" class="cool">1</span>
+</td>
+<td>
+&nbsp;
+</td></tr>
+</tbody></table></td>
+        <td class="comment-text"><div>As another bit of useless trivia, <code>private</code> has worked this way since it first appeared in Simula-67 (it was called <code>hidden</code> there, but it was also one of the 3 classic private/protected/public levels, and it worked exactly as it does in C++, Java, C# et al). &ndash;&nbsp;<a href="/users/111335/pavel-minaev" title="23511" class="comment-user">Pavel Minaev</a> <span class="comment-date"><span title="2009-07-31 06:02:16Z">Jul 31 at 6:02</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,visibility,language-features">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="312235"></a>
+    
+    <div id="answer-312235" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="312235">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        2
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Mike's quite correct; you are confusing objects (instances of a class) with the class itself.  The members are private to the <em>class</em>, not any particular <em>instance</em> of the class.</p>
+
+<p>I recall being just as surprised about this when I was new to Java.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/312168/java-private-field-visibility/312235#312235" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-312235" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-23 07:00:42Z" class="relativetime">Nov 23 '08 at 7:00</span></div><div class="user-gravatar32"><a href="/users/8946/software-monkey"><img src="http://www.gravatar.com/avatar/0ad5f7ab8744c90bde77377d9b151957?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/8946/software-monkey" >Software Monkey</a><br><span class="reputation-score" title="reputation score">9,088</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">10</span></span><span title="40 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">40</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-312235" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-154975" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Or he's confusing this.field with obj_of_same_class.field &ndash;&nbsp;<a href="/users/26155/tom" title="829" class="comment-user">Tom</a> <span class="comment-date"><span title="2008-11-23 08:31:02Z">Nov 23 '08 at 8:31</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-157704" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Could you maybe elaborate a little more or provide a link which can help me understand a little more. &ndash;&nbsp;<a href="/users/2644/pek" title="3080" class="comment-user owner">pek</a> <span class="comment-date"><span title="2008-11-24 22:31:44Z">Nov 24 '08 at 22:31</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-160784" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I tried to improve my answer...hope it helps &ndash;&nbsp;<a href="/users/1958/michael-sharek" title="1850" class="comment-user">Michael Sharek</a> <span class="comment-date"><span title="2008-11-26 06:26:34Z">Nov 26 '08 at 6:26</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="312174"></a>
+    
+    <div id="answer-312174" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="312174">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>You are referencing it from within the same class. Thus, you know what you are doing and does not need to be protected from yourself.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/312168/java-private-field-visibility/312174#312174" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-312174" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-23 05:51:25Z" class="relativetime">Nov 23 '08 at 5:51</span></div><div class="user-gravatar32"><a href="/users/39991/truppo"><img src="http://www.gravatar.com/avatar/7be405689455acbfe7b8aa1470901b6f?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/39991/truppo" >truppo</a><br><span class="reputation-score" title="reputation score">4,640</span><span title="3 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">3</span></span><span title="18 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">18</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-312174" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="312248"></a>
+    
+    <div id="answer-312248" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="312248">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>The private variables of another instance of the same class can be accessed. This is because you are dealing with the implementation of the class, directly, which requires you to know about its internal, 'private' variables anyway. </p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/312168/java-private-field-visibility/312248#312248" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-312248" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-23 07:09:38Z" class="relativetime">Nov 23 '08 at 7:09</span></div><div class="user-gravatar32"><a href="/users/15055/claudiu"><img src="http://www.gravatar.com/avatar/85003a017f16add2e4dd767cd620ea2c?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/15055/claudiu" >Claudiu</a><br><span class="reputation-score" title="reputation score">12.2k</span><span title="4 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">4</span></span><span title="29 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">29</span></span><span title="75 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">75</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-312248" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="1210860"></a>
+    
+    <div id="answer-1210860" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="1210860">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>The simple answer to this confusion is to remember that private field are visible only and only in the class where they are initialize( and defined)....So when you make an object of the  class inside the class, you can always access the private field of that class through the object reference. May be you feel its difficult but just think private field is just like a public field when you are using it inside the class where it is defined.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/312168/java-private-field-visibility/1210860#1210860" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-1210860" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-07-31 05:58:12Z" class="relativetime">Jul 31 at 5:58</span></div><div class="user-gravatar32"><img src="http://sstatic.net/so/img/anonymous-user-gravatar.png" width="32" height="32" alt=""></div><div class="user-details">Devon<br></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-1210860" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/312168/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/visibility" class="post-tag" title="show questions tagged 'visibility'" rel="tag">visibility</a> <a href="/questions/tagged/language-features" class="post-tag" title="show questions tagged 'language-features'" rel="tag">language-features</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/312168/ivc/fe15" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34051</span><br>
+<a href="/questions/tagged/language-features" class="post-tag" title="show questions tagged 'language-features'" rel="tag">language-features</a>&nbsp;<span class="item-multiplier">&times;&nbsp;244</span><br>
+<a href="/questions/tagged/visibility" class="post-tag" title="show questions tagged 'visibility'" rel="tag">visibility</a>&nbsp;<span class="item-multiplier">&times;&nbsp;101</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2008-11-23 05:43:24Z">1 year ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">657 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-09-30 15:41:55Z">4 months ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,visibility,language-features">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?6050">' +
+	   "Senior Web Application Developer" +
+	   ' at ' +
+	   "City of Hope</a> (" +
+	   "Duarte, CA  91010" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+    <div class="module">
+    <h4>Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="/questions/384776/binding-visibility-in-xaml-to-a-visibility-property" class="question-hyperlink">Binding Visibility in XAML to a Visibility property</a>
+</div>
+<div class="spacer">
+<a href="/questions/1601171/wpf-grid-auto-sized-column-not-collapsing-when-content-visibility-set-to-visibi" class="question-hyperlink">WPF Grid - Auto sized column not collapsing when content Visibility set to Visibility.Collapsed</a>
+</div>
+<div class="spacer">
+<a href="/questions/1805070/how-to-check-absolute-control-visibility-and-how-to-be-notified-for-changes-of-ab" class="question-hyperlink">How to check absolute control visibility and how to be notified for changes of absolute visibility </a>
+</div>
+<div class="spacer">
+<a href="/questions/1675268/java-instance-variable-visibility-threadlocal" class="question-hyperlink">Java instance variable visibility (ThreadLocal)</a>
+</div>
+<div class="spacer">
+<a href="/questions/340562/method-visibility-between-classes-in-java" class="question-hyperlink">method visibility between classes in java</a>
+</div>
+<div class="spacer">
+<a href="/questions/896606/dont-the-ruby-methods-instance-eval-and-send-negate-the-benefits-of-private" class="question-hyperlink">Don&rsquo;t the Ruby methods instance_eval() and send() negate the benefits of private visibility?</a>
+</div>
+<div class="spacer">
+<a href="/questions/907064/how-to-change-visibility-of-first-row-in-datagridview" class="question-hyperlink">How to change visibility of first row in datagridview</a>
+</div>
+<div class="spacer">
+<a href="/questions/983272/silverlight-datagridtextcolumn-binding-visibility" class="question-hyperlink">Silverlight DataGridTextColumn Binding Visibility</a>
+</div>
+<div class="spacer">
+<a href="/questions/989344/changing-visibility-does-not-immediately-hide-iframe" class="question-hyperlink">Changing visibility does not immediately hide iFrame</a>
+</div>
+<div class="spacer">
+<a href="/questions/705770/toggle-div-visibility-with-a-checkbox-list" class="question-hyperlink">toggle div visibility with a checkbox list</a>
+</div>
+<div class="spacer">
+<a href="/questions/792624/wpf-testing-the-scrollbar-visibility-of-a-listbox-in-code-behind" class="question-hyperlink">[WPF] Testing the scrollbar visibility of a ListBox in code-behind</a>
+</div>
+<div class="spacer">
+<a href="/questions/1021825/bind-contextmenus-menuitem-visibility-to-listview-selection" class="question-hyperlink">Bind ContextMenu&rsquo;s MenuItem visibility to ListView selection</a>
+</div>
+<div class="spacer">
+<a href="/questions/1045014/silverlight-how-to-bind-datagridcolumn-visibility" class="question-hyperlink">Silverlight:  How to bind DataGridColumn.Visibility?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1112707/need-help-understanding-problem-alternating-visibility-of-a-div-by-dynamically-sw" class="question-hyperlink">Need help understanding problem alternating visibility of a DIV by dynamically switching classes</a>
+</div>
+<div class="spacer">
+<a href="/questions/1115722/asp-net-with-visibilityhidden-not-being-shown-on-visible-true" class="question-hyperlink">ASP.NET with visibility:hidden, not being shown on .Visible = true</a>
+</div>
+<div class="spacer">
+<a href="/questions/1286372/setters-getters-visibility-oop-in-php" class="question-hyperlink">Setters/Getters, Visibility [ OOP ] in PHP</a>
+</div>
+<div class="spacer">
+<a href="/questions/1302418/jquery-div-visibility-toggle-not-working" class="question-hyperlink">jQuery div visibility toggle not working</a>
+</div>
+<div class="spacer">
+<a href="/questions/339935/visibility-of-script-includes-in-an-iframe" class="question-hyperlink">Visibility of script includes in an IFRAME</a>
+</div>
+<div class="spacer">
+<a href="/questions/459078/problem-of-conditional-visibility-and-page-breaks-with-rectangles-in-ssrs-2005" class="question-hyperlink">problem of conditional visibility and page breaks with rectangles in SSRS 2005</a>
+</div>
+
+    </div>
+    </div>
+
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/312168" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/312168" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6228</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

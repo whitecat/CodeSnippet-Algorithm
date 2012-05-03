@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="keywords" content="Java, java abstract class, java tutorial">
+<link rel="stylesheet" type="text/css" href="../lang.css">
+<title>The â??abstractâ?? Keyword In Java</title>
+</head>
+<body>
+
+<div class="donate253586027">If you enjoyed this site, please consider donating $3. Any amount is appreciated. <a href="http://xahlee.org/thanks.html">Thanks!</a><form action="https://www.paypal.com/cgi-bin/webscr" method="post"><div><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="8127788"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit"><img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"></div></form></div>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<h1>The â??abstractâ?? Keyword In Java</h1>
+
+<p>Xah Lee, 2005-02</p>
+
+<p>Previously we've covered the â??staticâ?? keyword,
+which can be used for variable declaration and method declaration
+as to make them class variables or class methods. (as
+opposed to being instance variables and methods.
+See
+<a href="instance_vs_class_members.html">Java's Instance Variables vs Class Variables</a>
+)</p>
+
+<p>Note that the â??staticâ?? keyword cannot be used in front of a
+class. (try it) However, a somewhat similar idea is abstract classes with the
+â??abstractâ?? keyword.</p>
+
+<p>The â??abstractâ?? keyword can be used on classes and methods. A class
+declared with the â??abstractâ?? keyword cannot be instantiated, and that is the
+only thing the â??abstractâ?? keyword does. Example of declaring a abstract class:</p>
+
+<pre class="java"><span class="keyword">abstract</span> <span class="type">CalendarSystem</span> (<span class="type">String</span> <span class="variable-name">name</span>);</pre>
+
+<p>When a class is declared abstract, then, its methods may also be declared abstract.</p>
+
+<p>When a method is declared abstract, the method can not have a definition. This is the only effect the abstract keyword has on method. Here's a example of a abstract method:</p>
+
+<pre class="java"><span class="keyword">abstract</span> <span class="type">int</span> <span class="function-name">get_person_id</span> (<span class="type">String</span> <span class="variable-name">name</span>);</pre>
+
+<p>Abstract classes and abstract methods are like skeletons. It defines a structure, without any implementation.</p>
+
+<p>Note that, only abstract classes can have abstract methods. Abstract class does not necessarily require its methods to be all abstract.
+</p>
+
+<p>Classes declared with the abstract keyword are solely for the
+purpose of extension (inheritance) by other classes.</p>
+
+<p>The following is a code template to experiment with. Begin by
+commenting out lines involving H2. Experiment with just defining a
+abstract class. See what is allowed, what is not. Then, define H2 that
+extends a abstract class. Get a feel of what needs to be there or
+not. Or, what kind of complaints compiler makes. Finally, create a
+object of a class that is inherited from a abstract class.</p>
+
+<pre class="java">
+<span class="comment-delimiter">// </span><span class="comment">a abstract class
+</span><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="variable-name">H</span> {
+    <span class="type">int</span> <span class="variable-name">x</span>;
+
+    <span class="comment-delimiter">/* </span><span class="comment">abstract */</span> <span class="type">int</span> <span class="variable-name">y</span>; <span class="comment-delimiter">// </span><span class="comment">variables cannot be abstract
+</span>
+    <span class="comment-delimiter">/* </span><span class="comment">abstract */</span> H () {x=1;} <span class="comment-delimiter">// </span><span class="comment">constructor cannot be abstract
+</span>
+    <span class="type">void</span> <span class="function-name">triple</span>  (<span class="type">int</span> <span class="variable-name">n</span>) {x=x*3;}; <span class="comment-delimiter">// </span><span class="comment">a normal method
+</span>
+    <span class="keyword">static</span> <span class="type">int</span> <span class="function-name">triple2</span> (<span class="type">int</span> <span class="variable-name">n</span>) {<span class="keyword">return</span> n*3;}; <span class="comment-delimiter">// </span><span class="comment">a static method in abstract class is ok.
+</span>    <span class="keyword">abstract</span> <span class="type">void</span> <span class="function-name">triple3</span> (); <span class="comment-delimiter">// </span><span class="comment">abstract method. Note: no definition.
+</span>
+    <span class="comment-delimiter">// </span><span class="comment">static abstract void triple3 (int n); // abstract static cannot be combined
+</span>    <span class="type">int</span> <span class="function-name">returnMe</span> () {<span class="keyword">return</span> x;}
+}
+
+<span class="comment-delimiter">// </span><span class="comment">H1 extends (inherits) H. When a class extends a abstract class,
+</span><span class="comment-delimiter">// </span><span class="comment">it is said to â??implementâ?? the abstract class.
+</span><span class="keyword">class</span> <span class="variable-name">H1</span> <span class="keyword">extends</span> <span class="type">H</span> {
+    <span class="type">void</span> <span class="function-name">triple3</span> () {x=x*3+1;} <span class="comment-delimiter">// </span><span class="comment">must be defined, else compiler makes a complaint.
+</span>    <span class="comment-delimiter">//</span><span class="comment">Also, all return type and parameter must agree with the parent class.
+</span>}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="variable-name">abbst</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="function-name">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment-delimiter">// </span><span class="comment">H xx = new H(); // abstract class cannot be instantiated
+</span>        H1 myO = <span class="keyword">new</span> <span class="type">H1</span>(); <span class="comment-delimiter">// </span><span class="comment">abstract class cannot be instantiated
+</span>        myO.triple3();
+        <span class="type">System</span>.out.println(myO.returnMe());
+    }
+}
+</pre>
+
+<h2>The Purpose Of Abstract Classes</h2>
+
+<p>
+Abstract class and methods are complications arising out of the pure
+Object Oriented Paradigm.</p>
+
+<p>Its purpose is to serve purely as a umbrella of classes.</p>
+
+<p>That is to say: abstract class is a parent for a collection of sub
+classes, where itself declares certain methods but doesn't define any
+implementations. This is so that, sub classes all inherit the same set
+of methods and variables, and are free to implement them or add in
+addition.</p>
+
+<p>For example, the â??java.lang.Numberâ?? is a abstract class. Its sub classes includes:</p>
+
+<pre class="bdr">
+Byte, Double, Float, Integer, Long, Short
+</pre>
+
+<p>All these subclass inherit and implement â??java.lang.Numberâ??'s abstract methods:</p>
+
+<pre class="bdr">
+byteValue()
+doubleValue()
+floatValue()
+intValue()
+longValue()
+shortValue()
+</pre>
+
+<p>It does not make sense to give them a implementation in â??java.lang.Numberâ??, because each is really specific to the type. For example, the implementation for â??Double.intValue()â?? is necessarily different for â??Integer.intValue()â??.</p>
+
+<p><span class="ref"><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/Number.html">Java Doc: Number</a></span></p>
+
+<p>So what is special about abstract classe? after all, a normal class
+can have subclasses just as well, and function as a umbrella to other
+classes. The key to abstract class is that it allows methods to be
+undefined. It explicitly tells the programers, that â??I'm a
+embodiment of classes. I define what methods my children must bear,
+while I, do not have to subject myself to the precepts of OOP
+machinery of providing implementation to methods. I'm exceptional. I
+am a embodiment of classes.â??</p>
+
+<p>You could define â??java.lang.Numberâ?? as a normal class, with implementation of the intValue() and other methods, and then redefine the method in one of the subclass such as Double. However, that would be silly since your â??java.lang.Number.intValue()â?? is meant to be over-written anyway, and it does not make any sense to give it a default implementation because the implementation depends on the type.</p>
+
+<p>Again: In Java, the concept of abstract class and the keyword â??abstractâ??, is to serve purely as a umbrella for other classes. Remember this, because it can get confusing later with another complexity out of OOP: Java Interfaces.</p>
+
+<p>Quiz: can a normal class have abstract methods?</p>
+
+<p>For a juvenile drivel about abstract classes using metaphors of
+food and chocolate chip cookies, see the official Java Tutorial:
+<a href="_p/java_tutorial_20051223_abstract.zip">java_tutorial_20051223_abstract.zip</a>.
+In a version dated 2006-08-03, the food analogy is removed, in fact the entire explanatory section is removed. Instead it takes a pure technical approach, and dragging in interfaces and other intricacies, making it more confusing.
+<a href="_p/java_tutorial_20060803_abstract.zip">java_tutorial_20060803_abstract.zip</a>.
+</p>
+
+<h2>Q and A with Abstract Class</h2>
+
+<p class="q">What is the purpose of abstract classes?</p>
+<div class="a">
+<p>Its purpose is to serve purely as a umbrella of classes.</p>
+</div>
+
+<p class="q">As a parent, what's the difference between abstract class and normal class?</p>
+<div class="a">
+<p>In a normal class, methods need to have definitions. If your class is to be a umbrella of other classes, it sometimes does not make sense to give a default definition for methods. For example, if your umbrella class is Number, and have Integer and ComplexNumber as children, it doesn't make sense to have a default definition for a method Plus.</p>
+<p>Another example: If you have a GraphicObject as parent, and Rectangle and Circle as children. It does not make sense, to have DrawIt predefined in GraphicObject.</p>
+
+<p>When a class is declared abstract, it needs not to have definitions for its methods. Therefore, it is ideal, for serving as pure parent of classes.
+</p>
+
+<p>Viewed alternatively, Java's class hierachy system has a problem, in some cases, because of its required inherence of method definitions. A programer's workaronud is to give a dummy definition in the parent class. (such as returning nothing). Abstract class is the official solution at the language level.
+</p>
+</div>
+
+<p class="q">What is the difference between abstract class and interface?</p>
+<div class="a">
+<p>Their similarity, is that both interface and abstract class require the child class to have the methods set.
+</p>
+<p>However, they serve difference purposes. A interface is a way to declare that the class have a set of methods. While, abstract class is a way to declare a hiarachical relationship among classes.</p>
+
+<p>Reference:
+<a href="http://java.sun.com/docs/books/tutorial/java/IandI/abstract.html">http://java.sun.com/docs/books/tutorial/java/IandI/abstract.html</a>
+</p>
+</div>
+
+<div class="rltd">
+<ul>
+<li><a href="interface.html">Java Interface</a></li>
+<li><a href="package.html">Java Package</a></li>
+</ul>
+</div>
+
+<div class="nav">â?? Back to <a href="java.html">Java Tutorial</a>.</div>
+
+<div class="dstp">2005-02</div>
+<div class="cpr">Â© 2005 by <a href="http://xahlee.org/PageTwo_dir/more.html">Xah Lee</a>.</div>
+
+<div class="xsig"></div>
+
+<script type="text/javascript"> var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); </script> <script type="text/javascript"> try { var pageTracker = _gat._getTracker("UA-10884311-2"); pageTracker._trackPageview(); } catch(err) {}</script>
+</body>
+</html>

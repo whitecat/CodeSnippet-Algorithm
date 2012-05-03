@@ -1,0 +1,263 @@
+<html>
+<head>
+<title>Optimizing Java for Speed</title>
+<base href="http://www.cs.cmu.edu/~jch/java/speed.html">
+<meta name="author" content="Jonathan Hardwick">
+<meta name="description" content="How to make your Java programs faster.">
+<meta name="keywords" content="code, time, faster, optimize, optimise, optimising">
+</head>
+
+<body>
+<h1 align=center>Optimizing Java for Speed</h1>
+<p align=center><font face="Helvetica" size=-1>
+[ <b><a href="optimization.html">index</a></b> ]
+[ <a href="benchmarks.html">benchmarks</a>
+ | <a href="compilers.html">compilers</a> 
+ | <a href="maintainability.html">maintainability</a>
+ | <a href="resources.html">resources</a>
+ | <a href="rules.html">rules</a>
+ | <a href="size.html">size</a>
+ | <a href="tools.html">tools</a> ]
+</font></p>
+<hr size=1 noshade>
+
+<blockquote>
+<dl>
+<dt><b>Compiler optimizations:</b>
+<dd>When you've finished developing and testing your code, recompile with
+    compiler optimizations turned on (e.g., <tt><a
+    href="http://java.sun.com/products/JDK/tools/solaris/javac.html">javac
+    -O</a></tt>).  For details on what current Java compilers can do, and how
+    you can help them, see <a href="compilers.html">Java compilers</a>. <p>
+
+<dt><b>Just-in-time compilers:</b>
+<dd>Make sure your users have a <a
+    href="http://www.javacats.com/us/articles/chuckmcmanis091696.html">just-in-time 
+    compiler</a> instead of a standard interpreted Java VM.  JIT compilers
+    typically improve the performance of non-graphical Java primitives by
+    10-30 times (see <a href="benchmarks.html">Java microbenchmarks</a>).
+    Browsers with JIT compilers include the Win32 and Mac versions of
+    <a href="http://www.netscape.com/comprod/products/navigator/">Netscape
+    Navigator 3.0</a> and <a href="http://www.microsoft.com/ie/">Internet
+    Explorer 3.0</a>.  Standalone JIT compilers are also available from (at
+    least):
+    <ul>
+      <li><a href="http://www.supercede.com/">Asymetrix</a> (commercial: for
+	  Win32).
+      <li><a href="http://www.unix.digital.com/products/internet/java.html">DEC</a> 
+	  (free: for Digital Unix)
+      <li><a href="http://www.hp.com/go/java/">HP</a> (free: for HP-UX).
+      <li><a href="http://www.kaffe.org/">Kaffe</a> (free: for x86, Sparc,
+	  Alpha, and M68k CPUs).
+      <li><a href="http://www.microsoft.com/visualj">Microsoft</a>
+	  (free: for Win32).
+      <li><a href="http://www.sgi.com/Products/cosmo/">SGI</a> (commercial:
+	  <a href="http://www.disordered.org/Java-JIT.html">for 
+	  Irix</a>).
+      <li><a href="http://www.sun.com/workshop/java/">Sun</a> (free: for
+	  Win32 and Solaris).
+      <li><a href="http://cafe.symantec.com/">Symantec</a> (commercial: for
+	  Win32 and MacOS).
+    </ul>
+    <p>
+
+<dt><b>Exploiting multiprocessors:</b>
+<dd>If you have a multiprocessor and a Java VM that can spread threads across
+    processors (and currently these are big ifs), you can improve performance
+    by multithreading, either manually or through the use of a restructuring
+    compiler such as <a
+    href="http://www.extreme.indiana.edu/hpjava/">JAVAR</a>. 
+    <p>
+
+<dt><b>Native methods:</b>
+<dd>If you're don't care about cross-platform portability, <a
+    href="http://java.sun.com/books/Series/Tutorial/native/index.html">native
+    methods</a> will get you the speed of raw C (or Fortran, or C++, or...).
+    <a href="http://www.javaworld.com/javaworld/javatips/jw-javatip13.html">Fallback
+    code</a> lets your program continue even if native methods aren't
+    available. <p>
+
+<dt><b>Translation into C:</b>
+<dd>There are currently four freely-available tools to translate Java into C:
+    <a href="http://www.webcity.co.jp/info/andoh/java/j2c.html">j2c</a> from
+    Japan,
+    <a href="http://www.digiserve.com/nshaylor/jcc.html">JCC</a> from Nik
+    Shaylor,
+    <a href="http://www.cs.arizona.edu/sumatra/toba/">Toba</a> (formerly
+    Juice) from Arizona,
+    and <a href="http://www.irisa.fr/EXTERNE/projet/lande/consel/">Harissa</a>
+    (formally Salsa) from France.  Toba and Harissa are both products of
+    active research groups. 
+    <p>
+
+<dt><b>Graphics:</b>
+<dd>Use clipping to reduce the amount of work done in <tt>repaint()</tt>,  
+    double buffering to improve perceived speed, and image strips or
+    compression to speed up downloading times.  <a
+    href="http://www.javaworld.com/javaworld/jw-03-1996/jw-03-animation.html">Animation
+    in Java Applets</a> from JavaWorld and <a
+    href="http://java.sun.com/books/Series/Tutorial/ui/drawing/animation.html">Performing
+    Animation</a> from Sun are two good tutorials.  Remember to use
+    high-level primitives; it's much faster to call
+    <tt>drawPolygon()</tt> on a bunch of points than looping with
+    <tt>drawLine()</tt> (tip from <a href="mailto:lugrin@morgan.com">Jean-Marc
+    Lugrin</a>).  And if you have to draw a single pixel <tt>drawLine
+    (x,y,x,y)</tt> may be faster than <tt>fillRect (x,y,1,1)</tt> (tip from <a
+    href="http://www.eecs.wsu.edu/~wcochran/">Wayne Cochran</a>). <p>
+
+<dt><b>Input/output:</b>
+<dd>Use
+    <tt><a href="http://java.sun.com/products/JDK/1.0.2/api/java.io.BufferedInputStream.html">BufferedInputStream</a></tt>
+    and <tt><a href="http://java.sun.com/products/JDK/1.0.2/api/java.io.BufferedOutputStream.html">BufferedOutputStream</a></tt> 
+    or equivalent buffered methods wherever possible; doing I/O a single byte
+    at a time is generally too slow to be practical.  Note that the JDK 1.0.2
+    I/O classes use <b>lots</b> of synchronization, so you might get better
+    performance by using a single "bulk" call such as readFully and then
+    interpreting the data yourself (<a
+    href="text/doug_erickson_961119.txt">tip and code</a> from <a
+    href="http://www.mech.utah.edu/~erickson">Doug Erickson</a>). <p>
+
+<dt><b>Synchronization:</b>
+<dd>In the JDK interpreter, calling a synchronized method is typically 10
+    times slower than calling an unsynchronized method.  With JIT
+    compilers, this performance gap has increased to 50-100 times (see <a
+    href="benchmarks.html">Java microbenchmarks</a>).  Avoid synchronized
+    methods if you can -- if you can't, synchronizing on methods rather than
+    on code blocks is slightly faster (<a href="text/doug_lea_961121.txt">tip
+    and benchmarks</a> from <a href="mailto:dl@altair.cs.oswego.edu">Doug
+    Lea</a>). <p>
+
+<dt><b>Exceptions:</b>
+<dd>You should only use exceptions where you really need them--not only do
+    they have a high basic cost, but their presence can hurt compiler
+    analysis (<a href="text/niklas_gustafsson_970221.txt">tip and code</a>
+    from Niklas Gustafsson).
+    <p>
+    
+<dt><b>The costs of Strings:</b>
+<dd>The String concatenation operator <tt>+</tt> looks innocent but involves a
+    lot of work: a new StringBuffer is created, the two arguments are added to
+    it with <tt>append()</tt>, and the final result is converted back with a
+    <tt>toString()</tt>.  This costs both space and time.  In particular, if
+    you're appending more than one String, consider using a StringBuffer
+    directly instead (tip from <a href="mailto:marshall@solar.isr.co.jp">Jason
+    Marshall</a>, see also space aspects in <a href="size.html">Optimizing for
+    Size</a>). <p>
+
+<dt><b>Using API classes:</b>
+<dd>Use classes from the 
+    <a href="http://java.sun.com/products/JDK/1.0.2/api/">Java API</a> when
+    they offer native machine performance that you can't match using Java.
+    For example, <tt><a
+    href="http://java.sun.com/products/JDK/1.0.2/api/java.lang.System.html#42763">arraycopy()</a></tt>
+    is much faster than using a loop to copy an array of any significant size.
+    <p>
+
+<dt><b>Replacing API classes:</b>
+<dd>Sometimes API classes do more than you need, with a corresponding increase
+    in execution time; for these you can write specialized versions that do
+    less but run faster.  For example, in one application where I needed a
+    container to store lots of arrays I replaced the original 
+    <tt><a href="http://java.sun.com/products/JDK/1.0.2/api/java.util.Vector.html">Vector</a></tt> 
+    with a faster dynamic array of objects (see "<a 
+    href="http://www.cs.cmu.edu/~scandal/html-papers/javanesl/">Java as an
+    Intermediate Language</a>").  As another example, Paule Houle has produced
+    a <a href="http://www.msc.cornell.edu/~houle/RngPack/">set of
+    random-number generators</a> that are much faster than
+    <tt>Math.random()</tt> (and have quality guarantees too). <p> 
+
+<dt><b>Overriding API methods:</b>
+<dd>If you're using a class from the Java API and are seeing performance
+    problems with one method, try defining a subclass which overrides that
+    method with your own (hopefully more efficient) version. <p>
+
+<dt><b>Avoiding expensive constructs:</b>
+<dd>Sometimes Java constructs are so expensive that it can be worth making
+    your data structures or code a little more complex to work around the
+    problem.  For example, you can add a type id number to objects to avoid
+    paying the cost of an <tt>instanceof</tt> (this also allows you to use the
+    result in a <tt>switch</tt>).  Similarly, in a long inheritance tree you
+    can avoid casting by including a method that returns a value of the type
+    you would otherwise cast to (both tips from
+    <a href="mailto:GREGM@img.seagatesoftware.com">Greg McClement</a>).
+    <img alt="[NEW]" width=31 height=12 src="new.gif">
+    <p>
+
+<dt><b>Avoiding expensive data structures:</b>
+<dd>In a similar manner to the constructs above, expensive Java data
+    structures can be replaced with simpler ones at the cost of some extra
+    code complexity.  For example, it can be up to twice as expensive to
+    access a two-dimensional array as a one-dimensional array, due to the
+    extra indirections (tip from <a href="mailto:kerr@wizard.net">Shane
+    Kerr</a>).
+    <img alt="[NEW]" width=31 height=12 src="new.gif">
+    <p>
+    
+<dt><b>Know your switches:</b> <dd>A <tt>switch</tt> statement is compiled
+    into one of <a
+href="http://java.sun.com/docs/books/vmspec/html/Compiling.doc.html#4095">two
+bytecodes</a>,
+    depending on the sparsity of the cases you're switching on.  The first,
+    where the numbers are close together, uses a fast direct lookup.  The
+    second, where the numbers are further apart, uses a slower search through
+    a table.  Look at the bytecode your code is compiled into to find which
+    you're using (tip from <a
+    href="mailto:GREGM@img.seagatesoftware.com">Greg McClement</a>).  This is
+    particularly important if you're trying to replace a sequence of
+    <tt>if</tt> statements with a <tt>switch</tt> (tip from <a
+    href="emeade@fvh.gtegsc.com">Erik Meade</a>).
+    <img alt="[NEW]" width=31 height=12 src="new.gif">
+    <p>
+
+<dt><b>Function inlining:</b>
+<dd>Java compilers can only inline a method if it is <tt>final</tt>,
+    <tt>private</tt>, or <tt>static</tt> (and <a
+    href="mailto:eraxhal@era-t.ericsson.se">Hans Hall</a> has noted that
+    <tt>javac</tt> will only inline if a method has no local variables).  If
+    your code spends lots of time calling a method that has none of these
+    modifiers, consider writing a version that is <tt>final</tt>. <p>
+
+<dt><b>Reusing objects:</b>
+<dd>It takes a long time to create an object (see <a
+    href="benchmarks.html">Java microbenchmarks</a> for exactly how long), so
+    it's often worth updating the fields of an old object and reusing it
+    rather than creating a new object.  For example, rather than creating a
+    new <tt>Font</tt> object in your <tt>paint</tt> method you can declare it
+    as an instance object, initialize it once, and then just update it when
+    necessary in <tt>paint</tt> (tip from <a
+    href="mailto:fmyers@cs.iupui.edu">Frederick Myers</a>).  Similarly, rather
+    than allowing the garbage collector to deal with objects you've removed
+    from a linked list, you can store them in a free list, to be reused the
+    next time you need to add a new object (tip from <a
+    href="mailto:GREGM@img.seagatesoftware.com">Greg McClement</a>).  This can
+    be particularly important for graphics objects like Rectangles, Points and
+    Fonts (tip from <a href="agr@stardiv.de">Alexander Grosse</a>).
+	  <img alt="[NEW]" width=31 height=12 src="new.gif">
+    See also "<a
+    href="http://www.javaworld.com/javaworld/jw-09-1996/jw-09-indepth.html">Not
+    using garbage collection</a>", from JavaWorld. <p>
+
+<dt><b>High-level optimizations:</b>
+<dd>For a higher-level approach to optimizing the structure of object-oriented
+    code, the online book
+    "<a href="http://g.oswego.edu/dl/oosdw3/">Object-Oriented System
+    Development</a>" has a chapter on 
+    <a href="http://g.oswego.edu/dl/oosdw3/ch25/ch25.html">performance 
+    optimization</a>.
+</dl>
+</blockquote>
+
+<hr size=1 noshade>
+<center><table width="100%" cellspacing=0 cellpadding=0 border=0>
+  <tr>
+    <td align=left><font size=-1>http://www.cs.cmu.edu/~jch/java/speed.html</font></td>
+    <td align=right><font size=-1>Optimizing Java for Speed</font></td>
+  </tr>
+  <tr>
+    <td align=left><font size=-1><!-- hhmts start -->Last modified: Wed 18 Mar 1998<!-- hhmts end --></font></td>
+    <td align=right><font size=-1>Copyright &#169 1996, 1997 <a
+    href="http://www.cs.cmu.edu/~jch/">Jonathan Hardwick</a></font></td>
+  </tr>
+</table></center>
+</body>
+</html>

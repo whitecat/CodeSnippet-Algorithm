@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- 
+Java in Adaptive Server Enterprise
+Adaptive Server&#174; Enterprise
+15.5
+--><head>
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+<link href="../../../com.sybase.sybooks.style/sybase.css" rel="STYLESHEET" type="text/css"/>
+<title>Java void instance methods</title>
+
+<script src="../../../../advanced/synchWithToc.js" type="text/javascript" xml:space="preserve"> </script>
+
+<link charset="ISO-8859-1" href="../content/PLUGINS_ROOT/org.eclipse.help.webapp/advanced/breadcrumbs.css" rel="stylesheet" type="text/css"/>
+<script src="../content/PLUGINS_ROOT/org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+<script type="text/javascript">if( self == top ){ window.location.replace( "../../../../index.jsp?topic=/com.sybase.infocenter.dc31652.1550/html/java/java93.htm");}</script>
+</head>
+<body>
+<div class="help_breadcrumbs"><a href="../../../../topic/com.sybase.infocenter.help.ase.15.5/title.htm" shape="rect">Adaptive Server Enterprise 15.5</a> &gt; <a href="../../../../topic/com.sybase.infocenter.dc31652.1550/html/java/title.htm" shape="rect">Java in Adaptive Server Enterprise Adaptive Server Enterprise 15.5</a> &gt; <a href="../../../../topic/com.sybase.infocenter.dc31652.1550/html/java/X26234.htm" shape="rect">Using Java Classes in SQL</a> &gt; <a href="../../../../topic/com.sybase.infocenter.dc31652.1550/html/java/X37677.htm" shape="rect">Type and void methods</a></div>
+
+
+<div class="nav-header">
+
+<p align="right"><a href="X37677.htm" shape="rect" title="Type and void methods"><img align="top" alt="Type and void methods" src="arrow-left.gif"/></a>Â Â <a href="java94.htm" shape="rect" title="Java void static methods"><img align="top" alt="Java void static methods" src="arrow-right.gif"/></a></p>
+
+<i>Chapter 4: Using Java Classes in SQL</i><hr noshade="noshade" size="1"/>
+</div>
+
+<h1><a name="T71" shape="rect"/>Java
+void instance methods</h1>
+
+<p>To use the â??update-in-placeâ?? actions of
+Java void instance methods in the <acronym title="sequel">SQL</acronym> system,
+Java in Adaptive Server treats a call of a Java void instance method
+as follows:</p>
+
+<p>For a void instance method <b>M( )</b> of an instance <b><abbr title="C I">CI</abbr></b> of a class C, written â??<b><acronym title="C I dot M">CI.M</acronym>(...)</b>â??: </p>
+
+
+<ul><li class="fi"><p>In <acronym title="sequel">SQL</acronym>,
+the call is treated as a type method call. The result type is implicitly
+class <b>C</b>, and the result value is a reference
+to <b><abbr title="C I">CI</abbr></b>. That reference identifies
+a copy of the instance <abbr title="C I">CI</abbr> after the actions
+of the void instance method call.</p>
+
+</li>
+<li class="ds"><p>In Java, this call is a void method call, which
+performs its actions and returns no value.</p>
+
+</li>
+</ul>
+
+<p>For example, you can invoke the <b>removeLeadingBlanks(
+)</b> method for the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column
+of selected rows of the <i><abbr title="E M P S">emps</abbr></i> table
+as follows: </p>
+
+
+<pre xml:space="preserve">
+update emps 
+ 	set home<acronym title="underscore A D D R">_addr</acronym> = home<acronym title="underscore A D D R">_addr</acronym>&gt;&gt;removeLeadingBlanks( )
+ 	where home<acronym title="underscore A D D R">_addr</acronym>&gt;&gt;removeLeadingBlanks( )&gt;&gt;street like â??123%â??
+</pre>
+
+<ol type="1"><li class="fi"><p>In the <b>where</b> clause, â??home<acronym title="underscore A D D R">_addr</acronym>&gt;&gt;removeLeadingBlanks(
+)â?? calls the <b>removeLeadingBlanks( )</b> method
+for the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column
+of a row of the <i><abbr title="E M P S">emps</abbr></i> table. <b>removeLeadingBlanks(
+)</b> strips the leading blanks from the <i>street</i> and <i>zip</i> fields
+of a copy of the column. The <acronym title="sequel">SQL</acronym> system
+then returns a reference to the modified copy of the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column.
+The subsequent field reference:</p>
+
+
+<pre xml:space="preserve">
+home<acronym title="underscore A D D R">_addr</acronym>&gt;&gt;removeLeadingBlanks( )&gt;&gt;street
+</pre>
+
+<p>returns the <i>street</i> field that has the
+leading blanks removed. The references to <i>home<acronym title="underscore A D D R">_addr</acronym></i> in
+the <b>where</b> clause are operating on a copy of the
+column. This evaluation of the <b>where</b> clause does <i>not</i> modify
+the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column.</p>
+
+</li>
+<li class="ds"><p>The <b>update</b> statement performs
+the <b>set</b> clause for each row of <i><abbr title="E M P S">emps</abbr></i> in which the <b>where</b> clause
+is true.</p>
+
+</li>
+<li class="ds"><p>On the right-side of the <b>set</b> clause,
+the invocation of â??home<acronym title="underscore A D D R">_addr</acronym>&gt;&gt;removeLeadingBlanks(
+)â?? is performed as it was for the <b>where</b> clause: <b>removeLeadingBlank(
+)</b> strips the leading blanks from <i>street</i> and <i>zip</i> fields
+of that copy. The <acronym title="sequel">SQL</acronym> system
+then returns a reference to the modified copy of the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column.</p>
+
+</li>
+<li class="ds"><p>The <b>Address</b> instance denoted
+by the result of the right side of the <b>set</b> clause
+is serialized and copied into the column specified on the left-side
+of the <b>set</b> clause: the result of the expression
+on the right side of the <b>set</b> clause is a copy
+of the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column
+in which the leading blanks have been removed from the <i>street</i> and <i>zip</i> fields.
+The modified copy is then assigned back to the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column
+as the new value of that column.</p>
+
+</li>
+</ol>
+
+<p>The expressions of the right and left side of the <b>set</b> clause
+are independent, as is normal for the <b>update</b> statement.</p>
+
+<p>The following <b>update</b> statement shows an
+invocation of a void instance method of the <i>mailing<acronym title="underscore A D D R">_addr</acronym></i> column
+on the right side of the <b>set</b> clause being assigned
+to the <i>home<acronym title="underscore">_</acronym>address</i> column
+on the left side. </p>
+
+
+<pre xml:space="preserve">
+update emps 
+ 	set home<acronym title="underscore A D D R">_addr</acronym> = mailing<acronym title="underscore A D D R">_addr</acronym>&gt;&gt;removeLeadingBlanks( )
+ 	where ...
+</pre>
+
+<p>In this <b>set</b> clause, the void method <b>removeLeadingBlanks(
+)</b> of the <i>mailing<acronym title="underscore A D D R">_addr</acronym></i> column
+yields a reference to a modified copy of the <b>Address2Line</b> instance
+in the <i>mailing<acronym title="underscore A D D R">_addr</acronym></i> column.
+The instance denoted by that reference is then serialized and assigned
+to the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column.
+This action updates the <i>home<acronym title="underscore A D D R">_addr</acronym></i> column;
+it has no effect on the <i>mailing<acronym title="underscore A D D R">_addr</acronym></i> column.</p>
+
+<div class="nav-footer">
+
+<br clear="none"/><br clear="none"/><br clear="none"/><hr noshade="noshade" size="1"/>
+<table class="stock" width="100%">
+<tr><td align="left" colspan="2" rowspan="1">
+Copyright Â© 2009. Sybase Inc. All rights reserved.
+
+</td>
+<td align="right" colspan="1" rowspan="1">
+<a href="java94.htm" shape="rect" title="Java void static methods"><img align="right" alt="Java void static methods" src="arrow-right.gif"/></a>
+</td>
+</tr>
+</table>
+
+<p align="right"><a href="../../pdf/java.pdf" shape="rect" target="_blank">View this document as PDFÂ Â <img align="middle" alt=" " src="pdf.gif"/></a></p>
+
+</div>
+
+</body>
+</html>

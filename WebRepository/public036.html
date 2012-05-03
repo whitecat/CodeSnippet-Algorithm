@@ -1,0 +1,580 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+
+
+<!------------------------------->
+<!--      ABOUT THIS HTML      -->
+<!------------------------------->
+<!-- FOLLOW THESE COMMENTS FOR -->
+<!--   INFORMATION ABOUT THE   -->
+<!-- STRUCTURE OF OUR TEMPLATES-->
+<!------------------------------->
+
+<!------------------------------->
+<!--   INSERT YOUR TITLE HERE  -->
+<!------------BEGIN-TITLE-------->
+
+<TITLE>JSR-000223 Scripting for the Java Platform - Public Review Draft</TITLE>
+
+<!-------------END-TITLE--------->
+<!--        END OF TITLE       -->
+<!------------------------------->
+
+</HEAD>
+<BODY BGCOLOR="#FFFFFF"  TEXT="#000000">
+
+<!-- begin main page table -->
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0">
+<TR>
+<TD WIDTH="157" VALIGN="TOP">
+
+<!------------------------------->
+<!--  SERVER SIDE INCLUDE FOR  -->
+<!--  NAVIGATION MENU AT LEFT  -->
+<!------------------------------->
+
+<!-- 9/16/2008 Phil B. : The following is necessary to format the static files with the new template.-->
+</TD></TR><TABLE>
+<!-- END -->
+
+<head>
+    <link href="/includes/css/menu.css" rel="stylesheet" type="text/css"></link>
+    <link href="/includes/css/style.css" rel="stylesheet" type="text/css"></link>
+    <!--[if lt IE 6]><link href="/includes/css/style5.css" rel="stylesheet" type="text/css" ></link><![endif]-->
+    <!--[if gte IE 5]><link href="/includes/css/style6.css" rel="stylesheet" type="text/css" ></link><![endif]-->
+    <link href="/includes/css/tabs.css"  rel="stylesheet" type="text/css"></link>
+    
+    <script type="text/javascript" src="/includes/scripts/tabs.js"></script>
+
+    <script type="text/javascript" src="/includes/scripts/menu.js"></script>
+
+<script type="text/javascript">
+
+String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g,"");
+}
+String.prototype.ltrim = function() {
+        return this.replace(/^\s+/,"");
+}
+String.prototype.rtrim = function() {
+        return this.replace(/\s+$/,"");
+}
+
+function validate_search() {
+	if (document.search.id.value == "Search" || document.search.id.value.trim().length == 0) {
+		alert("Search field must be entered first");
+		return false;
+	}
+	return true;
+}
+
+function validate_findjsr() {
+	if (document.findjsr.id.value == "Search" || document.findjsr.id.value.trim().length == 0) {
+		alert("Search field must be entered first");
+		return false;
+	}
+	return true;
+}
+
+function validate_login(type) {
+	// alert("validate_login:type=" + type);
+	if (document.login.username.value == "username"
+			|| document.login.username.value.trim().length == 0
+			|| document.login.password.value.trim().length == 0) {
+		// alert("User ID and Password must be entered first: debug(" + type + ")");
+		alert("User ID and Password must be entered first");
+		return false;
+	}
+	return true;
+}
+
+// onKeyPress="return handle_keypress(this,event)"
+function handle_keypress(myfield, e) {
+	var keycode;
+	if (window.event) keycode = window.event.keyCode;
+	else if (e) keycode = e.which;
+	else return true;
+
+
+	// if (window.event) keycode = e.keyCode;
+	// else if (e) keycode = e.which;
+	// else return true;
+
+	// alert("keycode=" + keycode);
+
+	// if (keycode == 13 && validate_login(3) ) {
+	if (keycode == 13) {
+		if (validate_login(3)) {
+			myfield.form.submit();	// submit() function not same as User Submit
+		}
+		return false;
+	}
+	return true;
+}
+
+function nullify_if_equal(field, str) {
+	// alert("val=" + field.value);
+	if (field.value == str) {
+		field.value = "";
+	}
+}
+
+</script>
+
+</head>
+
+
+
+<body onload="P7_initPM(0,1,0,0,-1)">
+
+
+<TABLE BORDER="2" CELLSPACING="0" WIDTH="50%" 
+   STYLE="background-image: 
+     url('your_image.gif'); border: 
+       2 ridge #800000">
+
+<TABLE WIDTH=692 HEIGHT=82  BORDER=0 CELLPADDING=0 CELLSPACING=0 STYLE="background-image: url('/images/logo2.gif'); border: 0">
+<TR>
+<TD VALIGN=TOP ALIGN=RIGHT>
+                        <form name="search" action="/en/jsr/summary" method="get" onSubmit="return validate_search()">
+                        <a href="/en/press/pressroom"><FONT SIZE=-2>Press Room</FONT></a> &nbsp;|&nbsp;
+                        <a href="http://java.com/java/download/index.jsp?cid=jdp78399"><FONT SIZE=-2>Get Java Here</FONT></a> &nbsp;|&nbsp;
+                                <input name="id" value="Search" size="16" onFocus="nullify_if_equal(this, 'Search')" type="text"><BR>
+                                <a href="javascript:document.search.submit()" onClick="return validate_search()"><img src="/images/button_go.gif"
+                                        width="21" height="16" border="0" alt="Submit this Search" name="sub_search"></a>
+                        </form>
+</TD>
+</TR>
+</TABLE>
+
+	<div style="clear: right;"></div>
+        
+        
+
+	<div class="topbar"><img src="/images/spacer.gif" alt="" height="3" width="154"></div>
+	<div id="update"> </div>
+    </div>
+
+
+        <!-- ** BEGIN: Content Table ** //-->
+
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+
+        
+            <tr>
+
+                <!-- ** BEGIN: Navigation Column ** //-->
+                <td width="190" id="leftcontent" valign="top" nowrap>
+                    <!-- Navigation Placeholder //-->
+                    
+                    
+                    
+                    <div class="bar"><img src="/images/hr_dots1.gif" alt="" height="3" width="150"></div>
+        
+        <!-- begin find JSRs form -->
+        <!-- IMPORTANT! do not convert this form to Struts < html : form > tag.  javascript change of form.action property fails. -->
+        <img src="/images/hd_find-jsrs.gif" alt="Find JSRs" height="18" width="150">
+
+        <form name="findjsr" action="/en/jsr/summary" method="get" class="pt5" onSubmit="return validate_findjsr()">
+            <input name="id" size="14" value="Search" onFocus="nullify_if_equal(this, 'Search')" type="text">
+            <a href="javascript:document.findjsr.submit()" onclick="return validate_findjsr()"><img src="/images/button_go.gif" 
+                width="21" height="16" border="0" alt="Submit this Search" name="sub_search"></a>
+        </form><br /><br />
+ 
+        <!-- ** Menu Start ** //-->
+
+        <ul id="p7PMnav">
+            <li><a href="/en/jsr/platform">JSRs by Platform</a></li>
+            <li><a href="/en/jsr/tech">JSRs by Technology</a></li>
+            <li><a href="/en/jsr/stage">JSRs by Stage</a></li>
+            <li><a href="/en/jsr/ec">JSRs by Committee</a></li>
+            <li><a href="/en/jsr/all">List of All JSRs</a></li>
+
+            
+            <!--end find JSRs form -->
+            <div style="clear: both;"><img src="/images/spacer.gif" alt="" height="25" width="1"></div>
+            
+            <!--begin my JCP -->
+            <img src="/images/hd_my-jcp.gif" alt="My JCP" height="18" width="150">
+            
+
+            <form name="login" method="post" action="/en/user/login" >
+            <input name="uri" value="/en/home/index" type="hidden">
+
+                <table>
+
+                    <tr>
+                        <td>User ID:</td>
+                        <td><input type="text" name="username" style="width:52px" value="" onFocus="nullify_if_equal(this, 'username')" onKeyPress
+="return handle_keypress(this, event)"></td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="password" style="width:52px" value="" onKeyPress="return handle_keypress(this, event)"></
+td>
+
+                        <td><a href="javascript:document.login.submit()" class="noNav" onClick="return validate_login(1)"><img src="/images/button
+_go.gif" width="21" height="16" border="0" alt="Attempt to Login" name="sub_login"></a></td>
+                    </tr>
+
+                </table>
+            </form>
+ 
+            <div style="clear:both"><img src="/images/global/spacer.gif" width="1" height="3" alt=""></div>
+            <div class="noNav">
+                <a href="/en/user/add" class="noNav">Register for Site</a>
+                <a href="/en/user/getpass" class="noNav">Forgot your login information?</a>
+            </div>
+
+            
+                     
+            
+                
+                
+            <div style="clear:both"><img src="/images/global/spacer.gif" width="1" height="25" alt=""></div>
+
+            <!--begin JCP info -->
+            <img src="/images/hd_jcp-info.gif" alt="JCP Info" height="18" width="150">
+
+            <li><a href="/en/procedures/overview" class="p7PMtrg">About JCP</a>
+                <ul>
+                    <li><a href="/en/procedures/overview">Program Overview</a></li>
+                    <li><a href="/en/procedures/jcp2">JCP Process Document</a></li>
+                    <li><a href="/en/whatsnew/calendar">Calendar</a></li>
+                    <li><a href="/en/participation/members">JCP Members</a></li>
+                    <li><a href="/en/participation/committee">Executive Committee</a></li>
+                    <li><a href="/en/whatsnew/elections">Elections</a></li>
+                </ul>
+            </li>
+
+            <li><a href="/en/participation/overview" class="p7PMtrg">Get Involved</a>
+		<ul>
+                    <li><a href="/en/participation/overview">Overview</a></li>
+                    <li><a href="/en/participation/membership">Becoming a JCP Member</a></li>
+		</ul>
+            </li>
+
+            <li><a href="/en/resources/contents" class="p7PMtrg">Community Resources</a>
+                <ul>
+                    <li><a href="/en/resources/contents">Overview</a></li>
+                    <li><a href="/en/resources/tutorials">Tutorials</a></li>
+                    <li><a href="/en/resources/multimedia">JCP Podcasts</a></li>
+                    <li><a href="/en/resources/guide">Spec Lead Guide</a></li>
+                    <li><a href="/en/resources/tdk">TCK Tool & Info</a></li>
+                    <li><a href="/en/resources/license_reference">License Reference</a></li>
+                </ul>
+            </li>
+
+            <li><a href="/en/press/pmo" class="p7PMtrg">Community News</a>
+                <ul>
+                    <li><a href="/en/press/pmo">News</a></li>
+                    <li><a href="/en/whatsnew/programsAndAwards">Programs &amp; Awards</a></li>
+                    <li><a href="/en/press/releases">Press Releases</a></li>
+                    <li><a href="/en/press/success">Success Stories</a></li>
+                </ul>
+            </li>
+
+            <li><a href="/en/introduction/faq">FAQ</a></li>
+
+            <li><a href="/en/resources/contacts">Contact Us</a></li>
+
+            <div style="clear: both;"><img src="/images/spacer.gif" alt="" height="25" width="1"></div>
+            
+            <!--[if lte IE 6]><style>#p7PMnav a{height:1em;}#p7PMnav li{height:1em;float:left;clear:both;width:100%}</style><![endif]-->
+            <!--[if IE 6]><style>#p7PMnav li{clear:none;}</style><![endif]-->
+            <!--[if IE 7]><style>#p7PMnav a{zoom:100%;}#p7PMnav li{float:left;clear:both;width:100%;}</style><![endif]-->
+        </ul>
+
+        
+      
+        
+        
+                <img src="/images/common/trans.gif" alt="" width="1" height="30">
+                <a href="http://logos.sun.com/logosite.jsp?Category=third&Logo=java-jcp-member">Apply for the JCP<br>
+                Program Member Logo<br>
+                </a>
+                <a href="http://logos.sun.com/logosite.jsp?Category=third&Logo=java-jcp-member">
+                    <img src="/images/common/java-jcp-member_sample.gif" alt="Apply for the JCP Program Member Logo" width="124" height="71" border="0" hspace="0" vspace="10">
+                </a><br>
+
+              <!--  <a href="http://java.com/java/download/index.jsp?cid=jdp78399" target="_blank">
+                    <img width="88" height="31" border="0" hspace="30" vspace="10" alt="GetJava Download Button" title="GetJava" src="http://java.com/en/img/everywhere/getjava_sm.gif?cid=jdp78399" >
+                </a>--><br>
+        
+        
+        <!--begin ad space -->
+        <div class="ads">
+            <a href="http://java.com/java/download/index.jsp?cid=jdp78399" target="_blank"><img style="display: ;" src="/images/ad_banner2.gif" alt="Ad Banner" border="0" height="70" width="150"></a>
+        </div>
+        <!--end ad space -->
+  
+<!-- ** Menu End ** //-->
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+
+    
+    
+    
+    
+                    &nbsp;<br>
+                    <img src="/images/common/trans.gif" alt="" width="1" height="150"><br>
+                   
+              
+                
+                    
+
+                    
+
+                    
+                    
+
+                    <!-- Japanes section no longer available
+<a href="/ja/home/ja"><img src="/images/common/link_japanesetoc.gif" alt="Japanese Table of Contents" width="75" height="30" border="0" hspace="30" vspace="10"></a><br>  -->
+                </td>
+                <!-- ** END: Navigation Column ** //-->
+
+                <!-- ** BEGIN: Gutter Column ** //-->
+                <td width="10" nowrap><img src="/images/common/trans.gif" alt="" width="10" height="1"></td> 
+                <!-- ** END: Gutter Column ** //-->
+
+                <!-- ** BEGIN: Content Column ** //-->
+                <td width="100%" valign="top">
+
+    
+
+<table border=0>
+<tr>
+<td valign="top">
+
+<table border=0>
+<tr>
+                <td id="centercontent" valign="top">
+
+<!-- END OF HEADER -->
+
+<!-- 9/16/2008 Phil B. : The following is necessary to format the static files with the new template.-->
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD WIDTH=0>
+<!-- END -->
+
+
+</TD>
+<TD WIDTH="452" VALIGN="TOP">
+<!--  begin header table -->
+<TABLE BORDER="0" WIDTH="452">
+
+<!------------------------------->
+<!--  SERVER SIDE INCLUDE FOR  -->
+<!--  HEADER AT TOP OF PAGE    -->
+<!------------------------------->
+
+
+
+<!-- breadcrumb trail -->
+<TR>
+<TD ALIGN="RIGHT" HEIGHT="25" VALIGN="TOP">
+
+</TD>
+</TR>
+<TR>
+<TD>
+<P>
+</TD>
+</TR>
+<TR>
+<TD ALIGN="RIGHT" COLSPAN="2">
+
+<!-- page headline -->
+
+<!------------------------------->
+<!--EDIT THE PAGE HEADLINE HERE-->
+<!------------BEGIN-HEADLINE----->
+
+<FONT SIZE="+2">
+JSR-000223 Scripting for the Java<sup><font size="-2">TM</font></sup> Platform
+</FONT><br>
+<STRONG>(Close of Public Review: 9 May 2005)</STRONG>
+
+<!-------------END-HEADLINE------>
+<!--    END OF PAGE HEADLINE   -->
+<!------------------------------->
+
+</TD>
+</TR>
+<TR>
+<TD ALIGN="RIGHT" VALIGN="TOP" HEIGHT="30" COLSPAN="2">
+<font size="-1">
+<!-- subcategories of the current topic -->
+
+<!------------------------------->
+<!-- MAKE DUPLICATE LINKS HERE -->
+<!--OF LINKS THAT OCCUR THROUGH-->
+<!--  OUT THE BODY OF THIS DOC -->
+<!------------BEGIN-SUB TOPICS--->
+
+
+<!-------------END-SUB TOPICS---->
+<!--    END OF SUBTOPICS       -->
+<!------------------------------->
+
+</font>
+<p>
+</TD>
+</TR>
+</TABLE>
+<TABLE BORDER="0" WIDTH="452">
+<TR>
+<TD WIDTH="452" COLSPAN="2">
+
+
+<!-- Begin Page Data -->
+
+<!------------------------------->
+<!--  EDIT PAGE CONTENT HERE   -->
+<!------------BEGIN-CONTENT------>
+
+<P>This draft is available for Public Review as per
+<A HREF="http://jcp.org/en/procedures/jcp2#3.1">Section 3.1</A>
+of the Java Community Process<SUP><FONT SIZE="-2">SM</FONT></SUP> Program, version 2.6.
+
+<P>Comments to:
+
+jsr-223-comments<faketag></faketag>@jcp.org<P>
+
+<UL>
+
+<LI>Download Specification: <br>
+<a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_JCP-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=sjp-1_1-pr2-spec-oth-JSpec@CDS-CDS_JCP"><img border="0" src="http://java.sun.com/images/download.gif" alt="Download"></a>
+</LI>
+<BR><BR>
+
+<LI>Download Reference Implementation: <br>
+<a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_JCP-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=sjp-1_0-ea-oth-JPR@CDS-CDS_JCP"><img border="0" src="http://java.sun.com/images/download.gif" alt="Download"></a>
+</LI>
+<BR><BR>
+
+<LI>Download Documentation: <br>
+<a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_JCP-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=sjp-1_1-pr2-oth-doc-JSpec@CDS-CDS_JCP"><img border="0" src="http://java.sun.com/images/download.gif" alt="Download"></a>
+</LI>
+<BR><BR>
+
+</UL>
+
+<BR><BR>
+
+<!-------------END-CONTENT------->
+<!--     END OF PAGE DATA      -->
+<!------------------------------->
+
+<!-- End Page Data -->
+
+<TABLE BORDER="0" WIDTH="452">
+<TR>
+<TD ALIGN="RIGHT" VALIGN="TOP">
+
+<!------------------------------->
+<!--PLACE LINKS HERE TO RELATED-->
+<!--   DOCUMENTS NOT ALREADY   -->
+<!--    LINKED IN SUBTOPICS    -->
+<!------------BEGIN-RELATED------>
+
+See Also<BR>
+<FONT SIZE="-1">
+          <A HREF="http://jcp.org/en/jsr/detail?id=223"> JSR-000223 Scripting Pages in Java Web Applications Page</A>
+          <BR>
+          <a href="http://jcp.org/en/jsr/stage?listBy=public"> List of Public Reviews Page</a>
+          <BR>
+          <A HREF="http://jcp.org/"> Community Process Main Page</A>
+
+</font>
+
+<!-------------END-RELATED------->
+<!--   END OF RELATED LINKS    -->
+<!------------------------------->
+
+<p>
+</TD>
+</TR>
+</TABLE>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+<!-- Footer table -->
+
+<!------------------------------->
+<!--  SERVER SIDE INCLUDE FOR  -->
+<!--  FOOTER AT BOTTOM OF PAGE -->
+<!------------------------------->
+
+<!-- BEGIN FOOTER  -->
+        
+</td>
+</tr>
+</table>
+
+
+        </td>
+</tr>
+        </table>
+        </td>
+
+</tr>
+        </table>
+
+</td>
+</tr>
+</table>
+
+<!-- ** END: Content Table ** //-->
+
+<!-- ** BEGIN: Footer Table ** //-->
+
+
+<script language="JavaScript" src="/includes/scripts/getdate.js" type="text/javascript"></script>
+<div id="footer" style="clear: both;">
+    <div class="footleft">
+        <a href="/en/resources/contacts">Contact Us</a>
+    </div>
+        
+    <div class="botbar"><img src="/images/spacer.gif" alt="" height="23" width="1"></div>
+
+    <div class="footleft2">
+        &copy; 2010, Oracle Corporation and/or its affiliates.
+        <a href="http://www.sun.com/share/text/termsofuse.html">Terms of Use</a>. <a href="http://www.sun.com/privacy/">Privacy Policy</a>. <a href="http://www.sun.com/suntrademarks">Trademarks</a>
+
+    </div>
+
+    <div class="footright">
+        <img src="/images/common/logo_oracle_footer.gif" alt="Oracle Corporation">
+    </div>
+
+    <div style="clear: both;"><img src="/images/spacer.gif" alt="" height="30" width="1"></div>
+</div>
+
+<!-- ** END: Footer Table ** //-->
+
+
+<!-- ** Menu Start ** //-->
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+</BODY>
+</HTML>

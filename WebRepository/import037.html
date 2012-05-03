@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+<title>   My dislike of Java&#8217;s static import at Mark Needham</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Thoughts on Software Development" />
+<meta name="generator" content="WordPress 2.8.4" /> <!-- leave this for stats please -->
+<link href="http://www.markhneedham.com/blog/wp-content/themes/journalist/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="Mark Needham RSS Feed" href="http://www.markhneedham.com/blog/feed/" />
+<link rel="shortcut icon" type="image/x-png" href="http://www.markhneedham.com/blog/wp-content/themes/journalist/favicon.png" />
+<link rel="pingback" href="http://www.markhneedham.com/blog/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="Mark Needham &raquo; My dislike of Java&#039;s static import Comments Feed" href="http://www.markhneedham.com/blog/2008/09/24/my-dislike-of-javas-static-import/feed/" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.markhneedham.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.markhneedham.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Mark Needham' href='http://www.markhneedham.com/blog' />
+<link rel='start' title='First thoughts on Ruby&#8230;' href='http://www.markhneedham.com/blog/2006/08/29/first-thoughts-on-ruby/' />
+<link rel='prev' title='Onshore or Offshore &#8211; The concepts are the same?' href='http://www.markhneedham.com/blog/2008/09/24/onshore-or-offshore-the-concepts-are-the-same/' />
+<link rel='next' title='Easily misused language features' href='http://www.markhneedham.com/blog/2008/09/25/easily-misused-language-features/' />
+<meta name="generator" content="WordPress 2.8.4" />
+
+<link rel="stylesheet" href="http://www.markhneedham.com/blog/wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="http://www.markhneedham.com/blog/">Mark Needham</a></h1>
+<div id="bubble"><p>Thoughts on Software Development</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-378"><a href="http://www.markhneedham.com/blog/2008/09/24/my-dislike-of-javas-static-import/" rel="bookmark">My dislike of Java's static import</a></h2>
+<p class="comments"><a href="http://www.markhneedham.com/blog/2008/09/24/my-dislike-of-javas-static-import/#comments">with 7 comments</a></p>
+
+<div class="main">
+	<p>While playing around with <a href="http://jbehave.org/documentation/two-minute-tutorial/">JBehave</a> I was reminded of my dislike of the <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/static-import.html">import static</a> feature which was <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/static-import.html">introduced in Java 1.5</a>.</p>
+<p>Using import static allows us to access static members defined in another class without referencing the class name. For example suppose we want to use the following method in our code:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java"><span style="color: #003399;">Math</span>.<span style="color: #006633;">max</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">1</span>,<span style="color: #cc66cc;">2</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>Normally we would need to include the class name (Math) that the static function (max) belongs to. By using the import static we can reference max like so:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java"><span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">static</span> java.<span style="color: #006633;">lang</span>.<span style="color: #003399;">Math</span>.<span style="color: #006633;">max</span><span style="color: #339933;">;</span>
+...
+<span style="color: #006633;">max</span><span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">1</span>,<span style="color: #cc66cc;">2</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>The benefit of this approach is that it makes the code read more fluently but the disadvantage is that you can't immediately tell where a method lives. I want to be able to tell what is going on in the code from looking at it and anything which prevents this is a hindrance.</p>
+<p>The <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/static-import.html">official documentation</a> even suggests using this functionality sparingly:</p>
+<blockquote><p>
+So when should you use static import? Very sparingly! Only use it when you'd otherwise be tempted to declare local copies of constants, or to abuse inheritance (the Constant Interface Antipattern). In other words, use it when you require frequent access to static members from one or two classes.
+</p></blockquote>
+<p>On my last project we ended up saying that import static was allowed in test code because there were relatively few places the static methods could be imported from, but when it came to production code the fully qualified path was required.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Mark Needham <span class="edit"></span></p>
+    <p>September 24th, 2008 at 11:59 pm</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.markhneedham.com/blog/category/java/" title="View all posts in Java" rel="category tag">Java</a></p>
+    <p>Tagged with <a href="http://www.markhneedham.com/blog/tag/import/" rel="tag">import</a>, <a href="http://www.markhneedham.com/blog/tag/java/" rel="tag">Java</a>, <a href="http://www.markhneedham.com/blog/tag/static/" rel="tag">static</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="http://www.markhneedham.com/blog/2008/09/24/onshore-or-offshore-the-concepts-are-the-same/">Onshore or Offshore &#8211; The concepts are the same?</a></div>
+    <div class="alignright"><a href="http://www.markhneedham.com/blog/2008/09/25/easily-misused-language-features/">Easily misused language features</a> &raquo;</div>
+</div>
+<script src="http://feeds.feedburner.com/~s/MarkNeedham?i=http://www.markhneedham.com/blog/2008/09/24/my-dislike-of-javas-static-import/" type="text/javascript" charset="utf-8"></script>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">7 Responses to 'My dislike of Java's static import'</h3> 
+<p class="comment_meta">Subscribe to comments with <a href='http://www.markhneedham.com/blog/2008/09/24/my-dislike-of-javas-static-import/feed/'>RSS</a> 
+	or <a href="http://www.markhneedham.com/blog/2008/09/24/my-dislike-of-javas-static-import/trackback/" rel="trackback">TrackBack</a> to 'My dislike of Java's static import'.
+</p>
+
+<ol class="commentlist">
+
+
+<li id="comment-460" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>In that case you should maybe dislike programming languages because with any of them I can do horrible things.</p>
+<p>I think you should blame developers that use static imports in the wrong way, not the static imports itself.</p>
+<p>Static imports rocks when youre creating internal DSLs.</p>
+<p>A great power comes with a big responsibility <img src='http://www.markhneedham.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='http://www.gravatar.com/avatar/fc66c82eada8b3869009812a61cf5993?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='http://www.mouseoverstudio.com/blog/' rel='external nofollow' class='url'>Diego Carrion</a></strong></p>
+	<p><small>25 Sep 08 at <a href="#comment-460">3:15 am</a> </small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-465" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>I concur with Diego. Also, quite a few libraries would be practically useless without that feature.</p>
+<p><a href="http://code.google.com/p/hamcrest/" rel="nofollow">http://code.google.com/p/hamcrest/</a><br />
+<a href="http://functionaljava.org/" rel="nofollow">http://functionaljava.org/</a><br />
+and others&#8230;</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='http://www.gravatar.com/avatar/74aed89d519978257e1192f7c2411a09?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Thomas Marti</strong></p>
+	<p><small>25 Sep 08 at <a href="#comment-465">11:06 am</a> </small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-467" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Mark, static imports are just another small (and enabling!) feature &#8211; when it comes to trying to figure out where code is coming from, especially in Java, where IDEs are incredibly powerful, hovering the mouse pointer over or ctrl-clicking the method call should take care of things.</p>
+<p>Speaking of Java 5 features, I'd be more worried about the misuses of generics and the copious amount of needless warnings it generates &#8211; so many, in fact, there are annotations to stop them from appearing <img src='http://www.markhneedham.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='http://www.gravatar.com/avatar/78c5247deb9a984bfe30c33327163554?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='http://lixo.org' rel='external nofollow' class='url'>Carlos Villela</a></strong></p>
+	<p><small>25 Sep 08 at <a href="#comment-467">1:06 pm</a> </small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-469" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Maybe my dislike is more around the misuse of them as you guys all mention &#8211; the code base I saw them used in was gathering static imports from across four different classes into one place so it wasn't obvious at all where the original definitions of them was.</p>
+<p>I can certainly see some cases where they would be useful in making the code more readable but I'm not convinced for example of the benefit of statically importing say junit assertions so you can do assertEquals rather than Assert.assertEquals for example but that's just me <img src='http://www.markhneedham.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>Regarding the power of some features in programming languages I agree there are some features which can be severely misused. Sometimes I wonder whether the benefits are worth the potential misuse.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='http://www.gravatar.com/avatar/147381277b8f7d05eb3a93c5e8fb0439?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='http://www.markhneedham.com' rel='external nofollow' class='url'>Mark Needham</a></strong></p>
+	<p><small>25 Sep 08 at <a href="#comment-469">1:34 pm</a> </small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-472" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>"I want to be able to tell what is going on in the code from looking at it and anything which prevents this is a hindrance."</p>
+<p>I agree.  That is the benefit of static imports.  Specifically, I want the max of 1 and 2.  How do I find this out?  max(1,2).  Sweet.  I have very little need to know that this comes from java.lang.Math, and so putting Math.max(1,2) introduces noise.  Much like you (hopefully) wouldn't put java.lang.Math.max(1,2).</p>
+<p>The rule is simple (and somewhat subjective&#8230; if you aren't sure, just ask me what I prefer. <img src='http://www.markhneedham.com/blog/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />  ) &#8212; if it helps the code to communicate better (especially contextually!) then use it.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='http://www.gravatar.com/avatar/cb166056a532a326e5e46144798075d8?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Nate</strong></p>
+	<p><small>25 Sep 08 at <a href="#comment-472">5:12 pm</a> </small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-476" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>[...] the comments of my previous post about my bad experiences with Java's import static my colleague Carlos and several others pointed out that it is actually a useful feature when used [...]</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='http://www.markhneedham.com/blog/2008/09/25/easily-misused-language-features/' rel='external nofollow' class='url'>Easily misused language features at Mark Needham</a></strong></p>
+	<p><small>25 Sep 08 at <a href="#comment-476">11:18 pm</a> </small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-481" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Just remembered the other reason we had a problem with it &#8211; we were using eclipse's Ivy plugin and quite frequently it wouldn't resolve dependencies correctly.</p>
+<p>I think eclipse was setup to automatically clean up the imports on files or something like that so whenever the Ivy resolution failed all the import statics were being removed and we had problems trying to work out where they had come from in the first place.</p>
+<p>Can't blame that all on import static of course but it was an additional problem we could have done without!</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='http://www.gravatar.com/avatar/147381277b8f7d05eb3a93c5e8fb0439?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='http://www.markhneedham.com' rel='external nofollow' class='url'>Mark Needham</a></strong></p>
+	<p><small>26 Sep 08 at <a href="#comment-481">3:34 pm</a> </small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+<a name="respond" id="respond"></a>
+
+<h3 class="reply">Leave a Reply</h3>
+
+
+<form action="http://www.markhneedham.com/blog/wp-comments-post.php" method="post" id="commentform">
+<div class="postinput">
+<p><input class="comment" type="text" name="author" id="author" value="" size="22" tabindex="1" />
+<label for="author"><small>Name (required)</small></label></p>
+
+<p><input class="comment" type="text" name="email" id="email" value="" size="22" tabindex="2" />
+<label for="email"><small>Mail (will not be published) (required)</small></label></p>
+
+<p><input class="comment" type="text" name="url" id="url" value="" size="22" tabindex="3" />
+<label for="url"><small>Website</small></label></p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; &lt;pre lang=&quot;&quot; line=&quot;&quot;&gt; </small></p>-->
+
+<p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input class="submit" name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" title="Please review your comment before submitting" />
+<input type="hidden" name="comment_post_ID" value="378" />
+</p>
+</div>
+</form>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+			<div class="textwidget">I am a Software Developer at <a href="http://www.thoughtworks.com">ThoughtWorks</a> and have worked there for the past two and a half years using agile methods to help clients solve business critical problems. [<a href="http://www.markhneedham.com">more</a>]<br /><br />
+
+<p><a href="http://feeds2.feedburner.com/MarkNeedham"><img src="http://feeds2.feedburner.com/~fc/MarkNeedham?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a></p>
+<br />
+<a href="http://twitter.com/markhneedham">Follow me on twitter</a>
+</div>
+		<form role="search" method="get" id="searchform" action="http://www.markhneedham.com/blog/" >
+	<div><label class="screen-reader-text" for="s">Search for:</label>
+	<input type="text" value="" name="s" id="s" />
+	<input type="submit" id="searchsubmit" value="Search" />
+	</div>
+	</form><h3>Archives</h3>		<ul>
+			<li><a href='http://www.markhneedham.com/blog/2010/02/' title='February 2010'>February 2010</a>&nbsp;(2)</li>
+	<li><a href='http://www.markhneedham.com/blog/2010/01/' title='January 2010'>January 2010</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/12/' title='December 2009'>December 2009</a>&nbsp;(24)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/11/' title='November 2009'>November 2009</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/10/' title='October 2009'>October 2009</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/09/' title='September 2009'>September 2009</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/08/' title='August 2009'>August 2009</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/07/' title='July 2009'>July 2009</a>&nbsp;(28)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/06/' title='June 2009'>June 2009</a>&nbsp;(28)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/05/' title='May 2009'>May 2009</a>&nbsp;(29)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/04/' title='April 2009'>April 2009</a>&nbsp;(24)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/03/' title='March 2009'>March 2009</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/02/' title='February 2009'>February 2009</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2009/01/' title='January 2009'>January 2009</a>&nbsp;(25)</li>
+	<li><a href='http://www.markhneedham.com/blog/2008/12/' title='December 2008'>December 2008</a>&nbsp;(26)</li>
+	<li><a href='http://www.markhneedham.com/blog/2008/11/' title='November 2008'>November 2008</a>&nbsp;(30)</li>
+	<li><a href='http://www.markhneedham.com/blog/2008/10/' title='October 2008'>October 2008</a>&nbsp;(31)</li>
+	<li><a href='http://www.markhneedham.com/blog/2008/09/' title='September 2008'>September 2008</a>&nbsp;(24)</li>
+	<li><a href='http://www.markhneedham.com/blog/2008/08/' title='August 2008'>August 2008</a>&nbsp;(38)</li>
+	<li><a href='http://www.markhneedham.com/blog/2008/07/' title='July 2008'>July 2008</a>&nbsp;(2)</li>
+	<li><a href='http://www.markhneedham.com/blog/2008/02/' title='February 2008'>February 2008</a>&nbsp;(4)</li>
+	<li><a href='http://www.markhneedham.com/blog/2006/09/' title='September 2006'>September 2006</a>&nbsp;(4)</li>
+	<li><a href='http://www.markhneedham.com/blog/2006/08/' title='August 2006'>August 2006</a>&nbsp;(1)</li>
+		</ul>
+<h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-32"><a href="http://www.markhneedham.com/blog/category/dotnet/" title="View all posts filed under .NET">.NET</a> (53)
+</li>
+	<li class="cat-item cat-item-37"><a href="http://www.markhneedham.com/blog/category/agile/" title="View all posts filed under Agile">Agile</a> (18)
+</li>
+	<li class="cat-item cat-item-62"><a href="http://www.markhneedham.com/blog/category/batch-scripting/" title="View all posts filed under Batch Scripting">Batch Scripting</a> (4)
+</li>
+	<li class="cat-item cat-item-282"><a href="http://www.markhneedham.com/blog/category/book-club/" title="View all posts filed under Book Club">Book Club</a> (24)
+</li>
+	<li class="cat-item cat-item-126"><a href="http://www.markhneedham.com/blog/category/books/" title="View all posts filed under Books">Books</a> (21)
+</li>
+	<li class="cat-item cat-item-33"><a href="http://www.markhneedham.com/blog/category/build/" title="View all posts filed under Build">Build</a> (23)
+</li>
+	<li class="cat-item cat-item-329"><a href="http://www.markhneedham.com/blog/category/clojure/" title="View all posts filed under Clojure">Clojure</a> (10)
+</li>
+	<li class="cat-item cat-item-181"><a href="http://www.markhneedham.com/blog/category/code-katas/" title="View all posts filed under Code Katas">Code Katas</a> (2)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.markhneedham.com/blog/category/coding/" title="View all posts filed under Coding">Coding</a> (73)
+</li>
+	<li class="cat-item cat-item-199"><a href="http://www.markhneedham.com/blog/category/coding-dojo/" title="View all posts filed under Coding Dojo">Coding Dojo</a> (22)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://www.markhneedham.com/blog/category/communication/" title="View all posts filed under Communication">Communication</a> (7)
+</li>
+	<li class="cat-item cat-item-273"><a href="http://www.markhneedham.com/blog/category/couchdb/" title="View all posts filed under CouchDB">CouchDB</a> (2)
+</li>
+	<li class="cat-item cat-item-144"><a href="http://www.markhneedham.com/blog/category/domain-driven-design/" title="View all posts filed under Domain Driven Design">Domain Driven Design</a> (12)
+</li>
+	<li class="cat-item cat-item-256"><a href="http://www.markhneedham.com/blog/category/dotnet/f-dotnet/" title="View all posts filed under F#">F#</a> (45)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.markhneedham.com/blog/category/feedback/" title="View all posts filed under Feedback">Feedback</a> (2)
+</li>
+	<li class="cat-item cat-item-193"><a href="http://www.markhneedham.com/blog/category/hibernate/" title="View all posts filed under Hibernate">Hibernate</a> (4)
+</li>
+	<li class="cat-item cat-item-35"><a href="http://www.markhneedham.com/blog/category/hiring/" title="View all posts filed under Hiring">Hiring</a> (2)
+</li>
+	<li class="cat-item cat-item-141"><a href="http://www.markhneedham.com/blog/category/java/" title="View all posts filed under Java">Java</a> (13)
+</li>
+	<li class="cat-item cat-item-219"><a href="http://www.markhneedham.com/blog/category/javascript/" title="View all posts filed under Javascript">Javascript</a> (4)
+</li>
+	<li class="cat-item cat-item-221"><a href="http://www.markhneedham.com/blog/category/jquery/" title="View all posts filed under jQuery">jQuery</a> (6)
+</li>
+	<li class="cat-item cat-item-205"><a href="http://www.markhneedham.com/blog/category/lean/" title="View all posts filed under Lean">Lean</a> (2)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://www.markhneedham.com/blog/category/learning/" title="View all posts filed under Learning">Learning</a> (20)
+</li>
+	<li class="cat-item cat-item-109"><a href="http://www.markhneedham.com/blog/category/messaging/" title="View all posts filed under Messaging">Messaging</a> (2)
+</li>
+	<li class="cat-item cat-item-40"><a href="http://www.markhneedham.com/blog/category/oop/" title="View all posts filed under OOP">OOP</a> (7)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://www.markhneedham.com/blog/category/pair-programming/" title="View all posts filed under Pair Programming">Pair Programming</a> (22)
+</li>
+	<li class="cat-item cat-item-251"><a href="http://www.markhneedham.com/blog/category/qcon/" title="View all posts filed under QCon">QCon</a> (4)
+</li>
+	<li class="cat-item cat-item-255"><a href="http://www.markhneedham.com/blog/category/qtb/" title="View all posts filed under QTB">QTB</a> (4)
+</li>
+	<li class="cat-item cat-item-230"><a href="http://www.markhneedham.com/blog/category/reading-code/" title="View all posts filed under Reading Code">Reading Code</a> (3)
+</li>
+	<li class="cat-item cat-item-30"><a href="http://www.markhneedham.com/blog/category/ruby/" title="View all posts filed under Ruby">Ruby</a> (8)
+</li>
+	<li class="cat-item cat-item-316"><a href="http://www.markhneedham.com/blog/category/scala/" title="View all posts filed under Scala">Scala</a> (5)
+</li>
+	<li class="cat-item cat-item-191"><a href="http://www.markhneedham.com/blog/category/selenium/" title="View all posts filed under Selenium">Selenium</a> (2)
+</li>
+	<li class="cat-item cat-item-157"><a href="http://www.markhneedham.com/blog/category/shell-scripting/" title="View all posts filed under Shell Scripting">Shell Scripting</a> (2)
+</li>
+	<li class="cat-item cat-item-36"><a href="http://www.markhneedham.com/blog/category/software-development/" title="View all posts filed under Software Development">Software Development</a> (56)
+</li>
+	<li class="cat-item cat-item-138"><a href="http://www.markhneedham.com/blog/category/testing/" title="View all posts filed under Testing">Testing</a> (53)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.markhneedham.com/blog/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a> (1)
+</li>
+	<li class="cat-item cat-item-78"><a href="http://www.markhneedham.com/blog/category/version-control/" title="View all posts filed under Version Control">Version Control</a> (5)
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+<script src="http://stats.wordpress.com/e-201005.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({blog:'4492781',v:'ext',post:'378'});
+var load_cmc = function(){linktracker_init(4492781,378,2);};
+if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+else load_cmc();
+</script>
+
+</body>
+</html>

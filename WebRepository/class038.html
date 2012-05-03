@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../../notes.css"/>
+
+  <title>Java: Static/Class methods</title>
+</head>
+<body><div id="content">
+
+<h1 class="title"><a href="../../index.html">Java Notes</a></h1><h1>Static/Class methods</h1>
+
+<p>There are two types of methods.</p>
+<ul>
+<li><b>Instance methods</b> are associated with an object and 
+    use the instance variables of that object.  
+    This is the default.
+    </li>
+<li><b>Static methods</b> use no instance variables of any
+    object of the class they are defined in.  
+    If you define a method to be static, you will be given a rude 
+    message by the compiler if you try to access any instance variables.
+    You can access static variables, but except for constants, this is unusual.
+    Static methods typically take all they data from
+    parameters and compute something from those parameters,
+    with no reference to variables.  This is typical of
+    methods which do some kind of generic calculation.  A good example
+    of this are the many utility methods in the predefined <code>Math</code>
+    class. (See <a href="../../summaries/60mathsum.html">Math and java.util.Random</a>).
+    </li>
+</ul>
+
+<h2>Qualifying a static call</h2>
+<p>From outside the defining class, an instance method is called by 
+prefixing it with an <i>object</i>, which is then passed as an implicit
+parameter to the instance method, eg, <code>inputTF.setText("");</code></p>
+
+<p>A static method is called by prefixing it with a <i>class name</i>,
+eg, <code>Math.max(i,j);</code>.
+Curiously, it can also be qualified with an object, which will be ignored, 
+but the class of the object will be used.
+</p>
+
+<h2>Example</h2>
+<p>Here is a typical static method.</p>
+<pre class="example">
+class MyUtils {
+    . . .
+    //================================================= mean
+    public <span class="hilite">static</span> double mean(int[] p) {
+        int sum = 0;  // sum of all the elements
+        for (int i=0; i&lt;p.length; i++) {
+            sum += p[i];
+        }
+        return ((double)sum) / p.length;
+    }//endmethod mean
+    . . .
+}
+</pre>
+<p>The only data this method uses or changes is from parameters
+(or local variables of course).</p>
+
+
+<h2>Why declare a method <code>static</code></h2>
+<p>The above <code>mean()</code> method would work just as well if
+it wasn't declared <code>static</code>, as long as it was called from 
+within the same class.  
+If called from outside the class and it wasn't declared static, it would have to be qualified (uselessly) with
+an object.  Even when used within the class, there are 
+good reasons to define a method as static when it could be.
+</p>
+<ul>
+<li><b>Documentation</b>.  Anyone seeing that a method is 
+    static will know how to call it (see below).
+    Similarly, any programmer looking at the code will
+    know that a <code>static</code> method can't interact
+    with instance variables, which makes reading and  
+    debugging easier.
+    </li>
+<li><b>Efficiency</b>.  A compiler will usually produce
+    slightly more efficient code because no implicit
+    object parameter has to be passed to the method.
+    </li>
+</ul>
+
+
+<h2>Calling static methods</h2>
+<p>There are two cases.</p>
+<dl>
+<dt>Called from within the same class</dt>
+    <dd>Just write the static method name. Eg,
+<pre class="example">
+// Called from inside the MyUtils class
+double avgAtt = mean(attendance);</pre>
+    </dd>
+
+<dt>Called from outside the class</dt>
+    <dd>If a method (static or instance) is called from
+        another class, something must be given before
+        the method name to specify the class where the
+        method is defined.  For instance methods, this
+        is the object that the method will access. 
+        For static methods, the class name should be 
+        specified.  Eg,
+<pre class="example">
+// Called from outside the MyUtils class.
+double avgAtt = <span class="hilite">MyUtils.</span>mean(attendance);</pre>
+     If an object is specified before it, the object value will be
+     ignored and the the class of the object will be used.
+   
+    </dd>
+</dl>
+
+
+<h2>Accessing static variables</h2>
+<p>Altho a <code>static</code> method can't access instance variables,
+it can access <code>static</code> variables.  A common use of 
+<code>static</code> variables is to define "constants".  
+Examples from the Java library are <code>Math.PI</code> or
+<code>Color.RED</code>.  They are qualified with the class name,
+so you know they are <code>static</code>.
+Any method, <code>static</code> or not, can access static variables.
+Instance variables can be accessed only by instance methods.
+</p>
+
+<h2>Alternate call</h2>
+<p>What's a little peculiar, and not recommended, is that an object
+   of a class may be used instead of the class name to access
+   static methods.  This is bad because it creates the impression
+   that some instance variables in the object are used, but this
+   isn't the case.
+   </p>
+
+<div class="footer">
+Copyleft 200r <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
+</div>
+</div></body>
+</html>
+

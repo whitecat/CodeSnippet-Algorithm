@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML><!-- InstanceBegin template="/Templates/AgileJPage.dwt" codeOutsideHTMLIsLocked="false" -->
+<HEAD>
+ 
+<!-- InstanceBeginEditable name="doctitle" -->
+<TITLE>AgileJ StructureViews, reverse engineering Java class diagrams for Eclipse</TITLE>
+<META CONTENT="text/html; charset=iso-8859-1" HTTP-EQUIV="Content-Type">
+<META CONTENT="reverse engineered, class diagrams, reverse engineering, java" NAME="KEYWORDS">
+<!-- InstanceEndEditable -->
+
+<STYLE TYPE="text/css">
+<!--
+.submenu {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 9px;
+   color: #333333;
+}
+.footer {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 9px;
+   color: #666666;
+}
+.titlewhite {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 13px;
+   color: #FFFFFF;
+   font-weight: bold;
+}
+.rightcolumn {
+   font-size: 11px;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   color: #666666;
+}
+a:link {
+   color: #333366;
+   text-decoration: none;
+}
+a:visited {
+   text-decoration: none;
+   color: #333366;
+}
+a:hover {
+   text-decoration: underline;
+   color: #333366;
+}
+a:active {
+   text-decoration: none;
+   color: #333366;
+}
+.featurearrow {
+   color: #FFCC00;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 9px;
+   font-weight: bold;
+}
+.highlight {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   color: #666666;
+   font-size: 13px;
+}
+.highlightbold {
+   color: #003366;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 13px;
+   font-weight: bold;
+}
+.number {
+   color: #FFCC00;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+}
+.greydot {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; color: #CCCCCC; }
+-->
+</STYLE>
+
+
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</SCRIPT>
+
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+</HEAD>
+
+
+<BODY ONLOAD="MM_preloadImages('/images/but_home_over.jpg','/images/but_install_over.jpg','/images/but_documentation_over.jpg','/images/but_purchase_over.jpg','/images/but_demo_over.jpg','/images/but_community_over.jpg')">
+<DIV ALIGN="center">
+	<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="804">
+		<TR>
+			<TD ALIGN="left" VALIGN="top">
+				<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+					<TR ALIGN="left" VALIGN="top">
+						<TD><IMG HEIGHT="152" SRC="/images/banner_shadow_left.jpg" WIDTH="9"></TD>
+						<TD><IMG BORDER="0" HEIGHT="152" SRC="/images/banner.jpg" USEMAP="#Map" WIDTH="781">
+							<MAP NAME="Map">
+								<AREA COORDS="21,20,200,87" HREF="/index.html" SHAPE="rect">
+							</MAP>
+						</TD>
+						<TD><IMG HEIGHT="152" SRC="/images/banner_shadow_right.jpg" WIDTH="15"></TD>
+					</TR>
+				</TABLE>
+			</TD>
+		</TR>
+		<TR>
+			<TD ALIGN="left" VALIGN="top">
+<!-- InstanceBeginEditable name="Menu" -->
+				<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+					<TR ALIGN="left" VALIGN="top">
+						<TD><IMG HEIGHT="28" SRC="/images/menu_shadow_left.jpg" WIDTH="8"></TD>
+						<TD><IMG BORDER="0" HEIGHT="28" ID="Image1" NAME="Image1" SRC="/images/but_home_select.jpg" WIDTH="72"></TD>
+						<TD><A HREF="/install/install.html" ONMOUSEOUT="MM_swapImgRestore()" ONMOUSEOVER="MM_swapImage('Image2','','/images/but_install_over.jpg',1)"><IMG BORDER="0" HEIGHT="28" ID="Image2" NAME="Image2" SRC="/images/but_install.jpg" WIDTH="77"></A></TD>
+						<TD><A HREF="/documentation/documentation.html" ONMOUSEOUT="MM_swapImgRestore()" ONMOUSEOVER="MM_swapImage('Image3','','/images/but_documentation_over.jpg',1)"><IMG BORDER="0" HEIGHT="28" ID="Image3" NAME="Image3" SRC="/images/but_documentation.jpg" WIDTH="129"></A></TD>
+						<TD><A HREF="/purchase/purchaseOptions.html" ONMOUSEOUT="MM_swapImgRestore()" ONMOUSEOVER="MM_swapImage('Image4','','/images/but_purchase_over.jpg',1)"><IMG BORDER="0" HEIGHT="28" ID="Image4" NAME="Image4" SRC="/images/but_purchase.jpg" WIDTH="90"></A></TD>
+						<TD><A HREF="/demo/demo.html" ONMOUSEOUT="MM_swapImgRestore()" ONMOUSEOVER="MM_swapImage('Image5','','/images/but_demo_over.jpg',1)"><IMG BORDER="0" HEIGHT="28" ID="Image5" NAME="Image5" SRC="/images/but_demo.jpg" WIDTH="67"></A></TD>
+						<TD><A HREF="/phpBB2/index.php" ONMOUSEOUT="MM_swapImgRestore()" ONMOUSEOVER="MM_swapImage('Image6','','/images/but_community_over.jpg',1)"><IMG BORDER="0" HEIGHT="28" ID="Image6" NAME="Image6" SRC="/images/but_community.jpg" WIDTH="101"></A></TD>
+						<TD><IMG HEIGHT="28" SRC="/images/but_blank.jpg" WIDTH="246"></TD>
+						<TD><IMG HEIGHT="28" SRC="/images/menu_shadow_right.jpg" WIDTH="15"></TD>
+					</TR>
+				</TABLE>
+<!-- InstanceEndEditable -->
+			
+			</TD>
+		</TR>
+		<TR>
+			<TD ALIGN="left" VALIGN="top">
+				<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+					<TR ALIGN="left" VALIGN="top">
+						<TD WIDTH="9"><IMG HEIGHT="16" SRC="/images/submenu_shadow_left.jpg" WIDTH="9"></TD>
+						<TD BACKGROUND="/images/submenu_background_tile.jpg" VALIGN="top" WIDTH="10"><SPAN CLASS="submenu"> </SPAN></TD>
+						<TD BACKGROUND="/images/submenu_background_tile.jpg" VALIGN="top"><SPAN CLASS="greydot">.</SPAN><!-- InstanceBeginEditable name="GreyLineText" --><SPAN CLASS="submenu">Welcome</SPAN><!-- InstanceEndEditable --></TD>
+						<TD WIDTH="16"><IMG HEIGHT="16" SRC="/images/submenu_shadow_right.jpg" WIDTH="16"></TD>
+					</TR>
+				</TABLE>
+			</TD>
+		</TR>
+		<TR>
+			<TD ALIGN="left" VALIGN="top">
+				<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+					<TR>
+						<TD ALIGN="left" BACKGROUND="/images/info_shadow_left.jpg" VALIGN="top" WIDTH="23"><IMG HEIGHT="15" SRC="/images/info_shadow_left.jpg" WIDTH="23"></TD>
+						<TD ALIGN="left" VALIGN="top"> 
+						
+<!-- InstanceBeginEditable name="Main" --> 
+<TABLE border="0" cellpadding="0" cellspacing="0" width="100%">
+	<TR>
+		<TD VALIGN="TOP">
+			<TABLE border="0" cellpadding="0" cellspacing="0" width="100%">
+				<TR>
+					<TD align="left" valign="top">
+						<P><SPAN class="highlight"><SPAN class="highlightbold"><BR>Are you developing Java applications using XP/Agile Methods in Eclipse?</SPAN> Let AgileJ StructureViews provide you with more insight into the design within your code at next-to-zero effort.</SPAN><BR>
+								<IMG height="1" src="/images/line.jpg" width="381"><BR>
+								<BR>
+								<SPAN class="highlightbold">AgileJ StructureViews code visualizer for Eclipse is:</SPAN><SPAN class="highlight"></SPAN><BR>
+						</P>
+						<TABLE border="0" cellpadding="0" cellspacing="0" width="100%">
+							<TR align="left" valign="top">
+								<TD class="rightcolumn number" width="15">1</TD>
+								<TD class="rightcolumn"><STRONG>Specialized for Reverse Engineered Diagrams</STRONG> - more akin to an extension to the Eclipse Java browsing perspective than a drawing tool.<BR>
+									<BR>
+								</TD>
+							</TR>
+							<TR align="left" valign="top">
+								<TD class="rightcolumn number">2</TD>
+								<TD class="rightcolumn"><STRONG>Dedicated to Java</STRONG> - exceptions, inner classes and Javadoc all influence the diagrams.<BR>
+									<BR>
+								</TD>
+							</TR>
+							<TR align="left" valign="top">
+								<TD class="rightcolumn number">3</TD>
+								<TD class="rightcolumn"><STRONG>Focused on<a href="http://www.agilej.com/java/index.html"> Java UML </a>Class Diagrams</STRONG> - because they can be made self-populating and self-updating, playing a long-term role in an Agile/XP project.<BR>
+									<BR>
+							  </TD>
+							</TR>
+							<TR align="left" valign="top">
+								<TD class="rightcolumn number">4</TD>
+								<TD class="rightcolumn"><STRONG>Tightly Integrated into Eclipse</STRONG> - the diagram nomenclature follows that of Eclipse, resulting in the lowest switching overhead between looking at diagrams and looking at Eclipse.<BR>
+									<BR>
+								</TD>
+							</TR>
+							<TR align="left" valign="top">
+								<TD class="rightcolumn number">5</TD>
+								<TD class="rightcolumn"><STRONG>Filtered by Customized Rules</STRONG> - diagrams are tuned to highlight one aspect, dimension, concern or technology at a time.</TD>
+							</TR>
+						</TABLE>
+						<p><SPAN class="highlight"><BR>
+					        <IMG height="1" src="/images/line.jpg" width="381"><BR>
+						  </SPAN><span class="highlightbold">February 2010 : </span></p>
+						<p><span class="highlightbold">48,000 class diagrams generated </span></p>
+						<p><SPAN class="rightcolumn"><span class="featurearrow">&raquo;</span> <a href="batches/index.html">Class diagrams from batch production. Click here for index.</a></SPAN></p>
+						<p><a href="batches/index.html"><img src="images/ClassDiagram.png" alt="Java Class Diagram" width="208" height="106" border="0"></a></p>
+						<p><SPAN class="rightcolumn"><BR>
+						  </SPAN><SPAN class="highlight"><BR>
+				            </SPAN></p></TD>
+					<TD align="left" valign="top" width="15">&nbsp;</TD>
+				</TR>
+			</TABLE>
+		</TD>
+		<TD align="left" valign="top" width="187">
+			<TABLE border="0" cellpadding="0" cellspacing="0" width="100%">
+				<TR>
+					<TD align="left" valign="TOP">
+						<TABLE background="/images/title_block_blue.jpg" border="0" cellpadding="0" cellspacing="0" height="27" width="100%">
+							<TR>
+								<TD width="10">&nbsp;</TD>
+								<TD><SPAN class="titlewhite">Benefits</SPAN></TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<TR>
+					<TD VALIGN="TOP">
+						<TABLE border="0" cellpadding="6" cellspacing="0" width="100%">
+							<TR>
+								<TD align="left" background="/images/features_tile.jpg" class="footer" valign="top">
+									<P><SPAN class="featurearrow">&raquo;</SPAN> Understand  code faster <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Navigate  code more easily <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Communicate designs clearly <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Measure  quality visually <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Help rescue legacy projects <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Evaluate open source packages <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Monitor ongoing development
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<TR>
+					<TD align="left" valign="TOP">
+						<TABLE background="/images/title_block_blue.jpg" border="0" cellpadding="0" cellspacing="0" height="27" width="100%">
+							<TR>
+								<TD width="10">&nbsp;</TD>
+								<TD><SPAN class="titlewhite">Features</SPAN></TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+				<TR>
+					<TD VALIGN="TOP">
+						<TABLE border="0" cellpadding="6" cellspacing="0" width="100%">
+							<TR>
+								<TD align="left" background="/images/features_tile.jpg" class="footer" valign="top">
+									<P><SPAN class="featurearrow">&raquo;</SPAN> Instant reverse engineering <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Comprehensive filtering <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Refactoring friendly <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Eclipse 3.5 compatible plugin <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Self updating diagrams <BR>
+										<BR>
+										<SPAN class="featurearrow">&raquo;</SPAN> Exports to SVG, GIF or PNG </P>
+									<P>&nbsp;</P></TD>
+							</TR>
+							<tr>
+							<td>
+							  <p>&nbsp;</p>
+							  <a href="http://www.twitter.com/agilej"><img src="http://twitter-badges.s3.amazonaws.com/follow_us-c.png" alt="Follow agilej on Twitter"/></a>
+							  <p><a href="http://download.famouswhy.com/agilej_structureviews/" ><img src="http://download.famouswhy.com/awards/Famous_Software_Award_FamousWhy_logo4.png" alt="Famous Software Download" ></a> </p>
+							  <p>&nbsp;</p>
+							 </td>
+							</tr>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+		</TD>
+	</TR>
+</TABLE>
+
+<!-- InstanceEndEditable --> 
+						
+						</TD>
+						<TD ALIGN="left" VALIGN="top" WIDTH="187">
+							<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+								<TR>
+									<TD ALIGN="left" VALIGN="top"><A HREF="http://www.eclipse.org/downloads/index.php" TARGET="_blank"><IMG BORDER="0" HEIGHT="67" SRC="/images/eclipse.jpg" WIDTH="187"></A></TD>
+								</TR>
+								<TR>
+									<TD ALIGN="left" VALIGN="top"><A HREF="http://java.sun.com/javase/downloads/index.jsp" TARGET="_blank"><IMG BORDER="0" HEIGHT="62" SRC="/images/java.jpg" WIDTH="187"></A></TD>
+								</TR>
+								<TR>
+									<TD ALIGN="left" HEIGHT="27" VALIGN="top">
+										<TABLE BACKGROUND="/images/title_block_grey.jpg" BORDER="0" CELLPADDING="0" CELLSPACING="0" HEIGHT="27" WIDTH="100%">
+											<TR>
+												<TD WIDTH="10">&nbsp;</TD>
+												<TD><SPAN CLASS="titlewhite">Our Mission </SPAN></TD>
+											</TR>
+										</TABLE>
+									</TD>
+								</TR>
+								<TR>
+									<TD ALIGN="left" VALIGN="top">
+										<TABLE BACKGROUND="/images/right_column_tile.jpg" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+											<TR>
+												<TD WIDTH="10">&nbsp;</TD>
+												<TD ALIGN="left" CLASS="submenu rightcolumn"><BR>
+													Increase the quality and shorten the development timescales of Java software <BR>
+													by providing immediate, up-to-date, filtered, navigable visualisations of structure during coding, tuned to each Java technology and tightly integrated into Eclipse.<BR>
+													<BR>
+												</TD>
+											</TR>
+										</TABLE>
+									</TD>
+								</TR>
+								<TR>
+									<TD ALIGN="left" VALIGN="top">
+										<TABLE BACKGROUND="/images/title_block_grey.jpg" BORDER="0" CELLPADDING="0" CELLSPACING="0" HEIGHT="27" WIDTH="100%">
+											<TR>
+												<TD WIDTH="10">&nbsp;</TD>
+												<TD><SPAN CLASS="titlewhite">Address</SPAN></TD>
+											</TR>
+										</TABLE>
+									</TD>
+								</TR>
+								<TR>
+									<TD ALIGN="left" VALIGN="top">
+										<TABLE BACKGROUND="/images/right_column_tile.jpg" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+											<TR>
+												<TD WIDTH="10">&nbsp;</TD>
+												<TD>
+													<P CLASS="rightcolumn">AgileJ Ltd. <BR>
+														2nd Floor<BR>
+														St James House<BR>
+														9-15 St James Road<BR> 
+														Surbiton<BR>
+														Surrey<BR>
+														KT6 4QH
+														UK<BR>
+														+44 20 8123 2318</P>
+												</TD>
+											</TR>
+										</TABLE>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD ALIGN="left" BACKGROUND="/images/info_shadow_right.jpg" VALIGN="top" WIDTH="15"><IMG HEIGHT="8" SRC="/images/info_shadow_right.jpg" WIDTH="15"></TD>
+					</TR>
+				</TABLE>
+			</TD>
+		</TR>
+		<TR>
+			<TD>
+				<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" COLS="3">
+					<TR>
+						<TD ALIGN="left" BACKGROUND="/images/info_shadow_left.jpg" VALIGN="top" WIDTH="23"><IMG HEIGHT="15" SRC="/images/info_shadow_left.jpg" WIDTH="23"></TD>
+						<TD ALIGN="left" VALIGN="top" >
+							<DIV CLASS="footer"><BR>
+								&copy; 2006 - 2010 AgileJ Ltd. All rights reserved. All brand names and products are trademarks of their respective holders. </DIV>
+						</TD>
+						<TD ALIGN="left" BACKGROUND="/images/info_shadow_right.jpg" VALIGN="top" WIDTH="15"><IMG HEIGHT="8" SRC="/images/info_shadow_right.jpg" WIDTH="15"></TD>
+					</TR>
+				</TABLE>
+			</TD>
+		</TR>
+		<TR>
+			<TD ALIGN="left" VALIGN="top"><IMG HEIGHT="32" SRC="/images/footer.jpg" WIDTH="804"></TD>
+		</TR>
+	</TABLE>
+</DIV>
+</BODY>
+<!-- InstanceEnd --></HTML>

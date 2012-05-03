@@ -1,0 +1,2132 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<TITLE>The Essence of OOP using Java, Static Initializer Blocks &mdash; Developer.com</TITLE>
+<META NAME="description" CONTENT="Baldwin explains and illustrates the use of static initializer blocks.">
+<META NAME="keywords" CONTENT=" Java C#">
+<META NAME="authors" CONTENT=" Richard G. Baldwin">
+<META NAME="date" CONTENT="20030722">
+<META NAME="channel" CONTENT="">
+
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_url = 'http://mjxads.internet.com/RealMedia/ads/';
+OAS_sitepage = 'intm/webdev/www.gamelan.com';
+OAS_listpos = 'house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph';
+OAS_query = '';
+OAS_target = '_top';
+OAS_version = 10;
+OAS_rn = '001234567890'; OAS_rns = '1234567890';
+OAS_rn = new String (Math.random()); OAS_rns = OAS_rn.substring (2, 11);
+function OAS_NORMAL(pos) {
+var_a=('<A HREF="' + OAS_url + 'click_nx.cgi/' + OAS_sitepage );
+var_b=(var_a + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' );
+var_c=(var_b+ OAS_query + '" TARGET=' + OAS_target + '>');
+document.write(var_c);
+var_aa=('<IMG SRC="' + OAS_url + 'adstream_nx.cgi/' + OAS_sitepage ); 
+var_bb=( var_aa + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?');
+var_cc=( var_bb + OAS_query + '" BORDER=0></A>');
+document.write(var_cc);
+}
+//-->
+</SCRIPT>
+
+<SCRIPT LANGUAGE=JavaScript1.1>
+<!--
+OAS_version = 11;
+if (navigator.userAgent.indexOf('Mozilla/3') != -1 )
+OAS_version = 10;
+if (navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
+OAS_version = 10;
+if (OAS_version >= 11) {
+var_aaa=('<SCRIPT LANGUAGE=JavaScript1.1 SRC="' + OAS_url); 
+var_bbb=(var_aaa + 'adstream_mjx.ads/' + OAS_sitepage + '/1'); 
+var_ccc=(var_bbb + OAS_rns + '@' + OAS_listpos + '?' + OAS_query );
+var_ddd=(var_ccc + '"><\/SCRIPT>');
+document.write(var_ddd);
+}
+//-->
+
+</SCRIPT>
+
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+document.write('');
+function OAS_AD(pos) {
+if (OAS_version >= 11)
+OAS_RICH(pos);
+else
+OAS_NORMAL(pos);
+}
+//-->
+</SCRIPT>
+<link href="/stylesheets/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/javascripts/common.js" ></script>
+<script type="text/javascript" src="/javascripts/tabs.js" ></script>
+<script type="text/javascript" src="/javascripts/article_menu.js" ></script>
+<script type="text/javascript" src="/javascripts/hot_topics.js" ></script>
+<script type="text/javascript" src="/javascripts/iepngfix_tilebg.js"></script>
+
+<style rel="stylesheet" type="text/css">
+h2, h3, h4 { font-size: 1.2em; }
+</style>
+
+</head>
+<body>
+<!-- "send" begin" -->
+
+<!------ OAS AD 'send' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('send');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!send" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!send" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD 'send' end ------><!-- "send" end" -->
+
+<div id="EntNetPlanet" class="wrapBody">
+
+<!-- "house_ribbon" begin -->
+
+<!------ OAS AD 'house_ribbon' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('house_ribbon');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!house_ribbon" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!house_ribbon" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD 'house_ribbon' end ------><!-- "house_ribbon" end -->
+	
+	<div id="header" class="dimMain">
+		<div class="logo"><a href="/java/"><img src="/images0/gamelan_oldcolor.gif" alt="Gamelan.com" border="0" /></a></div>
+
+		<div class="searchForm">
+			<form action="http://search.internet.com/www.developer.com" method="post">
+				<input name="IC_QueryText" onclick="this.select();if(this.value=='Search...')this.value='';" id="search_keyword" type="text" class="inputBox" value="Search..." />
+				<select name="IC_QueryDatabase" id="search_category" class="inputBox">
+					<option value="www.developer.com">Developer.com</option>
+					<option value="www.internet.com">Internet.com</option>
+				</select>
+				<input type="submit" name="btnSearch" id="btnSearch" value="" />
+			</form>
+		</div>
+		
+		<div class="adsBox">
+<!-- "120x60-1" begin -->
+
+<!-- "120x60-1" end -->
+		</div>
+	</div>
+	
+	<div id="headerBottomNav" class="dimMain">
+		<div class="deep_blue">
+			<ul>
+				<li><a href="/" class="first">Developer</a> </li>
+				<li><a href="/net/" class="first">Microsoft &amp; .NET</a> </li>
+				<li><a href="/design/" class="first">Architecture &amp Design</a> </li>
+				<li><a href="/db/" class="first">Database</a> </li>
+				<li><a href="/open/" class="first">Open Source</a></li>
+				<li><a href="/lang/" class="first">Other</a></li>
+			</ul>
+		</div>
+		<div class="light_blue">
+			<ul>
+				<li><a href="/services/" class="sec">Web Services</a></li>
+				<li><a href="/security/" class="sec">Security</a></li>
+				<li><a href="/ws/" class="sec">Mobile</a></li>
+				<li><a href="/mgmt/" class="sec">Project Management</a></li>
+			</ul>
+		</div>
+		<div style="float:right">
+			<a style="margin-right:1em" title="rss feed" class="rss" href="http://www.developer.com/icom_includes/feeds/developer/dev-java-25.xml">RSS <img style="vertical-align:middle" alt="RSS feed" src="/images0/feed-icon-14x14.png"/></a>
+		</div>
+	</div>	
+	<div class="vspace"></div>
+	
+	<div class="adsBox ads5">
+<!-- "468x60-1" begin -->
+
+<!------ OAS AD '468x60-1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('468x60-1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!468x60-1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!468x60-1" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD '468x60-1' end ------><!-- "468x60-1" end -->
+	</div>
+    
+<div id="content">
+	<div class="col clearfix">
+		<div class="colLeft dimMainLeft">
+			
+			<div id="date_holder" class="clearfix">
+				<div class="date">February 04, 2010</div>
+				
+				<div class="topic">
+					<span class="title">Hot Topics:</span>
+					<div id="hot_topics">
+						<a href="#" class="prev">prev</a>
+						<div class="topics_list">
+							<div class="gr_l"></div>
+							<div class="list">
+								<ul>
+<li><a href="http://www.developer.com/tags/index.php/131842/C.html" class="blue_topic">C#</a></li>
+<li><a href="http://www.developer.com/tags/index.php/93702/NET.html" class="blue_topic">.NET</a></li>
+<li><a href="http://www.developer.com/tags/index.php/91242/open-source.html" class="blue_topic"> open source</a></li>
+<li><a href="http://www.developer.com/tags/index.php/135382/C.html" class="blue_topic">C++</a></li>
+<li><a href="http://www.developer.com/tags/index.php/91062/Java.html" class="blue_topic">Java</a></li>
+
+								</ul>
+							</div>
+							<div class="gr_r"></div>
+						</div>
+						<a href="#" class="next">next</a>
+					</div>
+					<script type="text/javascript">
+						initHotTopics(document.getElementById("hot_topics"));
+					</script>
+				</div>
+			</div>			
+			<div id="breadcumb"  class="clearfix">
+				<div class="colLeft">
+					<div class="bread_left"><a href="/">Developer.com</a></div>
+					<div class="bread_left"><a href="/java">Java</a></div>
+					<div class="bread_mid"><a href="/java/other">Other Java</a></div>
+					<div class="bread_right"></div>
+				</div>
+				<div class="colRight">
+					<a href="/java/other/archives.php" class="more">Read More in Other Java &raquo;</a>
+				</div>
+			</div>			
+			<div class="vspace"></div>
+			
+			<div class="clearfix">
+				<div class="colLeft">
+				
+					<div class="adsBox ads1">
+<!-- "ciu" begin" -->
+
+<!------ OAS AD 'ciu' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('ciu');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!ciu" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!ciu" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD 'ciu' end ------>
+<!-- "ciu" end" -->
+					</div>
+				</div>
+				
+				<div class="colRight">
+					<div class="adsBox ads2">
+					</div>
+				</div>
+			</div>
+			
+			<div class="vspace"></div>
+			
+			<div class="article">
+			<h1>The Essence of OOP using Java, Static Initializer Blocks</h1>
+			
+			<div class="author colLeft">
+				
+				<ul class="noBullets">
+					<li>July 22, 2003</li>
+					<li>By 
+<a href="/author.php/12903/Richard-G-Baldwin.htm">Richard G. Baldwin</a>
+</li>
+<script>
+var newwindow;
+function openPopup(url)
+{
+	 newwindow=window.open(url,'Author','width=480,height=250,resizable=no,scrollbars=yes,toolbar=no,status=no');
+         if (window.focus) {newwindow.focus()}
+}
+</script>
+					<li><a class="email" onclick="javascript:openPopup('/bio.php/12903/Richard-G-Baldwin.htm')" href="javascript:void(0)">Bio &raquo;</a></li>
+					<li><a href="/feedback.php/http://www.developer.com/java/other/article.phpr/2238491/The-Essence-of-OOP-using-Java-Static-Initializer-Blocks.htm">Send Email &raquo;</a></li>
+					<li><a href="/author.php/12903/Richard-G-Baldwin.htm">More Articles  &raquo;</a></li>
+				</ul>
+<div class="retweet">
+<script type="text/javascript">
+var tweetmeme_url = "http://www.developer.com/java/other/article.phpr/2238491/The-Essence-of-OOP-using-Java-Static-Initializer-Blocks.htm";
+</script>
+<script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
+</div>
+			</div>
+			
+<!--content_start--><p>Java Programming Notes # 1632 </p>
+               
+<ul>
+          <li><a href="#Preface">Preface</a></li>
+          <li><a href="#Preview">Preview</a></li>
+          <li><a href="#Discussion%20and%20Sample%20Programs">Discussion
+and   Sample  Code</a></li>
+         <li><a href="#Run_the_Program">Run the Program<br>
+           </a></li>
+          <li><a href="#Summary">Summary</a></li>
+          <li><a href="#What%27s%20next">What's Next</a></li>
+         <li><a href="#Complete_program_listing">Complete Program Listing</a><br>
+         </li>
+               
+</ul>
+               
+<hr size="3" width="100%" align="center">       
+<center>        
+<h2><a name="Preface"></a>Preface</h2>
+        </center>
+               
+<p>This series of lessons is designed to teach you about the essence of 
+Object-Oriented Programming <i>(OOP) </i>using Java. </p>
+               
+<p>The first lesson in the series was entitled <a
+ href="http://softwaredev.earthweb.com/java/article/0,,12082_935351,00.html">
+    The Essence of OOP Using Java, Objects, and Encapsulation</a>.&nbsp;
+The     previous lesson was entitled <a
+ href="http://www.developer.com/java/article.php/1455891">The Essence of
+OOP Using Java, Exception Handling</a>.</p>
+               
+<p>You may find it useful to open another copy of this lesson in a separate 
+    browser window.&nbsp; That will make it easier for you to scroll back 
+and   forth  among the different figures and listings while you are reading 
+about them. </p>
+               
+<div class="toolbox noBullets colRight">
+	<ul>
+		<li class="comment"><a rel="nofollow" href="#comment_form"><nobr>Post a comment</nobr></a></li>
+		<li class="email"><a rel="nofollow" href="/email.php/2238491">Email Article</a></li>
+		<li class="print"><a rel="nofollow" href="/print.php/2238491">Print Article</a></li>
+		<li id="toolBoxShareMenu" class="share">
+			<img height="16" width="16" class="icon" alt="" src="/images0/icon_share.gif"/> <a rel="nofollow" href="#">Share Articles</a><img src="/images0/arrow_down_red.gif"/>
+			<div class="shareSubMenu">
+				<span class="top"><span></span></span>
+					<ul>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://digg.com/submit?phase=2&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)+'&bodytext=&topic=');"><img src="/images0/icon_diggthis.gif" alt="" width="16" height="16" border="0" class="icon" /> Digg</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://del.icio.us/post?v=4&noui&jump=close&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_delicious.gif" alt="" width="16" height="16"  border="0" class="icon" /> del.icio.us</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://slashdot.org/slashdot-it.pl?op=basic&url='+encodeURIComponent(location.href));"><img src="/icom_includes/socialnetworking/img/icon_slashdot.gif" alt="" width="16" height="16"  border="0" class="icon" /> Slashdot</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.dzone.com/links/add.html?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_dzone.gif" alt="" width="16" height="16" border="0" class="icon" /> DZone</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://reddit.com/submit?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_reddit.gif" alt="" width="16" height="16"  border="0" class="icon" /> Reddit</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.stumbleupon.com/submit?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_stumbleit.gif" alt="" width="16" height="16"  border="0" class="icon" /> StumbleUpon</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(location.href));"><img src="/icom_includes/socialnetworking/img/icon_facebook.gif" alt="" width="16" height="16"  border="0" class="icon" /> Facebook</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://friendfeed.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_friendfeed.gif" alt="" width="16" height="16" border="0" class="icon" /> FriendFeed</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.furl.net/storeIt.jsp?t='+encodeURIComponent(document.title)+'&u='+encodeURIComponent(location.href));"><img src="/icom_includes/socialnetworking/img/icon_furl.gif" alt="" width="16" height="16" border="0" class="icon" /> Furl</a></li>
+
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.newsvine.com/_wine/save?popoff=1&u='+encodeURIComponent(location.href),'newsvine','toolbar=no,width=590,height=600,resizable=yes,scrollbars=yes');"><img src="/icom_includes/socialnetworking/img/icon_seednewsvine.gif" alt="" width="16" height="16" class="icon" /> Newsvine</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.google.com/bookmarks/mark?op=edit&bkmk='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_google.gif" alt="" width="16" height="16" class="icon" /> Google</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.linkedin.com/shareArticle?mini=true&ro=true&url='+encodeURIComponent(location.href)+'&source='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_linkedin.gif" alt="" width="16" height="16" class="icon" /> LinkedIn</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.myspace.com/Modules/PostTo/Pages/?u='+encodeURIComponent(location.href)+'&t='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_myspace.jpg" alt="" width="16" height="16" class="icon" /> MySpace</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://www.technorati.com/faves?add='+encodeURIComponent(location.href));"><img src="/icom_includes/socialnetworking/img/icon_technorati.gif" alt="" width="16" height="16" class="icon" /> Technorati</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://twitter.com/home?status='+encodeURIComponent(location.href));"><img src="/icom_includes/socialnetworking/img/icon_twitter.gif" alt="" width="16" height="16" class="icon" /> Twitter</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('https://favorites.live.com/quickadd.aspx?marklet=1&mkt=en-us&top=1&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_windowslive.gif" alt="" width="16" height="16" class="icon" /> Windows Live</a></li>
+						<li><a href="javascript:void(0)" onclick="javascript:window.open('http://buzz.yahoo.com/submit?urlsubmission-input='+encodeURIComponent(location.href)+'&submitHeadline='+encodeURIComponent(document.title));"><img src="/icom_includes/socialnetworking/img/icon_yahoo.gif" alt="" width="16" height="16" class="icon" /> YahooBuzz</a></li>
+
+					</ul>
+				<span class="bottom"><span></span></span>
+			</div>
+		</li>
+	</ul>
+</div>
+		<script type="text/javascript">
+			initArticleMenu(document.getElementById("toolBoxShareMenu"));
+		</script><p>For further reading, see my extensive collection of online Java tutorials 
+   at <a href="http://softwaredev.earthweb.com/java">Gamelan.com</a>. A consolidated 
+    index is available at <font color="#000000"> <a
+ href="http://www.DickBaldwin.com">www.DickBaldwin.com</a>.</font> </p>
+               
+<center>        
+<h2><a name="Preview"></a><font color="#000000">Preview</font></h2>
+        </center>
+               
+<p><font color="#ff0000"><b>Proper initialization is important</b></font><br>
+  </p>
+   
+<p>Proper initialization of variables is an important aspect of programming.
+ &nbsp; Unlike other programming languages, it is not possible to write a 
+Java  program in which the variables are initialized with the garbage left 
+over  in memory from the programs that previously ran in the computer.<br>
+  </p>
+   
+<p><font color="#ff0000"><b>Automatic initialization to default values</b></font><br>
+     </p>
+         
+<p>Instance and class <i>(static)</i> variables are automatically initialized 
+  to standard default values if you fail to purposely initialize them.&nbsp; 
+Although   local variables are not automatically initialized, you cannot compile
+a program  that fails to either initialize a local variable or assign a value
+to that  local variable before it is used.<br>
+     </p>
+         
+<p>Thus, Java programmers are prevented from committing the cardinal sin
+of  allowing their variables to be initialized with random garbage.<br>
+  </p>
+   
+<p><font color="#ff0000"><b>Initialization during declaration</b></font><br>
+     </p>
+         
+<p>You should already know that you can initialize instance variables  and
+ class variables when you declare them, by including an initialization  expression
+ in the variable declaration statement.&nbsp; Figure 1 shows an  example
+of  a primitive class variable named <b>var1</b> that is purposely  initialized
+ to the value 6, along with a reference variable of type <b>Date</b>  that
+ is allowed to be automatically initialized to the default value null.<br>
+     </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ccffff">
+          <tbody>
+           <tr>
+            <td>                                                      
+      <pre>  static int var1 = 6;<br><br>  Date date;</pre>
+                                                       
+      <pre><b>Figure 1</b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+               
+<p><font color="#ff0000"><b>Constructor</b></font><br>
+   </p>
+     
+<p>What if your initialization requirements are more complex than can be satisfied
+ with a single initialization expression?&nbsp; You should already know that
+ you can write a constructor to purposely initialize all instance variables
+when an object is instantiated from the class.&nbsp; The code in a constructor
+ can be as complex as you need it to be.<br>
+  </p>
+   
+<p><font color="#ff0000"><b>Static initializer blocks</b></font><br>
+  </p>
+   
+<p>What you may not know, however,  is that you can also write <i>static
+initializer blocks</i> to initialize static variables when the class is loaded.
+&nbsp;The code in a static initializer block can also be quite complex.<br>
+     </p>
+         
+<p>A static initializer block resembles a method with no name, no arguments, 
+  and no return type.&nbsp; It doesn't need a name, because there is no need 
+  to refer to it from outside the class definition.&nbsp; The code in a static 
+ initializer block is executed by the virtual machine when the class  is loaded.<br>
+     </p>
+         
+<p>Like a constructor, a static initializer block cannot contain a return 
+  statement.&nbsp; Therefore, it doesn't need to specify a return type.<br>
+     </p>
+         
+<p>Because it is executed automatically when the class is loaded, parameters 
+  don't make any sense, so a static initializer block doesn't have an argument
+ list.<br>
+   </p>
+     
+<p><font color="#ff0000"><b>Syntax</b></font><br>
+   </p>
+     
+<p>So, what  does this leave as the syntax of a static initializer block?
+ &nbsp; All that is left is the keyword <b>static</b> and a pair of matching
+ curly braces containing the code that is to be executed  when the class
+is  loaded.<br>
+     </p>
+         
+<p><font color="#ff0000"><b>Multiple static initializer blocks</b></font><br>
+   </p>
+     
+<p>You may include any number of static initializer blocks in your class
+definition, and they can be separated by other code such as method  definitions
+and constructors.&nbsp; The static initializer blocks will be  executed in
+the order in which they appear in the code.<br>
+  </p>
+   
+<p>According to  one of my favorite authors, David Flanagan, author of <u>Java
+ in  a Nutshell</u>, <br>
+     </p>
+         
+<blockquote>               
+  <p><i>"What the compiler actually does is to internally produce a single 
+  class initialization routine that combines all the static variable initializers 
+  and all of the static initializer blocks of code, in the order that they 
+ appear in the class declaration.&nbsp; This single initialization procedure 
+ is run automatically, one time only, when the class is first loaded."</i><br>
+       </p>
+     </blockquote>
+         
+<p> </p>
+         
+<p>The sample program that I will discuss in the next section will illustrate 
+  many aspects of static initializer blocks.</p>
+         
+<blockquote>         </blockquote>
+                  
+<center>        
+<h2><a name="Discussion and Sample Programs"></a><font color="#000000"> Discussion 
+   and Sample Code</font></h2>
+        </center>
+               
+<p>In this lesson, I will discuss and explain a Java program named <b>Init01</b>,
+ which illustrates static initializer blocks. &nbsp; As is often the case,
+ I will discuss the program in fragments.&nbsp; A complete listing of  the
+ program can be viewed in Listing 14 near the end of the lesson.<br>
+     </p>
+         
+<p>This program illustrates the use of static initializer blocks to execute 
+  initialization code that is too complex to be contained in a simple variable 
+  initializer expression.<br>
+     </p>
+         
+<p>The code demonstrates that multiple initializer blocks are allowed, and 
+  that other code can be inserted between the static initializer blocks.<br>
+     </p>
+         
+<p>Finally, the code demonstrates that static initializer blocks are combined 
+  in the order in which they appear in the class definition, and executed 
+once  only.<br>
+     </p>
+         
+<p>The program was tested using SDK 1.4.1 under WinXP.<br>
+     </p>
+          
+<p><font color="#ff0000"><b>Order of execution</b></font><br>
+   </p>
+     
+<p>Because the compiler combines multiple static initializer blocks into a
+single initialization procedure, the order of execution of program code will
+not necessarily be the same as the order in which the code appears in the
+program.&nbsp; <i>(Multiple static initializer blocks can be separated by
+non-static code.)</i>&nbsp; This causes the program to be a little difficult 
+ to explain. &nbsp; In some cases, I will present the code in a more meaningful
+ order than the order in which it appears in the program.&nbsp; Time tags
+are displayed at various points in the program to help make sense of the
+order of execution.<br>
+     </p>
+         
+<p>Because the time tags are based on the system clock, the output produced 
+ by the program will be different each  time the program is run <i>(at least 
+ the times will be different).</i>&nbsp; I will show you the output  produce 
+ by a single running of the program.&nbsp; <i>(Note that in some cases,  I
+ manually inserted line breaks in the program output to force the material 
+ to fit in this narrow  publication format.)</i><br>
+     </p>
+         
+<p><font color="#ff0000"><b>The main method</b></font><br>
+   </p>
+     
+<p>The code in Listing 1 shows the beginning of the controlling class and 
+  the beginning of the <b>main</b> method.&nbsp; The code in the <b>main</b> 
+  method in Listing 1 displays the time that the program starts running, which
+  is also the time at which the class named <b>A</b> is caused to start loading
+  <i>(as you will see in Listing 2).</i></p>
+          
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+       <tbody>
+         <tr>
+           <td>                                   
+      <pre>public class Init01{<br>  public static void <b>main</b>(String&#91;&#93; args){<br>    System.out.println("Start load: " + <br>                                     <b>new Date()</b>);<br><b><font
+ face="Courier New,Courier">Listing 1</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+               
+<p><font color="#000000">Figure 2 shows the time at which the class named
+  <b>A</b> started loading.</font><br>
+    </p>
+           
+<table border="1" cols="1" width="400" bgcolor="#ccffff">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>Start load: Fri May 30 15:28:49 CDT 2003</pre>
+                                                       
+      <pre><b>Figure 2</b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+                
+<p><font color="#ff0000"><b>Load class A</b></font><br>
+  </p>
+   
+<p>The code in Listing 2 causes the class named <b>A</b> to start loading.
+ &nbsp; Flanagan refers to the term <i><b>A.class</b></i> in Listing 2 as
+a class literal.&nbsp; <i>(I will show you an alternative way to accomplish
+  the same thing using a method call in Listing 3).</i><br>
+    </p>
+          
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>    Class aClass = A.class;<br><br><b><font
+ face="Courier New,Courier">Listing 2</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+  <font color="#ff0000"><b>  What does it mean to say that a class is loaded?</b></font><br>
+  <br>
+  While I can't provide  a description of exactly what happens from a technical
+ viewpoint, I can tell  you what seems to happen from a functional viewpoint.<br>
+  <br>
+  Functionally,  an object of the class whose name is <b>Class</b> is created
+ and saved in  memory.&nbsp; This object represents the class that is being
+ loaded <i>(in  this case, the class named <b>A</b>).</i>&nbsp; From that
+point forward, all static members of the class are available to the program
+by referring to the name of the class and the name of the member.&nbsp; Other
+ information about  the class is also available by invoking methods on a
+reference  to the <b>Class</b>  object.<br>
+    </font>    
+<blockquote><font color="#000000"><i>(The code in Listing 2 causes the <b>Class</b>
+  object's reference to be saved in the reference variable named <b>aClass</b>.
+ &nbsp; However, the reference isn't used for any purpose elsewhere in the
+ program.&nbsp; The purpose of the statement in Listing 2 is to cause the
+class to load, and is not to get and save a reference to the <b>Class </b>object.)</i></font><br>
+    </blockquote>
+    <font color="#000000"><font color="#ff0000"><b>An alternative approach</b></font><br>
+  <br>
+  The comments in Listing 3 show an alternative way to force the class named
+ <b>A</b> to be loaded, and to cause the <b>Class</b>  object's reference
+to be saved in a reference variable named <b>aClass</b>. &nbsp; If activated,
+ this code would cause the class to be loaded by invoking  the static <b>forName</b>
+ method of the class named <b>Class</b>, passing  the name of the class to
+ be loaded to the method as a <b>String</b> parameter.<br>
+    </font>          
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+      <tbody>
+        <tr>
+          <td>                            
+      <pre>    //try{<br>      //Class aClass = <b>Class.forName("A")</b>;  <br>    //}catch(ClassNotFoundException e){<br>    // 	                    e.printStackTrace();}<br><b><font
+ face="Courier New,Courier">Listing 3</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+    If you find the code <i>(shown as comments)</i> in Listing 3 to be confusing, 
+ just ignore it.&nbsp; Understanding that code isn't critical to understanding 
+ static initializer blocks.<br>
+   <br>
+   <font color="#ff0000"><b>Display end of load time</b></font><br>
+   <br>
+  Continuing in the <b>main </b>method, the code in Listing 4 causes the
+time  to be displayed when the loading of the class named <b>A</b> is complete.<br>
+   </font>     
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>    System.out.println("End load: " + <br>                                     new Date());<br>    <br><b><font
+ face="Courier New,Courier">Listing 4</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+   The code in Listing 4 causes the date and time shown in Figure 3 to be 
+displayed  on the screen.<br>
+   </font>     
+<p>       </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ccffff">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>End load: Fri May 30 15:28:54 CDT 2003</pre>
+                                                       
+      <pre><b>Figure 3</b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+     
+<blockquote><font color="#000000"><i>(You can view all of the screen output
+ in the order in which it appears in the comments in Listing 14 near the
+end  of the lesson.)</i></font><br>
+  </blockquote>
+  <font color="#ff0000"><b>Five seconds have elapsed</b></font><br>
+  <br>
+  If you compare the time shown in Figure 3 with the time shown in Figure 
+2,  you will note that five seconds have elapsed during the time that the 
+class  was being loaded.&nbsp; The reason for this will become obvious as 
+we examine  the static initializer blocks in the definition of class <b>A</b>.<br>
+   <br>
+   <font color="#ff0000"><b>Now discuss the class named A</b></font><br>
+   <br>
+   At this point, I am going to defer the remaining discussion of the <b>main
+ </b>method until later and discuss the static initialization defined in
+the  class named <b>A</b>.<br>
+   <br>
+   Listing 5 shows an abbreviated listing of the class named <b>A</b>, showing 
+ only the code involved in the static initialization of the class when it
+ is loaded.&nbsp; A complete listing of the class definition is shown in
+Listing  14 near the end of the lesson.<br>
+        
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>class A{<br>  //Declare six static variables<br>  static int var1 = 6;<br>  static int var2 = 9;<br>  static int var3;//originally initialized to 0<br>  static long var4;//originally initialized to 0<br><br>  static Date date1;//initialized to null<br>  static Date date2;//initialized to null<br><br>  //instance var declaration omitted for brevity<br><br>  static{<br>    //First static initializer block<br>    date1 = new Date();<br>    for(int cnt = 0; cnt &lt; var2; cnt++){<br>      var3 += var1;<br>    }//end for loop<br>    System.out.println("End first static init: "<br>                                   + new Date());<br>  }//end first static initializer block<br><br>  //Constructor and instance method omitted<br>  // for brevity.<br><br>  static{<br>    //Second static initializer block<br>    try{<br>      //Sleep for five seconds<br>      Thread.currentThread().sleep(5000);<br>    }catch(Exception e){System.out.println(e);}<br>    date2 = new Date();<br>    var4 = date2.getTime() - date1.getTime();<br>    System.out.println("End second static init: "<br>                                   + new Date());<br>  }//end second static initializer block<br>}//end class A<br><br><b><font
+ face="Courier New,Courier">Listing 5</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+  <font color="#ff0000"><b>Six ordinary static variables</b></font><br>
+  <br>
+  A careful examination of Listing 5 shows that it includes the declaration 
+ of six ordinary static variables with two of them being initialized to integer 
+ values when they are declared.&nbsp; The remaining four are automatically 
+ initialized to their default values when they are declared.<br>
+  <br>
+  <font color="#ff0000"><b>Two static initializer blocks</b></font><br>
+   <br>
+   Listing 5 also shows two static initializer blocks, physically separated 
+ by the class constructor and an instance method.&nbsp; According to Flanagan, 
+ the code in Listing 5 is all combined by the compiler into a single static 
+ initialization procedure, which is executed one time only when the class
+ is loaded.<br>
+   <br>
+   I will separate the code in Listing 5 into several fragments and discuss 
+ those fragments in the paragraphs that follow.<br>
+   <br>
+   <font color="#ff0000"><b>Ordinary static variables</b></font><br>
+   <br>
+   Listing 6 shows the declaration of six ordinary static variables, and
+the  purposeful initialization of two of them.&nbsp; The remaining four are
+automatically  initialized to their default values, but code in the static
+initializer blocks  to follow will also provide non-default initial values
+for some of them.</font>      
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>class A{<br>  static int var1 = 6;<br>  static int var2 = 9;<br>  static int var3;//initialized to 0<br>  static long var4;//initialized to 0<br><br>  static Date date1;//initialized to null<br>  static Date date2;//initialized to null<br><br><b><font
+ face="Courier New,Courier">Listing 6</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+   <font color="#ff0000"><b>First static initializer block</b></font><br>
+   <br>
+   Listing 7 shows the first static initializer block.<i></i></font>     
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>  static{<br>    date1 = new Date();<br><br>    for(int cnt = 0; cnt &lt; var2; cnt++){<br>      var3 += var1;<br>    }//end for loop<br><br>    System.out.println("End first static init: "<br>                                   + new Date());<br>  }//end first static initializer block<br><br><b><font
+ face="Courier New,Courier">Listing 7</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+  </font><font color="#000000">The code in this static initializer block
+records  the date and time in one of the static variables, <b>date1</b>,
+declared earlier.<br>
+  <br>
+  Then it executes a <b>for</b> loop to compute an initial value for one
+of  the other static variables, <b>var3</b>, also declared earlier.&nbsp;
+Note  that the computation of the initial value for <b>var3</b> is based
+on the  initial value given to <b>var1</b> when it was declared.<br>
+  </font>  
+<blockquote><font color="#000000"><i>(The contents of date1 and var3 will
+ be displayed later.)</i></font></blockquote>
+  <font color="#000000"><font color="#ff0000"><b>Complex code</b></font><br>
+  <br>
+  Note also that the code in this initializer block is far too complex to 
+be included in a simple initialization expression when a static variable is
+declared.&nbsp; Thus, this initializer block demonstrates the primary purpose
+of static initializer blocks - to execute code that cannot be included in
+an initialization expression that is part of a static variable declaration.</font><br>
+  <br>
+  <font color="#ff0000"><b>Display the date and time</b></font><br>
+  <font color="#000000"><br>
+  Finally, the code in Listing 7 displays the date and time that the code 
+in  the initializer block completes execution.&nbsp; This date and time is 
+shown  in Figure 4.<br>
+   </font>     
+<p>       </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ccffff">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>End first static init: <br>                     Fri May 30 15:28:49 CDT 2003</pre>
+                                                       
+      <pre><b>Figure 4</b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+   <br>
+   If you compare the time in Figure 4 with the time in Figure 2, you will
+ see that the two times are indistinguishable.&nbsp; In other words, the
+time  required to execute the code in the first static initializer block
+was so  short that the granularity of the time-display mechanism was too
+large to  show actual the time difference.<br>
+  <br>
+  <font color="#ff0000"><b>Second static initializer block</b></font><br>
+   <br>
+   <font color="#000000">If you refer back to Listing 5, or refer to Listing 
+ 14 near the end of the lesson, you will see that the static initializer block
+ shown in Listing 7 is followed by the definition of the class constructor 
+ and an instance method of the class.&nbsp; This is followed by a second static
+ initializer block, as shown in Listing 8.</font>     
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>  static{<br>    try{<br>      Thread.currentThread().sleep(5000);<br>    }catch(Exception e){System.out.println(e);}<br><br>    date2 = new Date();<br>    var4 = date2.getTime() - date1.getTime();<br><br>    System.out.println("End second static init: "<br>                                   + new Date());<br>  }//end second static initializer block<br>}//end class A<br><br><b><font
+ face="Courier New,Courier">Listing 8</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+   The code in the second static initializer block purposely inserts a five-second
+ time delay by putting the thread to sleep for five seconds.</font><font
+ color="#000000">&nbsp; The static variable named <b>date2</b> is then initialized
+ with a reference to a new <b>Date</b> object, which reflects the date and
+ time following the five-second delay.</font><font color="#000000"><br>
+   <br>
+  <font color="#ff0000"><b>The time difference</b></font><br>
+  </font><font color="#000000"><br>
+   Following this, the code in Listing 8 computes a new initial value for 
+the previously declared static variable named <b>var4</b> based on values 
+saved during previous initialization operations.</font><br>
+  <font color="#000000"><br>
+  The variable named <b>var4</b> is initialized with a value that represents 
+ the time difference in milliseconds between the time recorded during the 
+execution of the first static initializer block, and the time following the 
+five-second delay in the second initializer block.&nbsp; Later, when the values
+stored in the static variables are displayed, we will see that the time difference
+was 5008 milliseconds.<br>
+  <br>
+  <font color="#ff0000"><b>Display the date and time</b></font><br>
+   <br>
+   Finally, the code in the second initializer block shown in Listing 8 displays 
+ the date and time that the execution of the second initializer block is complete.
+&nbsp; This date and time is shown in Figure 5.<br>
+   </font>     
+<p>       </p>
+          
+<table border="1" cols="1" width="400" bgcolor="#ccffff">
+            <tbody>
+           <tr>
+            <td>                                                      
+      <pre>End second static init: <br>                     Fri May 30 15:28:54 CDT 2003<br></pre>
+                                                       
+      <pre><b>Figure 5</b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+   <br>
+   As you should expect, this date and time matches the date and time displayed 
+ by the <b>main</b> method in Figure 3 as the time that the loading operation 
+ for the class named <b>A</b> was completed.<br>
+   <br>
+   <font color="#ff0000"><b>Now back to the main method</b></font><br>
+   <br>
+   After the class named <b>A</b> is loaded, the main method purposely causes 
+ the main thread to sleep for five seconds as shown in Listing 9.<br>
+        
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>//Back in discussion of the main method<br>    try{<br>      Thread.currentThread().sleep(5000);<br>    }catch(Exception e){System.out.println(e);}<br><br><b><font
+ face="Courier New,Courier">Listing 9</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+  <font color="#ff0000"><b>A new object of the class named A</b></font><br>
+  <br>
+  After the main thread has been allowed to sleep for five seconds, the code 
+ in the main method instantiates a new object of the class named <b>A</b> 
+and invokes the <b>showData</b> method on that object.&nbsp; This code, which 
+ is shown in Listing 10, causes the values previously stored in the static 
+ variables to be displayed.<br>
+   </font>     
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>    new A().showData();<br>  }//end main<br>}//end class Init01<br><br><b><font
+ face="Courier New,Courier">Listing 10</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+   When the <b>showData</b> method returns, the program terminates.<b><br>
+  <br>
+  <font color="#ff0000">Resume discussion of class A definition</font></b><br>
+   <br>
+   Some of the code that I skipped in my earlier discussion of the definition 
+ of class <b>A</b> was the declaration of an instance variable named <b>date3</b>, 
+ as shown in Listing 11.</font>     
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>//Resume discussion of class A<br><br>  Date date3;<br><br><b><font
+ face="Courier New,Courier">Listing 11</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+  <font color="#ff0000"><b>When does the initialization occur?</b></font><br>
+  <br>
+  It is very important to understand that the initialization of static variables 
+ occurs when the class is originally loaded, while the initialization of instance
+ variables occurs when an object of the class is instantiated.&nbsp; That
+characteristic of OOP is demonstrated in this program.<br>
+  <br>
+  <font color="#ff0000"><b>Record date and time of object instantiation</b></font><br>
+   <br>
+  </font><font color="#000000">The class constructor, shown in Listing 12,
+ causes t</font><font color="#000000">he instance variable named <b>date3</b>,
+ declared in Listing 11, to contain the date and time that the object is
+actually  instantiated.<br>
+   </font>     
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>  A(){//constructor<br>    //Record the time in an instance variable.<br>    date3 = new Date();<br>  }//end constructor<br><br><b><font
+ face="Courier New,Courier">Listing 12</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+   <font color="#ff0000"><b>Display data in the variables</b></font><br>
+   <br>
+   The method named <b>showData</b> is shown in Listing 13.&nbsp; The code
+ in this method displays the times that the variables were initialized, along 
+ with the values stored in those variables.<br>
+   </font>     
+<p> </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>  void showData(){//an instance method<br>    System.out.println("var3 initialized: "<br>                                        + date1);<br>    System.out.println("var3 = " + var3);<br>    System.out.println("var4 initialized: "<br>                                        + date2);<br>    System.out.println("var4 = " + var4<br>                                      + " msec");<br>    System.out.println("Obj instantiated: "<br>                                        + date3);<br>  }//end showData<br><br><b><font
+ face="Courier New,Courier">Listing 13</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+           <font color="#000000"><br>
+  <font color="#ff0000"><b>The output produced by the showData method</b></font><br>
+  <br>
+  The <b>showData</b> method is invoked as soon as the new object is instantiated 
+ by the code in the <b>main</b> method, producing the screen output shown 
+in Figure 6.<br>
+   </font>     
+<p>       </p>
+         
+<table border="1" cols="1" width="400" bgcolor="#ccffff">
+           <tbody>
+           <tr>
+            <td>                                                      
+      <pre>var3 initialized: Fri May 30 15:28:49 CDT 2003<br>var3 = 54<br>var4 initialized: Fri May 30 15:28:54 CDT 2003<br>var4 = 5008 msec<br>Obj instantiated: Fri May 30 15:28:59 CDT 2003</pre>
+                                                       
+      <pre><b>Figure 6</b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+   <br>
+  <font color="#ff0000"><b>Five-second intervals</b></font><br>
+  <br>
+  First, you should note the five-second intervals that separate the two
+initialization  operations and the object instantiation.<br>
+  <br>
+  Recall that the first five-second delay, that separates the two static
+initialization  operations, was caused when the second static initializer
+block put the thread  that was loading the class to sleep for five seconds.<br>
+  <br>
+  Recall also that the second five-second delay was caused by the <b>main</b>
+ method, which put the main thread to sleep for five seconds after the class
+ named <b>A</b> was loaded, and before an object of the class named <b>A</b>,
+ was instantiated.<br>
+   <br>
+  <font color="#ff0000"><b>Result of the loop computation</b></font><br>
+  <br>
+  Also note the value of 54 stored in the static variable named <b>var3</b>. 
+Recall that this value was computed by a <b>for</b> loop in the first  static 
+initializer block.<br>
+  <br>
+  <font color="#ff0000"><b>The time difference in milliseconds</b></font><br>
+   <br>
+   Finally, note the value of 5008 milliseconds stored in the static variable 
+ named <b>var4</b>.&nbsp; This value was computed by code in the second static 
+ initializer block, after sleeping for 5000 milliseconds.&nbsp; This value 
+ represents the time difference between the execution of the first static 
+initializer block and the completion of the second static initializer block 
+following a five-second delay.<br>
+             
+<h2 align="center"><a name="Run_the_Program"></a>Run the Program</h2>
+               
+<p>       At this point, you may find it useful to compile and run the program 
+ shown        in Listing 14 near the end of the lesson.<br>
+   </p>
+                    
+<center>       
+<h2><a name="Summary"></a>Summary</h2>
+   </center>
+            
+<p><font color="#ff0000"><b>No random garbage allowed</b></font><br>
+  </p>
+   
+<p>Unlike other programming languages, it is not possible to write a Java 
+  program in which the variables are initialized with the random garbage left
+over  in memory from the programs that previously ran in the computer.<br>
+      </p>
+           
+<p>Instance and static variables are automatically initialized  to standard 
+ default values if you fail to purposely initialize them.<br>
+   </p>
+     
+<p>You cannot compile a program  that fails to either initialize a local variable
+or assign a value to that  local variable before it is used.<br>
+      </p>
+           
+<p><font color="#ff0000"><b>Different approaches to variable initialization</b></font><br>
+  </p>
+   
+<p>You can initialize instance variables  and class variables when you declare 
+ them, by including an initialization  expression in the variable declaration 
+ statement.<br>
+   </p>
+     
+<p>If your initialization needs are more complex than can be satisfied  with 
+ a single initialization expression, you can write a constructor to purposely
+ initialize all instance variables when the object is instantiated.&nbsp; 
+The code in a constructor can be as complex as needed.<br>
+   </p>
+     
+<p>You can also write a <i>static initializer block</i> to initialize static
+ variables when the class is loaded.&nbsp; The code in a static initializer
+ block, which is executed by the virtual machine when the class  is loaded,
+ can also be quite complex.<br>
+   </p>
+     
+<p><font color="#ff0000"><b>Static initializer blocks</b></font><br>
+  </p>
+   
+<p>A static initializer block resembles a method with no name, no arguments,
+   and no return type.&nbsp; When you remove these items from the syntax,
+all that is left is the keyword <b>static</b> and a pair of matching curly
+braces containing the code that is to be executed  when the class is loaded.<br>
+      </p>
+           
+<p>You may include any number of static initializer blocks within  your class 
+ definition.&nbsp; They can be separated by other code such as method  definitions 
+ and constructors.&nbsp; The static initializer blocks will be  executed in
+ the order in which they appear in the code, regardless of the other code
+ that may separate them.<br>
+      </p>
+  <font color="#ff0000"><b>Instance initializers</b></font><br>
+  <br>
+  Although not covered in this lesson, it is also possible  to define an
+instance  initializer block, which can be used to initialize  instance variables
+in  the absence of, or in addition to a constructor.&nbsp; As you will learn
+  in a future lesson on anonymous classes, it is not always possible to define
+   a constructor for a class, but it is always possible to define an instance
+   initializer block.<br>
+                 
+<center>       
+<h2><a name="What's next"></a>What's Next?</h2>
+        </center>
+               
+<p>The next lesson will explain and discuss instance initializer blocks that 
+ can be used in the absence of, or in addition to class constructors.  <br>
+       </p>
+             
+<h2 align="center"><a name="Complete_program_listing"></a>Complete Program
+ Listing</h2>
+   A complete listing of the program discussed in this lesson is show in
+Listing  14 below.<br>
+             
+<p>  </p>
+             
+<table border="1" cols="1" width="400" bgcolor="#ffff00">
+          <tbody>
+           <tr>
+            <td>                                                      
+      <pre>/*File Init01.java<br>Copyright 2003 R.G.Baldwin<br><br>Illustrates the use of static initializer blocks<br>to execute code that is too complex to be<br>contained in a simple variable initializer.<br><br>Demonstrates that static initializer blocks are<br>executed in the order in which they appear in the<br>class definition.<br><br>Demonstrates that other code can be inserted<br>between static initializer blocks in a class<br>definition.<br><br>The output will change each time this program is<br>run.  The output for one run is shown below. Line<br>breaks were manually inserted to force the<br>material to fit in this narrow publication <br>format.<br><br>Start load: Fri May 30 15:28:49 CDT 2003<br>End first static init: <br>                     Fri May 30 15:28:49 CDT 2003<br>End second static init: <br>                     Fri May 30 15:28:54 CDT 2003<br>End load: Fri May 30 15:28:54 CDT 2003<br>var3 initialized: Fri May 30 15:28:49 CDT 2003<br>var3 = 54<br>var4 initialized: Fri May 30 15:28:54 CDT 2003<br>var4 = 5008 msec<br>Obj instantiated: Fri May 30 15:28:59 CDT 2003<br><br>Note the five-second time intervals that separate<br>the two initializations and the object<br>instantiation in the above output.<br><br>Tested using SDK 1.4.1 under WinXP<br>************************************************/<br>import java.util.Date;<br><br>public class Init01{<br>  public static void main(String&#91;&#93; args){<br>  	//Display start load time<br>    System.out.println("Start load: " + <br>  	                             new Date());<br>    //Force the class named A to load using a<br>    // class literal.<br>    Class aClass = A.class;<br>    <br>    //Alternative way to cause the class named A<br>    // to load.<br>    //try{<br>      //Class aClass = Class.forName("A");  <br>    //}catch(ClassNotFoundException e){<br>    // 	                    e.printStackTrace();}<br>    //Display end load time<br>    System.out.println("End load: " + <br>                                     new Date());<br>    <br>    //Sleep for five seconds after the class<br>    // loads<br>    try{<br>      Thread.currentThread().sleep(5000);<br>    }catch(Exception e){System.out.println(e);}<br>    <br>    //Instantiate a new object of the class named<br>    // A and display the data stored in the<br>    // variables.<br>    new A().showData();<br>  }//end main<br>}//end class Init01<br>//=============================================//<br><br>class A{<br>  //Declare six static variables and initialize<br>  // some of them when they are declared.  The<br>  // others will be automatically initialized to<br>  // either zero or null, but this may change<br>  // later due to the code in static initializer<br>  // blocks.<br>  static int var1 = 6;<br>  static int var2 = 9;<br>  static int var3;//originally initialized to 0<br>  static long var4;//originally initialized to 0<br><br>  static Date date1;//initialized to null<br>  static Date date2;//initialized to null<br><br>  //Declare an instance variable which is<br>  // originally initialized to null.<br>  Date date3;<br><br>  static{<br>    //First static initializer block records the<br>    // time and then executes a loop to<br>    // compute a new initial value for var3.<br>    date1 = new Date();<br>    for(int cnt = 0; cnt &lt; var2; cnt++){<br>      var3 += var1;<br>    }//end for loop<br>    System.out.println("End first static init: "<br>                                   + new Date());<br>  }//end first static initializer block<br>  //-------------------------------------------//<br><br>  //Note that the constructor and an instance<br>  // method physically separate the two static<br>  // initializer blocks.<br>  A(){//constructor<br>    //Record the time in an instance variable.<br>    date3 = new Date();<br>  }//end constructor<br>  //-------------------------------------------//<br><br>  void showData(){//an instance method<br>    //Display the times that the variables were<br>    // initialized along with the values stored<br>    // in those variables.<br>    System.out.println("var3 initialized: "<br>                                        + date1);<br>    System.out.println("var3 = " + var3);<br>    System.out.println("var4 initialized: "<br>                                        + date2);<br>    System.out.println("var4 = " + var4<br>                                      + " msec");<br>    System.out.println("Obj instantiated: "<br>                                        + date3);<br>  }//end showData<br>  //-------------------------------------------//<br><br>  static{<br>    //Second static initializer block sleeps for<br>    // five seconds, records the time, and then<br>    // computes a new intial value for var4 based<br>    // on values recorded during previous<br>    // initialization operations.<br>    try{<br>      //Sleep for five seconds<br>      Thread.currentThread().sleep(5000);<br>    }catch(Exception e){System.out.println(e);}<br>    date2 = new Date();<br>    var4 = date2.getTime() - date1.getTime();<br>    System.out.println("End second static init: "<br>                                   + new Date());<br>  }//end second static initializer block<br>}//end class A<br><br><b><font
+ face="Courier New,Courier">Listing 14</font></b></pre>
+            </td>
+          </tr>
+                             
+  </tbody>       
+</table>
+                        
+<hr size="3" width="100%" align="center">        
+<p>Copyright 2003, Richard G. Baldwin.&nbsp; Reproduction in whole or in part
+in  any form or medium without express written permission from Richard Baldwin
+is  prohibited. </p>
+               
+<h4><a name="About the author"></a>About the author</h4>
+               
+<p><b><a href="mailto:baldwin@DickBaldwin.com">Richard Baldwin</a></b><i>
+    is a college professor (at Austin Community College in Austin, Texas)
+and    private consultant whose primary focus is a combination of Java, C#,
+and   XML. In addition to the many platform and/or language independent benefits
+   of Java and C# applications, he believes that a combination of Java, C#,
+  and XML will become the primary driving force in the delivery of structured
+  information on the Web.</i> </p>
+               
+<p><i>Richard has participated in numerous consulting projects, and he frequently 
+   provides onsite training at the high-tech companies located in and around 
+   Austin, Texas.&nbsp; He is the author of Baldwin's Programming <a
+ href="http://www.DickBaldwin.com">Tutorials</a>, which has gained a worldwide 
+   following among experienced and aspiring programmers. He has also published 
+   articles in JavaPro magazine.</i> </p>
+             
+<p><i>Richard holds an MSEE degree from Southern Methodist University and
+    has many years of experience in the application of computer technology
+ to  real-world problems.</i> </p>
+             
+<p><i><a href="mailto:baldwin@DickBaldwin.com">baldwin@DickBaldwin.com</a></i>
+    </p>
+             
+<p>-end- <br>
+       &nbsp;  </p>
+         <br>
+       <br>
+      <br>
+      <br>
+   <br>
+  <br>
+ <br>
+</body>
+</html>
+<!--content_stop-->			
+			</div>
+			
+			<div class="paging">
+				<span class="numbers">
+<a href="javascript:void(0);">1</a> 
+</span>
+			</div>
+			
+			<br>
+			<br>
+			
+<!-- START COMMENTING CODE -->
+<script type="text/javascript" src="http://community.internet.com/earthweb/earthweb.cfm?site=developer&article_id=2238491&URL=http://www.developer.com/java/other/article.php/2238491/The-Essence-of-OOP-using-Java-Static-Initializer-Blocks&title=The Essence of OOP using Java, Static Initializer Blocks"></script>
+<script language="javascript">
+callScript("http://community.internet.com/earthweb/newCaptcha.cfm");
+</script> 
+<br>
+<!-- END COMMENTING CODE -->
+			
+			<div class="vspace"></div>
+			
+			<p></p>
+			
+			<div class="adsBox ads4">
+				<div class="ads_itoffer">
+					<span class="title">Networking Solutions</span>
+					<ul class="noBullets">
+<!-- "featured_links" begin" -->
+
+	<!------ OAS AD 'fl1' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('fl1');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl1" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl1" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'fl1' end ------>
+	<br>
+	<!------ OAS AD 'fl2' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('fl2');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl2" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl2" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'fl2' end ------>
+	<br>
+	<!------ OAS AD 'fl3' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('fl3');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl3" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl3" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'fl3' end ------>
+	<br>
+	<!------ OAS AD 'fl4' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('fl4');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl4" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl4" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'fl4' end ------>
+	<br>
+	<!------ OAS AD 'fl5' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('fl5');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl5" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!fl5" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'fl5' end ------>
+	<br><!-- "featured_links" end" -->
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		
+<!-- #include virtual="/component.php/10915_S_article.body.navbar(right)"-->
+<div class="col colRight dimMainRight">
+	<form action="http://member.internet.com/subscribe.php" method="post" name="sub2nl">
+	<div class="newsletter_holder">Free Newsletters :
+		<select name="list_names[]" class="dropdown">
+			<option value="earthweb-developer-1-html" selected>Developer.com Update</option>
+			<option value="dev-javaopensource-daily-html">Java/Open Source Daily</option>
+			<option value="earthweb-code-guru-update-html">Codeguru.com Update</option>
+			<option value="earthweb-jars-java-update-html">Jars.com Update</option>
+			<option value="15seconds-html">15Seconds HTML</option>
+			<option value="4guysfromrolla-html">4 Guys from Rolla</option>
+			<option value="asp101-html">ASP 101</option>
+			<option value="sqlwire-html">Database Journal</option>
+			<option value="dba-support-html">DBASupport</option>
+			<option value="javaboutique-jnews-html">Java Boutique JNews</option>
+			<option value="webdeveloper-weekly-html">WebDeveloper.com</option>
+			<option value="webreference-update-html">WebReference HTML</option>
+			<option value="virtualdr-html">Virtual Dr. Text</option>
+			<option value="enterprise-networking-planet-html">Enterprise Networking Planet</option>
+		</select>
+		<input type="hidden" value="http://e-newsletters.internet.com/earthweb_opt-in.html" name="redirect_ok" />
+		<a href="javascript:void(0);" onclick="document.forms['sub2nl'].submit(); return false;" class="button"><img src="/images0/search_button.png" alt="" width="29" height="26" border="0" /></a>
+	</div>
+	</form>	
+	<div class="vspace" style="height:5px;"></div>
+	
+	<div class="adsBox">
+<!-- "336x280" begin -->
+
+<!------ OAS AD '336x280' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('336x280');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!336x280" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!336x280" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD '336x280' end ------><!-- "336x280" end -->
+
+	</div>
+	
+	<div class="vspace"></div>
+	
+	<div class="adsBox">
+<!-- "accessunit" begin -->
+
+<!------ OAS AD 'accessunit' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('accessunit');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!accessunit" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!accessunit" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD 'accessunit' end ------><!-- "accessunit" end -->
+
+	</div>
+	
+	<div class="vspace"></div>
+	
+	<div id="mostPopularStories" class="section">
+		<div class="sectionHeader">
+			<h2>Most Popular Stories</h2>
+			<a href="#" class="more"></a>
+		</div>
+		<div class="sectionContent">
+			<div class="tabs">
+				<div class="tabsMenu clearfix">
+					<ul>
+						<li><a href="#mostPopularToday" class="selected">Today</a></li>
+						<li><a href="#mostPopularThisWeek">This Week</a></li>
+						<li><a href="#mostPopularAllTime">All-Time</a></li>
+					</ul>
+				</div>
+				<div class="tabsContents">
+					<div class="tabsContent selected" id="mostPopularToday">
+						<ul>
+				<li><a href="http://www.developer.com/lang/php/article.php/3862461/Facebooks-HipHop-Goes-Public-With-a-New-PHP-Runtime.htm"><span class="graytext">1</span> Facebook's HipHop Goes Public With a New PHP Runtime</a></li>
+				<li><a href="http://www.developer.com/java/data/article.php/3417381/Using-JDBC-with-MySQL-Getting-Started.htm"><span class="graytext">2</span> Using JDBC with MySQL, Getting Started</a></li>
+				<li><a href="http://www.developer.com/design/article.php/2109801/Creating-Use-Case-Diagrams.htm"><span class="graytext">3</span> Creating Use Case Diagrams</a></li>
+				<li><a href="http://www.developer.com/db/article.php/3379271/Oracle-Programming-with-PLSQL-Collections.htm"><span class="graytext">4</span> Oracle Programming with PL/SQL Collections</a></li>
+				<li><a href="http://www.developer.com/net/csharp/article.php/3489611/Manipulate-XML-File-Data-Using-C.htm"><span class="graytext">5</span> Manipulate XML File Data Using C#</a></li>
+
+						</ul>
+					</div>
+					<div class="tabsContent" id="mostPopularThisWeek">
+						<ul>
+				<li><a href="http://www.developer.com/java/data/article.php/3417381/Using-JDBC-with-MySQL-Getting-Started.htm"><span class="graytext">1</span> Using JDBC with MySQL, Getting Started</a></li>
+				<li><a href="http://www.developer.com/design/article.php/2109801/Creating-Use-Case-Diagrams.htm"><span class="graytext">2</span> Creating Use Case Diagrams</a></li>
+				<li><a href="http://www.developer.com/db/article.php/3379271/Oracle-Programming-with-PLSQL-Collections.htm"><span class="graytext">3</span> Oracle Programming with PL/SQL Collections</a></li>
+				<li><a href="http://www.developer.com/net/csharp/article.php/3489611/Manipulate-XML-File-Data-Using-C.htm"><span class="graytext">4</span> Manipulate XML File Data Using C#</a></li>
+				<li><a href="http://www.developer.com/net/asp/article.php/3299641/ServerTransfer-Vs-ResponseRedirect.htm"><span class="graytext">5</span> Server.Transfer Vs. Response.Redirect</a></li>
+
+						</ul>
+					</div>
+					<div class="tabsContent" id="mostPopularAllTime">
+						<ul>
+				<li><a href="http://www.developer.com/ws/article.php/3857796/An-Android-Developers-Top-10-Gripes.htm"><span class="graytext">1</span> An Android Developer's Top 10 Gripes</a></li>
+				<li><a href="http://www.developer.com/java/data/article.php/3417381/Using-JDBC-with-MySQL-Getting-Started.htm"><span class="graytext">2</span> Using JDBC with MySQL, Getting Started</a></li>
+				<li><a href="http://www.developer.com/design/article.php/2109801/Creating-Use-Case-Diagrams.htm"><span class="graytext">3</span> Creating Use Case Diagrams</a></li>
+				<li><a href="http://www.developer.com/net/csharp/article.php/3489611/Manipulate-XML-File-Data-Using-C.htm"><span class="graytext">4</span> Manipulate XML File Data Using C#</a></li>
+				<li><a href="http://www.developer.com/db/article.php/3379271/Oracle-Programming-with-PLSQL-Collections.htm"><span class="graytext">5</span> Oracle Programming with PL/SQL Collections</a></li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- "flex" begin -->
+
+<!------ OAS AD 'flex' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('flex');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!flex" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!flex" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD 'flex' end ------><!-- "flex" end -->
+	
+	<div class="vspace"></div>
+	
+	<div id="mostCommentedOn" class="section">
+		<div class="sectionHeader">
+			<h2>Most Commented On</h2>
+			<a href="#" class="more"></a>
+		</div>
+		<div class="sectionContent">
+			<div class="tabs">
+				<div class="tabsMenu clearfix">
+					<ul>
+						<li><a href="#mostCommentedOnThisWeek" class="selected">This Week</a></li>
+						<li><a href="#mostCommentedOnThisMonth">This Month</a></li>
+						<li><a href="#mostCommentedOnAllTime">All-Time</a></li>
+					</ul>
+				</div>
+				<div class="tabsContents">
+					<div class="tabsContent selected" id="mostCommentedOnThisWeek">
+						<ul>
+<li><a href="http://www.developer.com/article.php/3861841"><span class="graytext">1</span> Gardening with Drupal and Dries</a></li>
+<li><a href="http://www.developer.com/article.php/777761"><span class="graytext">2</span> Day 1: Learning the Basics of PL/SQL</a></li>
+<li><a href="http://www.developer.com/article.php/2109801"><span class="graytext">3</span> Creating Use Case Diagrams</a></li>
+<li><a href="http://www.developer.com/article.php/3417381"><span class="graytext">4</span> Using JDBC with MySQL, Getting Started</a></li>
+<li><a href="http://www.developer.com/article.php/1541851"><span class="graytext">5</span> VB TIP: InputBox - OK or Cancel?</a></li>
+
+
+
+
+						</ul>
+					</div>
+					<div class="tabsContent" id="mostCommentedOnThisMonth">
+						<ul>
+<li><a href="http://www.developer.com/article.php/3857796"><span class="graytext">1</span> An Android Developer's Top 10 Gripes</a></li>
+<li><a href="http://www.developer.com/article.php/3856906"><span class="graytext">2</span> Java vs. C++: The Performance Showdown</a></li>
+<li><a href="http://www.developer.com/article.php/777761"><span class="graytext">3</span> Day 1: Learning the Basics of PL/SQL</a></li>
+<li><a href="http://www.developer.com/article.php/3417381"><span class="graytext">4</span> Using JDBC with MySQL, Getting Started</a></li>
+<li><a href="http://www.developer.com/article.php/3096831"><span class="graytext">5</span> Using ASP.NET To Send Email</a></li>
+
+
+
+
+						</ul>
+					</div>
+					<div class="tabsContent" id="mostCommentedOnAllTime">
+						<ul>
+<li><a href="http://www.developer.com/article.php/2109801"><span class="graytext">1</span> Creating Use Case Diagrams</a></li>
+<li><a href="http://www.developer.com/article.php/3336751"><span class="graytext">2</span> C# Tip: Placing Your C# Application in the System Tray</a></li>
+<li><a href="http://www.developer.com/article.php/777761"><span class="graytext">3</span> Day 1: Learning the Basics of PL/SQL</a></li>
+<li><a href="http://www.developer.com/article.php/3096831"><span class="graytext">4</span> Using ASP.NET To Send Email</a></li>
+<li><a href="http://www.developer.com/article.php/3417381"><span class="graytext">5</span> Using JDBC with MySQL, Getting Started</a></li>
+
+
+
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="clearfix partners_ITs">
+		<div class="colLeft">
+			<div id="partners" class="section">
+				<div class="sectionHeader">
+					<h3>Partners</h3>
+				</div>
+				<div class="sectionContent">
+					<ul class="noBullets">
+						<li><a href="http://www.jupitermedia.com/partners/">Partner With Us</a></li>
+
+<!-- "CP" begin -->
+
+	<!------ OAS AD 'cp1' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp1');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp1" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp1" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp1' end ------>
+	<br>
+	<!------ OAS AD 'cp2' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp2');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp2" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp2" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp2' end ------>
+	<br>
+	<!------ OAS AD 'cp3' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp3');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp3" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp3" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp3' end ------>
+	<br>
+	<!------ OAS AD 'cp4' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp4');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp4" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp4" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp4' end ------>
+	<br>
+	<!------ OAS AD 'cp5' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp5');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp5" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp5" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp5' end ------>
+	<br>
+	<!------ OAS AD 'cp6' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp6');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp6" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp6" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp6' end ------>
+	<br>
+	<!------ OAS AD 'cp7' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp7');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp7" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp7" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp7' end ------>
+	<br>
+	<!------ OAS AD 'cp8' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp8');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp8" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp8" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp8' end ------>
+	<br>
+	<!------ OAS AD 'cp9' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp9');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp9" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp9" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp9' end ------>
+	<br>
+	<!------ OAS AD 'cp10' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp10');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp10" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp10" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp10' end ------>
+	<br>
+	<!------ OAS AD 'cp11' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp11');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp11" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp11" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp11' end ------>
+	<br>
+	<!------ OAS AD 'cp12' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp12');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp12" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp12" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp12' end ------>
+	<br>
+	<!------ OAS AD 'cp13' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp13');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp13" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp13" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp13' end ------>
+	<br>
+	<!------ OAS AD 'cp14' begin ------>
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('cp14');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp14" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!cp14" border=0>
+	</A>
+	</NOSCRIPT>
+	<!------ OAS AD 'cp14' end ------>
+	<br><!-- "CP" end -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="colRight">
+			<div id="moreITs" class="section">
+				<div class="sectionHeader">
+					<h3>More for Developers</h3>
+				</div>
+				<div class="sectionContent">
+					<ul class="noBullets">
+						<li><a href="/sitemap/">Site Map</a></li>
+						<li><a href="/feedback/">Contact Us</a></li>
+						<li><a href="http://www.codeguru.com/">CodeGuru</a></li>
+						<li><a href="/java/">Gamelan</a></li>
+						<li><a href="http://www.jars.com/">Jars</a></li>
+						<li><a href="http://www.codeguru.com/forum/">Discussions</a></li>
+						<li><a href="http://www.vbforums.com/">VBforums</a></li>
+						<li><a href="http://www.devx.com/">DevX</a></li>
+						<li><a href="http://www.databasejournal.com/">DatabaseJournal</a></li>
+					</ul>
+				</div>
+				<div class="vspace"></div>
+				<div class="adsBox ads_150x125">
+<!-- "125x125-1" begin -->
+
+<!------ OAS AD '125x125-1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('125x125-1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!125x125-1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.gamelan.com@house_ribbon,468x60-1,468x60-2,336x280,flex,336x280-2,120x60-1,120x60-2,120x60-3,125x125-1,125x125-2,125x800,accessunit,accessunit_one,accessunit_two,accessunit_three,ciu,cp1,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,cp10,cp11,cp12,cp13,cp14,fl1,fl2,fl3,fl4,fl5,send,morph!125x125-1" border=0>
+</A>
+</NOSCRIPT>
+<!------ OAS AD '125x125-1' end ------><!-- "125x125-1" end -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="vspace"></div>
+	
+	<div id="ontheForums" class="section">
+		<div class="sectionHeader">
+			<h2>On the Forums</h2>
+			<a href="http://www.codeguru.com/forum/" class="more">Visit the Forums &raquo;</a>
+		</div>
+		<div class="sectionContent">
+			<div class="tabs">
+				<div class="tabsMenu clearfix">
+					<ul>
+						<li><a href="#ontheForumsLatest" class="selected">Latest</a></li>
+						<li><a href="#ontheForumsMostViews">Most Views</a></li>
+						<li><a href="#ontheForumsMostReplies">Most Replies</a></li>
+					</ul>
+				</div>
+				<div class="tabsContents">
+					<div class="tabsContent selected" id="ontheForumsLatest">
+						<ul>
+<ul>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=492046"><span class="graytext">1</span> stuck at AI program frame</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=492002"><span class="graytext">2</span> Dll Name Mangling - when would I use it?</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=492015"><span class="graytext">3</span> 3 Tier Architecture in ASP.net 2.0</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=492055"><span class="graytext">4</span> Hiding form, no longer compares webcam previews</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=492129"><span class="graytext">5</span> problem with null value reading an ArrayList</a></li>
+</ul>
+
+						</ul>
+					</div>
+					<div class="tabsContent" id="ontheForumsMostViews">
+						<ul>
+<ul>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=194400"><span class="graytext">1</span> Distance between point and line segment</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=384364"><span class="graytext">2</span> How to use Widcomm bluetooth driver in my application?</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=320297"><span class="graytext">3</span> CFileDialog crash in Platform SDK</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=262871"><span class="graytext">4</span> How to Marshal AccessibleObjectFromWindow</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=475538"><span class="graytext">5</span> Internet Explorer cannot display the webpage</a></li>
+</ul>
+
+						</ul>
+					</div>
+					<div class="tabsContent" id="ontheForumsMostReplies">
+						<ul>
+<ul>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=491396"><span class="graytext">1</span> Display highlighted data from Listbox in Textboxes</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=320297"><span class="graytext">2</span> CFileDialog crash in Platform SDK</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=384364"><span class="graytext">3</span> How to use Widcomm bluetooth driver in my application?</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=491985"><span class="graytext">4</span> [RESOLVED] Custom data binding, how should I implement it?</a></li>
+<li> <a href="http://www.codeguru.com/forum/showthread.php?threadid=491710"><span class="graytext">5</span> ATL/MFC Multithreading/GFX problem</a></li>
+</ul>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- START: MARCHEX -->
+<script type="text/javascript" src="http://jlinks.industrybrains.com/jsct?sid=829&amp;ct=INTERNETCOM_DEVELOPER&amp;tr=DEVELOPERJAVA&amp;num=5&amp;layt=7&amp;fmt=simp"></script>
+<!-- END: MARCHEX -->
+	
+	
+
+<div class="clearfix ebooksmore">
+  <div id="partners" class="section">
+    <div class="sectionHeader">
+		<h3>Key IT Solutions</h3>
+    </div>
+    <div class="sectionContent">
+      <ul class="noBullets">
+					<li><a href="http://www.devx.com/hotlist-Adobe/link/42710">Developer Connection: Free Online Flex Training</a></li>
+					<li><a href="http://www.devx.com/BlackBerry/Door/43805">BlackBerry Application Development Resources</a></li>
+					<li><a href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41333">SharePoint Development and Programming Forum</a></li>
+					<li><a href="http://www.devx.com/VS_2010/Door/43217">Microsoft Visual Studio 2010 Showcase</a></li>
+					<li><a href="http://www.devx.com/MSDN/Door/40684">MSDN Spotlight</a></li>
+					<li><a href="http://www.devx.com/MS_PHP/Door/42951">PHP for Windows Showcase</a></li>
+		      </ul>
+    </div>
+  </div>
+</div>
+	
+<style type="text/css">
+.dmcontent_container
+{
+	text-align: center;
+	background-color: #ffffff;
+	width: 125px;
+	height: 250px;
+	border-top: 2px solid; border-color: #0021b5;
+}
+.dmcontent_title
+{
+	text-align: left;
+	height: 20px;
+	line-height: 20px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bolder;
+	width: 125px;
+	color: #000000;
+	background-color: #ffffff;
+}
+.dmcontent_body
+{
+	overflow-y: auto;
+	text-align: left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	line-height: 14px;
+	font-size: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 123px;
+	height: 219px;
+	color: #336699;
+	background-color: #FFFFFF;
+	border: 1px solid; border-color: #dddddd;
+}
+.dmcontent_link
+{
+	text-decoration: none;
+	color:#000000;
+}
+</style>
+<div class="dmcontent_container">
+<div class="dmcontent_title">Local Guides</div>
+<div class="dmcontent_body">
+&nbsp;><a href="http://local.developer.com/Architecture_Design-s1176.html" title="Architecture & Design" class="dmcontent_link">Architecture & Design</a><br />
+&nbsp;><a href="http://local.developer.com/Database-s1177.html" title="Database" class="dmcontent_link">Database</a><br />
+&nbsp;><a href="http://local.developer.com/Java-s1178.html" title="Java" class="dmcontent_link">Java</a><br />
+&nbsp;><a href="http://local.developer.com/Languages_Tools-s1179.html" title="Languages & Tools" class="dmcontent_link">Languages & Tools</a><br />
+&nbsp;><a href="http://local.developer.com/Microsoft_NET-s1180.html" title="Microsoft & .NET" class="dmcontent_link">Microsoft & .NET</a><br />
+&nbsp;><a href="http://local.developer.com/Open_Source-s1181.html" title="Open Source" class="dmcontent_link">Open Source</a><br />
+&nbsp;><a href="http://local.developer.com/Project_Management-s1182.html" title="Project Management" class="dmcontent_link">Project Management</a><br />
+&nbsp;><a href="http://local.developer.com/Security-s1183.html" title="Security" class="dmcontent_link">Security</a><br />
+&nbsp;><a href="http://local.developer.com/Techniques-s1184.html" title="Techniques" class="dmcontent_link">Techniques</a><br />
+&nbsp;><a href="http://local.developer.com/Wireless-s1186.html" title="Wireless" class="dmcontent_link">Wireless</a><br />
+</div>
+</div>
+
+</div>
+		<div class="vspace clear"></div>
+		<div class="vspace clear"></div>
+		
+<FONT SIZE="-1" FACE="arial, helvetica">
+
+<!-- Google Analytics -->
+<script src="/icom_includes/footers/scripts/ga.js"  type="text/javascript">
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+delete Array.prototype.itemValidation;
+delete Array.prototype.isArray;
+var superTracker = _gat._getTracker("UA-2838492-1");
+superTracker._initData();
+superTracker._trackPageview();
+
+-->
+</script>
+<script  type="text/javascript" >
+   var site_name =  location.hostname;
+   if ( site_name.indexOf("www.") != 0 ) {
+     site_name  = "www."+site_name ;
+   }
+   document.write("<SCR" + "IPT LANGUAGE='JavaScript1.2' SRC='/icom_includes/footers/sites/"+ site_name +".js' TYPE='text/javascript'><\/SCR" + "IPT>");
+-->
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+   pageTracker._initData();
+   pageTracker._trackPageview();
+   // -->
+</script>
+<!-- End Google Analytics -->
+
+
+<!-- Revenue Science API -->
+<script src="http://js.revsci.net/gateway/gw.js?csid=K08784"></script>
+<script>
+  DM_addEncToLoc("pid","INT");
+  DM_tag();
+
+</script>
+<!-- Revenue Science API -->
+
+
+
+
+<style type="text/css">
+@charset "UTF-8";
+/* CSS Document */
+
+
+/* JOM CSS */
+
+#jomfooter {
+	border: 0;
+	margin: 5px;
+	padding: 5px;
+	}
+
+#jomfooter * {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	margin: 0;
+	}
+
+#jomfooter img {
+	border: 0;
+	behavior: url('/icom_includes/footers/css/iepngfix.htc');
+	padding: 5px;
+	padding: expression('0');
+	}
+
+#jomfooter p {
+	font-size: 11px;
+	line-height: 20px;
+	margin: 10px;
+	}
+
+#jomfooter form b {
+	font-size: 12px;
+	}
+
+#jomfooter a {
+	text-decoration: underline;
+	}
+
+#jomfooter a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter table td {
+	border: 0;
+	}
+
+
+/* GEMS Solutions CSS */
+
+#jomfooter #solsect {
+	margin: 0 auto;
+	padding: 10px 0;
+	width: 720px;
+	}
+
+#jomfooter #solsect .top {
+	background: url('/icom_includes/footers/soltopbg.gif') repeat-x #bbb;
+	height: 26px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .top a {
+	font-size: 16px;
+	font-weight: bold;
+	color:#333;
+	text-decoration:none;
+	margin-left: 5px;
+	padding: 0;
+	line-height: 25px;
+	}
+
+#jomfooter #solsect .top a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter #solsect .solsectpad {
+	background: #fff;
+	}
+
+#jomfooter #solsect .solsectpad .main {
+	background:url('/icom_includes/footers/solmidbg.gif') repeat-x #e7e8e3;
+	padding: 5px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .solsectpad .main h2 {
+	font-size: 12px;
+	color: #000;
+	font-weight: normal;
+	padding-bottom: 3px;
+	}
+
+#jomfooter #solsect a {
+	color: #333;
+	font-size: 10px;
+	text-decoration: none;
+	line-height: 13px;
+	}
+
+#jomfooter #solsect a:hover {
+	text-decoration: underline;
+	}
+</style>
+
+
+
+<!-- Begin JOM Footer -->
+
+
+<div id="jomfooter" align="center">
+<p>
+    <a href="http://www.internet.com/"><img src="http://www.internet.com/icom_includes/footers/img/icom_logo_qsfooter.png" width="240" height="40" hspace="0" /></a>
+
+    <br>
+    The Network for Technology Professionals</p>
+<form method="POST" action="http://search.internet.com/www.jupiterweb.com" target="_top">        
+        <input type="HIDDEN" name="IC_Summary" value="1">
+        <input type="HIDDEN" name="IC_StartNumber" value="0">
+        <input type="HIDDEN" name="IC_BatchSize" value="10">
+        <input type="HIDDEN" name="IC_RelevanceThreshold" value="50">
+        <input type="hidden" name="IC_QueryDatabase" value="all">
+        <b>Search:</b> 
+        <input type="text" name="IC_QueryText" size="45">
+
+        <input type="image" border="0" value="Find" name="SUBMIT" src="/icom_includes/footers/but_find.gif" width="41" height="20" align="absmiddle">
+  </form>
+    <p>
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41188"> About Internet.com</a> 
+        <br>
+      <script type="text/javascript">
+            document.write(' Copyright ');
+            var today = new Date();
+            document.write(  + today.getFullYear());
+            document.write(' QuinStreet Inc. All Rights Reserved.');
+        </script>
+  <noscript>
+        Copyright 2010 QuinStreet Inc. All Rights Reserved.
+  </noscript>
+
+  </p>
+       <p> <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41187">Legal Notices</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Licensing1">Licensing</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Permissions">Permissions</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41186">Privacy  Policy</a>.
+        <br />
+
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/mediakit/">Advertise</a> | <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/">Newsletters</a> |  <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/announcement_list.html">E-mail Offers</a>
+
+  </p>
+
+
+<!-- start solutions links section -->
+    <div id="solsect">
+        <div class="top" align="left"><a href="#">Solutions</a></div>
+        <div class="solsectpad">
+                        <div class="main" align="left">
+				<h2>Whitepapers and eBooks</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40965">Microsoft Personalized Whitepapers and Resources for You</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43201">Articles: Build a More Agile Business with IBM</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43173">Articles: IBM Offers Enhanced Measurement and Management for Energy Usage</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43176">Articles: IBM Helps Transformation to an Information-Based Enterprise</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/VS_2010/Door/43217">Microsoft Articles: Visual Studio 2010</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/hotlist-Adobe/link/42707">Adobe Article: Java Developers Finding a Home at Adobe Flex</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WHITEPAPERS, EBOOKS, AND ARTICLES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Webcasts</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.devx.com/MS_PHP/Door/42951">Webcast: Connecting PHP to Microsoft Technologies</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41264">Microsoft Video: Desktop Optimization</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/MS_Azure/Door/41806">Video: Windows Azure Debugging Tips</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WEBCASTS, PODCASTS, AND VIDEOS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Downloads and eKits</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Solutions/Link/41398">HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MicrosoftSC/Door/43162">Microsoft Free Trials: Windows Server 2008 R2, Exchange Server 2010 and Windows 7</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MSDN/Door/40684">Get the Windows 7 SDK</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/RedGateVS/Door/41829">Free Trial: Red Gate SQL Backup Pro 6</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IronSpeed/Article/40848">Iron Speed Designer Application Generator</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE DOWNLOADS, EKITS, AND FREE TRIALS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Tutorials and Demos</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40967">Learn Unified Communications</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/BlackBerry/Door/43805">BlackBerry Application Development Resources</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40968">Learn SQL Server 2008</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40966">Learn Windows Server 2008 R2</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/Link/40644">Internet.com Hot List: Get the Inside Scoop on IT and Developer Products</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40970">Learn Forefront</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40969">Learn System Center</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/ebook/Article/39031">All About Botnets</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40971">Learn SharePoint</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                    </div>
+    </div>
+</div>
+
+<!-- End JOM Footer -->
+</FONT>
+
+		
+	</div>
+</div> 
+</div>
+</body>
+</html>   

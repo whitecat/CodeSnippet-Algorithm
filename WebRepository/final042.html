@@ -1,0 +1,1943 @@
+
+    
+    <!-- classdoc.jsp -->
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>java.lang: public final class: String</title>
+	<style>
+#jdoc {margin:10px 10px 10px 10px}
+#pkg {font-size:1em;font-weight:bold}
+#cls {font-size:2em;font-weight:bold}
+body {margin:0 0 0 0; padding:0 0 0 0} 
+table {margin-top:10px;background-color:#ffffff;}
+
+th {background:#ddeeff;text-align:left}	
+td {padding:5px 2px 2px 5px;border-top:1px solid #999999;margin:0 0 0 0}
+pre {padding:0;margin:0}
+.withborder {border-left:1px solid #999999;border-right:1px solid #999999;background-color:#eeeeee}
+	</style>
+	
+	<script type="text/javascript">
+	
+	function src(m) {
+	  s = 	document.getElementById(m);
+	  i = document.getElementById(m+"i");
+	  if (s != null && s.style.visibility!='visible') {
+	   s.style.visibility='visible';
+	   s.style.height="auto";
+	   s.style.overflow='auto';
+	   i.src = "/minus.gif";
+	  } else if (s != null) {
+	   s.style.visibility='hidden';
+	   s.style.height="1px";
+	   s.style.overflow='hidden';
+	   i.src = "/plus.gif";
+	  }
+	}
+	
+	</script>
+<style type="text/css">
+#fixme {
+	/* Netscape 4, IE 4.x-5.0/Win and other lesser browsers will use this */
+  position: absolute; left: 0; top: 0;
+}
+body > div#fixme {
+  /* used by Opera 5+, Netscape6+/Mozilla, Konqueror, Safari, OmniWeb 4.5+, iCab, ICEbrowser */
+  position: fixed;
+}
+</style>
+<!--[if gte IE 5.5]>
+<style type="text/css">
+div#fixme {
+  /* IE5.5+/Win - this is more specific than the IE 5.0 version */
+  left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+  top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+</style>
+<![endif]--></head><body>
+<div id="fixme" style="width:100%;background-color:#ddeeff;border:1px solid #ccddee;margin:0 0 0 0;padding:2px 2px 2px 2px">
+<div style="float:right"><a href="http://del.icio.us/post" onclick="window.open('http://del.icio.us/post?v=4&noui&jump=close&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title), 'delicious','toolbar=no,width=700,height=400'); return false;"><img src="http://images.del.icio.us/static/img/delicious.small.gif" border=0> Save This Page</a></div>
+<a href="/">Home</a> &#187; <a href="/projects/Open-JDK-6.b17-src-java.html">Open-JDK-6.b17-src</a> &#187; java &#187;  <a href='/docs/api/java/lang/package-index.html'>lang</a> &#187; 
+[javadoc | 
+ <a href="/html/api/java/lang/String.java.html">source</a>]
+</div>
+<div style="height:20px"></div>
+<div id="jdoc">
+
+
+<!-- classname.jsp -->
+    
+<span id="pkg">java.lang</span><br>
+    <span id="cls">public final class: String</span> [javadoc | 
+ <a href="/html/api/java/lang/String.java.html">source</a>]
+    
+    	<br><pre><a href=/docs/api/java/lang/Object.html>java.lang.Object</a>
+ &nbsp; <img src=/inherit.gif><b>java.lang.String</b></pre>
+    
+
+
+
+
+<!-- end -->
+
+
+<!-- classimplements.jsp -->
+    <p><b>All Implemented Interfaces:</b>
+		<br> &nbsp; &nbsp; <a href='/docs/api/java/lang/CharSequence.html'>CharSequence</a>, <a href='/docs/api/java/lang/Comparable.html'>Comparable</a>, <a href='/docs/api/java/io/Serializable.html'>Serializable</a></p>
+
+
+
+
+<!-- end -->
+
+
+    <!-- classcomment.jsp -->
+    The <code>String</code> class represents character strings. All
+string literals in Java programs, such as <code>"abc"</code>, are
+implemented as instances of this class.
+<p>
+Strings are constant; their values cannot be changed after they
+are created. String buffers support mutable strings.
+Because String objects are immutable they can be shared. For example:
+<p><blockquote><pre>
+    String str = "abc";
+</pre></blockquote><p>
+is equivalent to:
+<p><blockquote><pre>
+    char data[] = {'a', 'b', 'c'};
+    String str = new String(data);
+</pre></blockquote><p>
+Here are some more examples of how strings can be used:
+<p><blockquote><pre>
+    System.out.println("abc");
+    String cde = "cde";
+    System.out.println("abc" + cde);
+    String c = "abc".substring(2,3);
+    String d = cde.substring(1, 2);
+</pre></blockquote>
+<p>
+The class <code>String</code> includes methods for examining
+individual characters of the sequence, for comparing strings, for
+searching strings, for extracting substrings, and for creating a
+copy of a string with all characters translated to uppercase or to
+lowercase. Case mapping is based on the Unicode Standard version
+specified by the <a href='/docs/api/java/lang/Character.html'>Character</a>  class.
+<p>
+The Java language provides special support for the string
+concatenation operator (&nbsp;+&nbsp;), and for conversion of
+other objects to strings. String concatenation is implemented
+through the <code>StringBuilder</code>(or <code>StringBuffer</code>)
+class and its <code>append</code> method.
+String conversions are implemented through the method
+<code>toString</code>, defined by <code>Object</code> and
+inherited by all classes in Java. For additional information on
+string concatenation and conversion, see Gosling, Joy, and Steele,
+<i>The Java Language Specification</i>.
+
+<p> Unless otherwise noted, passing a <tt>null</tt> argument to a constructor
+or method in this class will cause a <a href='NullPointerException.html'>NullPointerException</a>  to be
+thrown.
+
+<p>A <code>String</code> represents a string in the UTF-16 format
+in which <em>supplementary characters</em> are represented by <em>surrogate
+pairs</em> (see the section <a href="Character.html#unicode">Unicode
+Character Representations</a> in the <code>Character</code> class for
+more information).
+Index values refer to <code>char</code> code units, so a supplementary
+character uses two positions in a <code>String</code>.
+<p>The <code>String</code> class provides methods for dealing with
+Unicode code points (i.e., characters), in addition to those for
+dealing with Unicode code units (i.e., <code>char</code> values).<ul><b>Also see:</b><br><dd>java.lang.Object#toString()</dd><dd><a href='/docs/api/java/lang/StringBuffer.html'>java.lang.StringBuffer</a></dd><dd><a href='/docs/api/java/lang/StringBuilder.html'>java.lang.StringBuilder</a></dd><dd><a href='/docs/api/java/nio/charset/Charset.html'>java.nio.charset.Charset</a></dd><dd>author: <code>Lee</code> -  Boynton<br></dd><dd>author: <code>Arthur</code> -  van Hoff<br></dd><dd>since: <code>JDK1.0</code> - <br></dd></ul>
+
+
+
+<!-- end -->
+
+
+
+<!-- nestedclass.jsp -->
+    
+
+
+
+<!-- end -->
+
+
+<!-- fieldsummary.jsp -->
+    
+<table width='100%'><tr><th colspan=3>Field Summary</td></tr><tr valign=top><td valign='top' nowrap>public static final  &nbsp;<a href=/docs/api/java/util/Comparator.html>Comparator</a>&lt;<a href="/docs/api/java/lang/String.html">String</a>&gt;</td> <td class='withborder' nowrap><b>CASE_INSENSITIVE_ORDER</b>&nbsp; &nbsp; </td><td width='100%'>A Comparator that orders <code>String</code> objects as by
+<code>compareToIgnoreCase</code>. This comparator is serializable.
+<p>
+Note that this Comparator does <em>not</em> take locale into account,
+and will result in an unsatisfactory ordering for certain locales.
+The java.text package provides <em>Collators</em> to allow
+locale-sensitive ordering.<ul><b>Also see:</b><br><dd>java.text.Collator#compare(String, String)</dd><dd>since: <code>1.2</code> - <br></dd></ul>&nbsp;</td></tr>
+
+
+
+
+
+<!-- end -->
+
+
+
+
+<!-- constructsummary.jsp -->
+    <table width='100%'><tr><th>Constructor:</td></tr>
+<tr><td><pre><a href='javascript:src("cs0")'><img id='cs0i' src=/plus.gif border=0></a> <a name='String'>public <b>String</b>() <pre id='cs0' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        this.offset = 0;
+        this.count = 0;
+        this.value = new char[0];
+}</pre></pre></pre><ul>Initializes a newly created {@code String} object so that it represents
+an empty character sequence.  Note that use of this constructor is
+unnecessary since Strings are immutable.</ul></td></tr><tr><td><pre><a href='javascript:src("cs1")'><img id='cs1i' src=/plus.gif border=0></a> <a name='String(String)'>public <b>String</b>(<a href=/docs/api/java/lang/String.html>String</a> original) <pre id='cs1' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int size = original.count;
+        char[] originalValue = original.value;
+        char[] v;
+        if (originalValue.length  > size) {
+            // The array representing the String is bigger than the new
+            // String itself.  Perhaps this constructor is being called
+            // in order to trim the baggage, so make a copy of the array.
+            int off = original.offset;
+            v = Arrays.copyOfRange(originalValue, off, off+size);
+        } else {
+            // The array representing the String is the same
+            // size as the String, so no point in making a copy.
+            v = originalValue;
+        }
+        this.offset = 0;
+        this.count = size;
+        this.value = v;
+}</pre></pre></pre><ul>Initializes a newly created {@code String} object so that it represents
+the same sequence of characters as the argument; in other words, the
+newly created string is a copy of the argument string. Unless an
+explicit copy of {@code original} is needed, use of this constructor is
+unnecessary since Strings are immutable.</ul><ul><b>Parameters:</b><br><dd><code>original</code> - 
+        A {@code String}<br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs2")'><img id='cs2i' src=/plus.gif border=0></a> <a name='String(char)'>public <b>String</b>(char[] value) <pre id='cs2' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int size = value.length;
+        this.offset = 0;
+        this.count = size;
+        this.value = Arrays.copyOf(value, size);
+}</pre></pre></pre><ul>Allocates a new {@code String} so that it represents the sequence of
+characters currently contained in the character array argument. The
+contents of the character array are copied; subsequent modification of
+the character array does not affect the newly created string.</ul><ul><b>Parameters:</b><br><dd><code>value</code> - 
+        The initial value of the string<br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs3")'><img id='cs3i' src=/plus.gif border=0></a> <a name='String(byte)'>public <b>String</b>(byte[] bytes) <pre id='cs3' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        this(bytes, 0, bytes.length);
+}</pre></pre></pre><ul>Constructs a new {@code String} by decoding the specified array of bytes
+using the platform's default charset.  The length of the new {@code
+String} is a function of the charset, and hence may not be equal to the
+length of the byte array.
+
+<p> The behavior of this constructor when the given bytes are not valid
+in the default charset is unspecified.  The <a href='/docs/api/java/nio/charset/CharsetDecoder.html'>java.nio.charset.CharsetDecoder</a>  class should be used when more control
+over the decoding process is required.</ul><ul><b>Parameters:</b><br><dd><code>bytes</code> - 
+        The bytes to be decoded into characters<br></dd><dd>since: <code>JDK1.1</code> - <br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs4")'><img id='cs4i' src=/plus.gif border=0></a> <a name='String(StringBuffer)'>public <b>String</b>(<a href=/docs/api/java/lang/StringBuffer.html>StringBuffer</a> buffer) <pre id='cs4' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        String result = buffer.toString();
+        this.value = result.value;
+        this.count = result.count;
+        this.offset = result.offset;
+}</pre></pre></pre><ul>Allocates a new string that contains the sequence of characters
+currently contained in the string buffer argument. The contents of the
+string buffer are copied; subsequent modification of the string buffer
+does not affect the newly created string.</ul><ul><b>Parameters:</b><br><dd><code>buffer</code> - 
+        A {@code StringBuffer}<br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs5")'><img id='cs5i' src=/plus.gif border=0></a> <a name='String(StringBuilder)'>public <b>String</b>(<a href=/docs/api/java/lang/StringBuilder.html>StringBuilder</a> builder) <pre id='cs5' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        String result = builder.toString();
+        this.value = result.value;
+        this.count = result.count;
+        this.offset = result.offset;
+}</pre></pre></pre><ul>Allocates a new string that contains the sequence of characters
+currently contained in the string builder argument. The contents of the
+string builder are copied; subsequent modification of the string builder
+does not affect the newly created string.
+
+<p> This constructor is provided to ease migration to {@code
+StringBuilder}. Obtaining a string from a string builder via the {@code
+toString} method is likely to run faster and is generally preferred.</ul><ul><b>Parameters:</b><br><dd><code>builder</code> - 
+         A {@code StringBuilder}<br></dd><dd>since: <code>1.5</code> - <br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs6")'><img id='cs6i' src=/plus.gif border=0></a> <a name='String(byte, int)'>public <b>String</b>(byte[] ascii,
+    int hibyte) <pre id='cs6' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        this(ascii, hibyte, 0, ascii.length);
+}</pre></pre></pre><ul>Allocates a new {@code String} containing characters constructed from
+an array of 8-bit integer values. Each character <i>c</i>in the
+resulting string is constructed from the corresponding component
+<i>b</i> in the byte array such that:
+
+<blockquote><pre>
+    <b><i>c</i></b> == (char)(((hibyte &amp; 0xff) &lt;&lt; 8)
+                        | (<b><i>b</i></b> &amp; 0xff))
+</pre></blockquote></ul><ul><b>Parameters:</b><br><dd><code>ascii</code> - 
+        The bytes to be converted to characters<br></dd><dd><code>hibyte</code> - 
+        The top 8 bits of each 16-bit Unicode code unit<br></dd><b>Also see:</b><br><dd><a href='#String(byte[], int, int, java.lang.String)'>String(byte[], int, int, java.lang.String)</a></dd><dd><a href='#String(byte[], int, int, java.nio.charset.Charset)'>String(byte[], int, int, java.nio.charset.Charset)</a></dd><dd><a href='#String(byte[], int, int)'>String(byte[], int, int)</a></dd><dd><a href='#String(byte[], java.lang.String)'>String(byte[], java.lang.String)</a></dd><dd><a href='#String(byte[], java.nio.charset.Charset)'>String(byte[], java.nio.charset.Charset)</a></dd><dd><a href='#String(byte[])'>String(byte[])</a></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs7")'><img id='cs7i' src=/plus.gif border=0></a> <a name='String(byte, String)'>public <b>String</b>(byte[] bytes,
+    <a href=/docs/api/java/lang/String.html>String</a> charsetName) throws <a href=/docs/api/java/io/UnsupportedEncodingException.html>UnsupportedEncodingException</a> <pre id='cs7' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        this(bytes, 0, bytes.length, charsetName);
+}</pre></pre></pre><ul>Constructs a new {@code String} by decoding the specified array of bytes
+using the specified {@linkplain java.nio.charset.Charset charset}.  The
+length of the new {@code String} is a function of the charset, and hence
+may not be equal to the length of the byte array.
+
+<p> The behavior of this constructor when the given bytes are not valid
+in the given charset is unspecified.  The <a href='/docs/api/java/nio/charset/CharsetDecoder.html'>java.nio.charset.CharsetDecoder</a>  class should be used when more control
+over the decoding process is required.</ul><ul><b>Parameters:</b><br><dd><code>bytes</code> - 
+        The bytes to be decoded into characters<br></dd><dd><code>charsetName</code> - 
+        The name of a supported {@linkplain java.nio.charset.Charset
+        charset}<br></dd><b>Throws:</b><br><dd><code>UnsupportedEncodingException</code> - 
+         If the named charset is not supported<br></dd><dd>since: <code>JDK1.1</code> - <br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs8")'><img id='cs8i' src=/plus.gif border=0></a> <a name='String(byte, Charset)'>public <b>String</b>(byte[] bytes,
+    <a href=/docs/api/java/nio/charset/Charset.html>Charset</a> charset) <pre id='cs8' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        this(bytes, 0, bytes.length, charset);
+}</pre></pre></pre><ul>Constructs a new {@code String} by decoding the specified array of
+bytes using the specified {@linkplain java.nio.charset.Charset charset}.
+The length of the new {@code String} is a function of the charset, and
+hence may not be equal to the length of the byte array.
+
+<p> This method always replaces malformed-input and unmappable-character
+sequences with this charset's default replacement string.  The <a href='/docs/api/java/nio/charset/CharsetDecoder.html'>java.nio.charset.CharsetDecoder</a>  class should be used when more control
+over the decoding process is required.</ul><ul><b>Parameters:</b><br><dd><code>bytes</code> - 
+        The bytes to be decoded into characters<br></dd><dd><code>charset</code> - 
+        The {@linkplain java.nio.charset.Charset charset} to be used to
+        decode the {@code bytes}<br></dd><dd>since: <code>1.6</code> - <br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs9")'><img id='cs9i' src=/plus.gif border=0></a> <a name='String(char, int, int)'>public <b>String</b>(char[] value,
+    int offset,
+    int count) <pre id='cs9' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (offset <  0) {
+            throw new StringIndexOutOfBoundsException(offset);
+        }
+        if (count <  0) {
+            throw new StringIndexOutOfBoundsException(count);
+        }
+        // Note: offset or count might be near -1 > > >1.
+        if (offset  > value.length - count) {
+            throw new StringIndexOutOfBoundsException(offset + count);
+        }
+        this.offset = 0;
+        this.count = count;
+        this.value = Arrays.copyOfRange(value, offset, offset+count);
+}</pre></pre></pre><ul>Allocates a new {@code String} that contains characters from a subarray
+of the character array argument. The {@code offset} argument is the
+index of the first character of the subarray and the {@code count}
+argument specifies the length of the subarray. The contents of the
+subarray are copied; subsequent modification of the character array does
+not affect the newly created string.</ul><ul><b>Parameters:</b><br><dd><code>value</code> - 
+        Array that is the source of characters<br></dd><dd><code>offset</code> - 
+        The initial offset<br></dd><dd><code>count</code> - 
+        The length<br></dd><b>Throws:</b><br><dd><code>IndexOutOfBoundsException</code> - 
+         If the {@code offset} and {@code count} arguments index
+         characters outside the bounds of the {@code value} array<br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs10")'><img id='cs10i' src=/plus.gif border=0></a> <a name='String(int, int, int)'>public <b>String</b>(int[] codePoints,
+    int offset,
+    int count) <pre id='cs10' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (offset <  0) {
+            throw new StringIndexOutOfBoundsException(offset);
+        }
+        if (count <  0) {
+            throw new StringIndexOutOfBoundsException(count);
+        }
+        // Note: offset or count might be near -1 > > >1.
+        if (offset  > codePoints.length - count) {
+            throw new StringIndexOutOfBoundsException(offset + count);
+        }
+        // Pass 1: Compute precise size of char[]
+        int n = 0;
+        for (int i = offset; i <  offset + count; i++) {
+            int c = codePoints[i];
+            if (c  >= Character.MIN_CODE_POINT &&
+                c <   Character.MIN_SUPPLEMENTARY_CODE_POINT)
+                n += 1;
+            else if (Character.isSupplementaryCodePoint(c))
+                n += 2;
+            else throw new IllegalArgumentException(Integer.toString(c));
+        }
+        // Pass 2: Allocate and fill in char[]
+        char[] v = new char[n];
+        for (int i = offset, j = 0; i <  offset + count; i++) {
+            int c = codePoints[i];
+            if (c <  Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+                v[j++] = (char) c;
+            } else {
+                Character.toSurrogates(c, v, j);
+                j += 2;
+            }
+        }
+        this.value  = v;
+        this.count  = v.length;
+        this.offset = 0;
+}</pre></pre></pre><ul>Allocates a new {@code String} that contains characters from a subarray
+of the <a href="Character.html#unicode">Unicode code point</a> array
+argument.  The {@code offset} argument is the index of the first code
+point of the subarray and the {@code count} argument specifies the
+length of the subarray.  The contents of the subarray are converted to
+{@code char}s; subsequent modification of the {@code int} array does not
+affect the newly created string.</ul><ul><b>Parameters:</b><br><dd><code>codePoints</code> - 
+        Array that is the source of Unicode code points<br></dd><dd><code>offset</code> - 
+        The initial offset<br></dd><dd><code>count</code> - 
+        The length<br></dd><b>Throws:</b><br><dd><code>IllegalArgumentException</code> - 
+         If any invalid Unicode code point is found in {@code
+         codePoints}<br></dd><dd><code>IndexOutOfBoundsException</code> - 
+         If the {@code offset} and {@code count} arguments index
+         characters outside the bounds of the {@code codePoints} array<br></dd><dd>since: <code>1.5</code> - <br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs11")'><img id='cs11i' src=/plus.gif border=0></a> <a name='String(byte, int, int)'>public <b>String</b>(byte[] bytes,
+    int offset,
+    int length) <pre id='cs11' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        checkBounds(bytes, offset, length);
+        char[] v  = StringCoding.decode(bytes, offset, length);
+        this.offset = 0;
+        this.count = v.length;
+        this.value = v;
+}</pre></pre></pre><ul>Constructs a new {@code String} by decoding the specified subarray of
+bytes using the platform's default charset.  The length of the new
+{@code String} is a function of the charset, and hence may not be equal
+to the length of the subarray.
+
+<p> The behavior of this constructor when the given bytes are not valid
+in the default charset is unspecified.  The <a href='/docs/api/java/nio/charset/CharsetDecoder.html'>java.nio.charset.CharsetDecoder</a>  class should be used when more control
+over the decoding process is required.</ul><ul><b>Parameters:</b><br><dd><code>bytes</code> - 
+        The bytes to be decoded into characters<br></dd><dd><code>offset</code> - 
+        The index of the first byte to decode<br></dd><dd><code>length</code> - 
+        The number of bytes to decode<br></dd><b>Throws:</b><br><dd><code>IndexOutOfBoundsException</code> - 
+         If the {@code offset} and the {@code length} arguments index
+         characters outside the bounds of the {@code bytes} array<br></dd><dd>since: <code>JDK1.1</code> - <br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs12")'><img id='cs12i' src=/plus.gif border=0></a> <a name='String(int, int, char)'><b>String</b>(int offset,
+    int count,
+    char[] value) <pre id='cs12' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        this.value = value;
+        this.offset = offset;
+        this.count = count;
+}</pre></pre></pre></td></tr><tr><td><pre><a href='javascript:src("cs13")'><img id='cs13i' src=/plus.gif border=0></a> <a name='String(byte, int, int, int)'>public <b>String</b>(byte[] ascii,
+    int hibyte,
+    int offset,
+    int count) <pre id='cs13' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        checkBounds(ascii, offset, count);
+        char value[] = new char[count];
+        if (hibyte == 0) {
+            for (int i = count ; i--  > 0 ;) {
+                value[i] = (char) (ascii[i + offset] & 0xff);
+            }
+        } else {
+            hibyte < < = 8;
+            for (int i = count ; i--  > 0 ;) {
+                value[i] = (char) (hibyte | (ascii[i + offset] & 0xff));
+            }
+        }
+        this.offset = 0;
+        this.count = count;
+        this.value = value;
+}</pre></pre></pre><ul>Allocates a new {@code String} constructed from a subarray of an array
+of 8-bit integer values.
+
+<p> The {@code offset} argument is the index of the first byte of the
+subarray, and the {@code count} argument specifies the length of the
+subarray.
+
+<p> Each {@code byte} in the subarray is converted to a {@code char} as
+specified in the method above.</ul><ul><b>Parameters:</b><br><dd><code>ascii</code> - 
+        The bytes to be converted to characters<br></dd><dd><code>hibyte</code> - 
+        The top 8 bits of each 16-bit Unicode code unit<br></dd><dd><code>offset</code> - 
+        The initial offset<br></dd><dd><code>count</code> - 
+        The length<br></dd><b>Throws:</b><br><dd><code>IndexOutOfBoundsException</code> - 
+         If the {@code offset} or {@code count} argument is invalid<br></dd><b>Also see:</b><br><dd><a href='#String(byte[], int)'>String(byte[], int)</a></dd><dd><a href='#String(byte[], int, int, java.lang.String)'>String(byte[], int, int, java.lang.String)</a></dd><dd><a href='#String(byte[], int, int, java.nio.charset.Charset)'>String(byte[], int, int, java.nio.charset.Charset)</a></dd><dd><a href='#String(byte[], int, int)'>String(byte[], int, int)</a></dd><dd><a href='#String(byte[], java.lang.String)'>String(byte[], java.lang.String)</a></dd><dd><a href='#String(byte[], java.nio.charset.Charset)'>String(byte[], java.nio.charset.Charset)</a></dd><dd><a href='#String(byte[])'>String(byte[])</a></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs14")'><img id='cs14i' src=/plus.gif border=0></a> <a name='String(byte, int, int, String)'>public <b>String</b>(byte[] bytes,
+    int offset,
+    int length,
+    <a href=/docs/api/java/lang/String.html>String</a> charsetName) throws <a href=/docs/api/java/io/UnsupportedEncodingException.html>UnsupportedEncodingException</a> <pre id='cs14' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (charsetName == null)
+            throw new NullPointerException("charsetName");
+        checkBounds(bytes, offset, length);
+        char[] v = StringCoding.decode(charsetName, bytes, offset, length);
+        this.offset = 0;
+        this.count = v.length;
+        this.value = v;
+}</pre></pre></pre><ul>Constructs a new {@code String} by decoding the specified subarray of
+bytes using the specified charset.  The length of the new {@code String}
+is a function of the charset, and hence may not be equal to the length
+of the subarray.
+
+<p> The behavior of this constructor when the given bytes are not valid
+in the given charset is unspecified.  The <a href='/docs/api/java/nio/charset/CharsetDecoder.html'>java.nio.charset.CharsetDecoder</a>  class should be used when more control
+over the decoding process is required.</ul><ul><b>Parameters:</b><br><dd><code>bytes</code> - 
+        The bytes to be decoded into characters<br></dd><dd><code>offset</code> - 
+        The index of the first byte to decode<br></dd><dd><code>length</code> - 
+        The number of bytes to decode<br></dd><dd><code>charsetName</code> - 
+        The name of a supported {@linkplain java.nio.charset.Charset
+        charset}<br></dd><b>Throws:</b><br><dd><code>UnsupportedEncodingException</code> - 
+         If the named charset is not supported<br></dd><dd><code>IndexOutOfBoundsException</code> - 
+         If the {@code offset} and {@code length} arguments index
+         characters outside the bounds of the {@code bytes} array<br></dd><dd>since: <code>JDK1.1</code> - <br></dd></ul></td></tr><tr><td><pre><a href='javascript:src("cs15")'><img id='cs15i' src=/plus.gif border=0></a> <a name='String(byte, int, int, Charset)'>public <b>String</b>(byte[] bytes,
+    int offset,
+    int length,
+    <a href=/docs/api/java/nio/charset/Charset.html>Charset</a> charset) <pre id='cs15' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (charset == null)
+            throw new NullPointerException("charset");
+        checkBounds(bytes, offset, length);
+        char[] v = StringCoding.decode(charset, bytes, offset, length);
+        this.offset = 0;
+        this.count = v.length;
+        this.value = v;
+}</pre></pre></pre><ul>Constructs a new {@code String} by decoding the specified subarray of
+bytes using the specified {@linkplain java.nio.charset.Charset charset}.
+The length of the new {@code String} is a function of the charset, and
+hence may not be equal to the length of the subarray.
+
+<p> This method always replaces malformed-input and unmappable-character
+sequences with this charset's default replacement string.  The <a href='/docs/api/java/nio/charset/CharsetDecoder.html'>java.nio.charset.CharsetDecoder</a>  class should be used when more control
+over the decoding process is required.</ul><ul><b>Parameters:</b><br><dd><code>bytes</code> - 
+        The bytes to be decoded into characters<br></dd><dd><code>offset</code> - 
+        The index of the first byte to decode<br></dd><dd><code>length</code> - 
+        The number of bytes to decode<br></dd><dd><code>charset</code> - 
+        The {@linkplain java.nio.charset.Charset charset} to be used to
+        decode the {@code bytes}<br></dd><b>Throws:</b><br><dd><code>IndexOutOfBoundsException</code> - 
+         If the {@code offset} and {@code length} arguments index
+         characters outside the bounds of the {@code bytes} array<br></dd><dd>since: <code>1.6</code> - <br></dd></ul></td></tr></table>
+
+
+
+
+
+<!-- end -->
+
+
+<!-- methodsummary.jsp -->
+    <table width='100%'><tr><th>Method from <b>java.lang.String</b> Summary:</td></tr><tr><td>
+<a href='/docs/api/java/lang/String.html#charAt(int)'>charAt</a>, &nbsp; <a href='/docs/api/java/lang/String.html#codePointAt(int)'>codePointAt</a>, &nbsp; <a href='/docs/api/java/lang/String.html#codePointBefore(int)'>codePointBefore</a>, &nbsp; <a href='/docs/api/java/lang/String.html#codePointCount(int, int)'>codePointCount</a>, &nbsp; <a href='/docs/api/java/lang/String.html#compareTo(String)'>compareTo</a>, &nbsp; <a href='/docs/api/java/lang/String.html#compareToIgnoreCase(String)'>compareToIgnoreCase</a>, &nbsp; <a href='/docs/api/java/lang/String.html#concat(String)'>concat</a>, &nbsp; <a href='/docs/api/java/lang/String.html#contains(CharSequence)'>contains</a>, &nbsp; <a href='/docs/api/java/lang/String.html#contentEquals(StringBuffer)'>contentEquals</a>, &nbsp; <a href='/docs/api/java/lang/String.html#contentEquals(CharSequence)'>contentEquals</a>, &nbsp; <a href='/docs/api/java/lang/String.html#copyValueOf(char)'>copyValueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#copyValueOf(char, int, int)'>copyValueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#endsWith(String)'>endsWith</a>, &nbsp; <a href='/docs/api/java/lang/String.html#equals(Object)'>equals</a>, &nbsp; <a href='/docs/api/java/lang/String.html#equalsIgnoreCase(String)'>equalsIgnoreCase</a>, &nbsp; <a href='/docs/api/java/lang/String.html#format(String, Object)'>format</a>, &nbsp; <a href='/docs/api/java/lang/String.html#format(Locale, String, Object)'>format</a>, &nbsp; <a href='/docs/api/java/lang/String.html#getBytes'>getBytes</a>, &nbsp; <a href='/docs/api/java/lang/String.html#getBytes(String)'>getBytes</a>, &nbsp; <a href='/docs/api/java/lang/String.html#getBytes(Charset)'>getBytes</a>, &nbsp; <a href='/docs/api/java/lang/String.html#getBytes(int, int, byte, int)'>getBytes</a>, &nbsp; <a href='/docs/api/java/lang/String.html#getChars(char, int)'>getChars</a>, &nbsp; <a href='/docs/api/java/lang/String.html#getChars(int, int, char, int)'>getChars</a>, &nbsp; <a href='/docs/api/java/lang/String.html#hashCode'>hashCode</a>, &nbsp; <a href='/docs/api/java/lang/String.html#indexOf(int)'>indexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#indexOf(String)'>indexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#indexOf(int, int)'>indexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#indexOf(String, int)'>indexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#indexOf(char, int, int, char, int, int, int)'>indexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#intern'>intern</a>, &nbsp; <a href='/docs/api/java/lang/String.html#isEmpty'>isEmpty</a>, &nbsp; <a href='/docs/api/java/lang/String.html#lastIndexOf(int)'>lastIndexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#lastIndexOf(String)'>lastIndexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#lastIndexOf(int, int)'>lastIndexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#lastIndexOf(String, int)'>lastIndexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#lastIndexOf(char, int, int, char, int, int, int)'>lastIndexOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#length'>length</a>, &nbsp; <a href='/docs/api/java/lang/String.html#matches(String)'>matches</a>, &nbsp; <a href='/docs/api/java/lang/String.html#offsetByCodePoints(int, int)'>offsetByCodePoints</a>, &nbsp; <a href='/docs/api/java/lang/String.html#regionMatches(int, String, int, int)'>regionMatches</a>, &nbsp; <a href='/docs/api/java/lang/String.html#regionMatches(boolean, int, String, int, int)'>regionMatches</a>, &nbsp; <a href='/docs/api/java/lang/String.html#replace(char, char)'>replace</a>, &nbsp; <a href='/docs/api/java/lang/String.html#replace(CharSequence, CharSequence)'>replace</a>, &nbsp; <a href='/docs/api/java/lang/String.html#replaceAll(String, String)'>replaceAll</a>, &nbsp; <a href='/docs/api/java/lang/String.html#replaceFirst(String, String)'>replaceFirst</a>, &nbsp; <a href='/docs/api/java/lang/String.html#split(String)'>split</a>, &nbsp; <a href='/docs/api/java/lang/String.html#split(String, int)'>split</a>, &nbsp; <a href='/docs/api/java/lang/String.html#startsWith(String)'>startsWith</a>, &nbsp; <a href='/docs/api/java/lang/String.html#startsWith(String, int)'>startsWith</a>, &nbsp; <a href='/docs/api/java/lang/String.html#subSequence(int, int)'>subSequence</a>, &nbsp; <a href='/docs/api/java/lang/String.html#substring(int)'>substring</a>, &nbsp; <a href='/docs/api/java/lang/String.html#substring(int, int)'>substring</a>, &nbsp; <a href='/docs/api/java/lang/String.html#toCharArray'>toCharArray</a>, &nbsp; <a href='/docs/api/java/lang/String.html#toLowerCase'>toLowerCase</a>, &nbsp; <a href='/docs/api/java/lang/String.html#toLowerCase(Locale)'>toLowerCase</a>, &nbsp; <a href='/docs/api/java/lang/String.html#toString'>toString</a>, &nbsp; <a href='/docs/api/java/lang/String.html#toUpperCase'>toUpperCase</a>, &nbsp; <a href='/docs/api/java/lang/String.html#toUpperCase(Locale)'>toUpperCase</a>, &nbsp; <a href='/docs/api/java/lang/String.html#trim'>trim</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(Object)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(char)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(boolean)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(char)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(int)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(long)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(float)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(double)'>valueOf</a>, &nbsp; <a href='/docs/api/java/lang/String.html#valueOf(char, int, int)'>valueOf</a></td></tr></table><table width='100%'><tr><th>Methods from <b>java.lang.Object</b>:</td></tr><tr><td>
+<a href='/docs/api/java/lang/Object.html#clone'>clone</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#equals(Object)'>equals</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#finalize'>finalize</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#getClass'>getClass</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#hashCode'>hashCode</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#notify'>notify</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#notifyAll'>notifyAll</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#toString'>toString</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#wait'>wait</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#wait(long)'>wait</a>, &nbsp; <a href='/docs/api/java/lang/Object.html#wait(long, int)'>wait</a></td></tr></table><table width='100%'><tr><th>Method from <b>java.lang.String</b> Detail:</td></tr>
+<tr><td><pre><a href='javascript:src("ms16")'><img id='ms16i' src=/plus.gif border=0></a> public char<a name='charAt(int)'> <b>charAt</b>(int index)</a> <pre id='ms16' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if ((index <  0) || (index  >= count)) {
+            throw new StringIndexOutOfBoundsException(index);
+        }
+        return value[index + offset];
+}</pre></pre><ul>Returns the <code>char</code> value at the
+specified index. An index ranges from <code>0</code> to
+<code>length() - 1</code>. The first <code>char</code> value of the sequence
+is at index <code>0</code>, the next at index <code>1</code>,
+and so on, as for array indexing.
+
+<p>If the <code>char</code> value specified by the index is a
+<a href="Character.html#unicode">surrogate</a>, the surrogate
+value is returned.</ul></td></tr><tr><td><pre><a href='javascript:src("ms18")'><img id='ms18i' src=/plus.gif border=0></a> public int<a name='codePointAt(int)'> <b>codePointAt</b>(int index)</a> <pre id='ms18' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if ((index <  0) || (index  >= count)) {
+            throw new StringIndexOutOfBoundsException(index);
+        }
+        return Character.codePointAtImpl(value, offset + index, offset + count);
+}</pre></pre><ul>Returns the character (Unicode code point) at the specified
+index. The index refers to <code>char</code> values
+(Unicode code units) and ranges from <code>0</code> to
+<a href='#length()'>#length()</a> <code> - 1</code>.
+
+<p> If the <code>char</code> value specified at the given index
+is in the high-surrogate range, the following index is less
+than the length of this <code>String</code>, and the
+<code>char</code> value at the following index is in the
+low-surrogate range, then the supplementary code point
+corresponding to this surrogate pair is returned. Otherwise,
+the <code>char</code> value at the given index is returned.</ul></td></tr><tr><td><pre><a href='javascript:src("ms19")'><img id='ms19i' src=/plus.gif border=0></a> public int<a name='codePointBefore(int)'> <b>codePointBefore</b>(int index)</a> <pre id='ms19' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int i = index - 1;
+        if ((i <  0) || (i  >= count)) {
+            throw new StringIndexOutOfBoundsException(index);
+        }
+        return Character.codePointBeforeImpl(value, offset + index, offset);
+}</pre></pre><ul>Returns the character (Unicode code point) before the specified
+index. The index refers to <code>char</code> values
+(Unicode code units) and ranges from <code>1</code> to <a href='CharSequence.html#length()'>length</a> .
+
+<p> If the <code>char</code> value at <code>(index - 1)</code>
+is in the low-surrogate range, <code>(index - 2)</code> is not
+negative, and the <code>char</code> value at <code>(index -
+2)</code> is in the high-surrogate range, then the
+supplementary code point value of the surrogate pair is
+returned. If the <code>char</code> value at <code>index -
+1</code> is an unpaired low-surrogate or a high-surrogate, the
+surrogate value is returned.</ul></td></tr><tr><td><pre><a href='javascript:src("ms20")'><img id='ms20i' src=/plus.gif border=0></a> public int<a name='codePointCount(int, int)'> <b>codePointCount</b>(int beginIndex,
+    int endIndex)</a> <pre id='ms20' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (beginIndex <  0 || endIndex  > count || beginIndex  > endIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+        return Character.codePointCountImpl(value, offset+beginIndex, endIndex-beginIndex);
+}</pre></pre><ul>Returns the number of Unicode code points in the specified text
+range of this <code>String</code>. The text range begins at the
+specified <code>beginIndex</code> and extends to the
+<code>char</code> at index <code>endIndex - 1</code>. Thus the
+length (in <code>char</code>s) of the text range is
+<code>endIndex-beginIndex</code>. Unpaired surrogates within
+the text range count as one code point each.</ul></td></tr><tr><td><pre><a href='javascript:src("ms21")'><img id='ms21i' src=/plus.gif border=0></a> public int<a name='compareTo(String)'> <b>compareTo</b>(<a href=/docs/api/java/lang/String.html>String</a> anotherString)</a> <pre id='ms21' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int len1 = count;
+        int len2 = anotherString.count;
+        int n = Math.min(len1, len2);
+        char v1[] = value;
+        char v2[] = anotherString.value;
+        int i = offset;
+        int j = anotherString.offset;
+        if (i == j) {
+            int k = i;
+            int lim = n + i;
+            while (k <  lim) {
+                char c1 = v1[k];
+                char c2 = v2[k];
+                if (c1 != c2) {
+                    return c1 - c2;
+                }
+                k++;
+            }
+        } else {
+            while (n-- != 0) {
+                char c1 = v1[i++];
+                char c2 = v2[j++];
+                if (c1 != c2) {
+                    return c1 - c2;
+                }
+            }
+        }
+        return len1 - len2;
+}</pre></pre><ul>Compares two strings lexicographically.
+The comparison is based on the Unicode value of each character in
+the strings. The character sequence represented by this
+<code>String</code> object is compared lexicographically to the
+character sequence represented by the argument string. The result is
+a negative integer if this <code>String</code> object
+lexicographically precedes the argument string. The result is a
+positive integer if this <code>String</code> object lexicographically
+follows the argument string. The result is zero if the strings
+are equal; <code>compareTo</code> returns <code>0</code> exactly when
+the <a href='#equals(Object)'>#equals(Object)</a>  method would return <code>true</code>.
+<p>
+This is the definition of lexicographic ordering. If two strings are
+different, then either they have different characters at some index
+that is a valid index for both strings, or their lengths are different,
+or both. If they have different characters at one or more index
+positions, let <i>k</i> be the smallest such index; then the string
+whose character at position <i>k</i> has the smaller value, as
+determined by using the &lt; operator, lexicographically precedes the
+other string. In this case, <code>compareTo</code> returns the
+difference of the two character values at position <code>k</code> in
+the two string -- that is, the value:
+<blockquote><pre>
+this.charAt(k)-anotherString.charAt(k)
+</pre></blockquote>
+If there is no index position at which they differ, then the shorter
+string lexicographically precedes the longer string. In this case,
+<code>compareTo</code> returns the difference of the lengths of the
+strings -- that is, the value:
+<blockquote><pre>
+this.length()-anotherString.length()
+</pre></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms22")'><img id='ms22i' src=/plus.gif border=0></a> public int<a name='compareToIgnoreCase(String)'> <b>compareToIgnoreCase</b>(<a href=/docs/api/java/lang/String.html>String</a> str)</a> <pre id='ms22' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return CASE_INSENSITIVE_ORDER.compare(this, str);
+}</pre></pre><ul>Compares two strings lexicographically, ignoring case
+differences. This method returns an integer whose sign is that of
+calling <code>compareTo</code> with normalized versions of the strings
+where case differences have been eliminated by calling
+<code>Character.toLowerCase(Character.toUpperCase(character))</code> on
+each character.
+<p>
+Note that this method does <em>not</em> take locale into account,
+and will result in an unsatisfactory ordering for certain locales.
+The java.text package provides <em>collators</em> to allow
+locale-sensitive ordering.</ul></td></tr><tr><td><pre><a href='javascript:src("ms23")'><img id='ms23i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='concat(String)'> <b>concat</b>(<a href=/docs/api/java/lang/String.html>String</a> str)</a> <pre id='ms23' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int otherLen = str.length();
+        if (otherLen == 0) {
+            return this;
+        }
+        char buf[] = new char[count + otherLen];
+        getChars(0, count, buf, 0);
+        str.getChars(0, otherLen, buf, count);
+        return new String(0, count + otherLen, buf);
+}</pre></pre><ul>Concatenates the specified string to the end of this string.
+<p>
+If the length of the argument string is <code>0</code>, then this
+<code>String</code> object is returned. Otherwise, a new
+<code>String</code> object is created, representing a character
+sequence that is the concatenation of the character sequence
+represented by this <code>String</code> object and the character
+sequence represented by the argument string.<p>
+Examples:
+<blockquote><pre>
+"cares".concat("s") returns "caress"
+"to".concat("get").concat("her") returns "together"
+</pre></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms24")'><img id='ms24i' src=/plus.gif border=0></a> public boolean<a name='contains(CharSequence)'> <b>contains</b>(<a href=/docs/api/java/lang/CharSequence.html>CharSequence</a> s)</a> <pre id='ms24' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return indexOf(s.toString())  > -1;
+}</pre></pre><ul>Returns true if and only if this string contains the specified
+sequence of char values.</ul></td></tr><tr><td><pre><a href='javascript:src("ms25")'><img id='ms25i' src=/plus.gif border=0></a> public boolean<a name='contentEquals(StringBuffer)'> <b>contentEquals</b>(<a href=/docs/api/java/lang/StringBuffer.html>StringBuffer</a> sb)</a> <pre id='ms25' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        synchronized(sb) {
+            return contentEquals((CharSequence)sb);
+        }
+}</pre></pre><ul>Compares this string to the specified {@code StringBuffer}.  The result
+is {@code true} if and only if this {@code String} represents the same
+sequence of characters as the specified {@code StringBuffer}.</ul></td></tr><tr><td><pre><a href='javascript:src("ms26")'><img id='ms26i' src=/plus.gif border=0></a> public boolean<a name='contentEquals(CharSequence)'> <b>contentEquals</b>(<a href=/docs/api/java/lang/CharSequence.html>CharSequence</a> cs)</a> <pre id='ms26' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (count != cs.length())
+            return false;
+        // Argument is a StringBuffer, StringBuilder
+        if (cs instanceof AbstractStringBuilder) {
+            char v1[] = value;
+            char v2[] = ((AbstractStringBuilder)cs).getValue();
+            int i = offset;
+            int j = 0;
+            int n = count;
+            while (n-- != 0) {
+                if (v1[i++] != v2[j++])
+                    return false;
+            }
+            return true;
+        }
+        // Argument is a String
+        if (cs.equals(this))
+            return true;
+        // Argument is a generic CharSequence
+        char v1[] = value;
+        int i = offset;
+        int j = 0;
+        int n = count;
+        while (n-- != 0) {
+            if (v1[i++] != cs.charAt(j++))
+                return false;
+        }
+        return true;
+}</pre></pre><ul>Compares this string to the specified {@code CharSequence}.  The result
+is {@code true} if and only if this {@code String} represents the same
+sequence of char values as the specified sequence.</ul></td></tr><tr><td><pre><a href='javascript:src("ms27")'><img id='ms27i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='copyValueOf(char)'> <b>copyValueOf</b>(char[] data)</a> <pre id='ms27' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return copyValueOf(data, 0, data.length);
+}</pre></pre><ul>Returns a String that represents the character sequence in the
+array specified.</ul></td></tr><tr><td><pre><a href='javascript:src("ms28")'><img id='ms28i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='copyValueOf(char, int, int)'> <b>copyValueOf</b>(char[] data,
+    int offset,
+    int count)</a> <pre id='ms28' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        // All public String constructors now copy the data.
+        return new String(data, offset, count);
+}</pre></pre><ul>Returns a String that represents the character sequence in the
+array specified.</ul></td></tr><tr><td><pre><a href='javascript:src("ms29")'><img id='ms29i' src=/plus.gif border=0></a> public boolean<a name='endsWith(String)'> <b>endsWith</b>(<a href=/docs/api/java/lang/String.html>String</a> suffix)</a> <pre id='ms29' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return startsWith(suffix, count - suffix.count);
+}</pre></pre><ul>Tests if this string ends with the specified suffix.</ul></td></tr><tr><td><pre><a href='javascript:src("ms30")'><img id='ms30i' src=/plus.gif border=0></a> public boolean<a name='equals(Object)'> <b>equals</b>(<a href=/docs/api/java/lang/Object.html>Object</a> anObject)</a> <pre id='ms30' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (this == anObject) {
+            return true;
+        }
+        if (anObject instanceof String) {
+            String anotherString = (String)anObject;
+            int n = count;
+            if (n == anotherString.count) {
+                char v1[] = value;
+                char v2[] = anotherString.value;
+                int i = offset;
+                int j = anotherString.offset;
+                while (n-- != 0) {
+                    if (v1[i++] != v2[j++])
+                        return false;
+                }
+                return true;
+            }
+        }
+        return false;
+}</pre></pre><ul>Compares this string to the specified object.  The result is {@code
+true} if and only if the argument is not {@code null} and is a {@code
+String} object that represents the same sequence of characters as this
+object.</ul></td></tr><tr><td><pre><a href='javascript:src("ms31")'><img id='ms31i' src=/plus.gif border=0></a> public boolean<a name='equalsIgnoreCase(String)'> <b>equalsIgnoreCase</b>(<a href=/docs/api/java/lang/String.html>String</a> anotherString)</a> <pre id='ms31' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return (this == anotherString) ? true :
+               (anotherString != null) && (anotherString.count == count) &&
+               regionMatches(true, 0, anotherString, 0, count);
+}</pre></pre><ul>Compares this {@code String} to another {@code String}, ignoring case
+considerations.  Two strings are considered equal ignoring case if they
+are of the same length and corresponding characters in the two strings
+are equal ignoring case.
+
+<p> Two characters {@code c1} and {@code c2} are considered the same
+ignoring case if at least one of the following is true:
+<ul>
+  <li> The two characters are the same (as compared by the
+       {@code ==} operator)
+  <li> Applying the method <a href='/docs/api/java/lang/Character.html#toUpperCase(char)'>java.lang.Character#toUpperCase(char)</a>  to each character
+       produces the same result
+  <li> Applying the method <a href='/docs/api/java/lang/Character.html#toLowerCase(char)'>java.lang.Character#toLowerCase(char)</a>  to each character
+       produces the same result
+</ul></ul></td></tr><tr><td><pre><a href='javascript:src("ms32")'><img id='ms32i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='format(String, Object)'> <b>format</b>(<a href=/docs/api/java/lang/String.html>String</a> format,
+    <a href=/docs/api/java/lang/Object.html>Object</a> args)</a> <pre id='ms32' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return new Formatter().format(format, args).toString();
+}</pre></pre><ul>Returns a formatted string using the specified format string and
+arguments.
+
+<p> The locale always used is the one returned by <a href='/docs/api/java/util/Locale.html#getDefault()'>Locale.getDefault()</a> .</ul></td></tr><tr><td><pre><a href='javascript:src("ms33")'><img id='ms33i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='format(Locale, String, Object)'> <b>format</b>(<a href=/docs/api/java/util/Locale.html>Locale</a> l,
+    <a href=/docs/api/java/lang/String.html>String</a> format,
+    <a href=/docs/api/java/lang/Object.html>Object</a> args)</a> <pre id='ms33' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return new Formatter(l).format(format, args).toString();
+}</pre></pre><ul>Returns a formatted string using the specified locale, format string,
+and arguments.</ul></td></tr><tr><td><pre><a href='javascript:src("ms34")'><img id='ms34i' src=/plus.gif border=0></a> public byte[]<a name='getBytes'> <b>getBytes</b>()</a> <pre id='ms34' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return StringCoding.encode(value, offset, count);
+}</pre></pre><ul>Encodes this {@code String} into a sequence of bytes using the
+platform's default charset, storing the result into a new byte array.
+
+<p> The behavior of this method when this string cannot be encoded in
+the default charset is unspecified.  The <a href='/docs/api/java/nio/charset/CharsetEncoder.html'>java.nio.charset.CharsetEncoder</a>  class should be used when more control
+over the encoding process is required.</ul></td></tr><tr><td><pre><a href='javascript:src("ms35")'><img id='ms35i' src=/plus.gif border=0></a> public byte[]<a name='getBytes(String)'> <b>getBytes</b>(<a href=/docs/api/java/lang/String.html>String</a> charsetName)</a> throws <a href=/docs/api/java/io/UnsupportedEncodingException.html>UnsupportedEncodingException</a> <pre id='ms35' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (charsetName == null) throw new NullPointerException();
+        return StringCoding.encode(charsetName, value, offset, count);
+}</pre></pre><ul>Encodes this {@code String} into a sequence of bytes using the named
+charset, storing the result into a new byte array.
+
+<p> The behavior of this method when this string cannot be encoded in
+the given charset is unspecified.  The <a href='/docs/api/java/nio/charset/CharsetEncoder.html'>java.nio.charset.CharsetEncoder</a>  class should be used when more control
+over the encoding process is required.</ul></td></tr><tr><td><pre><a href='javascript:src("ms36")'><img id='ms36i' src=/plus.gif border=0></a> public byte[]<a name='getBytes(Charset)'> <b>getBytes</b>(<a href=/docs/api/java/nio/charset/Charset.html>Charset</a> charset)</a> <pre id='ms36' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (charset == null) throw new NullPointerException();
+        return StringCoding.encode(charset, value, offset, count);
+}</pre></pre><ul>Encodes this {@code String} into a sequence of bytes using the given
+{@linkplain java.nio.charset.Charset charset}, storing the result into a
+new byte array.
+
+<p> This method always replaces malformed-input and unmappable-character
+sequences with this charset's default replacement byte array.  The
+<a href='/docs/api/java/nio/charset/CharsetEncoder.html'>java.nio.charset.CharsetEncoder</a>  class should be used when more
+control over the encoding process is required.</ul></td></tr><tr><td><pre><a href='javascript:src("ms37")'><img id='ms37i' src=/plus.gif border=0></a> public  void<a name='getBytes(int, int, byte, int)'> <b>getBytes</b>(int srcBegin,
+    int srcEnd,
+    byte[] dst,
+    int dstBegin)</a> <pre id='ms37' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (srcBegin <  0) {
+            throw new StringIndexOutOfBoundsException(srcBegin);
+        }
+        if (srcEnd  > count) {
+            throw new StringIndexOutOfBoundsException(srcEnd);
+        }
+        if (srcBegin  > srcEnd) {
+            throw new StringIndexOutOfBoundsException(srcEnd - srcBegin);
+        }
+        int j = dstBegin;
+        int n = offset + srcEnd;
+        int i = offset + srcBegin;
+        char[] val = value;   /* avoid getfield opcode */
+        while (i <  n) {
+            dst[j++] = (byte)val[i++];
+        }
+}</pre></pre><b>Deprecated!</b> <code>This</code> -  method does not properly convert characters into
+bytes.  As of JDK&nbsp;1.1, the preferred way to do this is via the
+<a href='#getBytes()'>#getBytes()</a>  method, which uses the platform's default charset.<br><br><ul>Copies characters from this string into the destination byte array. Each
+byte receives the 8 low-order bits of the corresponding character. The
+eight high-order bits of each character are not copied and do not
+participate in the transfer in any way.
+
+<p> The first character to be copied is at index {@code srcBegin}; the
+last character to be copied is at index {@code srcEnd-1}.  The total
+number of characters to be copied is {@code srcEnd-srcBegin}. The
+characters, converted to bytes, are copied into the subarray of {@code
+dst} starting at index {@code dstBegin} and ending at index:
+
+<blockquote><pre>
+    dstbegin + (srcEnd-srcBegin) - 1
+</pre></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms38")'><img id='ms38i' src=/plus.gif border=0></a>  void<a name='getChars(char, int)'> <b>getChars</b>(char[] dst,
+    int dstBegin)</a> <pre id='ms38' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        System.arraycopy(value, offset, dst, dstBegin, count);
+}</pre></pre><ul>Copy characters from this string into dst starting at dstBegin.
+This method doesn't perform any range checking.</ul></td></tr><tr><td><pre><a href='javascript:src("ms39")'><img id='ms39i' src=/plus.gif border=0></a> public  void<a name='getChars(int, int, char, int)'> <b>getChars</b>(int srcBegin,
+    int srcEnd,
+    char[] dst,
+    int dstBegin)</a> <pre id='ms39' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (srcBegin <  0) {
+            throw new StringIndexOutOfBoundsException(srcBegin);
+        }
+        if (srcEnd  > count) {
+            throw new StringIndexOutOfBoundsException(srcEnd);
+        }
+        if (srcBegin  > srcEnd) {
+            throw new StringIndexOutOfBoundsException(srcEnd - srcBegin);
+        }
+        System.arraycopy(value, offset + srcBegin, dst, dstBegin,
+             srcEnd - srcBegin);
+}</pre></pre><ul>Copies characters from this string into the destination character
+array.
+<p>
+The first character to be copied is at index <code>srcBegin</code>;
+the last character to be copied is at index <code>srcEnd-1</code>
+(thus the total number of characters to be copied is
+<code>srcEnd-srcBegin</code>). The characters are copied into the
+subarray of <code>dst</code> starting at index <code>dstBegin</code>
+and ending at index:
+<p><blockquote><pre>
+    dstbegin + (srcEnd-srcBegin) - 1
+</pre></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms40")'><img id='ms40i' src=/plus.gif border=0></a> public int<a name='hashCode'> <b>hashCode</b>()</a> <pre id='ms40' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int h = hash;
+        if (h == 0) {
+            int off = offset;
+            char val[] = value;
+            int len = count;
+            for (int i = 0; i <  len; i++) {
+                h = 31*h + val[off++];
+            }
+            hash = h;
+        }
+        return h;
+}</pre></pre><ul>Returns a hash code for this string. The hash code for a
+<code>String</code> object is computed as
+<blockquote><pre>
+s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
+</pre></blockquote>
+using <code>int</code> arithmetic, where <code>s[i]</code> is the
+<i>i</i>th character of the string, <code>n</code> is the length of
+the string, and <code>^</code> indicates exponentiation.
+(The hash value of the empty string is zero.)</ul></td></tr><tr><td><pre><a href='javascript:src("ms41")'><img id='ms41i' src=/plus.gif border=0></a> public int<a name='indexOf(int)'> <b>indexOf</b>(int ch)</a> <pre id='ms41' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return indexOf(ch, 0);
+}</pre></pre><ul>Returns the index within this string of the first occurrence of
+the specified character. If a character with value
+<code>ch</code> occurs in the character sequence represented by
+this <code>String</code> object, then the index (in Unicode
+code units) of the first such occurrence is returned. For
+values of <code>ch</code> in the range from 0 to 0xFFFF
+(inclusive), this is the smallest value <i>k</i> such that:
+<blockquote><pre>
+this.charAt(<i>k</i>) == ch
+</pre></blockquote>
+is true. For other values of <code>ch</code>, it is the
+smallest value <i>k</i> such that:
+<blockquote><pre>
+this.codePointAt(<i>k</i>) == ch
+</pre></blockquote>
+is true. In either case, if no such character occurs in this
+string, then <code>-1</code> is returned.</ul></td></tr><tr><td><pre><a href='javascript:src("ms42")'><img id='ms42i' src=/plus.gif border=0></a> public int<a name='indexOf(String)'> <b>indexOf</b>(<a href=/docs/api/java/lang/String.html>String</a> str)</a> <pre id='ms42' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return indexOf(str, 0);
+}</pre></pre><ul>Returns the index within this string of the first occurrence of the
+specified substring. The integer returned is the smallest value
+<i>k</i> such that:
+<blockquote><pre>
+this.startsWith(str, <i>k</i>)
+</pre></blockquote>
+is <code>true</code>.</ul></td></tr><tr><td><pre><a href='javascript:src("ms43")'><img id='ms43i' src=/plus.gif border=0></a> public int<a name='indexOf(int, int)'> <b>indexOf</b>(int ch,
+    int fromIndex)</a> <pre id='ms43' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int max = offset + count;
+        char v[] = value;
+        if (fromIndex <  0) {
+            fromIndex = 0;
+        } else if (fromIndex  >= count) {
+            // Note: fromIndex might be near -1 > > >1.
+            return -1;
+        }
+        int i = offset + fromIndex;
+        if (ch <  Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+            // handle most cases here (ch is a BMP code point or a
+            // negative value (invalid code point))
+            for (; i <  max ; i++) {
+                if (v[i] == ch) {
+                    return i - offset;
+                }
+            }
+            return -1;
+        }
+        if (ch < = Character.MAX_CODE_POINT) {
+            // handle supplementary characters here
+            char[] surrogates = Character.toChars(ch);
+            for (; i <  max; i++) {
+                if (v[i] == surrogates[0]) {
+                    if (i + 1 == max) {
+                        break;
+                    }
+                    if (v[i+1] == surrogates[1]) {
+                        return i - offset;
+                    }
+                }
+            }
+        }
+        return -1;
+}</pre></pre><ul>Returns the index within this string of the first occurrence of the
+specified character, starting the search at the specified index.
+<p>
+If a character with value <code>ch</code> occurs in the
+character sequence represented by this <code>String</code>
+object at an index no smaller than <code>fromIndex</code>, then
+the index of the first such occurrence is returned. For values
+of <code>ch</code> in the range from 0 to 0xFFFF (inclusive),
+this is the smallest value <i>k</i> such that:
+<blockquote><pre>
+(this.charAt(<i>k</i>) == ch) && (<i>k</i> &gt;= fromIndex)
+</pre></blockquote>
+is true. For other values of <code>ch</code>, it is the
+smallest value <i>k</i> such that:
+<blockquote><pre>
+(this.codePointAt(<i>k</i>) == ch) && (<i>k</i> &gt;= fromIndex)
+</pre></blockquote>
+is true. In either case, if no such character occurs in this
+string at or after position <code>fromIndex</code>, then
+<code>-1</code> is returned.
+
+<p>
+There is no restriction on the value of <code>fromIndex</code>. If it
+is negative, it has the same effect as if it were zero: this entire
+string may be searched. If it is greater than the length of this
+string, it has the same effect as if it were equal to the length of
+this string: <code>-1</code> is returned.
+
+<p>All indices are specified in <code>char</code> values
+(Unicode code units).</ul></td></tr><tr><td><pre><a href='javascript:src("ms44")'><img id='ms44i' src=/plus.gif border=0></a> public int<a name='indexOf(String, int)'> <b>indexOf</b>(<a href=/docs/api/java/lang/String.html>String</a> str,
+    int fromIndex)</a> <pre id='ms44' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return indexOf(value, offset, count,
+                       str.value, str.offset, str.count, fromIndex);
+}</pre></pre><ul>Returns the index within this string of the first occurrence of the
+specified substring, starting at the specified index.  The integer
+returned is the smallest value <tt>k</tt> for which:
+<blockquote><pre>
+    k &gt;= Math.min(fromIndex, this.length()) && this.startsWith(str, k)
+</pre></blockquote>
+If no such value of <i>k</i> exists, then -1 is returned.</ul></td></tr><tr><td><pre><a href='javascript:src("ms45")'><img id='ms45i' src=/plus.gif border=0></a> static int<a name='indexOf(char, int, int, char, int, int, int)'> <b>indexOf</b>(char[] source,
+    int sourceOffset,
+    int sourceCount,
+    char[] target,
+    int targetOffset,
+    int targetCount,
+    int fromIndex)</a> <pre id='ms45' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (fromIndex  >= sourceCount) {
+            return (targetCount == 0 ? sourceCount : -1);
+        }
+        if (fromIndex <  0) {
+            fromIndex = 0;
+        }
+        if (targetCount == 0) {
+            return fromIndex;
+        }
+        char first  = target[targetOffset];
+        int max = sourceOffset + (sourceCount - targetCount);
+        for (int i = sourceOffset + fromIndex; i < = max; i++) {
+            /* Look for first character. */
+            if (source[i] != first) {
+                while (++i < = max && source[i] != first);
+            }
+            /* Found first character, now look at the rest of v2 */
+            if (i < = max) {
+                int j = i + 1;
+                int end = j + targetCount - 1;
+                for (int k = targetOffset + 1; j <  end && source[j] ==
+                         target[k]; j++, k++);
+                if (j == end) {
+                    /* Found whole string. */
+                    return i - sourceOffset;
+                }
+            }
+        }
+        return -1;
+}</pre></pre><ul>Code shared by String and StringBuffer to do searches. The
+source is the character array being searched, and the target
+is the string being searched for.</ul></td></tr><tr><td><pre><img id='ms46i' src=/empty.gif border=0> public native <a href=/docs/api/java/lang/String.html>String</a><a name='intern'> <b>intern</b>()</a><ul>Returns a canonical representation for the string object.
+<p>
+A pool of strings, initially empty, is maintained privately by the
+class <code>String</code>.
+<p>
+When the intern method is invoked, if the pool already contains a
+string equal to this <code>String</code> object as determined by
+the <a href='#equals(Object)'>#equals(Object)</a>  method, then the string from the pool is
+returned. Otherwise, this <code>String</code> object is added to the
+pool and a reference to this <code>String</code> object is returned.
+<p>
+It follows that for any two strings <code>s</code> and <code>t</code>,
+<code>s.intern()&nbsp;==&nbsp;t.intern()</code> is <code>true</code>
+if and only if <code>s.equals(t)</code> is <code>true</code>.
+<p>
+All literal strings and string-valued constant expressions are
+interned. String literals are defined in &sect;3.10.5 of the
+<a href="http://java.sun.com/docs/books/jls/html/">Java Language
+Specification</a></ul></td></tr><tr><td><pre><a href='javascript:src("ms47")'><img id='ms47i' src=/plus.gif border=0></a> public boolean<a name='isEmpty'> <b>isEmpty</b>()</a> <pre id='ms47' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return count == 0;
+}</pre></pre><ul>Returns <tt>true</tt> if, and only if, <a href='#length()'>#length()</a>  is <tt>0</tt>.</ul></td></tr><tr><td><pre><a href='javascript:src("ms48")'><img id='ms48i' src=/plus.gif border=0></a> public int<a name='lastIndexOf(int)'> <b>lastIndexOf</b>(int ch)</a> <pre id='ms48' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return lastIndexOf(ch, count - 1);
+}</pre></pre><ul>Returns the index within this string of the last occurrence of
+the specified character. For values of <code>ch</code> in the
+range from 0 to 0xFFFF (inclusive), the index (in Unicode code
+units) returned is the largest value <i>k</i> such that:
+<blockquote><pre>
+this.charAt(<i>k</i>) == ch
+</pre></blockquote>
+is true. For other values of <code>ch</code>, it is the
+largest value <i>k</i> such that:
+<blockquote><pre>
+this.codePointAt(<i>k</i>) == ch
+</pre></blockquote>
+is true.  In either case, if no such character occurs in this
+string, then <code>-1</code> is returned.  The
+<code>String</code> is searched backwards starting at the last
+character.</ul></td></tr><tr><td><pre><a href='javascript:src("ms49")'><img id='ms49i' src=/plus.gif border=0></a> public int<a name='lastIndexOf(String)'> <b>lastIndexOf</b>(<a href=/docs/api/java/lang/String.html>String</a> str)</a> <pre id='ms49' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return lastIndexOf(str, count);
+}</pre></pre><ul>Returns the index within this string of the rightmost occurrence
+of the specified substring.  The rightmost empty string "" is
+considered to occur at the index value <code>this.length()</code>.
+The returned index is the largest value <i>k</i> such that
+<blockquote><pre>
+this.startsWith(str, k)
+</pre></blockquote>
+is true.</ul></td></tr><tr><td><pre><a href='javascript:src("ms50")'><img id='ms50i' src=/plus.gif border=0></a> public int<a name='lastIndexOf(int, int)'> <b>lastIndexOf</b>(int ch,
+    int fromIndex)</a> <pre id='ms50' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int min = offset;
+        char v[] = value;
+        int i = offset + ((fromIndex  >= count) ? count - 1 : fromIndex);
+        if (ch <  Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+            // handle most cases here (ch is a BMP code point or a
+            // negative value (invalid code point))
+            for (; i  >= min ; i--) {
+                if (v[i] == ch) {
+                    return i - offset;
+                }
+            }
+            return -1;
+        }
+        int max = offset + count;
+        if (ch < = Character.MAX_CODE_POINT) {
+            // handle supplementary characters here
+            char[] surrogates = Character.toChars(ch);
+            for (; i  >= min; i--) {
+                if (v[i] == surrogates[0]) {
+                    if (i + 1 == max) {
+                        break;
+                    }
+                    if (v[i+1] == surrogates[1]) {
+                        return i - offset;
+                    }
+                }
+            }
+        }
+        return -1;
+}</pre></pre><ul>Returns the index within this string of the last occurrence of
+the specified character, searching backward starting at the
+specified index. For values of <code>ch</code> in the range
+from 0 to 0xFFFF (inclusive), the index returned is the largest
+value <i>k</i> such that:
+<blockquote><pre>
+(this.charAt(<i>k</i>) == ch) && (<i>k</i> &lt;= fromIndex)
+</pre></blockquote>
+is true. For other values of <code>ch</code>, it is the
+largest value <i>k</i> such that:
+<blockquote><pre>
+(this.codePointAt(<i>k</i>) == ch) && (<i>k</i> &lt;= fromIndex)
+</pre></blockquote>
+is true. In either case, if no such character occurs in this
+string at or before position <code>fromIndex</code>, then
+<code>-1</code> is returned.
+
+<p>All indices are specified in <code>char</code> values
+(Unicode code units).</ul></td></tr><tr><td><pre><a href='javascript:src("ms51")'><img id='ms51i' src=/plus.gif border=0></a> public int<a name='lastIndexOf(String, int)'> <b>lastIndexOf</b>(<a href=/docs/api/java/lang/String.html>String</a> str,
+    int fromIndex)</a> <pre id='ms51' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return lastIndexOf(value, offset, count,
+                           str.value, str.offset, str.count, fromIndex);
+}</pre></pre><ul>Returns the index within this string of the last occurrence of the
+specified substring, searching backward starting at the specified index.
+The integer returned is the largest value <i>k</i> such that:
+<blockquote><pre>
+    k &lt;= Math.min(fromIndex, this.length()) && this.startsWith(str, k)
+</pre></blockquote>
+If no such value of <i>k</i> exists, then -1 is returned.</ul></td></tr><tr><td><pre><a href='javascript:src("ms52")'><img id='ms52i' src=/plus.gif border=0></a> static int<a name='lastIndexOf(char, int, int, char, int, int, int)'> <b>lastIndexOf</b>(char[] source,
+    int sourceOffset,
+    int sourceCount,
+    char[] target,
+    int targetOffset,
+    int targetCount,
+    int fromIndex)</a> <pre id='ms52' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        /*
+         * Check arguments; return immediately where possible. For
+         * consistency, don't check for null str.
+         */
+        int rightIndex = sourceCount - targetCount;
+        if (fromIndex <  0) {
+            return -1;
+        }
+        if (fromIndex  > rightIndex) {
+            fromIndex = rightIndex;
+        }
+        /* Empty string always matches. */
+        if (targetCount == 0) {
+            return fromIndex;
+        }
+        int strLastIndex = targetOffset + targetCount - 1;
+        char strLastChar = target[strLastIndex];
+        int min = sourceOffset + targetCount - 1;
+        int i = min + fromIndex;
+    startSearchForLastChar:
+        while (true) {
+            while (i  >= min && source[i] != strLastChar) {
+                i--;
+            }
+            if (i <  min) {
+                return -1;
+            }
+            int j = i - 1;
+            int start = j - (targetCount - 1);
+            int k = strLastIndex - 1;
+            while (j  > start) {
+                if (source[j--] != target[k--]) {
+                    i--;
+                    continue startSearchForLastChar;
+                }
+            }
+            return start - sourceOffset + 1;
+        }
+}</pre></pre><ul>Code shared by String and StringBuffer to do searches. The
+source is the character array being searched, and the target
+is the string being searched for.</ul></td></tr><tr><td><pre><a href='javascript:src("ms53")'><img id='ms53i' src=/plus.gif border=0></a> public int<a name='length'> <b>length</b>()</a> <pre id='ms53' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return count;
+}</pre></pre><ul>Returns the length of this string.
+The length is equal to the number of <a href="Character.html#unicode">Unicode
+code units</a> in the string.</ul></td></tr><tr><td><pre><a href='javascript:src("ms54")'><img id='ms54i' src=/plus.gif border=0></a> public boolean<a name='matches(String)'> <b>matches</b>(<a href=/docs/api/java/lang/String.html>String</a> regex)</a> <pre id='ms54' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Pattern.matches(regex, this);
+}</pre></pre><ul>Tells whether or not this string matches the given <a
+href="../util/regex/Pattern.html#sum">regular expression</a>.
+
+<p> An invocation of this method of the form
+<i>str</i><tt>.matches(</tt><i>regex</i><tt>)</tt> yields exactly the
+same result as the expression
+
+<blockquote><tt> <a href='/docs/api/java/util/regex/Pattern.html'>java.util.regex.Pattern</a> .<a href='/docs/api/java/util/regex/Pattern#matches(String, CharSequence)
+matches.html#matches(String, CharSequence)
+matches'>matches</a> (</tt><i>regex</i><tt>,</tt> <i>str</i><tt>)</tt></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms55")'><img id='ms55i' src=/plus.gif border=0></a> public int<a name='offsetByCodePoints(int, int)'> <b>offsetByCodePoints</b>(int index,
+    int codePointOffset)</a> <pre id='ms55' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (index <  0 || index  > count) {
+            throw new IndexOutOfBoundsException();
+        }
+        return Character.offsetByCodePointsImpl(value, offset, count,
+                                                offset+index, codePointOffset) - offset;
+}</pre></pre><ul>Returns the index within this <code>String</code> that is
+offset from the given <code>index</code> by
+<code>codePointOffset</code> code points. Unpaired surrogates
+within the text range given by <code>index</code> and
+<code>codePointOffset</code> count as one code point each.</ul></td></tr><tr><td><pre><a href='javascript:src("ms56")'><img id='ms56i' src=/plus.gif border=0></a> public boolean<a name='regionMatches(int, String, int, int)'> <b>regionMatches</b>(int toffset,
+    <a href=/docs/api/java/lang/String.html>String</a> other,
+    int ooffset,
+    int len)</a> <pre id='ms56' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        char ta[] = value;
+        int to = offset + toffset;
+        char pa[] = other.value;
+        int po = other.offset + ooffset;
+        // Note: toffset, ooffset, or len might be near -1 > > >1.
+        if ((ooffset <  0) || (toffset <  0) || (toffset  > (long)count - len)
+            || (ooffset  > (long)other.count - len)) {
+            return false;
+        }
+        while (len--  > 0) {
+            if (ta[to++] != pa[po++]) {
+                return false;
+            }
+        }
+        return true;
+}</pre></pre><ul>Tests if two string regions are equal.
+<p>
+A substring of this <tt>String</tt> object is compared to a substring
+of the argument other. The result is true if these substrings
+represent identical character sequences. The substring of this
+<tt>String</tt> object to be compared begins at index <tt>toffset</tt>
+and has length <tt>len</tt>. The substring of other to be compared
+begins at index <tt>ooffset</tt> and has length <tt>len</tt>. The
+result is <tt>false</tt> if and only if at least one of the following
+is true:
+<ul><li><tt>toffset</tt> is negative.
+<li><tt>ooffset</tt> is negative.
+<li><tt>toffset+len</tt> is greater than the length of this
+<tt>String</tt> object.
+<li><tt>ooffset+len</tt> is greater than the length of the other
+argument.
+<li>There is some nonnegative integer <i>k</i> less than <tt>len</tt>
+such that:
+<tt>this.charAt(toffset+<i>k</i>)&nbsp;!=&nbsp;other.charAt(ooffset+<i>k</i>)</tt>
+</ul></ul></td></tr><tr><td><pre><a href='javascript:src("ms57")'><img id='ms57i' src=/plus.gif border=0></a> public boolean<a name='regionMatches(boolean, int, String, int, int)'> <b>regionMatches</b>(boolean ignoreCase,
+    int toffset,
+    <a href=/docs/api/java/lang/String.html>String</a> other,
+    int ooffset,
+    int len)</a> <pre id='ms57' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        char ta[] = value;
+        int to = offset + toffset;
+        char pa[] = other.value;
+        int po = other.offset + ooffset;
+        // Note: toffset, ooffset, or len might be near -1 > > >1.
+        if ((ooffset <  0) || (toffset <  0) || (toffset  > (long)count - len) ||
+                (ooffset  > (long)other.count - len)) {
+            return false;
+        }
+        while (len--  > 0) {
+            char c1 = ta[to++];
+            char c2 = pa[po++];
+            if (c1 == c2) {
+                continue;
+            }
+            if (ignoreCase) {
+                // If characters don't match but case may be ignored,
+                // try converting both characters to uppercase.
+                // If the results match, then the comparison scan should
+                // continue.
+                char u1 = Character.toUpperCase(c1);
+                char u2 = Character.toUpperCase(c2);
+                if (u1 == u2) {
+                    continue;
+                }
+                // Unfortunately, conversion to uppercase does not work properly
+                // for the Georgian alphabet, which has strange rules about case
+                // conversion.  So we need to make one last check before
+                // exiting.
+                if (Character.toLowerCase(u1) == Character.toLowerCase(u2)) {
+                    continue;
+                }
+            }
+            return false;
+        }
+        return true;
+}</pre></pre><ul>Tests if two string regions are equal.
+<p>
+A substring of this <tt>String</tt> object is compared to a substring
+of the argument <tt>other</tt>. The result is <tt>true</tt> if these
+substrings represent character sequences that are the same, ignoring
+case if and only if <tt>ignoreCase</tt> is true. The substring of
+this <tt>String</tt> object to be compared begins at index
+<tt>toffset</tt> and has length <tt>len</tt>. The substring of
+<tt>other</tt> to be compared begins at index <tt>ooffset</tt> and
+has length <tt>len</tt>. The result is <tt>false</tt> if and only if
+at least one of the following is true:
+<ul><li><tt>toffset</tt> is negative.
+<li><tt>ooffset</tt> is negative.
+<li><tt>toffset+len</tt> is greater than the length of this
+<tt>String</tt> object.
+<li><tt>ooffset+len</tt> is greater than the length of the other
+argument.
+<li><tt>ignoreCase</tt> is <tt>false</tt> and there is some nonnegative
+integer <i>k</i> less than <tt>len</tt> such that:
+<blockquote><pre>
+this.charAt(toffset+k) != other.charAt(ooffset+k)
+</pre></blockquote>
+<li><tt>ignoreCase</tt> is <tt>true</tt> and there is some nonnegative
+integer <i>k</i> less than <tt>len</tt> such that:
+<blockquote><pre>
+Character.toLowerCase(this.charAt(toffset+k)) !=
+Character.toLowerCase(other.charAt(ooffset+k))
+</pre></blockquote>
+and:
+<blockquote><pre>
+Character.toUpperCase(this.charAt(toffset+k)) !=
+        Character.toUpperCase(other.charAt(ooffset+k))
+</pre></blockquote>
+</ul></ul></td></tr><tr><td><pre><a href='javascript:src("ms58")'><img id='ms58i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='replace(char, char)'> <b>replace</b>(char oldChar,
+    char newChar)</a> <pre id='ms58' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (oldChar != newChar) {
+            int len = count;
+            int i = -1;
+            char[] val = value; /* avoid getfield opcode */
+            int off = offset;   /* avoid getfield opcode */
+            while (++i <  len) {
+                if (val[off + i] == oldChar) {
+                    break;
+                }
+            }
+            if (i <  len) {
+                char buf[] = new char[len];
+                for (int j = 0 ; j <  i ; j++) {
+                    buf[j] = val[off+j];
+                }
+                while (i <  len) {
+                    char c = val[off + i];
+                    buf[i] = (c == oldChar) ? newChar : c;
+                    i++;
+                }
+                return new String(0, len, buf);
+            }
+        }
+        return this;
+}</pre></pre><ul>Returns a new string resulting from replacing all occurrences of
+<code>oldChar</code> in this string with <code>newChar</code>.
+<p>
+If the character <code>oldChar</code> does not occur in the
+character sequence represented by this <code>String</code> object,
+then a reference to this <code>String</code> object is returned.
+Otherwise, a new <code>String</code> object is created that
+represents a character sequence identical to the character sequence
+represented by this <code>String</code> object, except that every
+occurrence of <code>oldChar</code> is replaced by an occurrence
+of <code>newChar</code>.
+<p>
+Examples:
+<blockquote><pre>
+"mesquite in your cellar".replace('e', 'o')
+        returns "mosquito in your collar"
+"the war of baronets".replace('r', 'y')
+        returns "the way of bayonets"
+"sparring with a purple porpoise".replace('p', 't')
+        returns "starring with a turtle tortoise"
+"JonL".replace('q', 'x') returns "JonL" (no change)
+</pre></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms59")'><img id='ms59i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='replace(CharSequence, CharSequence)'> <b>replace</b>(<a href=/docs/api/java/lang/CharSequence.html>CharSequence</a> target,
+    <a href=/docs/api/java/lang/CharSequence.html>CharSequence</a> replacement)</a> <pre id='ms59' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Pattern.compile(target.toString(), Pattern.LITERAL).matcher(
+            this).replaceAll(Matcher.quoteReplacement(replacement.toString()));
+}</pre></pre><ul>Replaces each substring of this string that matches the literal target
+sequence with the specified literal replacement sequence. The
+replacement proceeds from the beginning of the string to the end, for
+example, replacing "aa" with "b" in the string "aaa" will result in
+"ba" rather than "ab".</ul></td></tr><tr><td><pre><a href='javascript:src("ms60")'><img id='ms60i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='replaceAll(String, String)'> <b>replaceAll</b>(<a href=/docs/api/java/lang/String.html>String</a> regex,
+    <a href=/docs/api/java/lang/String.html>String</a> replacement)</a> <pre id='ms60' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Pattern.compile(regex).matcher(this).replaceAll(replacement);
+}</pre></pre><ul>Replaces each substring of this string that matches the given <a
+href="../util/regex/Pattern.html#sum">regular expression</a> with the
+given replacement.
+
+<p> An invocation of this method of the form
+<i>str</i><tt>.replaceAll(</tt><i>regex</i><tt>,</tt> <i>repl</i><tt>)</tt>
+yields exactly the same result as the expression
+
+<blockquote><tt>
+<a href='/docs/api/java/util/regex/Pattern.html'>java.util.regex.Pattern</a> .<a href='/docs/api/java/util/regex/Pattern#compile
+compile.html#compile
+compile'>
+compile</a> (</tt><i>regex</i><tt>).<a href='/docs/api/java/util/regex/Pattern#matcher(java/lang/CharSequence)
+matcher.html#matcher(java.lang.CharSequence)
+matcher'>matcher</a> (</tt><i>str</i><tt>).<a href='/docs/api/java/util/regex/Matcher#replaceAll
+replaceAll.html#replaceAll
+replaceAll'>
+replaceAll</a> (</tt><i>repl</i><tt>)</tt></blockquote>
+
+<p>
+Note that backslashes (<tt>\</tt>) and dollar signs (<tt>$</tt>) in the
+replacement string may cause the results to be different than if it were
+being treated as a literal replacement string; see
+<a href='/docs/api/java/util/regex/Matcher.html#replaceAll'> Matcher.replaceAll</a> .
+Use <a href='/docs/api/java/util/regex/Matcher.html#quoteReplacement'>java.util.regex.Matcher#quoteReplacement</a>  to suppress the special
+meaning of these characters, if desired.</ul></td></tr><tr><td><pre><a href='javascript:src("ms61")'><img id='ms61i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='replaceFirst(String, String)'> <b>replaceFirst</b>(<a href=/docs/api/java/lang/String.html>String</a> regex,
+    <a href=/docs/api/java/lang/String.html>String</a> replacement)</a> <pre id='ms61' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Pattern.compile(regex).matcher(this).replaceFirst(replacement);
+}</pre></pre><ul>Replaces the first substring of this string that matches the given <a
+href="../util/regex/Pattern.html#sum">regular expression</a> with the
+given replacement.
+
+<p> An invocation of this method of the form
+<i>str</i><tt>.replaceFirst(</tt><i>regex</i><tt>,</tt> <i>repl</i><tt>)</tt>
+yields exactly the same result as the expression
+
+<blockquote><tt>
+<a href='/docs/api/java/util/regex/Pattern.html'>java.util.regex.Pattern</a> .<a href='/docs/api/java/util/regex/Pattern#compile
+compile.html#compile
+compile'>
+compile</a> (</tt><i>regex</i><tt>).<a href='/docs/api/java/util/regex/Pattern#matcher(java/lang/CharSequence)
+matcher.html#matcher(java.lang.CharSequence)
+matcher'>matcher</a> (</tt><i>str</i><tt>).<a href='/docs/api/java/util/regex/Matcher#replaceFirst
+replaceFirst.html#replaceFirst
+replaceFirst'>
+replaceFirst</a> (</tt><i>repl</i><tt>)</tt></blockquote>
+
+<p>
+Note that backslashes (<tt>\</tt>) and dollar signs (<tt>$</tt>) in the
+replacement string may cause the results to be different than if it were
+being treated as a literal replacement string; see
+<a href='/docs/api/java/util/regex/Matcher.html#replaceFirst'>java.util.regex.Matcher#replaceFirst</a> .
+Use <a href='/docs/api/java/util/regex/Matcher.html#quoteReplacement'>java.util.regex.Matcher#quoteReplacement</a>  to suppress the special
+meaning of these characters, if desired.</ul></td></tr><tr><td><pre><a href='javascript:src("ms62")'><img id='ms62i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a>[]<a name='split(String)'> <b>split</b>(<a href=/docs/api/java/lang/String.html>String</a> regex)</a> <pre id='ms62' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return split(regex, 0);
+}</pre></pre><ul>Splits this string around matches of the given <a
+href="../util/regex/Pattern.html#sum">regular expression</a>.
+
+<p> This method works as if by invoking the two-argument <a href='#split(String, int)'> split</a>  method with the given expression and a limit
+argument of zero.  Trailing empty strings are therefore not included in
+the resulting array.
+
+<p> The string <tt>"boo:and:foo"</tt>, for example, yields the following
+results with these expressions:
+
+<blockquote><table cellpadding=1 cellspacing=0 summary="Split examples showing regex and result">
+<tr>
+ <th>Regex</th>
+ <th>Result</th>
+</tr>
+<tr><td align=center>:</td>
+    <td><tt>{ "boo", "and", "foo" }</tt></td></tr>
+<tr><td align=center>o</td>
+    <td><tt>{ "b", "", ":and:f" }</tt></td></tr>
+</table></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms63")'><img id='ms63i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a>[]<a name='split(String, int)'> <b>split</b>(<a href=/docs/api/java/lang/String.html>String</a> regex,
+    int limit)</a> <pre id='ms63' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Pattern.compile(regex).split(this, limit);
+}</pre></pre><ul>Splits this string around matches of the given
+<a href="../util/regex/Pattern.html#sum">regular expression</a>.
+
+<p> The array returned by this method contains each substring of this
+string that is terminated by another substring that matches the given
+expression or is terminated by the end of the string.  The substrings in
+the array are in the order in which they occur in this string.  If the
+expression does not match any part of the input then the resulting array
+has just one element, namely this string.
+
+<p> The <tt>limit</tt> parameter controls the number of times the
+pattern is applied and therefore affects the length of the resulting
+array.  If the limit <i>n</i> is greater than zero then the pattern
+will be applied at most <i>n</i>&nbsp;-&nbsp;1 times, the array's
+length will be no greater than <i>n</i>, and the array's last entry
+will contain all input beyond the last matched delimiter.  If <i>n</i>
+is non-positive then the pattern will be applied as many times as
+possible and the array can have any length.  If <i>n</i> is zero then
+the pattern will be applied as many times as possible, the array can
+have any length, and trailing empty strings will be discarded.
+
+<p> The string <tt>"boo:and:foo"</tt>, for example, yields the
+following results with these parameters:
+
+<blockquote><table cellpadding=1 cellspacing=0 summary="Split example showing regex, limit, and result">
+<tr>
+    <th>Regex</th>
+    <th>Limit</th>
+    <th>Result</th>
+</tr>
+<tr><td align=center>:</td>
+    <td align=center>2</td>
+    <td><tt>{ "boo", "and:foo" }</tt></td></tr>
+<tr><td align=center>:</td>
+    <td align=center>5</td>
+    <td><tt>{ "boo", "and", "foo" }</tt></td></tr>
+<tr><td align=center>:</td>
+    <td align=center>-2</td>
+    <td><tt>{ "boo", "and", "foo" }</tt></td></tr>
+<tr><td align=center>o</td>
+    <td align=center>5</td>
+    <td><tt>{ "b", "", ":and:f", "", "" }</tt></td></tr>
+<tr><td align=center>o</td>
+    <td align=center>-2</td>
+    <td><tt>{ "b", "", ":and:f", "", "" }</tt></td></tr>
+<tr><td align=center>o</td>
+    <td align=center>0</td>
+    <td><tt>{ "b", "", ":and:f" }</tt></td></tr>
+</table></blockquote>
+
+<p> An invocation of this method of the form
+<i>str.</i><tt>split(</tt><i>regex</i><tt>,</tt>&nbsp;<i>n</i><tt>)</tt>
+yields the same result as the expression
+
+<blockquote>
+<a href='/docs/api/java/util/regex/Pattern.html'>java.util.regex.Pattern</a> .<a href='/docs/api/java/util/regex/Pattern#compile
+compile.html#compile
+compile'>
+compile</a> <tt>(</tt><i>regex</i><tt>)</tt>.<a href='/docs/api/java/util/regex/Pattern#split(java/lang/CharSequence, int)
+split.html#split(java.lang.CharSequence, int)
+split'>split</a> <tt>(</tt><i>str</i><tt>,</tt>&nbsp;<i>n</i><tt>)</tt>
+</blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms64")'><img id='ms64i' src=/plus.gif border=0></a> public boolean<a name='startsWith(String)'> <b>startsWith</b>(<a href=/docs/api/java/lang/String.html>String</a> prefix)</a> <pre id='ms64' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return startsWith(prefix, 0);
+}</pre></pre><ul>Tests if this string starts with the specified prefix.</ul></td></tr><tr><td><pre><a href='javascript:src("ms65")'><img id='ms65i' src=/plus.gif border=0></a> public boolean<a name='startsWith(String, int)'> <b>startsWith</b>(<a href=/docs/api/java/lang/String.html>String</a> prefix,
+    int toffset)</a> <pre id='ms65' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        char ta[] = value;
+        int to = offset + toffset;
+        char pa[] = prefix.value;
+        int po = prefix.offset;
+        int pc = prefix.count;
+        // Note: toffset might be near -1 > > >1.
+        if ((toffset <  0) || (toffset  > count - pc)) {
+            return false;
+        }
+        while (--pc  >= 0) {
+            if (ta[to++] != pa[po++]) {
+                return false;
+            }
+        }
+        return true;
+}</pre></pre><ul>Tests if the substring of this string beginning at the
+specified index starts with the specified prefix.</ul></td></tr><tr><td><pre><a href='javascript:src("ms66")'><img id='ms66i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/CharSequence.html>CharSequence</a><a name='subSequence(int, int)'> <b>subSequence</b>(int beginIndex,
+    int endIndex)</a> <pre id='ms66' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return this.substring(beginIndex, endIndex);
+}</pre></pre><ul>Returns a new character sequence that is a subsequence of this sequence.
+
+<p> An invocation of this method of the form
+
+<blockquote><pre>
+str.subSequence(begin,&nbsp;end)</pre></blockquote>
+
+behaves in exactly the same way as the invocation
+
+<blockquote><pre>
+str.substring(begin,&nbsp;end)</pre></blockquote>
+
+This method is defined so that the <tt>String</tt> class can implement
+the <a href='CharSequence.html'>CharSequence</a>  interface. </p></ul></td></tr><tr><td><pre><a href='javascript:src("ms67")'><img id='ms67i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='substring(int)'> <b>substring</b>(int beginIndex)</a> <pre id='ms67' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return substring(beginIndex, count);
+}</pre></pre><ul>Returns a new string that is a substring of this string. The
+substring begins with the character at the specified index and
+extends to the end of this string. <p>
+Examples:
+<blockquote><pre>
+"unhappy".substring(2) returns "happy"
+"Harbison".substring(3) returns "bison"
+"emptiness".substring(9) returns "" (an empty string)
+</pre></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms68")'><img id='ms68i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='substring(int, int)'> <b>substring</b>(int beginIndex,
+    int endIndex)</a> <pre id='ms68' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (beginIndex <  0) {
+            throw new StringIndexOutOfBoundsException(beginIndex);
+        }
+        if (endIndex  > count) {
+            throw new StringIndexOutOfBoundsException(endIndex);
+        }
+        if (beginIndex  > endIndex) {
+            throw new StringIndexOutOfBoundsException(endIndex - beginIndex);
+        }
+        return ((beginIndex == 0) && (endIndex == count)) ? this :
+            new String(offset + beginIndex, endIndex - beginIndex, value);
+}</pre></pre><ul>Returns a new string that is a substring of this string. The
+substring begins at the specified <code>beginIndex</code> and
+extends to the character at index <code>endIndex - 1</code>.
+Thus the length of the substring is <code>endIndex-beginIndex</code>.
+<p>
+Examples:
+<blockquote><pre>
+"hamburger".substring(4, 8) returns "urge"
+"smiles".substring(1, 5) returns "mile"
+</pre></blockquote></ul></td></tr><tr><td><pre><a href='javascript:src("ms69")'><img id='ms69i' src=/plus.gif border=0></a> public char[]<a name='toCharArray'> <b>toCharArray</b>()</a> <pre id='ms69' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        char result[] = new char[count];
+        getChars(0, count, result, 0);
+        return result;
+}</pre></pre><ul>Converts this string to a new character array.</ul></td></tr><tr><td><pre><a href='javascript:src("ms70")'><img id='ms70i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='toLowerCase'> <b>toLowerCase</b>()</a> <pre id='ms70' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return toLowerCase(Locale.getDefault());
+}</pre></pre><ul>Converts all of the characters in this <code>String</code> to lower
+case using the rules of the default locale. This is equivalent to calling
+<code>toLowerCase(Locale.getDefault())</code>.
+<p>
+<b>Note:</b> This method is locale sensitive, and may produce unexpected
+results if used for strings that are intended to be interpreted locale
+independently.
+Examples are programming language identifiers, protocol keys, and HTML
+tags.
+For instance, <code>"TITLE".toLowerCase()</code> in a Turkish locale
+returns <code>"t\u0131tle"</code>, where '\u0131' is the LATIN SMALL
+LETTER DOTLESS I character.
+To obtain correct results for locale insensitive strings, use
+<code>toLowerCase(Locale.ENGLISH)</code>.
+<p></ul></td></tr><tr><td><pre><a href='javascript:src("ms71")'><img id='ms71i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='toLowerCase(Locale)'> <b>toLowerCase</b>(<a href=/docs/api/java/util/Locale.html>Locale</a> locale)</a> <pre id='ms71' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (locale == null) {
+            throw new NullPointerException();
+        }
+        int     firstUpper;
+        /* Now check if there are any characters that need to be changed. */
+        scan: {
+            for (firstUpper = 0 ; firstUpper <  count; ) {
+                char c = value[offset+firstUpper];
+                if ((c  >= Character.MIN_HIGH_SURROGATE) &&
+                    (c < = Character.MAX_HIGH_SURROGATE)) {
+                    int supplChar = codePointAt(firstUpper);
+                    if (supplChar != Character.toLowerCase(supplChar)) {
+                        break scan;
+                    }
+                    firstUpper += Character.charCount(supplChar);
+                } else {
+                    if (c != Character.toLowerCase(c)) {
+                        break scan;
+                    }
+                    firstUpper++;
+                }
+            }
+            return this;
+        }
+        char[]  result = new char[count];
+        int     resultOffset = 0;  /* result may grow, so i+resultOffset
+                                    * is the write location in result */
+        /* Just copy the first few lowerCase characters. */
+        System.arraycopy(value, offset, result, 0, firstUpper);
+        String lang = locale.getLanguage();
+        boolean localeDependent =
+            (lang == "tr" || lang == "az" || lang == "lt");
+        char[] lowerCharArray;
+        int lowerChar;
+        int srcChar;
+        int srcCount;
+        for (int i = firstUpper; i <  count; i += srcCount) {
+            srcChar = (int)value[offset+i];
+            if ((char)srcChar  >= Character.MIN_HIGH_SURROGATE &&
+                (char)srcChar < = Character.MAX_HIGH_SURROGATE) {
+                srcChar = codePointAt(i);
+                srcCount = Character.charCount(srcChar);
+            } else {
+                srcCount = 1;
+            }
+            if (localeDependent || srcChar == '\u03A3') { // GREEK CAPITAL LETTER SIGMA
+                lowerChar = ConditionalSpecialCasing.toLowerCaseEx(this, i, locale);
+            } else {
+                lowerChar = Character.toLowerCase(srcChar);
+            }
+            if ((lowerChar == Character.ERROR) ||
+                (lowerChar  >= Character.MIN_SUPPLEMENTARY_CODE_POINT)) {
+                if (lowerChar == Character.ERROR) {
+                    lowerCharArray =
+                        ConditionalSpecialCasing.toLowerCaseCharArray(this, i, locale);
+                } else if (srcCount == 2) {
+                    resultOffset += Character.toChars(lowerChar, result, i + resultOffset) - srcCount;
+                    continue;
+                } else {
+                    lowerCharArray = Character.toChars(lowerChar);
+                }
+                /* Grow result if needed */
+                int mapLen = lowerCharArray.length;
+                if (mapLen  > srcCount) {
+                    char[] result2 = new char[result.length + mapLen - srcCount];
+                    System.arraycopy(result, 0, result2, 0,
+                        i + resultOffset);
+                    result = result2;
+                }
+                for (int x=0; x< mapLen; ++x) {
+                    result[i+resultOffset+x] = lowerCharArray[x];
+                }
+                resultOffset += (mapLen - srcCount);
+            } else {
+                result[i+resultOffset] = (char)lowerChar;
+            }
+        }
+        return new String(0, count+resultOffset, result);
+}</pre></pre><ul>Converts all of the characters in this <code>String</code> to lower
+case using the rules of the given <code>Locale</code>.  Case mapping is based
+on the Unicode Standard version specified by the <a href='/docs/api/java/lang/Character.html'>Character</a> 
+class. Since case mappings are not always 1:1 char mappings, the resulting
+<code>String</code> may be a different length than the original <code>String</code>.
+<p>
+Examples of lowercase  mappings are in the following table:
+<table border="1" summary="Lowercase mapping examples showing language code of locale, upper case, lower case, and description">
+<tr>
+  <th>Language Code of Locale</th>
+  <th>Upper Case</th>
+  <th>Lower Case</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>tr (Turkish)</td>
+  <td>&#92;u0130</td>
+  <td>&#92;u0069</td>
+  <td>capital letter I with dot above -&gt; small letter i</td>
+</tr>
+<tr>
+  <td>tr (Turkish)</td>
+  <td>&#92;u0049</td>
+  <td>&#92;u0131</td>
+  <td>capital letter I -&gt; small letter dotless i </td>
+</tr>
+<tr>
+  <td>(all)</td>
+  <td>French Fries</td>
+  <td>french fries</td>
+  <td>lowercased all chars in String</td>
+</tr>
+<tr>
+  <td>(all)</td>
+  <td><img src="doc-files/capiota.gif" alt="capiota"><img src="doc-files/capchi.gif" alt="capchi">
+      <img src="doc-files/captheta.gif" alt="captheta"><img src="doc-files/capupsil.gif" alt="capupsil">
+      <img src="doc-files/capsigma.gif" alt="capsigma"></td>
+  <td><img src="doc-files/iota.gif" alt="iota"><img src="doc-files/chi.gif" alt="chi">
+      <img src="doc-files/theta.gif" alt="theta"><img src="doc-files/upsilon.gif" alt="upsilon">
+      <img src="doc-files/sigma1.gif" alt="sigma"></td>
+  <td>lowercased all chars in String</td>
+</tr>
+</table></ul></td></tr><tr><td><pre><a href='javascript:src("ms72")'><img id='ms72i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='toString'> <b>toString</b>()</a> <pre id='ms72' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return this;
+}</pre></pre><ul>This object (which is already a string!) is itself returned.</ul></td></tr><tr><td><pre><a href='javascript:src("ms73")'><img id='ms73i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='toUpperCase'> <b>toUpperCase</b>()</a> <pre id='ms73' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return toUpperCase(Locale.getDefault());
+}</pre></pre><ul>Converts all of the characters in this <code>String</code> to upper
+case using the rules of the default locale. This method is equivalent to
+<code>toUpperCase(Locale.getDefault())</code>.
+<p>
+<b>Note:</b> This method is locale sensitive, and may produce unexpected
+results if used for strings that are intended to be interpreted locale
+independently.
+Examples are programming language identifiers, protocol keys, and HTML
+tags.
+For instance, <code>"title".toUpperCase()</code> in a Turkish locale
+returns <code>"T\u0130TLE"</code>, where '\u0130' is the LATIN CAPITAL
+LETTER I WITH DOT ABOVE character.
+To obtain correct results for locale insensitive strings, use
+<code>toUpperCase(Locale.ENGLISH)</code>.
+<p></ul></td></tr><tr><td><pre><a href='javascript:src("ms74")'><img id='ms74i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='toUpperCase(Locale)'> <b>toUpperCase</b>(<a href=/docs/api/java/util/Locale.html>Locale</a> locale)</a> <pre id='ms74' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        if (locale == null) {
+            throw new NullPointerException();
+        }
+        int     firstLower;
+        /* Now check if there are any characters that need to be changed. */
+        scan: {
+            for (firstLower = 0 ; firstLower <  count; ) {
+                int c = (int)value[offset+firstLower];
+                int srcCount;
+                if ((c  >= Character.MIN_HIGH_SURROGATE) &&
+                    (c < = Character.MAX_HIGH_SURROGATE)) {
+                    c = codePointAt(firstLower);
+                    srcCount = Character.charCount(c);
+                } else {
+                    srcCount = 1;
+                }
+                int upperCaseChar = Character.toUpperCaseEx(c);
+                if ((upperCaseChar == Character.ERROR) ||
+                    (c != upperCaseChar)) {
+                    break scan;
+                }
+                firstLower += srcCount;
+            }
+            return this;
+        }
+        char[]  result       = new char[count]; /* may grow */
+        int     resultOffset = 0;  /* result may grow, so i+resultOffset
+                                    * is the write location in result */
+        /* Just copy the first few upperCase characters. */
+        System.arraycopy(value, offset, result, 0, firstLower);
+        String lang = locale.getLanguage();
+        boolean localeDependent =
+            (lang == "tr" || lang == "az" || lang == "lt");
+        char[] upperCharArray;
+        int upperChar;
+        int srcChar;
+        int srcCount;
+        for (int i = firstLower; i <  count; i += srcCount) {
+            srcChar = (int)value[offset+i];
+            if ((char)srcChar  >= Character.MIN_HIGH_SURROGATE &&
+                (char)srcChar < = Character.MAX_HIGH_SURROGATE) {
+                srcChar = codePointAt(i);
+                srcCount = Character.charCount(srcChar);
+            } else {
+                srcCount = 1;
+            }
+            if (localeDependent) {
+                upperChar = ConditionalSpecialCasing.toUpperCaseEx(this, i, locale);
+            } else {
+                upperChar = Character.toUpperCaseEx(srcChar);
+            }
+            if ((upperChar == Character.ERROR) ||
+                (upperChar  >= Character.MIN_SUPPLEMENTARY_CODE_POINT)) {
+                if (upperChar == Character.ERROR) {
+                    if (localeDependent) {
+                        upperCharArray =
+                            ConditionalSpecialCasing.toUpperCaseCharArray(this, i, locale);
+                    } else {
+                        upperCharArray = Character.toUpperCaseCharArray(srcChar);
+                    }
+                } else if (srcCount == 2) {
+                    resultOffset += Character.toChars(upperChar, result, i + resultOffset) - srcCount;
+                    continue;
+                } else {
+                    upperCharArray = Character.toChars(upperChar);
+                }
+                /* Grow result if needed */
+                int mapLen = upperCharArray.length;
+                if (mapLen  > srcCount) {
+                    char[] result2 = new char[result.length + mapLen - srcCount];
+                    System.arraycopy(result, 0, result2, 0,
+                        i + resultOffset);
+                    result = result2;
+                }
+                for (int x=0; x< mapLen; ++x) {
+                    result[i+resultOffset+x] = upperCharArray[x];
+                }
+                resultOffset += (mapLen - srcCount);
+            } else {
+                result[i+resultOffset] = (char)upperChar;
+            }
+        }
+        return new String(0, count+resultOffset, result);
+}</pre></pre><ul>Converts all of the characters in this <code>String</code> to upper
+case using the rules of the given <code>Locale</code>. Case mapping is based
+on the Unicode Standard version specified by the <a href='/docs/api/java/lang/Character.html'>Character</a> 
+class. Since case mappings are not always 1:1 char mappings, the resulting
+<code>String</code> may be a different length than the original <code>String</code>.
+<p>
+Examples of locale-sensitive and 1:M case mappings are in the following table.
+<p>
+<table border="1" summary="Examples of locale-sensitive and 1:M case mappings. Shows Language code of locale, lower case, upper case, and description.">
+<tr>
+  <th>Language Code of Locale</th>
+  <th>Lower Case</th>
+  <th>Upper Case</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>tr (Turkish)</td>
+  <td>&#92;u0069</td>
+  <td>&#92;u0130</td>
+  <td>small letter i -&gt; capital letter I with dot above</td>
+</tr>
+<tr>
+  <td>tr (Turkish)</td>
+  <td>&#92;u0131</td>
+  <td>&#92;u0049</td>
+  <td>small letter dotless i -&gt; capital letter I</td>
+</tr>
+<tr>
+  <td>(all)</td>
+  <td>&#92;u00df</td>
+  <td>&#92;u0053 &#92;u0053</td>
+  <td>small letter sharp s -&gt; two letters: SS</td>
+</tr>
+<tr>
+  <td>(all)</td>
+  <td>Fahrvergn&uuml;gen</td>
+  <td>FAHRVERGN&Uuml;GEN</td>
+  <td></td>
+</tr>
+</table></ul></td></tr><tr><td><pre><a href='javascript:src("ms75")'><img id='ms75i' src=/plus.gif border=0></a> public <a href=/docs/api/java/lang/String.html>String</a><a name='trim'> <b>trim</b>()</a> <pre id='ms75' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        int len = count;
+        int st = 0;
+        int off = offset;      /* avoid getfield opcode */
+        char[] val = value;    /* avoid getfield opcode */
+        while ((st <  len) && (val[off + st] < = ' ')) {
+            st++;
+        }
+        while ((st <  len) && (val[off + len - 1] < = ' ')) {
+            len--;
+        }
+        return ((st  > 0) || (len <  count)) ? substring(st, len) : this;
+}</pre></pre><ul>Returns a copy of the string, with leading and trailing whitespace
+omitted.
+<p>
+If this <code>String</code> object represents an empty character
+sequence, or the first and last characters of character sequence
+represented by this <code>String</code> object both have codes
+greater than <code>'&#92;u0020'</code> (the space character), then a
+reference to this <code>String</code> object is returned.
+<p>
+Otherwise, if there is no character with a code greater than
+<code>'&#92;u0020'</code> in the string, then a new
+<code>String</code> object representing an empty string is created
+and returned.
+<p>
+Otherwise, let <i>k</i> be the index of the first character in the
+string whose code is greater than <code>'&#92;u0020'</code>, and let
+<i>m</i> be the index of the last character in the string whose code
+is greater than <code>'&#92;u0020'</code>. A new <code>String</code>
+object is created, representing the substring of this string that
+begins with the character at index <i>k</i> and ends with the
+character at index <i>m</i>-that is, the result of
+<code>this.substring(<i>k</i>,&nbsp;<i>m</i>+1)</code>.
+<p>
+This method may be used to trim whitespace (as defined above) from
+the beginning and end of a string.</ul></td></tr><tr><td><pre><a href='javascript:src("ms76")'><img id='ms76i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(Object)'> <b>valueOf</b>(<a href=/docs/api/java/lang/Object.html>Object</a> obj)</a> <pre id='ms76' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return (obj == null) ? "null" : obj.toString();
+}</pre></pre><ul>Returns the string representation of the <code>Object</code> argument.</ul></td></tr><tr><td><pre><a href='javascript:src("ms77")'><img id='ms77i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(char)'> <b>valueOf</b>(char[] data)</a> <pre id='ms77' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return new String(data);
+}</pre></pre><ul>Returns the string representation of the <code>char</code> array
+argument. The contents of the character array are copied; subsequent
+modification of the character array does not affect the newly
+created string.</ul></td></tr><tr><td><pre><a href='javascript:src("ms78")'><img id='ms78i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(boolean)'> <b>valueOf</b>(boolean b)</a> <pre id='ms78' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return b ? "true" : "false";
+}</pre></pre><ul>Returns the string representation of the <code>boolean</code> argument.</ul></td></tr><tr><td><pre><a href='javascript:src("ms79")'><img id='ms79i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(char)'> <b>valueOf</b>(char c)</a> <pre id='ms79' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        char data[] = {c};
+        return new String(0, 1, data);
+}</pre></pre><ul>Returns the string representation of the <code>char</code>
+argument.</ul></td></tr><tr><td><pre><a href='javascript:src("ms80")'><img id='ms80i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(int)'> <b>valueOf</b>(int i)</a> <pre id='ms80' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Integer.toString(i, 10);
+}</pre></pre><ul>Returns the string representation of the <code>int</code> argument.
+<p>
+The representation is exactly the one returned by the
+<code>Integer.toString</code> method of one argument.</ul></td></tr><tr><td><pre><a href='javascript:src("ms81")'><img id='ms81i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(long)'> <b>valueOf</b>(long l)</a> <pre id='ms81' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Long.toString(l, 10);
+}</pre></pre><ul>Returns the string representation of the <code>long</code> argument.
+<p>
+The representation is exactly the one returned by the
+<code>Long.toString</code> method of one argument.</ul></td></tr><tr><td><pre><a href='javascript:src("ms82")'><img id='ms82i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(float)'> <b>valueOf</b>(float f)</a> <pre id='ms82' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Float.toString(f);
+}</pre></pre><ul>Returns the string representation of the <code>float</code> argument.
+<p>
+The representation is exactly the one returned by the
+<code>Float.toString</code> method of one argument.</ul></td></tr><tr><td><pre><a href='javascript:src("ms83")'><img id='ms83i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(double)'> <b>valueOf</b>(double d)</a> <pre id='ms83' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return Double.toString(d);
+}</pre></pre><ul>Returns the string representation of the <code>double</code> argument.
+<p>
+The representation is exactly the one returned by the
+<code>Double.toString</code> method of one argument.</ul></td></tr><tr><td><pre><a href='javascript:src("ms84")'><img id='ms84i' src=/plus.gif border=0></a> public static <a href=/docs/api/java/lang/String.html>String</a><a name='valueOf(char, int, int)'> <b>valueOf</b>(char[] data,
+    int offset,
+    int count)</a> <pre id='ms84' style='height:1px;overflow:hidden;visibility:hidden;width:100%'>{
+        return new String(data, offset, count);
+}</pre></pre><ul>Returns the string representation of a specific subarray of the
+<code>char</code> array argument.
+<p>
+The <code>offset</code> argument is the index of the first
+character of the subarray. The <code>count</code> argument
+specifies the length of the subarray. The contents of the subarray
+are copied; subsequent modification of the character array does not
+affect the newly created string.</ul></td></tr></table>
+
+
+
+
+
+
+
+
+<!-- end -->
+
+
+</div>
+</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end -->
+

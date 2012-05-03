@@ -1,0 +1,222 @@
+<html>
+
+<head>
+<title> Java 104 : Extending classes </title>
+<meta name="author" content="David Reilly">
+<meta name="description" content="Java 104 : Extending classes
+covers the concept of inheritance under Java, allowing you
+to extend existing classes. The ease and simplicity with
+which inheritance allows classes to be modified makes re-use
+of code a reality!">
+</head>
+
+<body bgcolor="#ffffff">
+<!--webbot bot="Include" U-Include="../ads/add_code_b.html" TAG="BODY" startspan -->
+
+<center>
+<p align="center">
+<script language="JavaScript"> 
+<!-- BEGIN RICH-MEDIA BURST! CODE -->
+<script language="JavaScript">
+rnum=Math.round(Math.random() * 100000);
+
+document.write('<scr'+'ipt src="http://www.burstnet.com/cgi-bin/ads/ad2350b.cgi/v=2.0S/sz=468x60A/'+rnum+'/RETURN-CODE/JS/"></scr'+'ipt>');
+
+</script>
+<noscript><a href="http://www.burstnet.com/ads/ad2350b-map.cgi/ns/v=2.0S/sz=468x60A/" target="_top">
+<img src="http://www.burstnet.com/cgi-bin/ads/ad2350b.cgi/ns/v=2.0S/sz=468x60A/" border="0" alt="Click Here"></a>
+</noscript>
+<!-- END BURST CODE -->
+
+
+</p>
+</center>
+
+<!--webbot bot="Include" endspan i-checksum="6693" -->
+<a name="top">
+
+<p align="center"><img src="../images/sepbar-1.gif" alt="sepbar-1.gif (3106 bytes)" width="640" height="10"></p>
+
+<h1 align="center">Java 104 : Extending classes </h1>
+
+<p align="center">Written by David Reilly, March 21, 1997 <br>
+<img src="../images/sepbar-1.gif" alt="sepbar-1.gif (3106 bytes)" width="640" height="10"></a><br>
+<a href="../java103/java103.html">Previous</a> | <a href="../java105/java105.html">Next</a>
+</p>
+
+<p>Until now in this tutorial, the usefulness of object orientation and designing classes
+may not have been readily apparent. Certainly, bringing a data structure and functions
+that operate upon it together has its usefulness, but this has only just begun to scratch
+the surface. The real power that comes from using classes is that of inheritance -
+extending the power of existing classes. </p>
+
+<p>Inheritance will probably be a reasonably new term for you, at least when applied to
+object orientated programming. Using other languages, you may have constructed libraries
+of source code, and enhanced them by adding to the original source. Inheritance offers a
+radically different outlook on the re-use of code, as you shall see shortly. </p>
+
+<p>In Java, when we wish to extend the usefulness of a class, we can create a new class
+that inherits the attributes and methods of another. We don't need a copy of the original
+source code (as is the case with many other languages) to extend the usefulness of a
+library. We simply need a compiled '.class' file, from which we can create a new
+enhancement. </p>
+
+<p>Furthermore, instead of re-writing a class to provide (as an example) a new function,
+we can simply declare we wish to extend a class, and add a few lines of code to get an
+enhancement. It makes the process of re-using code much simpler, and code easier to read. </p>
+
+<p>To illustrate this point, we're going to take some code from a previous tutorial, and
+add some extra functionality to it. Remember the bank account example from <a href="../java102/java102.html">Java 102</a>? We're going to create a new class, that
+calculates interest and deposits this into the account. We don't need to re-write the
+original Account class, nor do we need to modify existing methods such as deposit and
+withdraw. </p>
+
+<hr>
+
+<pre><code>
+<font color="green">/*
+ *
+ * InterestBearingAccount
+ * Demonstration for Java 104 tutorial
+ * David Reilly, February 25, 1997
+ *
+ */</font>
+
+<font color="blue">import</font> Account;
+
+<font color="blue">class</font> InterestBearingAccount <font color="blue">extends</font> Account
+{
+        <font color="green">// Default interest rate of 7.95 percent (const)</font>
+        <font color="blue">private static double</font> default_interest = 7.95;
+
+        <font color="green">// Current interest rate</font>
+        <font color="blue">private double</font> interest_rate;
+
+        <font color="green">// Overloaded constructor accepting balance and an interest rate</font>
+        <font color="blue">public</font> InterestBearingAccount( double amount, double interest)
+	{
+		balance = amount;
+		interest_rate = interest;
+	}
+
+        <a name="default"><font color="green">// Overloaded constructor accepting balance with a default interest rate</font>
+        <font color="blue">public</font> InterestBearingAccount( double amount )
+	{
+		balance = amount;
+		interest_rate = default_interest;
+	}
+
+        <font color="green">// Overloaded constructor with empty balance and a default interest rate</font>
+        <font color="blue">public</font> InterestBearingAccount()
+	{
+		balance = 0.0;
+		interest_rate = default_interest;
+	}
+	
+        <font color="blue">public</font> void add_monthly_interest()
+	{
+                <font color="green">// Add interest to our account</font>
+		balance = balance + 		
+                        (balance * interest_rate / 100) / 12;
+	}
+
+}
+</pre>
+</code><em>
+
+<p align="center">Listing 1.0 - InterestBearingAccount.java</em> </p>
+
+<hr>
+
+<p>When we extend an existing class, we 'inherit' all of the attributes, and methods, of
+the parent class. Our new class can deposit, and withdraw - even though we never
+explicitly defined new methods for those functions. This makes programming much easier,
+and simpler, as we don't re-invent the wheel each time we extend other classes. </p>
+
+<p>In the example above, we add only a single new function 'add_monthly_interest()', and
+override the constructors of our parent class. Overriding will be a new term for you -
+basically it means we replace the code for a function from a parent class with a new set
+of code. We must override the constructor calls for our class, as the superclass ' Account
+' doesn't know about our new interest_rate attribute. </p>
+
+<p>Now that we've created this new subclass, we need to provide an example program to test
+and demonstrate the new interest calculation capabilities. For this purpose, I'm using the
+demonstration program from </a><a href="../java102/java102.html">Java 102</a> , and have
+added an extra call to the ' add_monthly_interest() ' method. </p>
+
+<hr>
+
+<pre><code>
+<font color="green">/*
+ *
+ * AccountDemo
+ * Demonstration of Account class &amp; subclasses of Account
+ *
+ */</font>
+<font color="blue">import</font> InterestBearingAccount;
+
+<font color="blue">class</font> AccountDemo 
+{
+        <font color="blue">public static void</font> main(String args[])
+	{
+                <font color="green">// Create an empty account</font>
+		InterestBearingAccount my_account = new InterestBearingAccount();
+
+                <font color="green">// Deposit money</font>
+		my_account.deposit(250.00);
+
+                <font color="green">// Print current balance</font>
+		System.out.println (&quot;Current balance &quot; +
+			my_account.getbalance());
+
+                <font color="green">// Withdraw money</font>
+		my_account.withdraw(80.00);
+
+                <font color="green">// Print remaining balance</font>
+		System.out.println (&quot;Remaining balance &quot; +
+			my_account.getbalance());
+
+                <font color="green">// Allow a month to pass</font>
+		my_account.add_monthly_interest();
+		System.out.println (&quot;Adding interest to account&quot;);
+
+                <font color="green">// Print remaining balance</font>
+		System.out.println (&quot;Remaining balance &quot; +
+			my_account.getbalance());
+
+	}
+}
+</pre>
+</code><em>
+
+<p align="center">Listing 1.1 - AccountDemo.java</em> </p>
+
+<hr>
+
+<p>As you can see, the example varies little from its original form in <a href="../java102/java102.html">Java 102</a>, save that we call the interest calculation
+function. You may also have noticed that the example calls a <a href="java104.html#default">constructor</a> that doesn't explicitly specify an interest
+rate. In this case, our <a href="java104.html#default">constructor</a> uses the default
+interest rate of 7.95%. Run this, and you'll see that it does indeed calculate interest
+for the account! </p>
+
+<p>For those who would prefer not to have to type (or copy from the clipboard) the code
+for this tutorial, I've put together the full source code for this tutorial together as a <a href="java104.zip">ZIP</a>. 
+
+<ul>
+  <li><a href="java104.zip" target><img src="../images/disk.gif" border="NO" img align="center" width="0" height="0"></a> <a href="java104.zip">Java 104 source</a><br>
+  </li>
+</ul>
+
+<p>By now you have learnt some of the basics of Java, and should be able to extend and
+modify the examples from the tutorial series. As practice until the next installment of
+this tutorial series, you might wish to modify the example to calculate the compound
+interest over the course of a year. </p>
+
+<p><b>(Hint - use a standard for loop, calling add_monthly_interest() repeatedly).</b> </p>
+
+<p align="center"><!-- Tutorial series navigation --> <a href="../java103/java103.html">Previous</a> | <a href="../java105/java105.html">Next</a> <!-- Footer --></p>
+
+<p><a href="../index.html"><img src="../images/rounded3darrow_small.gif" alt="&lt;--" align="absmiddle" border="0" width="45" height="45"></a> <a href="../index.html">Back to
+the Java Coffee Break</a></p>
+</body>
+</html>

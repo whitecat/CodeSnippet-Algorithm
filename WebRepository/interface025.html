@@ -1,0 +1,898 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="generator" content="Movable Type 3.2" />
+
+   <link rel="stylesheet" href="http://www.workingwith.me.uk/css/screen.css" type="text/css" />
+   <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.workingwith.me.uk/index.xml" />
+
+
+<link rel="icon" href="http://www.workingwith.me.uk/favicon.ico" />
+<link rel="shortcut icon" href="http://www.workingwith.me.uk/favicon.ico" />
+
+   <title>Using the iTunes COM Interface with Java and Swing</title>
+   
+   <link rel="start" href="http://www.workingwith.me.uk/" title="Home" />
+
+   
+
+   
+
+</head>
+
+<body>
+
+<div id='container'>
+
+		<div id='header'>
+		<div id='flaghead'><a href='http://www.workingwith.me.uk/'>workingwith.me.uk</a></div>
+		<div id='tagline'>this <strong>is</strong> the geek you are looking for</div>
+		<div id='skipToContent'><a href='#content'>skip to content</a></div>
+		<ul id='navigation'>
+			<li><a href='http://www.workingwith.me.uk/blog/'>Blog</a></li>
+			<li><a href='http://www.workingwith.me.uk/articles/'>Articles</a></li>
+			<li><a href='http://www.workingwith.me.uk/table_free/'>Table Free</a></li>
+			<li><a href='http://www.workingwith.me.uk/faq/'>FAQ</a></li>
+			<li><a href='http://www.workingwith.me.uk/neil/'>Neil Crosby</a></li>
+			<li><a href='http://www.workingwith.me.uk/contact/'>Contact</a></li>
+			<li><a href='http://www.workingwith.me.uk/feeds/'>Feeds</a></li>
+		</ul>
+	</div><!-- end header -->
+
+
+	<div id='content' class='clearfix'>
+<!-- google_ad_section_start -->
+		<div id='primaryContent'>
+			<div class='blogEntry'>
+				<h1><a href='http://www.workingwith.me.uk/articles/java/itunes-com-with-java-and-swing'>Using the iTunes COM Interface with Java and Swing</a></h1>
+				<p class='byLine'>
+					Posted by <a href='/neil/'>Neil Crosby</a>
+					on December 13, 2004 08:22 PM
+				</p>
+
+				<p>
+Last month, I wrote a <a href='http://www.workingwith.me.uk/blog/8209/'>blog entry</a> which described
+how to use Java to communicate with the iTunes COM interface for Windows.  Even though the entry was
+just a very quick &#8220;look, you can do this&#8221; sort of piece, it received high quality links and a fair bit 
+of traffic from some good sites.  From these, I got feedback from a few people saying thank you for
+helping them out by making the code available, but that (amongst other things), they couldn&#8217;t get it
+working with Swing.  That night, I hacked together a version of the code that worked with Swing.
+</p>
+
+<h3>Before we begin</h3>
+
+<p>
+As in the previous blog entry, we&#8217;re going to be using JACOB to communicate with the iTunes COM 
+interface.  JACOB is essentially a port of the Microsoft Java to COM interface which was written to work
+with the Microsoft JVM.  Obviously, with the death of the MIcrosoft JVM and the fact that it was never
+very good to begin with, there was a need for a version which would work with the standard Sun JVM.
+And so, JACOB was born.
+</p>
+<p>
+In order to run the example in this article, you&#8217;ll need to 
+<a class='external' href='http://sourceforge.net/projects/jacob-project/'>download the latest JACOB package</a>
+(any version 1.8+ should be acceptable).
+I&#8217;ll assume for this example that you&#8217;ve put the jacob.dll and jacob.jar files in the same directory as
+the example class which we&#8217;ll create later.
+</p>
+<p>
+As well as the JACOB run-times, you&#8217;ll also need the API documentation if you&#8217;re going to be able to do
+anything further than what you&#8217;re shown in this article.  Unfortunately, the JACOB project does not
+have any useable API documentation yet.  Thankfully, since it&#8217;s so closely based on the original
+Microsoft implementation, this isn&#8217;t really a problem, since the Microsoft documentation is plenty
+good enough.  Unfortunately, it isn&#8217;t that easy to get hold of.  There is one place you can go to
+get hold of it though - the 
+<a class='external' href='http://groups.yahoo.com/group/jacob-project/'>JACOB Yahoo Group</a>.
+Sign up to the group using your Yahoo ID, and go to the Files section.  Once you&#8217;re there, download the
+<code>sdkdocs.zip.aa</code> and <code>sdkdocs.zip.aa</code> files, and concatenate them to make one single
+<code>sdkdocs.zip</code> file.  You can concatenate them by opening a command window in the directory you
+saved the files in, and typing <code>type sdkdocs.zip.aa sdkdocs.zip.ab > sdkdocs.zip</code>.  All being well, 
+you&#8217;ll be able to unzip sdkdocs.zip, and open the resulting files using Microsoft&#8217;s Help Viewer.
+</p>
+<p>
+Assuming you haven&#8217;t already downloaded it, now would be a good time to grab the
+<a class='external' href='http://developer.apple.com/sdk/itunescomsdk.html'>iTunes COM interface SDK</a>.
+</p>
+<p>
+Now, as long as you&#8217;ve already got 
+<a class='external' href='http://java.sun.com/j2se/1.5.0/download.jsp'>Sun&#8217;s Java JDK</a> 
+installed, we&#8217;re all set to go.
+</p>
+
+<h3>Getting Started</h3>
+
+<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=workingwmeuk-21&o=2&p=8&l=as1&asins=0596102119&fc1=000000&IS2=1&lt1=_blank&lc1=0000ff&bc1=000000&bg1=ffffff&f=ifr" style="float: right; margin-left: 1em; width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+<p>
+First, lets do a very quick test to make sure that we can get a Java application communicating with iTunes.
+This is basically a little cut down version of the code which I wrote in the previous blog entry.  Save the
+following as <code>ITunesTest1.java</code>:
+</p>
+
+<pre><code class='block'>import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.activeX.ActiveXComponent;
+
+public class ITunesTest1 {
+
+	public ITunesTest1() {
+		ComThread.InitMTA(true);
+
+		ActiveXComponent iTunesCom = new ActiveXComponent("iTunes.Application");
+
+		Dispatch iTunesController = (Dispatch)iTunesCom.getObject();
+
+		Dispatch.call(iTunesController, "PlayPause");
+
+		ComThread.Release();
+
+		System.exit(0);
+	}
+
+
+	public static void main(String args[]) throws Exception {
+		ITunesTest1 test = new ITunesTest1();
+	}
+
+}</code></pre>
+
+<p>
+All that code does is set up a ComThread, attaches itself to your already running instance
+of iTunes, and toggles whether it&#8217;s playing or not.  It then releases the ComThread that it set up
+and exits the application.  Nice and simple.  To run the test, simply open a command window in the
+directory that you&#8217;ve got the <code>ITunesTest1.java</code> file in.
+</p>
+
+<pre><code class='block'>javac -cp ./jacob.jar;. ITunesTest1.java
+java -cp ./jacob.jar;. ITunesTest1</code></pre>
+
+<p>
+All being well, when you hit Enter after inputting the second line, you&#8217;ll be greeted by iTunes 
+toggling whether or not it&#8217;s playing.  So, if you weren&#8217;t playing anything when you ran the test
+then iTunes should errupt into a flurry of song, and vice versa.  If this doesn&#8217;t happen, then
+check that you&#8217;ve got the JACOB files in the right place, and that you&#8217;re using iTunes on a 
+Windows platform!
+</p>
+
+<h3>Listening for Events</h3>
+
+<p>
+Now that we know that we can send information to Itunes, lets go the other way and receive
+information back from it.  We do this using JACOB&#8217;s DispatchEvents class.  The constructor for
+this class takes two parameters - the Dispatch instance for the application that we&#8217;re hooked into, 
+and an &#8220;event class&#8221; which contains methods related to the events which are generated by the application
+that we&#8217;re hooked into.  This &#8220;event class&#8221; contains one method for each event which is generated
+by the application that you want to monitor.  Each method has the same name as the generated event, 
+takes a single array of type Variant as a parameter, and does not return anything.  iTunes has various 
+events which it will generate, but for this example, we only want to monitor <code>OnPlayerPlayEvent</code>.
+</p>
+
+<p>
+To do this in a single threaded application, we use the following code (the red lines are new compared to
+last time):
+</p>
+
+<pre><code class='block'>import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.activeX.ActiveXComponent;
+<span class='new'>import com.jacob.com.DispatchEvents;
+import com.jacob.com.Variant;
+import java.io.IOException;</span>
+
+public class ITunesTest2 {
+
+	public ITunesTest2() {
+		ComThread.InitMTA(true);
+
+		ActiveXComponent iTunesCom = new ActiveXComponent("iTunes.Application");
+
+		Dispatch iTunesController = (Dispatch)iTunesCom.getObject();
+
+		<span class='new'>DispatchEvents events = new DispatchEvents(iTunesController, new ITunesEvents());
+
+		try {
+			System.in.read();
+		} catch (IOException e) {}</span>
+
+		ComThread.Release();
+
+		System.exit(0);
+	}
+
+	<span class='new'>private class ITunesEvents {
+		public void OnPlayerPlayEvent(Variant[] args) {
+			System.out.println("OnPlayerPlayEvent");
+		}
+	}</span>
+
+	public static void main(String args[]) throws Exception {
+		ITunesTest2 test = new ITunesTest2();
+	}
+
+}</code></pre>
+
+<p>
+When you compile and run the class, you&#8217;ll be informed every time a song starts playing on iTunes.  Press
+Enter to terminate the application.  Make sure you terminate it this way, as if the ComThread does not
+get released, then iTunes will think that you still have a handle to it and will not let you watch for
+events if you ran the application again.  The only way I know to let iTunes let you listen again if you
+don&#8217;t close the application correctly is to restart iTunes itself.
+</p>
+
+<h3>Getting it to work with Swing</h3>
+
+<p>
+Unfortunately, things don&#8217;t work quite this easily with Swing, and this is the real reason that I&#8217;ve
+written this article.  If you try to do things this simplistically and use Swing as well, then the
+ComThread does not get released successfully, and you have to restart iTunes before you can run your
+Swing application again (receiving a warning message from iTunes in the process).
+</p>
+
+<p>
+The solution to the problem when using Swing is to run the JACOB code in a separate Thread, and not allow
+the main application Thread to shut down until the JACOB Thread has completed all its business.  This
+is fairly easy, but it took me a while to work out that this was the way that things should be done.
+</p>
+
+<p>
+The following code is an example of what you can use to get a Swing application talking to iTunes before
+successfully unattaching itself from iTunes before it closes.  Once again, the notable code additions are
+highlighted.
+</p>
+
+<pre><code class='block'>import com.jacob.com.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.IOException;
+import java.awt.BorderLayout;
+import com.jacob.activeX.ActiveXComponent;
+
+public class ITunesTest3 extends JFrame {
+
+	private ITunesThread iTunes;
+
+	public ITunesTest3() {
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ExitListener());
+
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(btnExit, BorderLayout.CENTER);
+		this.addWindowListener(new ExitListener());
+		this.pack();
+
+		<span class='new'>iTunes = new ITunesThread();
+		iTunes.start();</span>
+	}
+
+	<span class='new'>public void doExit() {
+		iTunes.quit = true;
+		while (!iTunes.finished) {
+			synchronized(this) {
+				try {
+					System.out.println("Waiting for the ITunesThread to finish");
+					wait(100);
+				} catch (InterruptedException e) {}
+			}
+		}
+		System.exit(0);
+	}</span>
+
+	private class ExitListener implements ActionListener, WindowListener {
+		public void actionPerformed(ActionEvent evt) {
+			doExit();
+		}
+		
+		public void windowClosing(WindowEvent e) {
+			doExit();
+		}
+
+		public void windowActivated(WindowEvent e) {}
+		public void windowClosed(WindowEvent e) {}
+		public void windowDeactivated(WindowEvent e) {}
+		public void windowDeiconified(WindowEvent e) {}
+		public void windowIconified(WindowEvent e) {}
+		public void windowOpened(WindowEvent e) {}
+	}
+
+	<span class='new'>private class ITunesThread extends Thread {
+		public boolean quit = false;
+		public boolean finished = false;
+
+		public void run () {</span>
+			ComThread.InitMTA(true);
+
+			ActiveXComponent iTunesCom = new ActiveXComponent("iTunes.Application");
+
+			Dispatch iTunesController = (Dispatch)iTunesCom.getObject();
+
+			DispatchEvents events = new DispatchEvents(iTunesController, new ITunesEvents());
+
+			<span class='new'>while (!quit) {
+				try {
+					sleep(100);
+				} catch (InterruptedException e) {}
+			}</span>
+
+			ComThread.Release();
+
+			<span class='new'>finished = true;</span>
+			System.out.println("ITunesThread has finished");
+		}
+	}
+
+	private class ITunesEvents {
+		public void OnPlayerPlayEvent(Variant[] args) {
+			System.out.println("OnPlayerPlayEvent");
+		}
+	}
+
+	public static void main(String[] args) {
+		ITunesTest3 app = new ITunesTest3();
+		app.setVisible(true);
+	}
+}</code></pre>
+
+<p>
+As you can see, the main body of code from the previous examples has now been moved into its own
+ITunesThread, which continually sleeps until someone sets its public <code>quit</code> variable to 
+<code>true</code>.  At this point, the ITunesThread releases the ComThread, and sets its 
+<code>finished</code> variable to <code>true</code>, signifying that the Swing application is now
+allowed to exit.
+</p>
+
+<p>
+The code which controls this ending of the ITunesThread is found in the Swing application&#8217;s
+<code>doExit()</code> method.  It changes the value of the ITunesThread&#8217;s <code>quit</code> variable to 
+<code>true</code> and then waits until the ITunesThread&#8217;s <code>finished</code> variable reads 
+<code>true</code>.  This &#8220;does the job&#8221;, and the application successfully finishes after releasing the
+ComThread.
+</p>
+
+<h3>Making it all do something useful</h3>
+
+<p>
+Of course, nothing that we&#8217;ve done here actually does anything useful, so I&#8217;m going to finish with a little
+snippet to add to the OnPlayerPlayEvent method which will output the song title and artist to STDOUT whenever
+a song is played.  Getting the application to do anything more elaborate is an exercise which shall be
+left to the reader.
+</p>
+
+<pre><code class='block'>public void OnPlayerPlayEvent(Variant[] args) {
+	System.out.println("OnPlayerPlayEvent");
+
+	Dispatch event = (Dispatch)args[0].getDispatch();
+
+	System.out.println("Artist: " + Dispatch.get(event, "Artist"));
+	System.out.println("Album: " + Dispatch.get(event, "Album"));
+	System.out.println("Name: " + Dispatch.get(event, "Name"));
+}</code></pre>
+
+<p>
+So, there you go.  That&#8217;s pretty much the basics covered so that you can get Java successfully communicating
+with the iTunes COM interface.  It&#8217;s all pretty groovy, and something that I&#8217;m hoping to explore further at
+a later date.
+</p>
+                                
+									<div class='advertising'>
+						<p>
+							If you enjoyed reading this and would like other
+							people to read it as well, please add it to
+							<a href='http://del.icio.us/post?url=http%3A%2F%2Fwww.workingwith.me.uk%2Farticles%2Fjava%2Fitunes-com-with-java-and-swing&amp;title=Using%20the%20iTunes%20COM%20Interface%20with%20Java%20and%20Swing'>del.icio.us</a>,
+							<a href='http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.workingwith.me.uk%2Farticles%2Fjava%2Fitunes-com-with-java-and-swing'>digg</a> or
+							<a href='http://www.furl.net/storeIt.jsp?u=http%3A%2F%2Fwww.workingwith.me.uk%2Farticles%2Fjava%2Fitunes-com-with-java-and-swing&amp;t=Using%20the%20iTunes%20COM%20Interface%20with%20Java%20and%20Swing'>furl</a>.
+						</p>
+<script type="text/javascript"><!--
+google_ad_client = "pub-4287914808447079";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel ="6959787886";
+google_color_border = "FFFFFF";
+google_color_link = "666666";
+google_color_bg = "FFFFFF";
+google_color_text = "000000";
+google_color_url = "008000";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<p>
+If you <strong>really</strong> enjoyed what you just read, why not <a href="http://www.amazon.co.uk/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.co.uk%2F&tag=workingwmeuk-21&linkCode=ur2&camp=1634&creative=6738">buy yourself something from Amazon</a>?  You get something nice for yourself, and I get a little bit of commission to pay for servers and the like.  Everyone's a winner! 
+</p>
+					</div>
+				
+				<p class='blogEntryFooter'>
+											<a href='#comments'>comments (17)</a>
+						|
+						<a href='#writeComment'>write a comment</a>
+						|
+					
+					<a href='http://www.workingwith.me.uk/articles/java/itunes-com-with-java-and-swing'>permalink</a>
+|
+<a href="http://technorati.com/search/http%3A%2F%2Fwww.workingwith.me.uk%2Farticles%2Fjava%2Fitunes-com-with-java-and-swing?sub=nscosmos" rel="linkcount">View blog reactions</a>
+				</p>
+			</div>
+			
+			
+			
+																		<div class='comments'>
+							<h2><a id='comments'>Comments</a></h2>
+							<ol>
+					
+
+								<li class='comment_sylvain'>
+									<h3>
+										by Sylvain 
+										on December 31, 2004 02:13 AM
+									</h3>
+									<p>Hi,</p>
+
+<p>I have been reading your posting about the Itunes SDK for Windows with interest.</p>
+
+<p>Indeed, I would like to create a simple HTML interface to Itunes so I can remotely command Itunes from a pocket PC device within my appartment (list playlists, play, stop play list, next track&#8230;)</p>
+
+<p>Programming wise, I can easily find my way with HTML, ASP, VBscript, web servers configuration but I have never used PERL, Java or developped dll using C and a COM interface of some sort.</p>
+
+<p>From everything I have been reading about the Itunes SDK, there is nothing available that I could re-use into a VBscript. It seems that I need to either learn about perl or dig into some souvenirs or C programming and figure out how to create a dll, register it and then use it into an ASP page.</p>
+
+<p>Any suggestion of an easier path would be appreciated.</p>
+
+<p>Thanks in advance for your answer and Happy New Year.</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_david_lowe'>
+									<h3>
+										by David Lowe 
+										on March 23, 2005 09:46 AM
+									</h3>
+									<p>hi,</p>
+
+<p>i just finished working through your examples and i have to say it was great. really helpful well explained and most of all, it works. thanks for this, it gives me a launch pad to create the apps i have in mind.</p>
+
+<p>thank you for taking the time to do this</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_scott'>
+									<h3>
+										by Scott 
+										on October 11, 2005 03:25 AM
+									</h3>
+									<p>Does iTunes on OS X expose a COM (or COM-like) API that can be used the same way?</p>
+
+<p>Thanks</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_neil_crosby'>
+									<h3>
+										by <a href="http://www.workingwith.me.uk/" rel="nofollow">Neil Crosby</a> <a class="commenter-profile" href="http://profile.typekey.com/thevoicewithin"><img alt='[TypeKey Profile Page]' src='http://www.workingwith.me.uk/nav-commenters.gif' /></a>
+										on October 11, 2005 08:46 AM
+									</h3>
+									<p>On OS X you can use AppleScript to control iTunes (and whole host of other stuff). Just one place you could look for pointers with that is <a href="http://www.dougscripts.com/itunes/" rel="nofollow">http://www.dougscripts.com/itunes/</a></p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_col'>
+									<h3>
+										by Col 
+										on October 16, 2005 03:26 PM
+									</h3>
+									<p>Hi,
+Thanks for your great article. It has helped me a lot.
+I have been able to do alot with the information you provided but one area is still causing me much confusion. Can you please give me some advise on how I can go about getting some information about my music library back from iTunes via the Jacob COM bridge?</p>
+
+<p>I know how to call all the simple commands and even pass values to iTunes (such as setting the volume etc.) but how to I manage to get info back? Is there a way to implement the the data object interfaces such as the IITrackCollection or IITrackPlaylist Interface in Java?</p>
+
+<p>It would be great to hear any advise anyone can give me on this matter.</p>
+
+<p>cheers</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_'>
+									<h3>
+										by Anonymous 
+										on October 28, 2005 08:07 PM
+									</h3>
+									<p>I got curious and found a way to do this. First off, go to Sourceforge and get the latest JACOB and JacobGen. JacobGen is the app you need for this. In the docs directory you will find a file called run<em>jacobgen.bat. Edit this to fit your machine. You will need to set JAVA</em>HOME and such to match your setup. Then run it. I&#8217;ll provide what you need below. This will generate a set of Java classes for working with iTunes on Windows via the COM interface. It&#8217;s slick as hell. Make sure to put the jacob.dll somewhere Windows can find it. I just dumped it in C:\windows\system32.</p>
+
+<p>run_jacobgen.bat:</p>
+
+<pre><code>@echo off
+cls
+REM run this from the root directory of the Jacobgen project
+REM it will spit out the interface classes for a dll you pass in as a parameter
+REM sample command line while sitting in the JACOBGEN project directory
+REM
+REM The following command built a sample in the jacob directory I have
+REM installed near my jacobgen proejct directory
+REM $ docs/run_jacobgen.bat -destdir:"..\jacob\samples" -listfile:"jacobgenlog.txt" -package:com.jacobgen.microsoft.msword "C:\Program Files\Microsoft Office\OFFICE11\MSWORD.OLB"
+REM
+REM
+set JAVA_HOME=C:\Java\j2sdk1.4.2_09
+set JRE=%JAVA_HOME%\bin\java
+set JACOBGEN_HOME=.
+set CLASSPATH=%CLASSPATH%;%JAVA_HOME%\lib\dt.jar;%JACOBGEN_HOME%\jacobgen.jar;%JACOBGEN_HOME%\samskivert.jar
+REM put the dll in the path where we can find it
+set PATH=%PATH%;%JACOBGEN_HOME%\release
+rem echo %CLASSPATH%
+%JRE% -Xint com.jacob.jacobgen.Jacobgen %1 %2 %3 %4 %5
+pause</code></pre>
+
+<p>Command to run it with:</p>
+
+<pre><code>docs\run_jacobgen.bat -destdir:"C:\Java\jacobgen_0.5\samples" -listfile:"jacobgenlog.txt" -package:com.apple.itunes "C:\Program Files\iTunes\iTunes.exe"</code></pre>
+
+<p>(That should all be one line. Again, make sure the paths in the command are correct.)</p>
+
+<p>Now you have a Java package tree in C:\Java\jacobgen_0.5\samples. You will need to include these in your Java project/classpath. I use NetBeans to setup the project, so I just cut-and-pasted the &#8220;com&#8221; directory into my src dir for the project. Netbeans picked it up and added it. You&#8217;re on your own for setting that up. Here&#8217;s some sample source that lists the playlists. You can go from there to do all sorts of stuff. It&#8217;s just a slightly modified version of the &#8220;simple&#8221; code above.</p>
+
+<pre><code>import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.activeX.ActiveXComponent;
+import com.apple.itunes.*;
+public class Main {
+public Main() {
+ComThread.InitMTA(true);
+ActiveXComponent iTunesCom = new ActiveXComponent("iTunes.Application");
+Dispatch iTunesController = (Dispatch)iTunesCom.getObject();
+IiTunes it = new IiTunes(iTunesController);
+IITSourceCollection sourceList = it.getSources();
+for (int i = 1; i &lt;= sourceList.getCount(); i++)
+{
+IITSource s = sourceList.getItem(i);
+System.out.println(s.getName());
+IITPlaylistCollection lists = s.getPlaylists();
+for (int j = 1; j &lt;= lists.getCount(); j++)
+{
+IITPlaylist pl = lists.getItem(j);
+System.out.println(pl.getName());
+}
+}
+// Dispatch.call(iTunesController, "PlayPause");
+ComThread.Release();
+System.exit(0);
+}
+public static void main(String args[]) throws Exception {
+Main test = new Main();
+}
+}</code></pre>
+
+<p>If you can&#8217;t get jacobgen to work, I&#8217;ll consider posting the source tree it generates online somewhere. I doubt apple would care, it&#8217;s free advertising for them&#8230; I&#8217;ll just check back on here once in a while&#8230;</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_'>
+									<h3>
+										by Anonymous 
+										on November  9, 2005 01:59 AM
+									</h3>
+									<p>Control iTunes from a Servlet</p>
+
+<p>Hello, I could follow your example and Play/Pause iTunes using Jacob 1.9 and j2sdk1.4.2_09. but I could not make it work in a servlet running in Tomcat 5.0.28. I get the following error: </p>
+
+<pre><code>----- Root Cause ----- 
+com.jacob.com.ComFailException: Can't co-create object 
+at com.jacob.com.Dispatch.createInstance(Native Method) 
+at com.jacob.com.Dispatch.(Dispatch.java:146) 
+at com.jacob.activeX.ActiveXComponent.(ActiveXComponent.java:58) 
+at example.sum.ITunesCOM.(ITunesCOM.java:19) </code></pre>
+
+<p>&#8230; I stored jacob.dll in c:\WINDOWS\system32. Do you know how I could make it work? Thanks!</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_'>
+									<h3>
+										by Anonymous 
+										on January 11, 2006 08:32 AM
+									</h3>
+									<p>jacob 1.10-pre2 didn&#8217;t work with the example as listed. I tried 1.8 and it worked just fine. The error said something about only public classes could ????? So I think that the devs on the project have changed the ?scope? of one of the classes. I didn&#8217;t try any of the versions in between so who knows about when it was changed. I could look into it more but I&#8217;m heading off to bed. :-) Thanks for the great example btw. It seems so hard to find any good windows example code of using the iTunes com. Of course the com has certain limitations&#8230; Does it break anything with apple if you create an app that directly edits the library xml file? I&#8217;d like to create some apps for better file management. Apples automatic one is great but sucks if your mp3s only information is in the file name! The com doesn&#8217;t seem to suport changeing the location. Of course I could write an app that could move the file and then edit the xml directly&#8230; I wonder if Apple would frown on that? It looks like some people have created mac scripts to do stuff like that. Well I&#8217;m tossing around the idea of creating an open source iTunes tools app. If anyone else is interested post here. I&#8217;ll try to remember to check back and post the possible SourceForge site. (Probably after I get some kind of base code written.)
+&#8212; AS</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_'>
+									<h3>
+										by Anonymous 
+										on January 11, 2006 08:35 AM
+									</h3>
+									<p>oh my Sourceforge name is fuzzyfonzy if anybody wants to contact me concerning an opensource project. (Note that if I&#8217;m not on one 3 months from the date of post I probably decided not to start one :-) )</p>
+
+<p>&#8212; AS</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_'>
+									<h3>
+										by Anonymous 
+										on February  2, 2006 01:58 AM
+									</h3>
+									<p>I have jacob 1.10-pre2 and got the same error. I simply fixed it by taking:
+private class ITunesEvents
+and making it public inside its own file. Apparently, the DispatchEvents() method now needs a public class as its second argument.</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_'>
+									<h3>
+										by <a href="http://itunesanywhere.sourceforge.net/" rel="nofollow">Anonymous</a> 
+										on March  9, 2006 08:10 PM
+									</h3>
+									<p>I programmed a little client/server app that uses this exact same principle. It uses XML data over sockets to communicate with multiple clients and uses Jacob for making the COM calls to iTunes. If you want to lend me a hand, the source code is available on sourceforge - <a href="http://itunesanywhere.sourceforge.net/" rel="nofollow">http://itunesanywhere.sourceforge.net/</a></p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_'>
+									<h3>
+										by Anonymous 
+										on April  9, 2006 02:23 PM
+									</h3>
+									<p>Hi,</p>
+
+<p>I am currently using the iTunes COM object with VB.NET.  I have successfully set up the event handlers and simple control + extract the current playlist, however, I don&#8217;t seem to be able to select tracks from a playlist directly.  Is it true that this is not possible with the iTunes COM interface?</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_slim'>
+									<h3>
+										by <a href="http://www.itunessdk.com/blog" rel="nofollow">slim</a> 
+										on July 24, 2006 07:32 PM
+									</h3>
+									<p>i have many resources that might help you at <a href="http://www.itunessdk.com/blog" rel="nofollow">http://www.itunessdk.com/blog</a></p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_mitchum'>
+									<h3>
+										by <a href="http://www.mitchumowen.com" rel="nofollow">Mitchum</a> 
+										on August 24, 2006 05:42 PM
+									</h3>
+									<p>Hey guys,&#8230;</p>
+
+<p>Its easier for Mac users, but if you&#8217;re a windows user and want to play a particular podcast as an alarm, I&#8217;ve created a script to do it pretty easily&#8230;</p>
+
+<p><a href="http://www.mitchumowen.com/downloads/alarm.js" rel="nofollow">http://www.mitchumowen.com/downloads/alarm.js</a></p>
+
+<p>The instructions are in the file.  To edit the preferences, you need to open the file with notepad or other editor.</p>
+
+<p>Enjoy!</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_hui'>
+									<h3>
+										by Hui 
+										on January 30, 2007 10:19 PM
+									</h3>
+									<p>I got some problems when I tried to generate a set of java class files to &#8220;C:\Java\jacobgen_0.5\samples&#8221;. Did anyone successfully generate those files? It would be appreciated, if anyone can provide a link to download these files directly. Thanks a lot!! </p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_technika'>
+									<h3>
+										by <a href="http://www.dominos.com.pl" rel="nofollow">Technika</a> 
+										on April 18, 2007 11:02 AM
+									</h3>
+									<p>Mitchum - Thank You. It be very helpful for me :)</p>
+
+								</li>
+
+					
+									
+
+								<li class='comment_marko_novakovic'>
+									<h3>
+										by <a href="http://localhost" rel="nofollow">Marko Novakovic</a> 
+										on July  4, 2007 12:27 PM
+									</h3>
+									<p>Update:</p>
+
+<p>This is for Java 1.5 version and new jacobgen</p>
+
+<p>@echo off
+cls
+REM run this from the root directory of the Jacobgen project
+REM it will spit out the interface classes for a dll you pass in as a parameter
+REM sample command line while sitting in the JACOBGEN project directory
+REM
+REM The following command built a sample in the jacob directory I have
+REM installed near my jacobgen proejct directory
+REM $ docs/run<em>jacobgen.bat -destdir:&#8221;..\jacob\samples&#8221; -listfile:&#8221;jacobgenlog.txt&#8221; -package:com.jacobgen.microsoft.msword &#8220;C:\Program Files\Microsoft Office\OFFICE11\MSWORD.OLB&#8221;
+REM
+REM
+set JAVA</em>HOME=&#8221;c:\Program Files\Java\jdk1.5.0<em>06&#34;
+set JRE=%JAVA</em>HOME%\bin\java
+set JACOBGEN<em>HOME=.
+set CLASSPATH=%CLASSPATH%;%JAVA</em>HOME%\lib\dt.jar;%JACOBGEN<em>HOME%\jacobgen.jar;%JACOBGEN</em>HOME%\viztool.jar
+REM put the dll in the path where we can find it
+set PATH=%PATH%;%JACOBGEN_HOME%\release
+rem echo %CLASSPATH%
+%JRE% -Xint com.jacob.jacobgen.Jacobgen %1 %2 %3 %4 %5
+pause</p>
+
+<p>batch file:
+docs\run<em>jacobgen.bat -destdir:&#8221;C:\Java\jacobgen</em>0.5\samples&#8221; -listfile:&#8221;jacobgenlog.txt&#8221; -package:com.apple.itunes &#8220;C:\Program Files\iTunes\iTunes.exe&#8221;</p>
+
+								</li>
+
+												</ol>
+				<div style='text-align: center'>
+<script type="text/javascript"><!--
+google_ad_client = "pub-4287914808447079";
+google_ad_width = 336;
+google_ad_height = 280;
+google_ad_format = "336x280_as";
+google_ad_type = "text_image";
+google_ad_channel ="6392476631";
+google_color_border = "000084";
+google_color_bg = "FFFFFF";
+google_color_link = "000000";
+google_color_text = "000000";
+google_color_url = "008000";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>				
+							</div>
+						</div>
+					
+				
+
+				
+				
+			
+
+		</div><!-- primaryContent -->
+<!-- google_ad_section_end -->
+
+		<div id='secondaryContent'>
+			
+						<div id='search'>
+				<h1><label for='search'>search</label></h1>
+
+				<form method="get" action="http://www.workingwith.me.uk/cgi-bin/type/mt-search.cgi">
+					<p class='bordered'>
+					<input type="hidden" name="IncludeBlogs" value="1" />
+					<input name='search' />
+					</p>
+					<p class='align_right'>
+					<button type='submit'>Search</button>
+					</p>
+				</form>
+			</div>
+
+			
+
+<div id='relevantPages'>
+	<h1>other relevant pages</h1>
+	<ul>
+					
+		
+	</ul>
+				
+<script type="text/javascript"><!--
+google_ad_client = "pub-4287914808447079";
+google_ad_width = 200;
+google_ad_height = 90;
+google_ad_format = "200x90_0ads_al";
+google_ad_channel ="1503759248";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000EE";
+google_color_url = "008000";
+google_color_text = "000000";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+			
+
+			<div id='bestOf'>
+				<h1>the best of wwm</h1>
+				<ul>
+											<li><a href="http://www.workingwith.me.uk/articles/changing_a_files_icon_in_mac_os_x_in_5_easy_steps">Changing a fileâ??s icon in Mac OS X in 5 easy steps</a></li>
+											<li><a href="http://www.workingwith.me.uk/articles/scripting/standardista_table_sorting">Standardista Table Sorting (A client-side JavaScript Table Sort module)</a></li>
+											<li><a href="http://www.workingwith.me.uk/blog/review/o2_xda_mini_s_review">O2 XDA Mini S Review</a></li>
+											<li><a href="http://www.workingwith.me.uk/table_free/seven_reasons_to_go_table_free">Seven Reasons to go Table Free</a></li>
+											<li><a href="http://www.workingwith.me.uk/blog/software/open_source/apache/mod_rewriting_an_entire_site">mod_rewriting an entire site</a></li>
+											<li><a href="http://www.workingwith.me.uk/blog/apple/itunes/creating_smart_playlists_in_it">Creating Smart Playlists in iTunes</a></li>
+											<li><a href="http://www.workingwith.me.uk/articles/java/itunes-com-with-java-and-swing">Using the iTunes COM Interface with Java and Swing</a></li>
+											<li><a href="http://www.workingwith.me.uk/articles/scripting/mod_rewrite">mod_rewrite, a beginner&#8217;s guide (with examples)</a></li>
+					
+				</ul>
+			</div>
+						<div id='aboutSite'>
+				<h1>about <abbr title='Working With Me'>wwm</abbr></h1>
+				<p class='vcard'>
+					<a class='url' href='http://www.workingwith.me.uk/'>workingwith.me.uk</a> is a resource for web developers created
+					by <a href='http://neilcrosby.com/vcard' rel='me' class='fn'>Neil Crosby</a>, a <span class='title'>web developer</span> who lives and works in <span class='adr'><span class='locality'>London</span>, <span class='country-name'>England</span></span>.
+					<a href='/about/'>More about the site.</a>
+				</p>
+<p>
+Neil Crosby now blogs at <a href='http://thecodetrain.co.uk' rel='me'>The Code Train</a> and also runs <a href='http://neilcrosby.com' rel='me'>NeilCrosby.com</a>, <a href='http://thetenwordreview.com' rel='me'>The Ten Word Review</a> and <a href='http://everythingisrubbish.com' rel='me'>Everything is Rubbish</a>.
+</p>
+			</div>
+
+
+				<div id='copyright'>
+		<h1>leftovers</h1>
+		<ul>
+		<li>
+			copyright &copy;
+			<a href='/neil/'>Neil Crosby</a> 2004-2008
+		</li><li>
+			<a href='/table_free/'>Table Free</a>
+		</li><li>
+			<a href='http://validator.w3.org/check/referer'>XHTML 1.0 Strict</a>
+		</li><li>
+			<a href='http://jigsaw.w3.org/css-validator/validator'>CSS</a>
+		</li><li>
+			<a href='/feeds/'>Feeds</a>
+	        </li><!--<li>
+			<a href='#'>Accessibility</a>
+                </li>-->
+		</ul>
+	</div><!-- footer -->
+
+
+		</div><!-- secondaryContent -->
+	</div><!-- content -->
+
+</div><!-- container -->
+<script type="text/javascript" src="main.js"></script>
+<script src="http://feeds.feedburner.com/~s/workingwithme?i=http://www.workingwith.me.uk/articles/java/itunes-com-with-java-and-swing" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

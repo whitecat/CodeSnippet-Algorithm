@@ -1,0 +1,840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" dir="ltr">
+  <head>
+    <title>
+      Code Style: Java static context frequently asked questions (FAQ)
+    </title>
+        <meta http-equiv="pics-label" content='(pics-1.1 "http://www.icra.org/ratingsv02.html" comment "ICRAonline EN v2.0" l gen true for "http://www.codestyle.org/" r (nz 1 vz 1 lz 1 oz 1 cz 1) "http://www.rsac.org/ratingsv01.html" l gen true for "http://www.codestyle.org/" r (n 0 s 0 v 0 l 0))' />
+    <link rel="schema.DC" href="http://purl.org/DC/elements/1.0/" title="The Dublin Core metadata Element Set" />
+    <meta name="DC.Creator" content="Shaw, Philip" />
+    <meta name="DC.Publisher" content="Philip Shaw" />
+    <meta name="DC.Type" scheme="DCMIType" content="Text" />
+    <meta name="DC.Format" scheme="IMT" content="text/html" />
+    <meta name="DC.Language" scheme="RFC1766" content="en-GB" />
+    <meta name="DC.Coverage.spatial" scheme="TGN" content="World" />
+    <meta name="DC.Coverage.temporal" scheme="Period" content="start=1990;scheme=W3CDTF" />
+    <link rel="DC.Rights" href="http://www.codestyle.org/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="home" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="shortcut icon" href="/favicon.ico" title="Code Style shortcut icon" type="image/x-icon" />
+    <link rel="copyright" href="/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="appendix" href="/codestyle/SiteMap.shtml" title="Code Style site map" type="text/html" />
+    <link rel="appendix" href="/SubjectIndex.shtml" title="Code Style subject index" type="text/html" />
+    <link rel="help" href="/faq/index.shtml" title="Help and FAQ section" type="text/html" />
+    <link rel="P3Pv1" href="http://www.codestyle.org/w3c/p3p.xml" title="Privacy Policy" type="text/xml" />
+    <link rel="meta" href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Static.shtml" title="RDF Metadata" />
+    <link rel="alternate" href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Static.shtml" type="application/rss+xml" title="RSS news feed" />
+    <meta name="DC.Title" content="Java static context FAQ" />
+    <meta name="DCTERMS.created" scheme="W3CDTF" content="2009-04-11T17:01:45Z" />
+    <meta name="DCTERMS.issued" scheme="W3CDTF" content="2009-04-11T17:03:14Z" />
+    <meta name="DCTERMS.modified" scheme="W3CDTF" content="2009-11-14T15:38:44Z" />
+    <meta name="DC.Identifier" scheme="URI" content="http://www.codestyle.org/java/faq-Static.shtml" />
+    <meta name="DCTERMS.abstract" content="FAQs about the Java static context: static modifiers, class versus instance method calls and static variables." />
+    <meta name="description" content="FAQs about the Java static context: static modifiers, class versus instance method calls and static variables." />
+        <meta name="keywords" content="java programming, what is java programming, java static context, java programming question, java get domain, java program to add two numbers, how to call a class, call class, java programming faq, java programming part questions with outputs faq, servlet program for adding two numbers, getting web page java programming, how to call another call in same package, java constructors faq, get static class variable" />
+    <meta name="DC.Description.tableOfContents" scheme="URI" content="http://www.codestyle.org/java/Contents.shtml" />
+    <meta name="DC.Subject" scheme="DDC" content="006" />
+    <meta name="DC.Subject" lang="en-GB" xml:lang="en-GB" content="Java" />
+    <link rel="help" href="/java/FAQ.shtml" title="Java Programming FAQ" type="text/html" />
+    <link rel="up" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="index section chapter start bookmark" href="/java/index.shtml" title="Java &amp; servlets section" type="text/html" />
+    <link rel="contents toc" href="/java/Contents.shtml" title="Java &amp; servlets contents" type="text/html" />
+    <link rel="appendix" href="/java/AnchorPoints.shtml" title="Anchor Points: Java servlets" type="text/html" />
+    <link rel="appendix" href="/java/FAQ.shtml" title="Java programming FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Threads.shtml" title="Java threads FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Inheritance.shtml" title="Java inheritance FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-CommandLine.shtml" title="Java command line FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Interface.shtml" title="Java interface design FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Language.shtml" title="Java language FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-API.shtml" title="Java API FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Strings.shtml" title="Java strings FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-JDBC.shtml" title="JDBC FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Objects.shtml" title="Java objects FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Static.shtml" title="Java static context FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Abstract.shtml" title="Java abstract classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Compiler.shtml" title="Java compiler FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-UtilityClasses.shtml" title="Java utility classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-IO.shtml" title="Java I/O FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Networking.shtml" title="Java networking FAQ" type="text/html" />
+    <link rel="stylesheet" type="text/css" href="/styles/section-Java.css" />        <link rel="stylesheet" type="text/css" href="/styles/CSPersistent.xcss" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSAlternate.css"  title="Blue, sans-serif" />
+    <link rel="stylesheet" type="text/css" href="/styles/CSStandard.xcss"  title="Standard" />
+<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="/styles/CSStdLayoutIE6.css" title="Standard" />
+<![endif]-->
+    <link rel="stylesheet" type="text/css" href="/styles/CSPrint.css" media="print" title="Standard" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSStandard.xcss" media="all" title="Print preview" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSPrint.css" media="all" title="Print preview" />
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      try {
+        _uacct = "UA-1503486-1";
+        urchinTracker();
+      }
+      catch(err) {}
+    </script>
+    <script type="text/javascript" src="/scripts/StandardFunctions.xjs"></script>
+  </head>
+  <body>
+    <div id="TopBar">
+  <a href="http://www.codestyle.org/"><img src="/images/logo-EurostileLozenge168x61.png" width="168" height="61" alt="Code Style - Vital source since 2000" class="Logo" title="Go to the Code Style home page - accesskey 0" /></a>
+  <div class="URI">
+    CSS font stacks, media style sheets &amp; web standards
+  </div>
+  <div id="SiteSearch">
+    <form action="http://www.google.com/cse" id="site-search-box">
+      <div>
+        <label for="search-input">
+          Site search:
+        </label>
+        <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input type="text" name="q" id="search-input" size="16" maxlength="255"  value="search words" onfocus="if(this.value=='search words') this.value='';" alt="Enter a search query in this field (accesskey 9) then tab to the search button that follows and activate" accesskey="9" /><input type="submit" name="sa" id="search-submit" value="Go" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+      </div>
+    </form>
+  </div>
+</div>
+
+    <div id="Header">
+            <h1 class="Title">
+        Java static context FAQ
+      </h1>
+    </div>
+    <div id="Content">
+      <div class="LocalNav">
+      <div class="SponsorZone">
+        <p>
+          <script type="text/javascript">
+Vertical1238757 = false;
+ShowAdHereBanner1238757 = false;
+RepeatAll1238757 = false;
+NoFollowAll1238757 = false;
+BannerStyles1238757 = new Array(
+    "a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+    "img{border:0;clear:right;}",
+    "a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+    "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+);
+document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1238757/1238757.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+        </p>
+        <p>
+          <a href="http://buysellads.com/buy/detail/5795" onclick="urchinTracker('/SponsorFAQ');" title="Your 180 by 150 pixel banner on all pages of the Code Style site">Your banner ad here</a>
+        </p>
+      </div>
+      <div class="RgtBox">
+  <h2>
+    Questions answered
+  </h2>
+  <ul>
+    <li>
+      <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">Site help</a>
+    </li>
+    <li>
+      <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+    </li>
+    <li>
+      <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+    </li>
+    <li>
+      <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+    </li>
+    <li>
+      <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+    </li>
+    <li>
+      <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+    </li>
+    <li>
+      <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+    </li>
+    <li>
+      <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+    </li>
+    <li>
+      <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+    </li>
+    <li>
+      <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+    </li>
+    <li>
+      <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+    </li>
+    <li>
+      <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+    </li>
+    <li>
+      <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+    </li>
+    <li>
+      <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+    </li>
+    <li>
+      <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+    </li>
+    <li>
+      <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+    </li>
+  </ul>
+  <h3>
+    Terms explained
+  </h3>
+  <ul>
+    <li>
+       <a href="/css/Glossary.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+       <a href="/css/media/Glossary.shtml" class="SectionCSS">Media style sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/Glossary.shtml" class="SectionCSS">Font family</a>
+    </li>
+  </ul>
+<h3>
+  Text ad service
+</h3>
+<p>
+  Put your <a href="/codestyle/advertise/index.shtml"  title="Text ad service information">text ad</a> here <img src="/images/icon-TextAdBelow.png" alt="Down arrow icon" width="12" height="16" />
+</p>
+</div>
+    <!-- *** Start FAQ service area *********************** -->
+      <div class="TextAd">
+        <p>
+          <a href="http://www.westnic.net" onclick="urchinTracker('/TextAdWestNIC');">WestNIC</a> provides reliable <a href="http://www.westnic.net/web-hosting/" onclick="urchinTracker('/TextAdWestNIC');">web hosting</a> services
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          <a href="http://www.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">Free software downloads</a> and <a href="http://drivers.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">drivers download</a> resources
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          25% off cpanel <a href="http://www.ahosting.biz/web/index.html" onclick="urchinTracker('/TextAdAhosting-WebHosting-FAQ');">web hosting</a> and <a href="http://www.ahosting.biz/reseller/index.html" onclick="urchinTracker('/TextAdAhosting-ResellerHosting-FAQ');">reseller hosting</a> deals. Promo:&nbsp;<strong>codestyle25off</strong>
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          Top <a href="http://www.topcanadianhotels.com/" onclick="urchinTracker('/TextAdTopCanadianHotels');">Canadian Hotels</a> no booking fees from <a href="http://www.topcanadianhotels.com/victoria-bc-hotels.html" onclick="urchinTracker('/TextAdTopCanadianHotels');">Victoria BC</a> to Nova Scotia
+        </p>
+      </div>
+<!-- *** End FAQ service area ************************* -->
+      </div>
+            <div class="WideNav">
+        <a href="#sitenav">Site navigation below</a>
+      </div>
+      <p class="Standfirst">
+        This FAQ is part of the <span class="CS">Code Style</span> <a href="/faq/index.shtml">Help and FAQ</a> section. Join our <a href="/codestyle/premium/index.shtml">premium content service</a> for full access all FAQ answers.
+      </p>
+      <ul>
+        <li>
+          <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Static.shtml">News feed for this FAQ</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Static.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+<!-- *** Start Java service area ********************** -->
+        <li>
+          <a href="/java/RSS.shtml">All Java news feeds</a> <a href="/java/RSS.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+        <li>
+          <a href="/java/Newsletters.shtml">All Java newsletters</a> <a href="/java/Newsletters.shtml"><img src="/images/icon-Email.png" alt="Email newsletter icon" width="16" height="15" /></a>
+        </li>
+<!-- *** End Java service area ************************ -->
+        <li>
+          <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');">Twitter feed</a> <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');"><img src="/images/icon-Twitter.png" width="16" height="16" alt="Twitter icon" /></a>
+        </li>
+      </ul>
+            <div class="FAQSearchBox">
+        <form action="http://www.google.com/cse" id="faq-search-box">
+          <h2>
+            FAQ search
+          </h2>
+          <p>
+            <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+            <input type="hidden" name="ie" value="UTF-8" />
+            <input type="text" name="q" id="faq-search-input" size="48" maxlength="255"  value="intitle:FAQ " alt="Enter a search query after intitle:FAQ, then tab to the search button that follows and activate"  />
+            <input type="submit" name="sa" id="faq-search-submit" value="Search" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+          </p>
+        </form>
+      </div>
+      <div class="MenuBox">
+  <h2>
+    Static variables
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Static.shtml#staticvariable">What is special about static variables?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml#instance-var-static-context">I get &quot;non-static variable this cannot be referenced from a static context&quot;!</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml#callstaticvariable">How can I call static class members from a different class?</a>
+    </li>
+  </ul>
+  <h2>
+    Static method calls
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Static.shtml#class-object-method">What's the difference in calling a method from a class or an object?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml#separatestaticcall">How do I call a static method in a separate class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml#referencestatic">Can I call a static method from an object reference?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml#staticsuper">Can I call <code>super()</code> from a static context?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml#super-static-method">Can I call the superclass version of an overridden static method?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml#staticmethodoverride">This static method sure looks like it overrides the superclass!</a>
+    </li>
+  </ul>
+  <h2>
+    The static modifier
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Static.shtml#staticfinal">What is the difference between <code>static</code> and <code>final</code> keywords?</a>
+    </li>
+  </ul>
+</div>
+      <h2 class="NewSection">
+        Static variables
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="staticvariable" id="staticvariable">What is special about static variables?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> A static variable is shared by all instances of a class. Every instance has a reference to the same variable and can modify it directly. Static instances are declared with the static modifier.
+          </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/StaticVariable.shtml">What is special about static variables?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=staticvariable">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=staticvariable">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=staticvariable">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=staticvariable">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="instance-var-static-context" id="instance-var-static-context">I get &quot;non-static variable this cannot be referenced from a static context&quot;!</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The main method must be declared <code>public static void</code> because it is invoked when the Java Virtual Machine first starts up, before any Java object instances exist. The main method may reference any number of static variables and call static methods. Any series of calls to other static methods only extends this original static context. To reference a non-static or <em>instance</em> variable from the main method, you must first instantiate the relevant object, even if it is the host of the main method itself, as below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/InstanceVarStaticContext.shtml">I get &quot;non-static variable this cannot be referenced from a static context&quot;!</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=instance-var-static-context">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=instance-var-static-context">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=instance-var-static-context">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=instance-var-static-context">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="callstaticvariable" id="callstaticvariable">How can I call static class members from a different class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Calling static members in a separate class is very similar to calling a static <em>method</em> in a separate class. Most importantly, the static member must have a <code>public</code>, <code>package</code> or <code>protected</code> modifier that makes it accessible to the calling class. Use the class name, a dot separator and the name of the member variable, as with the <abbr title="Abstract Windowing Toolkit">AWT</abbr> <code>Color</code> class properties below:
+      </p>
+      <pre>
+Color textColor = Color.black;
+Color panelColor = Color.lightGray;
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=callstaticvariable">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=callstaticvariable">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=callstaticvariable">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=callstaticvariable">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Static method calls
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="class-object-method" id="class-object-method">What's the difference in calling a method from a class or an object?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The only way that a class can call a method without an object reference is in a static context. For example, the static <code>main()</code> method is invoked in a static context, before any instance is created, so any methods it calls must also be static. The <code>main()</code> method may call static methods of its own, or of other classes.
+     </p>
+     <p>
+       One key thing about static methods is that they must not reference any instance variables or call any instance methods because there may not be any instance of an object in the static context.
+      </p>
+      <p>
+        When you call a method from an object (more precisely from a reference to an instance of an object), it ensures that an instance exists and means that all instance variables are initialised and can be referenced, and instance methods can safely be called. The compiler ensures these conditions. An instance can also call a class or static method and variables of its own or other classes.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=class-object-method">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=class-object-method">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=class-object-method">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=class-object-method">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="separatestaticcall" id="separatestaticcall">How do I call a static method in a separate class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> To call a static method in a separate class you should prefix the method reference with the name of the class it belongs to, known as the host class. For example, the <code>String</code> class has <code>valueOf()</code> methods to convert primitive values to strings:
+      </p>
+      <pre class="Wide">
+String booleanString = String.valueOf(true);
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=separatestaticcall">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=separatestaticcall">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=separatestaticcall">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=separatestaticcall">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="referencestatic" id="referencestatic">Can I call a static method from an object reference?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Yes, it is possible to call a static method on an object reference using the same dot syntax as for a static class reference, as below.
+      </p>
+      <pre class="Wide">
+String stringRef = &quot;Example&quot;;
+
+System.out.println(stringRef.valueOf(true));
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=referencestatic">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=referencestatic">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=referencestatic">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=referencestatic">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="staticsuper" id="staticsuper">Can I call <code>super()</code> from a static context?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>super()</code> method can only be called in an object's constructor, it cannot be called in a static context. The only way to invoke the <code>super()</code> method is to place this statement in the first line of an object's constructor and instantiate the object. You can then invoke this method via the <code>static void main(String[])</code> method, as below.
+      </p>
+      <pre class="Wide">
+public class SuperConstructor extends Superclass {
+
+  public SuperConstructor() {
+
+    super();
+  }
+
+  public static void main(String[] args) {
+
+    SuperConstructor object = new SuperConstructor();
+  }
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=staticsuper">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=staticsuper">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=staticsuper">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=staticsuper">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="super-static-method" id="super-static-method">Can I call the superclass version of an overridden static method?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Static methods cannot truly be overridden, if you create static methods with the same signature as those in a superclass it will lead to confusing behaviour and is not recommended. It is not possible to use the <code>super</code> keyword in the static context of a subclass because it refers to a instance. Just use the standard static method reference scheme for the superclass; the superclass name, a dot separator, the method name and arguments, as below.
+      </p>
+      <pre>
+public class ExampleSubclass extends ExampleSuperclass {
+
+    public static void main(String[] args) {
+
+        ExampleSuperclass.testMethod();
+    }
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=super-static-method">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=super-static-method">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=super-static-method">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=super-static-method">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="staticmethodoverride" id="staticmethodoverride">This static method sure looks like it overrides the superclass!</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Creating a static method with the same signature as a superclass version effectively <strong>hides</strong> the superclass method, it does not override it. This is a difficult distinction to understand and to detect because in several contexts the methods behave as if they were overridden. The difference becomes apparent when an instance of the subclass is assigned to a superclass type, as below.
+      </p>
+      <pre>
+public class SuperclassStatic {
+
+    public static void testMethod() {
+
+        System.out.println(&quot;Superclass message&quot;);
+    }
+}
+
+public class SubclassStatic extends SuperclassStatic {
+
+    public static void testMethod() {
+
+        System.out.println(&quot;Subclass message&quot;);
+    }
+
+    public static void main(final String[] args) {
+
+        System.out.println(&quot;Calling subclass method...&quot;);
+        testMethod();
+
+        System.out.println(&quot;Calling superclass method...&quot;);
+        SuperclassStatic.testMethod();
+
+        // Subclass type
+        SubclassStatic subStatic = new SubclassStatic();
+
+        System.out.println(&quot;Calling static method on subclass type...&quot;);
+        subStatic.testMethod();
+
+        // Superclass type
+        <strong>SuperclassStatic superStatic</strong> = new SubclassStatic();
+
+        System.out.println(&quot;Calling static method on superclass type...&quot;);
+        superStatic.testMethod();
+    }
+}
+      </pre>
+      <p>
+        The subclass' local call to the static <code>testMethod()</code> executes its own version and you get the subclass message. The call to the <code>SuperclassStatic.testMethod()</code> executes the superclass version and you get the superclass message.
+      </p>
+      <p>
+        When you assign an instance of the subclass to a <code>SubclassStatic</code> type variable, the runtime system executes the <code>testMethod()</code> version associated with the <strong>variable</strong> type, so gives the <strong>subclass</strong> message. In the last case a subclass instance is assigned to a variable declared as a <code>SuperStatic</code> type, so the <code>testMethod()</code> defined in the superclass is executed and gives the <strong>superclass</strong> message.
+      </p>
+      <p>
+        The Java compiler does not fail or warn about static method name clashes, so it is important to be aware of this scenario and avoid it.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=staticmethodoverride">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=staticmethodoverride">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=staticmethodoverride">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=staticmethodoverride">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        The static modifier
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="staticfinal" id="staticfinal">What is the difference between <code>static</code> and <code>final</code> keywords?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>static</code> and <code>final</code> modifiers have quite distinct purposes in Java, though they can be used in combination to declare class constants. When the <code>static</code> modifier is applied to a variable or method it belongs to all instances of the class and can be referenced in a static context. In other words, the class does not have to be instantiated before the variable can be read or the method called. That means that static variables must be assigned at compile time and static methods cannot reference instance variables or call instance methods.
+      </p>
+      <p>
+        The <code>final</code> modifier can be applied to a class definition or method to prevent extension or overriding respectively. This helps the compiler optimise byte code for the class. When the <code>final</code> modifier is declared on a variable it means that its initial assignment will not change during the execution of the code. Final instance variables must be assigned at compile time or in the class' constructor, as in the example below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/StaticFinal.shtml">What is the difference between <code>static</code> and <code>final</code> keywords?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+static+context%20FAQ&amp;id=staticfinal">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+static+context%20FAQ&amp;id=staticfinal">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+static+context%20FAQ&amp;id=staticfinal">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+static+context%20FAQ&amp;id=staticfinal">new question</a>.</p>
+        </dd>
+      </dl>
+      <div class="MenuBox">
+  <table width="100%" summary="Code Style FAQ section classification with front-end, back-end and learning Java categories">
+    <col width="33%" />
+    <col width="33%" />
+    <col width="33%" />
+    <tbody>
+      <tr>
+        <th>
+          Front-end FAQs
+        </th>
+        <th>
+          Back-end FAQs
+        </th>
+        <th>
+          Learning Java
+        </th>
+      </tr>
+      <tr>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+              <ul>
+                <li>
+                  <a href="/css/faq-Problems.shtml" class="SectionCSS">CSS problems</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Survey.shtml" class="SectionFontSampler">Web font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-LinuxSurvey.shtml" class="SectionFontSampler">Linux font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Windows.shtml" class="SectionFontSampler">Windows fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Mac.shtml" class="SectionFontSampler">Mac fonts</a>
+                </li>
+                <li>
+                  <a href="/css/media/FAQ.shtml" class="SectionMediaMonitor">Media style sheets</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+            </li>
+            <li>
+              <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+              <ul>
+                <li>
+                  <a href="/javascript/faq-Browser.shtml" class="SectionJavascript">Javascript browser</a>
+                </li>
+                <li>
+                  <a href="/javascript/faq-HowTo.shtml" class="SectionJavascript">Javascript &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/FAQ.shtml" class="SectionJavascript">Document Object Model</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/FAQ.shtml" class="SectionJavascript">Drop-down menus</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/faq-CustomMenu.shtml" class="SectionJavascript">DOM menu customisation</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+              <ul>
+                <li>
+                  <a href="/java/servlets/faq-HowTo.shtml" class="SectionJava">Java servlet &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-JSP.shtml" class="SectionJava">Java Server Pages</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-API.shtml" class="SectionJava">Java servlet API</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Lifecycle.shtml" class="SectionJava">Servlet lifecycle</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Sessions.shtml" class="SectionJava">Servlet sessions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Threads.shtml" class="SectionJava">Servlet threads</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Exceptions.shtml" class="SectionJava">Servlet exceptions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Tags.shtml" class="SectionJava">JSP tags &amp; libraries</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+              <ul>
+                <li>
+                  <a href="/java/servers/faq-Tomcat.shtml" class="SectionJava">Apache Tomcat</a>
+                </li>
+                <li>
+                  <a href="/java/servers/faq-TomcatConfig.shtml" class="SectionJava">Tomcat configuration</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+              <ul>
+                <li>
+                  <a href="/sitemanager/design/FAQ.shtml" class="SectionSiteManager">Site design</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+              <ul>
+                <li>
+                  <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+                </li>
+                <li>
+                  <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+                </li>
+                <li>
+                  <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+                </li>
+                <li>
+                  <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+                </li>
+                <li>
+                  <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>About us:</strong> <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">site help</a>, <a href="/codestyle/advertise/FAQ.shtml" class="SectionCodeStyle">text ads</a>, <a href="/codestyle/sponsor/FAQ.shtml" class="SectionCodeStyle">sponsored links</a> and <a href="/codestyle/premium/FAQ.shtml" class="SectionCodeStyle">premium content</a> FAQs.
+  </p>
+</div>          </div>
+        <div id="Sidebar">
+      <div class="Top">
+        <div class="TopLeft"></div>
+        <div class="TopRight"></div>
+      </div>
+      <h3 class="Options">
+        <a name="sitenav" id="sitenav"><span class="NoStyle">Navigation</span>Topics &amp; tools</a>
+      </h3>
+      <ul class="Menu">
+        <li>
+          <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home page</a>
+        </li>
+        <li>
+          <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS style guide</a>
+          <ul>
+            <li>
+              <a href="/css/font-family/index.shtml" title="The most common fonts on Windows, Mac and Unix systems - accesskey 2" accesskey="2" class="SectionFontSampler">Web font sampler</a>
+            </li>
+            <li>
+              <a href="/css/media/index.shtml" title="Media dependent stylesheet test suite and conformance guides for key browsers - accesskey 3" accesskey="3" class="SectionMediaMonitor">CSS media monitor</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="/java/index.shtml" title="Configuration guides and references on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java &amp; servlets</a>
+        </li>
+        <li>
+          <a href="/javascript/index.shtml" title="Drop down menu script and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript &amp; DOM</a>
+        </li>
+        <li>
+          <a href="/html/index.shtml" title="HTML &amp; XHTML - accesskey 6" accesskey="6" class="SectionHTML">HTML &amp; XHTML</a>
+        </li>
+        <li>
+          <a href="/faq/index.shtml" title="Site help and answers to frequently asked questions - accesskey 7" accesskey="7" class="SectionFAQ">Help and FAQs</a>
+        </li>
+        <li>
+          <a href="/codestyle/log/index.shtml" title="A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Site log</a>
+        </li>
+      </ul>
+      <div class="Bottom">
+        <div class="BotLeft"></div>
+        <div class="BotRight"></div>
+      </div>
+    </div>
+    <div id="LinkShare">
+      <script type="text/javascript">
+        var addthis_pub             = 'codestyle';
+        var addthis_logo            = 'http://www.codestyle.org/images/logo-EurostileLozenge168x61.png';
+        var addthis_logo_background = 'FFFFFF';
+        var addthis_logo_color      = '003399';
+        var addthis_brand           = 'Code Style';
+        var addthis_options         = 'google,facebook,favorites,delicious,live,reddit,technorati,slashdot,newsvine,stumbleupon,fark,digg,more';
+      </script>
+      <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto();"><img src="http://s9.addthis.com/button1-addthis.gif" width="125" height="16" alt="Add this page to your chosen social bookmarking service" /></a>
+      <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+    </div>
+    <div class="AdButtonBar">
+      <script type="text/javascript">
+        Vertical1243396 = false;
+        ShowAdHereBanner1243396 = true;
+        RepeatAll1243396 = false;
+        NoFollowAll1243396 = false;
+        BannerStyles1243396 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243396/1243396.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        Vertical1243397 = false;
+        ShowAdHereBanner1243397 = true;
+        RepeatAll1243397 = true;
+        NoFollowAll1243397 = false;
+        BannerStyles1243397 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243397/1243397.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+    </div>
+            <h3 class="NoStyle">
+      <em><a href="/css/Warning.shtml">Style warning - please read</a></em>
+    </h3>
+    <div id="Footbar">
+      <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home</a> &middot;
+      <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS</a> &middot;
+      <a href="/java/index.shtml" title="How-to articles on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java</a> &middot;
+      <a href="/javascript/index.shtml" title="Javascript &amp; DOM: Code samples and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript</a> &middot;
+      <a href="/html/index.shtml" title="HTML - accesskey 6" accesskey="6" class="SectionHTML">HTML</a> &middot;
+      <a href="/faq/index.shtml" title="Help and frequently asked questions about the Code Style Web site - accesskey 7" accesskey="7" class="SectionFAQ">Help</a> &middot;
+      <a href="/codestyle/log/index.shtml" title="Site log: A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Log</a>
+    </div>    <div id="Footer">
+      Copyright &copy; 2000-2010 <a href="/codestyle/PhilipShaw.shtml">Philip Shaw</a>, all rights reserved, <a href="/codestyle/Copyright.shtml">terms and conditions apply</a>.<br />
+      <a href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0, follow this link to validate the markup for this page">Valid XHTML</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Correct CSS, follow this link to check the stylesheet for this page">correct CSS</a>. Last updated 22 January 2010 at 07:03:33 AM UTC.<br />
+      <abbr title="Uniform Resource Identifier">URI</abbr>: <a href="http://www.codestyle.org/java/faq-Static.shtml" title="This is the full URI of the current page, follow this link to reload">http://www.codestyle.org/java/faq-Static.shtml</a> Metadata: <a href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Static.shtml" title="RDF Metadata">RDF</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Static.shtml" rel="alternate" type="application/rss+xml" title="RSS news feed">RSS 1.0</a>
+    </div>  </body>
+</html>

@@ -1,0 +1,839 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <meta content="Percussion Rhythmyx" name="generator">
+      <title>The Java Enclosing Class as an Implementation of the Builder Pattern - JavaWorld</title>
+      
+      
+      <script language="JavaScript">
+			var topicid = 0; 
+		    subtopicid = 0; 
+		</script><script>
+			function HighlightText(divid){
+			var code = document.body.createTextRange();
+			code.moveToElementText(document.getElementById('codewrap' + divid));
+			code.execCommand("SelectAll");
+			code.execCommand("Copy");
+			} 
+		</script><meta name="TopicID" content="">
+      <meta name="SubTopicID" content="1001">
+      <meta name="channels" content="Java World">
+      <meta name="description" content="In the traditional Builder Pattern, a Product's encapsulation can be compromised since its compositional logic resides in another class. What if you could determine a Product's composition at run time without breaking encapsulation? In some cases, you can accomplish this with one of Java's more obscure features: nested classes.">
+      <meta name="keywords" content="Java Standard Edition,enclosing class, nested classes, Builder pattern, development">
+      <meta name="contenttype" content="How To">
+      <meta name="publicationDate" content="2007-04-18">
+      <meta name="author" content="Jason DeMorrow">
+      <meta name="publisher" content="JavaWorld.com">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+
+	
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+		
+
+
+<!-- put the # sign in the comment below to go live -->
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+<style>#reg{BACKGROUND: #ebe7d9;PADDING:5px;}</style>
+
+
+<script type="text/javascript" src="/includes/doubleclick_ads.js"></script> 
+<script type="text/javascript" src="/includes/demandbase.js"></script>
+<script type="text/javascript" src="http://api.demandbase.com/api/v1/ip.json?token=08b8cb24471b1cc051c579449c9641156b959aaa&callback=dbase_parse"></script>
+
+
+<script type="text/javascript" src="/includes/jqlib/jwLib_head.js"></script>
+<script language="javascript">
+  var outerref = new String("(none)");
+  var nwchannel = 'jw';
+  var refresh = 0;
+  
+  var jq_rxid = '99261';
+</script>
+<base target = "_top">
+
+<script type="text/javascript" src="/includes/head-scripts.js"></script>
+<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+<script type="text/javascript">
+NW = window.NW || {};
+
+NW.PageInfo = NW.PageInfo || {};
+NW.PageInfo = function() {
+    return{
+        cookie_domain: "javaworld.com",
+        rxprimarytopic: "core",
+		rxheadline: "The Java Enclosing Class as an Implementation of the Builder Pattern",
+        channels: "jw",
+        request_uri: "/javaworld/jw-04-2007/jw-04-nested-classes.html",
+        doc_uri: "/javaworld/jw-04-2007/jw-04-nested-classes.html",
+        rxid: "99261",
+        nodeid: "",
+		pgtype: "article",
+        
+        // use this function to return meta info and add to NW.PageInfo object
+        setMetaInfo: function() {
+            $("meta").each(function (i) {
+                var n = $(this).attr("name");
+                var c = $(this).attr("content")
+                //alert('before - ' + n + ": " + c);
+                if(n && c) {
+                    NW.PageInfo[n] = $(this).attr("content");
+                    //document.write('in - ' + n + ": " + c + '<br />');
+                }
+            });    
+        }
+    };
+}();
+NW.PageInfo.setMetaInfo(); 
+</script>
+
+
+<!-- HBX -->
+<script language="javascript1.1">
+var _hbEC=0,_hbE=new Array;function _hbEvent(a,b){b=_hbE[_hbEC++]=new Object();b._N=a;b._C=0;return b;}
+var hbx=_hbEvent("pv");hbx.vpc="HBX0103u";hbx.gn="a.javaworld.com";
+var doctitle = hbxStrip(document.title);
+var loc = new String(document.location.href);
+loc = hbxStrip(loc);
+
+hbx.acct="DM54120129AB;DM550210NGWB";
+hbx.pn="PUT+PAGE+NAME+HERE";
+hbx.mlc="CONTENT+CATEGORY";
+hbx.pndef="title";
+hbx.ctdef="full";
+hbx.lvm="300";
+hbx.lidt="txl";
+
+hbx.fv="";//FORM VAL MIN
+hbx.lt="auto"; //LINK TR
+hbx.dlf="n";//Dl FILTER
+hbx.dft="n";//Dl FILE NAMING
+hbx.elf="n";//EXIT LINK FILTER
+
+hbx.seg="-1";
+hbx.ci="";
+hbx.hc1="core|";
+hbx.hc2=keywords+"|"+doctitle;
+hbx.hc3=author+"|"+doctitle;
+hbx.hc4=doctitle+"|"+author;
+hbx.pec="";//ERROR CODES
+</script><script language="javascript1.1" src="/includes/hbx.js"></script>
+<!--END HBX -->
+
+<!-- Start Quantcast tag -->
+<script type="text/javascript" src="//secure.quantserve.com/quant.js"></script>
+<script type="text/javascript">
+_qoptions = {
+            tags:"nww"
+};
+_qacct="p-25K88fxDSEn9Y";quantserve();</script>
+<noscript>
+<a href="http://www.quantcast.com/p-25K88fxDSEn9Y" target="_blank"><img src="//secure.quantserve.com/pixel/p-25K88fxDSEn9Y.gif?tags=nww" border="0" style="display: none" height="1" width="1"></a></noscript>
+<!-- End Quantcast tag -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-6191150-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<!--
+channels: jw
+keywords (topics): Java Standard Edition
+contenttype (tasks): How To
+site: core
+pagename: core
+keyval: core
+ibsearch: (none)
+-->
+
+	 
+
+      <link href="/includes/styles/adstyles.css" rel="stylesheet" type="text/css">
+      <link href="/includes/styles/jw-main.css" rel="stylesheet" type="text/css">
+      <!--[if lt IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/includes/styles/ie.css"/><![endif]-->
+      <link href="/jwsearch.xml" rel="search" title="JavaWorld" type="application/opensearchdescription+xml">
+   </head>
+   <body onload="init()">
+      
+      <!--stopindex-->
+      
+      <div id="wrapper">
+         <div id="bannerarea">
+            <div id="mainbanner">
+               
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin Top Leaderboard ad --> 
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.core/;pos=topleaderboard;sz=728x90;tile=1;dcopt=ist;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.core/;pos=topleaderboard;sz=728x90;tile=1;dcopt=ist;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.core/;pos=topleaderboard;sz=728x90;tile=1;dcopt=ist;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" width="728" height="90" border="0" alt=""></a></noscript>
+<!-- end Top Leaderboard ad -->
+
+
+
+            </div>
+            <div class="separator">
+               <!-- xxxxxxxxxxxxxx -->
+            </div>
+            <div id="masthead">
+               <div id="logoarea">
+                  <h2 id="ifwLogo">
+<a href="http://www.infoworld.com/d/developer-world?source=jw_ifwlogo">InfoWorld: Modernizing IT</a>
+</h2>
+<h2 id="jwLogo">
+<a href="http://www.javaworld.com">JavaWorld: Solutions for Java Developers</a>
+</h2>
+
+               </div>
+                 <div id="searcharea"><form method="get" accept-charset="iso-8859-1" action="http://www.javaworld.com/ifind/java/query.html"><input type=hidden name="qm" value="0" />
+<input type=hidden name="st" value="1" />
+<input type=hidden name="nh" value="10" />
+<input type="hidden" name="col" value="java" />
+  <table border="0" cellspacing="0" cellpadding="0">
+  <tr valign="top">
+    <td><input type="text" name="qt" class="formfield" value="" maxlength="1991"></td>
+    <td><input class="submit" name="" type="image" src="/includes/styles/i/but/lw-search-button.gif" alt="Search" value="Go" /></td>
+    <td><span><a href="http://www.javaworld.com/ifind/java/query.html?col=java&qs=&qc=&si=0&ql=a&nh=25&lk=1&rf=0">Advanced search</a></span></td>
+  </tr>
+</table>
+  </form>
+</div>
+
+            </div>
+            <div class="separator">
+               <!-- xxxxxxxxxxxxxx -->
+            </div>
+         </div>
+         <!--Start Menu--><script language="javascript" src="http://www.javaworld.com/includes/lookup_topic.js" xml:space="preserve"> </script><div id="toolbar"><div id="medallion">
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin N1 ad ad --> 
+<table width="125"  border="0" cellspacing="0" cellpadding="0"><tr><td>
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.core/;pos=n1;sz=120x90;tile=2;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.core/;pos=n1;sz=120x90;tile=2;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.core/;pos=n1;sz=120x90;tile=2;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" width="120" height="90" border="0" alt=""></a></noscript>
+</td></tr></table>
+<!-- end N1 ad ad -->
+
+
+<!-- n2 ad deprecated --></div><ul><li class="research"><a href="http://www.javaworld.com/topics/" shape="rect">Research Centers</a></li></ul><div id="toolbar_rc"><ul><li id="navbar1001" class="nobracket"><a shape="rect" id="linknav1001" href="http://www.javaworld.com/channel_content/jw-core-index.html" class=""><span id="showplus1001" class="toolbar-red">
+			+ </span>Core Java</a><div id="toolbar_rcsubs1001"><ul><li id="subnav1127" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-client-side-index.html">Client-side Java</a></li><li id="subnav1108" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-patterns-index.html">Design Patterns</a></li><li id="subnav1131" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-language-index.html">Java Language</a></li><li id="subnav1098" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-apis-index.html">Java Platform APIs</a></li><li id="subnav1132" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-concepts-index.html">Java Programming Concepts</a></li><li id="subnav1136" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-gui-index.html">Swing/GUI Programming</a></li><li id="subnav1138" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-threads-index.html">Threads/Concurrency</a></li></ul></div></li><li id="navbar1002" class="nobracket"><a shape="rect" id="linknav1002" href="http://www.javaworld.com/channel_content/jw-enterprise-index.html" class=""><span id="showplus1002" class="toolbar-red">
+			+ </span>Enterprise Java</a><div id="toolbar_rcsubs1002"><ul><li id="subnav1124" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-ajax-index.html">Ajax/RIA/Web 2.0</a></li><li id="subnav1126" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-architecture-index.html">Architecture &amp; Scalability</a></li><li id="subnav1129" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-best-practices-index.html">Enterprise Best Practices</a></li><li id="subnav1010" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-xml-index.html">Java &amp; XML</a></li><li id="subnav1133" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-development-index.html">Java Web Development</a></li><li id="subnav1009" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-webserv-index.html">Web Services &amp; SOAs</a></li></ul></div></li><li id="navbar1003" class="nobracket"><a shape="rect" id="linknav1003" href="http://www.javaworld.com/channel_content/jw-micro-index.html" class=""><span id="showplus1003" class="toolbar-red">
+			+ </span>Mobile Java</a><div id="toolbar_rcsubs1003"><ul /></div></li><li id="navbar1004" class="nobracket"><a shape="rect" id="linknav1004" href="http://www.javaworld.com/channel_content/jw-applied-index.html" class=""><span id="showplus1004" class="toolbar-red">
+			+ </span>Tools &amp; Methods</a><div id="toolbar_rcsubs1004"><ul><li id="subnav1012" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-appserv-index.html">Application Servers</a></li><li id="subnav1128" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-data-management-index.html">Data Management/RDBMS</a></li><li id="subnav1146" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-enterprise-middleware-index.html">Enterprise Middleware</a></li><li id="subnav1130" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-ide-index.html">Java IDEs</a></li><li id="subnav1110" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-security-testing-index.html">Java Security</a></li><li id="subnav1109" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-ostools-index.html">Open Source Tools</a></li><li id="subnav1134" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-scripting-index.html">Scripting/Other Languages</a></li><li id="subnav1125" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-lifecycle-index.html">Software Development Lifecycle</a></li><li id="subnav1135" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-software-development-index.html">Software Development Methodologies</a></li><li id="subnav1137" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-testing-debugging-index.html">Testing &amp; Debugging</a></li><li id="subnav1021" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/channel_content/jw-webdev-index.html">Web Application Frameworks</a></li></ul></div></li><li id="navbar1123" class="nobracket"><a shape="rect" id="linknav1123" href="http://www.javaworld.com/channel_content/jw-archive-index.html" class=""><span id="showplus1123" class="toolbar-red">
+			+ </span>JavaWorld Archives</a><div id="toolbar_rcsubs1123"><ul><li id="subnav1059" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-design-index.html">Design Techniques</a></li><li id="subnav1056" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-howto-index.html">How-to Java</a></li><li id="subnav1061" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-101-index.html">Java 101</a></li><li id="subnav1076" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-java-design-patterns-index.html">Java Design Patterns</a></li><li id="subnav1065" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-qna-index.html">Java Q&amp;A</a></li><li id="subnav1057" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-tips-index.html">Java Tips</a></li><li id="subnav1071" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-traps-index.html">Java Traps</a></li><li id="subnav1139" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-serverside-index.html">Server-side Java</a></li><li id="subnav1073" class="" shape="rect"><a shape="rect" href="http://www.javaworld.com/columns/jw-hood-index.html">Under the Hood</a></li></ul></div></li></ul></div><div class="site_resources">
+ <!-- use li class=current1 to hightlight the items below-->
+    <ul>
+      <li class="toplevel2"><a href="/topics/index.html">Site Resources</a></li>
+      <li id="sr87"><a href="/features/index.html">Featured Articles</a></li>
+      <li id="sr89"><a href="/news-reviews/index.html">News &amp; Views</a></li>
+      <li id="sr998"><a href="/community/">Community</a></li>
+      <li id="sr996"><a href="/community/?q=javaqa">Java Q&amp;A</a></li>
+      <li id="sr995"><a href="/community/?q=jwblogs">JW Blogs</a></li>
+	  <li id="sr993"><a href="/podcasts/jtech/">Podcasts</a></li>
+	  <li id="sr997"><a href="/topics/index.html">Site Map</a></li>
+    </ul>
+    
+	
+	<ul class="second">
+      <li><a href="http://javaworld.4jobs.com">Careers</a></li>
+	  <li id="sr991"><a href="http://www.infoworld.com/newsletters/subscribe?showlist=infoworld_java&source=jwnla_leftnav">Newsletters</a></li>
+      <li id="sr95"><a href="/white-paper/index.html">Whitepapers</a></li>
+      <li id="sr992"><a href="/rss/index.html">RSS Feeds</a></li>
+    </ul>
+   
+   
+	<ul class="about">
+		 <li class="toplevel2"><a href="/info/jw-about-index.html">About JavaWorld</a></li>
+         <li><a href="/info/jw-advertise.html">Advertise</a></li>
+         <li><a href="/info/jw-guidelines.html">Write for JW</a></li>
+	</ul>
+	</div>
+	<script type="text/javascript">
+		if (typeof menu_lookup == "function") menu_lookup();
+	</script>
+	<br>
+	<div style="border:solid 1px #BBBBBB; padding:10px;">
+		<script type="text/javascript"> 
+		<!--
+		google_ad_client = "pub-7643913824060699";
+		/* 120x90 nav bar, created 2/26/09 */
+		google_ad_slot = "5481062170";
+		google_ad_width = 120;
+		google_ad_height = 90;
+		//-->
+		</script>
+		<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+    </div></div>
+         <div class="article" id="contentarea">
+            <div id="rcheader">
+               <!--startindex-->
+               <div id="toptabs">
+                  <ul>
+                     <li><a href="/channel_content/jw-core-index.html">Java Standard Edition</a></li>
+                  </ul>
+               </div>
+               <!--stopindex-->
+            </div>
+            <div id="idglogin">
+               <!-- xxxxxxxxxxxxxx -->
+            </div>
+            <div id="sectionhome">
+               <div id="a-e_col1">
+                  <div id="d-e_col2b">
+                     <div id="d-e-1">
+	<div id="tabs">
+		<ul>
+		<li class="ts"><a href="javascript:opentab('topstories');" class="ts" id="topstories_a">JW's Most Read</a></li>
+		<!-- <li class="saved"><a href="javascript:opentab('savedarticles');" class="saved" id="savedarticles_a">Editor's Choice</a></li>-->
+		</ul>
+	</div>
+	<div id="topstories">
+		 <p><b>Recent:</b></p>
+<ul class="noindent">
+   <li><a href="http://www.javaworld.com/community/node/2915">Java Tips:&nbsp;The Serialization algorithm revealed</a></li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-05-2009/jw-05-troubleshooting-oc4j-and-weblogic.html">Know your Oracle application server</a></li>
+   <li><a href="http://www.javaworld.com/community/node/2916">SwingX, JRuby: Survivors?</a></li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-04-2009/jw-04-multicore-and-cloud-ready-2.html">Cloud-ready, multicore-friendly apps, Part 2</a></li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-04-2009/jw-04-lean-soa-with-javaee6.html">Lean service architectures with Java EE 6</a></li>
+</ul>
+<p><b>Archives:</b></p>
+<ul class="noindent">
+   <li><a href="http://www.javaworld.com/javaworld/jw-03-2008/jw-03-osgi1.html">Hello, OSGi:&nbsp;Bundles for beginners</a> (2008)
+   </li>
+   <li><a href="http://www.javaworld.com/jw-12-1996/jw-12-sockets.html">Sockets programming in Java:&nbsp;A tutorial</a> (1996)
+   </li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-01-2008/jw-01-jpa1.html">Understanding JPA, Part 1</a> (2008)
+   </li>
+   <li><a href="http://www.javaworld.com/javaworld/javaqa/2003-08/01-qa-0808-property.html">Smartly load your properties</a> (2003)
+   </li>
+   <li><a href="http://www.javaworld.com/javaworld/jw-10-2008/jw-10-rest-series-1.html">REST for Java developers, Part 1</a> (2008)
+   </li>
+</ul>
+	</div>
+	<!--<div id="savedarticles">-->
+		 <!--include virtual="/news/briefs/jw-highlights.html"-->
+	<!--</div>-->
+</div>
+
+<script type="text/javascript">
+divnames = new Array('topstories', 'savedarticles'); <!--,'topstories'-->
+opentab("topstories");
+
+function opentab(divname) {	;
+	if(document.getElementById(divname)) {
+		for (i=0;i < 2;i++) {	<!-- 2-->
+			var aname = divnames[i] + '_a';		
+			if (divnames[i] == divname)	{	
+				tab=divname;		    
+				document.getElementById(divname).style.display='block';
+				document.getElementById(aname).parentNode.id = "current";	
+			}
+			else {
+				document.getElementById(divnames[i]).style.display='none';
+				document.getElementById(aname).parentNode.id = "none";
+			}
+		}
+	}
+}
+</script>
+
+
+                     <div class="imu">
+                        
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin Top IMU ad --> 
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.core/;pos=topimu;sz=336x280,300x250,336x600;tile=6;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.core/;pos=topimu;sz=336x280,300x250,336x600;tile=6;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.core/;pos=topimu;sz=336x280,300x250,336x600;tile=6;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" width="336" height="600" border="0" alt=""></a></noscript>
+<!-- end Top IMU ad -->
+
+
+
+                     </div>
+                     <!--Featured White Papers-->
+                             <!-- nl signup start-->
+	<!--form action="http://www.networkworld.com/nl/Signup.do" id="Form2" method="post" name="form" onSubmit="openNewWindow()" target="new_window"-->
+	<form action="http://www.infoworld.com/newsletters/subscribe?showlist=infoworld_java&source=jwnla_freenltmod" id="Form2" method="get" name="form">
+          <div id="newsletter">
+            <h5>Newsletter sign-up </h5> <a href="http://www.infoworld.com/newsletters">View all newsletters</a>
+			<p class="nl">Sign up for our Enterprise Java Newsletter </p>
+            <table width="300" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <!--<td valign="top" class="bgleft"><input name="list1" type="checkbox" id="NL70" value="networkworld_javaworld_enterprise_java_alert"/></td>-->
+                <td class="bgright">Enterprise Java</td>
+              </tr>
+		    </table>
+            <!--<strong>Email Address:</strong>
+			<input id="keycode" name="keycode" type="hidden" value="NLmsu08"/>
+			<input id="call" name="call" type="hidden" value="instant"/>
+			<input name="pid" type="hidden" value="121"/>
+			<input name="email" size="14" type="text"/>-->
+			<input type="hidden" name="showlist" value="infoworld_java">
+			<input type="hidden" name="source" value="jwnla_freenltmod">
+            <input alt="Submit" type="submit" value="Subscribe" id="Submit1"/>
+          </div>
+        </form>
+        
+       <div id="sponsoredlinks">
+    <h2>
+        Sponsored Links
+    </h2>
+  <script type="text/javascript" src="http://jlinks.industrybrains.com/jsct?sid=93&ct=JAVAWORLD_HP_ROS&num=1&layt=10&fmt=simp&tr=premium"></script>
+    <!--special ad start-->
+	<ul>
+		<li>
+			<h3><a href="http://ad.doubleclick.net/clk;220382956;7406810;g?http://www.scaleoutsoftware.com/redirect/javaworld_sl005.html" target="_new">Speed-up HPC Grid Apps - FREE Download</a></h3>
+			
+            FREE Download 1- 13 Distributed caching eliminates data bottlenecks. ScaleOut StateServer&reg;</li>
+	</ul>
+   
+  
+	<!--end special ad -->
+</div><!--/#sponsoredlinks-->
+
+	
+
+
+
+                     <!--include virtual="/includes/topic/core-nl-signup.html"-->
+                     <!-- SSI Error -->
+                  </div>
+                  <div class="breadcr"><a href="/index.html">JavaWorld.com</a>
+                     &gt; <a href="/channel_content/jw-core-index.html">Java Standard Edition</a> &gt;</div>
+                  <div>
+                     
+                     <!--HEADLINE GOES HERE-->
+                     
+                     <!--startindex-->
+                     <a id="top" name="top"></a><h1>The Java Enclosing Class as an Implementation of the Builder Pattern</h1>
+                     <p class="byline">By&nbsp;Jason DeMorrow,&nbsp;JavaWorld.com,&nbsp;04/18/07</p>
+                     <div id="id_storytools_top" class="storytools">
+    <div class="storytools_tools">
+        <ul id="id_storytools_tools_top">
+            <li class="storytools_tools_print">Print</li>
+            <li class="storytools_tools_email">Email</li>
+            <li class="storytools_tools_feedback">Feedback</li>
+            <li class="storytools_tools_related"><a href="#resources">Resources</a></li>
+            <li id="id_storytools_tools_discuss_top" class="storytools_tools_discuss"><a href="#comments">Discuss</a></li>
+        </ul>    
+    </div>
+    <ul id="id_storytools_social_top">
+        <li class="storytools_tools_digg">Digg</li>
+        <li class="storytools_tools_reddit">Reddit</li>
+        <li class="storytools_tools_slashdot">SlashDot</li>
+        <li class="storytools_tools_stumble">Stumble</li>
+        <li class="storytools_tools_delicious">del.icio.us</li>
+        <li class="storytools_tools_technorati">Technorati</li>
+        <li class="storytools_tools_dzone">dzone</li>
+    </ul>      
+</div>
+                     
+                     <!-- CONTENT GOES HERE-->
+                     
+
+
+
+                     <p class="first">Some language features are just plain ugly. The first time you see them, you say to yourself, "If I ever have to use that,
+                        there's something wrong with my design." And most of the time you'd be right. Languages tend to be designed to fit the greatest
+                        common factor, which widens their appeal. Only problem is there's a lot of bad design in that GCF.
+                     </p>
+                     <p>Enter Java nested classes. The first time I laid eyes on these, I couldn't imagine a single use for them that I wouldn't prefer
+                        to implement some other way.
+                     </p>
+                     <p>Then I noticed something very unique about the way Java handles nested classes. Unless a nested class is declared as a static
+                        member of its enclosing class, <em>an instance of the enclosing class must exist before the nested class can be instantiated</em>. For example: <code>EnclosingClass.NestedClass nestedInstance = enclosingInstance.new NestedClass();</code></p>
+                     <p>Those of you familiar with the <a href="#resources">Builder Pattern</a> may already be thinking what I was. That enclosing class looks a lot like a Builder with the nested class as its Product!
+                        It turns out that an enclosing class can indeed be used in this way. In some cases, it can even provide stronger encapsulation
+                        compared to a traditional Builder implementation. In this article we're going to find out how by exploring three examples
+                        of implementing run-time composition for a given Product.
+                     </p>
+                     <h3>A Self-Composing Product</h3>
+                     <p>The simplest approach is to let the Product build itself. You can achieve run-time composition by passing an inventory of
+                        parts to the constructor. The Product can then decide what parts to use based on availability and some internal rules. Suppose,
+                        for example, you want to build meals. A meal is composed of courses which can vary by type (e.g. steak versus fish) and number
+                        (e.g. 7 courses versus 3). Your Product interface might look something like this:
+                     </p>
+                     <div id="codewrap">
+                        <div id="codewrap9"><pre><code>package enclosingclassasbuilder;
+                                       public interface Meal {
+                                       String nextCourse(); //consume the next course
+                                       }</code>
+                                     
+</pre></div>
+                     </div>
+                     <p>Next you need an inventory of parts. For brevity's sake let's just whip up something simple and obtuse:</p>
+                     <div id="codewrap">
+                        <div id="codewrap12"><pre><code>package
+                                       enclosingclassasbuilder;
+                                       import java.util.ArrayList;
+                                       public class Refrigerator {
+                                       public ArrayList&lt;String&gt; inventory = new ArrayList&lt;String&gt;();
+                                       }</code>
+                                     
+</pre></div>
+                     </div>
+                     <p>Now you can implement the Meal interface as a self-composing Product like so:</p>
+                     <div id="codewrap">
+                        <div id="codewrap15"><pre><code>package enclosingclassasbuilder;
+                                       import java.util.ArrayList;
+                                       public class SelfComposingMeal implements Meal {
+                                       private ArrayList&lt;String&gt; courses = new ArrayList&lt;String&gt;();
+                                       public SelfComposingMeal(Refrigerator fridge) {
+                                       //rules for selecting entree
+                                       if( fridge.inventory.contains("steak") ) {
+                                       courses.add("steak");
+                                       fridge.inventory.remove("steak");
+                                       }
+                                       else if( fridge.inventory.contains("fish") ) {
+                                       courses.add("fish");
+                                       fridge.inventory.remove("fish");
+                                       }
+                                       //rules for selecting side
+                                       if( fridge.inventory.contains("potato") ) {
+                                       courses.add("potato");
+                                       fridge.inventory.remove("potato");
+                                       }
+                                       else if( fridge.inventory.contains("asparagus") ) {
+                                       courses.add("asparagus");
+                                       fridge.inventory.remove("asparagus");
+                                       }
+                                       //rules for selecting dessert
+                                       if( fridge.inventory.contains("cobbler") ) {
+                                       courses.add("cobbler");
+                                       fridge.inventory.remove("cobbler");
+                                       }
+                                       else if( fridge.inventory.contains("cake") ) {
+                                       courses.add("cake");
+                                       fridge.inventory.remove("cake");
+                                       }
+                                       }
+                                       
+                                       public String nextCourse() {
+                                       if( !courses.isEmpty() ) return courses.remove(0);
+                                       return null;
+                                       }
+                                       }</code>
+                                     
+</pre></div>
+                     </div>
+                     <p>While this implementation is very straightforward and easily extensible, it exhibits poor encapsulation. Passing an instance
+                        of Refrigerator to the constructor of SelfComposingMeal means that you've got a public or package public inventory floating
+                        around out there. Not only are you trusting your users to build their own Meals, you're giving them free access to your Refrigerator!
+                        What's to stop them from building a "lobsterfest" Meal that consumes all of your most expensive items in one sitting? Clearly,
+                        we need a better solution.
+                        
+                     </p>
+
+
+
+									 
+									 	 <div id="pagenum"><ul id="pages"><li id="currentpage">1</li><li><a href="/javaworld/jw-04-2007/jw-04-nested-classes.html?page=2" class="noline"><strong>2</strong></a></li><li><a href="/javaworld/jw-04-2007/jw-04-nested-classes.html?page=3" class="noline"><strong>3</strong></a></li><li id="next"><a href="/javaworld/jw-04-2007/jw-04-nested-classes.html?page=2" class="noline">Next&nbsp;></a></li></ul></div>
+									 
+                     
+                     <!-- CONTENT ENDS HERE -->
+                     
+                     <!--stopindex-->
+                     
+                     <div id="id_storytools_bottom" class="storytools">
+    <div class="storytools_tools">
+        <ul id="id_storytools_tools_bottom">
+            <li class="storytools_tools_print">Print</li>
+            <li class="storytools_tools_email">Email</li>
+            <li class="storytools_tools_feedback">Feedback</li>
+            <li class="storytools_tools_related"><a href="#resources">Resources</a></li> 
+        </ul>    
+    </div>
+    <ul id="id_storytools_social_bottom">
+        <li class="storytools_tools_digg">Digg</li>
+        <li class="storytools_tools_reddit">Reddit</li>
+        <li class="storytools_tools_slashdot">SlashDot</li>
+        <li class="storytools_tools_stumble">Stumble</li>
+        <li class="storytools_tools_delicious">del.icio.us</li>
+        <li class="storytools_tools_technorati">Technorati</li>
+        <li class="storytools_tools_dzone">dzone</li>
+    </ul>      
+</div>
+                     <!-- start comment area --><div id="story_comments"><a name="comments"></a><div id="jq_titlebar" class="titlebar"><h5>Comments <span>(<a href="/community/?q=node/2829">1</a>)</span></h5><div id="numcomments" style="display:none;">1</div><div id="titlebar_loggedin" style="display: none;">Welcome, <span id="login_name"></span> <span id="logout" style="cursor: pointer;">Logout</span></div><div id="titlebar_loggedout"><a id="titlebar_login_a" href="/community/?q=user/login" target="_blank">Log in</a> | <a href="/community/?q=user/register">Register</a></div></div>    
+    <div id="login" name="login" method="post" action="/community/rtn_login08.php">
+        <form id="form_login">
+            <fieldset><legend>Login</legend>
+                <table>
+                    <tr>
+                        <td><label for="jq_username">Username</label>
+                        </td>
+                        <td>                        
+                            <input name="uname" type="text" id="jq_username" class="inputtext" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="jq_password">Password</label>
+                        </td>
+                        <td>                        
+                            <input name="upass" type="password" id="jq_password" class="inputtext" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset class="buttons">
+                <input  type="submit" name="submit" id="form_login_submit" value="Log in" class="submit"  />            
+                <input type="button" name="cancel" id="form_login_cancel" value="Cancel" class="submit cancel" />            
+                <span id="login_form_info" style="display:block;font-size:10px; margin:8px;"><strong><a href="/community/?q=user/password" target="_blank">Forgot your account info?</a></strong></span>
+            </fieldset>
+        </form>
+    </div>
+    
+    <div id="comments"><p><a href="/community/?q=node/2829" class="subject">Getting it right</a><span class="cmbyline">By <strong>Anonymous</strong> on April 25, 2009, 8:21 am</span>"Then I noticed something very unique"
+
+Since unique means, essentially, one of a kind, what does "very unique" mean? Perhaps instead of unique you meant "distinctive"...</p><p class="reply"><a class="reply_link"  href="/community/?q=comment/reply/2829">Reply</a> | <a href="/community/?q=node/2829">Read entire comment</a></p><!-- view all comments --> <p><a id="all_comments" href="/community/?q=node/2829">View all comments</a></p></div><!-- div id="addcomments" style="display: none"-->
+<div id="addcomments">
+    <form id="frm_addcomment" name="comment_form"><fieldset><legend>Add comment</legend></a>
+        <div class="user_fields_visible">
+        <label for="name">Screen Name</label>            
+        <input name="sender_name" type="text" class="inputtext" id="jq_sender_name" value="Anonymous" />
+        <span>Anonymous comments subject to approval. <a href="/community/?q=user/register" target="_blank">Register</a> here for member benefits.</span>  
+        </div>
+        
+        <label for="mg_subject">Subject</label>            
+        <input id="mg_subject" name="subject" type="text" class="inputtext" />           
+        <label for="mg_comments">Comment <span>(required)</span></label>
+        <textarea id="mg_comments" name="sender_message" class="textbox"></textarea></fieldset>
+        <fieldset class="buttons">
+        <input name="hascomments" id="jq_comments" type="hidden" value="true" />
+        <input name="type" id="jq_type" type="hidden" value="article" /> 
+        <div id="comment_captcha"></div> 
+        <input type="submit" name="submit" id="frm_addcomments_submit" value="Submit" class="submit" />
+        <input type="button" name="cancel" id="frm_addcomments_cancel" value="Cancel" class="submit cancel" />
+        <span id="comments_info_span" style="display:block;font-size:10px; margin:8px;"><strong>Have a JavaWorld account? <a id="comment_form_login" href="/community/?q=user/login">Log in</a> here.<a href="/community/?q=user/register"> Register now</a> for a free account.</strong></span>
+        
+        </fieldset>
+    </form>
+</div>
+ 
+ </div><div class="separator"></div>
+                     <div id="resources"><a name="resources"></a><strong>Resources</strong><br><externallinks no-escaping="yes">
+                           <div class="rxbodyfield">
+                              <p><a href="http://en.wikipedia.org/wiki/Builder_pattern">Builder pattern</a></p>
+                              <p><a href="http://en.wikipedia.org/wiki/God_object">God object</a></p>
+                           </div>
+                        </externallinks><br></div>
+                     
+
+                  </div>
+               </div>
+               
+		<!--include virtual="/cis/ibm_j559b/cis_j559b_ibm_export.html" -->
+
+
+<br clear="all"/>
+ <!--include virtual="/includes/ads-bottom.html"-->
+
+               <div class="separator">
+                  <!-- xxxxxxxxxxxxxx -->
+               </div>
+               
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin Bottom IMU ad --> 
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.core/;pos=bottomimu;sz=336x280,300x250,336x600;tile=10;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.core/;pos=bottomimu;sz=336x280,300x250,336x600;tile=10;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.core/;pos=bottomimu;sz=336x280,300x250,336x600;tile=10;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" width="336" height="600" border="0" alt=""></a></noscript>
+<!-- end Bottom IMU ad -->
+
+
+
+               <script type="text/javascript"><!--
+	google_ad_client = "pub-7643913824060699";
+	/* 468x15 above footer, created 2/26/09 */
+	google_ad_slot = "3627869773";
+	google_ad_width = 468;
+	google_ad_height = 15;
+	//-->
+</script>
+<div style="padding:6px; background-color:#ededed; border:1px solid #D6D3D3; width:634px; margin-top:12px;">
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+
+<div id="sponsoredlinks">
+    <h2>
+        Sponsored Links
+    </h2>
+    <script type="text/javascript" src="http://jlinks.industrybrains.com/jsct?sid=93&ct=JAVAWORLD_HP_ROS&num=5&layt=10&fmt=simp"></script>
+    <DIV id="toplinks">&nbsp;</DIV>
+<DIV id="middlelinks">
+   <TABLE cellPadding="0" cellSpacing="0" id="nwtextlinks">
+      <TBODY>
+         <tr/>
+      </TBODY>
+   </TABLE>
+</DIV>
+    <br clear="all">
+</div>
+               <div class="separator">
+                  <!-- xxxxxxxxxxxxxx -->
+               </div>
+               <div id="rcfooter"><strong>RESEARCH CENTERS: </strong>
+<a href="http://www.javaworld.com/channel_content/jw-core-index.html"><strong>Java Standard Edition</strong></a> | 
+<a href="http://www.javaworld.com/channel_content/jw-enterprise-index.html"><strong>Java Enterprise Edition</strong></a> | 
+<a href="http://www.javaworld.com/channel_content/jw-micro-index.html"><strong>Java Micro Edition </strong></a> | 
+<a href="http://www.javaworld.com/channel_content/jw-applied-index.html"><strong>Development Tools</strong></a>
+
+<div align="center"><a href="http://www.javaworld.com/info/jw-about-index.html">About Us</a> | <a href="http://www.javaworld.com/info/jw-advertise.html">Advertise</a> | <a href="http://www.javaworld.com/info/jw-masthead.html">Contact Us</a> | <a href="http://www.javaworld.com/info/jw-privacy.html">Terms of Service/Privacy</a> </div>
+<div align="center"><a href="http://www.javaworld.com/javaworld/common/jw-copyright.html">Copyright</a>, 2006-2008 Network World, Inc. All rights reserved.</div>
+</div>
+            </div>
+            <div id="footer">
+    <ul class="rc_footer">
+        <li class="rclinks">
+            <a href="/topics/index.html"><strong>RESEARCH CENTERS</strong></a>
+            <a href="/channel_content/jw-core-index.html">Core Java</a>
+            <a href="/channel_content/jw-enterprise-index.html">Enterprise Java</a>
+            <a href="/channel_content/jw-micro-index.html">Mobile Java</a>
+            <a href="/channel_content/jw-applied-index.html">Tools & Methods</a>
+            <a href="/channel_content/jw-archive-index.html">JavaWorld Archives</a>
+        </li>
+        <li><a href="http://www.idg.net"><strong>IDG Network</strong></a>
+            <a href="http://www.cio.com">CIO</a> <a href="http://www.computerworld.com">Computerworld</a>
+            <a href="http://www.csoonline.com/">CSO</a>
+            <a href="http://demo.com/">Demo</a> <a href="http://Gamepro.com/">GamePro</a>
+        </li>
+        <li>
+            <a href="http://www.games.net/">Games.net</a>
+            <a href="http://www.idgconnect.com">IDGconnect.com</a>
+            <a href="http://www.idgworldexpo.com/">IDG World Expo</a>
+            <a href="http://www.infoworld.com">InfoWorld</a>
+            <a href="http://www.itworld.com">ITworld</a>
+            <a href="http://www.linuxworld.com">LinuxWorld.com</a>
+        </li>
+        <li>
+            <a href="http://www.macuser.com">MacUser</a> 
+            <a href="http://www.macworld.com">Macworld</a>
+            <a href="http://www.networkworld.com">NetworkWorld.com</a>
+            <a href="http://www.pcworld.com">PC World</a>
+            <a href="http://www.playlistmag.com">Playlistmag.com</a>
+        </li>
+    </ul>
+<div class="grey">
+<a href="http://www.javaworld.com/info/jw-about-index.html">About Us</a> | <a href="http://www.javaworld.com/info/jw-advertise.html">Advertise</a> | <a href="http://www.javaworld.com/info/jw-masthead.html">Contact Us</a> | <a href="http://www.javaworld.com/info/jw-privacy.html">Terms of Service/Privacy</a>
+<span class="copyright"><a href="http://www.javaworld.com/javaworld/common/jw-copyright.html">Copyright</a>, 2006-2010 Infoworld, Inc. All rights reserved.</span>
+</div>
+<!-- intellitext was here see tjk notes to restore -->
+
+
+
+            
+      
+      <!-- JW Ad -->
+
+
+<!-- begin DogEar ad ad --> 
+<script language="JavaScript" type="text/javascript"> 
+//<![CDATA[
+document.write('<script language="JavaScript" src="'+ processAdUrl('http://ad.doubleclick.net/adj/idge.jw.core/;pos=dogear;sz=1x1;tile=5;dcopt=ist;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;') +'" type="text/javascript"><\/scr'+'ipt>'); 
+//]]>
+</script> 
+<noscript><a href="http://ad.doubleclick.net/jump/idge.jw.core/;pos=dogear;sz=1x1;tile=5;dcopt=ist;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" target="_blank"><img src="http://ad.doubleclick.net/ad/idge.jw.core/;pos=dogear;sz=1x1;tile=5;dcopt=ist;author=jason_demorrow;cid=99261;kw=javastandardedition,enclosingclass,nestedclasses,builderpattern,development;ord=0121297574?" width="1" height="1" border="0" alt=""></a></noscript>
+<!-- end DogEar ad ad -->
+
+
+
+</div>
+         </div>
+      </div>
+      <!--
+Test
+article
+test
+-->
+
+	<script type="text/javascript" src="/includes/jqlib/_article.js"></script>
+
+   </body>
+</html>

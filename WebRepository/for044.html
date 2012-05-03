@@ -1,0 +1,1076 @@
+<html>
+
+<head>
+<title> Java for C and C++ Programmers </title>
+<style type="text/css">
+<!--
+    pre {
+	color: blue
+    }
+-->
+</style>
+
+</head>
+
+<body>
+
+<h1> Java for C and C++ Programmers </h1>
+
+<hr>
+
+<h2> Table of Contents </h2>
+
+<p>
+<ul>
+<li> <a href="#data">Java Data</a>
+    <ul type="square">
+    <li> <a href="#simple">Simple Java Data</a>
+    <li> <a href="#objects">Java Objects</a>
+    </ul>
+<li> <a href="#modifying">Modifying Java Variables</a>
+<li> <a href="#messages">Java Messages</a>
+<li> <a href="#constructors">Creating Java Objects</a>
+<li> <a href="#defining">Defining Java Classes</a>
+    <ul type="square">
+    <li> <a href="#members">Instance and Class Members</a>
+    <li> <a href="#variables">Instance and Class Variables</a>
+    <li> <a href="#methods">Instance and Class Methods</a>
+    <li> <a href="#constants">Constants</a>
+    </ul>
+<li> <a href="#access">Access Conditions in Java</a>
+    <ul type="square">
+    <li> <a href="#scopes">Java Scopes</a>
+    <li> <a href="#limiting">Limiting Access for Members</a>
+    </ul>
+<li> <a href="#context">The Context for Writing Java Methods</a>
+<li> <a href="#null">Dealing with <code>null</code> Variables</a>
+<li> <a href="#inheritance">Java Inheritance</a>
+<li> <a href="#abstract">Abstract Classes</a>
+<li> <a href="#interfaces">Java Interfaces</a>
+<li> <a href="#arrays">Java Arrays and Strings</a>
+<li> <a href="#generic">Java Generic Data Structures and Coercion</a>
+<li> <a href="#standardLibrary">Java Standard Library Classes</a>
+<li> <a href="#files">Naming Java Source Code Files and Packages</a>
+<li> <a href="#importing">Import Statements</a>
+<li> <a href="#fileStructure">Java Source Code File Structure</a>
+<li> <a href="#compiling">Compiling and Executing Java Classes</a>
+</ul>
+
+<a name="data"></a>
+<h2> Java Data </h2>
+
+<p>
+There are two kinds of Java data: simple data and objects.
+Simple java data are boolean, character, integer, and real values.
+Java objects are encapsulations of various kinds of data components,
+together with methods for manipulating the components and returning
+information about them.
+Methods are like C functions, although the syntax for their use is
+different.
+
+<a name="simple"></a>
+<h4> Simple Java Data </h4>
+
+<p>
+Simple Java data has one of eight types as listed below.
+
+<p>
+<table>
+<tr align=left>
+<th> Type	<th> Contains		<th> Size, Coding, or Values
+<tr>
+<td> boolean	<td> truth value	<td> <code>true</code>,
+<code>false</code>
+<tr>
+<td> char	<td> character		<td> Unicode characters
+<tr>
+<td> byte	<td> signed integer	<td> 8 bit two's complement
+<tr>
+<td> short	<td> signed integer	<td> 16 bit two's complement
+<tr>
+<td> int	<td> signed integer	<td> 32 bit two's complement
+<tr>
+<td> long	<td> signed integer	<td> 64 bit two's complement
+<tr>
+<td> float	<td> real number	<td> 32 bit IEEE 754 floating point
+<tr>
+<td> double	<td> real number	<td> 64 bit IEEE 754 floating point
+</table>
+
+<p>
+The simple types of Java data can be used in much the same way as the
+corresponding types in C.
+The syntax for literals and expressions is identical except for some
+additional escape sequences to handle Unicode characters in character and
+String literals.
+Java does not have pointers, structs or unions.
+Their functionality, and more, is provided by Java objects.
+
+<p>
+With regard to simple data types, the main difference between C and Java is
+that Java does not automatically coerce between the integral types, the
+boolean type, and the character type.
+This implies that Java integral types and characters cannot be used by
+themselves as conditions in control statements.
+For example, for an integer variable <code>x</code>, the following
+statement is legal in C.
+<pre>
+    while (x) {
+	...
+    }
+</pre>
+In Java, the above statement is not legal because the control expression in
+a while loop must express a boolean value.
+Thus the loop must be written as follows.
+<pre>
+    while (x != 0) {
+	...
+    }
+</pre>
+
+<a name="objects"></a>
+<h4> Java Objects </h4>
+
+<p>
+An <em>object</em> is an encapsulation of data along with methods for
+manipulating the data.
+Java objects are grouped into classes.
+Two objects in the same class contain the same kind of data components and
+are manipulated by the same set of methods.
+In Java, classes are regarded as a special kind of object.
+
+<p>
+There are many Java classes that are defined in the standard class library.
+In addition, programmers may define their own classes.
+In fact, almost all Java coding is involved in the definition of classes.
+
+<h2> Java Variables and Assignments </h2>
+
+<p>
+Other than literal values, all Java data is accessed through variables,
+which can be associated with objects (instance variables), classes (class
+variables), or instantiations of methods (parameters and local variables).
+All variables are typed as a simple type, or a class, or an interface.
+An interface is like a class whose methods are declared but not defined.
+That is, the methods are named, and types are specified for their returned
+values and parameters, but no code is provided to define their behavior.
+
+<p>
+Java variables with simple types contain value copies.
+Although two variables may contain the same value, they will have two
+distinct copies.
+If one of the variables is changed, it has no effect on the other.
+Thus the behavior of simple Java variables is similar to their C
+counterparts.
+
+<p>
+Java object variables, on the other hand, are <em>references</em> to
+objects.
+Two object variables may refer to the same object.
+If the object is modified then the change can be seen through both
+variables.
+
+<a name="modifying"></a>
+<h2> Modifying Java Variables </h2>
+
+<p>
+The only mechanism for changing the value of a simple Java variable is an
+assignment statement.
+Java assignment syntax is identical to C assignment syntax.
+As in C, an assignment replaces the value of a variable named on the left-
+hand side of the equals sign by the value of the expression on the right-
+hand side of the equals sign.
+
+<p>
+Java object variables can be changed in two ways.
+Like simple variables, you can make assignments to object variables.
+When this is done the object referenced by the variable is not changed.
+Instead, the reference is replaced by a reference to a different object.
+
+<p>
+With a few exceptions, the only other thing that you can do with an object
+variable is to send it a message.
+This is an important part of any Java program, allowing communication
+between objects.
+
+<a name="messages"></a>
+<h2> Java Messages </h2>
+
+<p>
+The syntax of a Java message closely resembles a C expression that accesses
+a member of a struct.
+Its form is one of the following:
+<pre>
+    <var>receiver</var>.<var>method-name</var>(<var>parameter list</var>)
+</pre>
+or
+<pre>
+    <var>receiver</var>.<var>variable-name</var>
+</pre>
+
+<p>
+In both forms, <var>receiver</var> is an expression that denotes the
+receiver of the message.
+This expression can be a variable or class name, or an indexed array
+expression, or any complex Java expression that has an object as its
+returned value.
+The legality of both forms depends on access conditions, described in the
+section <a href="#access">Java Access Conditions</a> below.
+
+<p>
+In the first form, <var>method-name</var> is the name of the method to
+apply, and <var>parameter list</var> is a possibly empty comma separated
+list of parameters.
+Except for the receiver and the period at the front, the first message form
+has the same syntax as a C function call.
+Like C function calls, the expression can have effects and can return data.
+Normally, the direct effects are limited to changes in the receiving
+object.
+
+<p>
+In the second form, <var>variable-name</var> is the name of a variable
+attached to the receiver.
+The expression returns the value or reference associated with that
+variable.
+
+<p>
+For example, consider the following statement, where <code>x</code> is the
+name of an object variable.
+<pre>
+    System.out.println(x.getClass().getName());
+</pre>
+Here, <code>System</code> is the name of a standard library class.
+This class has an attached variable, <code>out</code>, which is the
+standard output stream for a program, much like <code>stdout</code> in C
+programs.
+This variable is an object of class <code>PrintStream</code>.
+The <code>PrintStream</code> class defines the <code>println()</code>
+method, which prints its argument followed by a newline.
+The argument should be an object from the <code>String</code> class.
+
+<p>
+The <code>getClass()</code> method is defined for all objects, returning
+the class (an object of class <code>Class</code>) to which the object
+belongs.
+The <code>Class</code> class defines the <code>getName()</code> method,
+which returns the name of the class (an object of class
+<code>String</code>).
+Thus the above statement prints the name of the class to which
+<code>x</code> belongs.
+With the possible exception of the class of <code>x</code>, all of the
+classes in this example are Java standard library classes.
+
+<a name="constructors"></a>
+<h2> Creating Java Objects </h2>
+
+<p>
+Most Java objects are created using the keyword <code>new</code> with a
+call to a constructor method.
+A class can provide a default parameterless constructor that is inherited
+from the Object class or specialized constructors can be defined in the
+class.
+
+<p>
+Java constructor definitions are similar to method definitions except for
+two things: the name of the constructor must be the class name and the type
+of the returned value is omitted.
+Most constructors are declared <code>public</code>, so their definition has
+the form
+<pre>
+    public <var>class-name</var>(<var>typed parameter list</var>) {
+        <var>object initialization code</var>
+    }
+</pre>
+The <var>typed parameter list</var> has the same syntax as the parameter
+list in a C function definition.
+
+<p>
+A constructor is usually called in a <code>new</code> expression, which has
+the form
+<pre>
+    new <var>class-name</var>(<var>parameter list</var>)
+</pre>
+This expression returns a new instance of the class named by
+<var>class-name</var>.
+The expression can be used in any context where an object of this class is
+legal.
+For example it could be the right-hand side of an assignment statement to a
+variable of the appropriate type, or it could be used as a parameter in a
+method call.
+
+<p>
+There is one context where a constructor is called without a
+<code>new</code> expression: inside a constructor for an object of the same
+class.
+In this case, the initialization code of the called constructor is
+executed without creating a new object.
+Two special syntax forms are used to do this:
+<pre>
+    this(<var>parameter list</var>);
+</pre>
+and
+<pre>
+    super(<var>parameter list</var>);
+</pre>
+The first form performs the initialization code in the constructor whose
+parameter types match the actual parameters (usually a different
+constructor).
+The second form performs the initialization code in a constructor defined
+in the superclass.
+
+<p>
+Often, there is one primary constructor for a class, with all of the
+necessary parameters for constructing an object, and one or more secondary
+constructors that omit some of the parameters.
+The initialization code for the secondary constructors is just a call to
+the primary constructor with default values provided for the omitted
+parameters.
+For example, in the <code>String</code> standard library class, there is a
+primary constructor with a <code>String</code> parameter that returns a
+copy of the parameter.
+There is also a secondary constructor that returns an empty
+<code>String</code>.
+The code for the secondary constructor is
+<pre>
+    public String() {
+	this("");
+    }
+</pre>
+The <code>this</code> statement just calls the primary constructor,
+providing an emtpy <code>String</code> as a default value.
+
+<p>
+When designing the constructors for a class, data integrity is an important
+consideration.
+All public constructors should create objects that satisfy data integrity
+constraints.
+All classes have a default parameterless constructor that only does
+initialization specified in the default constructor for the superclass.
+If that does not create an object that satisfies data integrity constraints
+then a new default constructor should be defined for the class, overriding
+the inherited one.
+
+<p>
+Sometimes there is no reasonable way of defining a parameterless
+constructor.
+In that case, the default constructor should be declared as either
+<code>private</code> or <code>protected</code>.
+The latter is sometimes useful for allowing subclasses to call the default
+constructor in their initialization code.
+
+<a name="defining"></a>
+<h2> Defining Java Classes </h2>
+
+<p>
+In it simplest form, a Java class definition has the following structure.
+<pre>
+    public class A {
+	
+	<var>object and class member definitions</var>
+
+    }
+</pre>
+
+The <var>object and class member definitions</var> are method (including
+constructor), variable, and constant definitions, which are like C
+function, variable, and constant definitions with the exception of some
+keyword modifiers as described below.
+
+<p>
+There is one important difference between Java member definitions and
+their C counterparts: Java does not require that class members be defined
+prior to their use.
+A Java compiler works like an assembler in that it makes multiple passes
+through a code file.
+The early passes are just recording symbols and types associated with them.
+
+<p>
+There is a price to pay for this added freedom: it complicates error
+handling by the compiler.
+Error messages from the compiler can be frustrating because as you fix
+errors, new errors are uncovered.
+It is not uncommon to get an early report of a small number of errors and
+a large number of errors after the first errors are fixed.
+
+<a name="members"></a>
+<h4> Instance and Class Members </h4>
+
+<p>
+In Java, members may be associated with either objects or classes.
+Members that are associated with objects are usually called
+<em>instance</em> members.
+In a class definition, all members are instance members except those that
+are qualified by the <code>static</code> keyword.
+In a message that accesses an instance member, the receiver is specified
+by a variable or expression that references an object.
+In a message that accesses a class member, the receiver is specified by
+the name of a class.
+
+<a name="variables"></a>
+<h4> Instance and Class Variables </h4>
+
+<p>
+The most important variables that are defined in a class are <em>instance
+variables</em>.
+Instance variables are attached to objects so that each object in a class
+has its own instance variables.
+All variable declarations are declarations of instance variables unless
+qualified by the <code>static</code> keyword.
+
+<p>
+The <code>static</code> keyword indicates that the variable is a <em>class
+variable</em>.
+A class variable is attached to the class in which its definition appears
+so that its value or reference is shared by all objects in the class.
+The following declaration declares <code>x</code> to be a class variable of
+type <code>int</code>.
+<pre>
+    static int count;
+</pre>
+
+<p>
+If this declaration appears in class <code>A</code> then the variable is
+accessed with the message <code>A.count</code>.
+This message returns the value of the variable, which may be part of a more
+complex expression, such as
+<pre>
+    System.out.println(A.count);
+</pre>
+
+<a name="methods"></a>
+<h4> Instance and Class Methods </h4>
+
+<p>
+Like variables, methods are instance methods except when declared as class
+methods using the keyword <code>static</code>.
+If class <code>A</code> defines method f() as static then messages using
+the method must be sent to the class as in
+<pre>
+    x = A.f();
+</pre>
+
+<a name="constants"></a>
+<h4> Constants: <code>final</code> Variables </h4>
+
+<p>
+Unlike C, Java uses the keyword <code>final</code> to declares constants.
+Most constants are also class variables, so they are usually declared like
+<pre>
+    static final int taxRate;
+</pre>
+
+<a name="access"></a>
+<h2> Access Conditions in Java </h2>
+
+<p>
+Java uses the keywords <code>public</code>, <code>protected</code>, and
+<code>private</code> to modify access to members in a class definition.
+These keywords determine the kinds of scope from which a member can be
+accessed.
+There is also a default scope for members that are defined without an
+access keyword.
+
+<a name="scopes">Java Scopes</a>
+<h4> Java Scopes </h4>
+A <em>scope</em> is a limited portion of source code that provides a
+context for interpreting identifiers or names.
+An identifier can refer to different things depending on the scope in
+which it appears.
+This is one of the important mechanisms for encapsulation.
+
+<p>
+As in C, the scope for a local variable or parameter is the method or
+innermost block in which it is declared.
+A block scope is either a control statement or a segment of code delimited
+by braces.
+For example, the scope for the local variable <code>i</code> in the
+following code is the entire <code>for</code> statement.
+The scope of the local variable <code>x</code> is the region enclosed by
+the braces.
+<pre>
+for (int i = 0; i < 100; i++) {
+    double x;
+    .
+    .
+}
+</pre>
+
+<p>
+There are two scopes in Java that are not available in C: class scopes
+and package scopes.
+A <em>class scope</em> consists of an entire class definition.
+A <em>package scope</em> is a directory containing java source code files.
+To be used in a package scope, a source code file should contain a
+statement with the following form.
+<pre>
+    package <var>package-name</var>;
+</pre>
+
+<p>
+Here, <var>package-name</var> is the name of the package.
+Rules for naming class source code files and packages are described in the
+section <a href="#files">Naming Java Source Code Files and Packages</a>.
+
+<a name="limiting"></a>
+<h4> Limiting Access for Members </h4>
+
+<p>
+Access to a member of a Java class can be limited to a scope using one of
+the keywords <code>public</code>, <code>protected</code>, or
+<code>private</code>, or to a default scope if none of these keywords is
+used.
+If an access keyword is used, it should precede the type for the member.
+
+<p>
+If an instance variable or method of class <code>A</code> is declared with
+the <code>public</code> keyword, it can be accessed through any reference
+to an object from class <code>A</code>.
+If an instance variable or method of class <code>A</code> is declared with
+the <code>protected</code> keyword, it can be accessed only within the
+package that contains <code>A</code> or in the class definition of a
+subclass of <code>A</code>.
+If an instance variable or method of class <code>A</code> is declared with
+the <code>private</code> keyword, it can be accessed only in the class
+definition of <code>A</code>.
+If an instance variable or method of class <code>A</code> is declared
+without one of these keywords, it can be accessed only within the package
+that contains <code>A</code>.
+
+<a name="context"></a>
+<h2> The Context for Writing Java Methods </h2>
+
+<p>
+When you are writing an instance method in a class definition, you have
+access to all of the instance variables for the object that receives a
+message with that method, along with all of the class variables for the
+class.
+In addition, you can send a message to the receiving object or its class
+without specifying the receiver.
+That is, a message from an object to itself or to its class looks just like
+an ordinary C function call or variable reference:
+<pre>
+    <var>method-name</var>(<var>parameter list</var>)
+</pre>
+or
+<pre>
+    <var>variable-name</var>
+</pre>
+Messages to all other objects or classes must specify the receiver using
+the variable or class name, followed by a period, followed by the function
+call or variable name, as shown earlier.
+
+<a name="null"></a>
+<h2> Dealing with <code>null</code> variables </h2>
+
+<p>
+There is a special value, <code>null</code>, that can be assigned to any
+object or array variable.
+It indicates that there is no object or array referenced by the variable.
+For example, a <code>null</code> value can be used for lists to indicate
+that the list is empty.
+
+<p>
+If a program attempts to send a message to a variable whose current value
+is null then the Java runtime system will throw a NullPointerException.
+This exception is also thrown when a program attempts to access entries of
+an array variable when the current value of the variable is
+<code>null</code>.
+
+<p>
+It would be nice if you could encapsulate handling of <code>null</code>
+values in a class that defines lists or other linked structures.
+Unfortunately, you cannot do this with a single list class for two reasons.
+
+<p>
+First, the <code>null</code> value does not reference a special object.
+It just indicates that there is no object referenced by the variable.
+So you cannot send it a message.
+This requires that clients of the list class use code to test for
+<code>null</code> variables and act appropriately.
+The list class must provide most of the functionality that you need, but it
+must leave handling the empty list case to the client.
+
+<p>
+The second reason is that a method for the list class cannot change the
+reference for a variable that is the receiver of a list message.
+Suppose you are writing a method that removes an entry from a list.
+To handle the case where the list only contains one entry, you need to make
+the list variable <code>null</code>.
+But this cannot be done within the remove method.
+The method has access to the receiver object, but not the variable that
+references it.
+Thus the sender of the message must set the variable to <code>null</code>.
+
+<p>
+This kind of behavior is unfortunate, and it can lead to headaches.
+Higher-level classes should attempt to encapsulate this problem.
+To assist the higher-level classes, the lower-level class can return the
+value that should be assigned by the higher-level class.
+The higher-level classes must then assign the <code>null</code> value to
+the desired variable.
+
+<a name="inheritance"></a>
+<h2> Java Inheritance </h2>
+
+<p>
+When a Java class is defined, it can be defined as an extension of another
+class using the keyword <code>extends</code>.
+For example, the following class definition declares that class
+<code>B</code> extends the definition of class <code>A</code>.
+
+<pre>
+    public class B
+    extends A {
+	
+	<var>instance and class member definitions</var>
+
+    }
+</pre>
+
+This means that all public and protected variables and methods of class
+<code>A</code> are automatically defined for class <code>B</code> as well.
+The variables and method do not need to be defined again in class
+<code>B</code> unless they need to be changed.
+In standard object-oriented terminology, we say that <code>B</code>
+<em>inherits</em> its variables and methods from <code>A</code>.
+A Java class can only inherit from a single parent class, which is called
+its <em>superclass</em>.
+If the extends clause is not used in a class definition then its superclass
+is the class called <code>Object</code>.
+
+<a name="abstract"></a>
+<h2> Abstract Classes </h2>
+
+<p>
+Sometimes, it is convenient to define a class that can have no instances.
+For example, a class can provide implementation for methods that are common
+to two or more classes, but leave implementation of other methods to
+subclasses.
+If the parent class declares the unimplemented methods then it uses the
+<code>abstract</code> keyword in the method declaration and omits the
+method body.
+When this is done, the class is called an <em>abstract</em> class.
+The <code>abstract</code> keyword should also be added to the class
+definition as in the following.
+<pre>
+    public abstract class A {
+
+	<var>member definitions</var>
+	
+	public abstract boolean func(int n);
+
+	<var>more member definitions</var>
+
+    }
+</pre>
+
+<p>
+An abstract class is, by itelf, useless, but it defines a common interface
+for its subclasses.
+Subclasses that define all of the abstract methods are called <em>concrete
+subclasses</em>.
+For example, to define class <code>B</code> as a concrete subclass of class
+<code>A</code>, you use a class definition like the one below.
+<pre>
+    public class B
+    extends A {
+
+	<var>new member definitions</var>
+	
+	public boolean func(int n) {
+	    <var>implementation code</var>
+	}
+
+	<var>more new member definitions</var>
+
+    }
+</pre>
+
+<p>
+The power of abstract classes is that the class can be used as a type for
+variables and parameters.
+Objects from any concrete subclass can be assigned to the variables or
+passed through the parameters.
+This capability can be used to make code more immune to changes.
+For example, an abstract class could be used to define a common interface
+for several implementations of an abstract data type.
+If the abstract class is used to type variables and parameters then the
+only place where the code needs to be changed when the implementation is
+changed is in calls to constructors.
+
+<a name="interfaces"></a>
+<h2> Java Interfaces </h2>
+
+<p>
+A Java interface is similar to an abstract class in that it has undefined
+methods.
+In fact, all of the methods in an interface must be given with declarations
+but no definition.
+That is, only method prototypes appear in an interface definition:
+<pre>
+    public interface C {
+
+	public boolean func(int n);
+
+	<var>more method declarations</var>
+
+    }
+</pre>
+
+<p>
+The only variables that can be declared in an interface definition are
+<code>final</code> variables (constants).
+Constants are almost always declared to be <code>static</code>.
+
+<p>
+Java inheritance rules allow a class to have a single superclass, but it
+can implement any number of interfaces.
+The following form is used to define a class <code>E</code> with superclass
+<code>A</code> that impleements two interfaces <code>C</code> and
+<code>D</code>.
+<pre>
+    public class E
+    extends A
+    implements C, D {
+
+	<var>definitions of members declared in A, C, and D</var>
+
+	<var>new member definitions</var>
+
+    }
+</pre>
+
+<p>
+If some of the members that are declared by <code>A</code>,
+<code>C</code>, or <code>D</code> are not defined in <code>E</code>, then
+<code>E</code> should be declared as <code>abstract</code>.
+
+<p>
+Java abstract classes and interfaces both serve similar purposes.
+However, in a particular situation, one will usually serve be better suited
+than the other.
+The tradeoffs between the two is beyond the scope of this web page.
+For a good advanced discussion of the issues see
+<a href="bibliography.html#CM96">CM96</a>.
+
+<a name="arrays"></a>
+<a name="strings"></a>
+<h2> Java Arrays and Strings </h2>
+
+<p>
+There are two kinds of Java objects that receive special syntactic
+treatment: arrays and strings.
+In Java, arrays are objects.
+However, you can use an indexing notation with arrays that is similar to C
+array indexing.
+To declare an array of <code>int</code>, for example, you use a declaration
+like the following.
+<pre>
+    int[] A = new int[5];
+</pre>
+Then individual entries can be accessed using a notation like
+<code>A[i]</code>.
+
+<p>
+In Java, character strings are not usually handled as arrays of charaters.
+Instead, there is a standard library class <code>String</code> for dealing
+with them.
+Although you cannot use array notation with objects of class
+<code>String</code>, Java provides three members that facilitate working
+with them.
+First, there is a <code>toString()</code> method that is defined for all
+objects.
+This method is redefined in many standard library subclasses to return a
+<code>String</code> description appropriate to the class.
+Programmers can redefine <code>toString()</code> in their own classes to
+whatever they want for a description.
+
+<p>
+Second, in an expression, such as a <code>println()</code> argument, where
+a <code>String</code> is expected, Java will automatically convert data to
+strings.
+This is done by calling <code>toString()</code> for objects, and using
+built-in conversion routines for simple data types.
+
+<p>
+Finally, Java uses <code>+</code> to indicate concatenation of
+<code>String</code> objects.
+If <code>x</code> has value 5 then the following code prints out the text
+line "The value of x is 5.".
+<pre>
+    System.out.println("The value of x is " + x + ".");
+</pre>
+
+<a name="generic"></a>
+<a name="coercion"></a>
+<h2> Java Generic Data Structures and Coercion </h2>
+
+<p>
+The Java standard class library contains a few useful generic data
+structure classes, such as
+<code><a href="../javadoc/api/java/util/Hashtable.html">Hashtable</a></code>,
+<code><a href="../javadoc/api/java/util/Vector.html">Vector</a></code>, and
+<code><a href="../javadoc/api/java/util/Stack.html">Stack</a></code>,
+and interfaces such as
+<code><a href="../javadoc/api/java/util/Enumeration.html">Enumeration</a></code>.
+These classes and interfaces are designed to deal with collections of
+objects.
+The objects that they hold are declared as class <code>Object</code> so
+that these structures can be used in a wide range of contexts.
+However, this creates a problem when you retrieve data from one of these
+collections: you cannot directly assign the returned value to a variable
+unless it is declared to have type <code>Object</code>.
+But then you cannot send any messages to the variable except those that are
+defined for class <code>Object</code>.
+
+<p>
+You will normally want to be able to send any message defined for the
+actual class of the object.
+In order to do this, you need to coerce the returned value to the expected
+class.
+For example, suppose you have an <code>Enumeration</code> variable named
+<code>enum</code> that contains <code>String</code> objects.
+You can get one of the objects with the <code>nextElement()</code> method,
+but the declared type of the returned value for this method is class
+<code>Object</code>.
+In order to deal with it as a <code>String</code>, you need to use a
+coercion expression, as in the following.
+<pre>
+    (String)(enum.nextElement())
+</pre>
+
+<p>
+Then the value of this expression can be assigned to a <code>String</code>
+variable or passed as an argument to the <code>println()</code> method.
+
+<p>
+In general, coercion is accomplished by putting a parenthesized type name
+in front of an expression.
+Although parentheses around the expression itself are not always needed,
+using them avoids possible misinterpretations.
+
+<!--
+<a name="input"></a>
+<a name="output"></a>
+<h2> Java Input and Output </h2>
+
+<p>
+FIXME - describe standard input and output files, I/O classes and their
+methods.
+
+<a name="exceptions"></a>
+<h2> Java Exceptions </h2>
+
+<p>
+FIXME - describe exception classes, try blocks, throws clauses, and throw
+statements.
+-->
+
+<a name="standardLibrary"></a>
+<h2> Java Standard Library Classes </h2>
+
+Complete documentation for Java standard library classes can be found in
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/index.html">Java 2
+Platform API Specification</a>
+The following packages are the most commonly used.
+If a source code file refers to anything from standard library classes
+other than those in the java.lang package then the file must have an
+<a href="#importing">import</a> statement.
+
+<p>
+<ul>
+
+<li>
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/package-summary.html">
+package java.lang
+</a> -
+The core Java classes
+
+<li>
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/package-summary.html">
+package java.util
+</a> -
+Classes for some simple data structures and other utility classes
+
+<li>
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/package-summary.html">
+package java.io
+</a> -
+Input, output, and file handling classes
+
+<li>
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/java/awt/package-summary.html">
+package java.awt
+</a> -
+Old style graphical user interface classes
+
+<li>
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/java/applet/package-summary.html">
+package java.applet
+</a> -
+Classes for Java applets
+
+<li>
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/javax/swing/package-summary.html">
+package javax.swing
+</a> -
+New style graphical user interface classes
+(see also <a href="swing/index.html">Sensible Swing</a>)
+
+</ul>
+
+<a name="files"></a>
+<a name="packages"></a>
+<h2> Naming Java Source Code Files and Packages </h2>
+
+<p>
+With some exceptions that are beyond the scope of this web page, each Java
+class is defined in a separate source code file.
+The name of the file should be the same as the class name with a
+<code>.java</code> suffix.
+Thus the definition for a class named Comparators should be in a file named
+<code>Comparators.java</code>.
+If the operating system uses case-sensitive file names then the
+<code>.java</code> suffix should be all lower case and the case of the rest
+of the file name should match the case of the class name.
+
+<p>
+It is a good programming practice to group source code files into packages
+of related classes, with each package in a separate directory.
+For compatibility with Java development software, the directories should be
+arranged as one or more heirarchies, each with the name
+<code>classes</code>.
+To enable development software to accesss the packages, you need to set a
+<code>CLASSPATH</code> environmental variable in your login startup script
+(the <code>.personal</code> file for UNIX machines here at UMD).
+For example, I have most of my classes rooted in my subdirectory
+<code>public/lib</code>.
+To allow development software to access the classes, I have added the
+following line to my .personal file:
+<pre>
+    setenv CLASSPATH .:$HOME/myjava/lib
+</pre>
+In general, the <code>CLASSPATH</code> variable is set to a list of
+directories separated by colons.
+In the above command, the list contains two directories: my classes
+directory and the current directory (using the UNIX period abbreviation).
+The current directory is added to allow access to classes in the current
+directory that do not have package statements.
+
+<p>
+For import statements, described in the next section, it is important to
+know how packages are named in Java.
+By way of example, my classes directory contains a subdirectory named
+<code>gshute/util</code>.
+Each class in this subdirectory has the following package statement:
+<pre>
+    package gshute.util;
+</pre>
+that is, the <em>package name</em> is the path name of the subdirectory,
+relative to my <code>CLASSPATH</code> variable, with periods replacing the
+slashes.
+
+<a name="importing"></a>
+<h2> Import Statements </h2>
+
+<p>
+When you are writing code for a class, it will often play the role of a
+client for another class, which plays the role of a server class.
+In Java, the server class and any classes appearing in its interface must
+be imported by the client.
+This includes the server class itself and any classes used to define method
+parameter types or returned value types for server methods.
+Classes that are part of the package that contains the client class or part
+of the <code>java.lang</code> standard library package do not need import
+statements.
+
+<p>
+Server classes are imported with import statements.
+These statements should appear near the beginning of a Java source code
+file, immediately after the package statement.
+An import statement has the following syntax:
+<pre>
+    import <var>fully-qualified-class-name</var>;
+</pre>
+A <em>fully-qualified-class-name</em> has the form
+<pre>
+    <var>package-name</var>.<var>class-name</var>
+</pre>
+
+<p>
+For example, if I want to import my Comparators class, which is defined in
+the <code>gshute/util</code> subdirectory then I use the following import
+statement.
+<pre>
+    import gshute.util.Comparators;
+</pre>
+
+<p>
+It is a common practice to import a complete package.
+This can be done with the wild card "*" replacing the class name.
+For example, the following import imports the entire java.util package.
+<pre>
+    import java.util.*;
+</pre>
+
+<a name="fileStructure"></a>
+<h2> Java Source Code File Structure </h2>
+
+<p>
+A Java souce code file has the following structure:
+<pre>
+    <var><a href="#packages">package statement</a></var>
+
+    <var><a href="#importing">import statements</a></var>
+
+    <var><a href="#defining">class definition</a></var>
+</pre>
+If the name of the class defined in the file is <code>A</code> then the
+file must be named <code>A.java</code>.
+
+<a name="compiling"></a>
+<h2> Compiling and Executing Programs in Java </h2>
+
+<p>
+The <code>javac</code> program is used to compile java classes.
+To compile the class A, which should be defined in the file
+<code>A.java</code>, you need to give the following command.
+<pre>
+    javac A.java
+</pre>
+
+<p>
+In order to be executable, the class must contain a
+<code>main()</code> method that is declared as follows.
+<pre>
+    public static void main(String[] args) {
+	<var>main program code</var>
+    }
+</pre>
+Then the class can be executed with the command
+<pre>
+    java A
+</pre>
+If the program uses command-line arguments they can be added after the
+class name.
+The command-line arguments are accessible in the <code>main()</code> method
+through its <code>args</code> parameter.
+The number of command line arguments is <code>args.length</code>.
+
+<p>
+Complete documentation for the javac and java programs and other tools for
+Java software development can be found in
+<a href="http://java.sun.com/j2se/1.4.2/docs/tooldocs/tools.html">JDK
+Basic Tools</a>.
+
+<hr size="5">
+
+<b>Page URL: </b>http://www.d.umn.edu/~gshute/java/c2java.html<br>
+<b>Page Author: </b>Gary Shute<br>
+<b>Last Modified: </b>Tuesday, 26-Jun-2007 12:33:12 CDT<br>
+<b>Comments to: </b><a href="mailto:gshute@d.umn.edu">gshute@d.umn.edu</a>
+
+
+</body>
+
+</html>

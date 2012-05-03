@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang='en'>
+<head>
+<title>Java</title>
+
+	<link rel='stylesheet' href='/css/wikit_screen.css' media='screen' type='text/css' title='With TOC'>
+	<link rel='alternate stylesheet' href='/css/wikit_screen_notoc.css' media='screen' type='text/css' title='Without TOC'>
+	<link rel='stylesheet' href='/css/wikit_print.css' media='print' type='text/css'>
+	<link rel='stylesheet' href='/css/wikit_handheld.css' media='handheld' type='text/css'>
+	<link rel='stylesheet' href='/css/tooltips.css' type='text/css'>
+	
+	<link rel='alternate' type='application/rss+xml' title='RSS' href='/rss.xml'>
+	<!--[if lte IE 6]>
+	<style type='text/css' media='all'>@import '/css/ie6.css';</style>
+	<![endif]-->
+	<!--[if gte IE 7]>
+	<style type='text/css' media='all'>@import '/css/ie7.css';</style>
+	<![endif]-->
+	<script type='text/javascript'>/* <![CDATA[ */
+
+	    function init() {
+		// quit if this function has already been called
+		if (arguments.callee.done) return;
+		
+		// flag this function so we don't do the same thing twice
+		arguments.callee.done = true;
+		
+		try {
+		    if (typeof(creole_content) != "undefined")
+		    render_creole_in_id('content', creole_content, creole_transclude, creole_categories);
+		}
+		catch (e){}
+
+		try {
+		    document.getElementById("googletxt").value;
+		    googleQuery();
+		}
+		catch (e){}
+
+		//try {
+		    //    checkTOC();
+		    //} catch (err) {
+			//    /* nothing */
+			//}
+	    };
+
+	    /* for Mozilla */
+	    if (document.addEventListener) {
+		document.addEventListener("DOMContentLoaded", init, false);
+	    }
+	    
+	    /* for Internet Explorer */
+	    /*@cc_on @*/
+	    /*@if (@_win32)
+	    document.write("<script defer src='//script/ie_onload1.JS'><\/script>");
+	    /*@end @*/
+	    
+	    /* for other browsers */
+	    window.onload = init;
+	
+/* ]]> */
+</script>
+	<meta name="verify-v1" content="89v39Uh9xwxtWiYmK2JcYDszlGjUVT1Tq0QX+7H8AD0=">
+    </head>
+<body>
+
+	<div class='container'>
+	<div class='header'>
+	    <div class='logo'><a href='/' class='logo'>wiki.tcl.tk</a></div>
+	    <div id='title' class='title'><a href='/_/ref?N=1393' title='click to see reference to this page'>Java</a></div>
+	    <div id='updated' class='updated'>Updated 2009-04-20 14:34:16 by <a href='/472'>LV</a> <a href='/_/diff?N=1393#diff0' class='delta'>â?²</a></div>
+	</div>
+    
+	    
+	    <div id='wrapper'><div id='content'><p></p>Purpose: provide some pointers and references to Java in particular, and its relationship to Tcl.<hr><p></p>See <a rel="nofollow" href="http://www.java.com/">http://www.java.com/</a> for the home of Java, an <a href="/1824">OO</a> language most commonly implemented as a bytecode interpreter whose byte codes are intended to run cross platform.<p></p>Or, whose byte codes run on the Java Virtual Machine, which is ported to a number of platforms.<p></p>See <a href="/1637">Jacl</a> and <a href="/1313">TclBlend</a>, <a href="/1215">Java and Tcl</a> and <a href="/11124">Java vs Tcl</a>, <a href="/11294">Starting Java from Tcl</a>.<p></p>Java was originally created by Sun. Sun later made Java open source. During 2009, Oracle has made an offer to buy Sun (and Java) [<a rel="nofollow" href="http://blogs.zdnet.com/BTL/?p=16598&amp;tag=nl.e589">1</a>].<hr><h2 id='pagetocbf7cdcbe'>Java Basics</h2><p></p>This posting gives a high-level overview of basic Java language concepts and object oriented programming concepts. Feel free to correct or add to this posting what you like. <a href="/10539">Scott Nichols</a><h3 id='pagetoc6fd48b2a'>Java Programs</h3><p></p>There are two types of programs in Java.<p></p><ol><li>Java Application.<br><br>A Java application runs from your desktop or console and is usually a collection of Java class files (Java bytecodes) zipped into a Java Jar file. Note: Java JSP pages and servlets fall in this category<br></li><li>Java Applet.<br><br>A Java Applet runs within a web browser using some version of the Java plugin and can also be within a Jar file.<br></li></ol><h3 id='pagetocd9c048ea'>Java Bytecodes</h3><p></p>When java source files get compiled they are then known as Java bytecodes (*.class files) and are interpreted into machine code by the Java Virtual Machine (Java Interpreter).<h3 id='pagetoc5dd096c8'>Java Naming Conventions</h3><p></p>The industry standard for Java naming convention is very simple. All classes start in uppercase and all variables and methods start in lowercase, and constants should be in all uppercase.<p></p><ol><li>Java Classes start in uppercase. Each individual word is capitalized in the class name.</li><li>All Java methods and variables start in lowercase. Each individual word in the name is captilized.</li><li>Final variables should be written in all uppercase. This is known as a constant.</li></ol><p></p>Examples:<pre> public class SysValResponder
+ private final int INCREMENT = 5;
+ StringBuffer stringBuffer = new StringBuffer();</pre><p></p>That's it for Java's naming conventions. This is the naming convention that Sun uses for their Java objects, and you can find examples of this in Sun's Java Docs.<p></p><a href="/1280">DKF</a>: There's also the Java Bean naming conventions, which build on top of this.<h3 id='pagetoc15f99727'>Classes</h3><p></p>A class is a collection of methods and properties. A class file also can contain inner private classes. A java source file is allowed only one public class per file. A class can either be stand alone or be extended from another class (inheritance) or can implement one or more interfaces (interfaces).<p></p>A subclass can access both protected and public members of the superclass.<p></p>If a Java class has a static <b>main</b> method then this is called first when the object is constructed.  A Java application can be started from only one main method. Even though several classes may have main methods within them the application itself is started from only one main.<p></p>A Java class contains a constructor method and finalize method. A Java class that is abstract does not contain a constructor. The constructor is called first, unless the class is being started from main. The Java constructor name is the same as the class name and is allowed multiple signatures. The finalize method is called when the object is destroyed or garbage collected. If the Java source code does not contain the constructor or finalize methods the Java compiler will use the default constructor and finilize method for you.<h4 id='pagetoc6d044f1f'>Example of multiple constructor signatures</h4><pre> public class Circle extends Point {
+  // Constructor signature One
+  public Circle() {
+      radius = 0;
+  }
+  // Constructore signature Two
+  public Circle(double circleRadius) {
+      radius = circleRadius;
+  }
+  protected void finalize() {
+      System.out.println(&quot;Do any clean up work&quot;);
+  }
+ }</pre><p></p>NOTE: A class that is abstract can not be constructed with the <b>new</b> method call.<p></p><a href="/1280">DKF</a>: A useful technique in more complex classes is <i>constructor chaining</i>, which is where you define one constructor in terms of another (this must always be the first thing in the constructor).  This allows you to do simpler variations on an otherwise-complex constructor without repeating the contents of the constructor (which can be a real problem for maintenance.)<h4 id='pagetoca761d79c'>Example of multiple constructors showing constructor chaining</h4><pre> public class Circle extends Point {
+  // Constructor signature One
+  public Circle() {
+      this(0.0); // chain to other constructor
+  }
+  // Constructor signature Two
+  public Circle(double circleRadius) {
+      radius = circleRadius;
+  }
+  protected void finalize() {
+      System.out.println(&quot;Do any clean up work&quot;);
+  }
+ }</pre><h3 id='pagetoc72b8ea06'>Inheritance</h3><p></p>A class can inherit methods and properties from another class.  This is known as inheritance. The class that your subclass is inheriting from is known as the <i>superclass</i>. The class you write is known as the <i>subclass</i>. Java only supports one level of inheritance: meaning that the subclass can only be extended from one superclass. But, Java supports multiple interfaces to get around this.<h3 id='pagetoc78b80562'>Example on Abstract inheritance*</h3><p></p>(you will see this a lot in Java):<pre> // File PizzaStore.java
+ public abstract class PizzaStore {
+    public abstract void run();
+ }
+
+ // File PizzaHut.java
+ // In this example, the class PizzaHut is
+ // being extended from PizzaStore and
+ // the method run, is overwriting the method
+ // run, in the superclass. This is known as
+ // Polymorphism.
+ public class PizzaHut extends PizzaStore {
+   // Implemented method run
+   public void run() {
+      System.out.println(&quot;Pizza Hut&quot;);
+   }
+ }
+
+ // File Nancys.java
+ public class Nancys extends PizzaStore {
+  // Overridden method run
+  public void run() {
+      System.out.println(&quot;Nancys&quot;);
+  }
+ }
+
+ // File MyStores.java
+ public class MyStores {
+   public static void main(String[] args) {
+      // The one and only Inheritance PizzaStore variable
+      PizzaStore myStore;
+
+      // Set myStore to PizzaHut
+      myStore = new PizzaHut();
+      myStore.run();
+
+      // Set myStore to Nancys
+      myStore = new Nancys();
+      myStore.run();
+   }
+ }</pre><h3 id='pagetocea719488'>Interfaces</h3><p></p>A Java Interface is a collection of methods only. A interface does not contain any properties. Interfaces are commonly used as a way of enforcing policy. A interface can not be constructed. It can only be implemented or declared by the implementing class.<p></p>Important Note: A subclass can implement multiple interfaces, but can only  inherit from one superclass.<p></p>Abstract Interface's methods only contain a signature of the method. The body of the method must be implemented in the implementing class.<p></p>Note that all methods in an Interface are implicitly abstract. Thus the abstract keyword in the method declaration is optional.<h4 id='pagetoca4f16fc1'>Abstract Interfaces Example</h4><pre> // File ipizzaStore
+ public interface IpizzaStore {
+   // Keyword abstract is optional here
+   public abstract void run();
+ }
+
+ // File IPizzaHut.java
+ public class IPizzaHut implements IpizzaStore {
+   public void run() {
+      System.out.println(&quot;Pizza Hut&quot;);
+   }
+ }
+
+ // File INancys.java
+ public class INancys implements IpizzaStore {
+   public void run() {
+      System.out.println(&quot;Nancys&quot;);
+   }
+ }
+
+ // File IMystores.java
+ public class IMyStores {
+   public static void main(String[] args) {
+      // The one and only Interface IPizzaStore variable
+      IpizzaStore myStore;
+
+      // Set myStore to PizzaHut
+      myStore = new IPizzaHut();
+      myStore.run();
+
+      // Set myStore to Nancys
+      myStore = new INancys();
+      myStore.run();
+   }
+ }</pre><h3 id='pagetoc4f8ebc45'>Method Overloading</h3><p></p>Method overloading is used in a Java classes when methods have the same name(with in same calss), but have different parameters. This is known as the Java signature.<p></p>Example:<pre> // In this example the SampleMath.java contains two overloaded
+ // square methods that accept both integer
+ // and double parameters
+ public class SampleMath {
+  public double square(double doubleValue) {
+        returnd doubleValue * doubleValue;
+  }
+  public int square(int intValue) {
+        returnd intValue * intValue;
+  }
+ }</pre><h3 id='pagetoc73a8216a'>Method Overriding</h3><p></p>Method overriding is when a inherited class over writes a method from the superclass. This is a form of polymorphism.<p></p>It has some rules<p></p><ol><li>The overriden method name and parameter list should be same and same type</li><li>Access spcifer in super class method and drived class method should be same,</li><li>The exception on the method declaration of Throws class , must be sub set or not define</li></ol><p></p>Please see my PizzaHut example above with the run method.<h3 id='pagetocef114a41'>The final Keyword</h3><p></p>A variable that is declared with the keyword final value can not be updated. This is handy for setting up constants. Constants are usually written in all uppercase. The final keyword can also be used with a method to keep a extended subclass from overriding the method.<p></p>Example:<pre> private final int INCREMENT = 5;</pre><h3 id='pagetocb3b04910'>Static Variables and Methods</h3><p></p>A <i>static</i> class variable or method is <i>shared by all objects of a class</i>. If the static variable is updated by a shared object then all objects of the same type (class) will see the change. Static variables are often used as counters. This can be handy in a JSP page to find out how many users are currently connected to your Servlet.<h3 id='pagetoc111c11cf'>this and super keywords</h3><p></p>The <i>this</i> keyword followed by a dot is used to access members variables and methods of the current object.<p></p>Example:<pre> public SimpleTime(int hour, int minute, int second) {
+    this.hour = hour;
+    this.minute = minute;
+    this.second = second;
+ }</pre><p></p>The <i>super</i> keyword followed by a dot is used to access the original version of the method from the subclass. The super keyword can be handy if you want to access the original method in the superclass that has not been overwritten in your subclass<h3 id='pagetoc145d6b6d'>Pass-By-Value and Pass-By-Reference</h3><p></p>When calling a method and passing parameters, primative data types (<tt>char</tt>, <tt>byte</tt>, <tt>short</tt>, <tt>int</tt>, <tt>long</tt>, <tt>float</tt>, <tt>double</tt>, or <tt>boolean</tt>) are transferred to the method by <i>pass-by-value</i>. And objects, collections, vectors, and arrays are transferred to the new method as <i>pass-by-reference</i>.<p></p>When the contents of an object are changed when doing pass-by-reference the object's contents in the calling class are changed too.<p></p>Note:<pre>     In java is supporting &quot; CALL-BY-VALUE&quot;</pre><h2 id='pagetocc3b65cb5'>Java Programming Tips</h2><p></p>The heart of Java programming is inheritance and interfaces. Both of these concepts allow for reusability and scalability of Java code. Once you understand both of these concepts your Java programming will happen much easier. If you understand the concepts the syntax will come on its own.<h3 id='pagetoc3a5509a9'>JSP and Java Servlet Hint</h3><p></p>If you will be doing a lot of string concatenations, use the class java.lang.StringBuffer instead of java.lang.String. StringBuffer is <i>much</i> faster at appending strings together.<hr><h2 id='pagetoc5fa91bdb'>See Also</h2><p></p><ul><li><a href="/6188">C#</a> - a language that's in a very similar niche</li><li>javafxc [<a rel="nofollow" href="http://www.computerworld.com/action/article.do?command=viewArticleBasic&amp;articleId=9127680&amp;source=NLT_APP">2</a>] , a scripting layer designed by Sun to be used by web developers as a lighter weight entry into developing web apps.</li></ul><hr><p></p><div class='centered'><p></p><table summary='' class=wikit_table><thead><tr><th> <a href="/3903">Category Language</a> </th><th> <a href="/6219">Category Java</a> </th></tr></thead></table><p></p></div><p></p></div></div>
+	
+	<div id='menu_area'><div id='wiki_menu'><ul id='menu'>
+<li><a href='/'>Home</a></li><li><a href='/_/recent'>Recent changes</a></li><li><a href='/Help'>Help</a></li><li><a href='/_/whoami'>WhoAmI</a>/<a href='/_/logout'>Logout</a></li><li><a href='/_/new'>Create new page</a></li><li><br></li><li><a href='/_/edit?N=1393&amp;A=1'>Add comments</a></li><li><a href='/_/edit?N=1393'>Edit</a></li><li><a href='/_/history?N=1393'>History</a></li><li><a href='/_/summary?N=1393'>Edit summary</a></li><li><a href='/_/ref?N=1393'>References</a></li></ul></div>
+	<form method='post' action='/_/search' id='searchform'><input id='searchtxt' onfocus='clearSearch();' onblur='setSearch();' name='S' type='text' value='Search in titles' tabindex='1'>
+	    <input name='_charset_' type='hidden' value='' tabindex='2' id='_charset_'></form>
+	
+	    <form method='get' action='/_/gsearch' id='gsearchform'><input id='googletxt' onfocus='clearGoogle();' onblur='setGoogle();' name='S' type='text' value='Search in pages' tabindex='1'>
+		<input name='_charset_' type='hidden' value='' tabindex='1' id='_charset_'></form>
+	
+    <div class='navigation'><div id='page_toc'><div class='toc1'>Page contents
+<div class='ptoc'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetocbf7cdcbe'>Java&nbsp;Basics</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc6fd48b2a'>Java&nbsp;Programs</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetocd9c048ea'>Java&nbsp;Bytecodes</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc5dd096c8'>Java&nbsp;Naming&nbsp;Conventions</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc15f99727'>Classes</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc6d044f1f'>Example&nbsp;of&nbsp;multiple&nbsp;constructor&nbsp;signatures</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='line.gif'><img class='ptoc' src='joinbottom.gif'>&nbsp;<a class='toc' href='#pagetoca761d79c'>Example&nbsp;of&nbsp;multiple&nbsp;constructors&nbsp;showing&nbsp;constructor&nbsp;chaining</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc72b8ea06'>Inheritance</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc78b80562'>Example&nbsp;on&nbsp;Abstract&nbsp;inheritance*</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetocea719488'>Interfaces</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='line.gif'><img class='ptoc' src='joinbottom.gif'>&nbsp;<a class='toc' href='#pagetoca4f16fc1'>Abstract&nbsp;Interfaces&nbsp;Example</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc4f8ebc45'>Method&nbsp;Overloading</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc73a8216a'>Method&nbsp;Overriding</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetocef114a41'>The&nbsp;final&nbsp;Keyword</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetocb3b04910'>Static&nbsp;Variables&nbsp;and&nbsp;Methods</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetoc111c11cf'>this&nbsp;and&nbsp;super&nbsp;keywords</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='joinbottom.gif'>&nbsp;<a class='toc' href='#pagetoc145d6b6d'>Pass-By-Value&nbsp;and&nbsp;Pass-By-Reference</a></div>
+<div class='ptoc'><img class='ptoc' src='join.gif'>&nbsp;<a class='toc' href='#pagetocc3b65cb5'>Java&nbsp;Programming&nbsp;Tips</a></div>
+<div class='ptoc'><img class='ptoc' src='line.gif'><img class='ptoc' src='joinbottom.gif'>&nbsp;<a class='toc' href='#pagetoc3a5509a9'>JSP&nbsp;and&nbsp;Java&nbsp;Servlet&nbsp;Hint</a></div>
+<div class='ptoc'><img class='ptoc' src='joinbottom.gif'>&nbsp;<a class='toc' href='#pagetoc5fa91bdb'>See&nbsp;Also</a></div>
+</div></div></div><div class='extra'><div id='wiki_toc'><div class='toc1'>Getting started
+<div class='toc2'><a class='toc' href='/299'>What is Tcl?</a></div>
+<div class='toc2'><a class='toc' href='/487'>What is Tk?</a></div>
+<div class='toc2'><a class='toc' href='/20786'>Getting Tcl/Tk</a></div>
+<div class='toc2'><a class='toc' href='/20788'>Getting help</a></div>
+<div class='toc2'><a class='toc' href='/20789'>Learning Tcl</a></div>
+<div class='toc2'><a class='toc' href='/20790'>The Tcl Dev Xchange</a></div>
+<div class='toc3'><a class='toc' href='/20791'>About the Wiki</a></div>
+</div>
+<div class='toc1'>Community
+<div class='toc2'><a class='toc' href='/590'>Advocacy</a></div>
+<div class='toc2'><a class='toc' href='/828'>Conferences</a></div>
+<div class='toc2'><a class='toc' href='/20792'>Chat, news, lists</a></div>
+<div class='toc2'><a class='toc' href='/20794'>History</a></div>
+<div class='toc2'><a class='toc' href='/17182'>Humor</a></div>
+<div class='toc2'><a class='toc' href='/10681'>People</a></div>
+<div class='toc3'><a class='toc' href='/20810'>Tcl websites</a></div>
+</div>
+<div class='toc1'>Reference
+<div class='toc2'><a class='toc' href='/1887'>Companies</a></div>
+<div class='toc2'><a class='toc' href='/20788'>Getting help</a></div>
+<div class='toc2'><a class='toc' href='/20795'>Online books</a></div>
+<div class='toc2'><a class='toc' href='/20796'>Online tutorials</a></div>
+<div class='toc2'><a class='toc' href='/3109'>Manual pages</a></div>
+<div class='toc2'><a class='toc' href='/20797'>Tcl roadmap</a></div>
+<div class='toc3'><a class='toc' href='/49'>Acronyms</a></div>
+</div>
+<div class='toc1'>Tcl software
+<div class='toc2'><a class='toc' href='/20798'>Applications</a></div>
+<div class='toc2'><a class='toc' href='/20799'>The Tcl core</a></div>
+<div class='toc2'><a class='toc' href='/20800'>Development tools</a></div>
+<div class='toc2'><a class='toc' href='/11485'>Documentation</a></div>
+<div class='toc2'><a class='toc' href='/940'>Extensions</a></div>
+<div class='toc3'><a class='toc' href='/20801'>Toys and games</a></div>
+</div>
+<div class='toc1'>Tcl in the wild
+<div class='toc2'><a class='toc' href='/20802'>Major applications</a></div>
+<div class='toc2'><a class='toc' href='/20803'>Businesses</a></div>
+<div class='toc2'><a class='toc' href='/20804'>Education</a></div>
+<div class='toc2'><a class='toc' href='/20805'>Engineering</a></div>
+<div class='toc2'><a class='toc' href='/20806'>Government</a></div>
+<div class='toc2'><a class='toc' href='/20811'>Medical</a></div>
+<div class='toc3'><a class='toc' href='/20809'>Other</a></div>
+</div>
+</div></div></div>
+    
+	<div class='footer'><p id='footer'><a href='/'>Home</a> &bull; <a href='/_/recent'>Recent changes</a> &bull; <a href='/Help'>Help</a> &bull; <a href='/_/new'>Create new page</a> &bull; <a href='/_/searchp'>Search</a> &bull; <a href='/_/edit?N=1393&amp;A=1'>Add comments</a> &bull; <a href='/_/edit?N=1393'>Edit</a></p></div>
+    </div>
+    <div class='generated'>Generated in 435ms</div><script type='text/javascript' src='/script/wiki.js'></script>
+</body>
+</html>

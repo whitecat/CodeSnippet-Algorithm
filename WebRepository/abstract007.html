@@ -1,0 +1,1165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" dir="ltr">
+  <head>
+    <title>
+      Code Style: Java inheritance frequently asked questions (FAQ)
+    </title>
+        <meta http-equiv="pics-label" content='(pics-1.1 "http://www.icra.org/ratingsv02.html" comment "ICRAonline EN v2.0" l gen true for "http://www.codestyle.org/" r (nz 1 vz 1 lz 1 oz 1 cz 1) "http://www.rsac.org/ratingsv01.html" l gen true for "http://www.codestyle.org/" r (n 0 s 0 v 0 l 0))' />
+    <link rel="schema.DC" href="http://purl.org/DC/elements/1.0/" title="The Dublin Core metadata Element Set" />
+    <meta name="DC.Creator" content="Shaw, Philip" />
+    <meta name="DC.Publisher" content="Philip Shaw" />
+    <meta name="DC.Type" scheme="DCMIType" content="Text" />
+    <meta name="DC.Format" scheme="IMT" content="text/html" />
+    <meta name="DC.Language" scheme="RFC1766" content="en-GB" />
+    <meta name="DC.Coverage.spatial" scheme="TGN" content="World" />
+    <meta name="DC.Coverage.temporal" scheme="Period" content="start=1990;scheme=W3CDTF" />
+    <link rel="DC.Rights" href="http://www.codestyle.org/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="home" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="shortcut icon" href="/favicon.ico" title="Code Style shortcut icon" type="image/x-icon" />
+    <link rel="copyright" href="/codestyle/Copyright.shtml" title="Copyright 2000-2010 &copy; Philip Shaw" type="text/html" />
+    <link rel="appendix" href="/codestyle/SiteMap.shtml" title="Code Style site map" type="text/html" />
+    <link rel="appendix" href="/SubjectIndex.shtml" title="Code Style subject index" type="text/html" />
+    <link rel="help" href="/faq/index.shtml" title="Help and FAQ section" type="text/html" />
+    <link rel="P3Pv1" href="http://www.codestyle.org/w3c/p3p.xml" title="Privacy Policy" type="text/xml" />
+    <link rel="meta" href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Inheritance.shtml" title="RDF Metadata" />
+    <link rel="alternate" href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Inheritance.shtml" type="application/rss+xml" title="RSS news feed" />
+    <meta name="DC.Title" content="Java inheritance FAQ" />
+    <meta name="DCTERMS.created" scheme="W3CDTF" content="2006-10-14T11:16:34Z" />
+    <meta name="DCTERMS.issued" scheme="W3CDTF" content="2006-10-14T11:17:48Z" />
+    <meta name="DCTERMS.modified" scheme="W3CDTF" content="2009-12-12T23:50:43Z" />
+    <meta name="DC.Identifier" scheme="URI" content="http://www.codestyle.org/java/faq-Inheritance.shtml" />
+    <meta name="DCTERMS.abstract" content="FAQs about Java inheritance, abstract classes, methods and visibility modifiers, importing and extending classes." />
+    <meta name="description" content="FAQs about Java inheritance, abstract classes, methods and visibility modifiers, importing and extending classes." />
+        <meta name="keywords" content="inheritance in java, java inheritance example, types of inheritance in java, inheritance java example, difficult java questions, examples of inheritance in java, why java doesnt support multiple inheritance, java supports multiple inheritance, questions on inheritance, why java doesn't support multiple inheritance, questions related to inheritance, difference between importing a class and extending a class, java inhertence, inheritance java summary, difference between implementation and extension" />
+    <meta name="DC.Description.tableOfContents" scheme="URI" content="http://www.codestyle.org/java/Contents.shtml" />
+    <meta name="DC.Subject" scheme="DDC" content="006" />
+    <meta name="DC.Subject" lang="en-GB" xml:lang="en-GB" content="Java" />
+    <link rel="help" href="/java/FAQ.shtml" title="Java Programming FAQ" type="text/html" />
+    <link rel="up" href="/index.shtml" title="Code Style home page" type="text/html" />
+    <link rel="index section chapter start bookmark" href="/java/index.shtml" title="Java &amp; servlets section" type="text/html" />
+    <link rel="contents toc" href="/java/Contents.shtml" title="Java &amp; servlets contents" type="text/html" />
+    <link rel="appendix" href="/java/AnchorPoints.shtml" title="Anchor Points: Java servlets" type="text/html" />
+    <link rel="appendix" href="/java/FAQ.shtml" title="Java programming FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Threads.shtml" title="Java threads FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Inheritance.shtml" title="Java inheritance FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-CommandLine.shtml" title="Java command line FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Interface.shtml" title="Java interface design FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Language.shtml" title="Java language FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-API.shtml" title="Java API FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Strings.shtml" title="Java strings FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-JDBC.shtml" title="JDBC FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Objects.shtml" title="Java objects FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Static.shtml" title="Java static context FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Abstract.shtml" title="Java abstract classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Compiler.shtml" title="Java compiler FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-UtilityClasses.shtml" title="Java utility classes FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-IO.shtml" title="Java I/O FAQ" type="text/html" />
+    <link rel="appendix" href="/java/faq-Networking.shtml" title="Java networking FAQ" type="text/html" />
+    <link rel="stylesheet" type="text/css" href="/styles/section-Java.css" />        <link rel="stylesheet" type="text/css" href="/styles/CSPersistent.xcss" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSAlternate.css"  title="Blue, sans-serif" />
+    <link rel="stylesheet" type="text/css" href="/styles/CSStandard.xcss"  title="Standard" />
+<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="/styles/CSStdLayoutIE6.css" title="Standard" />
+<![endif]-->
+    <link rel="stylesheet" type="text/css" href="/styles/CSPrint.css" media="print" title="Standard" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSStandard.xcss" media="all" title="Print preview" />
+    <link rel="alternate stylesheet" type="text/css" href="/styles/CSPrint.css" media="all" title="Print preview" />
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      try {
+        _uacct = "UA-1503486-1";
+        urchinTracker();
+      }
+      catch(err) {}
+    </script>
+    <script type="text/javascript" src="/scripts/StandardFunctions.xjs"></script>
+  </head>
+  <body>
+    <div id="TopBar">
+  <a href="http://www.codestyle.org/"><img src="/images/logo-EurostileLozenge168x61.png" width="168" height="61" alt="Code Style - Vital source since 2000" class="Logo" title="Go to the Code Style home page - accesskey 0" /></a>
+  <div class="URI">
+    CSS font stacks, media style sheets &amp; web standards
+  </div>
+  <div id="SiteSearch">
+    <form action="http://www.google.com/cse" id="site-search-box">
+      <div>
+        <label for="search-input">
+          Site search:
+        </label>
+        <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input type="text" name="q" id="search-input" size="16" maxlength="255"  value="search words" onfocus="if(this.value=='search words') this.value='';" alt="Enter a search query in this field (accesskey 9) then tab to the search button that follows and activate" accesskey="9" /><input type="submit" name="sa" id="search-submit" value="Go" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+      </div>
+    </form>
+  </div>
+</div>
+
+    <div id="Header">
+            <h1 class="Title">
+        Java inheritance FAQ
+      </h1>
+    </div>
+    <div id="Content">
+      <div class="LocalNav">
+      <div class="SponsorZone">
+        <p>
+          <script type="text/javascript">
+Vertical1238757 = false;
+ShowAdHereBanner1238757 = false;
+RepeatAll1238757 = false;
+NoFollowAll1238757 = false;
+BannerStyles1238757 = new Array(
+    "a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+    "img{border:0;clear:right;}",
+    "a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+    "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+);
+document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1238757/1238757.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+        </p>
+        <p>
+          <a href="http://buysellads.com/buy/detail/5795" onclick="urchinTracker('/SponsorFAQ');" title="Your 180 by 150 pixel banner on all pages of the Code Style site">Your banner ad here</a>
+        </p>
+      </div>
+      <div class="RgtBox">
+  <h2>
+    Questions answered
+  </h2>
+  <ul>
+    <li>
+      <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">Site help</a>
+    </li>
+    <li>
+      <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+    </li>
+    <li>
+      <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+    </li>
+    <li>
+      <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+    </li>
+    <li>
+      <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+    </li>
+    <li>
+      <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+    </li>
+    <li>
+      <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+    </li>
+    <li>
+      <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+    </li>
+    <li>
+      <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+    </li>
+    <li>
+      <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+    </li>
+    <li>
+      <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+    </li>
+    <li>
+      <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+    </li>
+    <li>
+      <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+    </li>
+    <li>
+      <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+    </li>
+    <li>
+      <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+    </li>
+    <li>
+      <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+    </li>
+    <li>
+      <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+    </li>
+    <li>
+      <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+    </li>
+    <li>
+      <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+    </li>
+    <li>
+      <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+    </li>
+    <li>
+      <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+    </li>
+  </ul>
+  <h3>
+    Terms explained
+  </h3>
+  <ul>
+    <li>
+       <a href="/css/Glossary.shtml" class="SectionCSS">Cascading Style Sheets</a>
+    </li>
+    <li>
+       <a href="/css/media/Glossary.shtml" class="SectionCSS">Media style sheets</a>
+    </li>
+    <li>
+      <a href="/css/font-family/Glossary.shtml" class="SectionCSS">Font family</a>
+    </li>
+  </ul>
+<h3>
+  Text ad service
+</h3>
+<p>
+  Put your <a href="/codestyle/advertise/index.shtml"  title="Text ad service information">text ad</a> here <img src="/images/icon-TextAdBelow.png" alt="Down arrow icon" width="12" height="16" />
+</p>
+</div>
+    <!-- *** Start FAQ service area *********************** -->
+      <div class="TextAd">
+        <p>
+          <a href="http://www.westnic.net" onclick="urchinTracker('/TextAdWestNIC');">WestNIC</a> provides reliable <a href="http://www.westnic.net/web-hosting/" onclick="urchinTracker('/TextAdWestNIC');">web hosting</a> services
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          <a href="http://www.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">Free software downloads</a> and <a href="http://drivers.soft5000.com" onclick="urchinTracker('/TextAdSoft5000');">drivers download</a> resources
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          25% off cpanel <a href="http://www.ahosting.biz/web/index.html" onclick="urchinTracker('/TextAdAhosting-WebHosting-FAQ');">web hosting</a> and <a href="http://www.ahosting.biz/reseller/index.html" onclick="urchinTracker('/TextAdAhosting-ResellerHosting-FAQ');">reseller hosting</a> deals. Promo:&nbsp;<strong>codestyle25off</strong>
+        </p>
+      </div>
+      <div class="TextAd">
+        <p>
+          Top <a href="http://www.topcanadianhotels.com/" onclick="urchinTracker('/TextAdTopCanadianHotels');">Canadian Hotels</a> no booking fees from <a href="http://www.topcanadianhotels.com/victoria-bc-hotels.html" onclick="urchinTracker('/TextAdTopCanadianHotels');">Victoria BC</a> to Nova Scotia
+        </p>
+      </div>
+<!-- *** End FAQ service area ************************* -->
+      </div>
+            <div class="WideNav">
+        <a href="#sitenav">Site navigation below</a>
+      </div>
+      <p class="Standfirst">
+        This FAQ is part of the <span class="CS">Code Style</span> <a href="/faq/index.shtml">Help and FAQ</a> section. Join our <a href="/codestyle/premium/index.shtml">premium content service</a> for full access all FAQ answers.
+      </p>
+      <ul>
+        <li>
+          <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Inheritance.shtml">News feed for this FAQ</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Inheritance.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+<!-- *** Start Java service area ********************** -->
+        <li>
+          <a href="/java/RSS.shtml">All Java news feeds</a> <a href="/java/RSS.shtml"><img src="/images/feed-icon-14x14.png" width="14" height="14" alt="News feed icon" /></a>
+        </li>
+        <li>
+          <a href="/java/Newsletters.shtml">All Java newsletters</a> <a href="/java/Newsletters.shtml"><img src="/images/icon-Email.png" alt="Email newsletter icon" width="16" height="15" /></a>
+        </li>
+<!-- *** End Java service area ************************ -->
+        <li>
+          <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');">Twitter feed</a> <a href="http://twitter.com/codestyle" title="Follow for free one-to-one help sessions by instant messenger most Saturdays" onclick="urchinTracker('/TwitterFeed');"><img src="/images/icon-Twitter.png" width="16" height="16" alt="Twitter icon" /></a>
+        </li>
+      </ul>
+            <div class="FAQSearchBox">
+        <form action="http://www.google.com/cse" id="faq-search-box">
+          <h2>
+            FAQ search
+          </h2>
+          <p>
+            <input type="hidden" name="cx" value="006450833670388548239:tjdqpeaivk0" />
+            <input type="hidden" name="ie" value="UTF-8" />
+            <input type="text" name="q" id="faq-search-input" size="48" maxlength="255"  value="intitle:FAQ " alt="Enter a search query after intitle:FAQ, then tab to the search button that follows and activate"  />
+            <input type="submit" name="sa" id="faq-search-submit" value="Search" alt="Enter a search query in the previous field (accesskey 9) and activate this button" />
+          </p>
+        </form>
+      </div>
+      <div class="MenuBox">
+  <h2>
+    Multiple inheritance
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#diamond">Why doesn't Java support multiple inheritance?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#implicit-object-ancestor">Doesn't implicit <code>Object</code> inheritance create multiple inheritance?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#multipleinheritance">Can I achieve multiple inheritance without interfaces?</a>
+    </li>
+  </ul>
+  <h2>
+    Java inheritance principles
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#inheritancebenefits">What are the benefits of inheritance?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#inheritancetypes">What forms of inheritance are supported by Java?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#inheritance-apps">Isn't specialization a form of inheritance?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#abstractclassinheritance">What is the difference between abstract classes and inheritance?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#inheritdedup">How does inheritance avoid duplication?</a>
+    </li>
+  </ul>
+  <h2>
+    Extending classes
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#importextends">What's the difference between importing and extending a class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#extendobject">Can we explicitly inherit from the <code>Object</code> class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#guiinheritance">How can I use inheritance in graphical user interfaces?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#finalclass">How can I prevent a class from being extended?</a>
+    </li>
+  </ul>
+  <h2>
+    Overridden methods
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#overriding">What is overriding?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#overridevoid">Can an overridden method return <code>void</code> instead of an object?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#overriddenpriority">Why do overridden methods on a subclass have priority over the superclass?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#egoverride">Can you give an example application that shows overriding?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#finalmethod">How do you prevent a method from being overridden?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#reflectinherited">How can I find the inherited attributes of a class?</a>
+    </li>
+  </ul>
+  <h2>
+    Techniques for overridden superclasses
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#supercall">How can I call an overridden method in the superclass?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#superoverrideeg">Can you give an example call to an overridden superclass method?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#super-sub-method">How can I get the superclass to call back to a method in the subclass?</a>
+    </li>
+  </ul>
+  <h2>
+    Visibility modifiers
+  </h2>
+  <ul>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#finalalternative">How can I prevent inheritance without marking a class final?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#finalabstract">What's the difference in using a <code>final</code> keyword and an abstract class?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#visibilityinherit">I assume inherited fields and members are non-private, are they?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#protecteduse">What is the <code>protected</code> modifier for?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#protected-no-super">So <code>protected</code> methods don't have to call <code>super</code>?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#overrideprotected">What visibility modifiers can I use to override a <code>protected</code> method?</a>
+    </li>
+    <li>
+      <a href="/java/faq-Inheritance.shtml#constructorvisibility">Can constructors have visibility modifiers?</a>
+    </li>
+  </ul>
+</div>
+      <h2 class="NewSection">
+        Multiple inheritance
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="diamond" id="diamond">Why doesn't Java support multiple inheritance?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> The authors of the Java language took a design decision to compromise multiple inheritance with interfaces, the specifics of this decision may be covered in other sources. Practically, multiple inheritance is difficult because of the ambiguities it can create when a class inherits from two superclasses with the same method signature: which version should be called?
+          </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/Diamond.shtml">Why doesn't Java support multiple inheritance?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=diamond">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=diamond">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=diamond">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=diamond">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="implicit-object-ancestor" id="implicit-object-ancestor">Doesn't implicit <code>Object</code> inheritance create multiple inheritance?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> No, this is a misunderstanding of implicit object inheritance. Every Java class is ultimately descended from the <code>Object</code> superclass, whether there is an <code>extends Object</code> statement or not. If you extend an <abbr title="Application Programming Interface">API</abbr> class, the <code>Object</code> inheritance is passed down through that immediate superclass, <strong>not</strong> from the superclass <em>and</em> the <code>Object</code> class too. Implicit inheritance from the <code>Object</code> class descends through a single line of parent classes to ensure all user defined classes have the standard <code>toString()</code>, <code>equals()</code> and <code>hashCode()</code> methods.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=implicit-object-ancestor">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=implicit-object-ancestor">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=implicit-object-ancestor">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=implicit-object-ancestor">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="multipleinheritance" id="multipleinheritance">Can I achieve multiple inheritance without interfaces?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> The short answer to your question is no, this is one of the limitations of the Java language. However, if you use object composition, it can be relatively easy to fulfil two or more interfaces with adaptor code that passes calls through to the underlying objects.
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=multipleinheritance">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=multipleinheritance">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=multipleinheritance">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=multipleinheritance">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Java inheritance principles
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="inheritancebenefits" id="inheritancebenefits">What are the benefits of inheritance?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> One of the key benefits of inheritance is to minimise the amount of duplicate code in an application by sharing common code amongst several subclasses. Where equivalent code exists in two related classes, the hierarchy can usually be refactored to move the common code up to a mutual superclass. This also tends to result in a better organisation of code and smaller, simpler compilation units.
+      </p>
+      <p>
+        Inheritance can also make application code more flexible to change because classes that inherit from a common superclass can be used interchangeably. If the return type of a method is superclass <code>Example</code>, then the application can be adapted to return any class that is descended from <code>Example</code>.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancebenefits">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancebenefits">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancebenefits">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancebenefits">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="inheritancetypes" id="inheritancetypes">What forms of inheritance are supported by Java?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> There are two forms of inheritance in the Java language. The standard form of inheritance is by extension; a class declares that it <code>extends</code> another class, or an interface extends another interface. In this case, the sub-class or sub-interface inherits all the fields and methods of its parent.
+      </p>
+      <p>
+        The second special form of inheritance is where classes declare that they implement an interface, which has more limited consequences. When a class implements an interface, it inherits any fields from the parent as final constants, but must provide its own implementation of the interface methods.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancetypes">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancetypes">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancetypes">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritancetypes">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="inheritance-apps" id="inheritance-apps">Isn't specialization a form of inheritance?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Specialization is an application of inheritance, not a particular form of inheritance. From a technical point of view one can only apply the <code>extends</code> and <code>implements</code> keywords in Java to achieve inheritance; the way that a programmer implements the inheritance scheme affects the nature of super- and sub-class relationships. For example, abstract classes and interfaces are typically used to specify the methods of their subclasses, which is specification. Subclasses often provide special types of the more generalised superclass, that is specialization.
+      </p>
+      <p>
+        There are no Java keywords to declare particular applications of inheritance in Java, they are formed by a combination of <code>extends</code>, <code>implements</code> and other Java programming devices like <code>abstract</code> and <code>final</code> methods, visibility modifiers and so on. Really it is the overall implementation of class hierarchies that shapes the inheritance relationships that may exist and classes may serve more than one role.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritance-apps">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritance-apps">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritance-apps">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritance-apps">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="abstractclassinheritance" id="abstractclassinheritance">What is the difference between abstract classes and inheritance?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Inheritance is a design principle in object oriented languages like Java. Inheritance means that classes acquire methods and properties by declaring that they are a sub-class of a class that already has those features. This can significantly improve the efficiency and management of code because methods only need to be written once and can be used by any number of sub-classes.
+      </p>
+      <p>
+        An abstract class is one that is designed to provide methods or properties to sub-classes like a template. Abstract classes cannot be instantiated in their own right and usually contain abstract methods that sub-classes must implement to complete the intended inheritance program design. For instance, abstract methods may have a concrete method that calls an abstract method, whose implementation varies in each sub-class.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=abstractclassinheritance">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=abstractclassinheritance">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=abstractclassinheritance">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=abstractclassinheritance">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="inheritdedup" id="inheritdedup">How does inheritance avoid duplication?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> To show how Java inheritance can avoiding duplication, consider two classes: <code>Car</code> and <code>Motorcycle</code> which both implement an interface method <code>moveForward()</code>. Here's some example code for the <code>moveForward()</code> method in the <code>Car</code> class.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/InheritDedup.shtml">How does inheritance avoid duplication?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritdedup">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritdedup">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritdedup">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=inheritdedup">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Extending classes
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="importextends" id="importextends">What's the difference between importing and extending a class?</a>
+        </dt>
+        <dd>
+          <p>
+            <span class="A">A:</span> When a Java class is imported, the type it represents is made available to the host class to use as if it were contained within the host. The imported class is not &quot;visible&quot; through the public interface of the host unless it is declared to extend it.
+          </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/ImportExtends.shtml">What's the difference between importing and extending a class?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=importextends">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=importextends">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=importextends">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=importextends">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="extendobject" id="extendobject">Can we explicitly inherit from the <code>Object</code> class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Whenever we declare a new class without an explicit <code>extends</code> keyword, the class implicitly extends the fundamental <code>Object</code> class. When you explicitly extend a different class, that will be descended from the <code>Object</code> class at some point in its hierarchy. It may help to understand the inheritance structure more clearly if you explicitly extend the <code>Object</code> class and it would not be an error to do so.
+      </p>
+      <pre>
+public class Example1 {
+
+  // Implicitly extends Object
+}
+
+public class Example2 extends Object {
+
+  // Explicitly extends Object
+}
+
+public class Example3 extends Example1 {
+
+  // Ultimately extends Object
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=extendobject">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=extendobject">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=extendobject">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=extendobject">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="guiinheritance" id="guiinheritance">How can I use inheritance in graphical user interfaces?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Java inheritance has been designed to be universal; any non-final Java class can be extended without any special handling for graphical user interface types. Child classes will directly inherit all non-private fields and methods of the parent, which can be overridden and extended however you choose.
+      </p>
+      <p>
+        Having said that, graphical user interface classes can be quite complex and rely upon specific method calls to maintain their integrity. Be cautious if you override methods and make sure you check there are no unintended side effects of your changes. If you are not certain of the consequences of your overrides, call the overridden superclass method before your own method statements.
+      </p>
+      <p>
+        In general, it is safest only to add features to GUI classes or build new structures by composition.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=guiinheritance">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=guiinheritance">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=guiinheritance">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=guiinheritance">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="finalclass" id="finalclass">How can I prevent a class from being extended?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> To prevent a class from being extended or subclassed include the <code>final</code> modifier in the class declaration statement, as below.
+      </p>
+      <pre>
+public final class FinalClass {
+
+  // Class definition
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=finalclass">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=finalclass">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=finalclass">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=finalclass">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Overridden methods
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="overriding" id="overriding">What is overriding?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> So long as a class and its methods are not marked <code>final</code>, a subclass can declare a method with the same signature and its own implementation. A typical example is the <code>String toString()</code> method, which is declared in the <code>Object</code> class. All objects implicitly inherit this method. The default implementation is to output the class name combined with its hash code in hexadecimal. The <code>String</code> class overrides the <code>toString()</code> method to give a Unicode representation of string content of the object. Any other object may override <code>toString()</code> with its own method body, to return its own custom output.
+      </p>
+      <pre class="Wide">
+public String toString() {
+
+    return &quot;All classes may override non-final methods.&quot;;
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=overriding">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=overriding">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=overriding">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=overriding">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="overridevoid" id="overridevoid">Can an overridden method return <code>void</code> instead of an object?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> It will often help to understand the Java language if you create small test classes, compile and run them. If you try to compile this test case, you will find it fails because the method signatures have return types: <code>void</code> and an object reference. In Java, <code>void</code> is a return type and <code>void</code> methods must not return object references.
+      </p>
+      <p>
+        To override a method, the subclass method must have the same signature as the superclass: return type, method name and arguments. If the return type of the subclass method is different it will fail to compile, &quot;attempting to use incompatible return type&quot;.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=overridevoid">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=overridevoid">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=overridevoid">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=overridevoid">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="overriddenpriority" id="overriddenpriority">Why do overridden methods on a subclass have priority over the superclass?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> An overridden method in a subclass must take priority over the superclass implementation because a class can only expose one implementation of a particular method signature through its public <abbr title="Application Programming Interface">API</abbr>. The technique of overriding effectively says &quot;use this special implementation of the method instead of the superclass version&quot;.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=overriddenpriority">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=overriddenpriority">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=overriddenpriority">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=overriddenpriority">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="egoverride" id="egoverride">Can you give an example application that shows overriding?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The method override example below shows several aspects of inheritance. Both classes implement the <code>ObjectRenderer</code> interface, which has one method, <code>void render(Object)</code>. The superclass <code>BasicObjectRenderer</code> has a default constructor and uses the <code>System.out</code> <code>PrintStream</code> to render the object, the subclass <code>HTMLObjectRenderer</code> has a constructor that takes an <code>OutputStream</code> argument to render the object with HTML formatting.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/ExampleOverride.shtml">Can you give an example application that shows overriding?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=egoverride">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=egoverride">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=egoverride">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=egoverride">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="finalmethod" id="finalmethod">How do you prevent a method from being overridden?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> To prevent a specific method from being overridden in a subclass, use the <code>final</code> modifier on the method declaration, which means &quot;this is the final implementation of this method&quot;, the end of its inheritance hierarchy.
+      </p>
+      <pre>
+public final void exampleMethod() {
+
+  // Method statements
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=finalmethod">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=finalmethod">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=finalmethod">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=finalmethod">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="reflectinherited" id="reflectinherited">How can I find the inherited attributes of a class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> It is possible to deduce the inherited fields and methods of a Java class using reflection through a recursive process that uses the <code>Class</code> method <code>getSuperclass()</code>. The <code>Class</code> method <code>getFields()</code> returns an array of <code>Field</code> objects for public fields only. The <code>getDeclaredFields()</code> returns an array of all declared fields in the current class, including private fields, but not the inherited fields. The <code>getMethods()</code> and <code>getDeclaredMethods()</code> methods return equivalent arrays of <code>Method</code> objects.
+      </p>
+      <p>
+        To obtain a list of all inherited fields or methods, a program would need to get the superclass of the object in question, store the return value for its <code>getDeclaredFields()</code> method then process each of its superclasses in turn. The simple example below prints out all the inherited fields in its immediate superclass <code>Thread</code>.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/ReflectInherited.shtml">How can I find the inherited attributes of a class?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=reflectinherited">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=reflectinherited">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=reflectinherited">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=reflectinherited">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Techniques for overridden superclasses
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="supercall" id="supercall">How can I call an overridden method in the superclass?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> To call a superclass method that has been overridden in a subclass, you must either call the method directly through a superclass instance, or use the <code>super</code> prefix in the subclass itself. From the point of the view of the subclass, the <code>super</code> prefix provides an explicit reference to the superclass' implementation of the method.
+      </p>
+      <pre>
+// From subclass
+super.overriddenMethod();
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=supercall">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=supercall">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=supercall">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=supercall">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="superoverrideeg" id="superoverrideeg">Can you give an example call to an overridden superclass method?</a>
+        </dt>
+        <dd>
+          <p>
+        The example below shows a general class <code>GeneralNotifier</code> with a method <code>printMessage()</code> which is overridden in the subclass <code>SpecialNotifier</code>. The <code>SpecialNotifier</code> also has a method <code>printParentMessage()</code> that calls the superclass version of <code>printMessage()</code>.
+      </p>
+      <pre>
+public class GeneralNotifier {
+
+  public void printMessage() {
+
+    System.out.println(&quot;General message&quot;);
+  }
+}
+
+public class SpecialNotifier extends GeneralNotifier {
+
+  public void printMessage() {
+
+    System.out.println(&quot;Special message.&quot;);
+  }
+
+  public void printParentMessage() {
+
+    super.printMessage();
+  }
+}
+      </pre>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=superoverrideeg">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=superoverrideeg">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=superoverrideeg">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=superoverrideeg">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="super-sub-method" id="super-sub-method">How can I get the superclass to call back to a method in the subclass?</a>
+        </dt>
+        <dd>
+          <p>
+        This type of call to a method in the superclass chained to a call in the subclass can only be done if the superclass calls an abstract method that is overridden in the subclass, see the example below.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/SuperSubMethod.shtml">How can I get the superclass to call back to a method in the subclass?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=super-sub-method">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=super-sub-method">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=super-sub-method">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=super-sub-method">new question</a>.</p>
+        </dd>
+      </dl>
+      <h2 class="NewSection">
+        Visibility modifiers
+      </h2>
+      <dl class="FAQ">
+        <dt>
+          <span class="Q">Q:</span> <a name="finalalternative" id="finalalternative">How can I prevent inheritance without marking a class final?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Declaring a class <code>final</code> is the simplest way to prevent extension, it is not clear why you would want to do it some other way. A more limited way to control overrides without preventing extension is to declare individual methods final.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=finalalternative">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=finalalternative">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=finalalternative">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=finalalternative">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="finalabstract" id="finalabstract">What's the difference in using a <code>final</code> keyword and an abstract class?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The <code>final</code> keyword is a modifier that can be applied to classes, methods and variables to control how they are used in a Java program. Final classes cannot be extended, final methods cannot be overridden, final variables can only have a value assigned once and not modified. For example, if you declare a method argument as <code>final</code>, the object reference passed into the method cannot be assigned a different reference. A final method implementation cannot be changed by subclasses.
+      </p>
+      <pre>
+public final void doSomething(final Object argument) {
+
+  // Not possible with a final argument
+  // argument = new Object();
+
+  // OK
+  System.out.println(argument.toString());
+
+  // Also OK
+  try {
+    Object clone = argument.clone();
+  }
+  catch (CloneNotSupportedException cnse) {
+
+    // Handle exception
+  }
+}
+     </pre>
+     <p>
+       An abstract class may be used to define a core set of methods for use by subclasses, and may also define abstract methods that act like a template for subclasses to implement. Abstract classes often represent a concept in a program that isn't a meaningful thing in its own right. For example, the concept of a &quot;pedal vehicle with wheels&quot; might be represented by an <code>AbstractCycle</code> class with concrete <code>crank()</code> and <code>changeGear(int)</code> methods. It might also have an abstract <code>Wheel[] getWheels()</code> method that subclasses <code>MonoCycle</code>, <code>BiCycle</code> and <code>TriCycle</code> would implement by returning the appropriate number of wheels in the array.
+     </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=finalabstract">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=finalabstract">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=finalabstract">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=finalabstract">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="visibilityinherit" id="visibilityinherit">I assume inherited fields and members are non-private, are they?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The Java visibility modifiers are firstly concerned with which classes can access the variables and methods, and secondly with inheritance. If a field or method is marked <code>public</code> or <code>protected</code> they will be accessible in sub-classes too. If they have no explicit visibility modifier, they have an implicit <code>package</code> visibility status, which is accessible to sub-classes in the same package, but not to sub-classes in a different package.
+      </p>
+      <p>
+        The <code>private</code> visibility keyword means only accessible from the host class, <code>public</code> means any class can read a variable or call a method.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=visibilityinherit">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=visibilityinherit">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=visibilityinherit">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=visibilityinherit">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="protecteduse" id="protecteduse">What is the <code>protected</code> modifier for?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The Java visibility modifiers are concerned with data hiding and encapsulation, they control which classes and sub-classes can read and write variable values and call methods. The <code>protected</code> visibility modifier means that the field or method is accessible from within the host class itself, and <em>internally</em> to other classes in the same package and subclasses that may be in a different package. Protected fields cannot be accessed through the public <abbr title="Application Programming Interface">API</abbr> of a class.
+      </p>
+      <p>
+        The protected modifier is usually used to develop the features of an inheritance hierarchy by sharing access to common variables and methods with subclasses. It offers greater scope for extension than <code>package</code> visibility without creating a public <abbr title="Application Programming Interface">API</abbr>.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=protecteduse">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=protecteduse">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=protecteduse">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=protecteduse">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="protected-no-super" id="protected-no-super">So <code>protected</code> methods don't have to call <code>super</code>?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> The use of the <code>protected</code> modifier on a superclass method means that any subclass can call that method on the superclass through itself. Such calls are made with an implied &quot;this&quot; reference with the same syntax as a call to one of their own instance methods, they do not require an explicit <code>super.</code> prefix.
+      </p>
+      <pre>
+int example = protectedGetInt();
+      </pre>
+      <p>
+        In this respect protected method inheritance is the same as public method inheritance, but the <code>protected</code> modifier means that the method is not part of the class' public <abbr title="Application Programming Interface">API</abbr>; other classes cannot call the method on an instance of the class. Typically another class may call a public method that internally calls the protected method to complete the request.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=protected-no-super">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=protected-no-super">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=protected-no-super">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=protected-no-super">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="overrideprotected" id="overrideprotected">What visibility modifiers can I use to override a <code>protected</code> method?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> With this type of question it is often easiest to create a minimal test case and attempt to compile it. In this case you will find that the compiler will fail and issue a warning if you attempt to assign &quot;weaker&quot; access privileges to the overridden methods using <code>private</code> or implicit package private modifiers. The term weaker is slightly misleading in this context; it means that the private and package access modifiers are more restrictive than the parent classes' method, which is not permitted. In short, only <code>protected</code> or <code>public</code> visibility modifiers can be used to override protected methods.
+      </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=overrideprotected">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=overrideprotected">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=overrideprotected">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=overrideprotected">new question</a>.</p>
+        </dd>
+        <dt>
+          <span class="Q">Q:</span> <a name="constructorvisibility" id="constructorvisibility">Can constructors have visibility modifiers?</a>
+        </dt>
+        <dd>
+          <p>
+        <span class="A">A:</span> Yes, Java class constructors are assigned access modifiers. If none is explicitly declared, the constructor will implicitly have package visibility, which means it is accessible by the class itself and other classes in the same package only. Constructors may also be assigned <code>private</code>, <code>protected</code> or <code>public</code> access. The choice of constructor visibility modifiers will depend on the nature of your application, but the notes below give some broad principles in each case.
+      </p>
+<p>&hellip; <span class="Footnote">premium content omitted</span></p>
+          <p class="Premium">
+            <a href="/codestyle/premium/index.shtml"><img src="/images/PremiumContent.png" width="88" height="31" alt="Premium Content: Follow this link for subscription information" title="Premium Content: Follow this link for subscription information" class="Button"/></a> Get <strong>full access</strong> to all FAQs, <a href="/codestyle/premium/index.shtml">sign-up</a>, name your price<br /><a href="/java/faq/ConstructorVisibility.shtml">Can constructors have visibility modifiers?</a>
+          </p>
+<p class="FAQAction">
+  <strong>Actions:</strong>   <a href="/faq/help/index.shtml?action=follow-up&amp;referrer=Java+inheritance%20FAQ&amp;id=constructorvisibility">Follow-up</a>,    <a href="/faq/help/index.shtml?action=clarify&amp;referrer=Java+inheritance%20FAQ&amp;id=constructorvisibility">clarify</a> or    <a href="/faq/help/index.shtml?action=correction&amp;referrer=Java+inheritance%20FAQ&amp;id=constructorvisibility">correct</a> this answer.
+ Submit a <a href="/faq/help/index.shtml?action=new&amp;referrer=Java+inheritance%20FAQ&amp;id=constructorvisibility">new question</a>.</p>
+        </dd>
+      </dl>
+      <div class="MenuBox">
+  <table width="100%" summary="Code Style FAQ section classification with front-end, back-end and learning Java categories">
+    <col width="33%" />
+    <col width="33%" />
+    <col width="33%" />
+    <tbody>
+      <tr>
+        <th>
+          Front-end FAQs
+        </th>
+        <th>
+          Back-end FAQs
+        </th>
+        <th>
+          Learning Java
+        </th>
+      </tr>
+      <tr>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/css/FAQ.shtml" class="SectionCSS">Cascading Style Sheets</a>
+              <ul>
+                <li>
+                  <a href="/css/faq-Problems.shtml" class="SectionCSS">CSS problems</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/FAQ.shtml" class="SectionFontSampler">Web fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Survey.shtml" class="SectionFontSampler">Web font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-LinuxSurvey.shtml" class="SectionFontSampler">Linux font survey</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Windows.shtml" class="SectionFontSampler">Windows fonts</a>
+                </li>
+                <li>
+                  <a href="/css/font-family/faq-Mac.shtml" class="SectionFontSampler">Mac fonts</a>
+                </li>
+                <li>
+                  <a href="/css/media/FAQ.shtml" class="SectionMediaMonitor">Media style sheets</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/html/FAQ.shtml" class="SectionHTML">HTML &amp; XHTML</a>
+            </li>
+            <li>
+              <a href="/javascript/FAQ.shtml" class="SectionJavascript">Javascript</a>
+              <ul>
+                <li>
+                  <a href="/javascript/faq-Browser.shtml" class="SectionJavascript">Javascript browser</a>
+                </li>
+                <li>
+                  <a href="/javascript/faq-HowTo.shtml" class="SectionJavascript">Javascript &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/FAQ.shtml" class="SectionJavascript">Document Object Model</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/FAQ.shtml" class="SectionJavascript">Drop-down menus</a>
+                </li>
+                <li>
+                  <a href="/javascript/dom/css/faq-CustomMenu.shtml" class="SectionJavascript">DOM menu customisation</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/servlets/FAQ.shtml" class="SectionJava">Java servlets</a>
+              <ul>
+                <li>
+                  <a href="/java/servlets/faq-HowTo.shtml" class="SectionJava">Java servlet &quot;how&nbsp;to&quot;</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-JSP.shtml" class="SectionJava">Java Server Pages</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-API.shtml" class="SectionJava">Java servlet API</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Lifecycle.shtml" class="SectionJava">Servlet lifecycle</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Sessions.shtml" class="SectionJava">Servlet sessions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Threads.shtml" class="SectionJava">Servlet threads</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Exceptions.shtml" class="SectionJava">Servlet exceptions</a>
+                </li>
+                <li>
+                  <a href="/java/servlets/faq-Tags.shtml" class="SectionJava">JSP tags &amp; libraries</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/java/servers/FAQ.shtml" class="SectionJava">Servlet containers</a>
+              <ul>
+                <li>
+                  <a href="/java/servers/faq-Tomcat.shtml" class="SectionJava">Apache Tomcat</a>
+                </li>
+                <li>
+                  <a href="/java/servers/faq-TomcatConfig.shtml" class="SectionJava">Tomcat configuration</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/sitemanager/FAQ.shtml" class="SectionSiteManager">Site manager</a>
+              <ul>
+                <li>
+                  <a href="/sitemanager/design/FAQ.shtml" class="SectionSiteManager">Site design</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+        <td valign="top">
+          <ul>
+            <li>
+              <a href="/java/FAQ.shtml" class="SectionJava">Java programming</a>
+              <ul>
+                <li>
+                  <a href="/java/faq-Threads.shtml" class="SectionJava">Java threads</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Inheritance.shtml" class="SectionJava">Java inheritance</a>
+                </li>
+                <li>
+                  <a href="/java/faq-CommandLine.shtml" class="SectionJava">Java command line</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Interface.shtml" class="SectionJava">Java interface design</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Language.shtml" class="SectionJava">Java language</a>
+                </li>
+                <li>
+                  <a href="/java/faq-API.shtml" class="SectionJava">Java API</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Strings.shtml" class="SectionJava">Java strings</a>
+                </li>
+                <li>
+                  <a href="/java/faq-JDBC.shtml" class="SectionJava">JDBC</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Objects.shtml" class="SectionJava">Java objects</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Static.shtml" class="SectionJava">Java static context</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Abstract.shtml" class="SectionJava">Java abstract classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Compiler.shtml" class="SectionJava">Java compiler</a>
+                </li>
+                <li>
+                  <a href="/java/faq-UtilityClasses.shtml" class="SectionJava">Java utility classes</a>
+                </li>
+                <li>
+                  <a href="/java/faq-IO.shtml" class="SectionJava">Java I/O</a>
+                </li>
+                <li>
+                  <a href="/java/faq-Networking.shtml" class="SectionJava">Java networking</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <strong>About us:</strong> <a href="/codestyle/FAQ.shtml" class="SectionCodeStyle">site help</a>, <a href="/codestyle/advertise/FAQ.shtml" class="SectionCodeStyle">text ads</a>, <a href="/codestyle/sponsor/FAQ.shtml" class="SectionCodeStyle">sponsored links</a> and <a href="/codestyle/premium/FAQ.shtml" class="SectionCodeStyle">premium content</a> FAQs.
+  </p>
+</div>          </div>
+        <div id="Sidebar">
+      <div class="Top">
+        <div class="TopLeft"></div>
+        <div class="TopRight"></div>
+      </div>
+      <h3 class="Options">
+        <a name="sitenav" id="sitenav"><span class="NoStyle">Navigation</span>Topics &amp; tools</a>
+      </h3>
+      <ul class="Menu">
+        <li>
+          <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home page</a>
+        </li>
+        <li>
+          <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS style guide</a>
+          <ul>
+            <li>
+              <a href="/css/font-family/index.shtml" title="The most common fonts on Windows, Mac and Unix systems - accesskey 2" accesskey="2" class="SectionFontSampler">Web font sampler</a>
+            </li>
+            <li>
+              <a href="/css/media/index.shtml" title="Media dependent stylesheet test suite and conformance guides for key browsers - accesskey 3" accesskey="3" class="SectionMediaMonitor">CSS media monitor</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="/java/index.shtml" title="Configuration guides and references on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java &amp; servlets</a>
+        </li>
+        <li>
+          <a href="/javascript/index.shtml" title="Drop down menu script and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript &amp; DOM</a>
+        </li>
+        <li>
+          <a href="/html/index.shtml" title="HTML &amp; XHTML - accesskey 6" accesskey="6" class="SectionHTML">HTML &amp; XHTML</a>
+        </li>
+        <li>
+          <a href="/faq/index.shtml" title="Site help and answers to frequently asked questions - accesskey 7" accesskey="7" class="SectionFAQ">Help and FAQs</a>
+        </li>
+        <li>
+          <a href="/codestyle/log/index.shtml" title="A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Site log</a>
+        </li>
+      </ul>
+      <div class="Bottom">
+        <div class="BotLeft"></div>
+        <div class="BotRight"></div>
+      </div>
+    </div>
+    <div id="LinkShare">
+      <script type="text/javascript">
+        var addthis_pub             = 'codestyle';
+        var addthis_logo            = 'http://www.codestyle.org/images/logo-EurostileLozenge168x61.png';
+        var addthis_logo_background = 'FFFFFF';
+        var addthis_logo_color      = '003399';
+        var addthis_brand           = 'Code Style';
+        var addthis_options         = 'google,facebook,favorites,delicious,live,reddit,technorati,slashdot,newsvine,stumbleupon,fark,digg,more';
+      </script>
+      <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto();"><img src="http://s9.addthis.com/button1-addthis.gif" width="125" height="16" alt="Add this page to your chosen social bookmarking service" /></a>
+      <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+    </div>
+    <div class="AdButtonBar">
+      <script type="text/javascript">
+        Vertical1243396 = false;
+        ShowAdHereBanner1243396 = true;
+        RepeatAll1243396 = false;
+        NoFollowAll1243396 = false;
+        BannerStyles1243396 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243396/1243396.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        Vertical1243397 = false;
+        ShowAdHereBanner1243397 = true;
+        RepeatAll1243397 = true;
+        NoFollowAll1243397 = false;
+        BannerStyles1243397 = new Array(
+          "a{display:block;font-size:11px;color:#888;font-family:'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Verdana, Tahoma, sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+          "img{border:0;clear:right;}",
+          "a.adhere{color:#666;font-weight:normal;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+          "a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+        );
+        document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1243397/1243397.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+    </div>
+            <h3 class="NoStyle">
+      <em><a href="/css/Warning.shtml">Style warning - please read</a></em>
+    </h3>
+    <div id="Footbar">
+      <a href="/index.shtml" title="Code Style home page - accesskey 0" accesskey="0" class="SectionHome">Home</a> &middot;
+      <a href="/css/index.shtml" title="Articles and test pages for Cascading Style Sheets - accesskey 1" accesskey="1" class="SectionCSS">CSS</a> &middot;
+      <a href="/java/index.shtml" title="How-to articles on Java servlets - accesskey 4" accesskey="4" class="SectionJava">Java</a> &middot;
+      <a href="/javascript/index.shtml" title="Javascript &amp; DOM: Code samples and frequently asked questions - accesskey 5" accesskey="5" class="SectionJavascript">Javascript</a> &middot;
+      <a href="/html/index.shtml" title="HTML - accesskey 6" accesskey="6" class="SectionHTML">HTML</a> &middot;
+      <a href="/faq/index.shtml" title="Help and frequently asked questions about the Code Style Web site - accesskey 7" accesskey="7" class="SectionFAQ">Help</a> &middot;
+      <a href="/codestyle/log/index.shtml" title="Site log: A technical change log for this site - accesskey 8" accesskey="8" class="SectionLog">Log</a>
+    </div>    <div id="Footer">
+      Copyright &copy; 2000-2010 <a href="/codestyle/PhilipShaw.shtml">Philip Shaw</a>, all rights reserved, <a href="/codestyle/Copyright.shtml">terms and conditions apply</a>.<br />
+      <a href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0, follow this link to validate the markup for this page">Valid XHTML</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Correct CSS, follow this link to check the stylesheet for this page">correct CSS</a>. Last updated 22 January 2010 at 07:03:27 AM UTC.<br />
+      <abbr title="Uniform Resource Identifier">URI</abbr>: <a href="http://www.codestyle.org/java/faq-Inheritance.shtml" title="This is the full URI of the current page, follow this link to reload">http://www.codestyle.org/java/faq-Inheritance.shtml</a> Metadata: <a href="http://www.metacentric.net/RDF?siteID=2&amp;url=/java/faq-Inheritance.shtml" title="RDF Metadata">RDF</a> <a href="http://www.metacentric.net/RSS?siteID=2&amp;url=/java/faq-Inheritance.shtml" rel="alternate" type="application/rss+xml" title="RSS news feed">RSS 1.0</a>
+    </div>  </body>
+</html>

@@ -1,0 +1,145 @@
+<!-- MHonArc v2.4.6 -->
+<!--X-Subject: [PATCH] java.lang.Thread private field access. -->
+<!--X-From-R13: Oyrknaqer Brgvg&#45;Pvnapb <ncovnapbNpltahf.pbz> -->
+<!--X-Date: 24 Aug 2000 02:06:50 &#45;0000 -->
+<!--X-Message-Id: 200008240206.TAA31099@deliverance.cygnus.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>[PATCH] java.lang.Thread private field access.</TITLE>
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--htdig_noindex-->
+<p>This is the mail archive of the 
+<tt>java-patches@sources.redhat.com</tt>
+mailing list for the <a href="/java/">Java project</a>.
+
+
+<!--/htdig_noindex-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<!--htdig_noindex-->
+<HR>
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00142">Date&nbsp;Index</A>] [<a href="subjects.html#00142">Subject&nbsp;Index</a>] [<a href="authors.html#00142">Author&nbsp;Index</a>] [<A HREF="threads.html#00142">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00141.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00143.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00141.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00143.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[PATCH] java.lang.Thread private field access.</h1>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: java-patches at sourceware dot cygnus dot com</LI>
+<LI><em>Subject</em>: [PATCH] java.lang.Thread private field access.</LI>
+<LI><em>From</em>: Alexandre Petit-Bianco &lt;apbianco at cygnus dot com&gt;</LI>
+<LI><em>Date</em>: Wed, 23 Aug 2000 19:06:49 -0700</LI>
+<LI><em>Reply-to</em>: apbianco at redhat dot com</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Because of gcj/309, `alive_flag' from java.lang.Thread was set in
+`gnu.gcj.jni.NativeThread'.
+
+This patch was approved by Tom Tromey. I'm checking it in, while
+waiting for some feedback on gcj/309 (which I have to revise on the
+compiler side anyways.)
+
+./A
+
+2000-08-23  Alexandre Petit-Bianco  &lt;apbianco@cygnus.com&gt;
+
+	* java/util/NativeThread.java (NativeThread): Removed assignment
+	to `alive_flag', call `init'.
+	(init): New native method.
+	* gnu/gcj/jni/natNativeThread.cc (init): New native method
+	implementation.
+
+Index: libjava/gnu/gcj/jni/NativeThread.java
+===================================================================
+RCS file: /cvs/java/libgcj/libjava/gnu/gcj/jni/NativeThread.java,v
+retrieving revision 1.2
+diff -u -p -r1.2 NativeThread.java
+--- NativeThread.java	2000/03/07 19:55:24	1.2
++++ NativeThread.java	2000/08/24 00:41:56
+@@ -20,9 +20,10 @@ public class NativeThread extends Thread
+   public NativeThread (ThreadGroup g, String name)
+   {
+     super (g, null, name);
+-    alive_flag = true;
++    init ();
+   }
+ 
+   // Call this to mark the thread as finished.
+   public native void finish ();
++  public native void init ();
+ }
+Index: libjava/gnu/gcj/jni/natNativeThread.cc
+===================================================================
+RCS file: /cvs/java/libgcj/libjava/gnu/gcj/jni/natNativeThread.cc,v
+retrieving revision 1.2
+diff -u -p -r1.2 natNativeThread.cc
+--- natNativeThread.cc	2000/03/07 19:55:24	1.2
++++ natNativeThread.cc	2000/08/24 00:41:56
+@@ -22,3 +22,9 @@ gnu::gcj::jni::NativeThread::finish ()
+ {
+   finish_ ();
+ }
++
++void
++gnu::gcj::jni::NativeThread::init ()
++{
++  alive_flag = true;		// alive_flag is private in java.lang.Thread
++}
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00143" HREF="msg00143.html">Re: [PATCH] java.lang.Thread private field access.</A></STRONG>
+<UL><LI><EM>From:</EM> Alexandre Petit-Bianco</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<!--htdig_noindex-->
+<table border="0">
+  <tr><th align="left">Index Nav:</th>
+      <td colspan="2">
+        [<A HREF="index.html#00142">Date&nbsp;Index</A>] [<a href="subjects.html#00142">Subject&nbsp;Index</a>] [<a href="authors.html#00142">Author&nbsp;Index</a>] [<A HREF="threads.html#00142">Thread&nbsp;Index</A>]
+      </td>
+  </tr>
+  <tr><th align="left">Message Nav:</th>
+      <td>[<A HREF="msg00141.html">Date&nbsp;Prev</A>]&nbsp;[<A HREF="msg00143.html">Date&nbsp;Next</A>]</td>
+      <td>[<A HREF="msg00141.html">Thread&nbsp;Prev</A>]&nbsp;[<A HREF="msg00143.html">Thread&nbsp;Next</A>]</td>
+  </tr>
+</table>
+<!--/htdig_noindex-->
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

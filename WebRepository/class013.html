@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<title>Java Classloader - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="MediaWiki 1.16alpha-wmf" />
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Java_Classloader&amp;action=edit" />
+<link rel="edit" title="Edit this page" href="/w/index.php?title=Java_Classloader&amp;action=edit" />
+<link rel="apple-touch-icon" href="http://en.wikipedia.org/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/rss+xml" title="Wikipedia RSS Feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=rss" />
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom Feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/common/shared.css?257z3" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/common/commonPrint.css?257z3" type="text/css" media="print" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/main.css?257z3" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/chick/main.css?257z3" type="text/css" media="handheld" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE50Fixes.css?257z3" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE55Fixes.css?257z3" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE60Fixes.css?257z3" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE70Fixes.css?257z3" type="text/css" media="screen" /><![endif]-->
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="all" />
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="print" />
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Handheld.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="handheld" />
+<link rel="stylesheet" href="/w/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=2678400&amp;action=raw&amp;maxage=2678400" type="text/css" media="all" />
+<link rel="stylesheet" href="/w/index.php?title=-&amp;action=raw&amp;maxage=2678400&amp;gen=css" type="text/css" media="all" />
+<script type="text/javascript">
+var skin="monobook",
+stylepath="http://bits.wikimedia.org/skins-1.5",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/$1",
+wgScriptPath="/w",
+wgScriptExtension=".php",
+wgScript="/w/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://en.wikipedia.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Java_Classloader",
+wgTitle="Java Classloader",
+wgAction="view",
+wgArticleId=7723859,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=339010573,
+wgVersion="1.16alpha-wmf",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Wikipedia", "5": "Wikipedia talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Portal", "101": "Portal talk", "108": "Book", "109": "Book talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "wikipedia": 4, "wikipedia_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "portal": 100, "portal_talk": 101, "book": 108, "book_talk": 109, "wp": 4, "wt": 5, "image": 6, "image_talk": 7},
+wgMWSuggestTemplate="http://en.wikipedia.org/w/api.php?action=opensearch\x26search={searchTerms}\x26namespace={namespaces}\x26suggest",
+wgDBname="enwiki",
+wgSearchNamespaces=[0],
+wgMWSuggestMessages=["with suggestions", "no suggestions"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgTrackingToken="ab9a8a53bee6c8964843e51cdee97d6f",
+wgClickTrackingIsThrottled=true,
+wgNotice="",
+wgNoticeLocal="";
+</script>
+<script src="http://bits.wikimedia.org/skins-1.5/common/wikibits.js?urid=257z3_1264870003" type="text/javascript"></script>
+<script src="http://bits.wikimedia.org/skins-1.5/common/ajax.js?urid=257z3" type="text/javascript"></script>
+<script src="http://bits.wikimedia.org/skins-1.5/common/mwsuggest.js?urid=257z3" type="text/javascript"></script>
+<script type="text/javascript" src="http://upload.wikimedia.org/centralnotice/wikipedia/en/centralnotice.js?257z3"></script>
+
+<!--[if lt IE 7]><script type="text/javascript" src="http://bits.wikimedia.org/skins-1.5/common/IEFixes.js?257z3"></script>
+	<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+<script src="/w/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook&amp;urid=257z3_336800052" type="text/javascript"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Java_Classloader skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a id="top"></a>
+		<div id="siteNotice"><script type='text/javascript'>if (wgNotice != '') document.writeln(wgNotice);</script></div>		<h1 id="firstHeading" class="firstHeading">Java Classloader</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From Wikipedia, the free encyclopedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<p>The <b>Java Classloader</b> is a part of the <a href="/wiki/Java_Runtime_Environment" title="Java Runtime Environment" class="mw-redirect">Java Runtime Environment</a> that dynamically <a href="/wiki/Loader_(computing)" title="Loader (computing)">loads</a> <a href="/wiki/Java_class" title="Java class" class="mw-redirect">Java classes</a> into the <a href="/wiki/Java_Virtual_Machine" title="Java Virtual Machine">Java Virtual Machine</a><sup id="cite_ref-0" class="reference"><a href="#cite_note-0"><span>[</span>1<span>]</span></a></sup>. Usually classes are only loaded <a href="/wiki/On_demand" title="On demand" class="mw-redirect">on demand</a>. The Java run time system does not need to know about files and file systems because of class loaders. <a href="/wiki/Delegation_(programming)" title="Delegation (programming)">Delegation</a> is an important concept to understand when learning about class loaders.</p>
+<p>A <a href="/wiki/Library_(computing)" title="Library (computing)">software library</a> is a collection of more or less related <a href="/wiki/Object_code" title="Object code" class="mw-redirect">object code</a>. In the <a href="/wiki/Java_language" title="Java language" class="mw-redirect">Java language</a>, libraries are typically packaged in <a href="/wiki/Jar-file" title="Jar-file" class="mw-redirect">Jar files</a>. Libraries can contain various different sorts of objects. The most important type of object contained in a Jar file is a <a href="/wiki/Java_class" title="Java class" class="mw-redirect">Java class</a>. A class can be thought of as a named unit of code. The class loader is responsible for locating libraries, reading their contents, and loading the classes contained within the libraries. This loading is typically done "on demand", in that it does not occur until the class is actually used by the program. A class with a given name can only be loaded <a href="/wiki/Once_and_only_once" title="Once and only once" class="mw-redirect">once</a> by a given classloader.</p>
+<table id="toc" class="toc">
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Class_loading_process"><span class="tocnumber">1</span> <span class="toctext">Class loading process</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#User-defined_class_loaders"><span class="tocnumber">2</span> <span class="toctext">User-defined class loaders</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Class_Loaders_in_JEE"><span class="tocnumber">3</span> <span class="toctext">Class Loaders in JEE</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#JAR_hell"><span class="tocnumber">4</span> <span class="toctext">JAR hell</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#References"><span class="tocnumber">6</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#External_links"><span class="tocnumber">7</span> <span class="toctext">External links</span></a></li>
+</ul>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } 
+//]]>
+</script>
+<h2><span class="editsection">[<a href="/w/index.php?title=Java_Classloader&amp;action=edit&amp;section=1" title="Edit section: Class loading process">edit</a>]</span> <span class="mw-headline" id="Class_loading_process">Class loading process</span></h2>
+<p>Each Java class must be loaded by a class loader<sup id="cite_ref-Christudas_1-0" class="reference"><a href="#cite_note-Christudas-1"><span>[</span>2<span>]</span></a></sup>. Furthermore, Java programs may make use of <a href="/wiki/Library_(computing)" title="Library (computing)">external libraries</a> (that is, libraries written and provided by someone other than the author of the program) or may itself be composed, at least in part, by a number of libraries.</p>
+<p>When the JVM is started, three class loaders are used<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>3<span>]</span></a></sup> <sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span>[</span>4<span>]</span></a></sup>:</p>
+<ol>
+<li>Bootstrap class loader</li>
+<li>Extensions class loader</li>
+<li>System class loader</li>
+</ol>
+<p>The bootstrap class loader loads the core Java libraries<sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span>[</span>5<span>]</span></a></sup> (<code>&lt;JAVA_HOME&gt;/lib</code> directory). This class loader, which is part of the core JVM, is written in native code.</p>
+<p>The extensions class loader loads the code in the extensions directories (<code>&lt;JAVA_HOME&gt;/lib/ext</code> or any other directory specified by the <code>java.ext.dirs</code> system property). It is implemented by the <code>sun.misc.Launcher$ExtClassLoader</code> class.</p>
+<p>The system class loader loads code found on <code>java.class.path</code>, which maps to the system <code><a href="/wiki/Classpath_(Java)" title="Classpath (Java)">CLASSPATH</a></code> variable. This is implemented by the <code>sun.misc.Launcher$AppClassLoader</code> class.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Java_Classloader&amp;action=edit&amp;section=2" title="Edit section: User-defined class loaders">edit</a>]</span> <span class="mw-headline" id="User-defined_class_loaders">User-defined class loaders</span></h2>
+<p>By default, all user classes are loaded by the default system class loader, but it is possible to replace it by a user-defined <b><code><a href="http://java.sun.com/javase/6/docs/api/java/lang/ClassLoader.html" class="external text" rel="nofollow">ClassLoader</a></code></b> (which defaults to the original root system class loader), and even to chain class loaders as desired.</p>
+<p>This makes it possible (for example):</p>
+<ul>
+<li>to load or unload classes at runtime (for example to load libraries dynamically at runtime, even from a <a href="/wiki/Hypertext_Transfer_Protocol" title="Hypertext Transfer Protocol">HTTP</a> resource). This is an important feature for:
+<ul>
+<li>implementing scripting languages,</li>
+<li>using <a href="/wiki/JavaBean" title="JavaBean">bean</a> builders,</li>
+<li>allowing user-defined <a href="/wiki/Extensibility" title="Extensibility">extensibility</a></li>
+<li>allowing multiple namespaces to communicate. This is one of the foundations of <a href="/wiki/Common_Object_Request_Broker_Architecture" title="Common Object Request Broker Architecture">CORBA</a> / <a href="/wiki/Java_remote_method_invocation" title="Java remote method invocation">RMI</a> protocols, for example.</li>
+</ul>
+</li>
+<li>to change the way the <a href="/wiki/Java_bytecode" title="Java bytecode">bytecode</a> is loaded (for example, it is possible to use <a href="/wiki/Encryption" title="Encryption">encrypted</a> Java class bytecode<sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span>[</span>6<span>]</span></a></sup>).</li>
+<li>to modify the loaded bytecode (for example, for load-time weaving of aspects when using <a href="/wiki/Aspect-oriented_programming" title="Aspect-oriented programming">Aspect Oriented Programming</a>).</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=Java_Classloader&amp;action=edit&amp;section=3" title="Edit section: Class Loaders in JEE">edit</a>]</span> <span class="mw-headline" id="Class_Loaders_in_JEE">Class Loaders in JEE</span></h2>
+<p><a href="/wiki/Java_Platform,_Enterprise_Edition" title="Java Platform, Enterprise Edition">Java Platform, Enterprise Edition</a> (JEE) application servers typically load classes from a deployed <a href="/wiki/WAR_(file_format)" title="WAR (file format)">WAR</a> or <a href="/wiki/EAR_(file_format)" title="EAR (file format)">EAR</a> archive by a tree of Classloaders, isolating the application from other applications, but sharing classes between deployed modules. So-called "<a href="/wiki/Servlet" title="Servlet" class="mw-redirect">servlet</a> containers" are typically implemented in terms of multiple classloaders<sup id="cite_ref-Christudas_1-1" class="reference"><a href="#cite_note-Christudas-1"><span>[</span>2<span>]</span></a></sup><sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span>[</span>7<span>]</span></a></sup></p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Java_Classloader&amp;action=edit&amp;section=4" title="Edit section: JAR hell">edit</a>]</span> <span class="mw-headline" id="JAR_hell">JAR hell</span></h2>
+<p>JAR hell is a term similar to <a href="/wiki/DLL_hell" title="DLL hell">DLL hell</a> used to describe all the various ways in which the classloading process can end up not working.<sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span>[</span>8<span>]</span></a></sup> Three ways Jar hell can occur are explained below:</p>
+<ul>
+<li>The first case is when a developer or deployer of a Java application has accidentally made two different versions of a library available to the system. This will not be considered an error by the system. Rather, the system will load classes from one or the other library. Adding the new library to the list of available libraries instead of replacing it, may see the application still behaving as though the old library is in use, which it may well be.</li>
+</ul>
+<ul>
+<li>Another version of the problem arises when two libraries (or a library and the application) require different versions of the same third library. If both versions of the third library use the same class names, there is no way to load both versions of the third library with the same classloader.</li>
+</ul>
+<ul>
+<li>The most complex JAR hell problems arise in circumstances that take advantage of the full complexity of the classloading system. A Java program is not required to use only a single "flat" classloader, but instead may be composed of several (or, in fact, an indefinite number of) nested, cooperating classloaders. Classes loaded by different classloaders may interact in complex ways not fully comprehended by a developer, leading to inexplicable errors or bugs.</li>
+</ul>
+<p>The <a href="/wiki/OSGi" title="OSGi">OSGi</a> Alliance specified (starting as JSR 8 in 1998) a modularity framework that solved JAR hell for current and future VMs both in ME, SE, and EE that is widely adopted. Using metadata in the JAR manifest, JAR files (called bundles) are wired on a per-package basis. Bundles can export packages, import packages and keep packages private, providing the basic constructs of modularity and versioned dependency management.</p>
+<p>To <b>remedy the JAR hell</b> problems a <a href="/wiki/Java_Community_Process" title="Java Community Process">Java Community Process</a>&#160;â?? JSR 277 was initiated in 2005. The resolution&#160;â?? <a href="/wiki/Java_Module_System" title="Java Module System">Java Module System</a>&#160;â?? intended to introduce a new distribution format, modules versioning scheme and a common modules repository (similar in purpose to <a href="/wiki/Microsoft_.NET" title="Microsoft .NET" class="mw-redirect">Microsoft .NET</a>'s <a href="/wiki/Global_Assembly_Cache" title="Global Assembly Cache">Global Assembly Cache</a>). In December 2008 Sun announced that JSR 277 was put on hold <sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span>[</span>9<span>]</span></a></sup>.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Java_Classloader&amp;action=edit&amp;section=5" title="Edit section: See also">edit</a>]</span> <span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="/wiki/Loader_(computing)" title="Loader (computing)">Loader (computing)</a></li>
+<li><a href="/wiki/Dynamic_loading" title="Dynamic loading">Dynamic loading</a></li>
+<li><a href="/wiki/DLL_hell" title="DLL hell">DLL hell</a></li>
+<li><a href="/wiki/OSGi" title="OSGi">OSGi</a></li>
+<li><a href="/wiki/Apache_Maven" title="Apache Maven">Apache Maven</a>, automated software build tool with dependency management</li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=Java_Classloader&amp;action=edit&amp;section=6" title="Edit section: References">edit</a>]</span> <span class="mw-headline" id="References">References</span></h2>
+<div class="references-small references-column-count references-column-count-2" style="-moz-column-count:2; column-count:2;">
+<ol class="references">
+<li id="cite_note-0"><b><a href="#cite_ref-0">^</a></b> <span class="citation web"><a href="http://www.javaworld.com/javaworld/jw-10-1996/jw-10-indepth.html" class="external text" rel="nofollow">"The basics of Java class loaders"</a>. <a href="/wiki/JavaWorld" title="JavaWorld">JavaWorld</a>. 1996-10-01<span class="printonly">. <a href="http://www.javaworld.com/javaworld/jw-10-1996/jw-10-indepth.html" class="external free" rel="nofollow">http://www.javaworld.com/javaworld/jw-10-1996/jw-10-indepth.html</a></span><span class="reference-accessdate">. Retrieved 2008-01-26</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=The+basics+of+Java+class+loaders&amp;rft.atitle=&amp;rft.date=1996-10-01&amp;rft.pub=%5B%5BJavaWorld%5D%5D&amp;rft_id=http%3A%2F%2Fwww.javaworld.com%2Fjavaworld%2Fjw-10-1996%2Fjw-10-indepth.html&amp;rfr_id=info:sid/en.wikipedia.org:Java_Classloader"><span style="display: none;">&#160;</span></span></li>
+<li id="cite_note-Christudas-1">^ <a href="#cite_ref-Christudas_1-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Christudas_1-1"><sup><i><b>b</b></i></sup></a> <span class="citation web">Christudas, Binildas (2005-01-26). <a href="http://www.onjava.com/pub/a/onjava/2005/01/26/classloading.html" class="external text" rel="nofollow">"Internals of Java Class Loading"</a>. onjava.com<span class="printonly">. <a href="http://www.onjava.com/pub/a/onjava/2005/01/26/classloading.html" class="external free" rel="nofollow">http://www.onjava.com/pub/a/onjava/2005/01/26/classloading.html</a></span><span class="reference-accessdate">. Retrieved 2009-10-02</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Internals+of+Java+Class+Loading&amp;rft.atitle=&amp;rft.aulast=Christudas&amp;rft.aufirst=Binildas&amp;rft.au=Christudas%2C%26%2332%3BBinildas&amp;rft.date=2005-01-26&amp;rft.pub=onjava.com&amp;rft_id=http%3A%2F%2Fwww.onjava.com%2Fpub%2Fa%2Fonjava%2F2005%2F01%2F26%2Fclassloading.html&amp;rfr_id=info:sid/en.wikipedia.org:Java_Classloader"><span style="display: none;">&#160;</span></span></li>
+<li id="cite_note-2"><b><a href="#cite_ref-2">^</a></b> <span class="citation web"><a href="http://java.sun.com/docs/books/tutorial/ext/basics/load.html" class="external text" rel="nofollow">"Understanding Extension Class Loading"</a>. java.sun.com. 2008-02-14<span class="printonly">. <a href="http://java.sun.com/docs/books/tutorial/ext/basics/load.html" class="external free" rel="nofollow">http://java.sun.com/docs/books/tutorial/ext/basics/load.html</a></span><span class="reference-accessdate">. Retrieved 2009-12-08</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Understanding+Extension+Class+Loading&amp;rft.atitle=&amp;rft.date=2008-02-14&amp;rft.pub=java.sun.com&amp;rft_id=http%3A%2F%2Fjava.sun.com%2Fdocs%2Fbooks%2Ftutorial%2Fext%2Fbasics%2Fload.html&amp;rfr_id=info:sid/en.wikipedia.org:Java_Classloader"><span style="display: none;">&#160;</span></span></li>
+<li id="cite_note-3"><b><a href="#cite_ref-3">^</a></b> <span class="citation web">Sosnoski, Dennis (2003-04-29). <a href="http://www-128.ibm.com/developerworks/java/library/j-dyn0429/" class="external text" rel="nofollow">"Classes and class loading"</a>. ibm.com<span class="printonly">. <a href="http://www-128.ibm.com/developerworks/java/library/j-dyn0429/" class="external free" rel="nofollow">http://www-128.ibm.com/developerworks/java/library/j-dyn0429/</a></span><span class="reference-accessdate">. Retrieved 2008-01-26</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Classes+and+class+loading&amp;rft.atitle=&amp;rft.aulast=Sosnoski&amp;rft.aufirst=Dennis&amp;rft.au=Sosnoski%2C%26%2332%3BDennis&amp;rft.date=2003-04-29&amp;rft.pub=ibm.com&amp;rft_id=http%3A%2F%2Fwww-128.ibm.com%2Fdeveloperworks%2Fjava%2Flibrary%2Fj-dyn0429%2F&amp;rfr_id=info:sid/en.wikipedia.org:Java_Classloader"><span style="display: none;">&#160;</span></span></li>
+<li id="cite_note-4"><b><a href="#cite_ref-4">^</a></b> These libraries are stored in <a href="/wiki/JAR_(file_format)" title="JAR (file format)">Jar files</a> called <i>rt.jar</i>, <i>core.jar</i>, <i>server.jar</i>, etc.</li>
+<li id="cite_note-5"><b><a href="#cite_ref-5">^</a></b> <span class="citation web">Roubtsov, Vladimir (2003-05-09). <a href="http://www.javaworld.com/javaworld/javaqa/2003-05/01-qa-0509-jcrypt.html?page=1" class="external text" rel="nofollow">"Cracking Java byte-code encryption"</a>. javaworld.com<span class="printonly">. <a href="http://www.javaworld.com/javaworld/javaqa/2003-05/01-qa-0509-jcrypt.html?page=1" class="external free" rel="nofollow">http://www.javaworld.com/javaworld/javaqa/2003-05/01-qa-0509-jcrypt.html?page=1</a></span><span class="reference-accessdate">. Retrieved 2008-01-26</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Cracking+Java+byte-code+encryption&amp;rft.atitle=&amp;rft.aulast=Roubtsov&amp;rft.aufirst=Vladimir&amp;rft.au=Roubtsov%2C%26%2332%3BVladimir&amp;rft.date=2003-05-09&amp;rft.pub=javaworld.com&amp;rft_id=http%3A%2F%2Fwww.javaworld.com%2Fjavaworld%2Fjavaqa%2F2003-05%2F01-qa-0509-jcrypt.html%3Fpage%3D1&amp;rfr_id=info:sid/en.wikipedia.org:Java_Classloader"><span style="display: none;">&#160;</span></span></li>
+<li id="cite_note-6"><b><a href="#cite_ref-6">^</a></b> <span class="citation web">deBoer, Tim; Karasiuk, Gary (2002-08-21). <a href="http://www-128.ibm.com/developerworks/websphere/library/techarticles/0112_deboer/deboer.html" class="external text" rel="nofollow">"J2EE Class Loading Demystified"</a>. ibm.com<span class="printonly">. <a href="http://www-128.ibm.com/developerworks/websphere/library/techarticles/0112_deboer/deboer.html" class="external free" rel="nofollow">http://www-128.ibm.com/developerworks/websphere/library/techarticles/0112_deboer/deboer.html</a></span><span class="reference-accessdate">. Retrieved 2008-01-26</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=J2EE+Class+Loading+Demystified&amp;rft.atitle=&amp;rft.aulast=deBoer&amp;rft.aufirst=Tim&amp;rft.au=deBoer%2C%26%2332%3BTim&amp;rft.au=Karasiuk%2C%26%2332%3BGary&amp;rft.date=2002-08-21&amp;rft.pub=ibm.com&amp;rft_id=http%3A%2F%2Fwww-128.ibm.com%2Fdeveloperworks%2Fwebsphere%2Flibrary%2Ftecharticles%2F0112_deboer%2Fdeboer.html&amp;rfr_id=info:sid/en.wikipedia.org:Java_Classloader"><span style="display: none;">&#160;</span></span></li>
+<li id="cite_note-7"><b><a href="#cite_ref-7">^</a></b> <a href="http://incubator.apache.org/depot/version/jar-hell.html" class="external free" rel="nofollow">http://incubator.apache.org/depot/version/jar-hell.html</a></li>
+<li id="cite_note-8"><b><a href="#cite_ref-8">^</a></b> <a href="http://www.osgi.org/News/20081217" class="external free" rel="nofollow">http://www.osgi.org/News/20081217</a></li>
+</ol>
+</div>
+<h2><span class="editsection">[<a href="/w/index.php?title=Java_Classloader&amp;action=edit&amp;section=7" title="Edit section: External links">edit</a>]</span> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li><a href="/w/index.php?title=Brandon_E._Taylor&amp;action=edit&amp;redlink=1" class="new" title="Brandon E. Taylor (page does not exist)">Brandon E. Taylor</a>, "<a href="http://www.developer.com/java/other/article.php/2248831" class="external text" rel="nofollow">Java Class Loading: The Basics</a>", 2003</li>
+<li><a href="/wiki/Jeff_Hanson" title="Jeff Hanson">Jeff Hanson</a>, "<a href="http://www.devx.com/Java/Article/31614" class="external text" rel="nofollow">Take Control of Class Loading in Java</a>", 2006-06-01</li>
+<li><a href="/w/index.php?title=Andreas_Schaefer&amp;action=edit&amp;redlink=1" class="new" title="Andreas Schaefer (page does not exist)">Andreas Schaefer</a>, "<a href="http://www.onjava.com/pub/a/onjava/2003/11/12/classloader.html" class="external text" rel="nofollow">Inside Class Loaders</a>", 2003-11-12</li>
+<li><a href="/w/index.php?title=Sheng_Liang&amp;action=edit&amp;redlink=1" class="new" title="Sheng Liang (page does not exist)">Sheng Liang</a> and <a href="/wiki/Gilad_Bracha" title="Gilad Bracha">Gilad Bracha</a>, "<a href="http://citeseer.ist.psu.edu/liang98dynamic.html" class="external text" rel="nofollow">Dynamic class loading in the Java virtual machine</a>", In Proceedings of the 13<sup>th</sup> ACM Conference on Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA'98), ACM SIGPLAN Notices, vol. 33, no. 10, ACM Press, 1998, pp. 36â??44</li>
+<li>Dr. Christoph G. Jung, "<a href="http://www.roseindia.net/javatutorials/hotdeploy.shtml" class="external text" rel="nofollow">Classloaders Revisited Hotdeploy</a>", <i>Java Specialist Newsletter</i>, 2001-06-07</li>
+<li><a href="/w/index.php?title=Don_Schwarz&amp;action=edit&amp;redlink=1" class="new" title="Don Schwarz (page does not exist)">Don Schwarz</a>, "<a href="http://www.onjava.com/pub/a/onjava/2005/04/13/dependencies.html?page=1" class="external text" rel="nofollow">Managing Component Dependencies Using ClassLoaders</a>", 2005-04-13</li>
+<li><a href="http://www.jayasoft.fr/index.php?option=com_content&amp;task=view&amp;id=29&amp;Itemid=54" class="external text" rel="nofollow">Dependency manager</a> - now at <a href="http://incubator.apache.org/projects/ivy.html" class="external text" rel="nofollow">Apache incubator</a></li>
+<li><a href="http://jcloader.sourceforge.net" class="external text" rel="nofollow">Dynamically loading classes directly from JAR files</a></li>
+<li><a href="http://www.sonatype.com/book" class="external text" rel="nofollow">Free Maven Book</a></li>
+<li><a href="http://classworlds.codehaus.org/" class="external text" rel="nofollow">ClassWorlds</a></li>
+<li><a href="http://code.google.com/p/jarjar/" class="external text" rel="nofollow">JarJar</a></li>
+<li><a href="http://one-jar.sourceforge.net/" class="external text" rel="nofollow">One-Jar</a></li>
+<li><a href="http://www.springframework.org/osgi" class="external text" rel="nofollow">Spring Dynamic Modules for OSGi(tm) Service Platforms</a></li>
+<li><a href="http://pomstrap.prefetch.com/" class="external text" rel="nofollow">POMStrap</a></li>
+<li><a href="http://www.collectionspy.com" class="external text" rel="nofollow">CollectionSpy</a> â?? A Java profiler that includes a class loading log view and graph</li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 2956/1000000
+Post-expand include size: 21224/2048000 bytes
+Template argument size: 7313/2048000 bytes
+Expensive parser function count: 0/500
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:7723859-0!1!0!default!!en!2 and timestamp 20100201030900 -->
+<div class="printfooter">
+Retrieved from "<a href="http://en.wikipedia.org/wiki/Java_Classloader">http://en.wikipedia.org/wiki/Java_Classloader</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/wiki/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/wiki/Category:Java_programming_language" title="Category:Java programming language">Java programming language</a></span> | <span dir='ltr'><a href="/wiki/Category:Java_platform" title="Category:Java platform">Java platform</a></span></div></div>			<!-- end content -->
+						<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul lang="en" xml:lang="en">
+	
+				 <li id="ca-nstab-main" class="selected"><a href="/wiki/Java_Classloader" title="View the content page [c]" accesskey="c">Article</a></li>
+				 <li id="ca-talk"><a href="/wiki/Talk:Java_Classloader" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-edit"><a href="/w/index.php?title=Java_Classloader&amp;action=edit" title="You can edit this page. &#10;Please use the preview button before saving. [e]" accesskey="e">Edit this page</a></li>
+				 <li id="ca-history"><a href="/w/index.php?title=Java_Classloader&amp;action=history" title="Past versions of this page [h]" accesskey="h">History</a></li>			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul lang="en" xml:lang="en">
+				<li id="pt-optin-try"><a href="http://en.wikipedia.org/w/index.php?title=Special:UsabilityInitiativeOptIn&amp;from=Java_Classloader" title="Try out new features" class="no-text-transform">Try Beta</a></li>
+				<li id="pt-login"><a href="/w/index.php?title=Special:UserLogin&amp;returnto=Java_Classloader" title="You are encouraged to log in; however, it is not mandatory. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="/wiki/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5 lang="en" xml:lang="en">Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+				<li id="n-contents"><a href="/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+				<li id="n-featuredcontent"><a href="/wiki/Portal:Featured_content" title="Featured content â?? the best of Wikipedia">Featured content</a></li>
+				<li id="n-currentevents"><a href="/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+				<li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5 lang="en" xml:lang="en"><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/w/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" title="Search Wikipedia" accesskey="f" value="" name="search" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if one exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search Wikipedia for this text" />
+			</form>
+		</div>
+	</div>
+	<div class='generated-sidebar portlet' id='p-interaction'>
+		<h5 lang="en" xml:lang="en">Interaction</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-aboutsite"><a href="/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+				<li id="n-portal"><a href="/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+				<li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="The list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+				<li id="n-contact"><a href="/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact Wikipedia</a></li>
+				<li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Support_Wikipedia/en" title="Support us">Donate to Wikipedia</a></li>
+				<li id="n-help"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5 lang="en" xml:lang="en">Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Java_Classloader" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Java_Classloader" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+<li id="t-upload"><a href="/wiki/Wikipedia:Upload" title="Upload files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="/w/index.php?title=Java_Classloader&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="/w/index.php?title=Java_Classloader&amp;oldid=339010573" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-cite"><a href="/w/index.php?title=Special:Cite&amp;page=Java_Classloader&amp;id=339010573" title="Information on how to cite this page">Cite this page</a></li>			</ul>
+		</div>
+	</div>
+	<div id="p-lang" class="portlet">
+		<h5 lang="en" xml:lang="en">Languages</h5>
+		<div class="pBody">
+			<ul>
+				<li class="interwiki-ar"><a href="http://ar.wikipedia.org/wiki/%D9%85%D8%AD%D9%85%D9%84_%D8%B5%D9%81_%D8%AC%D8%A7%D9%81%D8%A7">Ø§Ù?Ø¹Ø±Ø¨Ù?Ø©</a></li>
+				<li class="interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Chargeur_de_classe_Java">FranÃ§ais</a></li>
+				<li class="interwiki-ja"><a href="http://ja.wikipedia.org/wiki/Java%E3%82%AF%E3%83%A9%E3%82%B9%E3%83%AD%E3%83%BC%E3%83%80%E3%83%BC">æ?¥æ?¬èª?</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="http://bits.wikimedia.org/skins-1.5/common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+				<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a></div>
+			<ul id="f-list">
+					<li id="lastmod"> This page was last modified on 20 January 2010 at 19:46.<br /></li>
+					<li id="copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.
+See <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> for details.<br/>
+Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.<br /></li><li class="noprint"><a class='internal' href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact us</a></li>
+					<li id="privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+					<li id="about"><a href="/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+					<li id="disclaimer"><a href="/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+</div>
+
+<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served by srv237 in 0.042 secs. --></body></html>

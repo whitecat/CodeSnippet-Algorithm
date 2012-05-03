@@ -1,0 +1,1388 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>Java while loop and Threads! - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6230">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/390242/java-while-loop-and-threads">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Java while loop and Threads!'" href="/feeds/question/390242">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(390242);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f390242%2fjava-while-loop-and-threads">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/390242/java-while-loop-and-threads" class="question-hyperlink">Java while loop and Threads!</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,while,multithreading">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="390242">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        4
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b></b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>I have a program that continually polls the database for change in value of some field. It runs in the background and currently uses a while(true) and a sleep() method to set the interval. I am wondering if this is a good practice? And, what could be a more efficient way to implement this? The program is meant to run at all times.</p>
+
+<p>Consequently, the only way to stop the program is by issuing a kill on the process ID. The program could be in the middle of a JDBC call. How could I go about terminating it more gracefully? I understand that the best option would be to devise some kind of exit strategy by using a flag that will be periodically checked by the thread. But, I am unable to think of a way/condition of changing the value of this flag. Any ideas?</p>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/while" class="post-tag" title="show questions tagged 'while'" rel="tag">while</a> <a href="/questions/tagged/multithreading" class="post-tag" title="show questions tagged 'multithreading'" rel="tag">multithreading</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-390242" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2008-12-23 22:26:50Z" class="relativetime">Dec 23 '08 at 22:26</span></div><div class="user-gravatar32"><a href="/users/48725/epitaph"><img src="http://www.gravatar.com/avatar/200990117bfd11ce17a3dc1a7b1564c7?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/48725/epitaph" >Epitaph</a><br><span class="reputation-score" title="reputation score">642</span><span title="2 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">2</span></span><span title="12 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">12</span></span></div></div>
+            <br class="cbt">
+            <div class="accept-rate cool" title="this user has accepted an answer for 15 of 24 eligible questions">63% accept rate</div>
+            
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390242" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>11 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/390242?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/390242?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/390242?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="390264"></a>
+    
+    <div id="answer-390264" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390264">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        5
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+<img src="http://sstatic.net/so/img/vote-accepted-on.png"
+    class="vote-accepted"
+    style="cursor:default"
+    width="30"
+    height="31"
+    alt="check"
+    title="The question owner accepted this as the best answer Dec 27 '08 at 18:56" >
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>" I am wondering if this is a good practice?"</p>
+
+<p>No.  It's not good.  Sometimes, it's all you've got, but it's not good.</p>
+
+<p>"And, what could be a more efficient way to implement this?"</p>
+
+<p>How do things get into the database in the first place?  </p>
+
+<p>The best change is to fix programs that insert/update the database to make requests which go to the database and to your program.  A JMS topic is good for this kind of thing.</p>
+
+<p>The next best change is to add a trigger to the database to enqueue each insert/update event into a queue.  The queue could feed a JMS topic (or queue) for processing by your program.</p>
+
+<p>The fall-back plan is your polling loop.</p>
+
+<p>Your polling loop, however, should not trivially do work.  It should drop a message into a queue for some other JDBC process to work on.  A termination request is another message that can be dropped into the JMS queue.  When your program gets the termination message, it absolutely must be finished with the prior JDBC request and can stop gracefully.</p>
+
+<p>Before doing any of this, look at ESB solutions.  Sun's <a href="http://www.sun.com/software/javaenterprisesystem/javacaps/index.jsp" rel="nofollow">JCAPS</a> or <a href="http://www.tibco.com/" rel="nofollow">TIBCO</a> already have this.  An open source ESB like <a href="http://www.mulesource.org/display/MULE/Home" rel="nofollow">Mulesource</a> or <a href="http://www.jitterbit.com/" rel="nofollow">Jitterbit</a> may already have this functionality already built and tested.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390264#390264" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390264" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 22:37:59Z" class="relativetime">Dec 23 '08 at 22:37</span></div><div class="user-gravatar32"><a href="/users/10661/s-lott"><img src="http://www.gravatar.com/avatar/c2c732bbf13dc96670b210b3c0c1ead5?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/10661/s-lott" >S.Lott</a><br><span class="reputation-score" title="reputation score">71.1k</span><span title="4 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">4</span></span><span title="60 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">60</span></span><span title="181 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">181</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390264" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,while,multithreading">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="390249"></a>
+    
+    <div id="answer-390249" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390249">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        7
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>This is really too big an issue to answer completely in this format.  Do yourself a favour and go buy <a href="http://rads.stackoverflow.com/amzn/click/0321349601" rel="nofollow">Java Concurrency in Practice</a>.  There is no better resource for concurrency on the Java 5+ platform out there.  There are <strong>whole chapters</strong> devoted to this subject.</p>
+
+<p>On the subject of killing your process during a JDBC call, that should be fine.  I believe there are issues with interrupting a JDBC call (in that you can't?) but that's a different issue.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390249#390249" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390249" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 22:30:32Z" class="relativetime">Dec 23 '08 at 22:30</span></div><div class="user-gravatar32"><a href="/users/18393/cletus"><img src="http://www.gravatar.com/avatar/2f364c2e36b52bc80296cbf23da8b231?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/18393/cletus" >cletus</a><br><span class="reputation-score" title="reputation score">83.9k</span><span title="12 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">12</span></span><span title="127 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">127</span></span><span title="260 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">260</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390249" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-217550" class="comment">
+        <td></td>
+        <td class="comment-text"><div>+1 If you find the Goetz book a little overwhelming (I did at first, there is a lot of information in it) I'd suggest reading Java Threads 3rd edition for an easer introduction with more code. &ndash;&nbsp;<a href="/users/1348/bedwyr-humphreys" title="2076" class="comment-user">Bedwyr Humphreys</a> <span class="comment-date"><span title="2008-12-23 22:40:54Z">Dec 23 '08 at 22:40</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-217553" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Is there a summary for this specific question? Like &quot;use this class instead&quot; ? Or something?  &ndash;&nbsp;<a href="/users/20654/oscar-reyes" title="12499" class="comment-user">Oscar Reyes</a> <span class="comment-date"><span title="2008-12-23 22:42:20Z">Dec 23 '08 at 22:42</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390311"></a>
+    
+    <div id="answer-390311" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390311">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        3
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Note that a Timer (or similar) would be better in that you could at least reuse it and let it do with all of the details of sleeping, scheduling, exception handling, etc...</p>
+
+<p>There are many reasons your app could die.  Don't focus on just the one.</p>
+
+<p>If it's even theoretically possible for your JDBC work to leave things in a half-correct state, then you have a bug you should fix.  All of your DB work should be in a transaction.  It should go or not go.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390311#390311" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390311" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 22:57:30Z" class="relativetime">Dec 23 '08 at 22:57</span></div><div class="user-gravatar32"><a href="/users/39975/dustin"><img src="http://www.gravatar.com/avatar/995543cb35c3b92a2eb43275116815a7?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/39975/dustin" >Dustin</a><br><span class="reputation-score" title="reputation score">7,503</span><span title="8 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">8</span></span><span title="30 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">30</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390311" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390334"></a>
+    
+    <div id="answer-390334" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390334">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        3
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>This is Java. Move your processing to a second thread. Now you can</p>
+
+<ul>
+<li>Read from stdin in a loop. If someone types "QUIT", set the while flag to false and exit.</li>
+<li>Create a AWT or Swing frame with a STOP button.</li>
+<li>Pretend you are a Unix daemon and create a server socket. Wait for someone to open the socket and send "QUIT". (This has the added bonus that you can change the sleep to a select with timeout.)</li>
+</ul>
+
+<p>There must be hundreds of variants on this.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390334#390334" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390334" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 23:12:00Z" class="relativetime">Dec 23 '08 at 23:12</span></div><div class="user-gravatar32"><a href="/users/44065/jmucchiello"><img src="http://www.gravatar.com/avatar/38f06907704f73d7cc5b6618ffccc3aa?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/44065/jmucchiello" >jmucchiello</a><br><span class="reputation-score" title="reputation score">5,276</span><span title="6 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">6</span></span><span title="15 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">15</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390334" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390721"></a>
+    
+    <div id="answer-390721" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390721">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        3
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>As others have said, the fact that you have to poll is probably indicative of a deeper problem with the design of your system... but sometimes that's the way it goes, so...</p>
+
+<p>If you'd like to handle "killing" the process a little more gracefully, you could install a shutdown hook which is called when you hit ctrl+C:</p>
+
+<pre><code>volatile boolean stop = false;
+
+Runtime.getRuntime().addShutdownHook(new Thread("shutdown thread") {
+
+        public void run()
+        {
+            stop = true;
+        }
+});
+</code></pre>
+
+<p>then periodically check the stop variable. </p>
+
+<p>A more elegant solution is to wait on an event:</p>
+
+<pre><code>boolean stop = false;
+final Object event = new Object();
+
+Runtime.getRuntime().addShutdownHook(new Thread("shutdown thread") {
+
+        public void run()
+        {
+            synchronized(event)
+            {
+               stop = true;
+               event.notifyAll();
+            }
+        }
+});
+
+// ... and in your polling loop ...
+synchronized(event)
+{
+    while(!stop)
+    {
+        // ... do JDBC access ...
+        try
+        {
+            // wait 30 seconds, but break out as soon as the event is fired.
+            event.wait(30000);
+        }
+        catch(InterruptedException e)
+        {
+            // Log a message and exit. Never ignore interrupted exception.
+            break;
+        }
+    }
+}
+</code></pre>
+
+<p>Or something like that.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390721#390721" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390721" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-24 04:14:18Z" class="relativetime">Dec 24 '08 at 4:14</span></div><div class="user-gravatar32"><a href="/users/40310/dave-ray"><img src="http://www.gravatar.com/avatar/8afe5283fb2d5f0a817c9c9ea4fa925e?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/40310/dave-ray" >Dave Ray</a><br><span class="reputation-score" title="reputation score">5,659</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="7 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">7</span></span><span title="21 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">21</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390721" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390251"></a>
+    
+    <div id="answer-390251" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390251">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        2
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Set up a signal handler for SIGTERM that sets a flag telling your loop to exit its next time through.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390251#390251" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390251" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 22:30:55Z" class="relativetime">Dec 23 '08 at 22:30</span></div><div class="user-gravatar32"><a href="/users/47529/chaos"><img src="http://www.gravatar.com/avatar/aaee40db39ad6b164cfb89cb6ad4d176?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/47529/chaos" >chaos</a><br><span class="reputation-score" title="reputation score">35.1k</span><span title="4 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">4</span></span><span title="67 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">67</span></span><span title="111 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">111</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390251" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-217554" class="comment">
+        <td></td>
+        <td class="comment-text"><div>&quot;Set up a signal handler for SIGTERM&quot; How do you do this?  &ndash;&nbsp;<a href="/users/20654/oscar-reyes" title="12499" class="comment-user">Oscar Reyes</a> <span class="comment-date"><span title="2008-12-23 22:43:21Z">Dec 23 '08 at 22:43</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-218202" class="comment">
+        <td></td>
+        <td class="comment-text"><div>google 'java signal handler'. &ndash;&nbsp;<a href="/users/47529/chaos" title="35068" class="comment-user">chaos</a> <span class="comment-date"><span title="2008-12-24 06:49:13Z">Dec 24 '08 at 6:49</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390316"></a>
+    
+    <div id="answer-390316" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390316">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Regarding the question "The program could be in the middle of a JDBC call. How could I go about terminating it more gracefully?" - see <a href="http://stackoverflow.com/questions/295920/how-can-i-abort-a-running-jdbc-transaction">How can I abort a running jdbc transaction?</a></p>
+
+<p>Note that using a poll with sleep() is rarely the correct solution - implemented improperly, it can end up hogging CPU resources (the JVM thread-scheduler ends up spending inordinate amount of time sleeping and waking up the thread).</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390316#390316" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390316" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 22:59:23Z" class="relativetime">Dec 23 '08 at 22:59</span></div><div class="user-gravatar32"><a href="/users/7507/noahz"><img src="http://www.gravatar.com/avatar/61c1a94aaa1a2e3430a688284573f00e?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/7507/noahz" >noahz</a><br><span class="reputation-score" title="reputation score">267</span><span title="1 silver badge"><span class="badge2">&#9679;</span><span class="badgecount">1</span></span><span title="10 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">10</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390316" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390421"></a>
+    
+    <div id="answer-390421" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390421">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Iâ??ve created a Service class in my current companyâ??s utility library for these kinds of problems:</p>
+
+<pre><code>public class Service implements Runnable {
+
+    private boolean shouldStop = false;
+
+    public synchronized stop() {
+        shouldStop = true;
+        notify();
+    }
+
+    private synchronized shouldStop() {
+        return shouldStop;
+    }
+
+    public void run() {
+        setUp();
+        while (!shouldStop()) {
+            doStuff();
+            sleep(60 * 1000);
+        }
+    }
+
+    private synchronized sleep(long delay) {
+        try {
+            wait(delay);
+        } catch (InterruptedException ie1) {
+            /* ignore. */
+        }
+    }
+
+}
+</code></pre>
+
+<p>Of course this is far from complete but you should get the gist. This will enable you to simply call the <code>stop()</code> method when you want the program to stop and it will exit cleanly.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390421#390421" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390421" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 23:47:38Z" class="relativetime">Dec 23 '08 at 23:47</span></div><div class="user-gravatar32"><a href="/users/43582/bombe"><img src="http://www.gravatar.com/avatar/3e5ac1db48e4a7ef1b192cc6b5e7fbf0?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/43582/bombe" >Bombe</a><br><span class="reputation-score" title="reputation score">12.7k</span><span title="15 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">15</span></span><span title="33 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">33</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390421" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-219548" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Small comment - handle the InterruptedException - see <a href="http://www-128.ibm.com/developerworks/java/library/j-jtp05236.html" rel="nofollow">www-128.ibm.com/developerworks/java/library/&hellip;</a> &ndash;&nbsp;<a href="/users/7507/noahz" title="267" class="comment-user">noahz</a> <span class="comment-date"><span title="2008-12-25 03:05:31Z">Dec 25 '08 at 3:05</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-545249" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Thanks for the link! Great Article! &ndash;&nbsp;<a href="/users/84556/andrei-vajna-ii" title="535" class="comment-user">Andrei Vajna II</a> <span class="comment-date"><span title="2009-04-09 11:45:15Z">Apr 9 at 11:45</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390270"></a>
+    
+    <div id="answer-390270" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390270">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>If that's your application and you can modify it, you can:</p>
+
+<ul>
+<li>Make it read a file</li>
+<li>Read for the value of a flag.</li>
+<li>When you want to kill it, you just modify the file and the application will exit gracefully.</li>
+</ul>
+
+<p>Not need to work it that harder that that.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390270#390270" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390270" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/390270/revisions" title="show all edits to this post"><span title="2008-12-24 04:27:47Z" class="relativetime">Dec 24 '08 at 4:27</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-23 22:40:32Z" class="relativetime">Dec 23 '08 at 22:40</span></div><div class="user-gravatar32"><a href="/users/20654/oscar-reyes"><img src="http://www.gravatar.com/avatar/c40d853adf30734cdc25de5a9f1aa6df?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/20654/oscar-reyes" >Oscar Reyes</a><br><span class="reputation-score" title="reputation score">12.5k</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="18 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">18</span></span><span title="43 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">43</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390270" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-246694" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Since it's a while loop with an interval of around 8 secs, the IO involved in reading the file will be quite a lot. &ndash;&nbsp;<a href="/users/48725/epitaph" title="642" class="comment-user owner">Epitaph</a> <span class="comment-date"><span title="2009-01-08 01:15:00Z">Jan 8 '09 at 1:15</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="390787"></a>
+    
+    <div id="answer-390787" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="390787">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>You could make the field a compound value that includes (conceptually) a process-ID and a timestamp.  [Better yet, use two or more fields.]  Start a thread in the process that owns access to the field, and have it loop, sleeping and updating the timestamp.  Then a polling process that is waiting to own access to the field can observe that the timestamp has not updated in some time T (which is much greater than the time of the updating loop's sleep interval) and assume that the previously-owning process has died.</p>
+
+<p>But this is still prone to failure.</p>
+
+<p>In other languages, I always try to use flock() calls to synchronize on a file.  Not sure what the Java equivalent is.  Get real concurrency if you at all possibly can.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/390787#390787" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-390787" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-12-24 05:00:46Z" class="relativetime">Dec 24 '08 at 5:00</span></div><div class="user-gravatar32"><a href="/users/18103/skiphoppy"><img src="http://www.gravatar.com/avatar/f224e093f5d375d77316a1c4835bcfcc?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/18103/skiphoppy" >skiphoppy</a><br><span class="reputation-score" title="reputation score">4,873</span><span title="13 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">13</span></span><span title="44 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">44</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-390787" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="733780"></a>
+    
+    <div id="answer-733780" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="733780">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>I'm surprised nobody mentioned the interrupt mechanism implemented in Java. It's supposed to be a solution to the problem of stopping a thread. All other solutions have at least one flaw, that's why this mechanism is needed to be implemented in the Java concurrency library.</p>
+
+<p>You can stop a thread by sending it an interrupt() message, but there are others ways that threads get interrupted. When this happens an InterruptedException is thrown. That's why you have to handle it when calling sleep() for example. That's where you can do cleanup and end gracefully, like closing the database connection.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/390242/java-while-loop-and-threads/733780#733780" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-733780" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-04-09 11:19:13Z" class="relativetime">Apr 9 at 11:19</span></div><div class="user-gravatar32"><a href="/users/84556/andrei-vajna-ii"><img src="http://www.gravatar.com/avatar/53d2829ef0b52fae2b3cd74c1d8aad15?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/84556/andrei-vajna-ii" >Andrei Vajna II</a><br><span class="reputation-score" title="reputation score">535</span><span title="1 silver badge"><span class="badge2">&#9679;</span><span class="badgecount">1</span></span><span title="9 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">9</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-733780" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/390242/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/while" class="post-tag" title="show questions tagged 'while'" rel="tag">while</a> <a href="/questions/tagged/multithreading" class="post-tag" title="show questions tagged 'multithreading'" rel="tag">multithreading</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/390242/ivc/9f51" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34103</span><br>
+<a href="/questions/tagged/multithreading" class="post-tag" title="show questions tagged 'multithreading'" rel="tag">multithreading</a>&nbsp;<span class="item-multiplier">&times;&nbsp;3657</span><br>
+<a href="/questions/tagged/while" class="post-tag" title="show questions tagged 'while'" rel="tag">while</a>&nbsp;<span class="item-multiplier">&times;&nbsp;45</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2008-12-23 22:26:50Z">1 year ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">2,877 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-04-09 11:19:13Z">10 months ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,while,multithreading">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?6109">' +
+	   "User Interface Engineer" +
+	   ' at ' +
+	   "Apprenda Inc.</a> (" +
+	   "Clifton Park, NY  12065" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+    <div class="module">
+    <h4>Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="/questions/1627184/java-nested-while-loop-using-readline" class="question-hyperlink">java nested while loop using readline</a>
+</div>
+<div class="spacer">
+<a href="/questions/2101801/how-to-implement-with-java-loop" class="question-hyperlink">How to implement with java loop ?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1453295/timer-timertask-versus-thread-sleep-in-java" class="question-hyperlink">Timer &amp; TimerTask versus Thread + sleep in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/1282762/to-convert-phps-while-loop-to-a-for-loop" class="question-hyperlink">To convert PHP&rsquo;s while loop to a for -loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/1754275/for-loop-in-while-loop" class="question-hyperlink">For loop in while loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/1821517/how-can-i-controll-while-loop-into-another-while-loop" class="question-hyperlink">how can i controll while loop into another while loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/2096700/xsl-looping-how-to-loop-where-node-name-increments" class="question-hyperlink">XSL Looping:  how to loop where node name increments</a>
+</div>
+<div class="spacer">
+<a href="/questions/2167268/while-loop-not-working" class="question-hyperlink">While loop not working</a>
+</div>
+<div class="spacer">
+<a href="/questions/1895979/i-am-writing-a-function-to-do-while-but-why-error" class="question-hyperlink">I am writing a function to do &ldquo;while&rdquo; , but why error?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1992399/find-out-for-how-long-the-script-was-running-for-in-seconds" class="question-hyperlink">Find out for how long the script was running for in seconds?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1995051/while1-in-constructor-or-using-threads" class="question-hyperlink">While(1) in constructor or using threads?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2029118/java-run-code-for-x-seconds" class="question-hyperlink">Java: run code for x seconds?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1801997/php-display-entries-from-database-in-groups-of-five" class="question-hyperlink">PHP: display entries from Database in groups of five?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1806608/python-how-can-i-avoid-list-index-out-of-range-in-this-simple-while-loop" class="question-hyperlink">python: how can i avoid &ldquo; list index out of range&rdquo; in this simple while loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/1807110/is-it-possible-to-have-a-while-loop-in-c-that-makes-the-check-in-the-middle-of" class="question-hyperlink">Is it possible to have a while loop in c++ that makes the check in the middle of the loop instead of the beginning or end?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1791979/c-while-loop" class="question-hyperlink">C ++ while  loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/1845318/line-break-within-echo-in-a-while-loop" class="question-hyperlink">Line Break within echo in a while loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/1872261/while-loop-example" class="question-hyperlink">While loop example</a>
+</div>
+<div class="spacer">
+<a href="/questions/1885702/sqlite-flow-constructs-in-sql" class="question-hyperlink">SQLite Flow Constructs in SQL?</a>
+</div>
+
+    </div>
+    </div>
+
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/390242" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/390242" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6239</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

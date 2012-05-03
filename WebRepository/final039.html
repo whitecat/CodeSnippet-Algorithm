@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="robots" content="index,follow" />
+<meta http-equiv="Content-Language" content="de" />
+<meta name="author" content="webdemar" />
+<meta name="copyright" content="Copyright © 2008 webdemar, All Rights Reserved" />
+<meta name="revisit-after" content="7 Days" />
+
+<title>
+						  Java&#8217;s final modifier is backwards | Jake Herringbone								</title>
+
+<link rel="stylesheet" href="http://jakeherringbone.com/wp-content/themes/demar/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://jakeherringbone.com/feed/" />
+<link rel="pingback" href="http://jakeherringbone.com/xmlrpc.php" />
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://jakeherringbone.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://jakeherringbone.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 2.7" />
+
+<link rel="stylesheet" type="text/css" href="http://jakeherringbone.com/wp-content/plugins/wp-recaptcha/recaptcha.css" />
+<link rel="stylesheet" href="http://jakeherringbone.com/wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+
+	<h1><a href="#">Jake Herringbone</a></h1>
+	<h2 id="blog-description">My thoughts on life, work, coding, and stuff I like.</h2>
+
+</div><!-- end header -->
+	<div id="content">
+	
+		<div id="content-left">
+
+		
+			
+			<div class="box-left" id="post-127">
+			
+				<h3><a href="http://jakeherringbone.com/2008/12/javas-final-modifier/" rel="bookmark" title="Java&#8217;s final modifier is backwards">Java&#8217;s final modifier is backwards</a></h3>
+				<div class="meta">
+					<span class="meta-date">Tuesday, December 2nd, 2008</span> | 
+					<span class="meta-categories"><a href="http://jakeherringbone.com/category/development/" title="View all posts in Software Development" rel="category tag">Software Development</a>,  <a href="http://jakeherringbone.com/category/nil/" title="View all posts in nil" rel="category tag">nil</a></span>
+				</div>
+				
+				<p>In Java, there&#8217;s a modifier that can be applied to a variable, and it&#8217;s called final. Final can also be applied to classes and methods, to prevent overriding, which is kind of overloading the word. I don&#8217;t have a problem with that kind of final, except that I don&#8217;t agree that it&#8217;s good to use it liberally where you don&#8217;t design for inheritance up-front. This post is about final variables and immutable objects.</p>
+<p>Good practice dictates that variables should always be marked final, except where the reference needs to be changed. This is true for class members, which should be assigned in instance initialization or a constructor, and can therefore be marked final. It&#8217;s true for method parameters, where it prevents you mistakenly thinking that Java is pass-by-value. And of course block-scoped variables should be final. All of this is good because it reduces mutable state at runtime, making your app less complex, more testable, and expresses your intent in compiler-enforceable constraints.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> Bear <span style="color: #009900;">&#123;</span>
+  <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">DateFormat</span> df <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">SimpleDateFormat</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;MMddyy&quot;</span><span style="color: #009900;">&#41;</span>;
+  <span style="color: #000000; font-weight: bold;">final</span> SalmonService ss;
+  Bear<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    ss <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> HuntSalmonService<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #000066; font-weight: bold;">void</span> eat<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">final</span> Stream s<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">final</span> <span style="color: #003399;">Integer</span> hungerLevel <span style="color: #339933;">=</span> <span style="color: #cc66cc;">10</span>;
+    ss.<span style="color: #006633;">takeFish</span><span style="color: #009900;">&#40;</span>s, hungerLevel<span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>The problem is, I only know one coder who is religious about declaring everything possible as final. Which sucks: if a variable is NOT marked final, this tells you nothing. Most likely, the coder didn&#8217;t write it because they were in a hurry or didn&#8217;t think it was needed, but they never modify the reference. The fact that Java makes you write this modifier everywhere is backwards, because you are rarely forced to use it (for use in anonymous inner classes). It would make more sense to use a modifier to note the exception rather than the rule, so we should have a mutable modifier instead. Now if you see a mutable List foo, you can bet the reference is really changed to another List later, since the developer bothered to mark it as mutable.</p>
+<p>In Scala, you are forced to think about this, by marking your identifiers as a var or a val. Val&#8217;s are final, var&#8217;s are not. That&#8217;s good, Java should do that too. Now our Bear example is:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> Bear <span style="color: #009900;">&#123;</span>
+  <span style="color: #003399;">DateFormat</span> df <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">SimpleDateFormat</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;MMddyy&quot;</span><span style="color: #009900;">&#41;</span>; <span style="color: #666666; font-style: italic;">// non-mutable</span>
+  SalmonService ss;
+  Bear<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #666666; font-style: italic;">// Without this, compiler complains that ss must be marked mutable</span>
+    ss <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> HuntSalmonService<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #000066; font-weight: bold;">void</span> eat<span style="color: #009900;">&#40;</span>Stream s<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #666666; font-style: italic;">// re-assigning s here would be a compiler error</span>
+    mutable <span style="color: #003399;">Integer</span> hungerLevel;
+    hungerLevel <span style="color: #339933;">=</span> <span style="color: #cc66cc;">10</span>;
+    ss.<span style="color: #006633;">takeFish</span><span style="color: #009900;">&#40;</span>s, hungerLevel<span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span></pre></div></div>
+
+<p>So far, this would be an easy change to the Java language, or something a new language could model.</p>
+<p>There&#8217;s a second problem, however. I love to ask this in interviews: if something is marked final, can it be changed? It&#8217;s intentionally vague, and of course the answer is that the reference cannot change, but the value can. Immutability is important for the referenced object even more than for the reference, since immutable objects are thread-safe, can cache expensive operations, may be pooled, and it&#8217;s easier to reason about their state. They also have the same benefits as final variables - less mutable state at runtime is a Good Thing. Is there anything to be done at the language level to support the maxim, &#8220;Favor Immutability&#8221;?</p>
+<p>Let&#8217;s imagine what it could look like. We&#8217;ll add the mutable modifier to a class that is mutable:</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java java" style="font-family:monospace;">mutable <span style="color: #000000; font-weight: bold;">class</span> MyList<span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span> <span style="color: #000000; font-weight: bold;">implements</span> java.<span style="color: #006633;">util</span>.<span style="color: #006633;">List</span><span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span> <span style="color: #009900;">&#123;</span>
+  <span style="color: #003399;">List</span> delegate <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> ArrayList<span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+  <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000066; font-weight: bold;">void</span> add<span style="color: #009900;">&#40;</span>E item<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    delegate.<span style="color: #006633;">add</span><span style="color: #009900;">&#40;</span>item<span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #000000; font-weight: bold;">public</span> E get<span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">int</span> index<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">return</span> delegate.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span>index<span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #666666; font-style: italic;">// More implementation for List methods ...</span>
+<span style="color: #009900;">&#125;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">class</span> YourList<span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span> <span style="color: #000000; font-weight: bold;">implements</span> java.<span style="color: #006633;">util</span>.<span style="color: #006633;">List</span><span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span> <span style="color: #009900;">&#123;</span>
+  <span style="color: #666666; font-style: italic;">// We don't even want a mutator, but have to satisfy our interface</span>
+  <span style="color: #000066; font-weight: bold;">void</span> add<span style="color: #009900;">&#40;</span>E item<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">throw</span> <span style="color: #000000; font-weight: bold;">new</span> <span style="color: #003399;">UnsupportedOperationException</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #000000; font-weight: bold;">public</span> E get<span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">int</span> index<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">return</span> delegate.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span>index<span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #666666; font-style: italic;">// More implementation for List methods ...</span>
+<span style="color: #009900;">&#125;</span>
+<span style="color: #666666; font-style: italic;">//reference and value are both mutable</span>
+mutable List<span style="color: #339933;">&lt;</span>Object<span style="color: #339933;">&gt;</span> foo <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> MyList<span style="color: #339933;">&lt;</span>Object<span style="color: #339933;">&gt;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+foo <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> YourList<span style="color: #339933;">&lt;</span>Object<span style="color: #339933;">&gt;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>; <span style="color: #666666; font-style: italic;">// now the value is immutable</span></pre></div></div>
+
+<p>This is no different from what Java does already: you have two classes, one that is mutable, and one that isn&#8217;t, or a method like Collections.unmodifiableList() that returns a wrapper around a list with exceptions thrown by the mutator methods - in the latter case, you don&#8217;t find out until runtime that mutation was attempted. Just like with the final modifier, the status quo is that everything is mutable, and thoughtful programmers sometimes use a utility method to produce immutable instances or have to write a second copy of their classes that lacks or hides the mutator methods. Note that there are lots of classes named &#8220;Immutable*&#8221; out there - maybe that&#8217;s backwards too. Again, we&#8217;d like the language to give us immutable objects unless we specifically ask for a mutable instance.</p>
+<p>So we&#8217;ll just have the one MyList class, and we&#8217;ll need to mark the methods that are mutators. Those methods are only available, at compile time, if a mutable instance of the object was constructed. Since the mutable keyword is already in use for the referencing variable, we&#8217;ll need some other way to request mutable instances, maybe a mutable version of the new() operator. We can also mark methods as returning mutable instances, since we have made mutability part of our type system, and we don&#8217;t want callers to be able to cast an immutable return value into a mutable instance.</p>
+
+<div class="wp_syntax"><div class="code"><pre class="java java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> MyList<span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span> <span style="color: #000000; font-weight: bold;">implements</span> java.<span style="color: #006633;">util</span>.<span style="color: #006633;">List</span><span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span> <span style="color: #009900;">&#123;</span>
+  <span style="color: #003399;">List</span> delegate <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> ArrayList<span style="color: #339933;">&lt;</span>E<span style="color: #339933;">&gt;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+  mutator <span style="color: #000066; font-weight: bold;">void</span> add<span style="color: #009900;">&#40;</span>E item<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    delegate.<span style="color: #006633;">add</span><span style="color: #009900;">&#40;</span>item<span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #000000; font-weight: bold;">public</span> E get<span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">int</span> index<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">return</span> delegate.<span style="color: #006633;">get</span><span style="color: #009900;">&#40;</span>index<span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #666666; font-style: italic;">// Return a mutable copy:</span>
+  <span style="color: #000000; font-weight: bold;">public</span> mutable MyList copy<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
+    <span style="color: #666666; font-style: italic;">// call the copy constructor, </span>
+    <span style="color: #666666; font-style: italic;">// using the mutable() keyword instead of new()</span>
+    <span style="color: #000000; font-weight: bold;">return</span> mutable MyList<span style="color: #009900;">&#40;</span><span style="color: #000000; font-weight: bold;">this</span><span style="color: #009900;">&#41;</span>;
+  <span style="color: #009900;">&#125;</span>
+  <span style="color: #666666; font-style: italic;">// More implementation for List methods ...</span>
+<span style="color: #009900;">&#125;</span>
+mutable List<span style="color: #339933;">&lt;</span>Object<span style="color: #339933;">&gt;</span> foo <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> MyList<span style="color: #339933;">&lt;</span>Object<span style="color: #339933;">&gt;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+<span style="color: #666666; font-style: italic;">// Compile-time error: This instance of MyList is immutable</span>
+foo.<span style="color: #006633;">add</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Not allowed&quot;</span><span style="color: #009900;">&#41;</span>;
+&nbsp;
+foo.<span style="color: #006633;">copy</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #006633;">add</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Can do this&quot;</span><span style="color: #009900;">&#41;</span>;
+&nbsp;
+foo <span style="color: #339933;">=</span> mutable MyList<span style="color: #339933;">&lt;</span>Object<span style="color: #339933;">&gt;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>;
+foo.<span style="color: #006633;">add</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;Good&quot;</span><span style="color: #009900;">&#41;</span>;</pre></div></div>
+
+<p>Is this possible? I&#8217;m still pondering the implications. Here are a few:</p>
+<ul>
+<li>Can a non-mutator method call a mutator method? Probably that should be compile-time error.</li>
+<li>Should support reflection on whether an instance is mutable.</li>
+<li>Can the compiler figure out what are mutators without marking the method? Right now, if we forget to mark a method, it violates the immutability of our object. Or it could be reversed: a modifier could be required for the methods that are legal on immutable instances.</li>
+<li>Maybe if a newly created object is assigned to a mutable variable, it should be mutable? Then we could avoid this new brother of the new() operator.</li>
+</ul>
+<p>I&#8217;d love to hear your comments.</p>
+				<script src="http://feeds.feedburner.com/~s/AlexEaglesWeblog?i=http://jakeherringbone.com/2008/12/javas-final-modifier/" type="text/javascript" charset="utf-8"></script>
+				<p class="tags">Tags: <a href="http://jakeherringbone.com/tag/final/" rel="tag">final</a>, <a href="http://jakeherringbone.com/tag/immutability/" rel="tag">immutability</a>, <a href="http://jakeherringbone.com/tag/nil/" rel="tag">nil</a></p>			
+			<div class="clear"></div></div>
+			
+			
+<!-- You can start editing here. -->
+
+<div class="box-left">
+
+
+	<h4 id="comments">3 Comments to <em>Java&#8217;s final modifier is backwards</em></h4>
+
+	
+		<div class="comment" id="comment-46">
+
+            			
+			<div class="comment-details"><img alt='' src='http://www.gravatar.com/avatar/5a4a4677b06f5f235d36e716c07835ec?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />            	<strong><a href='http://rel.me' rel='external nofollow' class='url'>gabe</a></strong><br />
+            	<small>December 4, 2008</small>
+            </div><div class="clear"></div>
+
+            <div class="comment-text">
+            	<p>I think Java collections should have had immutable base classes with mutable subclasses, like List/MutableList (like how Cocoa does NSArray/NSMutableArray). I also really dig the var, val syntax where you define the type after the name, like: var foo:Bar; or in cases where you want to be dynamic and immutable: val foo = new Bar(); (or var foo:* = new Bar(). Thats where languages like Actionscript have a big win. It also becomes easier to add modifiers like val after the fact.</p>
+<p>I wonder if, much like how Actionscript supports static or dynamic typing (and ability to turn it on or off at compile or runtime), you could turn on the enforcing of immutable references in the same way. Then you would have a language that can be either static/dynamic and mutable/immutable. And it would be fun to use this language to build a web framework (dynamic, mutable) or a highly concurrent message bus (static, immutable). Kind of like polygot programming but without the need for all the different languages and runtime integration.</p>
+            </div>
+
+        </div>
+
+	
+		<div class="comment" id="comment-50">
+
+            			
+			<div class="comment-details"><img alt='' src='http://www.gravatar.com/avatar/723de8543f2e32465a2cc40c219b448b?s=32&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />            	<strong>Alex</strong><br />
+            	<small>December 5, 2008</small>
+            </div><div class="clear"></div>
+
+            <div class="comment-text">
+            	<p>It turns out that there was a bug created in the JCP to make use of the const keyword - it&#8217;s currently a ghost in Java, as it has no semantic meaning. The bug description includes a thorough treatment of how the const keyword would support immutability.</p>
+<p><a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4211070" rel="nofollow">http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4211070</a></p>
+            </div>
+
+        </div>
+
+	
+		<div class="comment" id="comment-65">
+
+            			
+			<div class="comment-details">            	<strong><a href='http://jakeherringbone.com/2009/01/assert-validate-precondition/' rel='external nofollow' class='url'>Assert, Validate, Precondition | Jake Herringbone</a></strong><br />
+            	<small>January 17, 2009</small>
+            </div><div class="clear"></div>
+
+            <div class="comment-text">
+            	<p>[...] Immutability - final should be the default [...]</p>
+            </div>
+
+        </div>
+
+	
+ 
+
+<h4 id="respond">Leave a comment</h4>
+
+
+<div id="commentform">
+<form action="http://jakeherringbone.com/wp-comments-post.php" method="post">
+
+
+<label for="author">Name (required)</label>
+<input type="text" name="author" id="name" class="text" value="" size="22" tabindex="1" />
+
+<label for="email">Mail (will not be published) (required)</label>
+<input type="text" name="email" id="email" class="text" value="" size="22" tabindex="2" />
+
+<label for="url">Website</label>
+<input type="text" name="url" id="website" class="text" value="" size="22" tabindex="3" />
+
+
+<textarea name="comment" id="message" tabindex="4"></textarea>
+
+<p><input name="submit" type="submit" class="submit" tabindex="5" value="Submit Comment" /></p>
+<input type="hidden" name="comment_post_ID" value="127" />
+
+		<script type='text/javascript'>
+				var RecaptchaOptions = { theme : 'blackglass', lang : 'en' , tabindex : 5 };
+		</script><script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6LdfCQUAAAAAAH2WrkTqx94LBbk6bs18CyocxTKn"></script>
+
+<noscript>
+<iframe src="http://api.recaptcha.net/noscript?k=6LdfCQUAAAAAAH2WrkTqx94LBbk6bs18CyocxTKn" height="300" width="500" frameborder="0"></iframe><br/>
+<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+</noscript>				<div id="recaptcha-submit-btn-area"></div> 
+				<script type='text/javascript'>
+				var sub = document.getElementById('submit');
+				sub.parentNode.removeChild(sub);
+				document.getElementById('recaptcha-submit-btn-area').appendChild (sub);
+				document.getElementById('submit').tabIndex = 6;
+				if ( typeof _recaptcha_wordpress_savedcomment != 'undefined') {
+						document.getElementById('comment').value = _recaptcha_wordpress_savedcomment;
+				}
+				document.getElementById('recaptcha_table').style.direction = 'ltr';
+				</script>
+				<noscript>
+				 <style type='text/css'>#submit {display:none;}</style>
+				 <input name="submit" type="submit" id="submit-alt" tabindex="6" value="Submit Comment"/> 
+				</noscript>
+</form>
+
+</div>
+
+
+
+</div>		
+				
+			
+	  </div><!-- end content-left -->
+	  
+	  <div id="content-right">
+		
+		
+		<div id="text-198744241" class="box-right">			<h4>About Me</h4>			<div class="textwidget"><p>I'm <b>Alex Eagle</b>. I live in Sunnyvale, CA and I'm a code monkey.
+</p>
+<p>
+eag<a href="http://mailhide.recaptcha.net/d?k=01kN86Pz84YOC-r-aZHhFmIg==&amp;c=z7bGTbuFIyi92XRouthGx_oGFPlFh0BiXAT5zGFFOWg=" onclick="window.open('http://mailhide.recaptcha.net/d?k=01kN86Pz84YOC-r-aZHhFmIg==&amp;c=z7bGTbuFIyi92XRouthGx_oGFPlFh0BiXAT5zGFFOWg=', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">...</a>@captcha.me
+<br/>
+<a href="http://www.linkedin.com/in/alexeagle">LinkedIn.com/in/AlexEagle</a>
+<br/>
+<a href="http://twitter.com/jakeherringbone">Twitter.com/jakeherringbone</a>
+<br/>
+</p>
+
+<p><a href="http://fusion.google.com/add?feedurl=http://feeds.feedburner.com/AlexEaglesWeblog"><img src="http://buttons.googlesyndication.com/fusion/add.gif" width="104" height="17" style="border:0" alt="Add to Google Reader or Homepage"/></a></p>
+<p><a href="http://feeds.feedburner.com/AlexEaglesWeblog" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="" style="vertical-align:middle;border:0"/></a>&nbsp;<a href="http://feeds.feedburner.com/AlexEaglesWeblog" rel="alternate" type="application/rss+xml">Subscribe in a reader</a></p>
+</div>
+		</div><div id="twitter-tools" class="box-right"><h4>Tweets</h4><div class="aktt_tweets">
+	<ul>
+		<li>Help me stop corporate influence over elections. There's a great, easy email form at <a href="http://fixcongressfirst.org" rel="nofollow">http://fixcongressfirst.org</a> #fixcongressfirst <a href="http://twitter.com/jakeherringbone/statuses/8620408568">5 hrs ago</a></li>
+		<li>My economic theory: <a href="http://twitgoo.com/d4lci" rel="nofollow">http://twitgoo.com/d4lci</a> <a href="http://twitter.com/jakeherringbone/statuses/8610737384">9 hrs ago</a></li>
+		<li><a href="http://bit.ly/7I4nDl" rel="nofollow">http://bit.ly/7I4nDl</a> ...well, California is still missing community fish hatcheries and county-subsidized greenhouses. <a href="http://twitter.com/jakeherringbone/statuses/8481794154">3 days ago</a></li>
+		<li>iPad is lame. Just another viewer for your iTunes purchases and no innovations in the online experience. I'd rather have a Chrome OS netbook <a href="http://twitter.com/jakeherringbone/statuses/8291433020">1 week ago</a></li>
+		<li>Tore my lip when it stuck to a cold popsicle during intermission. It's bleeding a little, which I hope stops before the trombone entrance... <a href="http://twitter.com/jakeherringbone/statuses/8101429475">1 week ago</a></li>
+		<li>Really, #SupremeCourt? Corporations have "free speech"? To a congressman, that speech= millions in campaign support. I can't yell that loud. <a href="http://twitter.com/jakeherringbone/statuses/8044168301">1 week ago</a></li>
+		<li>I guess our chances of fixing US healthcare died with Teddy. Glad I have Canada citizenship for when I get too sick to be insured. <a href="http://twitter.com/jakeherringbone/statuses/7970540168">2 weeks ago</a></li>
+		<li><a href="http://twitter.com/TCooganPlants">@TCooganPlants</a> Here's an inspiration: come have South Indian with Kristi and me in Sunnyvale <a href="http://twitter.com/jakeherringbone/statuses/7849273339">2 weeks ago</a></li>
+		<li class="aktt_more_updates"><a href="http://twitter.com/jakeherringbone">More updates...</a></li>
+</ul><p class="aktt_credit">Powered by <a href="http://alexking.org/projects/wordpress">Twitter Tools</a>.</p></div></div><div id="linkcat-2" class="box-right"><h4>Blogroll</h4>
+	<ul class='xoxo blogroll'>
+<li><a href="http://iamaveragejane.wordpress.com">Average Jane</a></li>
+<li><a href="http://www.bakeramyoga.com">Bakeram Yoga</a></li>
+<li><a href="http://bethepower.com/">Be the Power</a></li>
+<li><a href="http://cubanlinks.org/blog">cubanlinks.org  | post</a></li>
+<li><a href="http://pipes.yahoo.com/pipes/pipe.info?_id=oLOS8SUz3BGLWULE1fC6Jw">duck_typer (pipes)</a></li>
+<li><a href="http://gymratconfidential.wordpress.com">Gym Rat Confidential</a></li>
+<li><a href="http://blog.opencomponentry.com">opencomponentry</a></li>
+<li><a href="http://pushbuttonreceivebacon.tumblr.com/">push button, receive bacon</a></li>
+<li><a href="http://thethesisblog.blogspot.com/">The Thesis Blog</a></li>
+<li><a href="http://www.thoughtsatsix.com/">thoughtsatsix - Home</a></li>
+<li><a href="http://dseymore.tumblr.com/">Uncommon Socks</a></li>
+
+	</ul>
+</div>
+<div id="categories-198742231" class="box-right"><h4>Categories</h4>		<ul>
+			<li class="cat-item cat-item-7"><a href="http://jakeherringbone.com/category/design/" title="View all posts filed under Design">Design</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="http://jakeherringbone.com/category/hacking/" title="View all posts filed under Hacking">Hacking</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://jakeherringbone.com/category/iphone/" title="View all posts filed under iPhone">iPhone</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://jakeherringbone.com/category/music/" title="View all posts filed under Music">Music</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://jakeherringbone.com/category/nil/" title="The testable programming language">nil</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://jakeherringbone.com/category/ruby/" title="View all posts filed under Ruby">Ruby</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://jakeherringbone.com/category/development/" title="View all posts filed under Software Development">Software Development</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://jakeherringbone.com/category/the-world/" title="View all posts filed under The World">The World</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="http://jakeherringbone.com/category/typing/" title="View all posts filed under Typing">Typing</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://jakeherringbone.com/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+		</ul>
+</div>		<div id="text-198743281" class="box-right">			<h4>Podcasts I'm listening to</h4>			<div class="textwidget"><script language="javascript" src="http://rpc.blogrolling.com/display.php?r=0d48620b8ddf8d5bef15af504d02bfee" type="text/javascript"></script></div>
+		</div>	  
+</div><!-- end content-right -->	  
+	  <div class="clear"></div>
+	
+</div><!-- end content -->
+	
+</div><!-- end page -->
+
+<div id="footer-wrap">
+
+	<div id="footer">
+	
+		<div id="legal"><a href="http://jakeherringbone.com">Jake Herringbone</a> is powered by <a href="http://wordpress.org">WordPress</a>.</div>
+		
+		<div id="webdemar">WordPress Theme by <a href="http://webdemar.com" title="WordPress Theme by">webdemar</a>.</div>
+		
+		<div class="clear"></div>
+	
+	</div>
+
+</div><!-- end footer-wrap -->
+<script type="text/javascript" src="http://www.assoc-amazon.com/s/link-enhancer?tag=typher-20&o=1">
+</script>
+<noscript>
+    <img src="http://www.assoc-amazon.com/s/noscript?tag=typher-20" alt="" />
+</noscript>
+
+
+</body>
+</html>

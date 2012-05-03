@@ -1,0 +1,358 @@
+<html>
+
+<head>
+<title>Is Java driving you loopy?</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta name="author" content="David Reilly">
+<meta name="description" content="
+If Java is your first programming language, loops (also called 
+iteration) can be a confusing topic. In this article, I'll show 
+you the different types of loops that Java supports, and when to 
+use them.">
+
+<!-- Style sheet -->
+<link rel="stylesheet" href="../../jcb.css" type="text/css">
+<style>
+<!--
+@import url("../../jcb.css") ;
+-->
+</style>
+</head>
+
+<body>
+
+<div align="center">
+  <!-- Insert for header -->
+  <!--webbot bot="Include" u-include="../../nav/top.html" tag="BODY" startspan -->
+
+<!-- New to Java -->
+<p align=left><font color="green" size="2"><a style="color: #008080">New to
+Java? We'll help you get started with our </a></font><a href="../../tutorials/gettingstarted/index.html" style="color: #008080"><font color="green" size="2">revised
+beginner's tutorial</font></a><font color="green" size="2"><a style="color: #008080" href="../../books/extracts/javanotesv3/index.html">,</a><a style="color: #008080">
+or our</a></font> <a style="color: #008080" href="../../books/extracts/javanotesv3/index.html"><font color="green" size="2">free
+online textbook.</font></a></p>
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" width="600">
+	 <!-- Advertising to support JavaCoffeeBreak -->
+    <tr>
+      <!-- Left table contains 480x600 advertising banner for our sponsors -->
+      <td valign="top" align="left">
+
+
+<p align="center">
+
+
+<!-- BEGIN RICH-MEDIA BURST! CODE -->
+<script language="JavaScript">
+rnum=Math.round(Math.random() * 100000);
+
+document.write('<scr'+'ipt src="http://www.burstnet.com/cgi-bin/ads/ad2350a.cgi/v=2.0S/sz=468x60A/'+rnum+'/RETURN-CODE/JS/"></scr'+'ipt>');
+
+</script>
+<noscript><a href="http://www.burstnet.com/ads/ad2350a-map.cgi/ns/v=2.0S/sz=468x60A/" target="_top">
+<img src="http://www.burstnet.com/cgi-bin/ads/ad2350a.cgi/ns/v=2.0S/sz=468x60A/" border="0" alt="Click Here"></a>
+</noscript>
+<!-- END BURST CODE -->
+
+  
+
+
+</p>
+
+
+
+      </td>
+      <!-- Right table contains 120x60  button for our sponsors -->
+      <td valign="top" align="right">
+         
+
+
+        <a href="http://www.amazon.com/exec/obidos/redirect?tag=davidreillysprog&amp;path=subst/books/computers/java/java.html"><img border="0" src="../../images/javashop.gif" width="120" height="60"></a><br>
+        <font face="Times New Roman" size="1"><a href="http://www.amazon.com/exec/obidos/redirect?tag=davidreillysprog&amp;path=subst/books/computers/java/java.html">Get the latest Java books</a></font>
+
+
+      </td>
+    </tr>
+    <!-- JavaCoffeeBreak branding and navigation -->
+    <tr>
+      <td colspan="2">
+        <div align="center">
+          <font size="1">h t t p : / /w w w . j a v a c o f f e e b r e a k . c
+          o m /</font>
+          <table border="1" cellpadding="0" cellspacing="0" width="400" bgcolor="#000000">
+            <tr>
+              <td>
+                <p align="center"><img src="../../images/header.gif" alt="Java Coffee Break" width="400" height="50"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
+
+<!--webbot bot="Include" endspan i-checksum="59429" -->
+
+  <table border="0" width="600" cellspacing="5" 10 cellpadding="5">
+    <tr>
+      <td width="125" valign="top"><!--webbot bot="Include"
+        u-include="../../nav/left.html" tag="BODY" startspan -->
+
+<p><font color="#000080">Menu</font></p>
+<hr color="#000080">
+<p><font size="2"><a href="http://javacoffeebreak.mail.everyone.net/"><br>
+</a></font><i>Learning Java</i></p>
+<p><font size="2"><a href="../index.html">Articles<br>
+</a><a href="../authorprofiles/index.html">Author Profiles</a><br>
+<a href="../../tutorials/index.html">Lessons<br>
+</a><a href="../../faq/index.html">FAQ's<br>
+</a><a href="../../books/index.html">Books</a><br>
+<a href="../../newsletter/index.html">Newsletter<br>
+</a><a href="../../tutorials/index.html">Tutorials<br>
+</a><a href="../../javatalk/index.html">Talk Java!</a></font></p>
+<p><i>Using Java</i></p>
+<p><font size="2"><a href="../../applets/index.html">Applets</a><br>
+<a href="../../beans/index.html">JavaBeans</a><br>
+<a href="../../servlets/index.html">Servlets</a><br>
+<a href="../../links.html">Resources<br>
+</a><a href="../../javatalk/index.html">Discuss Java</a></font></p>
+<hr color="#000080">
+
+<p><a href="http://www.milehighcomics.com/cgi-bin/welcome.cgi?wdreil">
+<img src="../../advertising/milehigh/school.jpg" width="100" height="200"></a></p>
+
+<p><font size="2">
+Looking for Java resources? Check out the <a href="../../directory/index.html">Java
+Coffee Break directory</a>!</font></p>
+
+
+
+<!--webbot bot="Include" endspan i-checksum="42608" -->
+
+      </td>
+      <td valign="top">
+        <h3 align="center">Is Java driving you loopy?</h3>
+        <div align="center">
+          <center>
+          <table border="0" width="90%" cellpadding="10">
+            <tr>
+              <td width="100%" bgcolor="#F5FEF1"><font color="#000080">If Java
+                is your first programming language, then loops (a form of iteration) can be a confusing topic. In this article, I'll show
+                you the different types of loops that Java supports, and when to
+                use them. <i>-- David Reilly</i></font></td>
+            </tr>
+          </table>
+          </center>
+        </div>
+        <p align="left">There are three basic building blocks of programming :-</p>
+        <ul>
+          <li>
+            <p align="left">sequence</li>
+          <li>
+            <p align="left">selection</li>
+          <li>
+            <p align="left">iteration</li>
+        </ul>
+        <p align="left">Most programmers will be familiar with sequence. A
+        sequence of programming statements are executed one after the other. For
+        example, the following two lines can be executed sequentially</p>
+        <div align="left">
+        <pre align="left">System.out.println (&quot;hello&quot;);
+System.out.println (&quot;goodbye&quot;);</pre>
+        </div>
+        <p align="left">Selection is also fairly simple. By using <code>if</code> / <code>switch</code>
+        statements, you can control the execution flow of code. Most programmers
+        are already familiar with the concept behind <code>if</code>
+        statements&nbsp;- it is virtually impossible to write any application
+        without using some form of selection.</p>
+        <p align="left">The final concept, iteration, is the focus of this
+        article. This one is a little more tricky, as there are quite a few
+        different times of iteration statements in Java. The basic concept behind iteration, is that a sequence of statements is repeated
+        until a certain condition is met. When this condition is met, the
+        iteration terminates, and the loop is over.</p>
+        <blockquote>
+        <p align="left"><img border="0" src="loop.gif" width="266" height="85"></p>
+        </blockquote>
+        <h3 align="left">'for' loops</h3>
+        <p align="left">The simplest type of loop uses the <code>for</code> statement, to
+        iterate through a sequence of statements. Usually, a <code>for</code> 
+        loop will use a counter, with a precise starting point and a precise
+        ending point.</p>
+        <div align="left">
+        <pre align="left">// for loop, from 1 to 5
+<b>for (int i = 1; i &lt;= 5; i++)</b>
+{
+    System.out.println (&quot;count : &quot; + i);
+}</pre>
+        </div>
+        <p align="left">There are several components to a <code>for</code>  loop</p>
+        <p align="left"> <code>for  ( init&nbsp;&nbsp;</code><b> ;&nbsp;</b>&nbsp;
+        <code>condition</code>&nbsp;&nbsp; <b>;</b>&nbsp;&nbsp; <code>statement )</code>&nbsp;</p>
+        <p align="left">A check to see if the condition equates to <code>true</code>
+        is made at the end of the for loop. When the condition fails to be met,
+        the loop will terminate. In our previous example, the loop terminates
+        when our counter (i) is not less than or equal to a value of five.</p>
+        <p align="left">It is also worth noting that each of the components of a
+        for loop is entirely optional. For example, our loop could be rewritten
+        as the following: -</p>
+        <div align="left">
+          <pre align="left">// This may be more useful, as the variable
+// i is created outside the scope of the 
+// loop.
+int i = 1;</pre>
+        </div>
+        <div align="left">
+          <pre align="left">// for loop, from i to 5
+<b>for (; i &lt;= 5; i++)</b>
+{
+    System.out.println (&quot;count : &quot; + i);
+} </pre>
+        </div>
+        <h3 align="left">'while' loops</h3>
+        <p align="left">A while loop differs from the for loop, in that it only
+        contains a condition, and that the condition is tested at the beginning
+        of the loop. This means that if the condition evaluates to false, it
+        will not be executed at all. We call this a <i>pre-tested</i> loop,
+        because the test is made before executing the sequence of statements
+        contained within.</p>
+        <div align="left">
+          <pre align="left">int i = 1;
+
+<b>while (i &lt;= 5)</b>
+{
+    System.out.println (&quot;count : &quot; + i);
+    i++;
+}</pre>
+        </div>
+        <h3 align="left">'do...while' loops</h3>
+        <p align="left">A variation on the while loop is the <i>post-tested</i>
+        version. Two keywords are used for this loop, the do and the while
+        keywords.</p>
+        <div align="left">
+          <pre align="left">int i = 1;
+
+<b>do</b>
+{
+    System.out.println (&quot;count : &quot; + i);
+    i++;
+}
+<b>while (i &lt;= 5)</b></pre>
+        </div>
+        <p align="left">There is no difference between a while, and a do...while
+        loop other than <i>pre-testing</i> and <i>post-testing</i>.</p>
+        <h3 align="left">Terminating loops abruptly</h3>
+        <p align="left">Sometimes it is necessary to stop a loop before its
+        terminating condition is reached. For example, a loop that searched
+        through an array for a particular entry should not continue once that
+        entry is found - to do so would only waste CPU time and make for a
+        slower program. Other times, you may want to skip ahead to the next
+        iteration of the loop, rather than performing additional processing.
+        Java provides two keywords for this purpose : <code>break</code> and <code>continue</code>.&nbsp;</p>
+        <h3 align="left">break</h3>
+        <p align="left">The <code>break</code>  keyword is used to terminate a
+        loop early. Consider the following example, which searches through an
+        array for a particular value.</p>
+        <div align="left">
+          <pre align="left">// Check to see if &quot;yes&quot; string is stored
+boolean foundYes = false;
+
+for (int i = 0; i &lt; array.length; i++)
+{
+    if (array[i].equals(&quot;yes&quot;))
+    {
+        foundYes = true;
+<b>        break;</b>
+    }
+}</pre>
+        </div>
+        <h3 align="left">continue</h3>
+        <p align="left">Unlike the <code>break</code>  keyword, <code>continue</code>
+        does not terminate a loop. Rather, it skips to the next iteration of the
+        loop, and stops executing any further statements in this iteration. This
+        allows us to bypass the rest of the statements in the current sequence,
+        without stopping the next iteration through the loop.</p>
+        <div align="left">
+          <pre align="left">for (int i = 0; i &lt; array.length; i++)
+{
+    if (array[i] == null)
+        // skip this one, goto next loop
+        <b>continue;</b>
+    else
+    {
+        // do something with array[i]
+        .......
+    }
+}</pre>
+        </div>
+        <p align="left">While this example was unnecessary, since we had an if
+        statement to separate program flow, there are some complex algorithms
+        where <code>continue</code> and <code>break</code>  are extremely
+        useful.</p>
+        <h3 align="left">Summary</h3>
+        <p align="left">Loop don't need to be difficult, providing you keep in
+        minds these simple concepts: -</p>
+        <ul>
+          <li>
+            <p align="left">loops are for repetition of statements</p>
+          </li>
+          <li>
+            <p align="left">some loops are pre-tested (<code>for, while</code>), others are
+            post-tested (<code>do..while</code>)</p>
+          </li>
+          <li>
+            <p align="left">when you have a clearly defined start and finish, a <code>for</code>
+            loop is preferable</p>
+          </li>
+          <li>
+            <p align="left">when you have a more complex termination condition, <code> while
+            </code>loops are preferable</p>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><!--webbot bot="Include"
+        u-include="../../_private/footer.html" tag="BODY" startspan -->
+
+<p align="center"><a href="../../index.html">Back to main</a></p>
+
+<hr>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td width="451">
+      <div align="left">
+        <address>
+          <font face="Arial" size="2">Copyright 1998, 1999, 2000 David Reilly</font>
+        </address>
+      </div>
+    </td>
+    <td width="310">
+      <p align="right"><font face="Arial" size="2"><a href="../../legal/privacy.html">Privacy</a>
+      | <a href="../../legal/index.html">Legal</a> | <a href="../../legal/linking.html">Linking</a>
+      | <a href="../../advertising/index.html" style="color: #FF9966">Advertise!</a></font></td>
+  </tr>
+  <tr>
+    <td width="451">
+      <div align="left">
+        <address>
+          <font face="Arial" size="2">Last updated: 
+          Monday, June 05, 2006</font>
+        </address>
+      </div>
+    </td>
+    <td width="310"></td>
+  </tr>
+</table>
+<!--webbot bot="Include" endspan i-checksum="925" -->
+
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>

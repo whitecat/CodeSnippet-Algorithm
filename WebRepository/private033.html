@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Accessing Java Private Attributes and Methods &laquo; Full Life = Work + Life;</title>
+	<style type="text/css" media="screen">
+			@import url( http://s1.wordpress.com/wp-content/themes/pub/iceburgg/style.css?m=1247756219g );
+	</style>
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://andrejserafim.wordpress.com/feed/" />
+	<link rel="pingback" href="http://andrejserafim.wordpress.com/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="Full Life = Work + Life; &raquo; Accessing Java Private Attributes and&nbsp;Methods Comments Feed" href="http://andrejserafim.wordpress.com/2009/07/31/accessing-java-private-attributes-and-methods/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' href='http://s.wordpress.com/wp-content/themes/h4/global.css?m=1256671583g' type='text/css' />
+<script type='text/javascript' src='http://s1.wordpress.com/wp-includes/js/comment-reply.js?ver=20090102'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://andrejserafim.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://andrejserafim.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Full Life = Work + Life;' href='http://andrejserafim.wordpress.com' />
+<link rel='start' title='Who am&nbsp;I?' href='http://andrejserafim.wordpress.com/2007/12/13/hello-world/' />
+<link rel='prev' title='Ignoring Java Generics&nbsp;Safety' href='http://andrejserafim.wordpress.com/2009/07/24/ignoring-java-generics-safety/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://andrejserafim.wordpress.com/2009/07/31/accessing-java-private-attributes-and-methods/' />
+<link rel="shortcut icon" type="image/x-icon" href="http://www.gravatar.com/blavatar/46702c77948204ef88ac6f240027e115?s=16&#038;d=http://s.wordpress.com/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="http://www.gravatar.com/blavatar/46702c77948204ef88ac6f240027e115?s=16&#038;d=http://s.wordpress.com/favicon.ico" />
+<link rel="apple-touch-icon" href="http://www.gravatar.com/blavatar/b6c0857426303a5fcf8a3633b1046035?s=158&#038;d=http://s.wordpress.com/wp-content/themes/h4/i/webclip.png" />
+<link rel='openid.server' href='http://andrejserafim.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://andrejserafim.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://andrejserafim.wordpress.com/osd.xml" title="Full Life = Work + Life;" />
+<link rel="shortlink" href="http://wp.me/p9InX-1o" /><style type="text/css">
+#header{
+	background: url(http://andrejserafim.files.wordpress.com/2009/01/scaled_mountains.jpg) no-repeat;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div id="top"></div>
+<div id="logo">
+  <div class="title">
+    <h2>
+      Full Life = Work + Life;    </h2>
+  </div>
+  <div class="tagline">
+    There is no such thing as work/life balance, there is just life. Here you will find software development notes mixed in with personal writings.  </div>
+  <div style="clear: both"></div>
+</div>
+<div style="clear: both"></div>
+<div id="navigation">
+  <ul>
+    <li><a href="http://andrejserafim.wordpress.com">Home</a></li>
+    <li class="page_item page-item-2"><a href="http://andrejserafim.wordpress.com/about/" title="About">About</a></li>
+<li class="page_item page-item-28"><a href="http://andrejserafim.wordpress.com/single-line-scripts/" title="Single line&nbsp;scripts">Single line&nbsp;scripts</a></li>
+  </ul>
+  <div style="clear: both"></div>
+</div>
+<div style="clear: both"></div>
+<div id="header"></div>
+<div style="clear: both"></div>
+
+<div id="maincontent">
+    <div class="post-86 post hentry category-javamaven tag-attribute tag-encapsulation tag-java tag-junit tag-method tag-private tag-reflection">
+    <h2><a href="http://andrejserafim.wordpress.com/2009/07/31/accessing-java-private-attributes-and-methods/" rel="bookmark">
+      Accessing Java Private Attributes and&nbsp;Methods      </a></h2>
+    <div style="clear: both"></div>
+    <div class="pb"><b class="postbitmed"> <b class="postbitmed1"><b></b></b> <b class="postbitmed2"><b></b></b> <b class="postbitmed3"></b> <b class="postbitmed4"></b> <b class="postbitmed5"></b> </b>
+      <div class="postbitmed_content">
+        <p><img src="http://s3.wordpress.com/wp-content/themes/pub/iceburgg/imgs/calen.gif" alt="Posted On" />
+          July 31, 2009        </p>
+	<p>Filed under <a href="http://en.wordpress.com/tag/javamaven/" title="View all posts in Java/Maven" rel="category tag">Java/Maven</a>        <br />Tags: <a href="http://en.wordpress.com/tag/attribute/" rel="tag">attribute</a>, <a href="http://en.wordpress.com/tag/encapsulation/" rel="tag">encapsulation</a>, <a href="http://en.wordpress.com/tag/java/" rel="tag">java</a>, <a href="http://en.wordpress.com/tag/junit/" rel="tag">junit</a>, <a href="http://en.wordpress.com/tag/method/" rel="tag">method</a>, <a href="http://en.wordpress.com/tag/private/" rel="tag">private</a>, <a href="http://en.wordpress.com/tag/reflection/" rel="tag">reflection</a>        </p>
+        <p><img src="http://s3.wordpress.com/wp-content/themes/pub/iceburgg/imgs/comments.gif" alt="Comments Dropped" /> <a href="http://andrejserafim.wordpress.com/2009/07/31/accessing-java-private-attributes-and-methods/#comments">
+          one response          </a></p>
+      </div>
+      <b class="postbitmed"> <b class="postbitmed5"></b> <b class="postbitmed4"></b> <b class="postbitmed3"></b> <b class="postbitmed2"><b></b></b> <b class="postbitmed1"><b></b></b> </b></div>
+    <div class="words">
+	<div class='snap_preview'><p>Java reflection is a very powerful framework. </p>
+<p>Sometimes its power seems outside the usual Java methodology.</p>
+<p>For example, I needed to manually change a private variable in one of the classes I was testing.</p>
+<p>Java reflection has an API that allows this. Of course, the API does not know if one is in a test or production source code. It works anywhere!</p>
+<p>Below is an example of three classes. </p>
+<ul>
+<li>IntWrapper is the class under question.</li>
+<li>IntWrapperTest is the JUnit class</li>
+<li>RegularMainClass is a class with a main method, almost a copy of IntWrapperTest.</li>
+</ul>
+<p>It is worth noting that the testers and the testee are in separate packages. So one can change the private variable or call a private method of any class in any package!</p>
+<pre class="brush: java;">
+package com.otherexample;
+
+public class IntWrapper {
+
+	private int i;
+
+	public IntWrapper(int i) {
+		this.i = i;
+	}
+
+	private void incrementI() {
+		i++;
+	}
+
+	public int getI() {
+		return i;
+	}
+
+}
+</pre>
+<pre class="brush: java;">
+package com.example;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.junit.Test;
+
+import com.otherexample.IntWrapper;
+
+import static org.junit.Assert.*;
+
+public class IntWrapperTest {
+
+	@Test
+	public void testPrivateMembers() {
+		try {
+			IntWrapper iw = new IntWrapper( 15 );
+			assertEquals(15, iw.getI() );
+			Field f = iw.getClass().getDeclaredField(&quot;i&quot;);
+
+			f.setAccessible(true);
+			f.setInt(iw, 18);
+			assertEquals(18, iw.getI() );
+
+			Method m = iw.getClass().getDeclaredMethod(&quot;incrementI&quot;);
+			m.setAccessible(true);
+			m.invoke(iw);
+			assertEquals(19, iw.getI() );
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
+</pre>
+<pre class="brush: java;">
+package com.example;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import com.otherexample.IntWrapper;
+
+public class RegularMainClass {
+
+	public static void main(String[] args) {
+		try {
+			IntWrapper iw = new IntWrapper( 15 );
+			if( 15 != iw.getI() ) System.err.println(&quot;Assertion failed&quot;);
+			else System.out.println(&quot;all is well 1&quot;);
+			Field f = iw.getClass().getDeclaredField(&quot;i&quot;);
+
+			f.setAccessible(true);
+			f.setInt(iw, 18);
+			if( 18 != iw.getI() ) System.err.println(&quot;Assertion failed&quot;);
+			else System.out.println(&quot;all is well 2&quot;);
+
+			Method m = iw.getClass().getDeclaredMethod(&quot;incrementI&quot;);
+			m.setAccessible(true);
+			m.invoke(iw);
+			if( 19 != iw.getI() ) System.err.println(&quot;Assertion failed&quot;);
+			else System.out.println(&quot;all is well 3&quot;);
+
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
+</pre>
+</div>	    </div>
+    <div style="clear: both"></div>
+            <div style="clear: both"></div>
+    <div id="cprespace"></div>
+    <div style="clear: both"></div>
+    <div id="commentarea">
+    <div id="precomments">
+    <div class="comleft">
+      <h3 id="comments">
+        One Response        to &#8220;
+        Accessing Java Private Attributes and&nbsp;Methods        &#8221;</h3>
+    </div>
+    <div class="comright">
+      <a href='http://andrejserafim.wordpress.com/2009/07/31/accessing-java-private-attributes-and-methods/feed/'>Comments RSS</a>    </div>
+    <div style="clear: both"></div>
+  </div>
+  <div style="clear: both"></div>
+  <ol class="commentlist">
+  
+   <li class="comment even thread-even depth-1" id="comment-63">
+ <div id="div-comment-63">
+      <span class="comment-author vcard">
+      <img alt='' src='http://1.gravatar.com/avatar/d131952d0982030139e509502cbd496b?s=48&amp;d=identicon&amp;r=G' class='avatar avatar-48' height='48' width='48' />      <span class="cauthor fn">
+      <a href='http://vidageek.net' rel='external nofollow' class='url'>Jonas Abreu</a>      </span>
+      </span>
+            <br />
+      <a href="http://andrejserafim.wordpress.com/2009/07/31/accessing-java-private-attributes-and-methods/#comment-63" class="permalink" title=""></a>
+      <p>Hello,</p>
+<p>something I consider really important when testing, is how my test is written. Reflection code usually is quite ugly (those try/catch/exceptions are really bad). There is a project called Mirror (<a href="http://projetos.vidageek.net/mirror/" rel="nofollow">http://projetos.vidageek.net/mirror/</a>) that helps solving this problem.</p>
+<p>Regards,</p>
+      <div class="reply">
+	<a rel='nofollow' class='comment-reply-link' href='/2009/07/31/accessing-java-private-attributes-and-methods/?replytocom=63#respond' onclick='return addComment.moveForm("div-comment-63", "63", "respond", "86")'>Reply</a>      </div>
+ </div>
+</li>
+  </ol>
+
+  <div class="navigation">
+  	<div class="alignleft"></div>
+  	<div class="alignright"></div>
+  </div>
+	
+      <div style="clear: both"></div>
+  <div id="respond">
+  <div id="dropsome">
+    <h3 id="commentsreply">Respond now.</h3>
+  </div>
+  <div id="cancel-comment-reply"><small><a rel="nofollow" id="cancel-comment-reply-link" href="/2009/07/31/accessing-java-private-attributes-and-methods/#respond" style="display:none;">Click here to cancel reply.</a></small></div>
+  <div style="clear: both"></div>
+    <form action="http://andrejserafim.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+        <p>
+      <input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+      <label for="author"><small>Name
+      (required)      </small></label>
+    </p>
+    <p>
+      <input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+      <label for="email"><small>E-mail (will not be published)
+      (required)      </small></label>
+    </p>
+    <p>
+      <input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+      <label for="url"><small>Website</small></label>
+    </p>
+    
+    <p>
+      <textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4">
+</textarea>
+    </p>
+    <p>
+      <input name="submit" class="submitbutton" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+      <input type='hidden' name='comment_post_ID' value='86' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+    </p>
+    
+<input type="hidden" name="genseq" value="1265268010" />
+		<p>
+			<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/>
+			<label class="subscribe-label" id="subscribe-label" for="subscribe">Notify me of follow-up comments via email.</label>
+		</p>
+			<p>
+			<input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"/>
+			<label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts via email.</label>
+		</p>
+	  </form>
+    </div>
+  </div>
+    <div style="clear: both"></div>
+  </div>
+  <div style="clear: both"></div>
+</div>
+<div style="clear: both"></div>
+<div id="prefooter"></div>
+<div id="footer"> 
+	<a href='http://wordpress.com/' rel='generator'>Blog at WordPress.com</a>. Theme: Iceburgg by <a href="http://www.devlounge.net" rel="designer">Devlounge</a>.
+
+<script type="text/javascript" src="http://wordpresscom.skimlinks.com/api/wordpress.js"></script>
+<script type="text/javascript">
+var skimlinks_pub_id = "725X1342";
+var skimlinks_sitename = "andrejserafim.wordpress.com";
+var skimlinks_domain = "go2.wordpress.com";
+skimlinks();
+</script><script type="text/javascript" src="//secure.quantserve.com/quant.js"></script>
+<script type="text/javascript">_qoptions = { labels:"adt.0,language.en,posttag.attribute,posttag.encapsulation,posttag.java,posttag.junit,posttag.method,posttag.private,posttag.reflection" };_qacct="p-18-mFEk4J448M";quantserve();</script>
+<noscript><p><img src="//secure.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=adt.0%2Clanguage.en%2Cposttag.attribute%2Cposttag.encapsulation%2Cposttag.java%2Cposttag.junit%2Cposttag.method%2Cposttag.private%2Cposttag.reflection" style="display: none" height="1" width="1" alt="" /></p></noscript>
+<script type='text/javascript' src='http://s1.wordpress.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/shCore.js?m=1258143671g'></script>
+<script type='text/javascript' src='http://s1.wordpress.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/shBrushJava.js?m=1258143671g'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var themecssurl = "http://s1.wordpress.com/wp-content/plugins/syntaxhighlighter-wpcom/shThemeDefault.css?m=1258244991g";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		document.getElementsByTagName("head")[0].appendChild(themecss);
+	})();
+	SyntaxHighlighter.config.clipboardSwf = 'http://s2.wordpress.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/clipboard.swf';
+	SyntaxHighlighter.config.strings.expandSource = 'show source';
+	SyntaxHighlighter.config.strings.viewSource = 'view source';
+	SyntaxHighlighter.config.strings.copyToClipboard = 'copy to clipboard';
+	SyntaxHighlighter.config.strings.copyToClipboardConfirmation = 'The code is in your clipboard now';
+	SyntaxHighlighter.config.strings.print = 'print';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.all();
+</script>
+<script src="http://s.stats.wordpress.com/w.js?19" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'2315573','v':'wpcom','user_id':'0','post':'86','subd':'andrejserafim'});
+ex_go({'crypt':'RDZ8LFkxbXFpRz1vb0xDfHpzQTY0K0d8UWNkPTRYJmViJl1ZT10/JVRLNy5TJWVEMHM2Qi9wUTlQT08tTU9dbDlSVVkxTj1ubEF5QVtIZ11IaFUwNHZXU2hlWD9ZLGZZLCVCcmRCclRIczBdcEdNanw2TzJLQiVTVUFMYVR8cHU/ZTFlT25xelVrK196NWdCXXRjP2dGa1ZYZGNDfmlMdGs0ZVVWeFFBUD9KemJtaE9aV2RrW2E/bFZkWFtBPyVOTURCRjRj'});
+addLoadEvent(function(){linktracker_init('2315573',86);});
+	</script>
+</div>
+<div style="clear: both"></div>
+
+</body></html>

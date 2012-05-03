@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>Java nio, checking if a channel is ready for read, write - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6230">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/1450777/java-nio-checking-if-a-channel-is-ready-for-read-write">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Java nio, checking if a channel is ready for read, write'" href="/feeds/question/1450777">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(1450777);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f1450777%2fjava-nio-checking-if-a-channel-is-ready-for-read-write">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/1450777/java-nio-checking-if-a-channel-is-ready-for-read-write" class="question-hyperlink">Java nio, checking if a channel is ready for read, write</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,nio">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="1450777">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b></b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>Instead of using a selector in the usual way, where for each ready channel a message can be determined and sent, I'd like to choose whichever connection is currently ready and send a message there. </p>
+
+<p>Presumably this can be done by throwing all the channels into a selector for reading and marking them ready for reading if they come out, then doing the same for writing, and then choosing from among those that I've marked ready.</p>
+
+<p>Is this a good idea, is there a better way to do this, and what should I watch out for? For example, the <a href="http://rox-xmlrpc.sourceforge.net/niotut/" rel="nofollow">Rox Tutorial</a> states <em>"If you try to mix OP READ and OP WRITE you'll quickly get yourself into trouble. The Sun Windows implementation has been seen to deadlock if you do this."</em> Are there similar gotchas here? What is the best way to implement:</p>
+
+<pre><code>boolean isReadyForRead(SocketChannel c);
+boolean isReadyForWrite(SocketChannel c);
+</code></pre>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/nio" class="post-tag" title="show questions tagged 'nio'" rel="tag">nio</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-1450777" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/1450777/revisions" title="show all edits to this post"><span title="2009-09-20 22:04:25Z" class="relativetime">Sep 20 at 22:04</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            
+            </td>
+            
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2009-09-20 10:56:32Z" class="relativetime">Sep 20 at 10:56</span></div><div class="user-gravatar32"><a href="/users/154066/mk"><img src="http://www.gravatar.com/avatar/53b6268760a3308f8c586744afadb763?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/154066/mk" >mk</a><br><span class="reputation-score" title="reputation score">83</span><span title="9 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">9</span></span></div></div>
+            <br class="cbt">
+            <div class="accept-rate cool" title="this user has accepted an answer for 6 of 8 eligible questions">75% accept rate</div>
+            
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-1450777" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>2 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/1450777?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/1450777?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/1450777?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="1451791"></a>
+    
+    <div id="answer-1451791" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="1451791">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+<img src="http://sstatic.net/so/img/vote-accepted-on.png"
+    class="vote-accepted"
+    style="cursor:default"
+    width="30"
+    height="31"
+    alt="check"
+    title="The question owner accepted this as the best answer Dec 5 at 4:36" >
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>How about something like this?</p>
+
+<pre><code>public static boolean isReadyForRead(SocketChannel socket) throws IOException {
+	return isReady(socket, SelectionKey.OP_READ);
+}
+
+public static boolean isReadyForWrite(SocketChannel socket) throws IOException {
+	return isReady(socket, SelectionKey.OP_WRITE);
+}
+
+public static boolean isReady(SocketChannel socket, int op) throws IOException {
+	// Setup
+	if (socket.isBlocking()) 
+		throw new IllegalArgumentException("Socket must be in non-blocking mode");
+
+	Selector selector = SelectorProvider.provider().openSelector();
+    socket.register(selector, op);
+
+    // Real work
+    if (selector.selectNow() == 0)
+    	return false;
+    // Just in case selector has other keys
+    return selector.selectedKeys().contains(socket.keyFor(selector));
+}
+</code></pre>
+
+<p>This call is terribly inefficient because it does the setup every time. If you have an enclosing class, this should be moved out. If you know selector only contains one key, last line can be changed into "<code>return true;</code>".</p>
+
+<p>I am just doing this for fun. I can't think of a scenario that this will be useful. Select() is designed to tell you the status of sockets efficiently and everyone should use that directly.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/1450777/java-nio-checking-if-a-channel-is-ready-for-read-write/1451791#1451791" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-1451791" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-09-20 19:25:04Z" class="relativetime">Sep 20 at 19:25</span></div><div class="user-gravatar32"><a href="/users/149808/zz-coder"><img src="http://www.gravatar.com/avatar/6c86720e9a178abc0b6f169ae67151fd?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/149808/zz-coder" >ZZ Coder</a><br><span class="reputation-score" title="reputation score">9,265</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="2 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">2</span></span><span title="12 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">12</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-1451791" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-1299094" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Are there any problems with doing it this way, though with this moved out? (I've restored the original version of my question.) &ndash;&nbsp;<a href="/users/154066/mk" title="83" class="comment-user owner">mk</a> <span class="comment-date"><span title="2009-09-20 22:04:52Z">Sep 20 at 22:04</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-1299247" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I am not familiar with the problem mentioned in the tutorial but we are not doing that. We don't mix READ/WRITE. THe keyset will not be updated for each call so no threading issue. &ndash;&nbsp;<a href="/users/149808/zz-coder" title="9265" class="comment-user">ZZ Coder</a> <span class="comment-date"><span title="2009-09-20 23:05:06Z">Sep 20 at 23:05</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,nio">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="1451357"></a>
+    
+    <div id="answer-1451357" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="1451357">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>You should be using your SelectionKey's to verify if a socket is ready for read or write, when the selector wakes up.</p>
+
+<p>Here's a <em>very</em> useful tutorial on writing an NIO Server and Client <a href="http://rox-xmlrpc.sourceforge.net/niotut/" rel="nofollow">http://rox-xmlrpc.sourceforge.net/niotut/</a></p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/1450777/java-nio-checking-if-a-channel-is-ready-for-read-write/1451357#1451357" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-1451357" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-09-20 16:07:34Z" class="relativetime">Sep 20 at 16:07</span></div><div class="user-gravatar32"><a href="/users/152621/malaxeur"><img src="http://www.gravatar.com/avatar/1b39d48ffc848afe54a5db8a77c3368e?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/152621/malaxeur" >Malaxeur</a><br><span class="reputation-score" title="reputation score">1,606</span><span title="3 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">3</span></span><span title="10 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">10</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-1451357" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-1298082" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I'd like to know when a specific channel is ready, and channels do not have a .isReadyForRead() method. Als, by &quot;wakes up&quot; do you mean &quot;when .select() returns&quot;, or are you talking about a threading strategy? &ndash;&nbsp;<a href="/users/154066/mk" title="83" class="comment-user owner">mk</a> <span class="comment-date"><span title="2009-09-20 16:23:33Z">Sep 20 at 16:23</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-1299028" class="comment">
+        <td></td>
+        <td class="comment-text"><div>+1 for the pointer to the tutorial &ndash;&nbsp;<a href="/users/70795/mark" title="5298" class="comment-user">Mark</a> <span class="comment-date"><span title="2009-09-20 21:47:10Z">Sep 20 at 21:47</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-1299459" class="comment">
+        <td></td>
+        <td class="comment-text"><div>It's when .select() returns.  This is caused by a connection requiring a read or write, or if selector.select() is called.  You should then iterate through the selected keys and verify if the selector is ready for read or write.  (There are a few other steps but they are all outlined in the tutorial). &ndash;&nbsp;<a href="/users/152621/malaxeur" title="1606" class="comment-user">Malaxeur</a> <span class="comment-date"><span title="2009-09-21 00:24:08Z">Sep 21 at 0:24</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/1450777/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/nio" class="post-tag" title="show questions tagged 'nio'" rel="tag">nio</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/1450777/ivc/5f90" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34100</span><br>
+<a href="/questions/tagged/nio" class="post-tag" title="show questions tagged 'nio'" rel="tag">nio</a>&nbsp;<span class="item-multiplier">&times;&nbsp;107</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2009-09-20 10:56:32Z">4 months ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">243 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-09-20 22:04:25Z">4 months ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,nio">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?5919">' +
+	   "Sr. QA Engineer" +
+	   ' at ' +
+	   "Pancetera Software</a> (" +
+	   "Santa Clara, CA  95054" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+    <div class="module">
+    <h4>Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="/questions/1516434/should-thread-blocked-by-java-nio-selector-select-be-considered-waiting-or-runn" class="question-hyperlink">Should thread blocked by java NIO Selector.select() be considered waiting or running</a>
+</div>
+<div class="spacer">
+<a href="/questions/876602/problem-with-writing-large-data-using-java-nio-socket-channel" class="question-hyperlink">problem with writing large data using java nio socket channel</a>
+</div>
+<div class="spacer">
+<a href="/questions/843283/asynchronous-channel-close-in-java-nio" class="question-hyperlink">Asynchronous channel close in Java NIO</a>
+</div>
+<div class="spacer">
+<a href="/questions/1037226/java-nio-channels-buffers-streams-terminology" class="question-hyperlink">java.nio channels buffers streams terminology</a>
+</div>
+<div class="spacer">
+<a href="/questions/1045544/stax-parsing-from-java-nio-channel" class="question-hyperlink">StAX parsing from Java NIO channel</a>
+</div>
+<div class="spacer">
+<a href="/questions/905781/how-to-read-and-write-data-and-accepting-connection-using-socket-channel" class="question-hyperlink">how to read and write data and accepting connection using socket channel</a>
+</div>
+<div class="spacer">
+<a href="/questions/1147873/java-nio-threading-issue-with-socketchannel-write" class="question-hyperlink">Java NIO Threading issue with SocketChannel.write()</a>
+</div>
+<div class="spacer">
+<a href="/questions/1477306/java-selector-nio-reading-problem" class="question-hyperlink">Java Selector NIO Reading problem</a>
+</div>
+<div class="spacer">
+<a href="/questions/1316925/java-nio-reading-variable-sized-blocks" class="question-hyperlink">Java NIO: reading variable-sized blocks</a>
+</div>
+<div class="spacer">
+<a href="/questions/2146656/filenotfoundexception-on-opening-fileoutputstream-on-same-file-read-using-java-ni" class="question-hyperlink">FileNotFoundException on opening FileOutputStream on same file read using java nio</a>
+</div>
+<div class="spacer">
+<a href="/questions/1688632/nio-file-channel-transfer-problem-on-iseries" class="question-hyperlink">NIO file channel transfer problem on iSeries</a>
+</div>
+<div class="spacer">
+<a href="/questions/1215418/java-complete-code-examples-of-thread-per-connection-blocking-io-versus-nio" class="question-hyperlink">Java: Complete code examples of thread-per-connection blocking IO versus NIO?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2031939/java-nio-invalidindexexception-how-to-read-and-write-with-random-access-to-larg" class="question-hyperlink">Java.NIO InvalidIndexException - how to read and write with random access to large files.</a>
+</div>
+<div class="spacer">
+<a href="/questions/2122263/java-socket-listener-using-java-nio" class="question-hyperlink">Java socket listener using JAVA.NIO</a>
+</div>
+<div class="spacer">
+<a href="/questions/1111527/java-multiple-selectors-in-multiple-threads-for-nonblocking-sockets" class="question-hyperlink">Java - Multiple selectors in multiple threads for nonblocking sockets</a>
+</div>
+<div class="spacer">
+<a href="/questions/267306/java-net-versus-java-nio" class="question-hyperlink">java.net versus java.nio</a>
+</div>
+<div class="spacer">
+<a href="/questions/1475356/nio-server-reading-once" class="question-hyperlink">NIO Server Reading Once</a>
+</div>
+<div class="spacer">
+<a href="/questions/1057224/thread-is-stuck-while-registering-channel-with-selector-in-java-nio-server" class="question-hyperlink">thread is stuck while registering channel with selector in Java NIO server. </a>
+</div>
+<div class="spacer">
+<a href="/questions/871870/how-to-write-data-to-socket-channel" class="question-hyperlink">how to write data to socket channel</a>
+</div>
+
+    </div>
+    </div>
+
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/1450777" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/1450777" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6239</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

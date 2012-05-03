@@ -1,0 +1,756 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link class="component" href="/a4j/s/3_3_1.GAorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAELXT5DOhSIAQ!sA18_" rel="stylesheet" type="text/css" /><link class="component" href="/a4j/s/3_3_1.GAorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAELXT5DOhSIAQ!sA18_" media="rich-extended-skinning" rel="stylesheet" type="text/css" /><script src="/a4j/g/3_3_1.GAorg.ajax4jsf.javascript.AjaxScript" type="text/javascript"></script><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/a4j/g/3_3_1.GAorg/richfaces/renderkit/html/scripts/skinning.js" type="text/javascript"></script><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>In Relation To... &nbsp;Java EE 6 Final Release
+    </title>
+    <link href="/themes/inrelationto/css/inrelationto.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" rel="stylesheet" href="/themes/inrelationto/css/shCore.css" />
+	<link type="text/css" rel="stylesheet" href="/themes/inrelationto/css/shThemeDefault.css" />
+        <link rel="alternate" type="application/atom+xml" title="Gavin" href="/service/Feed/atom/Area/Bloggers/Node/Gavin" />
+
+    <script type="text/javascript" src="/seam/resource/remoting/resource/remote.js"></script>
+    <script type="text/javascript" src="/seam/resource/remoting/interface.js?httpSessionChecker"></script>
+    <script type="text/javascript" src="/themes/inrelationto/js/jquery.js"></script>
+    <script type="text/javascript" src="/themes/inrelationto/js/jqueryPlugins.js"></script>
+    <script type="text/javascript" src="/themes/inrelationto/js/lacewiki.js"></script>
+
+    <script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shCore.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushBash.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushCpp.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushCSharp.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushCss.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushDelphi.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushDiff.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushGroovy.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushPython.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushRuby.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushScala.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushSql.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushVb.js"></script>
+	<script type="text/javascript" src="/themes/inrelationto/js/sh/scripts/shBrushXml.js"></script>
+    
+	<script type="text/javascript">
+//		SyntaxHighlighter.config.clipboardSwf = '/themes/inrelationto/js/sh/scripts/clipboard.swf';
+        SyntaxHighlighter.defaults['gutter'] = false;
+
+        SyntaxHighlighter.all();
+	</script>
+
+    <script type="text/javascript">
+
+        // ###################### Session timeout alert #################################
+
+        var sessionChecker = Seam.Component.getInstance("httpSessionChecker");
+        var timeoutURL = '/Bloggers/Everyone';
+        var timeoutMillis = '1800'*1000+3000;
+        var sessionTimeoutInterval = null;
+
+        function startSessionTimeoutCheck() {
+            sessionTimeoutInterval = setInterval('sessionChecker.isNewSession(alertTimeout)', timeoutMillis);
+        }
+
+        function stopSessionTimeoutCheck() {
+            if (sessionTimeoutInterval) clearInterval(sessionTimeoutInterval);
+        }
+
+        function resetSessionTimeoutCheck() {
+            if (sessionTimeoutInterval != null) {
+                stopSessionTimeoutCheck();
+                startSessionTimeoutCheck();
+            }
+        }
+
+        function alertTimeout(newSession) {
+            if (newSession) {
+                clearInterval(sessionTimeoutInterval);
+                jQuery(".ajaxSupport")
+                        .removeAttr('onblur')
+                        .removeAttr('onchange')
+                        .removeAttr('onkeyup')
+                        .removeAttr('onclick');
+                jQuery(".sessionEventTrigger").hide();
+                var answer = confirm("Your session has timed out, you will be redirected to the start page.");
+                if (answer) window.location = timeoutURL;
+            }
+        }
+
+        // ###################### Popups #################################
+
+        var fadeInPopupDialog = function(hash) {
+            hash.w.fadeIn('fast',function(){ hash.o.show(); });
+            jQuery(".closeDialog", hash.w).attr("accesskey", "C"); // Dynamically assign accesskey to .closeDialog buttons
+        };
+
+        var fadeOutPopupDialog = function(hash) { hash.w.fadeOut('fast',function(){ hash.o.remove(); }); };
+
+        // ###################### Tabbed Forms #################################
+
+        var formTabErrors = {};
+
+        function formTabRaiseError(tabId, fieldId, message) {
+
+            formTabClearError(tabId, fieldId); // Clear error then re-add
+
+            log("Raise error for tab: '" + tabId + "' field: " + fieldId);
+
+            // Add an error message to the client message box
+            log("Adding error message: " +tabId + fieldId + "ErrorMessage")
+            jQuery("#clientMessageBoxTable").append(
+                '<tr id="' + tabId + fieldId + 'ErrorMessage"><td><img src="/themes/inrelationto/img/attention.gif" ' +
+                'height="18" width="18" class="attentionImage"/></td>' +
+                '<td><span id="attentionMessage" class="attentionMessage">'+ message + '</span></td></tr>'
+            );
+            if (formTabErrors[tabId] == null) {
+                formTabErrors[tabId] = 1;
+            } else {
+                formTabErrors[tabId]++;
+            }
+            formTabRenderErrors(tabId);
+        }
+
+        function formTabClearError(tabId, fieldId) {
+            if (document.getElementById(tabId+fieldId+"ErrorMessage") != null) { // This error is displayed
+                log("Clear error for tab: '" + tabId + "' field: " + fieldId);
+                log("Removing error message: " +tabId + fieldId + "ErrorMessage")
+                // Remove the error message on the client message box
+                jQuery("#"+tabId + fieldId + "ErrorMessage").remove();
+
+                formTabErrors[tabId]--;
+                formTabRenderErrors(tabId);
+            }
+        }
+
+        function formTabRenderErrors(tabId) {
+            log("Errors for tab: '" + tabId + "': " + formTabErrors[tabId]);
+
+            if (formTabErrors[tabId] > 0 && document.getElementById(tabId+"InvalidIcon") == null) {
+                log("Showing icon for tab: " + tabId);
+                // Show an icon on the tab and blink it a few times
+                jQuery("#"+tabId)
+                    .prepend('<img id="' + tabId + 'InvalidIcon" ' +
+                            'src="/themes/inrelationto/img/attention.gif" width="13" height="13" ' +
+                            'alt="!" style="vertical-align:bottom;margin-left:5px;margin-right:5px;"/>');
+                pulsate("#"+tabId);
+            } else if (formTabErrors[tabId] < 1){
+                log("Removing icon of tab: " + tabId);
+                jQuery("#"+tabId + "InvalidIcon").remove();             // Remove the error icon on the tab
+            }
+
+            var tabsHaveErrors = false;
+            for (var tab in formTabErrors) {
+                var numOfErrors = formTabErrors[tab];
+                if (numOfErrors > 0) {
+                    tabsHaveErrors = true;
+                    break;
+                }
+            }
+
+            if (tabsHaveErrors) {
+                log("Hiding save button and showing form message box");
+                jQuery(".saveButton").hide();                       // Hide save button(s)
+                jQuery(".formControls").css("height", "30px");      // Adjust height for missing save button
+                jQuery("#messageBoxContainer").hide();                 // Hide server messages
+                jQuery("#clientMessageBoxContainer").show();           // Show client error messages
+            } else {
+                log("Showing save button and hiding form message box");
+                jQuery(".saveButton").show();                       // Show save button(s)
+                jQuery(".formControls").css("height", "");          // Readjust height for present save button
+                jQuery("#clientMessageBoxContainer").hide();           // Hide client error messages
+            }
+        }
+
+        function formTabClicked() {
+            jQuery("#messageBoxContainer").hide();                 // Hide server messages
+        }
+
+        function log(message) {
+            return; // Remove to enable logging
+            if (!log.window_ || log.window_.closed) {
+                var win = window.open("", null, "width=400,height=200," +
+                                                "scrollbars=yes,resizable=yes,status=no," +
+                                                "location=no,menubar=no,toolbar=no");
+                if (!win) return;
+                var doc = win.document;
+                doc.write("<html><head><title>Debug Log</title></head><body style='font-family: monospace'></body></html>");
+                doc.close();
+                log.window_ = win;
+            }
+            var logLine = log.window_.document.createElement("div");
+            logLine.appendChild(log.window_.document.createTextNode(message));
+            log.window_.document.body.appendChild(logLine);
+        }
+
+        // ###################### Design #################################
+
+        function highlightStars(item, range, end) {
+            for (i = 1; i <= range; i++) {
+                styleClass = ".item"+item+"-rate"+i;
+                jQuery(styleClass)
+                    .attr("src", "/themes/inrelationto/img/star_grey.gif");
+            }
+            for (i = 1; i <= end; i++) {
+                styleClass = ".item"+item+"-rate"+i;
+                jQuery(styleClass)
+                    .attr("src", "/themes/inrelationto/img/star.gif");
+            }
+        }
+
+        function pulsate(query) {
+            var blinkCount = 2*2;
+            do {
+                jQuery(query)['fade'+(blinkCount%2==0?'Out':'In')]('fast');
+            } while (--blinkCount);
+        }
+
+        function clearDocumentBackground() {
+            jQuery("#documentDisplayContainer").parents(".shadowContainer").removeClass("shadowContainer");
+            jQuery("#documentDisplayContainer").parents(".shadow1").removeClass("shadow1");
+            jQuery("#documentDisplayContainer").parents(".shadow2").removeClass("shadow2");
+            jQuery("#documentDisplayContainer").css("background", "none");
+            jQuery("#documentDisplayContainer > #documentDisplay").css("padding", "0 0 0 0").css("border", "none");
+        }
+
+        // Wrap boxes with border and shadow
+        function wrapBoxes() {
+            jQuery(".box").wrap('<div class="shadowContainer"><div class="shadow1"><div class="shadow2"></div></div></div>');
+            jQuery(".box").removeClass("box").addClass("boxShadowed");
+        }
+
+        function initPage() {
+            checkCookieSupport();
+            wrapBoxes();
+        }
+
+        jQuery(function() {
+            initPage();
+        });
+    </script>
+
+</head>
+
+<body>
+
+<noscript>
+    <div class="cookieJavaScriptWarning">
+        Please activate JavaScript in your browser. Without it, you will only be able to browse this website
+        but clicking on any advanced feature (any forms or submit buttons) will not work.
+    </div>
+</noscript><div id="dialogHelp" class="popupDialog"><span id="dialogHelpPopup" title="dialogHelp"></span><span id="dialogHelpInit">
+        <script type="text/javascript">
+            function showHelpPopup(width, height, offsetId) {
+                var offset = jQuery("#"+offsetId).offset();
+                jsf('dialogHelpPopup')
+                    .css({width: width+"px", height: height+"px", top: offset.top-100+"px", left: offset.left-150+"px"})
+                    .jqm({
+                        closeClass: "closeDialog",
+                        overlay: 0
+                    });
+
+                jQuery("#dialogHelpContent").css("width", width-20+"px").css("height", height-75+"px");
+                jQuery("#dialogHelpContent").css("overflow", "auto");
+
+                jsf('dialogHelpPopup').jqmShow();
+            }
+        </script></span>
+
+    <script type="text/javascript">jQuery(function() {
+        jsf('dialogHelpPopup').Resizable({
+            minTop: 1,
+            dragHandle: "#dialogHelpHead",
+            handlers: { se: "#dialogHelpResizeHandle" }
+        });
+    });</script>
+
+    <div class="popupDialogHead" id="dialogHelpHead">Help</div><div id="dialogHelpContent" class="popupDialogContent"></div><div id="dialogHelpControls" class="popupDialogControls"><div id="j_id13" style="padding:5px;"><a href="" class="buttonNonpersistent closeDialog"><span class="buttonLabel">Close Help</span></a></div></div></div><div id="screen"><div id="header"><div id="headerTopOne">&nbsp;</div><div id="headerTopTwo"><div id="j_id19" class="sitename"><a href="http://in.relation.to" class="sitenameLink"><img src="/themes/inrelationto/img/inrelationto.gif" height="25" width="214" /></a></div><div id="passwordReset" class="popupDialog"><span id="passwordResetPopup" title="passwordReset"></span><span id="passwordResetInit">
+            <script type="text/javascript">jQuery(function() {
+                var offset = jQuery("#loginForm\\:openPasswordResetPopup").offset();
+                jsf('passwordResetPopup')
+                    .css({ width: "420px", height: "115px",
+                           top: offset.top+10+"px", left: offset.left-300+"px"
+                         })
+                    .jqm({
+                        trigger: jQuery("#loginForm\\:openPasswordResetPopup"),
+                        closeClass: "closeDialog",
+                        onShow: fadeInPopupDialog,
+                        onHide: fadeOutPopupDialog
+                    });
+            });</script></span>
+
+    <script type="text/javascript">jQuery(function() {
+        jsf('passwordResetPopup').Resizable({
+            minTop: 1,
+            dragHandle: "#passwordResetHead",
+            handlers: { se: "#passwordResetResizeHandle" }
+        });
+    });</script>
+
+    <div class="popupDialogHead" id="passwordResetHead">Reset Password</div><div id="passwordResetContent" class="popupDialogContent">
+<form id="resetPasswordRequestForm" name="resetPasswordRequestForm" method="post" action="/docDisplay_d.seam" class="resetPasswordRequestForm" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="resetPasswordRequestForm" value="resetPasswordRequestForm" />
+
+                <div class="resetPasswordRequestFormFields"><div id="resetPasswordRequestForm:nameDecorate">
+
+    <div class="entry ">
+
+        <div class="label">Your username:</div>
+        <div class="input"><input type="text" name="resetPasswordRequestForm:nameDecorate:j_id49" maxlength="16" size="16" tabindex="51" />
+        </div>
+    </div></div><div id="resetPasswordRequestForm:emailDecorate">
+
+    <div class="entry ">
+
+        <div class="label">Your e-mail address:</div>
+        <div class="input"><input type="text" name="resetPasswordRequestForm:emailDecorate:j_id71" maxlength="255" size="32" tabindex="51" />
+        </div>
+    </div></div>
+
+                </div>
+
+                <div class="resetPasswordRequestFormControls">
+                    <div class="entry">
+                        <div class="label">&nbsp;</div>
+                        <div class="input"><a class="buttonNonpersistent sessionEventTrigger closeDialog" href="#" id="resetPasswordRequestForm:j_id74" name="resetPasswordRequestForm:j_id74" onclick="A4J.AJAX.Submit('_viewRoot','resetPasswordRequestForm',event,{'parameters':{'resetPasswordRequestForm:j_id74':'resetPasswordRequestForm:j_id74'} ,'actionUrl':'/docDisplay_d.seam','similarityGroupingId':'resetPasswordRequestForm:j_id74'} );return false;" tabindex="51"><span class="buttonLabel">Reset Password</span></a><a href="" tabindex="51" class="buttonNonpersistent closeDialog"><span class="buttonLabel"><u>C</u>ancel</span></a>
+
+                        </div>
+                    </div>
+                </div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form></div><div id="passwordResetControls" class="popupDialogControls"></div></div><div id="userControlPanel" class="userControlPanel sessionEventTrigger">
+<form id="loginForm" name="loginForm" method="post" action="/docDisplay_d.seam" class="loginForm" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="loginForm" value="loginForm" />
+<span class="label">Username:</span><input id="loginForm:loginUsername" type="text" name="loginForm:loginUsername" class="input" size="8" tabindex="50" /><span id="loginForm:j_id91" class="label">Password&nbsp;<a id="loginForm:openPasswordResetPopup" name="loginForm:openPasswordResetPopup" href="javascript://no-op" tabindex="51"><span class="linkText">(Reset)</span></a>:</span><input id="loginForm:loginPassword" type="password" name="loginForm:loginPassword" value="" size="8" tabindex="50" class="input" /><input id="loginForm:loginButton" type="submit" name="loginForm:loginButton" value="Login" accesskey="lacewiki.button.userControl.Login.accesskey" tabindex="50" class="loginButton" /><script language="JavaScript" type="text/javascript">document.forms['loginForm'].onkeypress = new Function("event", "{var keycode;if (window.event) keycode = window.event.keyCode;else if (event) keycode = event.which;else return true;if (keycode == 13) { document.getElementById('loginForm:loginButton').click();return false; } else return true; }");</script><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form><a href="/userList_d.seam" id="j_id98" accesskey="M" tabindex="50" class="link"><span class="linkText"><u>M</u>embers</span></a></div></div>
+
+        <div id="headerBottomOne">&nbsp;</div>
+        <div id="headerBottomTwo"><div id="control">
+                <div id="controlOne"><div id="breadcrumb" class="breadcrumb"><span class="breadcrumbPanel"><a href="/" class="itemLink breadcrumbRoot">Site</a><span class="itemSeparator breadcrumbRoot">&middot;</span><a href="/Bloggers" class="itemLink">Bloggers</a><span class="itemSeparatorDot itemSeparator">&middot;</span><span class="itemSeparatorGreaterThan itemSeparator">&gt;</span><span class="itemSeparatorSlash itemSeparator">/</span><a href="/Bloggers/Gavin" class="itemLink">Gavin</a><span class="itemSeparatorDot itemSeparator">&middot;</span><span class="itemSeparatorGreaterThan itemSeparator">&gt;</span><span class="itemSeparatorSlash itemSeparator">/</span><a href="/Bloggers/JavaEE6FinalRelease" class="itemText">Java EE 6 Final Release</a></span></div>
+                </div>
+                <div id="controlTwo">&nbsp;<a href="/dirDisplay_d.seam?directoryId=1449" id="browseDir" accesskey="B" class="linkNavigation"><u>B</u>rowse</a>
+                </div></div>
+        </div></div><div id="sidebar"><div id="mainMenu" xmlns="http://www.w3.org/1999/xhtml"><div id="j_id166" class="box"><div class="mainMenuContainer">
+
+        <div class="mainMenuHeader"><div id="j_id168" class="feeds"><a href="/service/Feed/atom"><img src="/themes/inrelationto/img/icon.atom.gif" height="18" width="18" />
+                        <span class="feedText">Subscribe to site</span></a></div></div><div id="j_id174" class="level1"><div id="j_id175" class="level1Body"><span class="level1Marker level1MarkerDot">&middot;</span><span class="level1Marker level1MarkerGreaterThan">&gt;</span><span class="level1Marker level1MarkerSlash">/</span><span class="level1Marker level1MarkerSpace">&nbsp;</span><a href="/Bloggers" class="level1Link">Bloggers</a></div><div id="j_id182" class="level1Children" style="padding-left: 7px;"><div id="j_id183" class="level2"><div id="j_id184" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Gavin" class="level2Link">Gavin</a></div><div id="j_id191" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id192" class="level2"><div id="j_id193" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Emmanuel" class="level2Link">Emmanuel</a></div><div id="j_id200" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id201" class="level2"><div id="j_id202" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Christian" class="level2Link">Christian</a></div><div id="j_id209" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id210" class="level2"><div id="j_id211" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Jason" class="level2Link">Jason</a></div><div id="j_id218" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id219" class="level2"><div id="j_id220" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Jay" class="level2Link">Jay</a></div><div id="j_id227" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id228" class="level2"><div id="j_id229" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Max" class="level2Link">Max</a></div><div id="j_id236" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id237" class="level2"><div id="j_id238" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Norman" class="level2Link">Norman</a></div><div id="j_id245" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id246" class="level2"><div id="j_id247" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Pete" class="level2Link">Pete</a></div><div id="j_id254" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id255" class="level2"><div id="j_id256" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Shane" class="level2Link">Shane</a></div><div id="j_id263" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id264" class="level2"><div id="j_id265" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Steve" class="level2Link">Steve</a></div><div id="j_id272" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id273" class="level2"><div id="j_id274" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Hardy" class="level2Link">Hardy</a></div><div id="j_id281" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id282" class="level2"><div id="j_id283" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Dan" class="level2Link">Dan</a></div><div id="j_id290" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id291" class="level2"><div id="j_id292" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Ales" class="level2Link">Ales</a></div><div id="j_id299" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id300" class="level2"><div id="j_id301" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Daniel" class="level2Link">Daniel</a></div><div id="j_id308" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id309" class="level2"><div id="j_id310" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Jesper" class="level2Link">Jesper</a></div><div id="j_id317" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id318" class="level2"><div id="j_id319" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Ilya" class="level2Link">Ilya</a></div><div id="j_id326" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id327" class="level2"><div id="j_id328" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Tihomir" class="level2Link">Tihomir</a></div><div id="j_id335" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id336" class="level2"><div id="j_id337" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Nicklas" class="level2Link">Nicklas</a></div><div id="j_id344" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id345" class="level2"><div id="j_id346" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Sanne" class="level2Link">Sanne</a></div><div id="j_id353" class="level2Children" style="padding-left: 14px;"></div></div><div id="j_id354" class="level2"><div id="j_id355" class="level2Body"><span class="level2Marker level2MarkerDot">&middot;</span><span class="level2Marker level2MarkerGreaterThan">&gt;</span><span class="level2Marker level2MarkerSlash">/</span><span class="level2Marker level2MarkerSpace">&nbsp;</span><a href="/Bloggers/Gail" class="level2Link">Gail</a></div><div id="j_id362" class="level2Children" style="padding-left: 14px;"></div></div></div></div>
+
+        <div class="mainMenuFooter"><div id="searchControl" xmlns="http://www.w3.org/1999/xhtml">
+<form id="searchControlForm" name="searchControlForm" method="post" action="/docDisplay_d.seam" class="sessionEventTrigger" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="searchControlForm" value="searchControlForm" />
+<table class="searchControlTable" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td><input id="searchControlForm:searchControlSearchString" type="text" name="searchControlForm:searchControlSearchString" value="Search..." class="searchControlInput" maxlength="1000" onblur="clickRecall(this, 'Search...')" onclick="clickClear(this, 'Search...')" size="15" tabindex="60" /></td>
+<td><input id="searchControlForm:submitSearch" type="submit" name="searchControlForm:submitSearch" value="Find" tabindex="61" class="searchControlButton sessionEventTrigger" /><script language="JavaScript" type="text/javascript">document.forms['searchControlForm'].onkeypress = new Function("event", "{var keycode;if (window.event) keycode = window.event.keyCode;else if (event) keycode = event.which;else return true;if (keycode == 13) { document.getElementById('searchControlForm:submitSearch').click();return false; } else return true; }");</script></td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+</div></div>
+
+    </div></div>
+
+
+</div></div><div id="body"><div id="messageBoxContainer"></div><div id="clientMessageBoxContainer" style="display:none;">
+            <div id="clientMessageBox" class="messageBox">
+                <table id="clientMessageBoxTable" class="messageBoxTable" cellpadding="0" cellspacing="0" border="0"></table>
+                <script type="text/javascript">jQuery(function() {
+                    jQuery("#clientMessageBoxContainer").css("margin-top", "10px").css("margin-bottom", "10px");
+                    pulsate(".clientMessageBoxImage");
+                });</script>
+            </div></div><div id="content" class="content">
+
+    <div id="documentDisplayContainer" class="box"><div id="documentDisplay" class="documentDisplay"><p class="wikiPara">
+
+</p>
+<div id="j_id382">
+                    <h1 class="documentTitle"><a href="/Bloggers/JavaEE6FinalRelease">Java EE 6 Final Release</a>
+                    </h1></div><p class="wikiPara">
+As I'm sure you've all seen, <a href="http://java.sun.com/javaee/" target="" class="regularLink">Java EE 6</a> has gone final. You can now download the Final Release of the <a href="http://jcp.org/aboutJava/communityprocess/final/jsr299/index.html" target="" class="regularLink">Contexts and Dependency Injection</a>, <a href="http://jcp.org/aboutJava/communityprocess/final/jsr303/index.html" target="" class="regularLink">Bean Validation</a>, <a href="http://jcp.org/aboutJava/communityprocess/final/jsr317/index.html" target="" class="regularLink">Java Persistence API 2</a> and <a href="http://jcp.org/aboutJava/communityprocess/final/jsr315/index.html" target="" class="regularLink">Java Servlet 3</a> specifications from <tt>jcp.org</tt>, and read the linked <a href="http://java.sun.com/javaee/6/docs/api/" target="" class="regularLink">javadoc for the entire platform</a>. It's also a good chance to check out the <a href="http://jcp.org/aboutJava/communityprocess/mrel/jsr311/index.html" target="" class="regularLink">Java API for RESTful Web Services</a> specification, which now includes CDI integration, if you havn't already.
+</p>
+
+<p class="wikiPara">
+ Sun have also published a <a href="http://java.sun.com/developer/technicalArticles/JavaEE/JavaEE6Overview.html" target="" class="regularLink">three-part overview of the new platform</a> and the <a href="http://java.sun.com/javaee/6/docs/tutorial/doc/" target="" class="regularLink">Java EE 6 tutorial</a> and <a href="http://java.sun.com/javaee/reference/code/" target="" class="regularLink">sample applications</a>.
+</p>
+
+<p class="wikiPara">
+It's just fantastic to finally see the fruits of all that work :-)</p>
+</div><div id="j_id387" class="documentTags undecoratedLink smallFont"><div id="j_id388">
+                Tags:&nbsp;<a href="/tag/Bean+Validation">Bean Validation</a>&nbsp;|&nbsp;<a href="/tag/Contexts+and+Dependency+Injection">Contexts and Dependency Injection</a>&nbsp;|&nbsp;<a href="/tag/JPA+2">JPA 2</a>&nbsp;|&nbsp;<a href="/tag/Java+EE+6">Java EE 6</a>&nbsp;|&nbsp;<a href="/tag/Seam+News">Seam News</a></div></div><div id="j_id394" class="documentCreatorHistory undecoratedLink smallFont"><div id="j_id395">
+                Created:&nbsp;11. Dec 2009, 18:10&nbsp;CET&nbsp;(<a href="/Bloggers/Gavin">Gavin King</a>)</div><div id="j_id403">
+                Last Modified:&nbsp;11. Dec 2009, 18:11&nbsp;CET&nbsp;(<a href="/Bloggers/Gavin">Gavin King</a>)</div></div>
+    </div><div id="commentDisplayForm"><div id="comments" class="commentsDisplay"><div id="j_id441" class="box">
+
+    <script type="text/javascript">
+        jQuery(function() {
+            var fragment = window.location.hash;
+            if (fragment.substring(1,8) == 'comment') {
+                selectCommentBox(fragment);
+            }
+        });
+
+        function selectCommentBox(commentAnchor) {
+            jQuery(".commentBox").removeClass("commentBoxSelected");
+            jQuery(commentAnchor).parent(".commentBox").addClass("commentBoxSelected");
+        }
+    </script><table class="datatable" border="0" cellpadding="0" cellspacing="0">
+<thead>
+<tr><th colspan="1" scope="colgroup"><div id="j_id444" class="regularHeader alignLeft topBorder bottomBorder rightBorder leftBorder">9&nbsp;comments:</div></th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="commentColumn"><div id="j_id447" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id452" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id455"><span id="j_id456" class="commentDate">11. Dec 2009, 18:47&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id460" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13550">Link</a></span></div><div id="j_id471">Arbi Sookazian</div></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13550"></a><div id="j_id484" class="commentText"><p class="wikiPara">
+Very informative post indeed!
+</p>
+
+<p class="wikiPara">
+I skimmed thru the three-part overview and thought about the fact that there is seemingly only one profile available in this final release.  It would have been more interesting if there were more.  But more importantly, apparently if a team has a profile (e.g. telephony profile or mortgage processing profile, etc.) it must be submitted to the JSR EG team for review, etc.  Is it possible to create our own profile independently or must it be standardized (sounds like it must be standardized so others teams can use it which is not a bad idea ultimately)?  You can compare this process to writing portable extensions for CDI, but PEs do not require new JSRs and review, correct?
+</p>
+
+<blockquote class="wikiBlockquote">
+In particular, profiles are initiated by submitting a Java Specification Request and are released on their own schedule, independently of any concurrent revision of the Java EE platform or of other profiles. This means that a profile such as the hypothetical telephony profile can evolve at a pace that is natural for its targeted industry, without being tied to the evolution of the Java EE platform or any other profile.</blockquote>
+</div>
+
+                <div class="commentControls">
+<form id="j_id495" name="j_id495" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id495" value="j_id495" />
+
+<script type="text/javascript" language="Javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id495'),{'j_id495:j_id498':'j_id495:j_id498','conversationPropagation':'none','parentCommentId':'13550'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id495'),{'j_id495:j_id502':'j_id495:j_id502','conversationPropagation':'none','parentCommentId':'13550'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id511" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id516" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id519"><span id="j_id520" class="commentDate">11. Dec 2009, 18:53&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id524" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13552">Link</a></span></div><div id="j_id535">Arbi Sookazian</div></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13552"></a><div id="j_id548" class="commentText"><p class="wikiPara">
+<a href="http://www.eisele.net/blog/labels/jee.html" target="" class="regularLink">This</a> is interesting:
+</p>
+
+<blockquote class="wikiBlockquote">
+...compared to the other versions it is the most complex one regarding to the total number of specification pages. Seems as if the fundamental work for simplyfing the platform itself comes to fruition with JEE6 finally.
+</blockquote>
+
+<p class="wikiPara">
+Has anybody in the JCP done comparative analysis similar to what this graph depicts as far as the total number of pages in all the specs per release of each version of the platform?
+</p>
+
+</div>
+
+                <div class="commentControls">
+<form id="j_id559" name="j_id559" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id559" value="j_id559" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id559'),{'j_id559:j_id562':'j_id559:j_id562','conversationPropagation':'none','parentCommentId':'13552'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id559'),{'j_id559:j_id566':'j_id559:j_id566','conversationPropagation':'none','parentCommentId':'13552'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id575" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id580" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id583"><span id="j_id584" class="commentDate">11. Dec 2009, 19:16&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id588" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13554">Link</a></span></div><div id="j_id591"><span id="j_id592" class="undecoratedLink"><a href="/user/gavin">Gavin King</a></span>&nbsp;|&nbsp;<a href="mailto:gavin.king(AT)gmail.com">gavin.king(AT)gmail.com</a></div></td>
+<td class=" commentAuthorPortrait"><span id="j_id608" class="undecoratedLink"><a href="/user/gavin"><img src="/seam/resource/wikiUserPortrait/1447/s" class="commentAuthorPortraitImage" /></a></span></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13554"></a><div id="j_id612" class="commentText"><p class="wikiPara">
+Number of spec pages is <i class="wikiEmphasis">not</i> a proxy for complexity. You can add pages without adding any new features of new complexity, just by better nailing down the definition of some feature, by adding examples, or by adding more verbose explanations.</p>
+</div>
+
+                <div class="commentControls">
+<form id="j_id623" name="j_id623" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id623" value="j_id623" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id623'),{'j_id623:j_id626':'j_id623:j_id626','conversationPropagation':'none','parentCommentId':'13554'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id623'),{'j_id623:j_id630':'j_id623:j_id630','conversationPropagation':'none','parentCommentId':'13554'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id639" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id644" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id647"><span id="j_id648" class="commentDate">11. Dec 2009, 21:23&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id652" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13562">Link</a></span></div><div id="j_id655"><span id="j_id656" class="undecoratedLink"><a href="/user/nickarls">Nicklas Karlsson</a></span>&nbsp;|&nbsp;<a href="mailto:nickarls(AT)gmail.com">nickarls(AT)gmail.com</a></div></td>
+<td class=" commentAuthorPortrait"><span id="j_id672" class="undecoratedLink"><a href="/user/nickarls"><img src="/seam/resource/wikiUserPortrait/12617/s" class="commentAuthorPortraitImage" /></a></span></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13562"></a><div id="j_id676" class="commentText"><blockquote>
+<u>Gavin King wrote on Dec 11, 2009 19:16:</u><br/>
+
+Number of spec pages is <i class="wikiEmphasis">not</i> a proxy for complexity. You can add pages without adding any new features of new complexity, just by better nailing down the definition of some feature, by adding examples, or by adding more verbose explanations.
+</blockquote>
+
+<p class="wikiPara">
+What do you estimate the JSF 2 would be sized at after a rewrite (in the spirit of the 299 spec, keeping the information)? It is not for the faint of heart...</p>
+</div>
+
+                <div class="commentControls">
+<form id="j_id687" name="j_id687" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id687" value="j_id687" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id687'),{'j_id687:j_id690':'j_id687:j_id690','conversationPropagation':'none','parentCommentId':'13562'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id687'),{'j_id687:j_id694':'j_id687:j_id694','conversationPropagation':'none','parentCommentId':'13562'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id703" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id708" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id711"><span id="j_id712" class="commentDate">11. Dec 2009, 21:35&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id716" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13568">Link</a></span></div><div id="j_id719"><span id="j_id720" class="undecoratedLink"><a href="/user/nickarls">Nicklas Karlsson</a></span>&nbsp;|&nbsp;<a href="mailto:nickarls(AT)gmail.com">nickarls(AT)gmail.com</a></div></td>
+<td class=" commentAuthorPortrait"><span id="j_id736" class="undecoratedLink"><a href="/user/nickarls"><img src="/seam/resource/wikiUserPortrait/12617/s" class="commentAuthorPortraitImage" /></a></span></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13568"></a><div id="j_id740" class="commentText"><p class="wikiPara">
+The EE tutorial was impressive, you don't write that in a week...</p>
+</div>
+
+                <div class="commentControls">
+<form id="j_id751" name="j_id751" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id751" value="j_id751" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id751'),{'j_id751:j_id754':'j_id751:j_id754','conversationPropagation':'none','parentCommentId':'13568'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id751'),{'j_id751:j_id758':'j_id751:j_id758','conversationPropagation':'none','parentCommentId':'13568'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id767" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id772" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id775"><span id="j_id776" class="commentDate">12. Dec 2009, 06:03&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id780" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13574">Link</a></span></div><div id="j_id791">Arbi Sookazian</div></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13574"></a><div id="j_id804" class="commentText"><p class="wikiPara">
+Yes, the documentation is very good.
+</p>
+
+<p class="wikiPara">
+I was reading the Spring3 docs (trying to size it up against EE6 web profile):
+</p>
+
+<blockquote class="wikiBlockquote">
+2.5.8 Early support for Java EE 6
+
+We provide support for asynchronous method invocations through the use of the new @Async annotation (or EJB 3.1's @Asynchronous annotation).
+
+JSR 303, JSF 2.0, JPA 2.0, etc
+</blockquote>
+
+<p class="wikiPara">
+So they're basically picking and choosing the JSRs in EE6 (apparently limited to Bean Validation, JSF 2.0, and JPA 2.0) but not CDI?  I'm assuming because they already have their own proprietary DI mechanism with setter and constructor static injection as well as conversation scope support in Spring Web Flow...
+</p>
+
+<p class="wikiPara">
+Note that Spring3 is well ahead of Seam3 in terms of final release date.  They're already on 3.0.0.RC2...
+</p>
+
+<p class="wikiPara">
+Is the inspiration for EJB 3.1's <tt>@Asynchronous</tt> annotation from Seam?</p>
+</div>
+
+                <div class="commentControls">
+<form id="j_id815" name="j_id815" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id815" value="j_id815" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id815'),{'j_id815:j_id818':'j_id815:j_id818','conversationPropagation':'none','parentCommentId':'13574'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id815'),{'j_id815:j_id822':'j_id815:j_id822','conversationPropagation':'none','parentCommentId':'13574'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id831" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id836" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id839"><span id="j_id840" class="commentDate">12. Dec 2009, 06:13&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id844" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13576">Link</a></span></div><div id="j_id855">Arbi Sookazian</div></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13576"></a><div id="j_id868" class="commentText"><p class="wikiPara">
+1) how is EJB 3.1's unit testing facility with JUnit or testNG, for example?  Do you still need something like JBoss embedded container?
+</p>
+
+<p class="wikiPara">
+2) how is EJB 3.1's redeployment capability in terms of hot incremental deployment via a special classloader like Seam or JRebel or otherwise?
+</p>
+
+<p class="wikiPara">
+I know that as of EJB3, we have been referring to EJB's as POJOs, but they're not <i class="wikiEmphasis">exactly</i> equivalent if you consider the two points above, correct?
+</p>
+
+<p class="wikiPara">
+Also, in EE6 we have the option of packaging our EJBs directly in a WAR along with other POJO classes and deployment descriptors, etc.  What is the advantage of using simply a WAR rather than a WAR in an EAR?  Yes, it's cleaner/simpler, but any other advantages?</p>
+</div>
+
+                <div class="commentControls">
+<form id="j_id879" name="j_id879" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id879" value="j_id879" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id879'),{'j_id879:j_id882':'j_id879:j_id882','conversationPropagation':'none','parentCommentId':'13576'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id879'),{'j_id879:j_id886':'j_id879:j_id886','conversationPropagation':'none','parentCommentId':'13576'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id895" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id900" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id903"><span id="j_id904" class="commentDate">12. Dec 2009, 17:57&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id908" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13580">Link</a></span></div><div id="j_id911"><span id="j_id912" class="undecoratedLink"><a href="/user/gavin">Gavin King</a></span>&nbsp;|&nbsp;<a href="mailto:gavin.king(AT)gmail.com">gavin.king(AT)gmail.com</a></div></td>
+<td class=" commentAuthorPortrait"><span id="j_id928" class="undecoratedLink"><a href="/user/gavin"><img src="/seam/resource/wikiUserPortrait/1447/s" class="commentAuthorPortraitImage" /></a></span></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13580"></a><div id="j_id932" class="commentText"><blockquote class="wikiBlockquote">
+how is EJB 3.1's unit testing facility with JUnit or testNG, for example? Do you still need something like JBoss embedded container?
+</blockquote>
+
+<p class="wikiPara">
+You don't need any kind of container to unit test EJBs since version 3.0. Do you understand what the term <q>unit test</q> means?
+</p>
+
+<p class="wikiPara">
+For integration testing, you will need some kind of container. Just like you do for Spring beans, Hibernate/JPA entities, CDI managed beans, or any other kind of container-managed object.
+</p>
+
+<blockquote class="wikiBlockquote">
+how is EJB 3.1's redeployment capability in terms of hot incremental deployment via a special classloader like Seam or JRebel or otherwise?
+</blockquote>
+
+<p class="wikiPara">
+Incremental hot deployment has absolutely nothing to do with the EJB spec, as I've explained to you before. This all depends upon limitations of the Java Virtual Machine, and of the container <i class="wikiEmphasis">implementation</i>.
+</p>
+
+<blockquote class="wikiBlockquote">
+I know that as of EJB3, we have been referring to EJB's as POJOs, but they're not exactly equivalent if you consider the two points above, correct?
+</blockquote>
+
+<p class="wikiPara">
+I don't use the term <q>POJO</q> much, because it's become more or less meaningless through overuse, and as a result of changes in technology (e.g. annotations). So I'll answer your question with a question: considering the two points above, how are EJBs in <i class="wikiEmphasis">any way</i> different to Spring beans, Hibernate/JPA entities or CDI managed beans? They're not different at all, right? They are all container managed objects, with certain programming restrictions, and annotations. They all have a natural programming model. They can all be easily instantiated using <tt>new</tt> and unit tested. So if Spring and Hibernate beans are <q>POJOs</q> according to your personal definition, then so are EJBs, right?
+</p>
+
+<blockquote class="wikiBlockquote">
+Note that Spring3 is well ahead of Seam3 in terms of final release date.
+</blockquote>
+
+<p class="wikiPara">
+And what precisely do Spring 3 and Seam 3 have to do with one another? I mean, apart from sharing the same version number? Is Oracle 10 database <q>well ahead</q> of Windows 7 OS?
+</p>
+
+<blockquote class="wikiBlockquote">
+Is the inspiration for EJB 3.1's <tt>@Asynchronous</tt> annotation from Seam?
+</blockquote>
+
+<p class="wikiPara">
+<tt>@Asynchronous</tt> methods are one of the features I proposed to Sun when they were first scoping out EJB 3.1. So, yes, I suppose so. But not that Seam is definitely not the first framework to have asynchronous methods.
+</p>
+
+
+</div>
+
+                <div class="commentControls">
+<form id="j_id943" name="j_id943" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id943" value="j_id943" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id943'),{'j_id943:j_id946':'j_id943:j_id946','conversationPropagation':'none','parentCommentId':'13580'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id943'),{'j_id943:j_id950':'j_id943:j_id950','conversationPropagation':'none','parentCommentId':'13580'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+<tr>
+<td class="commentColumn"><div id="j_id959" class="commentBox commentFirstLevel" style="margin-left:0px;"><table class="commentHeader" border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="commentSubject"><div id="j_id964" class="largeFont">&nbsp;</div></td>
+<td class=" commentAuthorInfo smallFont"><div id="j_id967"><span id="j_id968" class="commentDate">29. Dec 2009, 01:00&nbsp;CET</span>&nbsp;|&nbsp;<span id="j_id972" class="commentLink undecoratedLink"><a href="/Bloggers/JavaEE6FinalRelease#comment13728">Link</a></span></div><div id="j_id983">Arbi Sookazian</div></td>
+</tr>
+</tbody>
+</table>
+
+
+                <a id="comment13728"></a><div id="j_id996" class="commentText"><p class="wikiPara">
+How close can we get to 100% hot incremental deployment with an exploded EAR/WAR?  I wish EJB 3.0 was hot incrementally deployable (I know JRebel guys are working on this for the next release!)</p>
+</div>
+
+                <div class="commentControls">
+<form id="j_id1007" name="j_id1007" method="post" action="/docDisplay_d.seam" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id1007" value="j_id1007" />
+<a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id1007'),{'j_id1007:j_id1010':'j_id1007:j_id1010','conversationPropagation':'none','parentCommentId':'13728'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Reply</span></a><a href="#" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id1007'),{'j_id1007:j_id1014':'j_id1007:j_id1014','conversationPropagation':'none','parentCommentId':'13728'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Quote</span></a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+                </div></div></td>
+</tr>
+</tbody>
+</table>
+</div></div><div id="j_id1024" class="box">
+
+<div>
+<form id="commentForm" name="commentForm" method="post" action="/docDisplay_d.seam" class="commentForm" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="commentForm" value="commentForm" />
+
+        <div class="form">
+
+            <div class="formHead bottomBorder">
+
+                <script type="text/javascript">
+                    function scrollToCommentForm() {
+                        window.scrollTo(0, jQuery('#commentForm').offset().top)
+                    }
+                </script>
+                    <script type="text/javascript">stopSessionTimeoutCheck();</script><a href="#" accesskey="T" tabindex="102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('commentForm'),{'commentForm:j_id1031':'commentForm:j_id1031'},'');}return false" class="buttonNonpersistent"><span class="buttonLabel">Pos<u>t</u> Comment</span></a>
+
+            </div>
+
+        </div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+</div></div></div></div></div>
+
+    <div id="footer">&nbsp;
+        <div align="right" style="font-size:smaller;">
+            This website was created with
+            <a href="http://www.jboss.com/products/seam">JBoss Seam</a> and
+            runs on <a href="http://www.jboss.org/products/jbossas">JBoss Application Server</a>.
+        </div>
+    </div></div><div id="status"><span id="globalStatus"><span id="globalStatus.start" style="display: none"><div id="j_id1205" class="statusStart"><img src="/themes/inrelationto/img/statusindicator.gif" height="25" width="20" /></div></span><span id="globalStatus.stop"><div id="j_id1207" class="statusStop"><img src="/themes/inrelationto/img/blank.gif" height="25" width="20" /></div></span></span></div>
+
+</body>
+</html>

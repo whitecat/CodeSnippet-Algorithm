@@ -1,0 +1,761 @@
+
+
+
+
+
+
+<html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Java Traps: double</title><META name="author" content="Kasper B. Graversen"><META http-equiv="Content-Type" content="text/html; charset=utf-8"><META HTTP-EQUIV="Content-Language" CONTENT="en-GB"><META NAME="description" CONTENT="Java Traps: double, You're in for some &quot;Double trouble&quot;! This article is a practical guide to describing the major traps and pitfalls associated with
+using the Javas simple type double. It is a must-read for any professional developer., Tutorials, help, guide, how to"><META NAME="keywords" CONTENT="Java, Java traps trail, Numbers, Double"><link href="../../prettify.css" type="text/css" rel="stylesheet"><script type="text/javascript" src="../../prettify.js"></script><LINK rel="stylesheet" type="text/css" href="../../firstclassthoughts.css"><LINK rel="icon" type="image/x-icon" href="./favicon.ico"></head><body onload="prettyPrint()"><script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script><script type="text/javascript">
+_uacct = "UA-917540-2";
+  urchinTracker();
+</script><table cellspacing="0" cellpadding="0" border="0"><tr><td colspan="5" background="./webimg/background.png"><div id="header"><table border="0"><tr><td><table><tr><td><h1>First Class Thoughts</h1></td></tr></table></td><td>&nbsp;
+	        
+	        </td></tr></table></div></td></tr><tr><td width="15%" rowspan="4">&nbsp;</td><td valign="top" width="200" height="1">&nbsp;</td><td valign="top" width="70%" rowspan="4"><span id="article"><h1>Java Traps: double</h1><table width="100%"><tr><td valign="top" width="60%"><b>Author: </b>Kasper B. Graversen, 10/07/08<br><b>Keywords: </b><a href="http://firstclassthoughts.co.uk/index__Java.html">Java</a>,
+
+    		
+    		<a href="http://firstclassthoughts.co.uk/index__Java traps trail.html">Java traps trail</a>,
+
+    		
+    		<a href="http://firstclassthoughts.co.uk/index__Numbers.html">Numbers</a>,
+
+    		
+    		<a href="http://firstclassthoughts.co.uk/index__Double.html"> Double</a><br><b>Abstract: </b><i>You're in for some "Double trouble"! This article is a practical guide to describing the major traps and pitfalls associated with
+using the Javas simple type double. It is a must-read for any professional developer.</i><br></td><td valign="top" align="right" width="60%"><a href="http://feeds.feedburner.com/FirstClassThoughts" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="" style="vertical-align:middle;border:0"></a><a href="http://feeds.feedburner.com/FirstClassThoughts" rel="alternate" type="application/rss+xml">subscribe to my RSS feed</a><br><br><script src="http://images.del.icio.us/static/js/blogbadge.js"></script><br><a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=kbilsted" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-bookmark-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js?pub=kbilsted"></script></td></tr></table><br><script type="text/javascript">
+google_ad_client = "pub-1222515461989279";
+google_ad_slot = "0708612523";
+google_ad_width = 468;
+google_ad_height = 60;
+</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script><br>
+<h2>Java Traps: double</h2>
+Many traps lay before the apprentice programmer as he walks the path of software development.  This article illustrates, through a series of
+practical examples, the main traps of using Java's simple types <code>double</code> and <code>float</code>. Note, however, that to fully embrace
+precision in numerical calculations you a text book (or two) on the topic is required. Consequently, we can only scratch the surface of the topic.
+That being said, the knowledge conveyed here, should give you the fundamental knowledge required to spot or identify bugs in your code. It is
+knowledge  I think any <i>professional software developer</i> should be aware of.
+
+<h3>Decimal numbers are approximations</h3>
+While all natural numbers between 0 - 255 can be precisely described using 8 bit, describing all real numbers between 0.0 - 255.0
+requires an infinitely number of bits. Firstly, there exists infinitely many numbers to describe in that range (even in the range 0.0 - 0.1),
+and secondly, certain irrational numbers
+ cannot be described numerically at all. For example <i>e</i> and &pi;. In other words, the
+numbers <code>2</code> and <code>0.2</code> are vastly differently represented in the computer.
+<p></p>
+Integers are represented by bits representing values
+2<sup>n</sup> where  <i>n</i> is the position of the bit. Thus the value 6 is represented as
+2<sup>3</sup> * 0  + 2<sup>2</sup> * 1  + 2<sup>1</sup> * 1 + 2<sup>0</sup> * 0 corresponding to the bit sequence <code>0110</code>.
+ Decimals, on the other hand, are described by bits representing 2<sup>-n</sup>, that is the fractions 1/2, 1/4, 1/8,... The number <code>0.75</code>
+ corresponds to 2<sup>-1</sup> * 1  + 2<sup>-2</sup> * 1  + 2<sup>-3</sup> * 0 + 2<sup>-4</sup> * 0 yielding the bits sequence <code>1100</code> (1/2 + 1/4).
+ <p></p>
+ Equipped with this knowledge, we can formulate the following rule of thumb: <b>Any decimal number is represented
+  by an <i>approximated value</i></b>.
+ <p></p>
+ Let us investigate the practical consequences of this by performing a series of trivial multiplications.
+
+<pre class="prettyprint">
+System.out.println( 0.2 + 0.2 + 0.2 + 0.2 + 0.2 );
+
+&gt;&gt; 1.0
+</pre>
+
+<code>1.0</code> is printed. While this is indeed correct, it may give us a false sense of security. Coincidentally,  <code>0.2</code> is one of the few values
+Java is able to represent correctly. Let's challenge Java again with another trivial arithmetical problem,
+adding the number <code>0.1</code> ten times.
+
+<pre class="prettyprint">
+System.out.println( 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f + 0.1f );
+System.out.println( 0.1d + 0.1d + 0.1d + 0.1d + 0.1d + 0.1d + 0.1d + 0.1d + 0.1d + 0.1d );
+
+&gt;&gt; 1.0000001
+&gt;&gt; 0.9999999999999999
+</pre>
+
+According to slides from <a href="http://blogs.sun.com/darcy/entry/what_every_computer_programmer_redux">Joseph D. Darcy's blog</a>
+the sums of the two calculations are <code>0.100000001490116119384765625</code> and <code>0.1000000000000000055511151231...</code> respectively. These results
+are correct for a limited set of digits. <code>float</code>'s have a precision of 8 leading digits, while <code>double</code> has 17 leading digits precision.
+ Now, if the conceptual mismatch between the expected result <code>1.0</code> and the results printed on the screens were not enough to get your alarm bells
+ going, then notice how the numbers from mr. Darcy's slides does not seem to correspond to the printed numbers! That's another trap.
+ More on this further down.
+<p></p>
+Having been made aware of mis-calculations in seemingly the simples possible scenarios, it is reasonable to contemplate on just how
+quickly the impression may kick in. Let us simplify the problem to adding only three numbers.
+
+<pre class="prettyprint">
+System.out.println( 0.3 == 0.1d + 0.1d + 0.1d );
+
+&gt;&gt; false
+</pre>
+
+Shockingly, the imprecision already kicks in at three additions!
+
+
+
+
+
+
+<h3>Doubles overflow</h3>
+As with any other simple type in Java, a <code>double</code> is represented by a finite set of bits. Consequently, adding a value or multiplying
+a <code>double</code> can yield surprising results. Admitedly, numbers have to be pretty big in order to overflow, but it happens. Let's try multiplying
+and then dividing a big number. Mathematical intuition says that the result is the original number. In Java we may get a different result.
+
+<pre class="prettyprint">
+double big = 1.0e307 * 2000 / 2000;
+System.out.println( big == 1.0e307 );
+
+&gt;&gt; false
+</pre>
+
+The problem here is that <code>big</code> is first multiplied, overflowing, and then the overflowed number is divided. Worse, no exception or other
+kinds of warnings are raised to the programmer. Basically, this renders the expression <code>x * y</code> completely unreliable as no indication
+or guarantee is made in the general case for all double values represented by <code>x</code>, <code>y</code>.
+
+
+
+
+
+
+<h3>Large and small are not friends!</h3>
+Laurel and Hardy were often disagreeing about a lot of things. Similarly in computing, large and small are not friends.
+A consequence of using a fixed number of bits to represent numbers is that operating on really large and really small
+numbers in the same calculations <i>will not work as expected</i>. Let's try adding something small to something large.
+
+<pre class="prettyprint">
+System.out.println( 1234.0d + 1.0e-13d == 1234.0d );
+
+&gt;&gt; true
+</pre>
+
+The addition has no effect! This contradicts any (sane) mathematical intuition of addition, which says that given two numbers
+positive numbers <code>d</code> and <code>f</code>, then <code>d + f &gt; d</code>.
+
+
+
+
+
+<h3>Decimal numbers cannot be directly compared</h3>
+What we have learned so far, is that we must throw away all intuition we have gained in math class and programming with integers.
+Use decimal numbers cautiously. For example, the statement <code>for(double d = 0.1; d != 0.3; d += 0.1)</code> is in effect a disguised
+<i>never ending loop!</i> The mistake is to compare decimal numbers directly with each other. You should adhere to the following guide lines.
+<p></p>
+
+<ul>
+<li>
+Avoid equality tests between two decimal numbers. Refrain from <code>if(a == b) {..}</code>,
+use <code>if(Math.abs(a-b) &lt; tolerance) {..}</code> where <code>tolerance</code> could be a constant defined as e.g.
+<code>public static final double tolerance = 0.01</code>
+</li>
+
+<li> Consider as an alternative to use the operators &lt;, &gt; as they may more naturally describe what you want to express.
+For example, I prefer the form<br>
+<code>for(double d = 0; d &lt;= 10.0; d+= 0.1)</code> over the more clumsy <br>
+<code>for(double d = 0; Math.abs(10.0-d) &lt; tolerance; d+= 0.1)</code>
+<br>
+Both forms have their merits depending on the situation though: When unit testing, I <i>prefer</i> to express that
+ <code>assertEquals(2.5, d, tolerance)</code>
+ over saying <code>assertTrue(d &gt; 2.5)</code> not only does the first form read better, it is often the check you want to be doing (i.e. that <code>d</code> is not too large).
+</li>
+
+ </ul>
+
+
+
+
+
+
+<h3>WYSINWYG - What You See Is <i>Not</i> What You Get</h3>
+<i>WYSIWYG</i> is an expression typically used in graphical user interface applications. It means, "What You See Is What You Get", and
+ is used in computing to describe a system in which content displayed during editing appears very similar to the final output,
+ which might be a printed document, a web page, etc.
+The phrase was originally a popular catch phrase originated by Flip Wilson's drag persona "Geraldine",
+who would often say "What you see is what you get" to excuse her quirky behavior (<a href="http://en.wikipedia.org/wiki/WYSIWYG">from wikipedia</a>).
+<p></p>
+Another serious trap programmers often fall into, is thinking that decimal numbers are WYSIWYG. It is imperative to realize,
+that when printing or writing a decimal number, it <b>is not the approximated value that gets printed/written</b>.
+Phrased differently, Java is doing a lot of approximations behind the scenes, and persistently
+tries to shield you from ever knowing it. There is just one problem. You need to know about these approximations, otherwise you may
+face all sorts of mysterious bugs in your code.
+<p></p>
+With a bit of ingenuity, however, we can investigate what really goes on behind the scene. By now we know that the number <code>0.1</code> is represented
+with some approximation.
+
+<pre class="prettyprint">
+System.out.println( 0.1d );
+
+&gt;&gt; 0.1
+</pre>
+
+We know <code>0.1</code> is not <code>0.1</code>, yet <code>0.1</code> is printed on the screen. Conclusion: Java is WYSI<b>N</b>WYG!
+<p></p>
+For the sake of variety, let's pick another innocent looking number, say <code>2.3</code>. Like <code>0.1</code>, <code>2.3</code> is an approximated value.
+Unsurprisingly when printing the number Java hides the approximation.
+
+<pre class="prettyprint">
+System.out.println( 2.3d );
+
+&gt;&gt; 2.3
+</pre>
+
+To investigate what the internal approximated value of <code>2.3</code> may be, we can compare the number to other numbers in a close range.
+
+<pre class="prettyprint">
+double d1 = 2.2999999999999996d;
+double d2 = 2.2999999999999997d;
+System.out.println( d1 + " " + (2.3d == d1) );
+System.out.println( d2 + " " + (2.3d == d2) );
+
+&gt;&gt; 2.2999999999999994 false
+&gt;&gt; 2.3 true
+</pre>
+
+So <code>2.2999999999999997</code> is just as much <code>2.3</code> as the value <code>2.3</code>! Also notice that due to the approximation,
+the pivoting point is at ..99997 and not ..99995 where you ordinarily round round up in math. Another way to get to grips with
+ the approximated value is to call upon the services of <code>BigDecimal</code>.
+
+<pre class="prettyprint">
+System.out.println( new BigDecimal(2.3d) );
+
+&gt;&gt; 2.29999999999999982236431605997495353221893310546875
+</pre>
+
+Now, don't rest on your laurels thinking you can just jump ship and only  use <code>BigDecimal</code>.
+<a href="big_decimal_traps.html">BigDecimal has its own collection of traps documented here</a>.
+<p></p>
+Nothing is easy, and rarely anything comes for free. And "naturally", <code>float</code>s and <code>double</code>s yield different results when printed/written.
+
+<pre class="prettyprint">
+System.out.println( Float.toString(0.1f) );
+System.out.println( Double.toString(0.1f) );
+System.out.println( Double.toString(0.1d) );
+
+&gt;&gt; 0.1
+&gt;&gt; 0.10000000149011612
+&gt;&gt; 0.1
+</pre>
+
+According to the slides from <a href="http://blogs.sun.com/darcy/entry/what_every_computer_programmer_redux">Joseph D. Darcy's blog</a>
+a float approximation has 24 significant bits while a double approximation has 53 significant bits. The morale is that <i>In order to
+preserve values, you must read and write decimal numbers in the same format</i>.
+
+
+
+
+<h3>Division by 0</h3>
+Many developers know from experience that dividing a number by zero yields abrupt termination of their applications. A similar behaviour is
+found is Java when operating on <code>int</code>'s, but quite surprisingly, not when operating on <code>double</code>'s.
+
+Any number, with the exception of zero, divided by zero yields respectively &infin; or -&infin;.
+Dividing zero with zero results in the special <code>NaN</code>, the Not a Number value.
+
+<pre class="prettyprint">
+System.out.println(22.0 / 0.0);
+System.out.println(-13.0 / 0.0);
+System.out.println(0.0 / 0.0);
+
+&gt;&gt; Infinity
+&gt;&gt; -Infinity
+&gt;&gt; NaN
+</pre>
+
+
+Dividing a positive number with a negative number yields a negative result, while dividing a negative number with a
+negative number yields a positive result.  Since division by zero is possible, you'll get different result depending on whether you divide a number
+with <code>0.0</code> or <code>-0.0</code>. Yes, it's true! <i>Java has a negative zero!</i> Don't be fooled though, the two zero values are equal as shown below.
+
+<pre class="prettyprint">
+System.out.println(22.0 / 0.0);
+System.out.println(22.0 / -0.0);
+System.out.println(0.0 == -0.0);
+
+&gt;&gt; Infinity
+&gt;&gt; -Infinity
+&gt;&gt; true
+</pre>
+
+
+
+<h3>Infinity is weird</h3>
+In the world of mathematics, infinity was a concept I found hard to grasp. For example, I never acquired an intuition for when one infinity
+were infinitely larger than another. Surely Z &gt; N, the set of all rational numbers is infinitely larger than the set of natural numbers, but that
+was about the limit of my intuition in this regard!
+<p></p>
+Fortunately, infinity in Java is about as unpredictable as infinity in the mathematical world. You can perform the usual suspects (<code>+, -, *, /</code>
+on an infinite value, but you cannot apply an infinity to an infinity.
+
+<pre class="prettyprint">
+double infinity = 1.0 / 0.0;
+System.out.println(infinity + 1);
+System.out.println(infinity / 1e300);
+System.out.println(infinity / infinity);
+System.out.println(infinity - infinity);
+
+&gt;&gt; Infinity
+&gt;&gt; Infinity
+&gt;&gt; NaN
+&gt;&gt; NaN
+</pre>
+
+
+The main problem here is that the <code>NaN</code> value is returned without any warnings. Hence, should you foolishly investigate whether a particular
+double is even or odd, you can really get into a hairy situation. Maybe a run-time exception would have been more appropriate?
+
+<pre class="prettyprint">
+double d = 2.0, d2 = d - 2.0;
+System.out.println("even: " + (d % 2 == 0) + " odd: " + (d % 2 == 1));
+d = d / d2;
+System.out.println("even: " + (d % 2 == 0) + " odd: " + (d % 2 == 1));
+
+&gt;&gt; even: true odd: false
+&gt;&gt; even: false odd: false
+</pre>
+
+Suddenly, your variable is neither odd nor even!
+
+
+
+<h3>NaN is even weirder than Infinity</h3>
+An infinite value is different from the maximum value of a <code>double</code> and <code>NaN</code> is different again from the infinite value.
+
+<pre class="prettyprint">
+double nan = 0.0 / 0.0, infinity = 1.0 / 0.0;
+System.out.println( Double.MAX_VALUE != infinity );
+System.out.println( Double.MAX_VALUE != nan );
+System.out.println( infinity         != nan );
+
+&gt;&gt; true
+&gt;&gt; true
+&gt;&gt; true
+</pre>
+
+Generally, when a double have acquired the value <code>NaN</code> any operation on it results in a <code>NaN</code>.
+
+<pre class="prettyprint">
+System.out.println( nan + 1.0 );
+
+&gt;&gt; NaN
+</pre>
+
+
+
+
+
+
+<h3>Conclusions</h3>
+<ul>
+<li>Decimal numbers are approximations, not the value you assign. Any intuition gained in math-world no longer applies.
+Expect <code>a+b = a</code> and <code>a != a/3 + a/3 + a/3</code></li>
+<li>Avoid using the <code>==</code>, compare against some tolerance or use the <code>&gt;=</code> or <code>&lt;=</code> operators</li>
+<li>Java is WYSINWYG! Never believe the value you print/write is approximated value, hence always read/write decimal
+numbers in the same format.</li>
+<li>Be careful not to overflow your double, not to get your double into a state of &plusmn;<code>Infinity</code> or <code>NaN</code>. In either case,
+your calculations may be not turn out as you'd expect. You may find it a good idea to always check against those values before returning
+a value in your methods.</li>
+</ul>
+
+Related to this article is <a href="big_decimal_traps.html">the BigDecimal traps</a> 
+documented here on first class thoughts. Another article that further digs into the intricate details of
+computation is <a href="http://docs.sun.com/source/806-3368/ncg_goldberg.html">what every computer scientist should know about floating-point arithmetic</a>
+
+
+
+<p></p><br><br><h1>Comments</h1>
+If you have any comments to this article,
+please drop me a mail at firstclassthoughts at gmail dot com please indicate if I can't publish whole or parts of your comment on the site.
+<p></p><p></p><br>
+      If you like this site consider
+<a href="http://feeds.feedburner.com/FirstClassThoughts" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="" style="vertical-align:middle;border:0"></a><a href="http://feeds.feedburner.com/FirstClassThoughts" rel="alternate" type="application/rss+xml">subscribing to my RSS feed</a>
+or how about <a href="http://www.feedburner.com/fb/a/emailverifySubmit?feedId=2158384&amp;loc=en_US">subscribing by Email</a>.
+      <p></p><br><h4>Help spread the word</h4>
+      Share this post on your favorite social bookmarking sites:
+      <table><tr valign="top"><td><script src="http://images.del.icio.us/static/js/blogbadge.js"></script></td><td><script type="text/javascript" src="http://reddit.com/button.js?t=3"></script></td><td>
+If you enjoyed this article, found it thought provoking, educative or otherwise good, please link to this page from your page or social
+bookmarking page. If you have any texts you think are worth publishing on First Class Thoughts, don't hesitate to send me a mail!
+Quality always welcome.
+<br><p></p><br></td></tr></table><a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=kbilsted" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-bookmark-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js?pub=kbilsted"></script><br><br><br>
+The most recent contributions
+<br>28/07/09 <a href="http://firstclassthoughts.co.uk/./blog/kbg/math_magic_ii_142857.html">Magic in mathematics II</a> <i>Fun with the number cyclic numbers, and specifically with 142857 as it is the smallest of such numbers.</i><br>13/07/09 <a href="http://firstclassthoughts.co.uk/./misc/best_firefox_shortcuts.html">My top 8 time-saving Firefox shortcuts</a> <i>This article presents my favorite top 8 time-saving shortcuts in Firefox 3.0 and Firefox 3.5. Get to know these and you'll be saving a lot of time.
+They have been ordered by "the element of most surprise"</i><br>20/05/09 <a href="http://firstclassthoughts.co.uk/./blog/kbg/jungle_speed_board_game.html">Board Game Jungle speed / Arriba</a> <i>Review of the cool game "Jungle Speed" aka. "Arriba".</i><br>16/05/09 <a href="http://firstclassthoughts.co.uk/./misc/twin_words_dk.html">Danish Twin words</a> <i>"Twin words" are words that not only have multiple meanings, they must be composed next to each other in meaningful sentences.
+This article explores the concept of twin words.</i><br>
+Nothing of interest? Try browsing the <a href="http://firstclassthoughts.co.uk/index-all.html">entire article archive</a>...
+
+      <br></span></td><td width="13%" rowspan="4">&nbsp;</td><td valign="top" rowspan="2" bgcolor="#eeeeee"><script type="text/javascript">
+google_ad_client = "pub-1222515461989279";
+/* 120x600 f.c.t. co.uk */
+google_ad_slot = "9646220545";
+google_ad_width = 120;
+google_ad_height = 600;
+</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script><br></td></tr><tr><td valign="top" rowspan="3"><div id="leftmenu"><p><img src="../../webimg/portrait.jpg" alt="First Class Thoughts" width="85%"></p><h2>First Class Thoughts</h2><p><a href="http://feeds.feedburner.com/FirstClassThoughts"><img src="http://feeds.feedburner.com/~fc/FirstClassThoughts?bg=98533B&amp;fg=FFFFFF&amp;anim=0" height="26" width="88" style="border:0" alt=""></a></p><a href="../../index.html">Home</a><br><br>
+	<b>Topics</b><ul>
+		<li><a href="../../ant/index.html">Ant</a></li>
+		<li><a href="../../free_music/index.html">Free MP3 music</a></li>
+		<li><a href="../../free_software/index.html">Free software</a></li>
+		
+		
+		<li><a href="../../java/index.html">Java</a></li>
+		<ul>
+			<li><a href="../../java/traps/index.html">Traps</a></li>
+		</ul>
+		<li><a href="../../misc/index.html">Misc</a></li>
+		<li><a href="../../puzzle/index.html">Puzzles</a></li>
+		<li><a href="../../struts/index.html">Struts</a></li>
+		<li><a href="../../swt/index.html">SWT</a></li>
+		<li><a href="../../xml/index.html">XML</a></li>
+	</ul>
+	<b>Blogs</b><ul>
+		<li><a href="../../blog/kbg/index.html">KBG</a></li>
+	</ul>
+	<b>Article Indexes</b><ul>
+		<li><a href="../../index-all.html">Articles by date</a></li>
+	</ul>
+<br><b>Article Keywords</b><br><br>
+
+ &nbsp;<a href="../../index__.html"></a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__ANT.html">ANT</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Actions.html">Actions</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Backup.html">Backup</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Bat file.html">Bat file</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__BigDecimal.html">BigDecimal</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__BookReview.html">BookReview</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Build script.html">Build script</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__C.html">C</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__CPP.html">CPP</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__CSV.html">CSV</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__CSharp.html">CSharp</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Cmd file.html">Cmd file</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Compile.html">Compile</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__DB.html">DB</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__DBA.html">DBA</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Danish.html">Danish</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Documentation.html">Documentation</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Double.html">Double</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__ESB.html">ESB</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Eclipse.html">Eclipse</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__English.html">English</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Enterprise Service Bus.html">Enterprise Service Bus</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Exception handling.html">Exception handling</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Firefox.html">Firefox</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Font.html">Font</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Font list.html">Font list</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Foreach.html">Foreach</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Forwards.html">Forwards</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Free Software.html">Free Software</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Free mp3.html">Free mp3</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Free music.html">Free music</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Fun.html">Fun</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Functional Programming.html">Functional Programming</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__GUI.html">GUI</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Geek movie.html">Geek movie</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__GeekPoetry.html">GeekPoetry</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Help.html">Help</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__IEnumerable.html">IEnumerable</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__IEnumerator.html">IEnumerator</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__IQ Test.html">IQ Test</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Inheritance.html">Inheritance</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__JSP.html">JSP</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Java.html">Java</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Java traps trail.html">Java traps trail</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Javadoc.html">Javadoc</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Keyboard.html">Keyboard</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Language.html">Language</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Linguistics.html">Linguistics</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Linux.html">Linux</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Log4J.html">Log4J</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Logging.html">Logging</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Logic test.html">Logic test</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Method chaining.html">Method chaining</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Numbers.html">Numbers</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Optimization.html">Optimization</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__ProgrammingProjectIdeas.html">ProgrammingProjectIdeas</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Project Management.html">Project Management</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__ProjectManagement.html">ProjectManagement</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Refactoring.html">Refactoring</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__SOA.html">SOA</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__SSH.html">SSH</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__SWT.html">SWT</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Scriptlets.html">Scriptlets</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Search-replace in XML.html">Search-replace in XML</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Servlet.html">Servlet</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Shortcut programming.html">Shortcut programming</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Software.html">Software</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Software development.html">Software development</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Source Forge.html">Source Forge</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Spring.html">Spring</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Statistics.html">Statistics</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Struts.html">Struts</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Struts Actions.html">Struts Actions</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Struts Attributes.html">Struts Attributes</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Struts Dynamic attributes..html">Struts Dynamic attributes.</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Struts Forwards.html">Struts Forwards</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Testing.html">Testing</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Tomcat.html">Tomcat</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Twin Words.html">Twin Words</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Unix.html">Unix</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Web Service.html">Web Service</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__XML.html">XML</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__XSLT.html">XSLT</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__Yield.html">Yield</a>&nbsp; 
+
+
+
+ &nbsp;<a href="../../index__movie review.html">movie review</a>&nbsp; 
+
+
+</div></td></tr><tr><td><br></td></tr><tr><td valign="bottom"><script type="text/javascript">
+google_ad_client = "pub-1222515461989279";
+/* 120x600 f.c.t. co.uk */
+google_ad_slot = "9646220545";
+google_ad_width = 120;
+google_ad_height = 600;
+</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></td></tr><tr><td colspan="5" bgcolor="#eeeeee" align="center"><div id="footer"><p>.</p>
+	        Copyright 2007-2009 - www.FirstClassThoughts.co.uk
+	        <p>.</p></div></td></tr></table></body></html>

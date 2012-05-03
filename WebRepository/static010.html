@@ -1,0 +1,1606 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+	<title>
+		InfoQ: Modular Java: Static Modularity
+	</title>
+    
+	
+	<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="copyright" content="&copy; 2006 C4Media" />
+<meta name="author" content="alex[at]c4media[dot]com" />
+
+	
+	
+    <link rel="stylesheet" type="text/css" media="screen" href="http://cdn3.infoq.com/styles/style.css;jsessionid=632705B4CE45DA3E07D416D466B849A0" />
+    <link rel="stylesheet" type="text/css" media="print" href="http://cdn4.infoq.com/styles/print.css;jsessionid=632705B4CE45DA3E07D416D466B849A0" />
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/style-ie.css;jsessionid=632705B4CE45DA3E07D416D466B849A0" />
+    <![endif]-->
+    <link rel="shortcut icon" href="http://cdn4.infoq.com/favicon.ico;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="image/x-icon">
+    
+    <script src="http://cdn1.infoq.com/scripts/combinedJs_en.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="text/javascript"></script>
+	
+	
+
+	
+	<meta name="keywords" content="modular java static modularity,Java,Module Systems,Module,Equinox,OSGi,Knopflerfish,Apache Felix,"/>
+	<meta name="description" content="Modularity is an important aspect of large Java systems. Build scripts and projects are often split up into modules in order to improve the build, but this is rarely taken into account at runtime. This second part of the Modular Java series discusses static modularity, the creation of bundles, how to install them into an OSGi engine and how to set up (versioned) dependencies between bundles."/>
+
+
+</head>
+
+<body > 
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var loginLanguage='en';
+var loginURL='/login.action;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+var registerURL='/reginit.action;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+var reactivateURL='/reactivate.action;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+var reserpasswordURL='/resetpassword.action;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+var loggedIn=false;
+var logoutURL='/logout.action;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+var editUserURL='/edituser.action;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+var aboutURL='/about;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+var homeURL='/;jsessionid=632705B4CE45DA3E07D416D466B849A0';
+</script>
+<div id="tooltip" style="display:none;"></div>
+<div id="loginWindow" style="display:none;">
+	
+
+
+
+
+
+
+<div id="innerLoginWindow" class="popup login-popup" style="display:none; z-index: 25550; position: absolute;">
+		<div class="popup-wrapper">
+			<p class="popup-close"><a href="javascript:void(0);" onclick="javascript:hideLoginWindow();">Close</a></p>
+			<h2>Existing Users:</h2>
+			<div id="loginArea">
+				<div id="loginAreaFields">
+					<form onsubmit="doLogin();return false;" style="margin-bottom: 1px;">
+						<p><label for="username">Email:</label> <input id="username" name="username" style="width: 100%;" type="text"></p>
+						<p><label for="password">Password:</label> <input id="password" name="password" style="width: 100%;" onkeydown="if ((event.which &amp;&amp; event.which == 13)||(event.keyCode &amp;&amp; event.keyCode == 13)){doLogin();return false;} else return true;" type="password"></p>
+						<p><input value="Login" type="submit"></p>
+					</form>	
+				</div>
+				<div id="loginUpperArea" style="display:none;"></div>
+				<div style="display: none; text-align: left;" id="loginMessage"></div>	
+				<h2>New Users:</h2>
+				<p><input value="Register" id="submitButton" onclick="javascript:document.location.href='/reginit.action'" type="button"></p>
+			</div>
+		</div>
+</div>
+</div>
+<div id="tagPopup" style="display:none;"></div>
+<div id="container">
+	<h1 class="logo"><a href="#">InfoQ</a></h1>
+
+	
+
+
+
+
+
+
+
+
+
+<div id="header">
+	<p class="skip"><a href="#content">Skip to Content</a></p>
+
+	<div id="quote"><p>Tracking change and innovation in the enterprise software development community</p></div>
+
+	<div style="float: left;width: 29%;position: relative;margin: 0 0 2px 0;padding: 0;">
+		
+
+
+
+
+
+
+
+
+<p style="margin:0;padding: 6px 37px 0 0;margin: 0;float: right;">
+	En | <a href="/cn/;jsessionid=632705B4CE45DA3E07D416D466B849A0">ä¸­æ??</a> | <a href="/jp/;jsessionid=632705B4CE45DA3E07D416D466B849A0">æ?¥æ?¬èª?</a> | <a href="/br/;jsessionid=632705B4CE45DA3E07D416D466B849A0">Br</a>
+	
+</p>
+<p style="margin: 0;padding: 6px 9px;text-align:left;">
+	
+	
+</p>
+	</div>
+</div>
+
+
+
+	
+	<div id="sidebar">
+	<div id="sidebar-wrapper">
+		
+
+
+
+
+
+
+<div class="s-logo">
+	
+	<p class="r-logo"><a href="/;jsessionid=632705B4CE45DA3E07D416D466B849A0"><img src="http://cdn4.infoq.com/styles/i/logo.gif;jsessionid=632705B4CE45DA3E07D416D466B849A0" alt="InfoQ"/></a></p>
+</div>
+
+
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span style="font-size: x-small;#font-size: xx-small;">
+
+    
+    
+511,421 Jan unique visitors
+</span>
+<div style="margin-top:5px; height:60px">
+	<a href="http://qconlondon.com/london-2010?utm_source=infoq&utm_medium=banner&utm_campaign=buttonimage" target="_blank">
+	   <img src="http://cdn3.infoq.com/styles/i/qcon/london_2010/qcon-london-2010_6.jpg;jsessionid=632705B4CE45DA3E07D416D466B849A0" style="width:100%; height:60px"/>
+	</a>
+</div>
+
+
+		    
+		
+		
+
+
+
+
+
+
+
+
+	<div class="box-simple">
+		<div class="box-simple-top"></div>
+		<div id="mainLoginArea" class="box-simple-content">
+			
+			
+			<ul>
+	            <li><a href="/reginit.action;jsessionid=632705B4CE45DA3E07D416D466B849A0">Register</a></li>
+			    <li><a href="javascript:void(0)" onClick="javascript:showLoginWindow(this,ALIGN_LEFT,new Function('void(0);'));">Login</a></li>
+	            <li><a href="/about;jsessionid=632705B4CE45DA3E07D416D466B849A0">About us</a></li>
+	            
+	            
+			    <li><a href="/;jsessionid=632705B4CE45DA3E07D416D466B849A0">Home</a></li>
+			</ul>
+			
+		</div>
+		<div class="box-simple-bottom"></div>
+	</div>
+
+
+		
+
+
+
+
+
+
+
+
+
+<div id="mainCommunitiesArea" class="box">
+    <h2>Your Communities</h2>
+    <div class="top-corners"><div></div></div>
+    <div class="box-content">
+    <div class="box-content-2">
+    	
+
+
+
+
+
+
+<script language="JavaScript">
+var communityChangeMessage = 'Your new preferences will be used starting with the next refresh.';
+</script>	
+
+<div id="communities">
+    <ul>
+	
+		<li><input type="checkbox" name="java" value="true" checked="checked" id="community1" onclick="includeExcludeCommunity(this);"/>
+ <a href='/java/'>Java</a></li>
+	
+		<li><input type="checkbox" name="dotnet" value="true" checked="checked" id="community4" onclick="includeExcludeCommunity(this);"/>
+ <a href='/dotnet/'>.NET</a></li>
+	
+		<li><input type="checkbox" name="ruby" value="true" checked="checked" id="community5" onclick="includeExcludeCommunity(this);"/>
+ <a href='/ruby/'>Ruby</a></li>
+	
+		<li><input type="checkbox" name="soa" value="true" checked="checked" id="community2" onclick="includeExcludeCommunity(this);"/>
+ <a href='/soa/'>SOA</a></li>
+	
+		<li><input type="checkbox" name="agile" value="true" checked="checked" id="community3" onclick="includeExcludeCommunity(this);"/>
+ <a href='/agile/'>Agile</a></li>
+	
+		<li><input type="checkbox" name="architecture" value="true" checked="checked" id="community1389" onclick="includeExcludeCommunity(this);"/>
+ <a href='/architecture/'>Architecture</a></li>
+	
+    </ul>
+</div>
+<div id="communitiesMessage"></div>
+    </div></div>
+    <div class="bottom-corners"><div></div></div>
+</div>
+
+
+
+
+		
+
+
+
+
+
+
+
+<script type="text/javascript">
+	function doSearch(){
+		var searchString = document.getElementById("searchId").value;
+		document.getElementById("searchTerm").value =  searchString + " site:www.infoq.com";		
+		document.getElementById("submitForm").submit();
+	}
+	
+	function clearSearchText(){	
+		var searchtext =  document.getElementById("searchId").value
+		if(searchtext==JSResource.search){
+			document.getElementById("searchId").value="";
+		}
+	}
+</script>
+<form action="http://www.google.com/search" method="GET" id="submitForm" target="_blank">
+	<input type="hidden" name="q" id="searchTerm" />
+</form>
+
+	<div style="background: url('http://cdn2.infoq.com/styles/i/bg-search.gif;jsessionid=632705B4CE45DA3E07D416D466B849A0') no-repeat 0 4px;">	
+			<input type="text" name="search" id="searchId" value="Search" style="width: 85%; border: 0px none; background-color: transparent; height: 19px; padding-left:9px; padding-right:9px; padding-top:0; padding-bottom:0" onclick="clearSearchText();" onkeypress="if ((event.which && event.which == 13)||(event.keyCode && event.keyCode == 13)){doSearch();}" onblur="if(this.value=='') this.value=JSResource.search"/>	
+			<a href="#" onclick="doSearch();return false;"><img src="http://cdn2.infoq.com/styles/i/btn-search.gif;jsessionid=632705B4CE45DA3E07D416D466B849A0" alt="Search" /></a> 
+	</div>
+
+		
+
+
+
+
+
+
+<div class="box-simple">
+<div class="box-simple-top"></div>
+<div id="featuredTopics" class="box-simple-content">
+
+    <h2>Featured Topics</h2>
+    <div>
+		<ul>
+			<li><a href="/scrum/;jsessionid=632705B4CE45DA3E07D416D466B849A0">Scrum</a></li>
+            <li><hr style="width: 100%; height: 1px; border: 0; color: #C8C8C8; background-color: #C8C8C8;"/></li>
+			<li><a href="/deployment-datacenter/;jsessionid=632705B4CE45DA3E07D416D466B849A0">Deployment / Datacenter</a></li>            
+        </ul>
+	</div>
+		
+</div>
+<div class="box-simple-bottom"></div>
+</div>
+	
+		
+
+
+
+
+
+
+
+
+<!-- Widgets -->
+
+
+
+
+
+
+			
+
+
+<!-- /Widgets -->
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+<div class="box-simple">
+	<div class="box-simple-top"></div>
+	<div class="box-simple-content">
+		<p class="banner" id="bannerparagraph">
+			
+			
+				<iframe src="http://view.atdmt.com/MRT/iview/174242312/direct/01?click=" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" allowtransparency="true" width="120" height="600">
+<script language="JavaScript" type="text/javascript">
+document.write('<a href="http://clk.atdmt.com/MRT/go/174242312/direct/01/" target="_blank"><img src="http://view.atdmt.com/MRT/view/174242312/direct/01/"/></a>');
+</script><noscript><a href="http://clk.atdmt.com/MRT/go/174242312/direct/01/" target="_blank"><img border="0" src="http://view.atdmt.com/MRT/view/174242312/direct/01/" /></a></noscript></iframe>
+			
+		</p>
+	</div>
+	<div class="box-simple-bottom"></div>
+</div>
+
+
+
+
+	<div class="box-simple">
+		<div class="box-simple-top"></div>
+		<div class="box-simple-content adsTower2" id="leftbartextlinks">
+			<div style="width:120px;background:white;">
+				
+
+
+
+
+
+
+
+	
+	
+		<h3>Sponsored Links</h3>
+		
+			<p>Free Book Offer<br/><a id="tl-163" href="/ads/textLinkUrlAction.action?i=163&url=http%3A%2F%2Fwww.infoq.com%2Fzones%2Fcompare-datapower%2Fdownload%2FBookOffer" target="_blank">SOA Demystified</a><br/>$40 Value</p>
+		
+			<p>Scaling Scrum<br/>in the enterprise?<br/>ScrumWorks Pro<br/>can help.<br/><a id="tl-162" href="/ads/textLinkUrlAction.action?i=162&url=http%3A%2F%2Fdanube.com%2Fscrumworks%2Fpro%2Ftrial" target="_blank">Start a trial today</a></p>
+		
+			<p><a id="tl-157" href="/ads/textLinkUrlAction.action?i=157&url=http%3A%2F%2Fqconlondon.com%2Flondon-2010%3Futm_source%3Dinfoq%26utm_medium%3Dtextlink%26utm_campaign%3Dinfoqtextlink" target="_blank">QCon London 2010!</a><br/>March 10-12, 100<br/>Speakers, 80 sessions,<br/>"THE" team leads and,<br/>architects conference.</p>
+		
+	
+
+			</div>
+		</div>
+		<div class="box-simple-bottom"></div>
+	</div>
+
+
+<div style="margin-top:5px;">
+	<a href="http://planet.infoq.com/" target="_blank">
+	   <img src="http://cdn1.infoq.com/styles/i/banners/banner-InfoQ_Planet.jpg;jsessionid=632705B4CE45DA3E07D416D466B849A0" style="width:140px;"/>
+	</a>
+</div>
+
+<div class="box-simple">
+	<div class="box-simple-top"></div>
+	<div class="box-simple-content">
+		<p class="banner">
+			<img src="http://cdn4.infoq.com/styles/i/banners/books.jpg;jsessionid=632705B4CE45DA3E07D416D466B849A0" usemap="#booksmap" alt="" />
+			<map name="booksmap">
+				  <area href="http://www.infoq.com/minibooks/scrum-xp-from-the-trenches" alt="Scrum and XP from the Trenches" title="Scrum and XP from the Trenches" shape=rect coords="0,104,120,129">
+				  <area href="http://www.infoq.com/minibooks/starting-struts2" alt="Starting Struts 2" title="Starting Struts 2" shape=rect coords="0,136,120,151">		     	
+				  <area href="http://www.infoq.com/minibooks/agile-patterns" alt="Agile Patterns: The Technical Cluster" title="Agile Patterns: The Technical Cluster" shape=rect coords="0,156,120,186">
+				  <area href="http://www.infoq.com/minibooks/grails" alt="Getting Started with Grails" title="Getting Started with Grails" shape=rect coords="-1,224,119,249">
+				  <area href="http://www.infoq.com/minibooks/domain-driven-design-quickly" alt="Domain Driven Design Quickly" title="Domain Driven Design Quickly" shape=rect coords="0,258,120,283">
+				  <area href="http://www.infoq.com/minibooks/scrum-checklists" alt="Scrum Checklists" title="Scrum Checklists" shape=rect coords="0,291,120,306">
+				  <area href="http://www.infoq.com/minibooks/enterprise-soa" alt="Enterprise SOA Adoption Strategies" title="Enterprise SOA Adoption Strategies" shape=rect coords="0,315,120,338">
+				  <area href="http://www.infoq.com/minibooks/vsnettt" alt="Visual Studio .NET Tips and Tricks" title="Visual Studio .NET Tips and Tricks" shape=rect coords="0,345,120,370">
+				  <area href="http://www.infoq.com/minibooks/JTDS" alt="Java Transaction Design Strategies" title="Java Transaction Design Strategies" shape=rect coords="0,379,120,404">
+				  <area href="http://www.infoq.com/minibooks/ruby" alt="Little Ruby Book" title="Little Ruby Book" shape="rect" coords="1,192,120,218" />
+				  <area href="http://www.infoq.com/minibooks/kanban-scrum-minibook" alt="Kanban and Scrum" title="Kanban and Scrum" shape="rect" coords="1,69,124,97"/>
+			</map>
+		</p>
+	</div>
+	<div class="box-simple-bottom"></div>
+</div>
+
+
+		
+		<div class="sidebar-bottom"></div>
+	</div>
+	</div>
+	
+
+	<div id="clearer"></div>
+
+	
+	<div id="content">
+	<div id="content-wrapper">
+		
+		<div class="box">
+			
+			
+
+	<div class="contribute contribute-print">
+		<ul>
+			<li class="c-news"/><li class="c-print"><a href="javascript:print()">Print</a></li>
+		</ul>		        
+	</div>			
+	<h2>Article</h2>
+    <div class="top-corners"><div></div></div>
+    
+    <div class="box-content">
+    <div class="box-content-2">
+    <div class="box-content-5">
+	
+    	
+    		<p class="h1-r"><img src="/resource/articles/modular-java-static-modularity/en/smallimage/image_cylinder.jpg;jsessionid=632705B4CE45DA3E07D416D466B849A0" alt="" /></p>
+    	
+	
+	    <h1>Modular Java: Static Modularity</h1>
+	
+		<p class="info">
+			Posted by
+			
+				
+			
+			<strong><a
+	
+	href="/author/Alex-Blewitt;jsessionid=632705B4CE45DA3E07D416D466B849A0"
+
+ class="editorlink">
+Alex Blewitt</a>
+</strong>
+			
+			on
+			Oct 24, 2009
+		</p>
+		
+    	<dl class="tags2">
+			<dt class="community">Community</dt>
+			
+				<dd><a href="/java;jsessionid=632705B4CE45DA3E07D416D466B849A0" name="java" id="1" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Java</a></dd>
+			
+			
+	     	
+	       		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dt class="topics">Topics</dt>
+
+   	<dd>
+   		
+   			
+   			<a href="/module-systems;jsessionid=632705B4CE45DA3E07D416D466B849A0" name="module-systems" id="5,240" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Module Systems</a>
+    
+   		
+   	</dd>
+
+
+	<dt class="topics">Tags</dt>
+	
+		<dd>
+			
+				
+				<a href="/equinox;jsessionid=632705B4CE45DA3E07D416D466B849A0" name="equinox" id="441" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Equinox</a>
+    
+			,
+		</dd>
+	
+		<dd>
+			
+				
+				<a href="/osgi;jsessionid=632705B4CE45DA3E07D416D466B849A0" name="osgi" id="440" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">OSGi</a>
+    
+			,
+		</dd>
+	
+		<dd>
+			
+				
+				<a href="/Module;jsessionid=632705B4CE45DA3E07D416D466B849A0" name="Module" id="5,694" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Module</a>
+    
+			,
+		</dd>
+	
+		<dd>
+			
+				
+				<a href="/Knopflerfish;jsessionid=632705B4CE45DA3E07D416D466B849A0" name="Knopflerfish" id="5,801" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Knopflerfish</a>
+    
+			,
+		</dd>
+	
+		<dd>
+			
+				
+				<a href="/ApacheFelix;jsessionid=632705B4CE45DA3E07D416D466B849A0" name="ApacheFelix" id="3,736" onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;">Apache Felix</a>
+    
+			
+		</dd>
+	
+
+	       		
+			
+
+		</dl>
+   	    
+       	<p>Modularity is an important aspect of large Java systems. Build scripts and projects are often split up into modules in order to improve the build, but this is rarely taken into account at runtime.</p>
+
+		
+
+
+
+
+
+
+
+
+<div class="vendor-content-box-float">
+	<h3>Related<span class="vendor">Vendor</span>Content</h3>
+	
+	
+	
+
+	
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=632705B4CE45DA3E07D416D466B849A0?vcr=794" >
+				Consolidation and Virtualization Are NOT Enough: The Case for Non-x86
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrydownload">
+			<a href="/vendorcontent/show.action;jsessionid=632705B4CE45DA3E07D416D466B849A0?vcr=780" >
+				The 5 Mandates of Software Development Teams - Presto Manifesto
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=632705B4CE45DA3E07D416D466B849A0?vcr=796" >
+				Regaining control of the data centre   
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=632705B4CE45DA3E07D416D466B849A0?vcr=835" >
+				Advanced Java Memory Analysis
+			</a>
+		</p>
+	
+		
+			
+		
+		<p class="entrypdf">
+			<a href="/vendorcontent/show.action;jsessionid=632705B4CE45DA3E07D416D466B849A0?vcr=827" >
+				SOA for Dummies Mini eBook
+			</a>
+		</p>
+	
+
+	
+	
+		
+		
+	
+	
+	
+	
+	
+		
+			
+		
+
+
+
+
+
+
+
+
+	
+</div>
+
+
+
+       	
+<p>In the second of the Modular Java series, we'll cover <i>static modularity</i>. We'll describe how to create bundles, how to install them into an OSGi engine and how to set up (versioned) dependencies between bundles. In the next episode, we'll look at <i>dynamic modularity</i> and show how bundles can react to other bundles coming and going.</p>
+<p>As covered last time in <a href="http://www.infoq.com/articles/modular-java-what-is-it;jsessionid=632705B4CE45DA3E07D416D466B849A0">Modular Java: What Is It?</a>, Java has always had packages as a unit of modularity at development time, and JARs as a unit of modularity at deployment time. However, although build tools like Maven guarantee a certain combination of packages and JARs at compile time, these dependencies may be inconsistent with the runtime classpath. To solve this problem, modules can declare their dependency requirements so that, at runtime, they can be checked prior to execution.</p>
+<p>OSGi is a runtime dynamic module system for Java. <a href="http://www.osgi.org/Specifications/HomePage">Specifications</a> describe the behaviour of how the OSGi runtime works; the current release is <a href="http://www.osgi.org/Download/Release4V42">OSGi R4.2</a> (as <a href="http://www.infoq.com/news/2009/09/osgi-4-2-released;jsessionid=632705B4CE45DA3E07D416D466B849A0">covered by InfoQ</a> previously).</p>
+<p>An OSGi module (also known as a <em>bundle</em>) is just a simple JAR file, with additional information in the archive's <code>MANIFEST.MF</code>. At a minimum, each bundle's manifest must contain:</p>
+<ul>
+    <li><b>Bundle-ManifestVersion</b>: must be 2 for OSGi R4 bundles (otherwise defaults to 1 for OSGi R3 bundles)</li>
+    <li><b>Bundle-SymbolicName</b>: textual identifier of the bundle, often in reverse domain name format such as <code>com.infoq</code> and frequently corresponds to the packages contained therein</li>
+    <li><b>Bundle-Version</b>: a version of the form <i>major.minor.micro.qualifier</i> where the first three elements are numeric (defaulting to 0) and <i>qualifier</i> is textual (defaulting to the empty string)</li>
+</ul>
+<h2>Creating a bundle</h2>
+<p>The simplest bundle contains purely a manifest file as follows:</p>
+<blockquote>
+<pre>
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: <a _href="resource://com.infoq.minimal-1.0.0.jar" href="/resource/articles/modular-java-static-modularity/en/resources/com.infoq.minimal-1.0.0.jar;jsessionid=632705B4CE45DA3E07D416D466B849A0">com.infoq.minimal</a>
+Bundle-Version: 1.0.0
+</pre>
+</blockquote>
+<p>That wouldn't be tremendously exciting to create, however, so let's create one with an <em>activator</em>. This is an OSGi-specific piece of code which is invoked when the bundle is started, like a per-bundle main method.</p>
+<blockquote>
+<pre>
+package com.infoq;
+import org.osgi.framework.*;
+public class ExampleActivator implements BundleActivator {
+  public void start(BundleContext context) {
+    System.out.println(&quot;Started&quot;);
+  }
+  public void stop(BundleContext context) {
+    System.out.println(&quot;Stopped&quot;);
+  }
+}
+</pre>
+</blockquote>
+<p>In order for OSGi to know which class is the activator, we need to add two extra items to the manifest:</p>
+<blockquote>
+<pre>
+Bundle-Activator: com.infoq.ExampleActivator
+Import-Package: org.osgi.framework
+</pre>
+</blockquote>
+<p><code>Bundle-Activator</code> declares the class to instantiate and invoke the <code>start()</code> method when the bundle is started; similarly, the <code>stop()</code> method is called when the bundle is stopped.</p>
+<p>What about the <code>Import-Package</code>? Each bundle needs to define its dependencies in the manifest, in order to determine at runtime whether all the required code is available. In this case, the <code>ExampleActivator</code> depends on <code>BundleContext</code> from the <code>org.osgi.framework</code> package; if we don't declare that dependency in the manifest, we'll get a <code>NoClassDefFoundError</code> at runtime.</p>
+<h2>Downloading an OSGi engine</h2>
+<p>To compile and test our bundle, we'll need an OSGi engine. There are several open-source engines available for OSGi R4.2, listed below. It is also possible to download the <a href="http://www.osgi.org/Download/Release4V42">Reference API</a> to compile against (which guards against using any platform-specific features); however, you still need an OSGi engine to run it. Here are the options:</p>
+<table>
+    <tbody>
+        <tr>
+            <th colspan="2"><u><small>Equinox</small></u></th>
+        </tr>
+        <tr>
+            <th><small>License</small></th>
+            <td><a href="http://www.eclipse.org/org/documents/epl-v10.php"><small>Eclipse Public License</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Documentation</small></th>
+            <td><a href="http://www.eclipse.org/equinox/"> <small>http://www.eclipse.org/equinox/</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Download</small></th>
+            <td><a href="http://download.eclipse.org/equinox/drops/R-3.5-200906111540/index.php"><small>org.eclipse.osgi_3.5.0.v20090520.jar</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Notes</small></th>
+            <td>
+            <p><small>The</small> <code><small>org.eclipse.osgi</small></code> <small>bundle contains the framework, the runtime and a shell as an all-in-one. This is the only 'single JAR' solution (and therefore in some ways the easiest to get started with). It's also the longest named file; tab completion (or renaming to </small><code>equinox.jar</code>) <small>will make that problem go away.</small></p>
+            <p><small>To get a console, supply </small><code><small>java -jar org.eclipse.osgi_3.5.0.v20090520.jar -console</small></code> on the command line.</p>
+            </td>
+        </tr>
+        <tr>
+            <th><small>Framework</small></th>
+            <td><code><small>org.eclipse.osgi_3.5.0.v20090520.jar</small></code></td>
+        </tr>
+        <tr>
+            <th colspan="2"><u><small>Felix</small></u></th>
+        </tr>
+        <tr>
+            <th><small>License</small></th>
+            <td><a href="http://www.apache.org/licenses/LICENSE-2.0"><small>Apache License</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Documentation</small></th>
+            <td><a href="http://felix.apache.org/">http://felix.apache.org/</a></td>
+        </tr>
+        <tr>
+            <th><small>Download</small></th>
+            <td><a href="http://felix.apache.org/site/downloads.cgi"><small>Felix Framework Distribution 2.0.0</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Notes</small></th>
+            <td><small>Seen as the most strictly compliant of the OSGi engines, it's also used in GlassFish and many other open-source products. You need to run </small><code><small>java -jar bin/felix.jar</small></code> <small>instead of</small> <code><small>java -jar felix.jar</small></code> <small>since it looks for a path </small><code><small>bundles</small></code> <small>to auto start from the current directory.</small></td>
+        </tr>
+        <tr>
+            <th><small>Framework</small></th>
+            <td><code><small>bin/felix.ja</small>r</code></td>
+        </tr>
+        <tr>
+            <th colspan="2"><u><small>Knopflerfish</small></u></th>
+        </tr>
+        <tr>
+            <th><small>License</small></th>
+            <td><a href="http://www.knopflerfish.org/license.html"><small>Knopflerfish License (BSD-esque)</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Documentation</small></th>
+            <td><a href="http://www.knopflerfish.org/"><small>http://www.knopflerfish.org/</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Download</small></th>
+            <td><a href="http://www.knopflerfish.org/releases/2.3.3/knopflerfish_fullbin_osgi_2.3.3.jar"> <small>knopflerfish_fullbin_osgi_2.3.3.jar</small></a></td>
+        </tr>
+        <tr>
+            <th><small>Notes</small></th>
+            <td><small>This JAR is a self-extracting zip file; you have to run with </small><code><small>java -jar</small></code> <small>initially to unpack. Don't download the '</small><code><small>bin_osgi</small></code>' <small>alternative as this fails to start.</small></td>
+        </tr>
+        <tr>
+            <th><small>Framework</small></th>
+            <td><code><small>knopflerfish.org/osgi/framework.jar</small></code></td>
+        </tr>
+    </tbody>
+</table>
+<p>Whilst there are also smaller OSGi R3 runtimes available (like <a href="http://concierge.sourceforge.net/">Concierge</a>) that target embedded devices, this series will focus on OSGi R4.</p>
+<h2>Compiling and running a bundle</h2>
+<p>Having got your <i><code>framework.jar</code></i>, compiling the example above is a case of adding the OSGi framework to the classpath, and then packaging it up into a JAR:</p>
+<blockquote>
+<p><code>javac -cp <i>framework.jar</i> com/infoq/*/*.java</code></p>
+<p><code>jar cfm example.jar MANIFEST.MF com</code></p>
+</blockquote>
+<p>Each of the engines has some kind of shell with similar (but not identical) commands. For the purposes of this exercise, we'll just look at how to get the engine up and running, and install and start/stop the bundle.</p>
+<p>Once the engine is up and running, you can install the bundle (specified as a <code>file://</code> URL), and then using the returned numeric bundle id, start and stop it.</p>
+<table cellspacing="0" cellpadding="3" border="1">
+    <thead>
+        <tr>
+            <th><b>&nbsp;</b></th>
+            <th><b><small>Equinox</small></b></th>
+            <th><b><small>Felix</small></b></th>
+            <th><b><small>Knopflerfish</small></b></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b><small>Launch</small></b></td>
+            <td><code><small>java -jar org.eclipse.osgi_*.jar -console</small></code></td>
+            <td><code><small>java -jar bin/felix.jar</small></code></td>
+            <td><code><small>java -jar framework.jar -xargs minimal.xarg</small>s</code></td>
+        </tr>
+        <tr>
+            <td><b><small>Help</small></b></td>
+            <td colspan="3"><code><small>help</small></code></td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+            <td><b><small>List</small></b></td>
+            <td><code><small>ss</small></code></td>
+            <td><code><small>ps</small></code></td>
+            <td><code><small>bundles</small></code></td>
+        </tr>
+        <tr>
+            <td><b><small>Install</small></b></td>
+            <td colspan="3"><code><small>install <i>file:///path/to/example.jar</i></small></code></td>
+        </tr>
+        <tr>
+            <td><b><small>Start</small></b></td>
+            <td colspan="3"><code><small>start <i>id</i></small></code></td>
+        </tr>
+        <tr>
+            <td><b><small>Update</small></b></td>
+            <td colspan="3"><code><small>update <i>id</i></small></code></td>
+        </tr>
+        <tr>
+            <td><b><small>Stop</small></b></td>
+            <td colspan="3"><code><small>stop <i>id</i></small></code></td>
+        </tr>
+        <tr>
+            <td><b><small>Uninstall</small></b></td>
+            <td colspan="3"><code><small>uninstall <i>id</i></small></code></td>
+        </tr>
+        <tr>
+            <td><b><small>Shutdown</small></b></td>
+            <td><code><small>exit</small></code></td>
+            <td colspan="2"><code><small>shutdown</small></code></td>
+        </tr>
+    </tbody>
+</table>
+<blockquote>
+<p>Although all shells work in roughly the same way, the subtle differences between commands can be slightly confusing. A couple of harmonised console projects (<a href="http://wiki.ops4j.org/display/ops4j/Pax+Shell">Pax Shell</a>, <a href="http://www.paremus.com/devcon2009download/">Posh</a>) and launchers (<a href="http://paxrunner.ops4j.org/space/Pax+Runner">Pax Runner</a>) are available; OSGi <a href="https://www.osgi.org/bugzilla/buglist.cgi?content=132">RFC 132</a> is an ongoing proposal to try and standardise the command shells. <a href="http://felix.apache.org/site/apache-felix-karaf.html">Apache Karaf</a>, which aims to be a distribution that can run on top of Equinox or Felix and provides a harmonised shell as well as other features. Whilst using these for real deployments might be advisable, this series will focus on the vanilla OSGi framework implementations.</p>
+</blockquote>
+<p>If you launch your OSGi framework, you should be able to install the <code><a _href="resource://com.infoq.minimal-1.0.0.jar" href="/resource/articles/modular-java-static-modularity/en/resources/com.infoq.minimal-1.0.0.jar;jsessionid=632705B4CE45DA3E07D416D466B849A0">com.infoq.minimal-1.0.0.jar</a></code> from above (you can also install this straight from the site using the link's address and the <code>install</code> command). Each time you <code>install</code> the bundle, it will print out the numeric ID of that bundle.</p>
+<p>Depending on what other bundles are in the system, it's impossible to know what bundle identifier you'll end up with when installing; but you should be able to list the installed bundles using the appropriate command to find out.</p>
+<h2>Dependencies</h2>
+<p>So far, we've just got a single bundle. One of the benefits of modularity is that we can decompose our system into a number of smaller modules, and in doing so, reduce the application's complexity. To some extent, this is already done with Java's packages &ndash; for example, a <code>common</code> package with a <code>client</code> and <code>server</code> packages is often used in networked applications. The unstated implication is that the <code>client</code> and <code>server</code> packages are independent, and both depend on the <code>common</code> package; but as with <a href="http://www.infoq.com/news/2009/03/jetty-eclipse;jsessionid=632705B4CE45DA3E07D416D466B849A0">Jetty's recent example</a> (where <code>client</code> accidentally ended up depending on <code>server</code>) this isn't always easy to achieve. In fact, some of the successes that OSGi brings to a project is purely the enforced modularity constraints between modules.</p>
+<p>Another benefit to modularisation is to separate out the 'public' packages from the non-public ones. Java's compile-time system allows for hidden non-public classes (those visible within a specific package) but does not provide a greater degree of flexibility than that. However, in an OSGi module, you can choose which packages are <i>exported</i> with the implicit fact that non-exported packages are not visible to other modules.</p>
+<p>Let's say we're going to develop a function to instantiate <a href="http://bitworking.org/projects/URI-Templates/">URI Templates</a> (as used in <a href="http://www.restlet.org/documentation/2.0/tutorial#part11">Restlet</a>). Since this is likely to be reusable, we want to put this in its own module and have clients who need to use it depend on us. (Normally, bundles aren't quite as fine-grained as this; but it demonstrates the principle.) The function will take a template, like <code>http://www.amazon.{tld}/dp/{isbn}/</code>, and with a <code>Map</code> containing <code>tld=com,isbn=1411609255</code>, we can generate the URL <code><a href="http://www.amazon.com/dp/1411609255/">http://www.amazon.com/dp/1411609255/</a></code> <i>(One of the reasons to do this is to allow us to change the template if Amazon's URL scheme changes, although <a href="http://www.w3.org/Provider/Style/URI">Cool URIs don't change</a>.)</i></p>
+<p>In order to provide an easy way to switch between different implementations, we'll provide an interface and a factory. This will also allow us to see how we can hide the implementation away from clients whilst still giving them the functionality. The code (across several source files) will look like:</p>
+<blockquote>
+<pre>
+package com.infoq.templater.api;
+import java.util.*;
+public interface ITemplater {
+  public String template(String uri, Map data);
+}
+// ---
+package com.infoq.templater.api;
+import com.infoq.templater.internal.*;
+public class TemplaterFactory {
+  public static ITemplater getTemplater() {
+    return new Templater();
+  }
+}
+// ---
+package com.infoq.templater.internal;
+import com.infoq.templater.api.*;
+import java.util.*;
+public class Templater implements ITemplater {
+  public String template(String uri, Map data) {
+    String[] elements = uri.split(&quot;\\{|\\}&quot;);
+    StringBuffer buf = new StringBuffer();
+    for(int i=0;i&lt;elements.length;i++)
+        buf.append(i%2 == 0 ? elements[i] : data.get(elements[i]));
+    return buf.toString();
+  }
+}
+</pre>
+</blockquote>
+<p>The implementation is hidden away in the <code> com.infoq.templater.internal</code> package, whilst the public API is in the <code>com.infoq.templater.api</code> package. This will give us the flexibility to change the implementation to a more efficient mechanism later on, if needed. (The <code>internal</code> package name is somewhat conventional, but you can call it what you want.)</p>
+<p>To give other bundles access to the public API, we need to <i>export</i> it from the bundle. Our manifest will look like:</p>
+<blockquote>
+<pre>
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.infoq.templater
+Bundle-Version: 1.0.0
+<b>Export-Package: com.infoq.templater.api</b>
+</pre>
+</blockquote>
+<h2>Creating a client bundle</h2>
+<p>We can now create a client that uses the templater. Using the example above, create an activator whose <code>start()</code> method looks like:</p>
+<blockquote>
+<pre>
+package com.infoq.amazon;
+import org.osgi.framework.*;
+import com.infoq.templater.api.*;
+import java.util.*;
+public class Client implements BundleActivator {
+  public void start(BundleContext context) {
+    Map data = new HashMap();
+    data.put("tld", "co.uk"); // or "com" or "de" or ...
+    data.put("isbn", "1411609255"); // or "1586033115" or ...
+    System.out.println( "Starting\n" + 
+        TemplaterFactory.getTemplater().template(
+        "http://www.amazon.{tld}/dp/{isbn}/", data));
+  }
+  public void stop(BundleContext context) {
+  }
+}
+</blockquote>
+<p>We'll need to define in our manifest that we're explicitly importing the templater API, as otherwise our bundle won't compile. We can either specify the dependency using either <code>Import-Package</code> or <code>Require-Bundle</code>. The former allows us to import packages individually; the latter will implicitly import all exported packages from the bundle. (Multiple packages and bundles are comma separated.)</p>
+<blockquote>
+<pre>
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.infoq.amazon
+Bundle-Version: 1.0.0
+Bundle-Activator: com.infoq.amazon.Client
+<b>Import-Package: org.osgi.framework</b>
+<b>Require-Bundle: com.infoq.templater</b>
+</pre>
+</blockquote>
+<p>Note that in the earlier example, we were already using the <code>Import-Package</code> to import <code>org.osgi.framework</code>. In this case, we are demonstrating the use of <code>Require-Bundle</code> which uses the <code>Bundle-SymbolicName</code>. We could have equally well added it in as <code>Import-Package: org.osgi.framework, com.infoq.templater.api</code> instead.</p>
+<p>Regardless of how we declare our dependency on the <code>templater</code> bundle, we only get access to the single exported package <code>com.infoq.templater</code>. Although the client can access the templater via <code>TemplaterFactory.getTemplater()</code>, we can't directly access the class from the <code>internal</code> package. This gives us the flexibility to change implementation in the future without breaking clients.</p>
+<h2>Testing the system</h2>
+<p>Any OSGi application is really just a set of bundles. In this case, we need to compile and JAR up the bundles (as previously),  start up an OSGi engine, and install the two bundles. Here's what it would look like in Equinox:</p>
+<blockquote>
+<pre>
+java -jar org.eclipse.osgi_* -console
+osgi&gt; install <a _href="resource://com.infoq.templater-1.0.0.jar" href="/resource/articles/modular-java-static-modularity/en/resources/com.infoq.templater-1.0.0.jar;jsessionid=632705B4CE45DA3E07D416D466B849A0">file:///tmp/com.infoq.templater-1.0.0.jar</a>
+Bundle id is 1
+osgi&gt; install <a _href="resource://com.infoq.amazon-1.0.0.jar" href="/resource/articles/modular-java-static-modularity/en/resources/com.infoq.amazon-1.0.0.jar;jsessionid=632705B4CE45DA3E07D416D466B849A0">file:///tmp/com.infoq.amazon-1.0.0.jar</a>
+Bundle id is 2
+osgi&gt; start 2
+Starting
+http://www.amazon.co.uk/dp/1411609255
+</pre>
+</blockquote>
+<p>The Amazon client bundle has started; and when it did, it instantiated the URI template for us with the (admittedly hard-coded) values previously. It then prints out during the startup of the bundle itself to confirm that it worked. Clearly, a real system wouldn't be so inflexible; but the Templater service could be used in any other application (for example, generating links in a web-based application). We'll look at web applications in an OSGi context in the future.</p>
+<h2>Versioned dependencies</h2>
+<p>The final point for this instalment is to note that the dependencies that we have at the moment are unversioned; or rather, that we'll be able to use any version. Both bundles as a whole and packages individually can be versioned, and increases in the minor number are used to signify new features (but remaining backwardly compatible). The <code>org.osgi.framework</code> package, for example, was version 1.4.0 in OSGi R4.1 and 1.5.0 in OSGi R4.2. (This, incidentally, is a good reason to keep the bundle version and marketing version as separate concepts, something that the <a href="http://permalink.gmane.org/gmane.comp.lang.scala.internals/1706">Scala language has yet to learn</a>.)</p>
+<p>To declare a dependency on a specific version, we have to express that in the <code>Import-Package</code> or <code>Require-Bundle</code>. For example, we can specify <code>Require-Bundle: com.infoq.templater;bundle-version=&quot;1.0.0&quot;</code> to signify that we want a minimum version of 1.0.0 in order to work. Similarly, we could do the same with <code>Import-Package: com.infoq.templater.api;version=&quot;1.0.0&quot;</code> &ndash; but bear in mind that the version of the <i>package</i> is distinct from the version of the <i>bundle</i>. If you don't specify a version, it defaults to 0.0.0, so unless you have a corresponding <code>Export-Package: com.infoq.templater.api;version=&quot;1.0.0&quot;</code> then this import won't be resolved.</p>
+<p>It's also possible to specify a version range. For example, the conventional meaning to OSGi version numbers is that an increment of the major number indicates a change in backward compatibility, so we might just want to restrict ourselves to the 1.x range. To do that, we can express a <code>(bundle-)version=&quot;[1.0,2.0)&quot;</code> dependency constraint. In this case, the [ means 'inclusive' and ) means 'exclusive', or in other words 'from 1.0 up to but not including 2.0 onwards'. In fact, expressing a dependency constraint of &quot;1.0&quot; is the same as &quot;[1.0,<span title="Infinity is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist's, but that's just peanuts to infinity.">&infin;)&quot; &ndash; in other words, anything bigger than 1.0.</span></p>
+<p>Although it's outside of the scope of this article, it's possible to have multiple versions of a bundle in an OSGi system at once. This might be useful if you have an old client which depends on version 1.0 of your API, as well as having a new client which depends on version 2.0 of your API. As long as the dependencies for each bundle are consistent (in other words, you don't have a bundle which tries to import 1.0 and 2.0 at the same time, directly or indirectly) then the application will run fine. As an exercise for the reader, you can create a version 2.0 of the Templater API to use generics, and then have a client which only depends on version 1.x as well as one that uses version 2.x.</p>
+<h2>Summary</h2>
+<p>In this article, we've explored the open-source OSGi engines Equinox, Felix and Knopflerfish, and created a dependent pair of bundles. We've also touched upon versioned dependencies. At the moment, this modularity is static; we haven't explored any of the dynamic nature of OSGi. We'll be looking at that in the next instalment.</p>
+<p>Installable bundles (also containing source):</p>
+<ul>
+    <li><a _href="resource://com.infoq.minimal-1.0.0.jar" href="/resource/articles/modular-java-static-modularity/en/resources/com.infoq.minimal-1.0.0.jar;jsessionid=632705B4CE45DA3E07D416D466B849A0">com.infoq.minimal-1.0.0.jar</a></li>
+    <li><a _href="resource://com.infoq.templater-1.0.0.jar" href="/resource/articles/modular-java-static-modularity/en/resources/com.infoq.templater-1.0.0.jar;jsessionid=632705B4CE45DA3E07D416D466B849A0">com.infoq.templater-1.0.0.jar</a></li>
+    <li><a _href="resource://com.infoq.amazon-1.0.0.jar" href="/resource/articles/modular-java-static-modularity/en/resources/com.infoq.amazon-1.0.0.jar;jsessionid=632705B4CE45DA3E07D416D466B849A0">com.infoq.amazon-1.0.0.jar</a></li>
+</ul>
+       	
+   		<div style="display:block;margin-top:15px;">
+            <div align="right" style="display: inline; margin-right: 0px;">
+                
+	            
+
+
+
+
+
+
+<dl class="tags3">
+<dt>Bookmark</dt>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://digg.com/submit?phase=2&url=' + escape(window.location)" rel="nofollow">digg+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://reddit.com/submit?url=' + escape(window.location) + '&title=' + escape('Modular Java: Static Modularity')" rel="nofollow">reddit+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://del.icio.us/post?url=' + escape(window.location) + '&title=' + escape('Modular Java: Static Modularity')" rel="nofollow">del.icio.us+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://www.dzone.com/links/add.html?url=' + escape(window.location) + '&title=' + escape('Modular Java: Static Modularity')" rel="nofollow">dzone+</a>,
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://www.facebook.com/share.php?u=' + escape(window.location)" rel="nofollow">facebook+</a>
+</dd>
+<dd>
+<a target="_blank" href="" onclick="this.href='http://slashdot.org/slashdot-it.pl?op=basic&amp;url=' + encodeURIComponent(location.href)" rel="nofollow">slashdot+</a>
+</dd>
+</dl>
+
+            </div>
+   		 	
+		</div>
+		
+		
+
+
+
+
+
+
+
+
+		
+		
+        
+        
+        	
+        
+
+
+
+
+
+
+<script type='text/javascript'>
+var replyEnabled=true;
+var forumID=1;
+var threadID=13528;
+var previewText='Preview';
+var pleaseWait='Please Wait ...';	
+var reply='Reply';
+var postMessage='Post Message';	
+var errorSubject='Please enter a subject.';	
+var errorBody='You can not post a blank message. Please type your message and try again.';
+var cancel='Cancel';
+var goBackOrEdit='Go Back/Edit';
+var re='Re:';
+var lastMessage=0;
+var stopWatchText='Stop Watching Thread';
+var startWatchText='Watch Thread';
+var descending='false';
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action?language=' + 'en';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var loggedIn=false;	
+
+
+var forumNotificationDefault=false;
+
+</script>
+
+<script src="/scripts/forum.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type='text/javascript'></script>
+<script type="text/javascript" src='/dwr/interface/ForumNotifications.js;jsessionid=632705B4CE45DA3E07D416D466B849A0'></script>
+
+	<div class="comments-header">
+	    <h3><span id="comments-number">3</span> comments</h3>
+	    <p>
+			
+				
+				
+	                <span id="watch">
+	                    <a href="javascript:void(0)" class="comment-watch" onClick="javascript:loggedIn?startWatch():showLoginWindow(this,ALIGN_RIGHT,new Function('startWatch();'));">
+	                        Watch Thread
+	                    </a>
+	                </span>	
+				
+				
+			<a href="javascript:void(0)" class="comment-reply" onClick="javascript:loggedIn?replyFromTooltip(49268,true):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromTooltip(49268,true)'));">Reply</a>
+		</p>
+	</div>
+	
+	<span id="newMessage" style="display:none;"></span>
+	
+	<span id="replyTree_49268"></span>	  	
+	<span id="replyMessage_49268"></span>
+		
+		<div class="forum-list-tree" style="position: relative; left: 0px; margin-right: 0px;">		
+			<a class="forum-list">
+			<span id="tooltip_49399" style="cursor:pointer; cursor:hand;">Problem in example code</span>		
+			</a>
+			by 
+			Christopher Brind 
+			Posted
+	        Oct 25, 2009 5:28 AM
+			<script type="text/javascript" language="javascript">
+		    	Event.observe('tooltip_49399', 'mouseover', initializeTooltip);
+		    	Event.observe('tooltip_49399', 'mouseout', deintializeTooltip);	    	
+		  	</script>  	
+	  	</div>
+		<span id="replyTree_49399"></span>
+		<span id="replyMessage_49399"></span>
+		
+		<div class="forum-list-tree" style="position: relative; left: 15px; margin-right: 15px;">		
+			<a class="forum-list">
+			<span id="tooltip_49400" style="cursor:pointer; cursor:hand;">Re: Problem in example code</span>		
+			</a>
+			by 
+			Christopher Brind 
+			Posted
+	        Oct 25, 2009 5:29 AM
+			<script type="text/javascript" language="javascript">
+		    	Event.observe('tooltip_49400', 'mouseover', initializeTooltip);
+		    	Event.observe('tooltip_49400', 'mouseout', deintializeTooltip);	    	
+		  	</script>  	
+	  	</div>
+		<span id="replyTree_49400"></span>
+		<span id="replyMessage_49400"></span>
+		
+		<div class="forum-list-tree" style="position: relative; left: 30px; margin-right: 30px;">		
+			<a class="forum-list">
+			<span id="tooltip_49409" style="cursor:pointer; cursor:hand;">Re: Problem in example code</span>		
+			</a>
+			by 
+			Alex Blewitt 
+			Posted
+	        Oct 26, 2009 8:47 AM
+			<script type="text/javascript" language="javascript">
+		    	Event.observe('tooltip_49409', 'mouseover', initializeTooltip);
+		    	Event.observe('tooltip_49409', 'mouseout', deintializeTooltip);	    	
+		  	</script>  	
+	  	</div>
+		<span id="replyTree_49409"></span>
+		<span id="replyMessage_49409"></span>
+	
+	
+	<div class="comments-sort">
+		<span id="comments-sort"  >
+			
+			
+				<a class="comment-sort-desc" href="javascript:changeOrder(2);">Sort by date descending</a>
+			
+		</span>
+	</div>
+	
+	<ol class="comments">
+	
+	
+	
+		<li id="comment-49399">
+			<a name="view_49399"></a>
+			<div class="comment-header">
+				<p class="comment-top">
+					<a style="position:relative;" href="#">Back to top</a>
+				</p>
+				
+				<div id="header_49399">
+	                <h4><a href="#view_49399" name="49399" onClick="javascript:hideTooltip();return true;">Problem in example code</a></h4>
+	                <p class="comment-author">
+	                    Oct 25, 2009 5:28 AM
+	                    by
+	                    <strong>
+	                        Christopher Brind 
+	                    </strong>
+	                </p>
+				</div>
+			</div>				
+			<div id="body_49399">
+			<p>
+				<span id="quote_49399">
+					Hi Alex,<br><br>The first code sample after the heading "Creating a client bundle" seems to be incomplete?<br><br>Also, what is in the com.infoq.minimal-1.0.0.jar?  This wasn't created during the article.<br><br>Cheers,<br>Chris
+				</span>
+			</p>
+			</div>
+			<p class="comment-footer"><a class="comment-reply" href="javascript:void(0)" onClick="javascript:loggedIn?replyFromFlat(49399):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(49399);'));">Reply</a></p>			
+		<span id="replyFlat_49399"></span>
+		</li>
+		<span id="replyFlatMessage_49399"></span>	
+	
+		<li id="comment-49400">
+			<a name="view_49400"></a>
+			<div class="comment-header">
+				<p class="comment-top">
+					<a style="position:relative;" href="#">Back to top</a>
+				</p>
+				
+				<div id="header_49400">
+	                <h4><a href="#view_49400" name="49400" onClick="javascript:hideTooltip();return true;">Re: Problem in example code</a></h4>
+	                <p class="comment-author">
+	                    Oct 25, 2009 5:29 AM
+	                    by
+	                    <strong>
+	                        Christopher Brind 
+	                    </strong>
+	                </p>
+				</div>
+			</div>				
+			<div id="body_49400">
+			<p>
+				<span id="quote_49400">
+					Ah, I see where minimal comes from now... right at the beginning.
+				</span>
+			</p>
+			</div>
+			<p class="comment-footer"><a class="comment-reply" href="javascript:void(0)" onClick="javascript:loggedIn?replyFromFlat(49400):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(49400);'));">Reply</a></p>			
+		<span id="replyFlat_49400"></span>
+		</li>
+		<span id="replyFlatMessage_49400"></span>	
+	
+		<li id="comment-49409">
+			<a name="view_49409"></a>
+			<div class="comment-header">
+				<p class="comment-top">
+					<a style="position:relative;" href="#">Back to top</a>
+				</p>
+				
+				<div id="header_49409">
+	                <h4><a href="#view_49409" name="49409" onClick="javascript:hideTooltip();return true;">Re: Problem in example code</a></h4>
+	                <p class="comment-author">
+	                    Oct 26, 2009 8:47 AM
+	                    by
+	                    <strong>
+	                        Alex Blewitt 
+	                    </strong>
+	                </p>
+				</div>
+			</div>				
+			<div id="body_49409">
+			<p>
+				<span id="quote_49409">
+					Sorry about that - originally the Map was a generic one (with String,String type arguments) but the publishing system ate everything after the opening angled bracket :-) I've removed it now so the rest of the code shows up - but the source code is included in the .jar too. The minimal one, as you note, is really just there for people who are interested in downloading/using it from an OSGi install.
+				</span>
+			</p>
+			</div>
+			<p class="comment-footer"><a class="comment-reply" href="javascript:void(0)" onClick="javascript:loggedIn?replyFromFlat(49409):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(49409);'));">Reply</a></p>			
+		<span id="replyFlat_49409"></span>
+		</li>
+		<span id="replyFlatMessage_49409"></span>	
+	
+	
+	<span id="lastMessages"></span>
+	<span id="replyFlatMessage_49268"></span>
+	
+	</ol>
+
+
+    <div class="box-bottom"></div>
+    </div>
+    </div> 
+    <div class="bottom-corners"><div></div></div>
+    </div> 
+  
+
+			
+		</div>
+		
+	</div></div>
+	
+		
+	
+
+
+
+
+
+
+
+<!-- right side start -->
+
+	<div id="rightbar">
+	<div id="right-wrapper">
+	    <!-- box start -->
+	    <div class="box">
+	        <h2>Educational Content</h2>
+	        <ul class="menu" id="tabsmenu">
+	   			<li id="tab_ALL_EXCEPT_NEWS" class="m-ALL_EXCEPT_NEWS-on"><a href="#" onclick="ContentSummary.switchTab('ALL_EXCEPT_NEWS');return false;">All</a></li>
+	            <li id="tab_ARTICLE" class="m-ARTICLE-off"><a href="#" onclick="ContentSummary.switchTab('ARTICLE');return false;">Articles</a></li>
+	            <li id="tab_PRESENTATION" class="m-PRESENTATION-off"><a href="#" onclick="JSResource.presentationsTab();return false;">Presentations</a></li>
+	            <li id="tab_INTERVIEW" class="m-INTERVIEW-off"><a href="#" onclick="JSResource.interviewsTab();return false;">Interviews</a></li>
+	            <li id="tab_MINIBOOK" class="m-MINIBOOK-off"><a href="#" onclick="JSResource.minibooksTab();return false;">Minibooks</a></li>
+	        </ul>
+		    <div class="top-corners"><div></div></div>
+		    
+		    <div class="box-content">
+			    <div class="box-content-2">
+			    <div id="rightbarcontentbox" class="box-content-3">
+                    
+					
+                        
+						
+								
+<form id="tabstateform" onsubmit="customOnsubmit(); return true;" action="http://www.infoq.com/;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">
+<table class="wwFormTable">
+
+	<input id="startIndex" type="hidden" name="startIndex" value="0"/>
+	<input id="selectedTab" type="hidden" name="selectedTab" value="ALL_EXCEPT_NEWS"/>
+	<input id="rightBarLanguage" type="hidden" name="language" value="en" />
+</table>
+</form>
+
+
+<script>
+	function customOnsubmit() {
+		
+	}
+</script>
+
+
+
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-articles"><a href="/articles/air-20-new-features;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">What's New in Two: Adobe AIR 2.0 is Coming Soon!</a></h1>
+    	
+        	<p class="image"><a href="/articles/air-20-new-features;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/articles/air-20-new-features/en/smallimage/image_adobe-air-2.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>Adobe AIR 2.0 is coming, and it contains many highly requested features that application developers have wanted since AIR 1.0 was released nearly two years ago - learn more about what's new in 2.0.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Feb 03, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/articles/air-20-new-features;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		
+    		    			1
+    		    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-articles"><a href="/articles/agile-soa;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">Agile and SOA, Hand in Glove? </a></h1>
+    	
+        	<p class="image"><a href="/articles/agile-soa;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/articles/agile-soa/en/smallimage/image_hand_puppets.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>We examine the compatibility between SOA and Agile development. </p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Feb 02, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/articles/agile-soa;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-interviews"><a href="/interviews/box-soap-xml-rest-m;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">Don Box Discusses SOAP, XML, REST and M</a></h1>
+    	
+        	<p class="image"><a href="/interviews/box-soap-xml-rest-m;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/interviews/box-soap-xml-rest-m/en/smallimage/DonBox.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>Don Box discusses the history of SOAP, XML, XML Schema, SOAP and WSDL, opinions on REST, REST at Microsoft, coexistence of REST and WS-*, the M language, M and DSLs, M vs XML, and future plans.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Feb 01, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/interviews/box-soap-xml-rest-m;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-presentations"><a href="/presentations/SpringSource-Cloud-Computing;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">Faster Time to Value through Cloud Computing</a></h1>
+    	
+        	<p class="image"><a href="/presentations/SpringSource-Cloud-Computing;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/presentations/SpringSource-Cloud-Computing/en/smallimage/CharlesLee.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>Charles Lee presents the values of cloud computing and introduces the audience to several SpringSource tools, especially Cloud Foundry, useful to create and manage cloud deployments.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 31, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/presentations/SpringSource-Cloud-Computing;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-presentations"><a href="/presentations/Reincarnation-SOA-Anne-Thomas-Manes;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">The Reincarnation of SOA</a></h1>
+    	
+        	<p class="image"><a href="/presentations/Reincarnation-SOA-Anne-Thomas-Manes;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/presentations/Reincarnation-SOA-Anne-Thomas-Manes/en/smallimage/AnneThomasM.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>Anne Thomas Manes talks about SOA's reincarnation. Old SOA had to die because it was focused on technology and products, while the new one will be focused on architecture, principles and practices.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 29, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/presentations/Reincarnation-SOA-Anne-Thomas-Manes;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		
+    		    			5
+    		    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-interviews"><a href="/interviews/manns-change-oopsla;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">Mary-Lynn Manns on Fearless Change</a></h1>
+    	
+        	<p class="image"><a href="/interviews/manns-change-oopsla;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/interviews/manns-change-oopsla/en/smallimage/MaryLyn.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>In this short interview, Mary-Lynn Manns discusses some of the patterns from the book Fearless Change plus some patterns that will appear in the sequel, tentatively titled, More Fearless Change.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 28, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/interviews/manns-change-oopsla;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-articles"><a href="/articles/blazedsjms1;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">BlazeDS and JMS for PHP Developers, Part 1</a></h1>
+    	
+        	<p class="image"><a href="/articles/blazedsjms1;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/articles/blazedsjms1/en/smallimage/image_php_blazeDS.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>In the first of two articles on BlazeDS and JMS, InfoQ looks at the advantages of JMS and how you can use BlazeDS to communicate with your Java services via JMS from your Flex applications.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 27, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/articles/blazedsjms1;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+	
+		
+	
+	<div class="entry">
+    	<h1 class="ex-interviews"><a href="/interviews/mercuri-computer-forensics;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29">Rebecca Mercuri on Computer Forensics</a></h1>
+    	
+        	<p class="image"><a href="/interviews/mercuri-computer-forensics;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><img src="/resource/interviews/mercuri-computer-forensics/en/smallimage/Rebecca.jpg;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29" alt="" /></a></p>
+        
+        <p>In this interview, Dr. Mercuri defines computer forensics, talks about forensics for criminal cases, general IP issues, and civil matters.  She also talks about technological issues.</p>
+        <ul class="info link-col">
+            <li>
+			
+			</li>
+	        <li class="author"><span>&nbsp;</span>Jan 27, 2010,</li>
+    	    
+    	    	<li class="comments">
+    	    		<a href="/interviews/mercuri-computer-forensics;jsessionid=018EFC8D8B8D943BC70B55B377BC8C29"><span>&nbsp;</span>
+	    	    		
+    		    			1
+    		    		    		    		
+    		    	</a>
+    		    </li>
+    		 
+        </ul>
+    </div>
+        
+    <div class="clearer"></div>
+
+
+<ul class="newsnav link-col">
+
+
+    <li><a href="#" onclick="ContentSummary.setStartIndex('8');return false;">Older &gt;</a></li>
+
+</ul>
+
+	                <!-- Rightbar:2ms -->
+    
+				    <div class="box-bottom"></div>
+				</div>
+				</div>
+				<div class="bottom-corners"><div></div></div>
+			</div>
+		</div>
+		<!-- box end -->
+		<script type="text/javascript">
+			ContentSummary.setSelectedTab('en');
+		</script>
+	</div>
+	</div>
+
+<!-- right side end -->
+
+
+	<div class="clearer"></div>
+
+	
+
+
+
+
+
+
+
+
+	<div id="footer">
+		<p>
+			InfoQ.com and all content copyright &#169; 2006-2009 C4Media Inc.
+			InfoQ.com hosted at <a href="http://www.contegix.com/">Contegix</a>, the best ISP we've ever worked with.
+			<a href="/PrivacyPolicy.jsp;jsessionid=632705B4CE45DA3E07D416D466B849A0">Privacy policy</a>
+		</p>
+	</div>
+
+
+</div>
+
+<script src="http://cdn1.infoq.com/scripts/__utm.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="text/javascript"></script>
+<script src="/dwr/engine.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="text/javascript"></script>
+<script src="/dwr/util.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="text/javascript"></script>
+<script src="/dwr/interface/UserCategoryUtil.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="text/javascript"></script>
+<script src="/dwr/interface/DWRRewriteAction.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="text/javascript"></script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var includeName = 'Include';
+	var excludeName = 'Exclude';
+	var includeHint = 'You can include this category.';
+	var excludeHint = 'You can exclude this category.';
+	var excludeCategoryMessage = 'You can re-include from your profile personalization, or right now.<BR />';
+	var viewallCategoryMessage = 'You can view all items that belong to this category.';
+	var busyMessage = 'Please wait...';
+	var contextPath = '' + '/';
+	var viewallCategoryPath= 'en';
+	var includeExcludeLink= true;
+</script>
+
+
+
+
+
+
+
+
+
+
+	<script src="/dwr/interface/UserConfirmation.js;jsessionid=632705B4CE45DA3E07D416D466B849A0" type="text/javascript"></script>
+	<script type="text/javascript">UserConfirmation.confirm('SVuWRhHnkXCG5kLkkMZC4m4ys0DmWdvP');</script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-6608133-2");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+</body>
+</html>
+

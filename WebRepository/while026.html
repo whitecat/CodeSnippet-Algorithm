@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name="keywords" content=" Problem while loading Java Applet, IE 7 RC1 Crashes, dhtml, javascript, css, dynamic html, xml, html, php, cgi" />
+	<meta name="description" content="[Archive]  Problem while loading Java Applet, IE 7 RC1 Crashes Java" />
+	
+	<title> Problem while loading Java Applet, IE 7 RC1 Crashes [Archive]  - Dynamic Drive Forums</title>
+	<link rel="stylesheet" type="text/css" href="http://www.dynamicdrive.com/forums/archive/archive.css" />
+</head>
+<body>
+<div class="pagebody">
+<div id="navbar"><a href="http://www.dynamicdrive.com/forums/archive/index.php">Dynamic Drive Forums</a> &gt; <a href="http://www.dynamicdrive.com/forums/archive/index.php/f-5.html">General Coding</a> &gt; <a href="http://www.dynamicdrive.com/forums/archive/index.php/f-22.html">Java</a> &gt;  Problem while loading Java Applet, IE 7 RC1 Crashes</div>
+<hr />
+<div class="pda"><a href="http://www.dynamicdrive.com/forums/archive/index.php/t-13304.html?pda=1" rel="nofollow">PDA</a></div>
+<p class="largefont">View Full Version : <a href="http://www.dynamicdrive.com/forums/showthread.php?t=13304">Problem while loading Java Applet, IE 7 RC1 Crashes</a></p>
+<hr />
+
+		<div style="text-align: left; width: 730px">
+		<script type="text/javascript">
+   	e9 = new Object();
+   	e9.size = "728x90,468x60";
+   	e9.addBlockingCategories="Adult,Flashing,Warning,Pop-up,Floating,Full-page";
+   	e9.noAd = 1;
+		</script>
+		<script type="text/javascript" src="http://tags.expo9.exponential.com/tags/DynamicDrive/ros/tags.js"></script>
+		</div>
+	
+<div class="post"><div class="posttop"><div class="username">codeexploiter</div><div class="date">09-20-2006, 09:38 AM</div></div><div class="posttext">Hi,<br />
+<br />
+I found some problem while loading a Java applet in Internet Explorer 7 Release Candidate 1.<br />
+<br />
+Please check the following code that I had used for loading the applet in my HTML page.<br />
+<br />
+<br />
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<br />
+    var _info = navigator.userAgent; <br />
+    var _ns = false;<br />
+    var _ie = (_info.indexOf(&quot;MSIE&quot;) &gt; 0 &amp;&amp; _info.indexOf(&quot;Win&quot;) &gt; 0 &amp;&amp; _info.indexOf(&quot;Windows 3.1&quot;) &lt; 0);<br />
+//--&gt;&lt;/SCRIPT&gt;<br />
+&lt;COMMENT&gt;<br />
+&lt;SCRIPT LANGUAGE=&quot;JavaScript1.1&quot;&gt;&lt;!--<br />
+    var _ns = (navigator.appName.indexOf(&quot;Netscape&quot;) &gt;= 0 <br />
+        &amp;&amp; ((_info.indexOf(&quot;Win&quot;) &gt; 0 &amp;&amp; _info.indexOf(&quot;Win16&quot;) &lt; 0<br />
+        &amp;&amp; java.lang.System.getProperty(&quot;os.version&quot;).indexOf(&quot;3.5&quot;) &lt; 0)<br />
+        || _info.indexOf(&quot;Sun&quot;) &gt; 0));<br />
+//--&gt;&lt;/SCRIPT&gt;&lt;/COMMENT&gt;<br />
+<br />
+<br />
+&lt;!-- The following code is repeated for each APPLET tag --&gt;<br />
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<br />
+    if (_ie == true) document.writeln('&lt;OBJECT classid=&quot;clsid:8AD9C840-044E-11D1-B3E9-00805F499D93&quot; width=&quot;0&quot; height=&quot;0&quot; codebase=&quot;http://java.sun.com/products/plugin/1.4/jinstall-14-win32.cab#Version=1,4,0,mn&quot;&gt; &lt;NOEMBED&gt;&lt;XMP&gt;');<br />
+    else if (_ns == true) document.writeln('&lt;EMBED type=&quot;application/x-java-applet;&quot; width=&quot;0&quot; height=&quot;0&quot; code=&quot;abc.def.ghi.MyApplet.class&quot; codebase=&quot;./&quot; name=&quot;MyApplet&quot; archive=&quot;MyApplet.jar&quot; TRACE_CGI=&quot;on&quot; CONNECTION_TIMEOUT=&quot;30&quot; OUTPUT_FUNCTION=&quot;addOutput&quot; mayscript=&quot;true&quot; pluginspage=&quot;http://java.sun.com/j2se/1.4/download.html&quot;&gt;<br />
+    &lt;NOEMBED&gt;&lt;XMP&gt;');<br />
+//--&gt;&lt;/SCRIPT&gt;<br />
+<br />
+&lt;applet codebase = &quot;./&quot; code=&quot;abc.def.ghi.MyApplet.class&quot; archive=&quot;MyApplet.jar&quot; name=&quot;MyApplet&quot; width=0 height=0	mayscript&gt;<br />
+<br />
+&lt;/XMP&gt;<br />
+    &lt;PARAM NAME=&quot;java_code&quot; VALUE=&quot;abc.def.ghi.MyApplet.class&quot;&gt;<br />
+    &lt;PARAM NAME=&quot;java_codebase&quot; VALUE=&quot;./&quot;&gt;<br />
+    &lt;PARAM NAME=&quot;java_type&quot; VALUE=&quot;application/x-java-applet;&quot;&gt;<br />
+	&lt;param name=&quot;java_archive&quot; value=&quot;MyApplet.jar&quot;&gt;<br />
+	&lt;param name=&quot;mayscript&quot; value=&quot;true&quot;&gt;<br />
+     &lt;param name=&quot;TRACE_CGI&quot; value=&quot;on&quot;&gt;<br />
+     &lt;param name=&quot;CONNECTION_TIMEOUT&quot; value=&quot;30&quot;&gt;<br />
+     &lt;param name=&quot;OUTPUT_FUNCTION&quot; value=&quot;addOutput&quot;&gt;<br />
+    &lt;PARAM NAME=&quot;scriptable&quot; VALUE=&quot;true&quot;&gt;<br />
+    No Java 2 SDK, Standard Edition v 1.4 support for APPLET!!<br />
+&lt;/APPLET&gt;&lt;/NOEMBED&gt;&lt;/EMBED&gt;<br />
+&lt;/OBJECT&gt;<br />
+<br />
+&lt;!--<br />
+    &lt;APPLET code=&quot;XYZApp.class&quot; codebase=&quot;html/&quot; align=&quot;baseline&quot;<br />
+        width=&quot;200&quot; height=&quot;200&quot;&gt;<br />
+    &lt;PARAM NAME=&quot;model&quot; VALUE=&quot;models/HyaluronicAcid.xyz&quot;&gt;<br />
+    No Java 2 SDK, Standard Edition v 1.4 support for APPLET!!<br />
+    &lt;/APPLET&gt;<br />
+--&gt;<br />
+<br />
+<br />
+The above code loads the Applet without any problem in all the other browsers including IE 7 RC1.<br />
+<br />
+But while loading the applet in IE7 it shows a Javascript error on the following line<br />
+<br />
+document.writeln('&lt;EMBED type=&quot;application/x-java-applet;&quot; width=&quot;0&quot; height=&quot;0&quot; code=&quot;abc.def.ghi.MyApplet.class&quot; codebase=&quot;./&quot; name=&quot;MyApplet&quot; archive=&quot;MyApplet.jar&quot; TRACE_CGI=&quot;on&quot; CONNECTION_TIMEOUT=&quot;30&quot; OUTPUT_FUNCTION=&quot;addOutput&quot; mayscript=&quot;true&quot; pluginspage=&quot;http://java.sun.com/j2se/1.4/download.html&quot;&gt;<br />
+    &lt;NOEMBED&gt;&lt;XMP&gt;');<br />
+<br />
+<br />
+Something like unterminated string, this javascript error is not displaying on any other browser. :)<br />
+<br />
+Now what i've done is i've removed the space before &lt;NOEMBED&gt;&lt;XMP&gt;'); tag since it is a part of a single document.writelin statement and saved my HTML page and loaded into IE7 RC1 at that point it crashed and shown an error. I'v attached the image of the error message in this post.<br />
+<br />
+When i give that space as i mentioned in my script above the java applet loads and works correctly except that it shows a Javascript error.<br />
+<br />
+I would like to know your thoughts on this issue.<br />
+<br />
+Thanks in advance</div></div><hr />
+
+
+<div class="post"><div class="posttop"><div class="username">nikster2004</div><div class="date">10-12-2006, 04:34 AM</div></div><div class="posttext">Hi - thanks for this information. It helped us narrow down and finally fix the issue.<br />
+<br />
+I did a pretty detaied analysis on this JavaScript - generated by HTMLConverter   - and found that it does generate HTML that's simply not valid. I won't go into the details, but here are a few highlights:<br />
+- Use of &lt;XMP&gt; which is deprecated<br />
+- Wrong end tags depending on which version you are looking at. There are unconditional end tags for all options of serving the applet: OBJECT, EMBED, and APPLET. <br />
+- The EMBED code looks completely wrong as it serves both the embed with all parameters as attributes _and_ the &lt;param...&gt; parameters from the Applet tag. Does not matter too much because EMBED seems to be only for really old versions of Netscape.<br />
+- The OBJECT rewrite has - at least in our version - tons of duplicate parameters.<br />
+<br />
+The fix: I first made pristine HTML tags for each of the three options: OBJECT, EMBED, and APPLET. Then I put the code that determines the browser type on the server side - I could do that because we were already serving the page from a JSP, so putting the code server side was no effort at all. You don't have some of the options that JavaScript has but if you look at WikiPedia's collection of User-Agent strings, it's trivial to write some code that can distinguish between IE, Netscape before version 6, and all other browsers, just like the JS.<br />
+<br />
+The output is now clean, clear HTML for both IE and Firefox. The OBJECT tag delievered directly - and without JS document-rewrite or superflous end tags and other fishy constructs like the HTMLConverter uses - works as designed in IE 7 RC1.<br />
+<br />
+What a mess! I mostly blame the HTMLConverter for this, the code generated by that is a total hack and not even close to correct HTML. It took me ages just to figure out what it actually _does_.</div></div><hr />
+
+
+<div class="post"><div class="posttop"><div class="username">codeexploiter</div><div class="date">10-12-2006, 05:01 AM</div></div><div class="posttext">Thanks for the detailed information  about the issue.</div></div><hr />
+
+
+<div id="copyright">vBulletin&reg; v3.8.1, Copyright &copy;2000-2010, Jelsoft Enterprises Ltd.</div>
+</div>
+</body>
+</html>

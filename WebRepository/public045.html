@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>[Tcl Java] Accessing public parent fields</title>
+  <link rel="stylesheet" href="main.css" media="screen">
+  <link rel="contents" href="index.html#01069">
+  <link rel="index" href="maillist.html#01069">
+  <link rel="prev" href="msg01068.html">
+  <link rel="next" href="msg01070.html">
+  <link rel="alternate" title="tcljava RSS" href="//www.mail-archive.com/tcljava@scriptics.com/maillist.xml" TYPE="application/rss+xml">
+  
+</head>
+<body id="msg">
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<!--htdig_noindex-->
+<div id="msgcontainer">
+	<a id="mail-archive-logo" href="/"></a>
+<h1>
+	<span id="listlink"><a href="/tcljava@scriptics.com/info.html">tcljava</a></span> &nbsp;
+</h1>
+	<form action="/search" method=get>
+		<ul id="topLinks">
+			<li class="topThreadNav"><span class="msglink"><a href="msg01068.html" accesskey="p" title="Earlier messages"><img src="/leftarrow.png" border="0" height="22" width="20" align="top" alt="left arrow"></a></span> <span class="threadlink"><a href="index.html#01069" title="Messages by Thread" accesskey="c">Thread</a></span> <span class="msglink"><a href="msg01070.html" accesskey="n" title="Later messages"><img src="/rightarrow.png" border="0" height="22" width="20" align="top" alt="right arrow"></a></span></li>
+			<li class="topDateNav"><span class="msglink"><a href="msg01068.html" accesskey="b" title="Earlier messages"><img src="/leftarrow.png" border="0" height="22" width="20" align="top" alt="left arrow"></a></span> <span class="chronologicallink"><a href="maillist.html#01069" title="Messages by Date" accesskey="i">Date</a></span> <span class="msglink"><a href="msg01070.html" accesskey="f" title="Later messages"><img src="/rightarrow.png" border="0" height="22" width="20" align="top" alt="right arrow"></a></span></li>
+			<li>
+				<input type="hidden" name="l" value="tcljava@scriptics.com">Find <input type=text name="q" value="" size=18>
+			</li>
+		</ul>
+	</form>
+</div>
+
+<div id="msgcontainer2">
+	<div id="corner1"></div>
+	<div id="corner2"></div>
+	<div id="msgcontent">
+<!--/htdig_noindex-->
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+		<div class="msgHead">
+			<h1><span class="subject">[Tcl Java] Accessing public parent fields</span></h1>
+			<p><span class="sender">Sandeep Tamhankar</span><br>
+			<span class="date">Thu, 14 Sep 2000 10:00:42 -0700</span></p>
+		</div>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<div class="msgBody">
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I have the following two class definitions:
+
+public class myclass {
+    private int priv;
+    public int f1;
+    public int f2;
+    public static int stat=5;
+    public myclass () {
+        f1=7;
+    }
+    public void setF2(int i) {
+        f2=i;
+    }
+    public int getF2() {
+        return f2;
+    }
+}
+
+public class mysubclass extends myclass {
+    public int sub1;
+}
+
+I execute the following Tcl code to introspect my two classes, and there
+seems to be some kind of inconsistency.  java::info on mysubclass
+returns all of its fields as well as its parents; however it seems that
+I can't use java::field to actually get/set the values of those fields:
+
+% package require java
+1.2.5
+% java::info fields -type mysubclass
+{int f1} {int f2} {int sub1}
+% java::info fields -type -static mysubclass
+{int stat}
+% set obj [java::new mysubclass]  
+java0x1
+% java::field $obj sub1
+0
+% java::field $obj f1
+field "f1" doesn't exist
+% java::field $obj stat
+field "stat" doesn't exist
+
+If I mess around with the parent class containing those fields, things
+work out:
+
+% java::field myclass stat
+5
+% set sobj [java::new myclass]
+java0x2
+% java::field $sobj stat
+5
+
+This seems to be a big bug to me.  Am I doing something wrong, or is
+there something wrong with Blend? Thanks.
+
+-Sandeep
+-- 
+---------------------------------------------------------------------------
+Sandeep V. Tamhankar                    Email: [EMAIL PROTECTED]
+Software Engineer                       Phone: (650) 210-0103
+Ajuba Solutions                         <A  HREF="http://www.ajubasolutions.com">http://www.ajubasolutions.com</A>
+
+----------------------------------------------------------------
+The TclJava mailing list is sponsored by Scriptics Corporation.
+To subscribe:    send mail to [EMAIL PROTECTED]  
+                 with the word SUBSCRIBE as the subject.
+To unsubscribe:  send mail to [EMAIL PROTECTED] 
+                 with the word UNSUBSCRIBE as the subject.
+To send to the list, send email to '[EMAIL PROTECTED]'. 
+An archive is available at <A  HREF="http://www.mail-archive.com/tcljava@scriptics.com">http://www.mail-archive.com/tcljava@scriptics.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+</div> <!-- end of msgBody class -->
+
+<!--htdig_noindex-->
+
+<div id="adbox">
+
+</div>
+
+<div class="tSliceList">
+<ul>
+<li class="sliceCur">
+<span class="subject">[Tcl Java] Accessing public parent fields</span>
+<span class="sender">Sandeep Tamhankar</span>
+<ul>
+<li class="tlitxt">
+<span class="subject"><a name="01070" href="msg01070.html">[Tcl Java] Re: Accessing public parent fields</a></span>
+<span class="sender">Mo DeJong</span>
+<!-- noop -->
+</ul>
+</li>
+</ul>
+
+</div> <!-- end of tSliceList class -->
+<!--/htdig_noindex-->
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<!--htdig_noindex-->
+  <ul id="botLinks">
+  <li><div class="reply">
+<FORM METHOD="POST" ACTION="/mailto.php">
+
+
+<INPUT TYPE="HIDDEN" NAME="subject" VALUE="[Tcl Java] Accessing public parent fields">
+<INPUT TYPE="HIDDEN" NAME="msgid" VALUE="39C105A4.38380D4@ajubasolutions.com">
+Reply via email to<br>
+<INPUT TYPE="SUBMIT" VALUE=" Sandeep Tamhankar ">
+</FORM>
+</div>
+  </li>
+  </ul>
+<!--/htdig_noindex-->
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</div> <!-- end of msgcontent class -->
+</div> <!-- end of msgcontainer2 class -->
+
+<!-- These extra divs/spans may be used as catch-alls to add extra imagery. -->
+<div id="extraDiv1"><span></span></div><div id="extraDiv2"><span></span></div><div id="extraDiv3"><span></span></div>
+<div id="extraDiv4"><span></span></div><div id="extraDiv5"><span></span></div><div id="extraDiv6"><span></span></div>
+
+</body>
+</html>

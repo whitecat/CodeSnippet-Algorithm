@@ -1,0 +1,1249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Best practices for using the Java Native Interface</title>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))'/>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/"/>
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico"/>
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM"/>
+<meta name="DC.Language" scheme="rfc1766" content="en"/>
+<meta name="IBM.Country" content="ZZ"/>
+<meta name="Security" content="Public"/>
+<meta name="IBM.SpecialPurpose" content="SP001"/>
+<meta name="IBM.PageAttributes" content="sid=1003"/>
+<meta name="Source" content="v16 Template Generator"/>
+<meta name="Robots" content="index,follow"/>
+<meta name="Abstract" content="The Java Native Interface (JNI) is a standard Java API that enables Java code to integrate with code written in other programming languages. JNI can be a key element in your toolkit if you want to leverage existing code assets -- for example, in a service-oriented architecture (SOA) or a cloud-based system. But when used without due care, JNI can quickly lead to poorly performing and unstable applications. This article identifies the top 10 JNI programming pitfalls, provides best practices for avoiding them, and introduces the tools available for implementing these practices."/>
+<meta name="Description" content="The Java Native Interface (JNI) is a standard Java API that enables Java code to integrate with code written in other programming languages. JNI can be a key element in your toolkit if you want to leverage existing code assets -- for example, in a service-oriented architecture (SOA) or a cloud-based system. But when used without due care, JNI can quickly lead to poorly performing and unstable applications. This article identifies the top 10 JNI programming pitfalls, provides best practices for avoiding them, and introduces the tools available for implementing these practices."/>
+<meta name="Keywords" content="Java, Java Native Interface, JNI, Native, Reuse, SOA, Cloud, Michael H. Dawson, Michael Dawson, Graeme Johnson, Andrew Low, tttjca"/>
+<meta name="DC.Date" scheme="iso8601" content="2009-07-07"/>
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316"/>
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300"/>
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCJVAZZ" />
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2009"/>
+<meta name="IBM.Effective" scheme="W3CDTF" content="2009-07-07"/>
+<meta name="title" content="Best practices for using the Java Native Interface"/>
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/all.css" media="all" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/zz/en/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/print.css" media="print" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/v16/css/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+
+<!-- dW-specific CSS -->
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/css/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css"/>
+<link href="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.css" media="screen,projection" rel="stylesheet"  title="www" type="text/css" />
+
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/ibmcommon.js" type="text/javascript">//</script>
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/artrating/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+</head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead">
+<div id="ibm-logo"><a href="http://www.ibm.com/"><img height="50" src="//www.ibm.com/i/v16/t/ibm-logo.gif" width="110" alt="IBM®" /></a></div>
+<ul id="ibm-geo"><li id="ibm-country" class="ibm-first">Country/region</li><li id="ibm-change-country">[ <a href="http://www.ibm.com/developerworks/country/">select</a> ]</li></ul>
+  <form id="ibm-search-form" action="//www.ibm.com/developerworks/search/searchResults.jsp" method="get" name="form1"><input type="hidden" name="searchType" value="1"/><input type="hidden" name="searchSite" value="dW"/><p>
+<span id="ibm-search-scope">
+<label for="sn"><img src="//www.ibm.com/i/c.gif" width="1" height="1" alt="Search in:"/></label>
+<select name="searchScope" id="sn">
+<option value="dW" selected="selected">All of dW</option>
+<option value="dW">-----------------</option>
+<option value="aixunix">&nbsp;AIX and UNIX</option>
+<option value="db2">&nbsp;Information Mgmt</option>
+<option value="lotus">&nbsp;Lotus</option>
+<option value="rdd">&nbsp;Rational</option>
+<option value="tivoli">&nbsp;Tivoli</option>  
+<option value="WSDD">&nbsp;WebSphere</option>
+<option value="dW">-----------------</option> 
+<option value="javaZ">&nbsp;Java technology</option> 
+<option value="linuxZ">&nbsp;Linux</option> 
+<option value="opensrcZ">&nbsp;Open source</option>
+<option value="webservZ">&nbsp;SOA/Web services</option>
+<option value="webarchZ">&nbsp;Web development</option>  
+<option value="xmlZ">&nbsp;XML</option>
+<option value="dW">-----------------</option>
+<option value="forums">&nbsp;dW forums</option> 
+<option value="dW">-----------------</option>
+<option value="aI">University</option>
+<option value="dW">-----------------</option>
+<option value="aW">alphaWorks</option>
+<option value="dW">-----------------</option>
+<option value="all">All of IBM</option>
+</select>
+</span>
+
+<label for="q"><img alt="Search for:" height="1" width="1" src="//www.ibm.com/i/c.gif" /></label><input type="text" name="query" maxlength="100" id="q"/><input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search" /></p></form>
+<div id="ibm-site-name">
+<!-- IBM site name container -->
+</div>
+<div id="ibm-universal-nav">
+<ul><li id="ibm-unav-home" class="ibm-first"><a href="http://www.ibm.com/">Home</a></li><li id="ibm-unav-solutions"><a href="http://www.ibm.com/solutions/">Solutions</a></li><li id="ibm-unav-services"><a href="http://www.ibm.com/technologyservices/">Services</a></li><li id="ibm-unav-products"><a href="http://www.ibm.com/products/">Products</a></li><li id="ibm-unav-support"><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li><li id="ibm-unav-myibm"><a href="http://www.ibm.com/account/">My IBM</a></li></ul>
+</div>
+</div>
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Best practices for using the Java Native Interface
+</h1><p><em>Techniques and tools for averting the 10 most common JNI programming mistakes</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="#author1">Michael Dawson</a> (<a href="mailto:michael_dawson@ca.ibm.com?subject=Best practices for using the Java Native Interface
+&amp;cc=jaloi@us.ibm.com">michael_dawson@ca.ibm.com</a>), Advisory Software Developer, 				IBM	</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print"><div class="position"><img src="http://www.ibm.com/developerworks/i/p-mdawson.jpg" width="64" height="80" alt="Michael Dawson" /></div>Michael Dawson graduated in 1989 from the University of Waterloo with a bachelor's degree in computer engineering and in 1991 from Queens University with a master's degree in electrical engineering, specializing in cryptography. He then spent a number of years doing security consulting and developing products at companies ranging from start-ups to IBM. He has held leadership roles in teams developing e-commerce applications and delivering them as services including EDI communication services, credit card processing, online auctions, electronic invoicing, and JVMs. The technologies used ranged from C/C++ to Java and Java EE platforms and components across a range of operating systems. Michael joined IBM in 2006. He works on the J9 JVM team implementing Java class libraries and core JVM components.</div><div class="author"><a class="dwauthor" rel="#authortip2" href="#author2">Graeme Johnson</a> (<a href="mailto:Graeme_Johnson@ca.ibm.com?subject=Best practices for using the Java Native Interface
+">Graeme_Johnson@ca.ibm.com</a>), J9 Virtual Machine Development Manager, 				IBM	</div><div id="authortip2" class="dwauthor-onload-state ibm-no-print"><div class="position"><img src="http://www.ibm.com/developerworks/i/p-gjohnson.jpg" width="64" height="80" alt="Graeme Johnson" /></div>Graeme Johnson is a development manager and technical lead on IBM's J9 Virtual Machine team. He has been developing virtual machines and debuggers since he joined IBM (previously Object Technology International) in 1994, and has worked on both VisualAge for Java and IBM/OTI Smalltalk runtimes. Recently Graeme has been focusing on the Apache Harmony project, and the Java/PHP runtime support for IBM's <a href="http://projectzero.org">Project Zero</a>. Graeme is a regular conference speaker on a variety of topics including: Apache Harmony at JavaOne 2006, multiplatform C development at EclipseCon 2007, and an examination of the PHP runtime at International PHP 2006. </div><div class="author"><a class="dwauthor" rel="#authortip3" href="#author3">Andrew Low</a> (<a href="mailto:Andrew_Low@ca.ibm.com?subject=Best practices for using the Java Native Interface
+&amp;cc=jaloi@us.ibm.com">Andrew_Low@ca.ibm.com</a>), STSM, J9 Virtual Machine, 				IBM	</div><div id="authortip3" class="dwauthor-onload-state ibm-no-print"><div class="position"><img src="http://www.ibm.com/developerworks/i/p-alow.jpg" width="64" height="80" alt="Andrew Low" /></div>Andrew Low joined Object Technology International Inc. (OTI) in 1994 as a university graduate after working as a co-op student for several terms. He remained with the company when IBM acquired OTI in 1996. His work has always been associated with VM technology, ranging from the very small (cell phones and PDAs) to the very large (IBM zSeries mainframe systems). He is currently a technical leader on the J9 VM team at the IBM Ottawa Lab, helping shape the core technology behind IBM's Java runtimes. Andrew has played a key role in the development of the J9 VM and is a recognized expert in embedded systems and the Java ME marketplace. Recently he has been involved in several strategic efforts to push Java runtime technology into the Web2.0 world.</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; The Java&#8482; Native Interface (JNI) is a standard Java API that enables Java code to integrate with code written in other programming languages. JNI can be a key element in your toolkit if you want to leverage existing code assets &#8212; for example, in a service-oriented architecture (SOA) or a cloud-based system. But when used without due care, JNI can quickly lead to poorly performing and unstable applications. This article identifies the top 10 JNI programming pitfalls, provides best practices for avoiding them, and introduces the tools available for implementing these practices.</p>
+
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"></div></p>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>Date:</b>&nbsp; 07 Jul  2009
+<br /><b>Level: </b>&nbsp;Intermediate
+<br class="ibm-ind-link"/><b>PDF:</b>&nbsp; <a href="http://download.boulder.ibm.com/ibmdl/pub/software/dw/java/j-jni-pdf.pdf">A4 and Letter</a> (84KB | 25 pages)<a class="ibm-external-link" href="http://www.adobe.com/products/acrobat/readstep2.html">Get Adobe&#174; Reader&#174;</a>
+<br /><b>Activity:</b>&nbsp; 23897 views
+<br /><b>Comments:</b> &nbsp; <span id="nCmts"><img alt="" src="//www.ibm.com/developerworks/i/circle-preloader.gif" height="12" width="50" /><img alt="" src="//www.ibm.com/i/gif" height="14" width="1" /></span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" type="hidden" value="0"/><div id="art-rating-widget"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+</p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>The Java environment and language are safe and efficient for application development. However, some applications need to perform tasks that go beyond what can be done from within a pure-Java program, such as:</p>
+
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>JNI's evolution</h2><div class="ibm-container-body">
+
+<p>JNI has been part of the Java platform since the JDK 1.1 release and was extended in the JDK 1.2 release. The JDK 1.0 release included an earlier native-method interface that lacked clean separation between native and Java code. In this interface, natives would reach directly into JVM structures and so could not be portable across JVM implementations, platforms, or even versions of the JDK. Upgrading an application with a substantial number of natives using the JDK 1.0 model was expensive, as was developing natives that could run with multiple JVM implementations. </p>
+
+<p>The introduction of JNI in the JDK 1.1 release allowed:</p>
+
+<ul>
+<li>Version independence</li>
+<li>Platform independence</li>
+<li>VM independence</li>
+<li>Development of third-party class libraries</li>
+</ul>
+
+<p>It is interesting to note that younger languages such as PHP are still struggling with these issues with respect to their support of native code.</p>
+</div></div>
+
+
+<ul>
+<li>Integrate with existing legacy code to avoid a rewrite.<br /><br /></li>
+<li>Implement functionality missing in available class libraries. For example, you might need Internet Control Message Protocol (ICMP) functionality if you are implementing <code>ping</code> in the Java language, but the base class libraries don't provide it.<br /><br /></li>
+<li>Integrate with code that's best written in C/C++, to exploit performance or other environment-specific system characteristics.<br /><br /></li>
+<li>Address special circumstances that require non-Java code. For example, implementation of core class libraries might require cross-package calls or the need to bypass other Java security checks.</li>
+</ul>
+
+<p>The JNI lets you accomplish these tasks. It provides a clean separation between the execution of Java code and native code (such as C/C++) by defining a clear API for communicating between the two. For the most part, it avoids direct memory reference by native code into the JVM, ensuring that natives can be written once and work across different JVM implementations or versions.</p>
+
+<p>With JNI, native code is free to interact with Java objects, get and set field values, and invoke methods without many of the constraints that apply to the same functions in Java code. This freedom is a double-edged sword: it trades the safety of the Java language for the ability to accomplish the tasks listed earlier. Using JNI within your application provides powerful low-level access to the machine resources (memory, I/O, and so on), so you're working without the safety net usually provided to Java developers.  JNI's flexibility and power introduce the risk of programming practices that can lead to poor performance, bugs, and even program crashes. You must be careful about the code you include in your application and use good practices to safeguard the application's overall integrity. </p>
+
+
+<p>This article covers the 10 most common coding and design errors that users of  the JNI
+    make. The goal is to help you recognize and steer clear of them so that you can write
+    safe, effective JNI code that performs well from the start. This article also
+    introduces available tools and techniques for finding these issues in new or existing code and show how to apply them effectively.</p>
+
+<p>JNI programming pitfalls fall into two categories:</p>
+
+<ul>
+<li><b>Performance</b>: The code performs the designed function but does so slowly or in a way that causes the overall program to slow down.</li>
+<li><b>Correctness</b>: The code works some of the time but does not reliably provide the required function; in the worst case, it crashes or hangs.</li>
+</ul>
+
+<p><a name="N100F7"><span class="atitle">Performance pitfalls</span></a></p>
+<p>The top five performance pitfalls for programmers using JNI are:</p>
+<ul>
+<li><a href="#notc">Not caching method IDs, field IDs, and classes</a></li>
+<li><a href="#triggering">Triggering array copies</a></li>
+<li><a href="#reaching">Reaching back instead of passing parameters</a></li>
+<li><a href="#choosing">Choosing the wrong boundary between native and Java code</a></li>
+<li><a href="#using">Using many local references without informing the JVM</a></li>
+</ul>
+
+<p><a name="notc"><span class="smalltitle">Not caching method IDs, field IDs, and classes</span></a></p>
+
+<p>To access Java objects' fields and invoke their methods, native code must make calls to <code>FindClass()</code>, <code>GetFieldID()</code>, <code>GetMethodId()</code>, and <code>GetStaticMethodID()</code>.  In the case of <code>GetFieldID()</code>, <code>GetMethodID()</code>, and <code>GetStaticMethodID()</code>, the IDs returned for a given class don't change for the lifetime of the JVM process. But the call to get the field or method can require significant work in the JVM, because fields and methods might have been inherited from superclasses, making the JVM  walk up the class hierarchy to find them. Because the IDs are the same for a given class, you should look them up once and then reuse them. Similarly, looking up class objects can be expensive, so they should be cached as well. </p>
+
+<p>For example, Listing 1 shows the JNI code required to call a static method:</p>
+
+<br /><a name="listing1"><b>Listing 1. Calling a static method with JNI</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+int val=1;
+jmethodID method;
+jclass cls;
+
+cls = (*env)-&gt;FindClass(env, "com/ibm/example/TestClass");
+if ((*env)-&gt;ExceptionCheck(env)) {
+   return ERR_FIND_CLASS_FAILED;
+}
+method = (*env)-&gt;GetStaticMethodID(env, cls, "setInfo", "(I)V");
+if ((*env)-&gt;ExceptionCheck(env)) {
+   return ERR_GET_STATIC_METHOD_FAILED;
+}
+(*env)-&gt;CallStaticVoidMethod(env, cls, method,val);
+if ((*env)-&gt;ExceptionCheck(env)) {
+   return ERR_CALL_STATIC_METHOD_FAILED;
+}
+</pre></td></tr></table><br />
+
+<p>Looking up the class and method ID every time we want to call the method results in six native calls instead of  the two that would be required if we had cached the class and method ID the first time they were needed.</p>
+
+<p>Caching makes a significant impact on your application's run time. Consider the following two versions of a method, which end up doing the same thing.  The version in Listing 2 uses  cached field IDs:</p>
+
+<br /><a name="listing2"><b>Listing 2. Using cached field IDs</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+int sumValues2(JNIEnv* env, jobject obj, jobject allValues){
+
+   jint avalue = (*env)-&gt;GetIntField(env, allValues, a);
+   jint bvalue = (*env)-&gt;GetIntField(env, allValues, b);
+   jint cvalue = (*env)-&gt;GetIntField(env, allValues, c);
+   jint dvalue = (*env)-&gt;GetIntField(env, allValues, d);
+   jint evalue = (*env)-&gt;GetIntField(env, allValues, e);
+   jint fvalue = (*env)-&gt;GetIntField(env, allValues, f);
+
+   return avalue + bvalue + cvalue + dvalue + evalue + fvalue;
+}
+</pre></td></tr></table><br />
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #1</h2><div class="ibm-container-body">
+
+<p>Look up and globally cache commonly used classes, field IDs, and method IDs. </p>
+</div></div>
+
+<p>Listing 3 doesn't use cached field IDs:</p>
+
+
+
+<br /><a name="listing3"><b>Listing 3. Field IDs not cached</b></a><br /><table width="60%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+int sumValues2(JNIEnv* env, jobject obj, jobject allValues){
+   jclass cls = (*env)-&gt;GetObjectClass(env,allValues);
+   jfieldID a = (*env)-&gt;GetFieldID(env, cls, "a", "I");
+   jfieldID b = (*env)-&gt;GetFieldID(env, cls, "b", "I");
+   jfieldID c = (*env)-&gt;GetFieldID(env, cls, "c", "I");
+   jfieldID d = (*env)-&gt;GetFieldID(env, cls, "d", "I");
+   jfieldID e = (*env)-&gt;GetFieldID(env, cls, "e", "I");
+   jfieldID f = (*env)-&gt;GetFieldID(env, cls, "f", "I");
+   jint avalue = (*env)-&gt;GetIntField(env, allValues, a);
+   jint bvalue = (*env)-&gt;GetIntField(env, allValues, b);
+   jint cvalue = (*env)-&gt;GetIntField(env, allValues, c);
+   jint dvalue = (*env)-&gt;GetIntField(env, allValues, d);
+   jint evalue = (*env)-&gt;GetIntField(env, allValues, e);
+   jint fvalue = (*env)-&gt;GetIntField(env, allValues, f);
+   return avalue + bvalue + cvalue + dvalue + evalue + fvalue
+}
+</pre></td></tr></table><br />
+
+
+
+<p>The version in <a href="#listing2">Listing 2</a> takes 3,572 ms to run 10,000,000 times. Listing 3's version takes 86,217 ms &#8212; 24 times longer. </p>
+
+
+
+<p><a name="triggering"><span class="smalltitle">Triggering array copies</span></a></p>
+
+<p>JNI provides a clean interface between Java code and native code. To maintain this separation, arrays are passed as opaque handles, and native code must call back to the JVM in order to manipulate array elements using set and get calls. The Java specification leaves it up to the JVM implementation whether these calls provide direct access to the arrays or return a copy of the array. For example, the JVM might return a copy when it has optimized arrays in a way that does not store them contiguously. (See <a href="#resources">Resources</a> for a description of one such JVM.)</p>
+
+<p>These calls, then, might cause copying of the elements being manipulated. For example, if you call <code>GetLongArrayElements()</code> on an array with 1,000 elements, you might cause the allocation and copy of at least 8,000 bytes (1,000 elements * 8 bytes for each <code>long</code>). When you then update the array's contents  with <code>ReleaseLongArrayElements()</code>, another copy of 8,000 bytes might be required to update the array. Even when you use the newer <code>GetPrimitiveArrayCritical()</code>, the specification still permits the JVM to make copies of the full array.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #2</h2><div class="ibm-container-body">
+
+<p>Get and update only those parts of an array that the native needs. Use the appropriate API calls to avoid copying the whole array when only part of it is needed.</p>
+</div></div>
+
+<p>The <code>Get<i>Type</i>ArrayRegion()</code> and <code>Set<i>Type</i>ArrayRegion()</code> methods allow you to get and update a region of an array, as opposed to  the full array. By using these methods to access larger arrays, you can ensure that you copy only the region of the array that the native will actually use.</p>
+
+<p>For example, consider two versions of the same method, shown in Listing 4:</p>
+
+<br /><a name="listing4"><b>Listing 4. Two versions of the same method</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+jlong getElement(JNIEnv* env, jobject obj, jlongArray arr_j, 
+                 int element){
+   jboolean isCopy;
+   jlong result;
+   jlong* buffer_j = (*env)-&gt;GetLongArrayElements(env, arr_j, &amp;isCopy);
+   result = buffer_j[element];
+   (*env)-&gt;ReleaseLongArrayElements(env, arr_j, buffer_j, 0);
+   return result;
+}
+
+jlong getElement2(JNIEnv* env, jobject obj, jlongArray arr_j, 
+                  int element){
+     jlong result;
+     (*env)-&gt;GetLongArrayRegion(env, arr_j, element,1, &amp;result);
+     return result;
+}
+</pre></td></tr></table><br />
+
+<p>The first version might cause two full copies of the array, whereas the second causes no copying at all. Running the first method 10,000,000 times with an array of 1,000 bytes takes 12,055 ms; the second version takes only 1,421 ms. The first version takes 8.5 times longer!</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #3</h2><div class="ibm-container-body">
+
+<p>Get or update as much of an array as possible in a single API call. Don't iterate through the array's elements one by one when you can get and update an array in larger blocks.</p>
+</div></div>
+
+<p>On the other hand, using <code>Get<i>Type</i>ArrayRegion()</code> to get
+    each of the array's elements one by one will also not perform well if you're going to
+    end up getting all of the array's elements anyway. For best performance, ensure that you get and update array elements in the largest sensible blocks. If you're going to iterate through all of the elements in an array, neither of the two <code>getElement()</code> methods in <a href="#listing4">Listing 4</a> is suitable. Instead, you'd want to get a reasonable-sized chunk of the array in one call and then iterate through all of those elements, repeating until you cover the full array.</p>
+
+<p><a name="reaching"><span class="smalltitle">Reaching back instead of passing parameters</span></a></p>
+
+<p>When calling a method, you can often choose between passing a single object that has multiple fields and passing the fields individually. With object-oriented designs, passing the object often provides better encapsulation, in that changes in the object fields don't require changes to the method signature. However, in the case of JNI, a native must reach back into the JVM through one or more JNI calls to get the value for each individual field that it needs. These additional calls add extra overhead because the transition from native to Java code is more expensive than a normal method call. For JNI, therefore, causing the natives to reach for many individual fields from the objects passed to them leads to poorer performance.</p>
+
+<p>Consider two methods in Listing 5,  the second of which assumes we have cached the field IDs:</p>
+
+<br /><a name="listing5"><b>Listing 5. Two method versions</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+int sumValues(JNIEnv* env, jobject obj, jint a, jint b,jint c, jint d, jint e, jint f){
+   return a + b + c + d + e + f;
+}
+
+int sumValues2(JNIEnv* env, jobject obj, jobject allValues){
+
+   jint avalue = (*env)-&gt;GetIntField(env, allValues, a);
+   jint bvalue = (*env)-&gt;GetIntField(env, allValues, b);
+   jint cvalue = (*env)-&gt;GetIntField(env, allValues, c);
+   jint dvalue = (*env)-&gt;GetIntField(env, allValues, d);
+   jint evalue = (*env)-&gt;GetIntField(env, allValues, e);
+   jint fvalue = (*env)-&gt;GetIntField(env, allValues, f);
+   
+   return avalue + bvalue + cvalue + dvalue + evalue + fvalue;
+}
+</pre></td></tr></table><br />
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #4</h2><div class="ibm-container-body">
+
+
+<p>When possible, pass individual parameters to JNI natives so that the native  calls back to the JVM for the data it needs to do its work.</p>
+</div></div>
+
+<p>The <code>sumValues2()</code> method requires six JNI callbacks and takes 3,572 ms to run 10,000,000 times. It is six times slower than  <code>sumValues()</code>, which takes only 596 ms. By passing in the data required by the JNI method, <code>sumValues()</code>  avoids a substantial amount of JNI overhead. </p>
+
+
+<p><a name="choosing"><span class="smalltitle">Choosing the wrong boundary between native and Java code</span></a></p>
+
+<p>It's up to the developer to define the boundary between native and Java code. The choice of the boundary can have a significant impact on the application's overall performance. The cost of calling from Java code to natives and from natives to Java code is significantly higher than a normal Java method call. Further, the transition can interfere with the JVM's ability to optimize code execution. For example, the Just-in-time compiler might be less effective as the number of transitions between Java code and native code increases.  We have measured that calling from Java code to a native can take five times longer than a regular method. Similarly, calls from a native to Java code can take substantial time. </p>
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #5</h2><div class="ibm-container-body">
+
+<p>Define the split between Java and natives to minimize the transitions from Java to natives and callbacks from natives to Java.</p>
+</div></div>
+
+<p>The split between Java code and natives should, therefore, be designed to minimize the transitions between Java and native code. Transitions should be made only when required, and you should do enough work in a native to amortize the cost of the transition. A key element of minimizing transitions is to ensure that data is maintained on the correct side of the Java/native boundary. If data resides on the wrong side,  constant transitions will be triggered by the need of the other side to reach for that data.</p>
+
+<p>For example, if we want to provide an interface to a serial port using JNI, we could come up with two different interfaces. One version is in Listing 6:</p>
+
+<br /><a name="listing6"><b>Listing 6. Interface to a serial port: Version 1</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+/**
+ * Initializes the serial port and returns a java SerialPortConfig objects
+ * that contains the hardware address for the serial port, and holds
+ * information needed by the serial port such as the next buffer 
+ * to write data into
+ * 
+ * @param env JNI env that can be used by the method
+ * @param comPortName the name of the serial port
+ * @returns SerialPortConfig object to be passed ot setSerialPortBit 
+ *          and getSerialPortBit calls
+ */
+jobject initializeSerialPort(JNIEnv* env, jobject obj,  jstring comPortName);
+
+/**
+ * Sets a single bit in an 8 bit byte to be sent by the serial port
+ *
+ * @param env JNI env that can be used by the method
+ * @param serialPortConfig object returned by initializeSerialPort
+ * @param whichBit value from 1-8 indicating which bit to set
+ * @param bitValue 0th bit contains bit value to be set 
+ */
+void setSerialPortBit(JNIEnv* env, jobject obj, jobject serialPortConfig, 
+  jint whichBit,  jint bitValue);
+
+/**
+ * Gets a single bit in an 8 bit byte read from the serial port
+ *
+ * @param env JNI env that can be used by the method
+ * @param serialPortConfig object returned by initializeSerialPort
+ * @param whichBit value from 1-8 indicating which bit to read
+ * @returns the bit read in the 0th bit of the jint 
+ */
+jint getSerialPortBit(JNIEnv* env, jobject obj, jobject serialPortConfig, 
+  jint whichBit);
+
+/**
+ * Read the next byte from the serial port
+ * 
+ * @param env JNI env that can be used by the method
+ */
+void readNextByte(JNIEnv* env, jobject obj);
+
+/**
+ * Send the next byte
+ *
+ * @param env JNI env that can be used by the method
+ */
+void sendNextByte(JNIEnv* env, jobject obj);
+</pre></td></tr></table><br />
+
+<p>In <a href="#listing6">Listing 6</a>, all of the configuration data for the serial port
+    is stored in the Java object returned by the <code>initializeSerialPort()</code> method, and Java code is in full control of setting each individual bit in the hardware. Several issues with the  version in <a href="#listing6">Listing 6</a> will lead to poorer performance than the version in Listing 7:</p>
+
+
+<br /><a name="listing7"><b>Listing 7. Interface to a serial port: Version 2</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+/**
+ * Initializes the serial port and returns an opaque handle to a native
+ * structure that contains the hardware address for the serial port 
+ * and holds information needed by the serial port such as 
+ * the next buffer to write data into
+ *
+ * @param env JNI env that can be used by the method
+ * @param comPortName the name of the serial port
+ * @returns opaque handle to be passed to setSerialPortByte and 
+ *          getSerialPortByte calls 
+ */
+jlong initializeSerialPort2(JNIEnv* env, jobject obj, jstring comPortName);
+
+/**
+ * sends a byte on the serial port
+ * 
+ * @param env JNI env that can be used by the method
+ * @param serialPortConfig opaque handle for the serial port
+ * @param byte the byte to be sent
+ */
+void sendSerialPortByte(JNIEnv* env, jobject obj, jlong serialPortConfig, 
+    jbyte byte);
+
+/**
+ * Reads the next byte from the serial port
+ * 
+ * @param env JNI env that can be used by the method
+ * @param serialPortConfig opaque handle for the serial port
+ * @returns the byte read from the serial port
+ */
+jbyte readSerialPortByte(JNIEnv* env, jobject obj,  jlong serialPortConfig);
+</pre></td></tr></table><br />
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #6</h2><div class="ibm-container-body">
+
+<p>Structure the application's data so that it exists on the right side of the
+    boundary and can be accessed by the code that uses it without requiring many transitions across the Java/native boundary.</p>
+</div></div>
+
+
+<p>The most obvious issue is that the interface in <a href="#listing6">Listing 6</a>
+    requires a JNI call for each bit set or retrieved, as well as a JNI call to read a
+    byte from, or write a byte to, the serial port. This leads to nine times as many JNI
+    calls for each byte read or written. The second issue is that L<a href="#listing6">Listing 6</a> stores the configuration information for the serial port in
+    a Java object that's on the wrong side of the Java/native boundary for where the data
+    is used. We need this configuration data only on the native side; storing it on the Java side will cause numerous callbacks from the native to Java to set/get this configuration information. <a href="#listing7">Listing 7</a> stores the configuration information in a native structure (for example, a C <code>struct</code>) and returns an opaque handle to Java code, which can be returned on subsequent calls. This means that when a native is running it can reach directly into the structure without needing to call back to Java code for information such as the serial-port hardware address or the next buffer available. The performance of an implementation using <a href="#listing7">Listing 7</a> will therefore be much better.</p>
+
+<p><a name="using"><span class="smalltitle">Using many local references without informing the JVM</span></a></p>
+
+<p>Local references are created for any object returned by a JNI function. For example, when you call <code>GetObjectArrayElement()</code>, a local reference to the object in the array is returned. Consider how many local references are used when the code in Listing 8 is run on a very large array:</p>
+
+<br /><a name="listing8"><b>Listing 8. Creating local references</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+void workOnArray(JNIEnv* env, jobject obj, jarray array){
+   jint i;
+   jint count = (*env)-&gt;GetArrayLength(env, array);
+   for (i=0; i &lt; count; i++) {
+      jobject <strong>element</strong> = (*env)-&gt;GetObjectArrayElement(env, array, i);
+      if((*env)-&gt;ExceptionOccurred(env)) {
+         break;
+      }
+      
+      /* do something with array element */
+   }
+}
+</pre></td></tr></table><br />
+
+
+
+<p>Each time <code>GetObjectArrayElement()</code> is called, a local reference is created for the element and isn't freed until the native completes. The larger the array, the more local references will be created.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #7</h2><div class="ibm-container-body">
+
+<p>When a native causes the creation of a large number of local references, delete each reference when it is no longer required.</p>
+</div></div>
+
+<p>These local references are freed automatically when the native method terminates. The
+    JNI specification requires that each native be able to create at least 16 local references. Although this is adequate for many methods, some methods need to access more during their lifetime. In this case, you should either delete references that are no longer needed, by using the JNI <code>DeleteLocalRef()</code> call, or inform the JVM that you'll be using a larger number of local references.</p>
+
+
+<p>Listing 9 adds a call to <code>DeleteLocalRef()</code> to the example in
+    <a href="#listing8">Listing 8</a>,  informing the JVM that the local reference is no longer needed and limiting the number of local references that exist at one time to a reasonable number, regardless of the array's size:</p>
+
+
+
+<br /><a name="listing9"><b>Listing 9. Adding <code>DeleteLocalRef()</code></b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+void workOnArray(JNIEnv* env, jobject obj, jarray array){
+   jint i;
+   jint count = (*env)-&gt;GetArrayLength(env, array);
+   for (i=0; i &lt; count; i++) {
+      jobject <strong>element</strong> = (*env)-&gt;GetObjectArrayElement(env, array, i);
+      if((*env)-&gt;ExceptionOccurred(env)) {
+         break;
+      }
+      
+      /* do something with array element */
+
+      <strong>(*env)-&gt;DeleteLocalRef(env, element);</strong>
+   }
+}
+</pre></td></tr></table><br />
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Performance Tip #8</h2><div class="ibm-container-body">
+
+<p>If a native will have a large number of local references simultaneously, call the JNI <code>EnsureLocalCapacity()</code> method  to inform the JVM and allow it to optimize its handling of local references for this case.</p>
+</div></div>
+
+<p>You can call the JNI <code>EnsureLocalCapacity()</code> method to tell the JVM that you'll be using more than 16 local references. This allows the JVM to optimize the handling of local references for that native. Failure to inform the JVM can lead to a <code>FatalError</code> if the required local references cannot be created, or poor performance that's due to a mismatch between the local-reference management employed by the JVM and the number of local references used. </p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N102EA"><span class="atitle">Correctness pitfalls</span></a></p>
+
+<p>The top five JNI correctness pitfalls are:</p>
+
+<ul>
+<li><a href="#wrong">Using the wrong <code>JNIEnv</code></a></li>
+<li><a href="#exceptions">Not checking for exceptions</a></li>
+<li><a href="#return">Not checking return values</a></li>
+<li><a href="#xxx">Using array methods incorrectly</a></li>
+<li><a href="#global">Using global references incorrectly</a></li>
+</ul>
+
+
+<p><a name="wrong"><span class="smalltitle">Using the wrong <code>JNIEnv</code></span></a></p>
+
+<p>A thread executing native code uses a <code>JNIEnv</code> to make JNI methods calls. But the <code>JNIEnv</code> is used for more than just dispatching the requested methods. The JNI specification states that each <code>JNIEnv</code> is local to a thread. A JVM can rely on this assumption, storing additional thread-local information within the <code>JNIEnv</code>. Use of the <code>JNIEnv</code> from one thread by another thread can lead to subtle bugs and crashes that are hard to debug.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Correctness Tip #1</h2><div class="ibm-container-body">
+
+<p>Only use the <code>JNIEnv</code> with the single thread to which it is associated.</p>
+</div></div>
+
+<p>A thread can get a <code>JNIEnv</code> by calling <code>GetEnv()</code> using the JNI invocation interface through a <code>JavaVM</code> object. The <code>JavaVM</code> object itself can be obtained by calling the JNI <code>GetJavaVM()</code> method using a <code>JNIEnv</code> object and can be cached and shared across threads. Caching a copy of the <code>JavaVM</code> object enables any thread with access to the cached object to get access to its own <code>JNIEnv</code> when necessary. For optimal performance, however, a thread should pass the <code>JNIEnv</code> that it received when it was invoked down through the methods it calls, because looking it up can require significant work.</p>
+
+
+<p><a name="exceptions"><span class="smalltitle">Not checking for exceptions</span></a></p>
+
+<p>Many of the JNI methods that natives can call can raise exceptions on the executing thread. When Java code executes, these exceptions cause a change to the execution flow such that the exception-handling code path is automatically invoked. When a native makes a call to a JNI method, an exception can be raised, but it's up to the native to check for exceptions and take appropriate action. A common JNI programming pitfall is to call a JNI method and to proceed without checking for exceptions once the call is complete. This can lead to buggy code and crashes. </p>
+
+<p>For example, consider code that calls <code>GetFieldID()</code>, which
+    raises the <code>NoSuchFieldError</code> if the requested field can't be found. If the native code proceeds without checking for the exception and uses the field ID it thought was returned, a crash can occur. The code in Listing 10, for example, might cause a crash  &#8212; rather than throw a <code>NoSuchFieldError</code> &#8212; if the Java class is modified so that the <code>charField </code> field no longer exists:</p>
+
+<br /><a name="listing10"><b>Listing 10. Failing to check for exceptions</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+jclass objectClass;
+jfieldID fieldID;
+jchar result = 0;
+
+objectClass = (*env)-&gt;GetObjectClass(env, obj);
+fieldID = (*env)-&gt;GetFieldID(env, objectClass, "charField", "C");
+result = (*env)-&gt;GetCharField(env, obj, fieldID);
+</pre></td></tr></table><br />
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Correctness Tip #2</h2><div class="ibm-container-body">
+
+<p>Always check for exceptions after making JNI calls that can raise exceptions.</p>
+</div></div>
+
+<p>It's much easier to include the code to check for the exception than to try to debug a crash later on. Often you can simply check if an exception has occurred and if so return immediately to Java code so that the exception is thrown. It will then be either handled or displayed using the normal Java exception-handling process. For example, Listing 11 checks for exceptions:</p>
+
+<br /><a name="listing11"><b>Listing 11. Checking for exceptions</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+jclass objectClass;
+jfieldID fieldID;
+jchar result = 0;
+
+objectClass = (*env)-&gt;GetObjectClass(env, obj);
+fieldID = (*env)-&gt;GetFieldID(env, objectClass, "charField", "C");
+<strong>if((*env)-&gt;ExceptionOccurred(env)) {
+   return;
+}</strong>
+result = (*env)-&gt;GetCharField(env, obj, fieldID);
+</pre></td></tr></table><br />
+
+
+<p>Not checking and clearing exceptions can lead to unexpected behavior. Can you spot what is wrong with this code?</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+fieldID = (*env)-&gt;GetFieldID(env, objectClass, "charField", "C");
+if (fieldID == NULL){
+   fieldID = (*env)-&gt;GetFieldID(env, objectClass,"charField", "D");
+}
+return (*env)-&gt;GetIntField(env, obj, fieldID);
+</pre></td></tr></table><br />
+
+
+
+<p>The problem is that even though the code handles the case in which the initial <code>GetFieldID()</code> doesn't return the field ID, it does not <i>clear</i> the exception that this call would set. The return from the native will therefore cause an exception to be thrown immediately.</p>
+
+
+<p><a name="return"><span class="smalltitle">Not checking return values</span></a></p>
+
+<p>Many JNI methods have a return value that indicates whether the call succeeded or not. A common pitfall, similar to not checking for exceptions, is to fail to check the return value and for the code to proceed on the assumption that the call was successful. For most of the JNI methods, the return value and exception status will both be set so that checking either the exception status or the return value will let the application know if the method ran correctly or not.</p>
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Correctness Tip #3</h2><div class="ibm-container-body">
+
+<p>Always check the return value from a JNI method and include code paths to handle errors.</p>
+</div></div>
+
+<p>Can you spot what is wrong with the following code?</p>
+
+<table width="60%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+clazz = (*env)-&gt;FindClass(env, "com/ibm/j9//HelloWorld");
+method = (*env)-&gt;GetStaticMethodID(env, clazz, "main",
+                   "([Ljava/lang/String;)V");
+(*env)-&gt;CallStaticVoidMethod(env, clazz, method, NULL);
+</pre></td></tr></table><br />
+
+<p>The problems are that if the <code>HelloWorld</code> class is not found  or if the <code>main()</code> method doesn't exist, the native will cause a crash.</p>
+
+<p><a name="xxx"><span class="smalltitle">Using array methods incorrectly</span></a></p>
+
+<p>The <code>Get<i>XXX</i>ArrayElements()</code> and <code>Release<i>XXX</i>ArrayElements()</code> methods allow you to request array elements. Similarly, <code>GetPrimitiveArrayCritical()</code>, <code>ReleasePrimitiveArrayCritical()</code>, <code>GetStringCritical()</code>, and <code>ReleaseStringCritical()</code> allow you to request array elements or string bytes to maximize the likelihood that they will get a direct pointer to the array or string. Two common pitfalls are associated with the use of these methods. The first is to forget to commit changes in the call to the <code>Release<i>XXX</i>()</code> method. There's no guarantee that you will actually get a direct pointer to the array or string even when using the <code>Critical</code> versions. Some JVMs will always return a copy, and in these JVMs the changes made to the array will not be copied back if you specify <code>JNI_ABORT</code> in the call to <code>Release<i>XXX</i>()</code> or forget to call <code>Release<i>XXX</i>()</code>.</p>
+
+<p>For example, consider this code:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+void modifyArrayWithoutRelease(JNIEnv* env, jobject obj, jarray arr1) {
+   jboolean isCopy;
+   jbyte* buffer = (*env)-&gt; (*env)-&gt;GetByteArrayElements(env,arr1,&amp;isCopy);
+   if ((*env)-&gt;ExceptionCheck(env)) return; 
+   
+   buffer[0] = 1;
+}
+</pre></td></tr></table><br />
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Correctness Tip #4</h2><div class="ibm-container-body">
+
+<p>Don't forget to call <code>Release<i>XXX</i>()</code> with a mode of <code>0</code> (copy back and free the memory) for each <code>Get<i>XXX</i>()</code> call.</p>
+</div></div>
+
+<p>On a JVM that provides a direct pointer to the array, the array will be updated; however, on a JVM that returns a copy it will not be. This can lead to cases where your code seems to work on some JVMs but fails to work on others. You should always include a release call, as shown in Listing 12:</p>
+
+<br /><a name="listing12"><b>Listing 12. Including a release call</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+void modifyArrayWithRelease(JNIEnv* env, jobject obj, jarray arr1) {
+   jboolean isCopy;
+   jbyte* buffer = (*env)-&gt; (*env)-&gt;GetByteArrayElements(env,arr1,&amp;isCopy);
+   if ((*env)-&gt;ExceptionCheck(env)) return; 
+   
+   buffer[0] = 1;
+
+   <strong>(*env)-&gt;ReleaseByteArrayElements(env, arr1, buffer, JNI_COMMIT);</strong>
+   if ((*env)-&gt;ExceptionCheck(env)) return;
+}
+</pre></td></tr></table><br />
+
+<p>The second pitfall is not honoring the restrictions placed by the specification on code that executes between the <code>Get<i>XXX</i>Critical()</code> and <code>Release<i>XXX</i>Critical()</code>. The native may not make any JNI calls between these methods and may not block for any reason. Failing to honor these restrictions can lead to intermittent deadlock within the application or the JVM as a whole.</p>
+
+<p>For example, the following code might look okay:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+void workOnPrimitiveArray(JNIEnv* env, jobject obj, jarray arr1) {
+   jboolean isCopy;
+   jbyte* buffer = (*env)-&gt;GetPrimitiveArrayCritical(env, arr1, &amp;isCopy); 
+   if ((*env)-&gt;ExceptionCheck(env)) return; 
+   
+   processBufferHelper(buffer);
+   
+   (*env)-&gt;ReleasePrimitiveArrayCritical(env, arr1, buffer, 0); 
+   if ((*env)-&gt;ExceptionCheck(env)) return;
+}
+</pre></td></tr></table><br />
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Correctness Tip #5 </h2><div class="ibm-container-body">
+
+<p>Ensure the code does not make any JNI calls or block for any reason between calls to <code>Get<i>XXX</i>Critical()</code> and <code>Release<i>XXX</i>Critical()</code>.</p>
+</div></div>
+
+<p>However, we need to validate that all of the code that can be run when <code>processBufferHelper()</code> is called does not violate any of the restrictions.  These restrictions apply to all code that executes between the <code>Get</code> and <code>Release</code> calls, whether it is part of the native itself or not.</p>
+
+
+
+<p><a name="global"><span class="smalltitle">Using global references incorrectly</span></a></p>
+
+<p>Natives can create global references so that objects are not garbage collected until they are no longer needed. Common pitfalls are forgetting to delete global references that have been created or losing track of them completely. Consider a native that creates a global reference but does not delete or store it anywhere:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">lostGlobalRef(JNIEnv* env, jobject obj, jobject keepObj) {
+   jobject gref = (*env)-&gt;NewGlobalRef(env, keepObj);
+}
+</pre></td></tr></table><br />
+
+<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Correctness Tip #6</h2><div class="ibm-container-body">
+
+<p>Always keep track of global references and ensure they are deleted when the object is no longer required.</p>
+</div></div>
+
+<p>When the global reference is created, the JVM adds it to a list that excludes that object from garbage collection. When the native returns, not only has it not freed the global reference, but the application also no longer has a way to get the reference in order to free it later &#8212; so the object will live forever. Not freeing global references causes issues not only because they keep the object itself alive but also because they keep alive all objects that can be reached through the object. In some cases this can add up to a significant memory leak.</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N104C4"><span class="atitle">Avoiding the common pitfalls</span></a></p>
+
+<p>Suppose you have just finished writing some new JNI code or inherited some JNI code
+    from elsewhere. How can you ensure that you have avoided the common pitfalls or can
+    find them in your inherited code?  Table 1 identifies the techniques you can use to root out instances of the common pitfalls:</p>
+
+<br /><a name="pitfalls"><b>Table 1. Checklist for identifying JNI programming pitfalls</b></a><br />
+<table border="1" cellpadding="1" cellspacing="0" class="data-table-1" summary="Checklist for identifying JNI programming pitfalls" width="100%"><tr><th scope="col"/><th scope="col">Not caching</th><th scope="col">Triggering array copies</th><th scope="col">Wrong boundary</th><th scope="col">Reaching back too much</th><th scope="col">Using many local references</th><th scope="col">Using wrong JNIEnv</th><th scope="col">Not checking for exceptions</th><th scope="col">Not checking for return values</th><th scope="col">Using arrays incorrectly</th><th scope="col">Using global references incorrectly</th></tr><tr><td>Validation against specification</td><td/><td/><td/><td/><td/><td><b>X</b></td><td><b>X</b></td><td/><td><b>X</b></td><td/></tr><tr><td>Method tracing</td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td/><td/><td><b>X</b></td><td/><td><b>X</b></td><td><b>X</b></td></tr><tr><td>Dumps</td><td/><td/><td/><td/><td/><td/><td/><td/><td/><td><b>X</b></td></tr><tr><td><code>-verbose:jni</code></td><td/><td/><td/><td/><td><b>X</b></td><td/><td/><td/><td/><td/></tr><tr><td>Code review</td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td><td><b>X</b></td></tr></table>
+
+
+<p>You can identify many of the common pitfalls early in the development cycle by:</p>
+<ul>
+<li><a href="#validation">Validating new code against the specification</a></li>
+<li><a href="#trace">Analyzing the method trace</a></li>
+<li><a href="#verbose">Using the <code>-verbose:jni</code> option</a></li>
+<li><a href="#dumps">Generating dumps</a></li>
+<li><a href="#reviews">Performing code reviews</a></li>
+</ul>
+
+<p><a name="validation"><span class="smalltitle">Validating new code against the JNI specification</span></a></p>
+<p>It's a good practice to maintain a list of the constraints imposed by the specification and review natives for compliance with the list, either manually or through automatic code analysis.  You'll likely expend much less effort ensuring compliance than you would debugging the subtle and intermittent failures that can occur when the constraints are not observed.  Here's a starting list of specification-conformance checks to do for newly developed code (or code that is new to you):</p>
+
+<ul>
+<li>Validate that a <code>JNIEnv</code> is used only with the thread to which it is associated.</li>
+<li>Validate that JNI Methods are not called within <code>Get<i>XXX</i>Critical()</code>'s <code>Release<i>XXX</i>Critical()</code> section.</li>
+<li>For a method that enters a critical section, validate that the method does not return before it is released.</li>
+<li>Validate that there is a check for an exception after all JNI calls that can raise an exception.</li>
+<li>Ensure that all <code>Get</code>/<code>Release</code> calls are matched within each JNI method.</li>
+</ul>
+
+<p>IBM's JVM implementation includes an option that turns on automatic JNI checks, at the cost of slower execution. In conjunction with good unit tests for your code, this is a powerful tool. You  can run the application or unit tests once to do a compliance check or when you encounter bugs for which you suspect natives to be the cause. In addition to doing the specification-compliance checks we listed above, it also ensures that:</p>
+<ul>
+<li>The parameters passed to JNI methods are of the correct types.</li>
+<li>JNI code does not read past the ends of arrays.</li>
+<li>Only valid pointers are passed to JNI methods.</li>
+</ul>
+
+<p>Not all the findings the JNI check reports are necessarily errors in the code. They include suggestions as to code that should be reviewed closely to ensure that it does what was intended. </p>
+
+<p>You enable the JNI check option with the following command line:</p>
+
+ <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+Usage: -Xcheck:jni:[option[,option[,...]]]
+
+        all            check application and system classes
+        verbose        trace certain JNI functions and activities
+        trace          trace all JNI functions
+        nobounds       do not perform bounds checking on strings and arrays
+        nonfatal       do not exit when errors are detected
+        nowarn         do not display warnings
+        noadvice       do not display advice
+        novalist       do not check for va_list reuse
+        valist         check for va_list reuse
+        pedantic       perform more thorough, but slower checks
+        help           print this screen
+</pre></td></tr></table><br />
+
+
+<p>Using the IBM JVM's <code>-Xcheck:jni</code> option as part of the standard development process can help you find coding errors much more easily. In particular, it can help you root out the pitfalls of using the <code>JNIEnv</code> with the wrong thread and using critical regions incorrectly.</p>
+
+<p>Recent Sun JVMs provide a similarly named  <code>-Xcheck:jni</code> option. It operates differently from the IBM version and provides different information, but the purpose is the same. It issues warnings when it sees code that doesn't conform to the specification and can help you find instances of the common JNI pitfalls.</p>
+
+<p><a name="trace"><span class="smalltitle">Analyzing the method trace</span></a></p>
+
+<p>Generating a trace of the natives that are invoked, along with the JNI callbacks that these natives make, can be useful for rooting out a number of the common pitfalls. Issues to look for include:</p>
+
+<ul>
+<li>An abundance of <code>GetFieldID()</code> and <code>GetMethodID()</code> calls &#8212; in particular, if the calls are for the same fields and methods &#8212; indicates that the fields and method are not being cached.<br /><br /></li>
+
+<li>Instances of calls to <code>Get<i>Type</i>ArrayElements()</code> instead of <code>Get<i>Type</i>ArrayRegion()</code> can indicate unnecessary copying.<br /><br /></li>
+
+<li>Switching quickly back and forth between Java code and natives (as indicated by timestamps) can indicate the wrong boundary between Java code and natives, leading to poor performance.<br /><br /></li>
+
+<li>The pattern in which each invocation of a native function being followed by a number of <code>GetFieldID()</code> calls can indicate that instead of passing the parameters required, you are forcing the natives to reach back for the data needed to complete their work.<br /><br /></li>
+
+<li>The lack of calls to <code>ExceptionOccurred()</code> or <code>ExceptionCheck()</code> after calls to JNI methods that can throw exceptions can indicate that the natives are not properly checking for exceptions.<br /><br /></li>
+
+ <li>A mismatch between the number of <code>Get<i>XXX</i>()</code> and <code>Release<i>XXX</i>()</code> method calls can indicate missing releases.<br /><br /></li>
+
+<li>Calls to JNI methods between <code>Get<i>XXX</i>Critical()</code> and <code>Release<i>XXX</i>Critical()</code> calls indicate that the constraints imposed by the specification are not being observed.<br /><br /></li>
+
+<li>If the elapsed time between the calls to <code>Get<i>XXX</i>Critical()</code> and <code>Release<i>XXX</i>Critical()</code> is long, this can indicate that the constraint imposed by the specification not to make blocking calls is not being observed.<br /><br /></li>
+
+<li>A large imbalance between calls to <code>NewGlobalRef()</code> and <code>DeleteGlobalRef()</code> can indicate a failure to free global references when they are no longer needed.</li>
+</ul>
+
+<p>Some JVM implementations provide a mechanism through which a method trace can be generated. You can also generate a trace through external tools such as profilers and code-coverage tools.</p>
+
+<p>The IBM JVM implementation provides a number of ways to generate trace information. The first is to use the <code>-Xcheck:jni:trace</code> option. This generates a trace of the native methods called as well as the JNI callbacks that they make. Listing 13 shows an excerpt of a trace (with some lines split for readability only):</p>
+
+<br /><a name="listing13"><b>Listing 13. Method trace generated by the IBM JVM implementation</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+Call JNI: java/lang/System.getPropertyList()[Ljava/lang/String; {
+00177E00   Arguments: void
+00177E00   FindClass("java/lang/String")
+00177E00   FindClass("com/ibm/oti/util/Util")
+00177E00   Call JNI: com/ibm/oti/vm/VM.useNativesImpl()Z {
+00177E00     Arguments: void
+00177E00     Return: (jboolean)false
+00177E00   }
+00177E00   Call JNI: java/security/AccessController.initializeInternal()V {
+00177E00     Arguments: void
+00177E00     FindClass("java/security/AccessController")
+00177E00     GetStaticMethodID(java/security/AccessController, "doPrivileged", 
+             "(Ljava/security/PrivilegedAction;)Ljava/lang/Object;")
+00177E00     GetStaticMethodID(java/security/AccessController, "doPrivileged", 
+             "(Ljava/security/PrivilegedExceptionAction;)Ljava/lang/Object;")
+00177E00     GetStaticMethodID(java/security/AccessController, "doPrivileged", 
+             "(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)
+             Ljava/lang/Object;")
+00177E00     GetStaticMethodID(java/security/AccessController, "doPrivileged", 
+             "(Ljava/security/PrivilegedExceptionAction;
+             Ljava/security/AccessControlContext;)Ljava/lang/Object;")
+00177E00     Return: void
+00177E00   }
+00177E00   GetStaticMethodID(com/ibm/oti/util/Util, "toString", 
+             "([BII)Ljava/lang/String;")
+00177E00   NewByteArray((jsize)256)
+00177E00   NewObjectArray((jsize)118, java/lang/String, (jobject)NULL)
+00177E00   SetByteArrayRegion([B@0018F7D0, (jsize)0, (jsize)30, (void*)7FF2E1D4)
+00177E00   CallStaticObjectMethod/CallStaticObjectMethodV(com/ibm/oti/util/Util, 
+             toString([BII)Ljava/lang/String;, (va_list)0007D758) {
+00177E00     Arguments: (jobject)0x0018F7D0, (jint)0, (jint)30
+00177E00     Return: (jobject)0x0018F7C8
+00177E00   }
+00177E00   ExceptionCheck()
+</pre></td></tr></table><br />
+
+<p>The trace excerpt in Listing 13 shows the native being called (for example, <code>AccessController.initializeInternal()V</code>) and then the JNI callbacks the native makes. </p>
+
+
+<p><a name="verbose"><span class="smalltitle">Using the <code>-verbose:jni</code> option</span></a></p>
+
+
+<p>Both the Sun and IBM JVMs also provide a <code>-verbose:jni</code> option.  For the IBM JVM, turning this option on provides information about what JNI callbacks are being made. Listing 14 shows an example:</p>
+
+<br /><a name="listing14"><b>Listing 14. Listing JNI callbacks with the IBM JVM's <code>-verbose:jni</code></b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+&lt;JNI GetStringCritical: buffer=0x100BD010&gt;
+&lt;JNI ReleaseStringCritical: buffer=100BD010&gt;
+&lt;JNI GetStringChars: buffer=0x03019C88&gt;
+&lt;JNI ReleaseStringChars: buffer=03019C88&gt;
+&lt;JNI FindClass: java/lang/String&gt;
+&lt;JNI FindClass: java/io/WinNTFileSystem&gt;
+&lt;JNI GetMethodID: java/io/WinNTFileSystem.&lt;init&gt; ()V&gt;
+&lt;JNI GetStaticMethodID: com/ibm/j9/offload/tests/HelloWorld.main ([Ljava/lang/String;)V&gt;
+&lt;JNI GetMethodID: java/lang/reflect/Method.getModifiers ()I&gt;
+&lt;JNI FindClass: java/lang/String&gt;
+</pre></td></tr></table><br />
+
+<p>For the Sun JVM, turning the <code>-verbose:jni</code> option on  doesn't provide information about the calls being made, but it does provide additional information about the natives used. Listing 15 shows an example:</p>
+<br /><a name="listing15"><b>Listing 15. Using the Sun JVM's <code>-verbose:jni</code></b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+[Dynamic-linking native method java.util.zip.ZipFile.getMethod ... JNI]
+[Dynamic-linking native method java.util.zip.Inflater.initIDs ... JNI]
+[Dynamic-linking native method java.util.zip.Inflater.init ... JNI]
+[Dynamic-linking native method java.util.zip.Inflater.inflateBytes ... JNI]
+[Dynamic-linking native method java.util.zip.ZipFile.read ... JNI]
+[Dynamic-linking native method java.lang.Package.getSystemPackage0 ... JNI]
+[Dynamic-linking native method java.util.zip.Inflater.reset ... JNI]
+</pre></td></tr></table><br />
+<p>Turning on this option also causes the JVM to emit warnings when too many local references are used without informing the JVM. For example, the IBM JVM generates messages like this one:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">JVMJNCK065W JNI warning in FindClass: Automatically grew local reference frame capacity 
+from 16 to 48. 17 references are in use. 
+Use EnsureLocalCapacity or PushLocalFrame to explicitly grow the frame. 
+</pre></td></tr></table><br />
+
+<p>Although the <code>-verbose:jni</code> and <code>-Xcheck:jni:trace</code> options make it easy to get the information you need, reviewing this information manually can take a fair amount of effort. It's a good idea to create scripts or utilities that can process the trace files being generated by your JVM and look for the <a href="#trace">warning signs</a>.</p>
+
+
+
+<p><a name="dumps"><span class="smalltitle">Generating dumps</span></a></p>
+
+<p>Dumps generated from a running Java process contain a wealth of information about a
+    JVM's state. For many JVMs, they include information about global references. For example, the recent Sun JVMs include the following line in the dump information:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+JNI global references: 73
+</pre></td></tr></table><br />
+
+<p>By generating before and after dumps, you can assess if you're creating any global references that are not being freed when they should be.</p>
+
+
+<p>You can request a dump in UNIX&#174; environments by issuing a <code>kill -3</code> or <code>kill -QUIT</code> on the <code>java</code> process. On Windows&#174;, use Ctrl+Break.</p>
+
+
+
+<p>For the IBM JVM, use these steps to obtain information on global references:</p>
+<ol>
+<li>Add <code>-Xdump:system:events=user</code> to the command line. This asks the JVM to generate a system dump when you invoke <code>kill -3</code> on a UNIX variant or Ctrl+Break on Windows.<br /><br /></li>
+
+<li>When your program is running, generate subsequent dumps.<br /><br /></li>
+
+<li>Run <code>jextract -nozip core.<i>XXX</i> output.xml</code>, which extracts dump information into a readable format in output.xml.<br /><br /></li>
+
+<li>Look for <code>JNIGlobalReference</code> entries in output.xml, which give you information about the current global references, as shown in Listing 16:</li>
+</ol>
+
+
+
+<br /><a name="listing16"><b>Listing 16. <code>JNIGlobalReference</code> entries in output.xml</b></a><br /><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+
+&lt;rootobject type="Thread" id="0x10089990" reachability="strong" /&gt;
+&lt;rootobject type="Thread" id="0x10089fd0" reachability="strong" /&gt;
+<strong>&lt;rootobject type="JNIGlobalReference" id="0x100100c0" reachability="strong" /&gt;
+&lt;rootobject type="JNIGlobalReference" id="0x10011250" reachability="strong" /&gt;
+&lt;rootobject type="JNIGlobalReference" id="0x10011840" reachability="strong" /&gt;
+&lt;rootobject type="JNIGlobalReference" id="0x10011880" reachability="strong" /&gt;
+&lt;rootobject type="JNIGlobalReference" id="0x10010af8" reachability="strong" /&gt;
+&lt;rootobject type="JNIGlobalReference" id="0x10010360" reachability="strong" /&gt;
+&lt;rootobject type="JNIGlobalReference" id="0x10081f48" reachability="strong" /&gt;</strong>
+&lt;rootobject type="StringTable" id="0x10010be0" reachability="weak" /&gt;
+&lt;rootobject type="StringTable" id="0x10010c70" reachability="weak" /&gt;
+&lt;rootobject type="StringTable" id="0x10010d00" reachability="weak" /&gt;
+&lt;rootobject type="StringTable" id="0x10011018" reachability="weak" /&gt;
+</pre></td></tr></table><br />
+
+<p>By looking at the numbers reported in subsequent Java dumps, you can assess if global references are being leaked.</p>
+
+<p>See <a href="#resources">Resources</a> for additional information on using the dump files and <code>jextract</code> with the IBM JVM.</p>
+
+
+
+
+<p><a name="reviews"><span class="smalltitle">Performing code reviews</span></a></p>
+
+<p>Code reviews can often be effective for spotting common pitfalls and can be done at a
+    number of levels. When you inherit new code, a quick scan can reveal issues that would
+    take much longer to debug later on. In some cases, a review is the only way to
+    identify an instance of a pitfall such as the code not checking return values. For example, the problem with this code would likely be easy to identify through a code review but much harder to find through debugging:</p>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="code-outline"><pre class="displaycode">
+int calledALot(JNIEnv* env, jobject obj, jobject allValues){
+   jclass cls = (*env)-&gt;GetObjectClass(env,allValues); 
+   jfieldID a = (*env)-&gt;GetFieldID(env, cls, "a", "I");
+   jfieldID b = (*env)-&gt;GetFieldID(env, cls, "b", "I");
+   jfieldID c = (*env)-&gt;GetFieldID(env, cls, "c", "I");
+   jfieldID d = (*env)-&gt;GetFieldID(env, cls, "d", "I");
+   jfieldID e = (*env)-&gt;GetFieldID(env, cls, "e", "I");
+   jfieldID f = (*env)-&gt;GetFieldID(env, cls, "f", "I");
+
+}
+
+jclass getObjectClassHelper(jobject object){ 
+   /* use globally cached JNIEnv */
+   return cls = (*globalEnvStatic)-&gt;GetObjectClass(globalEnvStatic,allValues); 
+}
+</pre></td></tr></table><br />
+
+<p>A code review would likely identify that the first method is not properly caching field IDs even though the same IDs are used repeatedly, and that the second method is using a <code>JNIEnv</code> on threads other than the one the <code>JNIEnv</code> should be used on.</p>
+
+<div class="ibm-alternate-rule"><hr/></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N107B7"><span class="atitle">Conclusion</span></a></p>
+
+<p>You're now aware of the top 10 JNI programming pitfalls and have learned some good practices for identifying them in existing or new code. Apply these practices diligently to increase the likelihood that your JNI code is correct and that your application can achieve the performance levels it requires. </p>
+
+<p>The ability to integrate existing code assets efficiently is essential to succeeding with two technologies that are gaining momentum: service-oriented architecture (SOA) and cloud-based computing. JNI is a key technology for integrating non-Java legacy code and components into a Java-based platform used as a building block for an SOA or cloud-based system. Proper use of JNI can speed the process of service-enabling these components and allow you to derive the maximum advantage from existing investments.</p>
+
+<!-- CMA ID: 407206 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br />
+<p><a name="resources"><span class="atitle">Resources</span></a></p><p><b>Learn</b></p><ul><li>
+<a href="http://java.sun.com/javase/6/docs/technotes/guides/jni/">Java Native Interface</a>: You'll find the JNI specification, FAQ, examples, and other resources here.
+<br /><br /></li><li>
+"<a href="http://www.ibm.com/developerworks/edu/j-dw-javajni-i.html">Java programming with JNI</a>" (Scott Stricker, developerWorks, March 2002): In this tutorial, learn about JNI essentials and some more-advanced programming challenges.
+<br /><br /></li><li>
+<a href="http://publib.boulder.ibm.com/infocenter/javasdk/v6r0/index.jsp">IBM Java SDK Info Center</a>: Learn more about using the dump files and <code>jextract</code> with the IBM JVM.
+<br /><br /></li><li>
+"<a href="http://www.ibm.com/developerworks/aix/library/au-JNI_AIX_PAPER.html">JNI Programming on AIX</a>" (Nikolay Yevik, developerWorks, March 2004): Get general guidance for developing JNI applications using the IBM JDK for AIX.
+<br /><br /></li><li>
+"<a href="http://domino.research.ibm.com/comm/research_people.nsf/pages/dgrove.emsoft2007.html">Design and Implementation of a Comprehensive Real-time Java Virtual Machine</a>" (Joshua Auerbach et al., <i>Proceedings of the Seventh ACM and IEEE International Conference on Embedded Software</i>, 2007): Read about a JVM that returns array copies.
+<br /><br /></li><li>
+Browse the
+<a href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">technology bookstore</a> for books on these and other technical topics.
+<br /><br /></li><li>
+<a href="http://www.ibm.com/developerworks/java">developerWorks Java technology zone</a>: Find hundreds of articles about every aspect of Java programming.
+<br /><br /></li></ul><p><b>Get products and technologies</b></p><ul><li> Download <a href="http://www.ibm.com/developerworks/downloads/" onmouseover="linkQueryAppend(this)">IBM product evaluation versions</a> or <a href="http://www.ibm.com/developerworks/downloads/soasandbox/" onmouseover="linkQueryAppend(this)">explore the online trials in the IBM SOA Sandbox</a> and get your hands on application development tools and middleware products from DB2&#174;, Lotus&#174;, Rational&#174;, Tivoli&#174;, and WebSphere&#174;.<br /><br /></li></ul><p><b>Discuss</b></p><ul><li>Get involved in the <a href="http://www.ibm.com/developerworks/mydeveloperworks">My developerWorks community</a>.
+<br /><br /></li></ul>
+<p><a name="author"><span class="atitle">About the authors</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><img src="http://www.ibm.com/developerworks/i/p-mdawson.jpg" width="64" height="80" alt="Michael Dawson" /><p><a name="author1"></a>Michael Dawson graduated in 1989 from the University of Waterloo with a bachelor's degree in computer engineering and in 1991 from Queens University with a master's degree in electrical engineering, specializing in cryptography. He then spent a number of years doing security consulting and developing products at companies ranging from start-ups to IBM. He has held leadership roles in teams developing e-commerce applications and delivering them as services including EDI communication services, credit card processing, online auctions, electronic invoicing, and JVMs. The technologies used ranged from C/C++ to Java and Java EE platforms and components across a range of operating systems. Michael joined IBM in 2006. He works on the J9 JVM team implementing Java class libraries and core JVM components.</p></div><div class="ibm-container-body"><img src="http://www.ibm.com/developerworks/i/p-gjohnson.jpg" width="64" height="80" alt="Graeme Johnson" /><p><a name="author2"></a>Graeme Johnson is a development manager and technical lead on IBM's J9 Virtual Machine team. He has been developing virtual machines and debuggers since he joined IBM (previously Object Technology International) in 1994, and has worked on both VisualAge for Java and IBM/OTI Smalltalk runtimes. Recently Graeme has been focusing on the Apache Harmony project, and the Java/PHP runtime support for IBM's <a href="http://projectzero.org">Project Zero</a>. Graeme is a regular conference speaker on a variety of topics including: Apache Harmony at JavaOne 2006, multiplatform C development at EclipseCon 2007, and an examination of the PHP runtime at International PHP 2006. </p></div><div class="ibm-container-body"><img src="http://www.ibm.com/developerworks/i/p-alow.jpg" width="64" height="80" alt="Andrew Low" /><p><a name="author3"></a>Andrew Low joined Object Technology International Inc. (OTI) in 1994 as a university graduate after working as a co-op student for several terms. He remained with the company when IBM acquired OTI in 1996. His work has always been associated with VM technology, ranging from the very small (cell phones and PDAs) to the very large (IBM zSeries mainframe systems). He is currently a technical leader on the J9 VM team at the IBM Ottawa Lab, helping shape the core technology behind IBM's Java runtimes. Andrew has played a key role in the development of the J9 VM and is a recognized expert in embedded systems and the Java ME marketplace. Recently he has been involved in several strategic efforts to push Java runtime technology into the Web2.0 world.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="dw-icomments-container" class="ibm-no-print">
+<div class="ibm-alternate-rule"><hr /></div>
+<div class="ibm-alternate-rule"><hr /></div>
+<!-- Comment_Script -->
+<a id="comments" href="comments"></a>
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/insertcomment.js" type="text/javascript">//</script>
+<div id="threadShow"></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+</div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+<p><a href="http://www.ibm.com/developerworks/ibm/trademarks/">Trademarks</a> &nbsp;|&nbsp; <a href="https://www.ibm.com/developerworks/mydeveloperworks/terms/">My developerWorks terms and conditions</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java technology</div><div class="metavalue">ArticleID=407206</div><div class="metavalue">ArticleTitle=Best practices for using the Java Native Interface
+</div><div class="metavalue">publish-date=07072009</div><div class="metavalue">author1-email=michael_dawson@ca.ibm.com</div><div class="metavalue">author1-email-cc=jaloi@us.ibm.com</div><div class="metavalue">author2-email=Graeme_Johnson@ca.ibm.com</div><div class="metavalue">author2-email-cc=</div><div class="metavalue">author3-email=Andrew_Low@ca.ibm.com</div><div class="metavalue">author3-email-cc=jaloi@us.ibm.com</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href+'</div>');</script><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="//www.ibm.com/i/c.gif"/><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#N100F7">Performance pitfalls</a></li><li><a class="ibm-feature-link" href="#N102EA">Correctness pitfalls</a></li><li><a class="ibm-feature-link" href="#N104C4">Avoiding the common pitfalls</a></li><li><a class="ibm-feature-link" href="#N107B7">Conclusion</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the authors</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-nextsteps.xsl--><div class="ibm-container"><h2>Next steps from IBM</h2><div class="ibm-container-body"><img width="188" height="58" border="0" alt="" src="//www.ibm.com/developerworks/i/next-steps-cloud.jpg"/><p>Access IBM software products in the Amazon Elastic Compute Cloud (EC2) virtual environment. </p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/opensource/library/ar-cloudaws3/index.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Article: Cloud computing with Amazon Web Services</a></li><li><a href="http://www.ibm.com/developerworks/offers/lp/demos/summary/wesd-saaswebsmash.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Demo: Deploy multi-tenant SaaS applications on IBM middleware in the Amazon Elastic Compute Cloud</a></li><li><a href="http://www.ibm.com/developerworks/downloads/cloud.html?S_TACT=105AGY17&amp;S_CMP=TECHSUG" class="ibm-feature-link">Buy: Reduce expenses by using IBM software running in a cloud environment.</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-community.xsl--><div class="ibm-container"><h2>My developerWorks community</h2><div class="ibm-container-body"><p>Interact, share, and communicate with developers worldwide.</p><div class="ibm-rule"><hr/></div><ul class="ibm-bullet-list"><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage/web/getuserpref?ca=dma-" class="ibm-feature-link">My Home</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en&amp;ca=dma-" class="ibm-feature-link">Profiles</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/allcommunities?ca=dma-" class="ibm-feature-link">Groups</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/?ca=dma-" class="ibm-feature-link">Blogs</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/?ca=dma-" class="ibm-feature-link">Bookmarks</a></li><li><a href="https://www.ibm.com/developerworks/mydeveloperworks/activities/service/html/mainpage?ca=dma-" class="ibm-feature-link">Activities</a></li><li><a href="http://www.ibm.com/developerworks/spaces/?ca=dma-" class="ibm-feature-link">Spaces</a></li><li><a href="http://www.ibm.com/developerworks/forums/index.html?ca=dma-" class="ibm-feature-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/wikis/dashboard.action?ca=dma-" class="ibm-feature-link">Wikis</a></li><li><a href="http://www.ibm.com/developerworks/podcast/?ca=dma-" class="ibm-feature-link">Podcasts</a></li><li><a href="http://www.ibm.com/developerworks/exchange/dw_index.jspa?ca=dma-" class="ibm-feature-link">Exchange</a></li></ul><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/mydeveloperworks/?ca=dma-" class="ibm-forward-link">My developerWorks overview</a></p></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="//www.ibm.com/developerworks/i/help_icon.gif"/></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p><strong>Popular tags</strong> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p><p><strong>My tags</strong> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17" />&nbsp;<input src="//www.ibm.com/i/v16/buttons/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" /></p></form></div>
+<div class="ibm-rule"><hr/></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br /><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br /><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div>
+<div id="dw-tag-cloud"></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Java on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/java/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/java/newto/" class="ibm-forward-link">New to Java programming</a></li><li><a href="http://www.ibm.com/developerworks/views/java/downloads.jsp" class="ibm-forward-link">Downloads and products</a></li><li><a href="http://www.ibm.com/developerworks/views/java/projects.jsp" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/views/java/standards.jsp" class="ibm-forward-link">Standards</a></li><li><a href="http://www.ibm.com/developerworks/views/java/library.jsp" class="ibm-forward-link">Technical library (articles, tutorials, and more)</a></li><li><a href="http://www.ibm.com/developerworks/java/training/" class="ibm-forward-link">Training</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/views/java/events.jsp" class="ibm-forward-link">Events</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Try IBM Cognos 8 Business Intelligence</h2><div class="ibm-container-body"><img width="188" height="70" border="0" alt="Cognos 8 BI online trial" src="//www.ibm.com/developerworks/i/hivis-w-cognos8bi.jpg"/><p class="ibm-ind-link"><a href="http://www.ibm.com/developerworks/downloads/im/cognosbi/learn.html?S_TACT=105AGY02&amp;S_CMP=HIVIS&amp;ca=dti-hiviscognos8BItrial&amp;ca=dth-i" class="ibm-forward-link">Use reports, analysis, dashboards and scorecards to monitor business performance,
+			    analyze trends and measure results.</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/websphere/zones/was/security/?S_CMP=TILE&amp;ca=dti-tilewassecurity&amp;ca=dth-w"><img src="//www.ibm.com/developerworks/i/tile_v16_secure.gif" width="158" height="50" border="0" alt="Securing WebSphere Application Server environments" /></a></p><p class="dw-special-offers"><a href="http://www-01.ibm.com/software/data/cognos/products/cognos-express/demo.html?S_CMP=TILE&amp;ca=dti-tilecognosexpdemos&amp;ca=dth-i"><img src="//www.ibm.com/developerworks/i/tile_v16_express.gif" width="158" height="50" border="0" alt="Cognos Express online demos" /></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/downloads/soasandbox/reuse/index.html?S_TACT=105AGX02&amp;S_CMP=TILE&amp;ca=dti-tilesoawaseclipse&amp;ca=dth-soa"><img src="//www.ibm.com/developerworks/i/tile_v16_sandboxeclipse.gif" width="158" height="50" border="0" alt="SOA Sandbox for WAS CE and Eclipse" /></a></p><div class="ibm-rule"><hr/></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><a href="http://www.ibm.com/ibm/">About IBM</a></li>
+<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+<li><a href="http://www.ibm.com/contact/">Contact</a></li>
+<li><a href="http://www.ibm.com/legal/">Terms of use</a></li>
+</ul>
+</div>
+<!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+</div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.dimensions-1.2.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/cluetip98/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/jquery/tagging/ui.slider-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="//www.ibm.com/developerworks/js/jquery/tagging/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//www.ibm.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/js/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="//a248.e.akamai.net/f/248/69561/1d/www.ibm.com/developerworks/js/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '407206';
+			contentAreas = 'java';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[263,21],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="//a248.e.akamai.net/f/248/47542/30d/www.ibm.com/common/stats/stats.js" type="text/javascript">//</script>
+</div>
+
+</body>
+</html>

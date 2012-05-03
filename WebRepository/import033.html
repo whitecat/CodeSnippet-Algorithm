@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>RE: SCA-Contribution schema for import/export java, was Re: svn commit: r721505 - /tuscany/branches/sca-java-1.x/modules/assembly-xsd/src/main/resources/sca-contributions.xsd</title>
+   <link rel="stylesheet" type="text/css" href="/archives/style.css" />
+ </head>
+
+ <body id="archives">
+  <h1>Mailing list archives</h1>
+
+  <h5>
+<a href="http://mail-archives.apache.org/mod_mbox/" title="Back to the archives depot">Site index</a> &middot; <a href="/mod_mbox/tuscany-dev" title="Back to the list index">List index</a></h5>  <table class="static" id="msgview">
+   <thead>
+    <tr>
+    <th class="title">Message view</th>
+    <th class="nav"><a href="/mod_mbox/tuscany-dev/200812.mbox/%3c1461719243.1228122284248.JavaMail.jira@brutus%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/%3c4d292ac10812010137x5c3488cqba48aa4944fad80c@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/tuscany-dev/200812.mbox/%3c1461719243.1228122284248.JavaMail.jira@brutus%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/%3cc0c051b50812010835m41232109mac4a50923243f661@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </thead>
+
+   <tfoot>
+    <tr>
+    <th class="title"><a href="#archives">Top</a></th>
+    <th class="nav"><a href="/mod_mbox/tuscany-dev/200812.mbox/%3c1461719243.1228122284248.JavaMail.jira@brutus%3e" title="Previous by date">&laquo;</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/date" title="View messages sorted by date">Date</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/%3c4d292ac10812010137x5c3488cqba48aa4944fad80c@mail.gmail.com%3e" title="Next by date">&raquo;</a> &middot; <a href="/mod_mbox/tuscany-dev/200812.mbox/%3c1461719243.1228122284248.JavaMail.jira@brutus%3e" title="Previous by thread">&laquo;</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/thread" title="View messages sorted by thread">Thread</a> <a href="/mod_mbox/tuscany-dev/200812.mbox/%3cc0c051b50812010835m41232109mac4a50923243f661@mail.gmail.com%3e" title="Next by thread">&raquo;</a></th>
+   </tr>
+   </tfoot>
+
+   <tbody>
+   <tr class="from">
+    <td class="left">From</td>
+    <td class="right">&quot;Mark Combellack&quot; &lt;mcombell...@apache.org&gt;</td>
+   </tr>
+   <tr class="subject">
+    <td class="left">Subject</td>
+    <td class="right">RE: SCA-Contribution schema for import/export java, was Re: svn commit: r721505 - /tuscany/branches/sca-java-1.x/modules/assembly-xsd/src/main/resources/sca-contributions.xsd</td>
+   </tr>
+   <tr class="date">
+    <td class="left">Date</td>
+    <td class="right">Mon, 01 Dec 2008 09:31:55 GMT</td>
+   </tr>
+   <tr class="contents"><td colspan="2"><pre>
+Hi,
+
+ 
+
+There is currently an OASIS SCA-J issue open that is very similar to the
+problem. It talks about the ability to share Java code across contributions.
+There is a suggestion to use something line import.java and export.java to
+provide this functionality. The issue can be found at
+http://www.osoa.org/jira/browse/JAVA-60
+
+ 
+
+Thanks,
+
+ 
+
+Mark
+
+  _____  
+
+From: Simon Laws [mailto:simonslaws@googlemail.com] 
+Sent: 29 November 2008 11:13
+To: dev@tuscany.apache.org
+Subject: Re: SCA-Contribution schema for import/export java, was Re: svn
+commit: r721505 -
+/tuscany/branches/sca-java-1.x/modules/assembly-xsd/src/main/resources/sca-c
+ontributions.xsd
+
+ 
+
+Hi Luciano 
+
+That's a good point. It hadn't occurred to me that java and resource
+import/export have just been invented by Tuscany. The code is also wrong,
+e.g. [1]. 
+
+So we need to go and switch the code into the Tuscany namespace and fix any
+samples that depend on this. Then we should create a
+tuscany-sca-contributions.xsd for java and resources. 
+
+Regards
+
+Simon
+
+[1]
+http://svn.apache.org/repos/asf/tuscany/java/sca/modules/contribution-java/s
+rc/main/resources/META-INF/services/org.apache.tuscany.sca.contribution.proc
+essor.StAXArtifactProcessor
+
+On Sat, Nov 29, 2008 at 6:18 AM, Luciano Resende &lt;luckbr1975@gmail.com&gt;
+wrote:
+
+I was checking the OSOA specification and also the latest OASIS
+specification drafts [1] and I did not see the import/export java
+defined in the sca-contribution schema.
+
+Is there any particular reason why we need to have this defined (when
+it' s not on the spec) ? If so, should we raise an issue with the
+OASIS spec group ? Otherwise, should we make clear this is a Tuscany
+extension ?
+
+[1]
+http://www.oasis-open.org/committees/download.php/30077/sca-assembly-1.1-spe
+c-cd01-rev3.pdf
+
+On Fri, Nov 28, 2008 at 6:07 AM,  &lt;slaws@apache.org&gt; wrote:
+&gt; Author: slaws
+&gt; Date: Fri Nov 28 06:07:17 2008
+&gt; New Revision: 721505
+&gt;
+&gt; URL: http://svn.apache.org/viewvc?rev=721505
+&lt;http://svn.apache.org/viewvc?rev=721505&amp;view=rev&gt; &amp;view=rev
+&gt; Log:
+&gt; Add schema for java import/export
+&gt;
+&gt; Modified:
+&gt;
+tuscany/branches/sca-java-1.x/modules/assembly-xsd/src/main/resources/sca-co
+ntributions.xsd
+&gt;
+&gt; Modified:
+tuscany/branches/sca-java-1.x/modules/assembly-xsd/src/main/resources/sca-co
+ntributions.xsd
+&gt; URL:
+http://svn.apache.org/viewvc/tuscany/branches/sca-java-1.x/modules/assembly-
+xsd/src/main/resources/sca-contributions.xsd?rev=721505
+&lt;http://svn.apache.org/viewvc/tuscany/branches/sca-java-1.x/modules/assembly
+-xsd/src/main/resources/sca-contributions.xsd?rev=721505&amp;r1=721504&amp;r2=721505
+&amp;view=diff&gt; &amp;r1=721504&amp;r2=721505&amp;view=diff
+&gt;
+============================================================================
+==
+&gt; ---
+tuscany/branches/sca-java-1.x/modules/assembly-xsd/src/main/resources/sca-co
+ntributions.xsd (original)
+&gt; +++
+tuscany/branches/sca-java-1.x/modules/assembly-xsd/src/main/resources/sca-co
+ntributions.xsd Fri Nov 28 06:07:17 2008
+&gt; @@ -62,4 +62,22 @@
+&gt;             &lt;/extension&gt;
+&gt;         &lt;/complexContent&gt;
+&gt;     &lt;/complexType&gt;
+&gt; +
+&gt; +    &lt;element name="import.java" type="sca:ImportJavaType"
+substitutionGroup="sca:import"/&gt;
+&gt; +    &lt;complexType name="ImportJavaType"&gt;
+&gt; +        &lt;complexContent&gt;
+&gt; +            &lt;extension base="sca:ImportType"&gt;
+&gt; +                 &lt;attribute name="package" type="string" use="optional"/&gt;
+&gt; +            &lt;/extension&gt;
+&gt; +        &lt;/complexContent&gt;
+&gt; +    &lt;/complexType&gt;
+&gt; +
+&gt; +    &lt;element name="export.java" type="sca:ExportJavaType"
+substitutionGroup="sca:export"/&gt;
+&gt; +    &lt;complexType name="ExportJavaType"&gt;
+&gt; +        &lt;complexContent&gt;
+&gt; +            &lt;extension base="sca:ExportType"&gt;
+&gt; +                &lt;attribute name="package" type="string" use="optional"/&gt;
+&gt; +            &lt;/extension&gt;
+&gt; +        &lt;/complexContent&gt;
+&gt; +    &lt;/complexType&gt;
+&gt;  &lt;/schema&gt;
+&gt; \ No newline at end of file
+&gt;
+&gt;
+&gt;
+
+
+
+--
+Luciano Resende
+Apache Tuscany, Apache PhotArk
+http://people.apache.org/~lresende &lt;http://people.apache.org/%7Elresende&gt; 
+http://lresende.blogspot.com/
+
+ 
+
+
+</pre></td></tr>
+   <tr class="mime">
+    <td class="left">Mime</td>
+    <td class="right">
+<ul>
+<li>Unnamed multipart/alternative (inline, None, 0 bytes)</li>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/tuscany-dev/200812.mbox/raw/<000c01c95397$a776fd10$9e32a8c0@eu.ubiquity.net>/1">Unnamed text/plain</a> (inline, 7-Bit, 4302 bytes)</li>
+</ul>
+<ul>
+<li><a rel="nofollow" href="/mod_mbox/tuscany-dev/200812.mbox/raw/<000c01c95397$a776fd10$9e32a8c0@eu.ubiquity.net>/2">Unnamed text/html</a> (inline, Quoted Printable, 10779 bytes)</li>
+</ul>
+</ul>
+</td>
+</tr>
+   <tr class="raw">
+    <td class="left"></td>
+    <td class="right"><a href="/mod_mbox/tuscany-dev/200812.mbox/raw/%3c000c01c95397$a776fd10$9e32a8c0@eu.ubiquity.net%3e" rel="nofollow">View raw message</a></td>
+   </tr>
+   </tbody>
+  </table>
+ </body>
+</html>

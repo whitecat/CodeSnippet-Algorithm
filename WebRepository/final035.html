@@ -1,0 +1,779 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>A Funny Java Flavoured Look at the World: Hardcore Java - The Final Story</title>
+
+  <script type="text/javascript">(function() { var a=window;function e(b){this.t={};this.tick=function(c,h,d){d=d?d:(new Date).getTime();this.t[c]=[d,h]};this.tick("start",null,b)}var f=new e;a.jstiming={Timer:e,load:f};try{a.jstiming.pt=a.gtbExternal&&a.gtbExternal.pageT()||a.external&&a.external.pageT}catch(g){};a.tickAboveFold=function(b){b=b;var c=0;if(b.offsetParent){do c+=b.offsetTop;while(b=b.offsetParent)}b=c;b<=750&&a.jstiming.load.tick("aft")};var i=false;function j(){if(!i){i=true;a.jstiming.load.tick("firstScrollTime")}}a.addEventListener?a.addEventListener("scroll",j,false):a.attachEvent("onscroll",j); })();</script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="generator" content="Blogger" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="http://www.blogger.com/favicon.ico"/>
+<link rel="alternate" type="application/atom+xml" title="A Funny Java Flavoured Look at the World - Atom" href="http://hoskinator.blogspot.com/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="A Funny Java Flavoured Look at the World - RSS" href="http://hoskinator.blogspot.com/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="A Funny Java Flavoured Look at the World - Atom" href="http://www.blogger.com/feeds/25461476/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=25461476" />
+<link rel="alternate" type="application/atom+xml" title="A Funny Java Flavoured Look at the World - Atom" href="http://hoskinator.blogspot.com/feeds/114470335479999905/comments/default" />
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/static/v1/v-css/3727950723-blog_controls.css"/> <link rel="stylesheet" type="text/css" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=25461476&zx=b97d00bf-e608-4a3c-9b16-82805879287c"/><script type="text/javascript" src="http://www.blogger.com/static/v1/v-js/1188848481-backlink.js"></script>
+<script type="text/javascript" src="http://www.blogger.com/static/v1/v-js/463928704-backlink_control.js"></script>
+<script type="text/javascript">var BL_backlinkURL = "http://www.blogger.com/dyn-js/backlink_count.js";var BL_blogId = "25461476";</script>
+
+
+  <style type="text/css">
+
+background: #e0e0e0;
+  }
+
+blockquote {
+  margin: 0 0 0 30px;
+  padding: 10px 0 0 20px;
+  font-size: 88%;
+  line-height: 1.5em;
+  color: #666;
+  background: url(http://www.blogblog.com/tictac/quotes.gif) no-repeat top left;
+  }
+
+blockquote p {
+  margin-top: 0;
+  }
+
+abbr, acronym {
+  cursor: help;
+  font-style: normal;
+  border-bottom: 1px dotted;
+  }
+
+code {
+  color: #f63;
+  }
+
+hr {
+  display: none;
+  }
+
+img {
+  border: none;
+  }
+
+/* unordered list style */
+
+ul {
+  list-style: none;
+  margin: 0 0 20px 30px;
+  padding: 0;
+  }
+
+li {
+  list-style: none;
+  padding-left: 14px;
+  margin-bottom: 3px;
+  background: url(http://www.blogblog.com/tictac/tictac_orange.gif) no-repeat 0 6px;
+  }
+
+/* links */
+
+a:link {
+  color: #69c;
+  }
+
+a:visited {
+  color: #666699;
+  }
+
+a:hover {
+  color: #693;
+  }
+
+a:active {
+  color: #cc3333;
+  text-decoration: none;
+  }
+
+/* ---( layout structure )---*/
+
+@media all {
+  #wrap {
+    width: 847px;
+    margin: 0 auto;
+    text-align: left;
+    background: url(http://www.blogblog.com/tictac/tile.gif) repeat-y;
+    }
+
+  #content {
+    margin-left: 62px; /* to avoid the BMH */
+    }
+
+  #main-content {
+    float: left;
+    width: 460px;
+    margin: 20px 0 0 0;
+    padding: 0;
+    line-height: 1.5em;
+    }
+
+  #sidebar {
+    margin: 0 41px 0 547px;
+    padding: 20px 0 0 0;
+    font-size: 85%;
+    line-height: 1.4em;
+    color: #999;
+    background: url(http://www.blogblog.com/tictac/sidebar_bg.gif) no-repeat 0 0;
+    }
+  }
+@media handheld {
+  #wrap {
+    width: 90%;
+    background: none;
+    }
+
+  #content {
+    margin:0 2% 0 2%;
+    }
+
+  #main-content {
+    float: none;
+    width: 100%;
+    }
+
+  #sidebar {
+    margin: 0 2% 0 2%;
+    }
+  }
+
+
+/* ---( header and site name )--- */
+
+@media all {
+  #blog-header {
+    margin: 0;
+    padding: 0;
+    font-family: "Lucida Grande", "Trebuchet MS";
+    background: #e0e0e0 url(http://www.blogblog.com/tictac/top_div.gif) no-repeat top left;
+    }
+
+  #blog-header h1 {
+    margin: 0;
+    padding: 45px 60px 50px 160px;
+    font-size: 200%;
+    color: #fff;
+    text-shadow: #81A75B 2px 2px 2px;
+    background: url(http://www.blogblog.com/tictac/top_h1.gif) no-repeat bottom left;
+    }
+  }
+@media handheld {
+  #blog-header {
+    background: #99cc66;
+    }
+
+  #blog-header h1 {
+    background: none;
+    }
+  }
+
+#blog-header h1 a {
+  text-decoration: none;
+  color: #fff;
+  }
+
+#blog-header h1 a:hover {
+  color: #eee;
+  }
+
+/* ---( main column )--- */
+
+h2.date-header {
+  margin-top: 0;
+  padding-left: 14px;
+  font-size: 90%;
+  color: #f93;
+  background: url(http://www.blogblog.com/tictac/date_icon.gif) no-repeat 0 50%;
+  }
+
+h3.post-title {
+  margin-top: 0;
+  font-family: "Lucida Grande", "Trebuchet MS";
+  font-size: 130%;
+  letter-spacing: -1px;
+  color: #f63;
+  }
+
+.post {
+  margin: 0 0 1.5em 0;
+  padding: 0 0 1.5em 14px;
+  border-bottom: 1px solid #ddd;
+  }
+
+.post-footer {
+  margin: 0;
+  padding: 0 0 0 14px;
+  font-size: 88%;
+  color: #999;
+  background: url(http://www.blogblog.com/tictac/tictac_grey.gif) no-repeat 0 8px;
+  }
+
+.post img {
+  padding: 6px;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
+  }
+
+/* comment styles */
+
+#comments {
+  padding-top: 10px;
+  font-size: 85%;
+  line-height: 1.5em;
+  color: #666;
+  background: #eee url(http://www.blogblog.com/tictac/comments_curve.gif) no-repeat top left;
+  }
+
+#comments h4 {
+  margin: 20px 0 15px 0;
+  padding: 8px 0 0 40px;
+  font-family: "Lucida Grande", "Trebuchet MS";
+  font-size: 130%;
+  color: #666;
+  background: url(http://www.blogblog.com/tictac/bubbles.gif) no-repeat 10px 0;
+  height: 29px !important; /* for most browsers */
+  height /**/:37px; /* for IE5/Win */
+  }
+  
+#comments ul {
+  margin-left: 0;
+  }
+
+#comments li {
+  background: none;
+  padding-left: 0;
+  }
+  
+.comment-body {
+  padding: 0 10px 0 25px;
+  background: url(http://www.blogblog.com/tictac/tictac_orange.gif) no-repeat 10px 5px;
+  }
+
+.comment-body p {
+  margin-bottom: 0;
+  }
+
+.comment-data {
+  margin: 4px 0 0 0;
+  padding: 0 10px 1em 60px;
+  color: #999;
+  border-bottom: 1px solid #ddd;
+  background: url(http://www.blogblog.com/tictac/comment_arrow.gif) no-repeat 44px 2px;
+  }
+
+
+.deleted-comment {
+  font-style:italic;
+  color:gray;
+  }
+
+.comment-link {
+  margin-left:.6em;
+  }
+
+/* ---( sidebar )--- */
+
+h2.sidebar-title {
+  margin: 0 0 0 0;
+  padding: 25px 0 0 50px;
+  font-family: "Lucida Grande", "Trebuchet MS";
+  font-size: 130%;
+  color: #666;
+  height: 32px;
+  background: url(http://www.blogblog.com/tictac/sidebar_icon.gif) no-repeat 20px 15px;
+  height: 32px !important; /* for most browsers */
+  height /**/:57px; /* for IE5/Win */
+  }
+
+#sidebar ul, #sidebar p {
+  margin: 0;
+  padding: 5px 20px 1em 20px;
+  border-bottom: 1px solid #ddd;
+  }
+
+#sidebar li {
+  background: url(http://www.blogblog.com/tictac/tictac_green.gif) no-repeat 0 5px;
+  }
+
+/* profile block */
+
+.profile-datablock {
+  margin: 0;
+  padding: 5px 20px 0 20px;
+  }
+
+.profile-datablock dd {
+  margin: 0;
+  padding: 0;
+  }
+
+.profile-img img {
+  float: left;
+  margin: 0 10px 0 0;
+  padding: 4px;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
+  background: #fff;
+  }
+
+#sidebar p.profile-link {
+  padding-left: 36px;
+  background: url(http://www.blogblog.com/tictac/profile.gif) no-repeat 20px 4px;
+  }
+
+p#powered-by, #sidebar p.profile-textblock {
+  margin-top: 1em;
+  border: none;
+  }
+
+/* ---( footer )--- */
+
+.clear { /* to fix IE6 padding-top issue */
+  clear: both;
+  height: 0;
+  }
+
+@media all {
+  #footer {
+    margin: 0;
+    padding: 0 0 9px 0;
+    font-size: 85%;
+    color: #ddd;
+    background: url(http://www.blogblog.com/tictac/bottom_sill.gif) no-repeat bottom left;
+    }
+
+  #footer p {
+    margin: 0;
+    padding: 20px 320px 20px 95px;
+    background: url(http://www.blogblog.com/tictac/bottom_sash.gif) no-repeat top left;
+    }
+  }
+@media handheld {
+  #footer {
+    background: none;
+    }
+
+  #footer p {
+    background: none;
+    }
+  }
+
+
+/* ---- overrides for post page ---- */
+
+.post {
+  padding: 0;
+  border: none;
+  }
+
+
+</style>
+
+
+<!-- --><style type="text/css">@import url(http://www.blogger.com/static/v1/v-css/navbar/697174003-classic.css);
+div.b-mobile {display:none;}
+</style>
+
+</head>
+
+<body><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener("load",
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<iframe src="http://www.blogger.com/navbar.g?targetBlogID=25461476&amp;blogName=A+Funny+Java+Flavoured+Look+at+the+World&amp;publishMode=PUBLISH_MODE_BLOGSPOT&amp;navbarType=BLUE&amp;layoutType=CLASSIC&amp;searchRoot=http%3A%2F%2Fhoskinator.blogspot.com%2Fsearch&amp;blogLocale=en_GB&amp;homepageUrl=http%3A%2F%2Fhoskinator.blogspot.com%2F" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" height="30px" width="100%" id="navbar-iframe" allowtransparency="true" title="Blogger Navigation and Search"></iframe>
+<div></div>
+
+<div id="wrap"> <!-- #wrap - for centering -->
+
+<!-- Blog Header -->
+<div id="blog-header">
+  <h1>
+    <a href="http://hoskinator.blogspot.com/">
+	A Funny Java Flavoured Look at the World
+	</a>
+  </h1>
+</div>
+
+
+<div id="content"> <!-- #content wrapper -->
+
+<!-- Begin #main-content -->
+<div id="main-content">
+
+
+
+<script type="text/javascript"><!--
+google_ad_client="ca-pub-9246531389272351";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+google_ad_width=468;
+google_ad_height=60;
+google_ad_format="468x60_as";
+google_ad_type="text";
+google_color_border="FFFFFF";
+google_color_bg="FFFFFF";
+google_color_link="0000FF";
+google_color_url="008000";
+google_color_text="000000";
+//2006-10-30: Java
+google_ad_channel = "8962122731";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+    
+  <h2 class="date-header">Monday, April 10, 2006</h2>
+  
+  
+     
+  <!-- Begin .post -->
+  <div class="post"><a name="114470335479999905"></a>
+     
+    
+    <h3 class="post-title">
+	 
+	 Hardcore Java - The Final Story
+	 
+    </h3>
+    
+     
+    <div class="post-body">
+    
+      <p><div style="clear:both;"></div>I recently read this chapter (free sample of course) of the book called Hardcore Java By Robert Simmons, Jr.  Although the book got an average 3 out of 5, I personally found this chapter very interesting.  The chapter is solely about the use of the keyword final and how using it can benefit your code, which I found surprising<span style=";font-family:Verdana,Arial,Helvetica,sans-serif;font-size:85%;"  ><span style="color:blue;"><strong> </strong></span></span>because I never really made variables final before and I also didn't see many/any final variables in other peoples code (except maybe in a method or two)<br /><br />here is the link to the second chapter<br /><br /><a href="http://www.oreilly.com/catalog/hardcorejv/chapter/ch02.pdf">http://www.oreilly.com/catalog/hardcorejv/chapter/ch02.pdf</a><br /><br />There are a few quick benefits to making your variables final as the chapter describes, the main advantages that stick in my mind our<br /><br />1. It stops you accidentally assigning a value to variable you don't want to change (by making it final) the compiler will complain if you try to assign a value to this variable.  The main example I can think of, is variables that are incoming parameters.  Good programming standards usually tell you not change this and by making them final you can't<br /><br />2.  it shows other developers who will look at your code later that they shouldn't assign values to variables marked private.<br /><br />3.  Finally it may have some benefits of taking up less memory (although method scope variables are not substituted at compile time)<br /><br />The chapter goes into a far bit of detail but I never felt it to be very boring.  The main point that struck me was that by making some variables final you bring the errors of assigning to a variable you don't mean to, too compile time rather than having to search for it at runtime.<br /><br />Since reading this article I have gone a bit final mad and it has been surprising just how many variables you create and then don't change.<br /><br />try it, you might like it.  I would be interested to hear from anyone who has read the book to see how they found the rest of it as I am quite tempted to purchase it.<br /><br />This blog entry is also on the same sort of topic so if you like this you should read <a href="http://hoskinator.blogspot.com/2006/04/why-you-should-use-this-keyword.html">this</a> blog entry which is about why you should use the this keyword<br /><br /><br /><div><span style="font-family: Arial;"><span style="font-size: 85%;"><span class="741080813-07112006">If you like this blog or and fancy something a bit less technical with some laughing thrown in then check out my other blog </span><span class="741080813-07112006"><a href="http://amusingitstories.blogspot.com/">Amusing IT Stories</a>. Which is a blog about funny and amusing stories from the IT environment and the office. It is a mix of news, office humour, IT stories, links, cartoons and anything that I find funny</span></span></span></div><div style="clear:both; padding-bottom:0.25em"></div></p>
+    
+    </div>
+
+    <p class="post-footer">posted by Hoskinator at 
+      <a href="http://hoskinator.blogspot.com/2006/04/hardcore-java-final-story.html" title="permanent link">9:30 PM</a> 
+       <span class="item-action"><a href="http://www.blogger.com/email-post.g?blogID=25461476&postID=114470335479999905" title="Email Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_email.gif" height="13" width="18"/></a></span>
+
+ <p><div class='adsense' style='text-align:center; padding: 0px 0px 0em 0px;'>
+<script type="text/javascript"><!--
+google_ad_client="ca-pub-9246531389272351";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+google_ad_width=468;
+google_ad_height=60;
+google_ad_format="468x60_as";
+google_ad_type="text";
+google_color_border="FFFFFF";
+google_color_bg="FFFFFF";
+google_color_link="0000FF";
+google_color_url="008000";
+google_color_text="000000";
+//2006-10-30: Java
+google_ad_channel = "8962122731";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</div>
+<p>
+
+  </div>
+
+  <!-- End .post -->
+  
+  
+   <!-- Begin #comments -->
+ 
+
+  <div id="comments">
+
+	<a name="comments"></a>
+    
+    <h4>9 Comments:</h4>
+    
+    <ul>
+      
+      <li id="c114648932712413326"><a name="c114648932712413326"></a>
+        <div class="comment-body">
+         <p>I agree with what you say and same thing goes with <A HREF="http://checkstyle.sf.net/" REL="nofollow">Checkstyle</A>.  I personally <B>final</B> as many variables that I can.  Its not for performance, but just to ensure that I don't do anything stupid with the variable inadvertently.  It helps when you are maintaining <I>excessively long</I> methods and you want to make sure you don't trample on any data.<BR/><BR/>It is also useful to make sure your classes are immutable.  I tend to sprinkle <B>private final</B>s in the class to ensure that the constructor sets all the necessary variables.  I don't like having setters if I can avoid them.</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/10082441587656805784" rel="nofollow">Archimedes Trajano</a>, at <a href="#c114648932712413326" title="comment permalink">Mon May 01, 02:15:00 PM 2006</a>
+	  <span class="item-control blog-admin pid-1286397665"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=114648932712413326" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c114649160749055041"><a name="c114649160749055041"></a>
+        <div class="comment-body">
+         <p>I have just read about making classes immutable in Effective Java.  It's a simple but excellent idea, which can stop you worrying and writing code to make sure values haven't been set to stupid values etc.<BR/><BR/>I totally agree with your point, making variables final stops you assigning a value to them and it's hard to see why you wouldn't set them to be final.<BR/><BR/>It's a bit wierd to start with but when I thought about it, it makes perfect sense and helps you to design better code because you think about whether data needs to change or not.<BR/><BR/>excellent comment, thanks for contributing</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/16247619521154051889" rel="nofollow">Hosky</a>, at <a href="#c114649160749055041" title="comment permalink">Mon May 01, 02:53:00 PM 2006</a>
+	  <span class="item-control blog-admin pid-1941790665"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=114649160749055041" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c116133464096012517"><a name="c116133464096012517"></a>
+        <div class="comment-body">
+         <p>Parameters are sometimes better non-final.<BR/><BR/>int returnSomething(final int x,final int y)<BR/>{<BR/>&nbsp;final int newX=x+30;<BR/>&nbsp;final int newY=y+20;<BR/>&nbsp;return x*y;  //oops, should be newX*newY<BR/>}<BR/><BR/>The problem above is that there are too many variables* - the parameters need processing before work, but because I was adhering to a broken code standard that says that parameters should always be final, I introduced a bug.  This time I did it on purpose.  Maybe you will do it by accident sometime.<BR/><BR/>*parameters are variables too!<BR/><BR/>I prefer this - there are no irrelevant variables/parameters around:<BR/><BR/>int returnSomething(int x,int y)<BR/>{<BR/>&nbsp;x+=30;<BR/>&nbsp;y+=20;<BR/>&nbsp;return x*y;<BR/>}<BR/><BR/>The only person this confuses is the person who assumes that Java has pass by reference, which it doesn't.  Let's write for good programmers, not twits.<BR/><BR/>Archimedes' suggestion about private final fields - No.  Make your implementation classes anonymous classes, then the 'fields' are definitely always assigned, definitely always final (until Java 7), and there is less meaningless code to write.<BR/><BR/>E.g.,<BR/><BR/>final double real=whatever;<BR/>final double imag=whatever;<BR/>return new Complex()<BR/>{<BR/>&nbsp;public double real()<BR/>&nbsp;{<BR/>&nbsp;&nbsp;return real;<BR/>&nbsp;}<BR/><BR/>&nbsp;public double imag()<BR/>&nbsp;{<BR/>&nbsp;&nbsp;return imag;<BR/>&nbsp;}<BR/>};</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/08861610027553979828" rel="nofollow">Ricky Clarkson</a>, at <a href="#c116133464096012517" title="comment permalink">Fri Oct 20, 09:57:00 AM 2006</a>
+	  <span class="item-control blog-admin pid-1225344350"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=116133464096012517" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c116135034411149899"><a name="c116135034411149899"></a>
+        <div class="comment-body">
+         <p>why did you need to assign the parameters passed in to new parameters if you weren't changing their values.<BR/><BR/>The final paramters stops you assigning values to the parameters passed in, which is probably not something you would want to do.<BR/><BR/>I didn't really think problems arise from just using parameters but bugs occur from assigning parameters to the wrong variables e.g. the ones passed in.</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/16247619521154051889" rel="nofollow">Hosky</a>, at <a href="#c116135034411149899" title="comment permalink">Fri Oct 20, 02:19:00 PM 2006</a>
+	  <span class="item-control blog-admin pid-1941790665"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=116135034411149899" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c116311947928180894"><a name="c116311947928180894"></a>
+        <div class="comment-body">
+         <p>I always use the following dumb rule: everything is final (classes, members, variables and parameters) as long as nothing proves the opposite.</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon anon-comment-icon"><img src="http://www.blogger.com/img/anon16-rounded.gif" alt="Anonymous" style="display:inline;" /></span>&nbsp;<a href="http://archiblog.stratic.fr/" rel="nofollow">Laurent Simon</a>, at <a href="#c116311947928180894" title="comment permalink">Fri Nov 10, 12:44:00 AM 2006</a>
+	  <span class="item-control blog-admin pid-1497080198"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=116311947928180894" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c116317357431317214"><a name="c116317357431317214"></a>
+        <div class="comment-body">
+         <p>I like making local and member variables final, but for me, doing the same for method parameters is going overboard.  Chances are, it doesn't do what you want it to anyway.<BR/><BR/>In the example above, making an int parameter final keeps you from messing with it inside of the method, but you can't permanently change it anyway because primitives are passed by value.<BR/><BR/>Making an Object parameter final just keeps you from assigning a totally new object to it.  The final keyword doesn't stop you from modifying any of the Object's contents.</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon anon-comment-icon"><img src="http://www.blogger.com/img/anon16-rounded.gif" alt="Anonymous" style="display:inline;" /></span>&nbsp;<a href="http://subterfusion.net/" rel="nofollow">earl</a>, at <a href="#c116317357431317214" title="comment permalink">Fri Nov 10, 03:46:00 PM 2006</a>
+	  <span class="item-control blog-admin pid-533971729"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=116317357431317214" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c116317595024533985"><a name="c116317595024533985"></a>
+        <div class="comment-body">
+         <p>you are right about making Object parameters final but at least if you see it's final someone might think twice about changing a value to it.</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/16247619521154051889" rel="nofollow">Hosky</a>, at <a href="#c116317595024533985" title="comment permalink">Fri Nov 10, 04:25:00 PM 2006</a>
+	  <span class="item-control blog-admin pid-1941790665"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=116317595024533985" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c1948533211354303654"><a name="c1948533211354303654"></a>
+        <div class="comment-body">
+         <p>welcome to the <A HREF="http://www.sf10001.cn" REL="nofollow">wow power leveling</A> cheap <A HREF="http://www.wotlk-power-leveling.com" REL="nofollow">wow power leveling</A> service site, buy  cheap wow gold,<A HREF="http://www.wotlkgold.org" REL="nofollow">wotlk gold</A>,world of warcraft power leveling  buy wow gold</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/16858887843175814124" rel="nofollow">uiyui</a>, at <a href="#c1948533211354303654" title="comment permalink">Wed Feb 04, 07:26:00 AM 2009</a>
+	  <span class="item-control blog-admin pid-554179316"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=1948533211354303654" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c597741307049071923"><a name="c597741307049071923"></a>
+        <div class="comment-body">
+         <p><a rel="external" href="http://orientinspiration.com/2009/09/oes-tsetnoc.html" rel="nofollow">Oes  Tsetnoc</a> one of the ways in which we can learn seo besides <a rel="external" href="http://duniasoer.com/archives/mengembalikan-jati-diri-bangsa.html" rel="nofollow">Mengembalikan Jati Diri Bangsa</a>.  By participating in the <a rel="external" href="http://mncmakina.com/2009/09/oes-tsetnoc-seo-contest/" rel="nofollow">Oes Tsetnoc</a> or <a rel="external" href="http://ulaznice.info/mengembalikan-jati-diri-bangsa.html" rel="nofollow">Mengembalikan Jati Diri Bangsa</a> we can improve our seo skills. To find more information about <a rel="external" href="http://catatanblogger.info/738688-Oes-Tsetnoc.html" rel="nofollow">Oest Tsetnoc</a> please visit my <a rel="external" href="http://kusukaseo.info/981750-Oes-Tsetnoc-Support.html" rel="nofollow">Oes Tsetnoc</a> pages. And to find more information about <a rel="external" href="http://duniasoer.com" rel="nofollow">Mengembalikan Jati Diri Bangsa</a> please visit my <a rel="external" href="http://catatanblogger.info/464655-Mengembalikan-Jati-Diri-Bangsa.html" rel="nofollow">Mengembalikan Jati Diri Bangsa</a> pages. Thank you So much.</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/06355802787660974633" rel="nofollow">Adi</a>, at <a href="#c597741307049071923" title="comment permalink">Thu Nov 19, 06:42:00 AM 2009</a>
+	  <span class="item-control blog-admin pid-1235777263"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=25461476&postID=597741307049071923" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+    </ul>
+	
+	<p class="comment-data">
+    <a class="comment-link" href="https://www.blogger.com/comment.g?blogID=25461476&postID=114470335479999905&isPopup=true" onclick="window.open(this.href, 'bloggerPopup', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=400,height=450');return false;">Post a Comment</a>
+    <br /><br />
+
+		    
+    
+    <a name="links"></a><h4>Links to this post:</h4>
+    <dl id="comments-block">
+    <script type="text/javascript" src="http://www.blogger.com/dyn-js/backlink.js?blogID=25461476&postID=114470335479999905" charset="utf-8" defer="true">
+</script>
+<noscript><a href="http://blogsearch.google.com/?ui=blg&q=link%3Ahttp%3A%2F%2Fhoskinator.blogspot.com%2F2006%2F04%2Fhardcore-java-final-story.html">See links to this post</a></noscript>
+<div id="blogger-dcom-block" style="display:none">
+        <dt class="comment-title">
+        <span class="comment-toggler">&nbsp;</span>
+        <a href="<$BlogBacklinkURL$>" rel="nofollow"><$BlogBacklinkTitle$></a> <span class="item-control blog-admin"><a style="border:none;" href="http://www.blogger.com/delete-backlink.g?blogID=25461476&amp;postID=114470335479999905&amp;backlinkURL=%3C$BlogBacklinkURLEscaped$%3E" title="Remove Link" ><span class="delete-comment-icon">&nbsp;</span></a></span>
+        </dt>
+        <dd class="comment-body"><$BlogBacklinkSnippet$>
+        <br />
+        <span class="comment-poster">
+        <em>posted by <$BlogBacklinkAuthor$> @ <$BlogBacklinkDateTime$></em>
+        </span>
+        </dd>
+    </div>
+<script type="text/javascript">if (typeof BL_addOnLoadEvent == 'function') { BL_addOnLoadEvent(function() { BL_writeBacklinks(); }); }</script>
+
+    </dl>
+    <p class="comment-timestamp"><script type="text/javascript">function BlogThis() {
+Q=''; x=document; y=window;
+if(x.selection) {
+  Q=x.selection.createRange().text;
+} else if (y.getSelection) {
+  Q=y.getSelection();
+} else if (x.getSelection) {
+  Q=x.getSelection();
+}
+popw = y.open('http://www.blogger.com/blog-this.g?t=' +
+  escape(Q) + '&u=' + escape(location.href) + '&n=' +
+  escape(document.title),'bloggerForm',
+  'scrollbars=no,width=475,height=300,top=175,left=75,status=yes,resizable=yes');
+void(0);
+}
+</script>
+<a class="comment-link" href="javascript:BlogThis();" id="b-backlink">Create a Link</a></p>
+    
+
+
+
+	<a href="http://hoskinator.blogspot.com/"><< Home</a>
+    </p>
+    </div>
+
+
+  <!-- End #comments -->
+
+
+
+  <hr />
+</div><!-- End #main-content -->
+
+</div><!-- End #content -->
+
+
+
+<!-- Begin #sidebar -->
+<div id="sidebar">
+<div style="text-align: center;"><a href="http://hoskinator.blogspot.com/">Click Here For the Blog Homepage</a>
+</div>
+
+  <!--<h2 class="sidebar-title">What's the Blog About</h2>-->
+  <p> <script type="text/javascript"><!--
+google_ad_client = "pub-9246531389272351";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+google_ad_width = 180;
+google_ad_height = 60;
+google_ad_format = "180x60_as_rimg";
+google_cpa_choice = "CAAQ_7HzzwEaCKq-Q3II7WEwKLW193M";
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></p>
+  <!--<p>The blog looks at using Java and programming in general as it pops up in life as a Java programmer.  It will have links to interesting Java articles and resources. It will also have a lot of SCJP Java 1.5 information and links as I am currently studying for the Java 5 exam
+
+Whilst trying to keep up general programming ideas like extreme programming, Refactoring, Object Orientated design, Design patterns and unit testing.</p>-->
+  
+   <!-- Begin #profile-container -->
+    
+  
+  <!--<h2 class="sidebar-title">New</h2>
+  
+  <p>This is a paragraph of text in the sidebar.</p>
+  -->
+ <h2 class="sidebar-title">The Hoskinator love count</h2>
+   
+  
+ <ul>
+      <li><a href="http://easyhitcounters.com/stats.php?site=hoskinator" target="_top"><img border="0" alt="Counters" src="http://beta.easyhitcounters.com/counter/index.php?u=hoskinator&s=bbldotg" ALIGN="middle" HSPACE="4" VSPACE="2"></a><script src=http://beta.easyhitcounters.com/counter/script.php?u=hoskinator></script></a></li>
+      <br><a href="http://easyhitcounters.com/step2.php" target="_top"><font color="#666666">Free Hit Counter</font></a>
+ </ul>
+
+
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-9246531389272351";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text_image";
+google_ad_channel ="";
+google_color_border = "000000";
+google_color_link = "0000FF";
+google_color_bg = "F0F0F0";
+google_color_text = "000000";
+google_color_url = "008000";
+//2006-10-30: Java
+google_ad_channel = "8962122731";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+<p>
+<script type="text/javascript"><!--
+google_ad_client = "pub-9246531389272351";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+google_ad_width = 125;
+google_ad_height = 125;
+google_ad_format = "125x125_as_rimg";
+google_cpa_choice = "CAAQ1-abzgEaCDUq1mW3e2H3KInC93M";
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+  <h2 class="sidebar-title">free articles and sample chapter blog posts</h2>
+ <ul>
+
+<li><a href="http://hoskinator.blogspot.com/2006/04/free-hibernate-sample-chapters.html"> Hibernate Sample Chapter</a></li>
+<li><a href="http://hoskinator.blogspot.com/2006/04/questions-and-solutions-using-generics.html"> Generics and Enumerations Chapter pdf</a></li>
+<li><a href="http://hoskinator.blogspot.com/2006/04/generics-sample-chapter-pdf.html"> Generics Sample Chapter pdf</a></li>
+<li><a href="http://hoskinator.blogspot.com/2006/04/learning-to-love-junit-and-test-driven.html"> Learning to Love Junit and TDD</a></li>
+<li><a href="http://hoskinator.blogspot.com/2006/04/hardcore-java-final-story.html">Hardcore Java Sample chapter - The Final Story</a></li>
+<li><a href="http://hoskinator.blogspot.com/2006/04/test-driven-development-and.html"> Test Driven Development and ObjectiveView magazine</a></li>
+</ul>
+
+<p id="powered-by"><a href="http://www.blogger.com"><img src="http://buttons.blogger.com/bloggerbutton1.gif" alt="Powered by Blogger" /></a></p>
+
+<script type="text/javascript" src="http://embed.technorati.com/embed/artupn6ri3.js"></script>
+<a href="http://www.Bloggernity.com/" target="_blank"><img src="http://www.Bloggernity.com/images/80x15.png" alt="blog search directory" width="80" height="15" border="0"></a>
+
+<a href="http://www.plazoo.com" target="_blank"><img src="http://www.plazoo.com/external/images/button_small3.gif" border="0" alt="Feed Search"></a>
+
+<a href="http://www.blogarama.com/"><img src="http://www.blogarama.com/images/button.gif" border="0" alt="Blogarama - The Blogs Directory"></a>
+
+<a href="http://www.blogfinds.com/" target="_blank"><img src="http://www.blogfinds.com/buttons/8.3.2.gif" border="0" width="80" height="15" alt="BlogFinds.com * Blog Directory"></a>
+
+<a href="http://www.javarss.com"><img src="http://static.flickr.com/32/39834335_8c4c2826dc_m.jpg" border=0 alt="Java News, Java Articles, Java Blogs, Java Forums, Java Groups"></a>
+
+<a href="http://dir.blogflux.com/cat/computers-tech.html"><img src="http://dir.blogflux.com/images/80x15.gif" alt="Directory of Computers/Tech Blogs" border="0"></a>
+<p>
+<p><script type="text/javascript"><!--
+google_ad_client = "pub-9246531389272351";
+google_ad_host = "pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+google_ad_width = 120;
+google_ad_height = 240;
+google_ad_format = "120x240_as_rimg";
+google_cpa_choice = "CAAQ_Lvh8AEaCEsWYhyI0VHUKKDI6n4";
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+  <h2 class="sidebar-title">The Why is posts</h2>
+ <ul>
+<li><a href="http://hoskinator.blogspot.com/2006/04/why-is-netbeans-called-netbeans.html">Why is NetBeans called NetBeans</a></li>
+<li><a href="http://hoskinator.blogspot.com/2006/04/why-is-tomcat-called-tomcat.html">Why is tomcat called tomcat</a></li>
+<li><a href="http://hoskinator.blogspot.com/2006/04/what-was-first-hello-world-program.html">What was the first Hello World Program</a></li>
+</ul>
+</div>
+
+
+<!-- End #sidebar -->
+
+<div class="clear">&nbsp;</div>
+
+<div id="footer">
+   <p>Ã?Â©  Copyright Ben Hosking, all rights reserved<!-- If you'd like, you could place footer information here. -->&nbsp;</p>
+
+</div>
+
+</div> <!-- end #wrap -->
+<!-- Site Meter -->
+<script type="text/javascript" src="http://s24.sitemeter.com/js/counter.js?site=s24hoskinator">
+</script>
+<noscript>
+<a href="http://s24.sitemeter.com/stats.asp?site=s24hoskinator" target="_top">
+<img src="http://s24.sitemeter.com/meter.asp?site=s24hoskinator" alt="Site Meter" border="0"/></a>
+</noscript>
+<!-- Copyright (c)2006 Site Meter -->
+
+</body>
+</html>

@@ -1,0 +1,2154 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+
+
+<title>Java(TM) Boutique - 
+Making the Switch to Java -Part 3 - If Statements - Page 4
+</title>
+<META NAME="keywords" CONTENT="
+Java, programming, tutorials
+javaboutique.com
+">
+<META NAME="description" CONTENT="
+An introduction to Java programming. These tutorials 
+are aimed at complete beginners to programming.
+">
+<META NAME="section" CONTENT="
+Tutorials">
+<META NAME="date" CONTENT="
+2002-04-15
+">
+
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+var OAS_url;
+if(OAS_url == undefined){
+OAS_url = 'http://mjxads.internet.com/RealMedia/ads/';
+OAS_sitepage = 'intm/webdev/www.javaboutique.com';
+OAS_listpos = '120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon';
+OAS_query = '';
+OAS_target = '_top';
+OAS_version = 10;
+OAS_rn = '001234567890'; OAS_rns = '1234567890';
+OAS_rn = new String (Math.random()); OAS_rns = OAS_rn.substring (2, 11);
+function OAS_NORMAL(pos) {
+var_a=('<A HREF="' + OAS_url + 'click_nx.cgi/' + OAS_sitepage );
+var_b=(var_a + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' );
+var_c=(var_b+ OAS_query + '" TARGET=' + OAS_target + '>');
+document.write(var_c);
+var_aa=('<IMG SRC="' + OAS_url + 'adstream_nx.cgi/' + OAS_sitepage ); 
+var_bb=( var_aa + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?');
+var_cc=( var_bb + OAS_query + '" BORDER=0></A>');
+document.write(var_cc);
+}
+
+OAS_version = 11;
+if (navigator.userAgent.indexOf('Mozilla/3') != -1 )
+OAS_version = 10;
+if (navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
+OAS_version = 10;
+if (OAS_version >= 11) {
+var_aaa=('<SCRIPT LANGUAGE=JavaScript1.1 SRC="' + OAS_url); 
+var_bbb=(var_aaa + 'adstream_mjx.ads/' + OAS_sitepage + '/1'); 
+var_ccc=(var_bbb + OAS_rns + '@' + OAS_listpos + '?' + OAS_query );
+var_ddd=(var_ccc + '"><\/SCRIPT>');
+document.write(var_ddd);
+}
+
+document.write('');
+
+
+function OAS_AD(pos) {
+if (OAS_version >= 11)
+	OAS_RICH(pos);
+else
+	OAS_NORMAL(pos);
+}
+
+}
+//-->
+</SCRIPT>      
+
+
+<STYLE TYPE="text/css">
+<!-- 
+
+ /* body */
+body 
+
+{ 
+	background-color: #FAFAE6;
+    background-image: url(http://www.devx.com/assets/devx/3077.gif);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family : Arial, Helvetica, sans-serif;
+    font-size:10px;
+    color:#000000;
+
+}
+
+
+
+
+
+ /* Overall Links Style */
+
+
+
+a:link{
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:underline;
+color:#000099;
+font-size:10px;
+}
+
+a:visited{
+text-decoration:underline;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+color:#000099;
+font-size:10px;
+}
+
+a:hover{text-decoration:underline;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:none;
+color:#000099;
+font-size:10px;
+
+}
+
+
+ /* helptext Links Style */
+
+.helptext
+
+{
+font-size:10;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+color:#000099;
+
+}
+
+a.helptext:active{
+font-size:10px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:none;
+color:#000099;
+}
+
+a.helptext:link{
+font-size:10px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:none;
+color:#000099;
+}
+
+a.helptext:visited{
+font-size:10px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:none;
+color:#000099;
+}
+
+a.helptext:hover{
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:underline;
+font-size:10px;
+color:#000099;
+
+}
+
+/* articlenav Links Style */
+
+.articlenav
+
+{
+font-size:12px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+color:red;
+
+}
+
+a.articlenav:active{
+font-size:12px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:underline;
+color:red;
+}
+
+a.articlenav:link{
+font-size:12px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:underline;
+color:red;
+}
+
+a.articlenav:visited{
+font-size:12px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:underline;
+color:#dedede;
+}
+
+a.articlenav:hover{
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+text-decoration:none;
+font-size:12px;
+color:red;
+
+}
+
+/* other */
+
+.newsletter 
+{ 
+
+font-family : Arial, Helvetica, sans-serif;
+font-size:10;
+color:#000000;
+
+}
+
+.indextext 
+{ 
+
+font-family : Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#000000;
+padding-left:10px;
+padding-right:10px;
+
+}
+
+/* article */
+
+.articletext 
+{ 
+
+font-family : Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#000000;
+padding-left:10px;
+padding-right:10px;
+
+}
+
+.articleheader
+
+{
+font-size:12px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+color:#000000;
+padding-left:10px;
+
+}
+
+.articleheaderbig
+
+{
+font-size:14px;
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+color:#000000;
+
+
+}
+
+/* applet */
+
+.applettext 
+{ 
+
+font-family : Arial, Helvetica, sans-serif;
+font-size:12px;
+color:#000000;
+padding-left:10px;
+padding-right:10px;
+
+}
+
+.header_applet{
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+font-size:12px;
+color:#000000;
+padding-left:10px;
+padding-right:10px;
+}
+
+
+.small_links 
+{ 
+
+font-family : Arial, Helvetica, sans-serif;
+font-size:10;
+color:#000099;
+text-indent: 10px;
+font-weight:bold;
+
+}
+
+.header{
+font-family: Arial, Helvetica, Sans-Serif;
+font-weight:bold;
+font-size:12px;
+color:#000099;
+}
+
+
+
+
+.smallfont
+
+{
+	font-size:11px;
+	font-family: Arial, Helvetica, Sans-Serif;
+}
+
+.index_header
+
+{
+	font-size:12px;
+	font-weight:bold;
+	font-family: Arial, Helvetica, Sans-Serif;
+}
+
+.promotext
+
+{	font-size:10;
+	font-family: Arial, Helvetica, Sans-Serif;
+	color:#FFFFFF;
+}
+
+
+
+.navblue
+{
+	font-size:11;
+	font-family: Arial, Helvetica, Sans-Serif;
+	color:#0600FF;
+	border-width : 1;
+}
+
+
+
+.featurelink 
+
+{
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size: 12;
+	font-style: normal;
+	font-weight: bold;
+	color: #000099;
+}
+
+
+.featureHead
+
+{
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size: 18;
+	font-weight: normal;
+    color: Black;
+	margin-left:6px;
+	margin-right:6px;
+}
+
+
+
+.featureDek
+
+{
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size: 11;
+	color: Black;
+	margin-right:6px;
+}
+
+
+
+.newsletterblurb
+
+{
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size: 11;
+	color: #000000;
+	padding-left:7;
+}
+
+.HeadlineLinkStyle
+
+{
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size: 14;
+	font-weight: bold;
+	color: #000000;
+}
+
+
+
+.DekStyle
+
+{
+	font-family: Verdana,Helvetica, Arial,Sans-Serif;
+	font-size: 10;
+	font-weight: normal;
+	font-style: italic;
+	padding-left:10;
+	color: #000000;
+
+}
+
+.bottomnav
+
+{
+	background: 000000;
+	color : White;
+}
+
+
+.basiclink
+
+{
+font-size:11px;
+font-family: Arial, Helvetica, Sans-Serif;
+color:#000099;
+
+}
+
+.basiclink
+
+{
+font-size:11px;
+font-family: Arial, Helvetica, Sans-Serif;
+color:#000099;
+}
+
+
+.dkgoldbox
+
+{ 
+
+background-color: #FFCC66; 
+border-left:2px solid #00009C; 
+border-right:2px solid #00009C; 
+width:444;
+padding:3px; 
+
+}
+
+.widegoldbox
+
+{ 
+	background-color: #FFE48E; 
+	border-left:2px solid #00009C; 
+	border-right:2px solid #00009C; 
+	width:611;
+	padding:10px; 
+}
+
+
+
+.goldbox
+
+{ 
+	background-color: #FFE48E; 
+	border-left:2px solid #00009C; 
+	border-right:2px solid #00009C; 
+	width:444;
+	padding:10px; 
+
+}
+
+
+
+.expwhitebox
+
+{ 
+	background-color: #ffffff; 
+	border-left:1px solid #00009C; 
+	border-right:1px solid #00009C; 
+	width:100%;
+
+}
+
+
+
+.expgoldbox
+
+{ 
+	background-color: #FFFFFF; 
+	border-left:1px solid #00009C; 
+	border-right:1px solid #00009C; 
+	width:100%;
+	border-bottom:1px #000099 solid;
+
+}
+
+.yellowbox
+
+{ 
+	background-color: #FFE48E; 
+	border-bottom:1px #000099 solid;
+	width:100%;
+	font-size:14px;
+	font-weight:bold;
+	font-family: Arial, Helvetica, Sans-Serif;
+	text-indent: 10px;
+	padding-top:5px; 
+	padding-bottom:5px; 
+
+}
+
+.yellowbox_news
+
+{ 
+	background-color: #FFE48E; 
+	border-top:1px #000099 solid;
+	border-bottom:1px #000099 solid;
+	width:100%;
+	font-size:14px;
+	font-weight:bold;
+	font-family: Arial, Helvetica, Sans-Serif;
+	text-indent: 10px;
+	padding-top:5px; 
+	padding-bottom:5px; 
+
+}
+
+.yellowbox_links
+
+{ 
+	background-color: #FFE48E; 
+	border-bottom:1px #000099 solid;
+	border-top:1px #000099 solid;
+	border-left:1px #000099 solid;
+	border-right:1px #000099 solid;
+	width:95%;
+	font-size:14px;
+	font-weight:bold;
+	font-family: Arial, Helvetica, Sans-Serif;
+	padding-left:5px; 
+	padding-top:5px; 
+	padding-bottom:5px; 
+
+}
+
+.smallheader
+
+{ 
+
+	color:blue;
+	font-size:10px;
+	font-family: Arial, Helvetica, Sans-Serif;
+	text-indent: 10px;
+	padding-top:5px; 
+	padding-bottom:5px; 
+
+}
+
+.smblkheader
+
+{ 
+	color:black;
+	font-size:10px;
+	font-family: Arial, Helvetica, Sans-Serif;
+	text-indent: 10px;
+	padding-top:5px; 
+	padding-bottom:5px; 
+}
+
+.ciu
+
+{ 
+
+	background-color: #CCCCCC; 
+	width:100%;
+	font-size:10px;
+	font-family: Arial, Helvetica, Sans-Serif;
+	padding-left: 2px;
+	padding-top:5px; 	
+	padding-bottom:5px; 
+
+}
+
+
+.expdkgoldbox
+
+{ 
+	background-color: #FFCC66; 
+	border-left:1px solid #00009C; 
+	border-right:1px solid #00009C; 
+	width:100%;
+	padding:3px; 
+
+}
+
+
+.imgBtn {
+
+	cursor : hand;
+	border: none;
+
+}
+ -->
+</style>
+
+<LINK REL="alternate"  TYPE="application/rss+xml" TITLE="JavaBoutique Applets" HREF="http://javaboutique.internet.com/applets.rdf">
+<LINK REL="alternate" TYPE="application/rss+xml" TITLE="JavaBoutique Articles,Tutorials, and Reviews" HREF="http://javaboutique.internet.com/articles.rdf">
+
+<script language="javascript" src="/scripts/globalFuncs.js"></script>
+</head>
+<body topmargin="2" marginheight="2">
+<script language="javascript" src="/scripts/roll.js"></script>
+	
+<!-- OAS ad tag start -->
+<table width="100%" align="center" style="margin-top: 0px;">
+<tr><td valign="top" align="center">
+
+<!------ OAS AD 'house_ribbon' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('house_ribbon');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!house_ribbon" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!house_ribbon" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'house_ribbon' end ------> 
+<p>
+
+<div><img src="/img/3174.gif" border="0" align="top" vspace="0" hspace="0" width="108" vspace="0" height="9" alt="advertisement"></div>
+
+<table cellspacing="0" cellpadding="5" border="0" background="/img/3173.gif" align="center">
+<tr><td >
+
+<!------ OAS AD '468x60-1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('468x60-1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!468x60-1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!468x60-1" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '468x60-1' end ------>
+
+
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+
+<!-- OAS ad tag end -->
+
+<!-- (3228) - start 2 col layout: Exp DevX Bottom Logo w/ Search -->
+  <table cellspacing="0" cellpadding="0" border="0" width="100%" >
+  	<tr>
+		<td><a href="http://javaboutique.internet.com"><img src="/img/jblogotop1.jpg" alt="javaboutique" border="0" align="bottom"></a></td>
+		<td width="100%">		
+			<br>
+			<table cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tr>
+  			<td width="1%" align="bottom" bgcolor="#FFE48E"><img src="/img/searchjb.gif" border="0"></td>
+  			<td width="99%" height="30" bgcolor="#000099" style="color: yellow;font-weight: bold;font-size:10px;" nowrap>
+			<form method="post" action="http://search.internet.com/javaboutique.internet.com">
+			<input type="hidden" name="IC_QueryDatabase" value="javaboutique.internet.com">
+			<input type="text" name="IC_QueryText" size="12">
+			<input name="submit" type="image" border="0" src="/img/3386.gif" align="absmiddle">
+	  		<a href="http://www.devx.com/DevX/HTML/11715" class="promotext"><font color="#FFFFFF"><U>Search Tips</U></font></a>
+  			</td>
+			</form>
+			</tr>
+			</table>
+
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#FFE48E" style="border-bottom:#000099 solid 2px;border-right:#000099 solid 2px;">
+			<tr>
+			<td class="helptext" align="left" nowrap valign="top">
+			<a href="/articles/"  class="helptext">Articles</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="/tutorials/"  class="helptext">Tutorials</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="/reviews/"  class="helptext">Reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="/demoIDEs/"  class="helptext">Tools</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="/cathome.html/"  class="helptext">by Category</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="/byDate"  class="helptext">by Date</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+	        <a href="/applet_index/"  class="helptext">by Name</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="http://javaboutique.internet.com/submit.html"  class="helptext">Submit</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="/javasource/"  class="helptext">Source</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="http://forums.devx.com/forumdisplay.php?f=104"  class="helptext">Forums</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			</td>
+			</tr>
+			</table>
+		</td>
+	 </tr>
+  </table>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td valign="top" bgcolor="#FFE48E" width="1%" style="border-left:#000099 solid 2px;border-right:#000099 solid 2px;"><a href="http://javaboutique.internet.com" ><img src="/img/jblogobottom7.jpg" border="0" alt="javaboutique"></a></td>
+
+<td align="left" width="90%" height="50">
+	<!------ OAS AD 'ciu' begin ------>
+	<div style="margin-left: 10px;margin-right: 10px;margin-top: 10px;"">
+	<SCRIPT LANGUAGE=JavaScript>
+	<!--
+	OAS_AD('ciu');
+	//-->
+	</SCRIPT>
+	<NOSCRIPT>
+	<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!ciu" >
+	<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!ciu" border=0 style="margin-bottom: 0px;">
+	</A> 
+	</NOSCRIPT>
+	</div>
+	<!------ OAS AD 'ciu' end ------>
+</td>
+
+</tr>
+</table>
+
+<!-- end 2 col layout -->
+
+<!-- (3874) - start 2 col layout: Home Left Nav and Well Holder -->
+ 
+  <table cellspacing="0" cellpadding="0" border="0" width="100%" style="padding-top: 0px;margin-top: 0px;">
+  	<tr>
+		<td width="161" valign="top">
+<div>
+
+
+<!-- (me.data_.widget_id) - start Bordered Box: Browse Devx Bordered Box -->
+<table cellspacing="0" cellpadding="0" border="0" width="161" >	
+	<tr>
+		<td background="/img/jb_menu_bkgd.gif">
+				<div><a href="http://javaboutique.internet.com" ><img src="/img/browsejb.gif" border="0"  alt=""></a></div>
+
+<!-- NAV Start -->
+<div align="left" class="" style="width:150px; border-left:2px solid #000099; border-right:2px solid #000099; background-color:#FFE48E">
+<!--- Article Category --->
+<a href="http://javaboutique.internet.com/articles/" ><img src="http://javaboutique.internet.com/img/Articles_cat.gif" height="17" width="157" border="0" align="" name="articles"></a>
+<a href="http://javaboutique.internet.com/tutorials/"><img src="http://javaboutique.internet.com/img/tutorials.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/reviews/"><img src="http://javaboutique.internet.com/img/reviews.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/news/"><img src="http://javaboutique.internet.com/img/javanews.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/demoIDEs/"><img src="http://javaboutique.internet.com/img/ides.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/how_to/glossary.html"><img src="http://javaboutique.internet.com/img/glossary.gif" height="17" width="157" border="0" align=""></a>
+<!--- Applets And Apps Category --->
+<a href="http://javaboutique.internet.com/applets/" ><img src="http://javaboutique.internet.com/img/Applets_cat.gif" height="17" width="157" border="0" align="" name="applets"></a>
+<a href="http://javaboutique.internet.com/cathome.html"><img src="http://javaboutique.internet.com/img/apps_by_cat.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/byDate/"><img src="http://javaboutique.internet.com/img/apps_by_date.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/applet_index/"><img src="http://javaboutique.internet.com/img/apps_by_name.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/applications/"><img src="http://javaboutique.internet.com/img/applications.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/servlets/"><img src="http://javaboutique.internet.com/img/servlets.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/submit.html"><img src="http://javaboutique.internet.com/img/submit.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/javasource/"><img src="http://javaboutique.internet.com/img/sourcecode.gif" height="17" width="157" border="0" align=""></a>
+<!--- Commnuity Category --->
+<a href="http://javaboutique.internet.com/community/" ><img src="http://javaboutique.internet.com/img/Comunity_cat.gif" height="17" width="157" border="0" align="" name="community"></a>
+<a href="http://javaboutique.internet.com/community/faq.html"><img src="http://javaboutique.internet.com/img/FAQ.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/community/poll.html"><img src="http://javaboutique.internet.com/img/userspoll.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://forums.devx.com/forumdisplay.php?f=104"><img src="http://javaboutique.internet.com/img/Dis_forum.gif" height="17" width="157" border="0" align=""></a>
+<a href="http://javaboutique.internet.com/contact.html"><img src="http://javaboutique.internet.com/img/contactus.gif" height="17" width="157" border="0" align=""></a>
+
+</div>
+<!-- NAV End -->
+
+       <noscript><div align="left" style="width:157px; border-left:2px solid #000099; border-right:2px solid #000099; background-color:#FFE48E"><a href="http://www.devx.com/DevX/Door/16238" ><img src="/img/8601.gif" height="18" width="157" border="0" align="" name="sdz"></a>
+       <a href="http://javaboutique.internet.com/articles/" ><img src="/img/jbarticles.gif" height="17" width="157" border="0"></a>
+       <a href="http://javaboutique.internet.com/applets/" ><img src="/img/jbapplets.gif" height="17" width="157" border="0"></a>
+       <a href="http://javaboutique.internet.com/community/" ><img src="/img/jbcommunity.gif" height="17" width="157" border="0"></a>
+       </noscript></div>
+		</td>
+	</tr>
+	<tr>
+		<td><img src="/img/9114.gif" height="23" width="161" border="0" align="top"></td>
+	</tr>
+<!--- start newsletter box --->	
+	<tr><td>
+	<div style="margin-top:20;margin-bottom:20;">
+	<img src="http://assets.devx.com/devx/9116.gif">	
+	<table cellspacing="0" cellpadding="0" border="0" width="164">
+	<tr>
+	<td valign="top"> 
+		<div align="left" class="" style="margin-bottom:10px;">
+		<a href="http://www.devx.com/DevX/EmailSignupForm/17709"<img src="/img/newsletterjb.gif" border="0" align="top" vspace="0" hspace="0"  alt="DevX Updates - Sign Up Here"></a>
+		<table  cellspacing="0" cellpadding="3" width="140" align="left" style="border-right:1px #ff6600 solid;">
+		<tr>
+		<td valign="top" bgcolor="#FAFAE6" >
+			<span class="newsletter">
+			<b>Sign up for email newsletters from DevX</b><br>
+			<form action="http://member.internet.com/subscribe.php" method="POST">
+			<input TYPE=Hidden NAME="list_names[]" Value="javaboutique-jnews-html">
+			<!--input TYPE="text" size=10 maxlength=256 name="email" value="email@__.com"--><BR>
+			<input type="hidden" name="redirect_ok" value="http://e-newsletters.internet.com/thankyou_new.html">
+			<INPUT TYPE="hidden" NAME="type" VALUE="Text">
+			<input NAME="Submit" TYPE=image SRC="/img/subscribejb.gif" ALIGN=ABSMIDDLE BORDER=0>
+			</FORM>
+			</span>
+		</td>
+		</tr>
+		</table>
+		</div> 
+	</td>
+	</tr>
+	</table>
+	</div>
+
+	</td></tr>
+	
+	
+	
+	<tr><td background="/img/jb_menu_bkgd.gif">
+	<div><img src="/img/devx_left.gif"></div> 
+
+	<div><img src="/img/9113.gif" border="0" align="top" vspace="0" hspace="0" height="20" width="161" alt="Browse DevX"></div> 
+<!-- HIER MENU START -->
+
+		<script language="javascript" src="http://www.devx.com/jsww/?cid=6947&sid=6946&wid=3459"></script>
+		<IMG SRC="http://www.devx.com/assets/devx/9114.gif" BORDER=0 ALT="">
+		
+	 <!---   <script language="javascript" src="http://www.devx.com/scripts/hiermenu/JBHMdata.js"></script>
+
+       <noscript><div align="left" style="width:157px; border-left:2px solid #000099; border-right:2px solid #000099; background-color:#FFE48E">
+       <a href="http://www.devx.com/DevX/Door/16238" ><img src="/img/8601.gif" height="18" width="157" border="0"></a>
+       <a href="http://www.devx.com/DevX/Door/16238#techshowcase" ><img src="/img/8602.gif" height="17" width="157" border="0"></a>
+       <img src="/img/8603.gif" height="17" width="157" border="0"><a href="http://www.devx.com/dotnet/Door/7040" ><img src="/img/8604.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/Java/Door/6972" ><img src="/img/8605.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/cplus/Door/7042" ><img src="/img/8606.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/webdev/Door/7048" ><img src="/img/8607.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/dbzone/Door/7022" ><img src="/img/8608.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/security/Door/7045" ><img src="/img/9261.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/opensource/Door/7044" ><img src="/img/8609.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/xml/Door/7050" ><img src="/img/8610.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/vb/Door/7047" ><img src="/img/9891.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/asp/Door/7041" ><img src="/img/8612.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/enterprise/Door/7043" ><img src="/img/8613.gif" height="17" width="157" border="0"></a>
+       <a href="http://www.devx.com/wireless/Door/7049" ><img src="/img/8614.gif" height="17" width="157" border="0"></a>
+       <img src="/img/8616.gif" height="17" width="157" border="0"><a href="http://www.devx.com/DevX/Door/17707" ><img src="/img/9492.gif" height="17" width="157" border="0" align="" name="topcoder"></a>
+       <a href="http://www.devx.com/getHelpOn/Door/15766" ><img src="/img/8618.gif" height="17" width="157" border="0" align="" name="tenminsolutions"></a>
+       <a href="http://www.devx.com/Jupitermedia/Link/20835"  target="_blank"><img src="/img/9839.gif" height="17" width="157" border="0" align="" name="whitepapers2"></a>
+       <a href="http://www.devx.com/DevX/LegacyLink/7035" ><img src="/img/8620.gif" height="17" width="157" border="0" align="" name="shopdevx"></a></noscript></div>
+
+
+ --->
+ <!-- HIER MENU END -->
+ 		</td>
+	</tr>	
+</table>
+</div> 			
+
+<br><br>
+<table  cellspacing="0" cellpadding="0" border="0" width="164">
+	<tr>
+		<td valign="top"> 
+		
+		<div align="left" class="newsletter" style="margin-bottom:10px;"><div><a href="http://www.devx.com/DevX/EmailSignupForm/17709"><img src="/img/findahostjb.gif" border="0" align="top" vspace="0" hspace="0"  alt="DevX Updates - Sign Up Here"></a>			
+<table  cellspacing="0" cellpadding="3" width="140" align="left" style="border-right:1px #ff6600 solid;">
+<tr>
+	<td valign="top" bgcolor="#FAFAE6" >
+	<span class="newsletter">
+ <form action="http://www.ppcforhosts.com/search/site/javab/handler.cfm" method="post">
+ <TABLE BORDER="0" WIDTH="100%" CELLSPACING="0" CELLPADDING="2">
+ <input type="hidden" name="pageURL" value="http://javaboutique.internet.com/ppcforhosts/index2.html">
+ <input type="hidden" name="pgid" value="rs">
+ <input type="hidden" name="partnerID" value="7055059">
+ <input type="hidden" name="FeatureGroupID" value="1">
+ <input type="hidden" name="mlID" value="888883">
+<TR BGCOLOR="#253273">
+ <TH>
+  <FONT SIZE="-1" COLOR="#FFFFFF" FACE="HELVETICA, ARIAL">find a web host with:</FONT>
+ </TH></TR>
+ <tr>
+ <TD align="left">
+ <table border="0" cellpadding="1" cellspacing="0">
+ <tr><td><input type="checkbox" name="Feature_1310">CGI Capabilities</td></tr>
+ <tr><td><input type="checkbox" name="Feature_30">MySQL</td></tr>
+ <tr><td><input type="checkbox" name="Feature_23">24-hour Support</td></tr>
+ <tr><td><input type="checkbox" name="Feature_1308">Unix Hosting</td></tr>
+ <tr><td><input type="checkbox" name="Feature_44">Telnet/SSH</td></tr>
+ <tr><td><input type="checkbox" name="Feature_12">Shopping Cart</td></tr>
+ <tr><td><input type="checkbox" name="Feature_29">Microsoft SQL Server</td></tr>
+ <tr><td valign="middle" colspan="4" align="center" class="ppcform">
+<input name="submit" type="image" border="0" src="/img/searchbtnjb.gif" align="left">
+</td></tr>
+<tr><td><a href="http://javaboutique.internet.com/ppcforhosts/index2.html?pgid=sp&fg=1"><b><I>advanced search</B></I></a></td></tr>
+  </table>
+  </td>
+ </tr>
+ </table>
+ </form>
+</td></tr></table>
+</div> 
+
+</td></tr></table>
+
+</div>
+</div> 
+<div style="margin-top:20">
+<table  cellspacing="0" cellpadding="0" border="0" width="164">
+	<tr>
+		<td valign="top"> 
+			<div><img src="/img/jb.internet.commerce.gif" height="31" width="164" border="0" align="top"></div>
+			<table  cellspacing="0" cellpadding="3" width="140" align="left" style="border-right:1px #ff6600 solid;">
+				<tr>
+					<td valign="top" bgcolor="#FAFAE6">
+<a href="http://www.jupitermedia.com/partners/" class="basiclink">Partners & Affiliates</A><BR>
+ <!------ OAS AD 'cp1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp1" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp1' end ------><br>
+ <!------ OAS AD 'cp10' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp10');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp10" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp10" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp10' end ------>
+ <!------ OAS AD 'cp2' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp2" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp2' end ------><br>
+ <!------ OAS AD 'cp3' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp3');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp3" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp3" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp3' end ------><br>
+ <!------ OAS AD 'cp4' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp4');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp4" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp4" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp4' end ------><br>
+ <!------ OAS AD 'cp5' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp5');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp5" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp5" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp5' end ------><br>
+ <!------ OAS AD 'cp6' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp6');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp6" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp6" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp6' end ------><br>
+ <!------ OAS AD 'cp7' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp7');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp7" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp7" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp7' end ------><br>
+ <!------ OAS AD 'cp8' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp8');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp8" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp8" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp8' end ------><br>
+ <!------ OAS AD 'cp9' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('cp9');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp9" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!cp9" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'cp9' end ------><br>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+	<br><br>	
+			<table  cellspacing="0" cellpadding="0" border="0" width="164">
+	<tr>
+		<td valign="top"> 
+		
+		<div align="left" class="newsletter" style="margin-bottom:10px;"><div><a href="http://www.devx.com/DevX/EmailSignupForm/17709"><img src="/img/jb_clipartheader.gif" border="0" align="top" vspace="0" hspace="0"  alt="DevX Updates - Sign Up Here"></a>
+				
+				
+				<table  cellspacing="0" cellpadding="3" width="140" align="left" style="border-right:1px #ff6600 solid;">
+				<tr>
+					<td valign="top" bgcolor="#FAFAE6" >
+					<span class="newsletter">
+<form name="search_guest" method="GET" action="http://www.clipart.com/en/search/split">
+<input type="hidden" name="_q" value="1">
+<input type="hidden" name="im" value="">
+<input type="hidden" name="show" value="all">
+<input type="hidden" name="a" value="c">
+      <br>
+      <input type="text" size="15" name="q" value=""><br>
+      <select name="a">
+        <option value="c" selected>Clipart</option>
+        <option value="p">Photos</option>
+        <option value="f">Fonts</option> 
+        <option value="w">Web Art</option>
+      </select>      
+<input name="submit" type="image" border="0" src="/img/gojb.gif" align="left">
+
+</form>			
+				</span>
+				</td></tr></table>
+				</div> 
+				
+				</td></tr></table>
+				
+				</div>
+</div>  <div style="margin-top:20">
+
+		
+<!-- OAS ad tag start -->
+
+
+<div><img src="/img/3174.gif" border="0" align="top" vspace="0" hspace="0" width="108" vspace="0" height="9" alt="advertisement"></div>
+
+<table width="100%" >
+<tr><td valign="top">
+
+<!------ OAS AD '120x60-1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('120x60-1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!120x60-1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!120x60-1" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '120x60-1' end ------>
+
+</td></tr>
+</table>
+<!-- OAS ad tag end -->
+
+</div>
+ <div style="margin-top:20">
+			
+<!-- OAS ad tag start -->
+
+<table width="100%" >
+<tr><td valign="top">
+
+<!------ OAS AD '125x125-2' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('125x125-2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!125x125-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!125x125-2" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '125x125-2' end ------>
+
+</td></tr>
+</table>
+
+<!-- OAS ad tag end -->
+
+</div> 
+</td>
+
+<!-- begin well -->
+<div style="margin-top:0">
+  <td valign="top">
+  <div>
+  <table cellspacing="0" cellpadding="4" border="0" style="padding-top:0px; margin-top:0px;">
+  <tr><td valign="top"> 
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+  	<tr>
+	<td valign="top" style="padding-right:10px;">
+	<div style="margin-top:0">
+	<p>
+	<div class="expgoldbox" style="border-top:1px #000099 solid;">
+	  <table border="0" cellspacing="0" cellpadding="0" style="margin-left:10px;">
+		<tr><td valign="TOP" width=100%>
+		
+		
+
+
+
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!--content_start-->
+<h3>
+
+<A HREF="/tutorials/">Tutorials</A> :
+<A HREF="/tutorials/Complete/">Making the Switch to Java</A> :
+
+</h3>
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- section_start -->
+
+<TABLE WIDTH="180" BGCOLOR="DDDDDD" ALIGN="RIGHT" BORDER="0" CELLPADDING="3" CELLSPACING="1" HSPACE="5" VSPACE="5">
+<TR><TD>
+        <a href="mailto:graeme.kerry@btinternet.com">Graeme Kerry</a>
+        is a first year computer systems engineering student 
+        from the UK, studying at Lancaster University. He has been
+        programming in Java for about 3 years.  Outside of studies 
+        he enjoys sports and socialising with friends.
+        <a href="http://www.kezz.vze.com">Kezz's Java Tutorials</a> are written in Graeme's  
+        spare time.
+</TD></TR>
+</TABLE>
+
+
+<!-- +++++++++++++++++ template start +++++++++++++++++++ -->
+
+
+
+
+
+
+
+<P>
+<Font size=5><Strong>If Statements</Strong><Font><br><br>
+<Font size=3>Welcome to the 4th installment of my Java programming tutorials.
+In this tutorial I will discuss <b>if statements</b> and how they can be used
+to implement decision making in your programs.<br><br>
+First of all lets have a look at an example of an if statement. This will show 
+you the syntax in Java.<br><br>
+<font face="courier">if (age >= 18)<br>{<br>	System.out.println("You are an adult");
+<br>}<br>else<br>{<br>	System.out.println("You are a minor");<br>}<br><br>
+<font face="times new roman">Just by looking at the code listed above it should
+be pretty obvious as to what the code does. It checks the value of the variable 
+called age, if this is greater than or equal to 18 it prints "You are an adult",
+and if it is less than 18 "You are a minor" will be printed.<br><br>
+This shows the general structure of an if-else statement in java:<br><br>
+<font face="courier">if (<I>condition</I>)<br>{ //DO THIS }<br>else<br>
+{ //DO THIS } <br><br>
+<font face="times new roman">A useful feature of if statements in java is that you
+can <I>nest</I> them together to form complex decision making statements. The syntax
+of this is listed below.<br><br>
+<font face="courier">if (<I>condition</I>) { //DO THIS }<br>else if 
+(<I>another condition</I>) { //DO THIS }<br>else if (<I>yet another
+condition</I>) { //DO THIS }<br>else { //FINALLY IF NONE OF THE ABOVE
+CONDITIONS WERE MET DO THIS }</P>
+
+<P><font face="times new roman">Finally for this tutorial I am going to go through
+some special ways of using if statements and conditions. They are explained below
+<br><br>
+<font face="courier">if (!<I>condition</I>)<br>
+<br><font face="times new roman">This statement means if the condition is NOT
+true. eg if (!(age==18)) means <I>if the value of age is not 18</I><br><br>
+<font face="courier">if ((<I>condition1</I>) && (<I>condition2</I>))<br><br>
+<font face="times new roman">This statement means if condition 1 AND condition 2
+are true. For example if ((if age>=18) && (gender.equals("male"))) translates to <I>
+if age is greater than or equal to 18 and the value of the string gender is male</I>
+<B>The .equals(String) method is used for testing if 2 strings are equal, all other 
+variable types use ==.</B><br><br>
+<font face="courier">if ((<I>condition1</I>) || (<I>condition2</I>)<br><br>
+<font face="times new roman">This statement is very similar to the above one except
+that the || means OR. So the statement translates to <I>if condition1 OR condition2
+are met</I></P>
+
+<P><font size=5><B>That's all folks....</B><br><br>
+<font size=3>I'm afraid there was a lot to take in in this tutorial (in very short space), however
+you know what they say practice makes perfect. Thats why I have a small exercise for you:
+<br>You should now be able to write
+a program that prompts the user for their name, age and gender and return it back
+to them with additional information (eg whether its legal for them to drive yet
+or what year they were born in). You should only prompt the user for those 3 pieces
+of information and try and return as much info as you can from the details given.<br>
+If you have any trouble writing this or want to comment on the tutorials 
+<a href="mailto:graeme.kerry@btinternet.com">email me</a>
+</P>
+
+
+
+
+
+
+
+<!-- +++++++++++++++++ template stop +++++++++++++++++++ -->
+
+
+<div ALIGN="center">
+<table>
+<tr>
+<td align=right><a HREF="variables_comments.html"><img SRC="/images/prev.gif" WIDTH=77 HEIGHT=29 ALT="" BORDER="0"></a></td>
+<td align=center valign=bottom><a HREF="index.html"><img SRC="/images/up.gif" WIDTH=29 HEIGHT=29 ALT="" BORDER="0"></a></td>
+<td align=right><a HREF="loops.html"><img SRC="/images/next.gif" WIDTH=77 HEIGHT=29 ALT="" BORDER="0"></a></td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+<!--content_stop-->
+
+
+
+<P>
+
+
+<!-- ssi applet chooser start -->
+	<DIV ALIGN="center"><!-- applet choser start -->
+<BR CLEAR="all">
+
+<TABLE BORDER="1" CELLSPACING="0" CELLPADDING="3" WIDTH="90%" BGCOLOR="FFFFE0">
+    <tr VALIGN=TOP>
+		<td BGCOLOR="#ffffe0" valign=top align="center">
+			<a href="/applet_index/"><b>
+			<FONT FACE="ARIAL, HELVETICA" SIZE=-1>Applet Index</FONT><br>
+			<FONT FACE="ARIAL, HELVETICA" SIZE="-2" style="font-size: 8pt;">(sorted alphabetically)</FONT></b></a><br>
+		        <a href="/applet_index/index.html">A</a>
+		        <a href="/applet_index/b.html">B</a>
+		        <a href="/applet_index/c.html">C</a>
+		        <a href="/applet_index/d.html">D</a>
+		        <a href="/applet_index/e.html">E</a>
+		        <a href="/applet_index/f.html">F</a>
+		        <a href="/applet_index/g.html">G</a>
+		        <a href="/applet_index/h.html">H</a>
+		        <a href="/applet_index/i.html">I</a>
+		        <a href="/applet_index/j.html">J</a>
+		        <a href="/applet_index/k.html">K</a><br>
+		        <a href="/applet_index/l.html">L</a>
+		        <a href="/applet_index/m.html">M</a>
+		        <a href="/applet_index/n.html">N</a>
+		        <a href="/applet_index/o.html">O</a>
+		        <a href="/applet_index/p.html">P</a>
+		        <a href="/applet_index/q.html">Q</a>
+		        <a href="/applet_index/r.html">R</a>
+		        <a href="/applet_index/s.html">S</a>
+		        <a href="/applet_index/t.html">T</a>
+		        <a href="/applet_index/u.html">U</a><br>
+		        <a href="/applet_index/v.html">V</a>
+		        <a href="/applet_index/w.html">W</a>
+		        <a href="/applet_index/x.html">X</a>
+		        <a href="/applet_index/y.html">Y</a>
+		        <a href="/applet_index/z.html">Z</a>
+		        <a href="/applet_index/numbers.html">#s</a>
+		</td>
+	    <td BGCOLOR="#ffffe0" valign=top align="center">
+			<a href="/javasource/"><b>
+			<FONT FACE="ARIAL, HELVETICA" SIZE=-1>The Java Source</FONT><br> 
+			<FONT FACE="ARIAL, HELVETICA" SIZE="-2" style="font-size: 8pt;">(applets w/source code)</FONT></b></a><br>
+		        <a href="/javasource/index.html">A</a>
+		        <a href="/javasource/b.html">B</a>
+		        <a href="/javasource/c.html">C</a>
+		        <a href="/javasource/d.html">D</a>
+		        <a href="/javasource/e.html">E</a>
+		        <a href="/javasource/f.html">F</a>
+		        <a href="/javasource/g.html">G</a>
+		        <a href="/javasource/h.html">H</a>
+		        <a href="/javasource/i.html">I</a>
+		        <a href="/javasource/j.html">J</a>
+		        <a href="/javasource/k.html">K</a><br>
+		        <a href="/javasource/l.html">L</a>
+		        <a href="/javasource/m.html">M</a>
+		        <a href="/javasource/n.html">N</a>
+		        <a href="/javasource/o.html">O</a>
+		        <a href="/javasource/p.html">P</a>
+		        <a href="/javasource/q.html">Q</a>
+		        <a href="/javasource/r.html">R</a>
+		        <a href="/javasource/s.html">S</a>
+		        <a href="/javasource/t.html">T</a>
+		        <a href="/javasource/u.html">U</a><br>
+		        <a href="/javasource/v.html">V</a>
+		        <a href="/javasource/w.html">W</a>
+		        <a href="/javasource/x.html">X</a>
+		        <a href="/javasource/y.html">Y</a>
+		        <a href="/javasource/z.html">Z</a>
+		</td></tr>
+	</table> 
+<!-- applet choser stop -->	
+</DIV>
+
+<!-- SSI NEW ON JAVABOUTIQUE START -->
+	
+<P>
+<H4><a href="/tutorials/Thread0/add_java.html">How to Add Java Applets to Your Site</A></H4>
+
+<!-- new on javaboutique.internet.com start -->
+
+
+<H4>New on the Java Boutique:</H4>
+
+<P>
+<B>New Review:</B><BR>
+<!-- 1/17/06 -->
+<p>
+<b><a href="/reviews/quartz/">
+Time Management Made Easy with the Quartz Enterprise Job Scheduler
+</a></b><br>
+Why not just use the Java timer API? This open source scheduling 
+API boasts simplicity, ease-of-integration, a well-rounded feature 
+set, and it's free! 
+
+
+
+
+</p>
+
+<P>
+<B>New Applet:</B><BR>
+<!-- 1/17/06 -->
+<p>
+<b><a href="http://javaboutique.internet.com/revcomp/index.html/">
+Reverse Complement
+</a></b><br>
+Reverse Complement is a simple applet that converts DNA or RNA 
+sequences into three useful formats.
+
+
+</p>
+
+<H4>Elsewhere on internet.com:</H4>
+
+<P>
+<A HREF="http://redir.internet.com/bot/wd/webdeveloper.com/java/" TARGET="_new"><B>WebDeveloper Java</B></A><BR>
+Lots of Java information on webdeveloper.com
+</P>
+
+<P>
+<A HREF="http://redir.internet.com/bot/wdvl/wdvl.com/Authoring/Java/" TARGET="_new"><B>WDVL Java</B></A><BR>
+Thorough Java resource at the Web Developer's Virtual Library.
+</P>
+
+<P>
+<A HREF="http://redir.internet.com/bot/ss/scriptsearch.com/Java/" TARGET="_new"><B>ScriptSearch Java</B></A><BR>
+Hundreds of free Java code files to download.
+</P>
+
+<P>
+<A HREF="http://redir.internet.com/bot/ss/jguru.com/" TARGET="_new"><b>jGuru: Your View of the Java Universe</B></A><BR>
+Customizable portal with online training, FAQs, regular news updates, and tutorials. 
+</P>
+
+
+<!-- new on javaboutique.internet.com stop -->
+
+
+
+
+
+
+<!-- footer3 will start here -->
+
+<P>
+
+
+</td></tr>
+</table>
+
+
+</div> 	
+		  </td>
+		  <td valign="top" width="336"  style="padding-left:15px;">
+		<div>   
+<table  cellspacing="0" cellpadding="0" border="0" width="335">
+	<tr>
+		<td valign="top"> 
+			<div><img src="/img/jbfeaturedpartner.gif" height="32" width="335" border="0" align="top"></div>
+			<table  cellspacing="0" cellpadding="3" width="335" style="border:1px #FF6600 solid; border-top:0px;">
+				<tr>
+					<td valign="top" bgcolor="#FAFAE6" width="100%">
+				
+
+<style> td {font: 8pt arial; } </style>
+<table>
+<tr>
+<td valign="top">
+
+<img src=http://www.devx.com/assets/virtualvenue/2969.gif height=10 width=4 border=0>&nbsp;<a href='http://www.devx.com/BlackBerry/Door/43805?trk=DXRSS_'>BlackBerry Application Development Resources</a><br><img src=http://www.devx.com/assets/virtualvenue/2969.gif height=10 width=4 border=0>&nbsp;<a href='http://www.devx.com/VS_2010/Door/43217?trk=DXRSS_'>Microsoft Visual Studio 2010 Showcase</a><br><img src=http://www.devx.com/assets/virtualvenue/2969.gif height=10 width=4 border=0>&nbsp;<a href='http://www.devx.com/MSDN/Door/40684?trk=DXRSS_'>MSDN Spotlight</a><br><img src=http://www.devx.com/assets/virtualvenue/2969.gif height=10 width=4 border=0>&nbsp;<a href='http://www.devx.com/MS_PHP/Door/42951?trk=DXRSS_'>PHP for Windows Showcase</a><br>XML error: undefined entity at line 39
+
+		</td>
+	</tr>
+</table>
+</div> 		
+			<div style="margin-top:0">
+
+<!-- OAS ad tag start -->
+
+<div align="left" class="" style="margin-top:10px;">
+
+
+<div><img src="/img/3174.gif" border="0" align="top" vspace="0" hspace="0" width="108" vspace="0" height="9" alt="advertisement"></div>
+
+<table width="100%" >
+<tr><td valign="top">
+
+<table >
+<tr><td align="center">
+
+<!------ OAS AD 'flex' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('flex');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!flex" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!flex" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'flex' end ------>
+
+
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+
+
+</div>
+
+<!-- OAS ad tag end -->
+
+
+</div> <div style="margin-top:0">
+
+
+<table >
+	<tr>
+		<td valign="top"> 
+			<div><img src="/img/jb_rssfeed.gif" height="32" width="335" border="0" align="top"></div>
+			<table  cellspacing="0" cellpadding="3" width="335" style="border:1px #FF6600 solid; border-top:0px;">
+				<tr>
+					<td >
+					
+
+<font class="" style="">
+
+<table cellpadding="2" cellspacing="0" border="0">	
+<tr>
+<td valign="top">
+<table>
+
+<tr>
+<td valign="top"><a href="http://services.devx.com/outgoing/devxfeed.xml"><img src="/img/9642.gif" height="10" width="25" border="0"></a></td>
+<td><a href="http://www.devx.com/DevX/RSSFeed/20605" class="basiclink">Receive Articles via our XML/RSS feed</a></td>
+</tr>
+<tr>
+<td valign="top"><a href="http://services.devx.com/outgoing/javafeed.xml"><img src="/img/9642.gif" height="10" width="25" border="0"></a></td>
+<td><a href="http://www.devx.com/DevX/RSSFeed/20605" class="basiclink">Receive Articles via our XML/RSS feed</a></td>
+</tr>
+
+</table>
+
+</td></tr></table>
+	
+</td></tr></table>	
+		
+<p>
+
+
+<table >
+	<tr>
+		<td valign="top"> 
+			<div><img src="/img/jb_featuredapplet.gif" height="32" width="335" border="0" align="top"></div>
+			<table  cellspacing="0" cellpadding="3" width="335" style="border:1px #FF6600 solid; border-top:0px;">
+				<tr>
+					<td >
+					
+
+<font class="" style="">
+
+<table cellpadding="2" cellspacing="0" border="0">	
+<tr>
+<td valign="top">
+<table>
+
+<tr>
+<td valign="top">
+<B><FONT FACE="ARIAL, HELVETICA" SIZE="2">
+<A HREF="/javabytes/index.html">JavaBytes</A></FONT></B><BR>
+<b><a href="http://www.jars.com/classes/jresout.cgi?resource=12471">
+Internet Cyclone 
+</a></b><br>         
+This powerful, easy-to-use, internet optimizer is for 
+Windows 95, 98, ME, NT, 2000 and XP. It's designed to 
+automatically optimize your Windows settings, boosting your 
+Internet connection up to 200%. 
+</td>
+
+</tr>
+
+
+</table>
+
+</td></tr></table>
+	
+</td></tr></table>	
+<p>
+
+<table>
+<tr><td valign="top"> 
+	<div><img src="http://javaboutique.internet.com/img/jb_latestdevx.gif" height="32" width="335" border="0" align="top"></div>
+	<table cellspacing="0" cellpadding="3" width="335" style="border:1px #FF6600 solid; border-top:0px;">
+	<tr><td>
+	<table cellpadding="2" cellspacing="0" border="0">	
+	<tr>
+	<td valign="top">
+		<table>
+		<tr>
+		<td valign="top">
+
+<a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3862821'>Salesforce Offers Visual App Builder</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3862541'>Codesion Steps Out From CVS's Shadow</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3862506'>Facebook Makes Major PHP Push With HipHop</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3862166'>Free Ride Over for Microsoft Azure Users</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3861856'>Drupal Opens the Garden to Boost CMS</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3861516'>Oracle Talks Plans for Linux, Solaris</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3861266'>Azure Makes Cloud Computing Innovation Safe</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3860486'>Red Hat's JBoss Looks Ahead</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3860326'>Microsoft Readies Two Windows Phone Systems?</a><br><a href='http://redir.internet.com/rss/click/www.devxnews.com/article.php/3860246'>Mozilla Firefox Embraces Agile With Lorentz Plan</a><br>		
+		</td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+	</table>	
+</td>
+</tr>
+</table>
+</div> 
+<div class="" style="margin-bottom:20px;">
+</td>
+<td valign="top"></td>
+</tr>
+</table>
+
+
+
+
+<p>
+
+<table>
+<tr><td valign="top"> 
+	<div><img src="http://javaboutique.internet.com/img/jb_articledevx.gif" height="32" width="335" border="0" align="top"></div>
+	<table cellspacing="0" cellpadding="3" width="335" style="border:1px #FF6600 solid; border-top:0px;">
+	<tr><td>
+	<table cellpadding="2" cellspacing="0" border="0">	
+	<tr>
+	<td valign="top">
+		<table>
+		<tr>
+		<td valign="top">
+
+<a href='http://www.devx.com/DailyNews/Article/43962?trk=DXRSS_LATEST'>Salesforce.Com Unveils Business Process Tools</a><br><a href='http://www.devx.com/DailyNews/Article/43961?trk=DXRSS_LATEST'>Outsourcing of App Development Projects Is on the Decline</a><br><a href='http://www.devx.com/DailyNews/Article/43960?trk=DXRSS_LATEST'>Facebook Looks to Speed up PHP</a><br><a href='http://www.devx.com/enterprise/Article/43952?trk=DXRSS_LATEST'>Overview of Sybase ASE In-Memory Database Feature</a><br><a href='http://www.devx.com/DailyNews/Article/43950?trk=DXRSS_LATEST'>What Second Life Can Teach Your Datacenter About Scaling Web Apps</a><br><a href='http://www.devx.com/DailyNews/Article/43949?trk=DXRSS_LATEST'>Google Plans Store for Online Business Software</a><br><a href='http://www.devx.com/DailyNews/Article/43948?trk=DXRSS_LATEST'>Flash Is at Risk, But It's Not All Adobe's Fault</a><br><a href='http://www.devx.com/Whitepapers/Article/43946?trk=DXRSS_LATEST'>Software Implementation Revolutionized</a><br><a href='http://www.devx.com/enterprise/Article/43945?trk=DXRSS_LATEST'>Successful Agile Planning: An Iteration How-To, Part II</a><br><a href='http://www.devx.com/DailyNews/Article/43943?trk=DXRSS_LATEST'>10 Hot Cloud Computing Startups for 2010</a><br>		
+		</td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+	</table>	
+</td>
+</tr>
+</table>
+</div> 
+<div class="" style="margin-bottom:20px;">
+</td>
+<td valign="top"></td>
+</tr>
+</table>
+
+
+
+
+	<div class="" style="margin-bottom:20px;">
+
+</td>
+<TD valign="top">
+
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+	</div>
+
+</div> 		
+		</td>
+	</tr>
+  </table>
+  
+
+<!-- end 2 col layout -->
+
+</td></tr></table>
+
+</div> 
+				
+					
+		</td>
+	</tr>
+  </table>
+  
+
+<!-- end 2 col layout -->
+
+
+
+</div>
+
+<!-- OAS ad tag end -->
+
+<!-- OAS ad tag start -->
+
+
+<table width="100%" >
+<tr><td valign="top">
+
+<table align="center" style="border: 2px solid #ff6600;padding-right: 2px;width:444px; background-color:#FFFFFF;"><tr><td > 
+
+<!-- OAS ad tag start -->
+
+
+<table width="100%" >
+<tr><td valign="top">
+
+<!------ OAS AD 'fl1' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl1');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl1" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl1" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'fl1' end ------>
+
+
+</td></tr>
+</table>
+
+
+</div>
+
+<!-- OAS ad tag end -->
+
+<!-- OAS ad tag start -->
+
+<table width="100%" >
+<tr><td valign="top">
+
+<!------ OAS AD 'fl2' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl2" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'fl2' end ------>
+
+</td></tr>
+</table>
+
+<!-- OAS ad tag end -->
+<!-- OAS ad tag start -->
+
+<div align="" class="" style="background-color:#EEEEEE;">
+
+<table width="100%" >
+<tr><td valign="top">
+
+<!------ OAS AD 'fl3' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl3');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl3" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl3" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'fl3' end ------>
+
+
+</td></tr>
+</table>
+
+
+</div>
+
+<!-- OAS ad tag end -->
+
+<!-- OAS ad tag start -->
+
+<table width="100%" >
+<tr><td valign="top">
+
+<!------ OAS AD 'fl4' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl4');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl4" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl4" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'fl4' end ------>
+
+
+</td></tr>
+</table>
+
+<!-- OAS ad tag end -->
+
+<!-- OAS ad tag start -->
+
+<div align="" class="" style="background-color:#EEEEEE;">
+
+<table width="100%" >
+<tr><td valign="top">
+
+<!------ OAS AD 'fl5' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('fl5');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl5" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!fl5" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD 'fl5' end ------>
+
+
+</td></tr>
+</table>
+
+</div>
+
+<!-- OAS ad tag end -->
+
+</td></tr></table>
+
+</td></tr></table>
+
+</td></tr></table>
+			
+
+<!----------------AD POSITION B -------------------->
+<p>
+
+<table width="100%" align="center">
+<tr>
+<td align="center">
+
+<!------ OAS AD '468x60-2' begin ------>
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+OAS_AD('468x60-2');
+//-->
+</SCRIPT>
+<NOSCRIPT>
+<A HREF="http://63.236.18.118/RealMedia/ads/click_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!468x60-2" >
+<IMG SRC="http://63.236.18.118/RealMedia/ads/adstream_nx.ads/intm/webdev/www.javaboutique.com@120x60-1,125x125-2,468x60-1,468x60-2,ciu,cp1,cp10,cp11,cp12,cp13,cp2,cp3,cp4,cp5,cp6,cp7,cp8,cp9,fl1,fl2,fl3,fl4,fl5,flex,house_ribbon!468x60-2" border=0>
+</A> 
+</NOSCRIPT>
+<!------ OAS AD '468x60-2' end ------>
+
+</center><p>
+
+<!----------------AD POSITION B -------------------->
+
+
+
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+
+
+</div>
+
+<!-- OAS ad tag end -->
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		
+		
+		<td class="orange" align="center">
+<a href="http://www.devx.com/DevX/LegacyLink/9634?trk=Foot%5FCL%5FAdinfo"  class="basiclink">Advertising&nbsp;Info</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			
+<a href="http://www.devx.com/premier/Door/17532?trk=Foot%5FCL%5FPC"  class="basiclink">Member&nbsp;Services</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			
+<a href="http://www.devx.com/DevX/LegacyLink/8487?trk=Foot%5FCL%5FContact"  class="basiclink">Contact&nbsp;Us</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			
+<a href="http://www.devx.com/DevX/Article/19999?trk=Foot%5FCL%5FHelp"  class="basiclink">Help</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			
+<a href="http://www.devx.com/DevX/LegacyLink/8167?trk=Foot%5FCL%5FFeedback"  class="basiclink">Feedback</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			
+<a href="http://www.devx.com/SiteMap/Door/15965"  class="basiclink">Site&nbsp;Map</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			
+<a href="http://www.devx.com/Jupitermedia/Link/20291"  target="_Blank" class="basiclink">Network&nbsp;Map</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			
+<a href="http://www.devx.com/DevX/LegacyLink/8146"  class="basiclink">About</a>
+		</td>
+	</tr>
+</table>
+
+<p>
+<p>
+
+<!-- Google Analytics -->
+<script src="/icom_includes/footers/scripts/ga.js"  type="text/javascript">
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+delete Array.prototype.itemValidation;
+delete Array.prototype.isArray;
+var superTracker = _gat._getTracker("UA-2838492-1");
+superTracker._initData();
+superTracker._trackPageview();
+
+-->
+</script>
+<script  type="text/javascript" >
+   var site_name =  location.hostname;
+   if ( site_name.indexOf("www.") != 0 ) {
+     site_name  = "www."+site_name ;
+   }
+   document.write("<SCR" + "IPT LANGUAGE='JavaScript1.2' SRC='/icom_includes/footers/sites/"+ site_name +".js' TYPE='text/javascript'><\/SCR" + "IPT>");
+-->
+</script>
+<script  type="text/javascript" >
+<!--     hide from no js browsers
+   pageTracker._initData();
+   pageTracker._trackPageview();
+   // -->
+</script>
+<!-- End Google Analytics -->
+
+
+<!-- Revenue Science API -->
+<script src="http://js.revsci.net/gateway/gw.js?csid=K08784"></script>
+<script>
+  DM_addEncToLoc("pid","INT");
+  DM_tag();
+
+</script>
+<!-- Revenue Science API -->
+
+
+
+
+<style type="text/css">
+@charset "UTF-8";
+/* CSS Document */
+
+
+/* JOM CSS */
+
+#jomfooter {
+	border: 0;
+	margin: 5px;
+	padding: 5px;
+	}
+
+#jomfooter * {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	margin: 0;
+	}
+
+#jomfooter img {
+	border: 0;
+	behavior: url('/icom_includes/footers/css/iepngfix.htc');
+	padding: 5px;
+	padding: expression('0');
+	}
+
+#jomfooter p {
+	font-size: 11px;
+	line-height: 20px;
+	margin: 10px;
+	}
+
+#jomfooter form b {
+	font-size: 12px;
+	}
+
+#jomfooter a {
+	text-decoration: underline;
+	}
+
+#jomfooter a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter table td {
+	border: 0;
+	}
+
+
+/* GEMS Solutions CSS */
+
+#jomfooter #solsect {
+	margin: 0 auto;
+	padding: 10px 0;
+	width: 720px;
+	}
+
+#jomfooter #solsect .top {
+	background: url('/icom_includes/footers/soltopbg.gif') repeat-x #bbb;
+	height: 26px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .top a {
+	font-size: 16px;
+	font-weight: bold;
+	color:#333;
+	text-decoration:none;
+	margin-left: 5px;
+	padding: 0;
+	line-height: 25px;
+	}
+
+#jomfooter #solsect .top a:hover {
+	text-decoration: none;
+	}
+
+#jomfooter #solsect .solsectpad {
+	background: #fff;
+	}
+
+#jomfooter #solsect .solsectpad .main {
+	background:url('/icom_includes/footers/solmidbg.gif') repeat-x #e7e8e3;
+	padding: 5px;
+	margin-bottom: 1px;
+	}
+
+#jomfooter #solsect .solsectpad .main h2 {
+	font-size: 12px;
+	color: #000;
+	font-weight: normal;
+	padding-bottom: 3px;
+	}
+
+#jomfooter #solsect a {
+	color: #333;
+	font-size: 10px;
+	text-decoration: none;
+	line-height: 13px;
+	}
+
+#jomfooter #solsect a:hover {
+	text-decoration: underline;
+	}
+</style>
+
+
+
+<!-- Begin JOM Footer -->
+
+
+<div id="jomfooter" align="center">
+<p>
+    <a href="http://www.internet.com/"><img src="http://www.internet.com/icom_includes/footers/img/icom_logo_qsfooter.png" width="240" height="40" hspace="0" /></a>
+
+    <br>
+    The Network for Technology Professionals</p>
+<form method="POST" action="http://search.internet.com/www.jupiterweb.com" target="_top">        
+        <input type="HIDDEN" name="IC_Summary" value="1">
+        <input type="HIDDEN" name="IC_StartNumber" value="0">
+        <input type="HIDDEN" name="IC_BatchSize" value="10">
+        <input type="HIDDEN" name="IC_RelevanceThreshold" value="50">
+        <input type="hidden" name="IC_QueryDatabase" value="all">
+        <b>Search:</b> 
+        <input type="text" name="IC_QueryText" size="45">
+
+        <input type="image" border="0" value="Find" name="SUBMIT" src="/icom_includes/footers/but_find.gif" width="41" height="20" align="absmiddle">
+  </form>
+    <p>
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41188"> About Internet.com</a> 
+        <br>
+      <script type="text/javascript">
+            document.write(' Copyright ');
+            var today = new Date();
+            document.write(  + today.getFullYear());
+            document.write(' QuinStreet Inc. All Rights Reserved.');
+        </script>
+  <noscript>
+        Copyright 2010 QuinStreet Inc. All Rights Reserved.
+  </noscript>
+
+  </p>
+       <p> <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41187">Legal Notices</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Licensing1">Licensing</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Permissions">Permissions</a>, <a target="_blank" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41186">Privacy  Policy</a>.
+        <br />
+
+        <a target="_blank" rel="nofollow" href="http://www.internet.com/mediakit/">Advertise</a> | <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/">Newsletters</a> |  <a target="_blank" rel="nofollow" href="http://e-newsletters.internet.com/announcement_list.html">E-mail Offers</a>
+
+  </p>
+
+
+<!-- start solutions links section -->
+    <div id="solsect">
+        <div class="top" align="left"><a href="#">Solutions</a></div>
+        <div class="solsectpad">
+                        <div class="main" align="left">
+				<h2>Whitepapers and eBooks</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40965">Microsoft Personalized Whitepapers and Resources for You</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43201">Articles: Build a More Agile Business with IBM</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43173">Articles: IBM Offers Enhanced Measurement and Management for Energy Usage</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IBM/Article/43176">Articles: IBM Helps Transformation to an Information-Based Enterprise</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/VS_2010/Door/43217">Microsoft Articles: Visual Studio 2010</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/hotlist-Adobe/link/42707">Adobe Article: Java Developers Finding a Home at Adobe Flex</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WHITEPAPERS, EBOOKS, AND ARTICLES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Webcasts</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.devx.com/MS_PHP/Door/42951">Webcast: Connecting PHP to Microsoft Technologies</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Link/41264">Microsoft Video: Desktop Optimization</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/MS_Azure/Door/41806">Video: Windows Azure Debugging Tips</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE WEBCASTS, PODCASTS, AND VIDEOS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Downloads and eKits</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Solutions/Link/41398">HP PartnerONE | SolutionsINFINITE   Visit us at hp.com/partners/us</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MicrosoftSC/Door/43162">Microsoft Free Trials: Windows Server 2008 R2, Exchange Server 2010 and Windows 7</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/MSDN/Door/40684">Get the Windows 7 SDK</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.devx.com/RedGateVS/Door/41829">Free Trial: Red Gate SQL Backup Pro 6</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/HotList-IronSpeed/Article/40848">Iron Speed Designer Application Generator</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE DOWNLOADS, EKITS, AND FREE TRIALS</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                        <div class="main" align="left">
+				<h2>Tutorials and Demos</h2>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="50%" valign="top" align="left">
+                                                        <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40967">Learn Unified Communications</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/BlackBerry/Door/43805">BlackBerry Application Development Resources</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40968">Learn SQL Server 2008</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40966">Learn Windows Server 2008 R2</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/HotList/Link/40644">Internet.com Hot List: Get the Inside Scoop on IT and Developer Products</a><br>
+						                               </td>
+                        <td width="10"> </td>
+                        <td width="50%" valign="top" align="left">
+												                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40970">Learn Forefront</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40969">Learn System Center</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/ebook/Article/39031">All About Botnets</a><br>
+						   						                              <a target="_blank" href="http://www.internet.com/Microsoft/Everybodys_Business/Door/40971">Learn SharePoint</a><br>
+						   						                              <a target="_blank" href="http://www.devx.com/solutions">MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES</a><br>
+						   						                          </td>
+                    </tr>
+                </table>
+            </div>
+                    </div>
+    </div>
+</div>
+
+<!-- End JOM Footer -->
+

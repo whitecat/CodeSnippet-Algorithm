@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en"> <head>
+<base href="http://bytes.com/" /><!--[if IE]></base><![endif]--> <title>How to mock protected method in Java - Java  answers</title> <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> <meta name="keywords" content="How,mock,protected,method,Java,java, jmock, junit, method, test,  How to mock protected method in Java, biz,it,dev,business,information technology,development,software,programming,tech,information" /> <meta name="description" content="How to mock protected method in Java. Get real Java insights and knowledge from Bytes experts." /> <link rel="canonical" href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java" />  <style type="text/css" id="vbulletin_css">
+/**
+* vBulletin 3.7.6 CSS
+* Style: 'bytes.answers'; Style ID: 18
+*/
+@import url("clientscript/vbulletin_css/style-f0c5997b-00018.css");
+</style> <link rel="stylesheet" type="text/css" href="http://bytes.com/clientscript/vbulletin_important.css?v=376" />  <script type="text/javascript" src="/clientscript/yui/yahoo-dom-event/yahoo-dom-event.js?v=376"></script> <script type="text/javascript" src="/clientscript/yui/connection/connection-min.js?v=376"></script> <script type="text/javascript" src="/clientscript/navMenu.js"></script> <script type="text/javascript" src="/clientscript/CodeTags.js"></script> <script type="text/javascript"> <!--
+var SESSIONURL = "s=de5c9afd0f3d6a1ee447ef891c978b46&";
+var SECURITYTOKEN = "guest";
+var IMGDIR_MISC = "/images/misc";
+var vb_disable_ajax = parseInt("0", 10);
+window.onload = navMenuExp; 
+// --> </script> <script type="text/javascript" src="/clientscript/vbulletin_global.js?v=376"></script> <link rel="alternate" type="application/rss+xml" title="Bytes RSS Feed" href="/external.php?type=RSS2" /> <link rel="alternate" type="application/rss+xml" title="Bytes - answers - RSS Feed" href="/external.php?type=RSS2&amp;forumids=310" /> <script type="text/javascript" src="http://bytes.com/clientscript/vbulletin_post_loader.js?v=376"></script> <style type="text/css" id="vbulletin_showthread_css"> <!--
+	
+	#tag_edit_list { list-style:none; margin:0px; padding:0px; }
+	#tag_edit_list li { float:left; display:block; width:200px; }
+	#tag_edit_list li.mine { font-weight:bold; }
+	
+	#links div { white-space: nowrap; }
+	#links img { vertical-align: middle; }
+	--> </style> </head> <body onload=""> <div class="codeBlur" id="codeBlur">&nbsp;</div> <div class="codeAbs" id="codeAbs">&nbsp;</div> <div style="margin: 0px 0px 5px 0px; padding:0px; background-color:#EEEEEE; width: 100%; z-index: 10;"> <table class="tempwrapper"> <tr> <td align="left" width="140px;"> <A HREF="http://bytes.com"><IMG SRC="http://bytes.com/images/logo4.gif" WIDTH="120px" HEIGHT="30px" BORDER="0" ALT="Connecting Tech Pros Worldwide"></A> </td> <td align="left"> <div id="menuwrapper">  <ul id="navMenubar"> <li><a class="trigger" href="/submit/question/">Ask Question</a> </li> <li><a class="trigger" href="/submit/insight/">Share Insight</a> </li> </ul>  </div> </td> <td width="250px" align="right"> <span style="font-size: 8pt;"> <a href="http://bytes.com/forums/">Forums</a> | 
+		<a href="http://bytes.com/faq.php">Help</a> | 
+		<a href="http://bytes.com/sitemap/">Site Map</a> </span> </td> </tr> </table> <table class="tempwrapper"> <tr> <td width="70%"> <div id="login_box"> <ul> <li> <a href="/register/" style="color:#9a325c">Join Bytes</a> </li> <li> <a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#" onclick="showlayer('login_menu')">Login</a> </li> <div id="login_menu" style="display:none;"> <div id="new-user-col">new member:<br /><br /> <a href="/register/" class="green-button" rel="nofollow">Register</a> </div> <div id="signup-user-col">
+						member login:<br /><br /> <form action="http://bytes.com/login.php?do=login" method="post" onsubmit="md5hash(vb_login_password, vb_login_md5password, vb_login_md5password_utf, 0)"> <ul> <li> <label for="navbar_password">User Name</label> <input type="text" class="bginput" style="font-size: 9pt" name="vb_login_username" id="navbar_username" size="10" accesskey="u" tabindex="101"/> </li> <li> <label for="navbar_password">Password</label> <input type="password" class="bginput" style="font-size: 9pt" name="vb_login_password" id="navbar_password" size="10" tabindex="102" /> </li> <input type="submit" class="button" value="Log in" tabindex="104" title="Enter your username and password in the boxes provided to login, or click the 'register' button to create a profile for yourself." accesskey="s" /> </ul> <input type="hidden" name="s" value="de5c9afd0f3d6a1ee447ef891c978b46" /> <input type="hidden" name="do" value="login" /> <input type="hidden" name="vb_login_md5password" /> <input type="hidden" name="vb_login_md5password_utf" /> <input type="hidden" name="cookieuser" value="1" /> </form> <br /> <a href="http://bytes.com/login.php?do=lostpw" rel="nofollow">lost password?</a> </div> <div class="spacer"></div> </div> <li>
+					network: 228,875 
+
+(4237 online)
+
+					</li> </ul> </div> </td> <td width="30%" align="right"> <form action="http://bytes.com/search.php" method="post" name="search"> <input type="hidden" name="do" value="process" /> <input type="hidden" name="showposts" value="0" /> <input type="hidden" name="quicksearch" value="1" /> <input type="hidden" name="forumchoice[]" value="" /> <input type="text" name="query" size="20" value="Search" onfocus="this.value=''" /> <input type="submit" value="Go" name="gobutton"> </form> </td> </tr> </table> </div> <div class="adtable"> <div style="margin: 0px; padding: 0px; width: 740px; text-align:center"> </div> </div>  <div class="navtable"> <div class="navbar_box"> <a href="/" accesskey="1">bytes</a> <span class="navbar">&gt; <a href="http://bytes.com/topic/">topic</a></span> <span class="navbar">&gt; <a href="http://bytes.com/topic/java/">java</a></span> <span class="navbar">&gt; <a href="http://bytes.com/topic/java/answers/">answers</a></span> </div> </div> <table class="maintable"> <tr> <td valign="top"> <table width="625px" border="0" cellspacing="0" cellpadding="0"> <tr> <td height="1000px" valign="top">  <a name="poststop" id="poststop"></a>  <h1 style="font-size: 15pt; padding: 0px; margin-bottom: 10px;">How to mock protected method in Java</h1>   <div id="posts">  <div id="edit3493479" style="padding:0px 0px 6px 0px">  <table class="tborder" id="post3493479" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="margin-bottom: 10px;"> <tr> <td class="alt2" style="padding:0px">  <table cellpadding="0" cellspacing="6" border="0" width="100%"> <tr> <td class="alt2"><a href="http://bytes.com/profile/238014/intelrate/"><img src="http://bytes.com/avatars/intelrate-238014.gif?dateline=1244730907" width="50" height="50" alt="intelrate's Avatar" border="0" /></a></td> <td nowrap="nowrap"> <div id="postmenu_3493479"> <a class="bigusername" href="http://bytes.com/profile/238014/intelrate/">intelrate</a> <img class="inlineimg" src="/images/statusicon/user_offline.gif" alt="intelrate is offline" border="0" /> </div> <div class="smallfont">Newbie</div> </td> <td width="100%">&nbsp;</td> <td valign="top" nowrap="nowrap"> <div style="line-height: 13px; font-size: 8pt; color: #999999;"> <div>Join Date: Jun 2009</div> <div>
+						Posts: 3
+					</div> <div> </div>  <div> <a name="post3493479"></a>
+					#<a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#post3493479"  id="postcount3493479" name="1" title="permalink">1</a>: 
+					
+						Jun 11 '09
+					
+					
+					</div> </div> </td> </tr> </table>  </td> </tr> <tr> <td class="alt1" id="td_post_3493479">   <div id="post_message_3493479">
+			
+			Here is a question.<br /> <br />
+I wanted my JUnit tests to be more modular and found <a rel="nofollow" href="http://intelrate.blogspot.com/2009/05/how-to-mock-protected-method-in-java.html" target="_blank">how to mock protected methods</a> for that purpose. Briefly speaking, we cannot mock and control calls of protected method with JDK dynamic proxy because protected methods are not in any interface but we can create MockInterface with mock method under control and call it from overridden protected method to achieve our goal.<br /> <br />
+The problem I?m trying to resolve now is that my mock method should have the same number of parameters as protected method I want to mock. It forces me to create several mock methods with different number of parameters which is not elegant. Does anyone know better solution in JMock or other Java framework? Any help would be very appreciated.
+		</div>   </td> </tr> </table> </div>  <div> <script language="JavaScript" src="http://bytes.com/casus/as_header.js"></script> <script language="JavaScript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script> <div style="clear:both"></div> </div> <br>  <div id="edit3493547" style="padding:0px 0px 6px 0px">  <table class="tborder" id="post3493547" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="margin-bottom: 10px;"> <tr> <td class="alt2" style="padding:0px">  <table cellpadding="0" cellspacing="6" border="0" width="100%"> <tr> <td class="alt2"><a href="http://bytes.com/profile/96943/josah/"><img src="http://bytes.com/avatars/josah-96943.gif?dateline=1228930595" width="15" height="15" alt="JosAH's Avatar" border="0" /></a></td> <td nowrap="nowrap"> <div id="postmenu_3493547"> <a class="bigusername" href="http://bytes.com/profile/96943/josah/">JosAH</a> <img class="inlineimg" src="/images/statusicon/user_offline.gif" alt="JosAH is offline" border="0" /> </div> <div class="smallfont"><span style="color: #FF4F00">Expert</span></div> </td> <td width="100%">&nbsp;</td> <td valign="top" nowrap="nowrap"> <div style="line-height: 13px; font-size: 8pt; color: #999999;"> <div>Join Date: Mar 2007</div> <div>
+						Posts: 10,611
+					</div> <div> </div>  <div> <a name="post3493547"></a>
+					#<a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#post3493547"  id="postcount3493547" name="2" title="permalink">2</a>: 
+					
+						Jun 11 '09
+					
+					
+					</div> </div> </td> </tr> </table>  </td> </tr> <tr> <td class="alt1" id="td_post_3493547">   <div> <h2 style="margin: 0px; padding: 0px; color: #a8a8a8; font-size: 9pt;">re: How to mock protected method in Java</h2> </div> <hr size="1" style="color:#eee; background-color: #eee;" />   <div id="post_message_3493547">
+			
+			Extend your class and override your protected method by a public one; test your extended class and your overriding public method.<br /> <br />
+kind regards,<br /> <br />
+Jos
+		</div>   </td> </tr> </table> </div>  <div id="edit3493622" style="padding:0px 0px 6px 0px">  <table class="tborder" id="post3493622" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="margin-bottom: 10px;"> <tr> <td class="alt2" style="padding:0px">  <table cellpadding="0" cellspacing="6" border="0" width="100%"> <tr> <td class="alt2"><a href="http://bytes.com/profile/238014/intelrate/"><img src="http://bytes.com/avatars/intelrate-238014.gif?dateline=1244730907" width="50" height="50" alt="intelrate's Avatar" border="0" /></a></td> <td nowrap="nowrap"> <div id="postmenu_3493622"> <a class="bigusername" href="http://bytes.com/profile/238014/intelrate/">intelrate</a> <img class="inlineimg" src="/images/statusicon/user_offline.gif" alt="intelrate is offline" border="0" /> </div> <div class="smallfont">Newbie</div> </td> <td width="100%">&nbsp;</td> <td valign="top" nowrap="nowrap"> <div style="line-height: 13px; font-size: 8pt; color: #999999;"> <div>Join Date: Jun 2009</div> <div>
+						Posts: 3
+					</div> <div> </div>  <div> <a name="post3493622"></a>
+					#<a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#post3493622"  id="postcount3493622" name="3" title="permalink">3</a>: 
+					
+						Jun 12 '09
+					
+					
+					</div> </div> </td> </tr> </table>  </td> </tr> <tr> <td class="alt1" id="td_post_3493622">   <div> <h2 style="margin: 0px; padding: 0px; color: #a8a8a8; font-size: 9pt;">re: How to mock protected method in Java</h2> </div> <hr size="1" style="color:#eee; background-color: #eee;" />   <div id="post_message_3493622">
+			
+			Thank you JosAH<br /> <br />
+ That's what I'm doing right now. The problem is that if my protected method has 2 arguments then my mock method should be like<br /> <br />
+Object mockMethod(Object parameter1, Object parameter2);<br /> <br />
+ If I need to mock another protected method with 3 parameters then I have to create<br /> <br />
+Object mockMethod(Object parameter1, Object parameter2, Object parameter3);<br /> <br />
+ It works for me but probably there is another approach to mock protected methods which I don't know about.<br /> <br />
+Cheers!
+		</div>   </td> </tr> </table> </div>  <div id="edit3493912" style="padding:0px 0px 6px 0px">  <table class="tborder" id="post3493912" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="margin-bottom: 10px;"> <tr> <td class="alt2" style="padding:0px">  <table cellpadding="0" cellspacing="6" border="0" width="100%"> <tr> <td class="alt2"><a href="http://bytes.com/profile/96943/josah/"><img src="http://bytes.com/avatars/josah-96943.gif?dateline=1228930595" width="15" height="15" alt="JosAH's Avatar" border="0" /></a></td> <td nowrap="nowrap"> <div id="postmenu_3493912"> <a class="bigusername" href="http://bytes.com/profile/96943/josah/">JosAH</a> <img class="inlineimg" src="/images/statusicon/user_offline.gif" alt="JosAH is offline" border="0" /> </div> <div class="smallfont"><span style="color: #FF4F00">Expert</span></div> </td> <td width="100%">&nbsp;</td> <td valign="top" nowrap="nowrap"> <div style="line-height: 13px; font-size: 8pt; color: #999999;"> <div>Join Date: Mar 2007</div> <div>
+						Posts: 10,611
+					</div> <div> </div>  <div> <a name="post3493912"></a>
+					#<a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#post3493912"  id="postcount3493912" name="4" title="permalink">4</a>: 
+					
+						Jun 13 '09
+					
+					
+					</div> </div> </td> </tr> </table>  </td> </tr> <tr> <td class="alt1" id="td_post_3493912">   <div> <h2 style="margin: 0px; padding: 0px; color: #a8a8a8; font-size: 9pt;">re: How to mock protected method in Java</h2> </div> <hr size="1" style="color:#eee; background-color: #eee;" />   <div id="post_message_3493912"> <div style="margin:20px; margin-top:5px; border-left: 2px #ccc solid; padding-left: 10px; font-size: 11px; color: #666; line-height: 18px; "> <div style="margin-bottom:2px; font-size: 11px;">Quote:</div> <p>
+					Originally Posted by <strong>intelrate</strong> <a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#post3493622" rel="nofollow"><img class="inlineimg" src="/images/buttons/viewpost.gif" border="0" alt="View Post" /></a> </p> <p style="font-style:italic"> It works for me but probably there is another approach to mock protected methods which I don't know about.</p> </div>Not that I know of but you shouldn't mock protected methods in the first place; you should mock the API of the class (the methods published in its interface).<br /> <br />
+kind regards,<br /> <br />
+Jos<br /> <br />
+ps. Was this just a 'pro forma' question? You already turned it into a <a rel="nofollow" href="http://intelrate.blogspot.com/2009/05/how-to-mock-protected-method-in-java.html" target="_blank">blog entry</a> ...
+		</div>   </td> </tr> </table> </div>  <div id="edit3493927" style="padding:0px 0px 6px 0px"> <table class="tborder" id="post3493927" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="margin-bottom: 10px;"> <tr> <td class="alt2" style="padding:0px">  <table cellpadding="0" cellspacing="6" border="0" width="100%"> <tr> <td class="alt2"><a href="http://bytes.com/profile/238014/intelrate/"><img src="http://bytes.com/avatars/intelrate-238014.gif?dateline=1244730907" width="50" height="50" alt="intelrate's Avatar" border="0" /></a></td> <td nowrap="nowrap"> <div id="postmenu_3493927"> <a class="bigusername" href="http://bytes.com/profile/238014/intelrate/">intelrate</a> <img class="inlineimg" src="/images/statusicon/user_offline.gif" alt="intelrate is offline" border="0" /> </div> <div class="smallfont">Newbie</div> </td> <td width="100%">&nbsp;</td> <td valign="top" nowrap="nowrap"> <div style="line-height: 13px; font-size: 8pt; color: #999999;"> <div>Join Date: Jun 2009</div> <div>
+						Posts: 3
+					</div> <div> </div>  <div> <a name="post3493927"></a>
+					#<a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#post3493927"  id="postcount3493927" name="5" title="permalink">5</a>: 
+					
+						Jun 13 '09
+					
+					
+					</div> </div> </td> </tr> </table>  </td> </tr> <tr> <td class="alt1" id="td_post_3493927">   <div> <h2 style="margin: 0px; padding: 0px; color: #a8a8a8; font-size: 9pt;">re: How to mock protected method in Java</h2> </div> <hr size="1" style="color:#eee; background-color: #eee;" />   <div id="post_message_3493927"> <div style="margin:20px; margin-top:5px; border-left: 2px #ccc solid; padding-left: 10px; font-size: 11px; color: #666; line-height: 18px; "> <div style="margin-bottom:2px; font-size: 11px;">Quote:</div> <p>
+					Originally Posted by <strong>JosAH</strong> <a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java#post3493912" rel="nofollow"><img class="inlineimg" src="/images/buttons/viewpost.gif" border="0" alt="View Post" /></a> </p> <p style="font-style:italic">Was this just a 'pro forma' question?</p> </div>Actually I'm not totally happy with the solution I have but for now it should be fine.<br /> <br />
+Thanks.
+		</div>   </td> </tr> </table> </div>  <div id="lastpost"></div> </div>    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:-3px"> <tr valign="top"> <td class="smallfont"><a href="http://bytes.com/newreply.php?do=newreply&amp;noquote=1&amp;p=3493927"><img src="/images/buttons/reply.gif" alt="Reply" border="0" /></a></td> </tr> </table>   <br /> <table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center"> <tr> <td class="thead"> <a name="taglist"></a> <a href="http://bytes.com/tags/">Tags</a> </td> </tr> <tr> <td class="alt1 smallfont" id="tag_list_cell"><a href="http://bytes.com/tags/java/">java</a>, <a href="http://bytes.com/tags/jmock/">jmock</a>, <a href="http://bytes.com/tags/junit/">junit</a>, <a href="http://bytes.com/tags/method/">method</a>, <a href="http://bytes.com/tags/test/">test</a> <img src="/images/misc/11x11progress.gif" id="tag_form_progress" class="inlineimg" style="display:none" alt="" /></td> </tr> </table> <script type="text/javascript" src="http://bytes.com/clientscript/vbulletin_ajax_taglist.js?v=376"></script> <script type="text/javascript" src="http://bytes.com/clientscript/vbulletin_ajax_tagsugg.js?v=376"></script>   <br /> <div class="smallfont" align="center"> <strong>&laquo;</strong> <a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java/prev">previous question</a>
+			|
+			<a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java/next">next question</a> <strong>&raquo;</strong> </div>     <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center"> <tr valign="bottom"> <td width="100%" valign="top"> </td> <td class="smallfont" align="right"> <table cellpadding="0" cellspacing="0" border="0"> <tr> <td> </td> </tr> </table> </td> </tr> </table>  <br /> <div class="similar"> <h3>Similar Java bytes</h3> <ul> <li> <a href="http://bytes.com/topic/python/answers/845333-ann-mock-0-4-0-released" title="Mock 0.4.0 has just been released, the first release in about ten 
+months (but worth the wait). 
+ 
+Mock is a simple library for testing: specifically...">ANN: Mock 0.4.0 released</a> <span>(answers)</span> </li> <li> <a href="http://bytes.com/topic/c/answers/710573-tdd-mock-classes" title="Has anyone seen a tool for C++ that automatically creates mock 
+classes? 
+ 
+I found MockMaker for Java, but I wondered if there was something...">TDD and Mock Classes</a> <span>(answers)</span> </li> <li> <a href="http://bytes.com/topic/python/answers/24791-problem-closure-arguments-args-mock-object" title="I'm trying define a class to act as a Mock &quot;handler&quot; object for 
+testing urllib2.OpenerDirector. 
+ 
+OpenerDirector (actually, my copy of it) does...">problem with closure arguments and *args in mock object</a> <span>(answers)</span> </li> <li> <a href="http://bytes.com/topic/python/answers/19699-mock-object-creation-example" title="I had the bright idea a week or two ago to construct mock objects (for 
+unit testing) &quot;by example&quot; by calling methods on a generic mock 
+object. 
+...">Mock object creation by example?</a> <span>(answers)</span> </li> </ul> </div>   </td> </tr> </table> </td> <td width="12" class="spacer"></td> <td width="300px" height="1000px" valign="top"> <img src="/images/sidecolumn.gif" width="300px" height="1px" border="0" style="margin: 0px; padding: 0px;"> <div class="navbox"> <h3>/bytes/development</h3> <ul class="navbox_list"> <li><a href="/topic/algorithms/">algorithms</a></li> <li><a href="/topic/asp-classic/">asp</a></li> <li><a href="/topic/asp-net/">asp.net</a></li> <li><a href="/topic/c/">c / c++</a></li> <li><a href="/topic/coldfusion/">coldfusion</a></li> <li><a href="/topic/c-sharp/">c#</a></li> <li><a href="/topic/flash/">flash</a></li> <li><a href="/topic/html-css/">html/css</a></li> <li><a href="/topic/java/">java</a></li> <li><a href="/topic/javascript/">javascript</a></li> <li><a href="/topic/mobile-development/">mobile dev</a></li> <li><a href="/topic/net/">.net</a></li> <li><a href="/topic/perl/">perl</a></li> <li><a href="/topic/php/">php</a></li> <li><a href="/topic/python/">python</a></li> <li><a href="/topic/ruby/">ruby</a></li> <li><a href="/topic/software-development/">software dev</a></li> <li><a href="/topic/visual-basic-net/">vb.net</a></li> <li><a href="/topic/visual-basic/">visual basic</a></li> <li><a href="/topic/xaml">xaml / wpf</a></li> <li><a href="/topic/xml/">xml</a></li> </ul> <div style="clear:both;"></div> </div> <div class="navbox"> <h3>/bytes/it</h3> <ul class="navbox_list"> <li><a href="/topic/access/">access</a></li> <li><a href="/topic/apache/">apache</a></li> <li><a href="/topic/careers/">careers</a></li> <li><a href="/topic/cms/">cms</a></li> <li><a href="/topic/db2/">db2</a></li> <li><a href="/topic/iis/">iis</a></li> <li><a href="/topic/macosx/">macosx</a></li> <li><a href="/topic/mysql/">mysql</a></li> <li><a href="/topic/networking/">networking</a></li> <li><a href="/topic/oracle/">oracle</a></li> <li><a href="/topic/postgresql/">postgresql</a></li> <li><a href="/topic/sql-server/">sql server</a></li> <li><a href="/topic/unix/">unix</a></li> <li><a href="/topic/windows/">windows</a></li> </ul> <div style="clear:both;"></div> </div> <div class="navbox"> <h3>/bytes/other</h3> <ul class="navbox_list"> <li><a href="/topic/misc/">misc</a></li> </ul> <div style="clear:both;"></div> </div> <div style="padding: 0px 0px 15px 0px; margin: 0px;"> </div> <div class="navbox"> <p style="padding-left: 15px";
+		<strong><a href="/forums/">Forums</a></strong> <br>
+		Visit our community forums for general discussions and latest on Bytes
+		</p> <div style="clear:both;"></div> </div> <div class="navbox"> <h3>/bytes/about</h3> <p style="padding: 10px;">
+			We are a network of experts and professionals in IT and software development that help one another with answers to tough questions and share insights.
+			Get the best answers to your questions from over <strong><i>228,875</i></strong> network members. 
+			</p>  </div> <div style="padding-bottom: 15px;"> </div>   </td> </tr> </table> <table class="maintable footer"> <tr> <td> <div> <strong>dev questions</strong>:<br /> <a href="/sitemap/f-341.html">algorithms</a> | 
+		<a href="/sitemap/f-288.html">asp</a> | 
+		<a href="/sitemap/f-329.html">asp.net</a> | 
+		<a href="/sitemap/f-308.html">c/c++</a> | 
+		<a href="/sitemap/f-278.html">coldfusion</a> | 
+		<a href="/sitemap/f-326.html">c#</a> | 
+		<a href="/sitemap/f-274.html">flash</a> | 
+		<a href="/sitemap/f-298.html">html/css</a> | 
+		<a href="/sitemap/f-310.html">java</a> | 
+		<a href="/sitemap/f-286.html">javascript</a> |<br> <a href="/sitemap/f-271.html">mobile dev</a> | 
+		<a href="/sitemap/f-312.html">.net</a> | 
+		<a href="/sitemap/f-290.html">perl</a> | 
+		<a href="/sitemap/f-304.html">php</a> | 
+		<a href="/sitemap/f-292.html">python</a> | 
+		<a href="/sitemap/f-282.html">ruby</a> | 
+		<a href="/sitemap/f-280.html">software dev</a> | 
+		<a href="/sitemap/f-314.html">vb.net</a> | 
+		<a href="/sitemap/f-314.html">visual basic</a> | 
+		<a href="/sitemap/f-276.html">xml</a> </div> <div> <strong>it questions</strong>: <br /> <a href="/sitemap/f-272.html">access</a> |
+		<a href="/sitemap/f-316.html">apache</a> |
+		<a href="/sitemap/f-338.html">careers</a> |
+		<a href="/sitemap/f-294.html">db2</a> |
+		<a href="/sitemap/f-318.html">iis</a> |
+		<a href="/sitemap/f-335.html">macosx</a> |
+		<a href="/sitemap/f-302.html">mysql</a> |
+		<a href="/sitemap/f-320.html">networking</a> |
+		<a href="/sitemap/f-296.html">oracle</a> |
+		<a href="/sitemap/f-306.html">postgresql</a> |
+		<a href="/sitemap/f-300.html">sql server</a> |
+		<a href="/sitemap/f-322.html">unix</a> |
+		<a href="/sitemap/f-283.html">windows</a> </div> <br> <A HREF="http://bytes.com/about_us.html">About Bytes</A> | Copyright 1995-2009 BYTES. All rights Reserved <br> <div class="smallfont" align="center">   </div> </td> </tr> </table> <script type="text/javascript"> <!--
+	var tzOffset = 0 + 0;
+	var utcOffset = new Date().getTimezoneOffset() / 60;
+	if (Math.abs(tzOffset + utcOffset) == 1)
+	{	// Dst offset is 1 so its changed
+		document.forms.dstform.submit();
+	}
+//--> </script> <script type="text/javascript"> <!--
+	// Main vBulletin Javascript Initialization
+	vBulletin_init();
+//--> </script> <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> <script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-90111-7");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>  <div style="display:none">   </div> <div class="vbmenu_popup" id="linkbacktools_menu" style="display:none"> <table cellpadding="4" cellspacing="1" border="0"> <tr> <td class="thead">LinkBack<a name="goto_linkback"></a></td> </tr> <tr> <td class="vbmenu_option"><img class="inlineimg" src="http://bytes.com/images/vbseo/linkback_url.gif" alt="LinkBack URL" /> <a href="http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java" onclick="prompt('Use the following URL when referencing this thread from another forum or blog.','http://bytes.com/topic/java/answers/870424-how-mock-protected-method-java');return false;">LinkBack URL</a></td> </tr> <tr> <td class="vbmenu_option"><img class="inlineimg" src="http://bytes.com/images/vbseo/linkback_about.gif" alt="About LinkBacks" /> <a href="http://bytes.com/misc.php?do=linkbacks">About LinkBacks</a></td> </tr> </table> </div> 
+<script type="text/javascript">
+
+window.orig_onload = window.onload;
+window.onload = function() {
+var cpost=document.location.hash;if(cpost){ if(cobj = fetch_object(cpost.substring(1,cpost.length)))cobj.scrollIntoView(true);else {cpostno = cpost.substring(5,cpost.length);if(parseInt(cpostno)>0 && (cpost.substring(1,5)=='post')){location.replace('http://bytes.com/showthread.php?p='+cpostno);};} }
+
+if(typeof window.orig_onload == "function") window.orig_onload();
+}
+
+</script>
+</body> </html>

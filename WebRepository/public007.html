@@ -1,0 +1,1187 @@
+
+
+
+
+        
+	
+	
+        
+        
+	
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Bug ID: 4650689 RFE: Java needs public API for FTP</title>
+
+
+
+
+
+
+<meta name="product" content="java">
+<meta name="category" content="java">
+<meta name="subcategory" content="classes_net">
+<meta name="synopsis" content="RFE: Java needs public API for FTP">
+<!--
+<meta name="state" content="6-Fix Understood">
+-->
+<meta name="state" content="6">
+<meta name="submit_date" content="11-MAR-2002">
+<meta name="type" content="rfe">
+<meta name="reported_against" content="1.4">
+<meta name="date" content="2009-07-13">
+<meta name="DESCRIPTION" content="java:classes_net, RFE: Java needs public API for FTP,State: 6-Fix Understood,Reported: 11-MAR-2002,Release Reported Against: 1.4" >
+<style>
+
+         pre {
+         white-space: -moz-pre-wrap;
+         white-space: -pre-wrap;
+         white-space: -o-pre-wrap;
+         white-space: pre-wrap;
+         }
+
+</style>
+
+<link rel="stylesheet" href="/css/default_developer.css">
+
+<!-- These scripts are inserted to fix bug 6493799 -->
+<script type="text/javascript" language="text/javascript" src="/js/popUp.js"></script>
+<script language="javascript1.2" type="text/javascript" src="/js/sniff.js"></script>
+<script language="javascript1.2" type="text/javascript" src="/js/menucontent.js"></script>
+<script language="javascript1.2" type="text/javascript" src="/js/menucode.js"></script>
+<script language="javascript1.2" type="text/javascript" src="/js/developer.js"></script>
+
+<!-- End of insertion of scripts -->
+</head>
+<!--stopindex-->
+<body leftmargin="0" topmargin="0" marginheight="0" marginwidth="0" rightmargin="0" bgcolor="#ffffff" onload="prepmenus(); done=true">
+
+<a name="top"></a>
+
+<!-- BEGIN A1 COMPONENT V.0 -->
+<div class="a1">
+<div class="a1v0">
+<a href="#skip2content" class="skiplink">Skip to Content</a>
+<span class="toolbarlinks">
+<a href="/global/mh/java/">Java</a>
+<a href="/global/mh/solaris/" class="dividelink">Solaris</a>
+<a href="/global/mh/communities/">Communities</a>
+<a href="/global/mh/store/" class="lastlink">Sun Store</a>
+</span>
+<span class="siteid">
+<a href="http://developers.sun.com/global/join_sdn.html" class="firstlink"><b>Join SDN</b></a>
+<a href="http://developers.sun.com/global/my_profile.html">My Profile</a>
+<a href="http://developers.sun.com/global/why_join.html">Why Join?</a>
+</span>
+</div>
+</div>
+<!-- END A1 COMPONENT V.0 -->
+
+<!-- BEGIN A2 COMPONENT V.1 -->
+<div class="a2w0">
+<div class="a2" id="a2v1">
+<div class="a2w1"><div class="a2w2"><div class="a2w3"><div class="a2w4">
+<div class="a2topiclinks">
+<div class="a2search">
+<form action="http://developers.sun.com/search/onesearch/index.jsp" accept-charset="utf-8" method="GET">
+<input type="hidden" name="charset" value="utf-8">
+<input type="hidden" name="col" value="developer-reference">
+<span class="rightarrowwhite">&raquo;</span>&nbsp;<a href="http://developers.sun.com/global/search_tips.html">search tips</a>&nbsp;
+<input class="searchfield" name="qt" class="medium" size="7" onFocus="if( this.value==this.defaultValue ) this.value='';" value="Search">
+<input id="searchbttn" type="image" border="0" src="/im/a2_bttn_search.gif" alt="Submit Search">
+</form>
+</div>
+<a href="http://java.sun.com" title="Home Page" id="sunlogo"><img src="/im/a.gif" alt="Home Page" width="98" height="58" border="0" /></a>
+<a href="http://developers.sun.com" title="Sun Developer Network"><img src="/im/a.gif" id="venuespacer" alt="Sun Developer Network" width="400" height="33" border="0" /></a>
+<ul id="mtopics">
+<li id="mtopic1"><a id="glink1" class="tpclink a2menu" title="See All APIs" href="/global/mh/api/index.html">APIs</a></li>
+<li id="mtopic2"><a id="glink2" class="tpclink a2menu" title="See All Downloads" href="/global/mh/downloads/index.html">Downloads</a></li>
+<li id="mtopic3"><a id="glink3" class="tpclink a2menu" title="See All Technologies &amp; Solutions" href="/global/mh/tech/index.html">Technologies</a></li>
+<li id="mtopic4"><a id="glink4" class="tpclink a2menu" title="See All Products" href="/global/mh/products/index.html">Products</a></li>
+<li id="mtopic5"><a id="glink5" class="tpclink a2menu" title="See All Support" href="/global/mh/support/index.html">Support</a></li>
+<li id="mtopic6"><a id="glink6" class="tpclink a2menu" title="See All Training" href="/global/mh/training/index.html">Training</a></li>
+<li id="mtopic7"><a id="glink7" class="tpclink a2menu" title="See All Sun.com" href="/global/mh/suncom/index.html">Sun.com</a></li>
+</ul>
+</div>
+</div></div></div></div>
+</div></div>
+<!-- END A2 COMPONENT V.1 -->
+
+
+<!-- BEGIN BREADCRUMB -->
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="vatop">
+<tr>
+<td>      
+<div class="breadcrumb">
+<a href="http://developers.sun.com/index.html">Developers Home</a> &gt; <a href="http://developers.sun.com/prodtech/index.html">Products & Technologies</a> &gt; <a href="http://java.sun.com/index.html">Java Technology</a> &gt; <a href="http://java.sun.com/community/index.html">Community</a> &gt; <a href="/bugdatabase/">Bug Database</a> &gt;
+
+</div>
+</td>
+<td align="right" valign="bottom" nowrap="nowrap"><div class="breadcrumb">
+<a href="http://developers.sun.com/global/join_sdn.html"><img src="/im/join_sdn.gif" width="60" height="18" border="0" alt="Join SDN" valign="bottom" /></a><a href="http://developers.sun.com/global/why_join.html"><img src="/im/bc_why_join.gif" width="80" height="18" border="0" alt="Why Join" valign="bottom" /></a>
+</div></td></tr>
+<tr><td colspan="2"><img src="/im/a.gif" width="770" height="1" border="0" alt=" " /></td></tr>
+</table>
+<span class="sp5">&nbsp;</span>
+<br />        
+<!-- END BREADCRUMB -->
+<!-- BEGIN PAGETITLE -->
+<div class="pagetitle2">Bug Database</div>
+<div class="pagetitle">Bug Detail</div>
+<!-- END PAGETITLE -->
+<!-- BEGIN WRAPPER TABLE, 2 COLUMN, LEFT/MAIN -->
+<table border="0" cellpadding="10" cellspacing="0" width="100%">
+<tbody><tr><td valign="top">
+
+<!-- BEGIN LEFT COLUMN COMPONENTS -->
+
+
+
+
+
+
+
+<div class="dkgrey"><strong>Quick Lists</strong></div>
+
+<table border="0" cellpadding="0" cellspacing="0" class="vatop">
+  <tr>
+    <td class="hyphen">-&nbsp;</td>
+
+    <td><a href="/bugdatabase/top25_bugs.do;jsessionid=97a43996511e93713fa73ac2e6e4">Top 25 Bugs</a> </td>
+  </tr>
+  <tr>
+    <td class="hyphen">-&nbsp;</td>
+    <td><a href="/bugdatabase/top25_rfes.do;jsessionid=97a43996511e93713fa73ac2e6e4">Top 25 RFE's</a></td>
+  </tr>
+  <tr>
+
+    <td width="15" class="hyphen">-&nbsp;</td>
+    <td><a href="/bugdatabase/recently_closed.do;jsessionid=97a43996511e93713fa73ac2e6e4">Recently Closed Bugs</a></td>
+  </tr>
+</table>
+
+<div class="pad3x0" style="padding-top:0px;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" class="grey4">
+    <tr>
+      <td><img src="/im/a.gif" width="1" height="2" border="0" alt=" " /></td>
+
+    </tr>
+  </table>
+</div>
+
+<table bgcolor="#ffffff" align="left" width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tbody>
+    <tr>
+      <td class="smaller">
+        <a href="http://java.sun.com/jsp_utils/PrintPage.jsp" target="popup_name" onclick="openPopup('','popup_name',655,500,'no',1,0,1,0,0,0); return true;"><img src="/im/ic_print.gif" width="14" height="12" alt="Printable Page" border="0"></a>
+        <a href="http://java.sun.com/jsp_utils/PrintPage.jsp" target="popup_name" style="text-decoration: none; font-size: 13px" onclick="openPopup('','popup_name',655,500,'no',1,0,1,0,0,0); return true;">Printable Page</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br clear="all">
+
+<div class="pad3x0" style="padding-top:0px;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" class="grey4">
+    <tr>
+
+      <td><img src="/im/a.gif" width="1" height="2" border="0" alt=" "></td>
+    </tr>
+  </table>
+</div>
+
+
+<br clear="all">
+
+<!-- Start of BugList Tag -->
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td class="headerbar3"><div class="headerpadding2">Bug Database</div></td></tr>
+</table>
+<table border="0" cellpadding="8" cellspacing="0" width="100%" class="navblue">
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="vatop">
+<tr><td colspan="2"><strong>Welcome</strong><br /><span class="sp5">&nbsp;</span></td></tr>
+<tr><td><span class="rightarrowblue">&raquo;</span>&nbsp;&nbsp;</td><td width="100%"><a href=/bugdatabase/login.do?bug_id=4650689>Login</a></td></tr>
+<tr><td><span class="rightarrowblue">&raquo;</span>&nbsp;&nbsp;</td><td width="100%"><a href='http://bugreport.sun.com/bugreport'>Report a Bug</a></td></tr>
+<tr><td><span class="rightarrowblue">&raquo;</span>&nbsp;&nbsp;</td><td width="100%"><a href='http://developers.sun.com/resources/bugsFAQ.html'>FAQs</a></td></tr>
+<tr><td><img src="images/binocs.gif">&nbsp;&nbsp;</td><td><b>Bug Watch List:</b></td></tr>
+<tr><td><span class="rightarrowblue">&raquo;</span>&nbsp;</td><td><a href="/bugdatabase/addBugWatch.do?bug_id=4650689">Watch this Bug</a></td></tr>
+<tr><td>&nbsp;</td><td><b>Bug Votes:</b></td></tr>
+<tr><td><span class="rightarrowblue">&raquo;</span>&nbsp;</td><td><a href="/bugdatabase/addVote.do?bug_id=4650689">Vote for this Bug</a></td></tr>
+</table>
+</td></tr>
+</table>
+
+
+
+
+<!-- END LEFT COLUMN COMPONENTS -->
+
+</td><td width="100%" valign="top">
+<!-- BEGIN CENTER COLUMN COMPONENTS -->
+
+<!--startindex-->
+
+<!-- ============ -->
+<!-- MAIN CONTENT -->
+<!-- ============ -->
+
+<a name="skip2content"></a>
+
+<!--Start Content-->
+
+
+
+
+
+
+
+
+     <table border="0" cellpadding="0" cellspacing="0" align="TOP">
+         <tr>
+         <td valign="top" align="left">
+         <table cellpadding="2" cellspacing="0" border="0">
+         <tbody>
+             <tr>
+             <td align="right" class="grey5">
+                 <font face=""><b>Bug ID:</b></font>
+             </td>
+             <td align="left">
+                 <font face="">4650689</font>
+             </td>
+             </tr>
+             
+             <tr>
+                 <td align="right" class="grey5">
+                     <font face=""><b>Votes</b></font> 
+                 </td>
+                 <td align="left">
+                     <font face="" color="#ff0000">141</font>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" class="grey5">
+                     <font face=""><b>Synopsis</b></font>  
+                 </td>
+                 <td align="left">
+                     <font face="" >RFE: Java needs public API for FTP</font>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" class="grey5">
+                     <font face=""><b>Category</b></font> 
+                 </td>
+                 <td align="left">
+                     <font face="" >java:classes_net</font>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" class="grey5" nowrap>
+                     <font face=""><b>Reported Against</b></font>  
+                 </td>
+                 <td align="left">
+                     <font face="">
+                         
+                             1.4
+                         
+                     </font>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" class="grey5">
+                     <font face=""><b>Release Fixed</b></font> 
+                 </td>
+                 <td align="left">
+                     <font face="">
+                        
+                        
+                            
+                        
+                     </font>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" class="grey5">
+                     <font face=""><b>State</b></font> 
+                 </td>
+                 <td align="left">
+                     <!-- remove filtering state: show bug status/substatus
+                     
+                     
+                         <font face="" color="#ff0000"></font>
+                     
+                     -->
+                     
+                     
+                         <font face="" color="#ff0000">6-Fix Understood,
+                             
+                             <!-- show area regardless of statusDetail
+                                                         
+                                 request for enhancement
+                             
+                             -->                            
+                         </font>
+                     
+                     request for enhancement
+                 </td>
+             </tr>
+             <tr>
+             <td align="right" class="grey5">
+                 <font face=""><b>Priority:</b></font>
+             </td>
+             <td align="left">
+                 <font face="">4-Low</font>
+             </td>
+             </tr>
+             <tr>
+                 <td align="right" class="grey5">
+                     <font face=""><b>Related Bugs</b></font> 
+                 </td>
+                 <td align="left">
+                     <font face="">
+                         
+                             
+                             <a href="/bugdatabase/view_bug.do;jsessionid=97a43996511e93713fa73ac2e6e4?bug_id=6350967">6350967</a>
+                         
+                     </font>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" class="grey5">
+                     <font face=""><b>Submit Date</b></font> 
+                 </td>
+                 <td align="left">
+                     <font face="" >11-MAR-2002</font>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" valign="top" class="grey5">
+                     <font face=""><b>Description</b></font> 
+                 </td>
+                 <td align="left" >
+                     <pre>
+
+
+
+
+FULL PRODUCT VERSION :
+java version &quot;1.4.0&quot;
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.4.0-b92)
+Java HotSpot(TM) Client VM (build 1.4.0-b92, mixed mode)
+
+DESCRIPTION OF THE PROBLEM :
+
+I request that Java include classes to support FTP in its public API. This support should include something similar to what is currently available in ORO NetComponents (http://www.savarese.org/). There is an obvious need for this functionality in the Java community, and we have been waiting for this for quite some time. If you don&#39;t believe me see bug id: 4049732, or do a search for &quot;ftp&quot; through all of the Sun Java forums, etc. and see what pops up. Now factor in that most people probably just go straight to sourceforge or NetComponents and never post anything on this site.
+
+Personally our company has has a need for a FTP utils API to get lists of files on an FTP server and to move files, etc. via FTP. We&#39;ve been using ORO NetComponents, but its design needs much improvement. If FTP and other mainstream internet protocols were part of Sun&#39;s (public) Java API, I would think that more developers would be interested it Java.
+
+Please don&#39;t just close this &quot;bug&quot; like you did for bug id: 4049732. There should be some way for users to vote for it, so that Sun can see how important this is to our community. Also, we&#39;re looking for feedback as to what version of Java this functionality will be incorporated into.
+
+CUSTOMER WORKAROUND :
+Use ORO NetComponents or some other FTP utils, although none are as  customer  as would be a public Sun Java API for FTP and other internet protocols besides just HTTP.
+(Review ID: 144015) 
+======================================================================</pre>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" valign="top" class="grey5">
+                     <font face=""><b>Work Around</b></font> 
+                 </td>
+                 <td align="left">
+                     <pre>
+The ftp protocol handler underlying URLConnection already has support
+for RFC 1738 so it&#39;s possible to encode the ftp commands in the URL
+as specified in the RFC. For example type=d indicates a directory
+listing.
+
+  xxxxx@xxxxx   2002-04-04</pre>
+                 </td>
+             </tr>
+             <tr>
+                 <td align="right" valign="top" class="grey5">
+                     <font face=""><b>Evaluation</b></font> 
+                 </td>
+                 <td align="left">
+                     <pre>Such an API is already present, to an extent, in the form of URL &amp; URLConnection. One can do many FTP operations, like getting a file, listing files in a directory or puting a file,  using the proper URL form.
+It would somewhat useful, albeit marginaly, to have a more flexible and specific API in the future, but this should be considered low priority.
+
+jean-  xxxxx@xxxxx   2002-11-26</pre>
+                 </td>
+             </tr>
+             <tr>
+             <td align="right" valign="top" class="grey5">
+                 <font face=""><b>Comments</b></font> 
+             </td>
+             <td align="left">
+                 <form name="commentForm" method="post" action="/bugdatabase/addComment.do;jsessionid=97a43996511e93713fa73ac2e6e4">
+                     <input type="hidden" name="bugId" value="4650689">
+                     <textarea name="comments" cols="60" rows="4"></textarea> &nbsp;&nbsp;<br>
+                     <input type='CHECKBOX' name='include_email'>&nbsp;&nbsp;Include a link with my name &amp; email&nbsp;&nbsp;&nbsp;<br>
+                     <input type="submit" value="Submit">
+                 </form>
+                 <br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;31-JAN-2003
+                     </font><br>
+                     
+                     
+                         <strong>
+                             norguet                                    
+                         </strong>
+                     
+                     <pre>See also Forum about FTP API :
+http://forum.java.sun.com/thread.jsp?thread=217004&amp;forum=54&amp;message=752443
+Jean-Pierre Norguet</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;05-APR-2003
+                     </font><br>
+                     
+                     
+                         <strong>
+                             norguet                                    
+                         </strong>
+                     
+                     <pre>The Java FTP API Standardization project aims to organize a 
+consortium of users and developers in order to introduce such 
+a Request For Enhancement (RFE) as a Java Specification 
+Request (JSR) in the Sun Java Community Process.
+
+Here is the Java FTP API Standardization project homepage :
+http://wasa.ulb.ac.be/thesis/ftp/Java_API.html
+
+Please feel free to join and help.
+</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;05-APR-2003
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:norguet_web@advalvas.be'>norguet</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>JavaWorld published an article about this topic. It is 
+called &quot;Java FTP client libraries reviewed&quot; and it can be found 
+here :
+http://www.javaworld.com/javaworld/jw-04-2003/jw-0404-
+ftp.html
+
+Best regards
+Jean-Pierre Norguet
+
+-- 
+Jean-Pierre Norguet
+JavaWorld Press
+http://wasa.ulb.ac.be/jp.html
+</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;09-APR-2003
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:panos@softways.gr'>minotauros</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>Although our company has not yet needed an FTP API, I&#39;m 
+sure that there will be the need in the future, and an FTP API 
+like JavaMail will be really usefull at that time. I believe that 
+the internet-oriented nature of JAVA creates that need itself.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;09-APR-2003
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:hiten@infy.com'>hitenvira</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>A standardized API for FTP is a definite requirement. Currently 
+we are using a custom Java code to accomplish this, but this 
+is not a preferred approach. 
+FTP alongwith HTTP is the most widely used message transfer 
+protocol being used on internet and a standard API for the 
+same (similar to the HTTP API) from SUN would be of 
+tremendous help for the developer community</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;26-JUN-2003
+                     </font><br>
+                     
+                     
+                         <strong>
+                             seeknew@myway.com                                    
+                         </strong>
+                     
+                     <pre>Yes I have been waiting for this functionality forever. FTP 
+over SSL is becoming a norm now and there is a need for a 
+FTP API in Java.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;21-AUG-2003
+                     </font><br>
+                     
+                     
+                         <strong>
+                             okeefmk                                    
+                         </strong>
+                     
+                     <pre>I fully concur with Jean-Pierre Norguet.  While it is great
+that there are a plethora of FTP utilities available, it is
+often difficult to persuade management to allow use of a
+proprietary or even open source tool.  Furthermore one area
+where it seems Microsoft .NET platform exceeds Java is in
+integration.  It should not be as ridiculously complex as it
+is to use something as fundamental (nowadays) as a
+validating parser as it used to be.  This is corrected now
+that Xerces is used for JAXP 1.2, and is included with the
+newer versions of the JDK.  
+
+Finally we now also have XML mapping tools (JAXB), but
+Castor has been around for 3 years.    The same should be
+true for FTP.
+
+Thanks to Jean-Pierre for his excellent JavaWorld article
+and for highlighting this deficiency.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;28-MAR-2004
+                     </font><br>
+                     
+                     
+                         <strong>
+                             djradon                                    
+                         </strong>
+                     
+                     <pre>I disagree with the &quot;low priority&quot; evaluation. FTP is one of
+the few truly cross-platform protocols, and making it easier
+to use in java programs would give the platform a huge boost.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;09-MAY-2004
+                     </font><br>
+                     
+                     
+                         <strong>
+                             Got_MGD                                    
+                         </strong>
+                     
+                     <pre>I want to studies java connect FTP from your code</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;29-JUN-2004
+                     </font><br>
+                     
+                     
+                         <strong>
+                             wangcrow01                                    
+                         </strong>
+                     
+                     <pre>gogo</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;12-JUL-2004
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:hubert.gregoire@free.fr'>hgregoir</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>I&#39;m going in the same way than Jean:  if we compare JAVA platform to .NET or  PHP, JAVA  need to offre a clean Java Api for FTP, working as JavaMail with third party providers.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;30-AUG-2004
+                     </font><br>
+                     
+                     
+                         <strong>
+                             patriciokeilty                                    
+                         </strong>
+                     
+                     <pre>A more generic Filesystem API would be also benefical, similar to the Netbeans openide filesystems API; these could lead to multiple protocols support: FTP, HTTP, CVS, etc. for different kind of repositories: local or remote.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;27-JAN-2005
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:jeetendrakharche@yahoo.com'>jsk</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>This is an ever needed protocol. Moreover the API must also have APIs for secure Ftp.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;15-SEP-2005
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>I support this project.  Please add features for automatically resuming a transmission after the connection has been interrupted.
+
+Thank you
+
+Sergio</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;15-SEP-2005
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>I support This project. Please include features to automatically reconnect after a connection has been interrupted.
+
+Thank you
+
+Sergio</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;13-OCT-2005
+                     </font><br>
+                     
+                     
+                         <strong>
+                              knight_sun                                    
+                         </strong>
+                     
+                     <pre>I support This project. 
+
+Yong Hwan</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;28-OCT-2005
+                     </font><br>
+                     
+                     
+                         <strong>
+                             Dick_Adams                                    
+                         </strong>
+                     
+                     <pre>A definite must. Be careful you don&#39;t reinvent the wheel. Jakarta commons net has done a lot of the work already (http://jakarta.apache.org/commons/net)</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;12-NOV-2005
+                     </font><br>
+                     
+                     
+                         <strong>
+                              66651                                    
+                         </strong>
+                     
+                     <pre>pls</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;16-JAN-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                   
+                         </strong>
+                     
+                     <pre>pls
+
+when?</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;22-JAN-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              BrendanF                                    
+                         </strong>
+                     
+                     <pre>A standard FTP java api is greatly needed. The inclusion of SSL socket support in api is absolutely essential.
+
+Thank you. </pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;26-JAN-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              fortizd                                    
+                         </strong>
+                     
+                     <pre>A standard API for FTP is a must. We have mail, http, jdbc, etc powerfull interfaces. But FTP API is not enough for current needs. Like others said, features like SSL, resume, remote server mirroring, and so on are new features that almost all developers use anytime. Please give us that API. </pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;15-FEB-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              Shed_II                                    
+                         </strong>
+                     
+                     <pre>I support this project</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;08-APR-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                   
+                         </strong>
+                     
+                     <pre>URL-based FTP is not enough (how do you PUT with that?).
+We had the need for FTP in Java projects several times.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;21-APR-2006
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:fabio.farronato@lombardia-servizi.it'> farro</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>I need to use a standard FTP API in my Java projects.
+
+Thank you
+Fabio</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;02-MAY-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              siddique                                    
+                         </strong>
+                     
+                     <pre>I support this project. I guess there is a high degree of requirement for the FTP API. There are many applications being developed and will require FTP operations. It would be wonderful to have a it within the Java API&#39;s rather than looking out for some Third Party software. Though we have Commons Net, there many more features to be included, which are currently left out.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;24-JUN-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              mhoesch                                    
+                         </strong>
+                     
+                     <pre>We had the same problem some time ago - even ORO NetComponents did not help, as we needed to access an S/390 mainframe directly on its TSO session and needed to do very specific work there.
+
+A public, very open and extensible FTP API would be best.
+
+We finally ended up in writing our own FTP client, which works fine, but can never be as good as a standard API.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;28-JUL-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              balajigovindan                                    
+                         </strong>
+                     
+                     <pre>I welcome this proposal for a public API for ftp</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;28-JUL-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              balajigovindan                                    
+                         </strong>
+                     
+                     <pre>i welcome this proposal for public api for FTP</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;28-JUL-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>I support this project
+
+Walter</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;02-AUG-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                      
+                         </strong>
+                     
+                     <pre>I also support and emphatically agree that there must be an FTP API.  In a (financial) enterprise type of environment, it is nearly impossible to justify incorporating non-Java code into a release, Standards committees shoot down most freeware utilization on the spot.
+
+A fully-featured FTP API is essential, especially when one&#39;s enterprise environment encapsulates not only Win &amp; *nix, but mainframes as well (which, for example, require a number of &#39;quote&#39; commands be sent to arrange record length, etc, before a PUT can work).</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;02-AUG-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                      
+                         </strong>
+                     
+                     <pre>Whoops.. make that &quot;and Standards committees shoot down most freeware utilization on the spot.&quot;</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;21-AUG-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              lfschuck                                    
+                         </strong>
+                     
+                     <pre>I support this too!</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;28-AUG-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                      
+                         </strong>
+                     
+                     <pre>I support this project.  I especially wish the SSL connection and certificate management aspect under FTPS to be standardized as to ease the implementation and usefulness of the Java API with its current inclusion of JSSE standards.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;19-SEP-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              jchobantonov                                    
+                         </strong>
+                     
+                     <pre>The FTP support for Java should be furder excended not just for the client api but at the server side too. Just like HttpServlet there should be FtpServlet that should be supported by all web servers in order to process FTP requests and not force developer to use proprietary apis to make a FTP server just to handle some FTP requests</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;07-NOV-2006
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:goodnewsforyou@yahoo.com'> anilp1</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>Sun, the original proposal was in 2002???
+Why so long to make your ftp API public???
+-
+Anil Philip</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;07-DEC-2006
+                     </font><br>
+                     
+                     
+                         <strong>
+                              JoyPappy                                    
+                         </strong>
+                     
+                     <pre>It&#39;s really high time that Sun should initiated the effort of coming up with its own public api for the FTP especially with SSL. I support this project.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;17-MAR-2007
+                     </font><br>
+                     
+                     
+                         <strong>
+                             norguet                                    
+                         </strong>
+                     
+                     <pre>A new article about Java and FTP has been published here:
+http://www.javaworld.com/javaworld/jw-03-2006/jw-0306-ftp.html
+Sun, what about integrating one of the open libraries like Jakarta&#39;s into the JDK?
+Or at least defining a common interface third-party libraries can implement?
+This would help standardization of the Java platform.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;03-APR-2007
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>I need a standard FTP API that keeps one control connection open i.e. doesn&#39;t log in every time I list a directory or access a file. Unless I missed something, that&#39;s not possible with the standard URL scheme.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;14-APR-2007
+                     </font><br>
+                     
+                     
+                         <strong>
+                             wgj000                                    
+                         </strong>
+                     
+                     <pre>I rolled my own java FTP client years ago, but I could use a SFTP client.  I have used JCraft&#39;s, but it doesn&#39;t work with some sftp servers.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;19-APR-2007
+                     </font><br>
+                     
+                     
+                         <strong>
+                             archon_of_battle                                    
+                         </strong>
+                     
+                     <pre>What we need is a modern API utilizing generics, progress callback etc</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;12-JUN-2007
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:patrick_patr@163.com'>   </a>                                    
+                         </strong>
+                     
+                     
+                     <pre>patrick_pat@126.com</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;26-JUL-2007
+                     </font><br>
+                     
+                         <strong>
+                             <a href='mailto:david@tribble.com'>Loadmaster</a>                                    
+                         </strong>
+                     
+                     
+                     <pre>I too rolled my own simple FTP client class (at http://david.tribble.com/src/java/#tribble.net.ftp as open source). But it would be nice to see this functionality as part of the standard JRE library.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;12-AUG-2007
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>This should be closed. No one needs to roll their own. Just use the Apache commons if needed. Or roll their own using URLConnection.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;13-SEP-2007
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>SFTP and SCP would be nice.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;06-NOV-2007
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>A SSL over FTP implementation is absolutely needed and is NOT a low priority.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;15-MAY-2008
+                     </font><br>
+                     
+                     
+                         <strong>
+                             rednoah                                    
+                         </strong>
+                     
+                     <pre>Definitely something a lot of people are going to need at some point or another.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;01-OCT-2008
+                     </font><br>
+                     
+                     
+                         <strong>
+                                                                    
+                         </strong>
+                     
+                     <pre>Java can&#39;t claim to be &quot;the programming language of choice&quot; for the internet when it doesn&#39;t have a decent standard FTP library.  Heck, even Perl does.  As others have said, given that SSH has become more common for file transfer, this should be incorporated too.</pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;02-OCT-2008
+                     </font><br>
+                     
+                     
+                         <strong>
+                             cbrennsteiner                                    
+                         </strong>
+                     
+                     <pre>YES please add support for SSH/SFTP and FTP
+to get rid of this odd thirdparty libraries for just doing basic things ...
+
+
+regards chris </pre>                                     
+                     <br><br>
+                 
+                     <font size="-1" color="#009900">
+                         Submitted On&nbsp;17-OCT-2008
+                     </font><br>
+                     
+                     
+                         <strong>
+                             grima                                    
+                         </strong>
+                     
+                     <pre>If you do decide to work on this, go for the whole chebang. FTP, SFTP (explicit and implicit) and SSH while you are at it.</pre>                                     
+                     <br><br>
+                 
+                 <br>
+                 PLEASE NOTE: JDK6 is formerly known as Project Mustang
+             </td>
+             </tr>
+         </tbody></table>
+         </td>
+         </tr>
+         <tr>
+
+             <td height="20"><br></td>
+         </tr>
+
+     </table>
+ 
+<!-- for spiders -->
+<a href="http://bugs.sun.com/bugdatabaseWS/bugIndexes.jsp"><img src="/im/a.gif" width="1" height="1" border="0" alt=""></a>
+
+
+<!--End Content-->
+<!-- Begin SiteCatalyst code version: G.5. -->
+<script language="JavaScript" src="/bugdatabase/omniture/s_code_remote.js"></script>
+<!-- End SiteCatalyst code version: G.5. -->
+
+<!-- LHY: remove Crazy Egg view 3/24/08
+<script type="text/javascript" src="http://cetrk.com/pages/scripts/0006/3948.js"></script>
+End Crazy Egg view -->
+
+<!-- =================== -->
+<!-- END OF MAIN CONTENT -->
+<!-- =================== -->
+
+<!--stopindex-->
+
+<!-- END RIGHT COLUMN COMPONENTS -->
+<br /><img src="/im/a.gif" width="170" height="1" border="0" alt=" " /></td></tr>
+<tr><td rowspan="2" valign="bottom"><img src="/im/a.gif" width="170" height="1" border="0" alt=" " /><br />
+<!--  BEGIN CELL FOR OPTIONAL MASTHEAD CAPTION -->
+<!--  END CELL FOR OPTIONAL MASTHEAD CAPTION --></td></tr>
+<!-- END SPACER ROW -->
+</table>
+<!-- END WRAPPER TABLE, 3 COLUMN, LEFT/MAIN/RIGHT -->
+<!-- BEGIN VNV5 FOOTER  -->
+<table border="0" cellpadding="0" cellspacing="10" width="100%">
+<tr>
+<td>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="vatop">
+<tr>
+<td colspan="4" valign="top" class="grey3"><img src="http://developers.sun.com/im/a.gif" width="1" height="2" border="0" alt="" /></td></tr>
+<tr>
+<td><img src="http://developers.sun.com/im/a.gif" width="190" height="1" border="0" alt="" /><br />
+<a href="http://www.oracle.com"><img src="http://java.sun.com/im/logo_oracle_footer.gif" border="0" alt="" vspace="5"/></a></td>
+<td width="100%" valign="top"><img src="http://developers.sun.com/im/a.gif" width="350" height="1" border="0" alt="" /><br />
+<div class="footer">
+<a href="http://developers.sun.com/global/aboutsun.html">About Sun</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/aboutsdn.html">About This Site</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/newsletters.html">Newsletters</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/contact.html">Contact Us</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/employment.html">Employment</a><br />
+<a href="http://developers.sun.com/global/howtobuy.html">How to Buy</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/licensing.html">Licensing</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/termsofuse.html">Terms of Use</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/privacy.html">Privacy</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/trademarks.html">Trademarks</a>
+<br /><span class="sp10">&nbsp;</span><br />
+<br /><span class="sp10">&nbsp;</span><br />
+<!-- <span id="copyDate" class="cssDate"></span>--> &copy; 2010, Oracle Corporation and/or its affiliates
+</div></td>
+<td><img src="http://developers.sun.com/im/a.gif" width="40" height="1" border="0" alt="" /></td>
+<td valign="top"><div class="footer"><b><a href="http://developers.sun.com/global/aboutsdn.html">A Sun Developer Network Site</a></b></div>
+<div class="footer">
+<img src="http://developers.sun.com/im/a.gif" width="170" height="1" border="0" alt="" /><br />
+Unless otherwise licensed, code in all technical manuals herein (including articles, FAQs, samples) is provided under this <a href="http://developers.sun.com/global/berkeley_license.html">License</a>.
+<br /><span class="sp5">&nbsp;</span><br />
+<a href="http://developers.sun.com/global/rss_sdn.html"><img src="http://developers.sun.com/im/button_xml.gif" width="36" height="14" align="top" border="0" alt="XML" /></a>&nbsp;<a href="http://developers.sun.com/global/content_feeds.html">Content Feeds</a>
+</div></td></tr>
+<tr><td colspan="4" valign="top" class="grey3"><img src="http://developers.sun.com/im/a.gif" width="1" height="2" border="0" alt="" /></td></tr>
+</table>
+</td></tr>
+</table>
+<!-- END VNV5 FOOTER -->
+
+</body></html>
+

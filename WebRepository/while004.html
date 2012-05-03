@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../../notes.css"/>
+
+  <title>Java: 'while' Statement</title>
+</head>
+<body><div id="content">
+
+<h1 class="title"><a href="../../index.html">Java Notes</a></h1><h1>'while' Statement</h1>
+
+
+
+<h2>Purpose - to repeat statements</h2>
+
+<p>The purpose of the <i><code>while</code></i> statement is to repeat 
+      a group of Java statements many times.  It's written just like
+      an <i><code>if</code></i> statement, except that it uses the 
+      <i><code>while</code></i> keyword.
+      </p>
+
+        
+<h2>General Form</h2>
+
+<p>The <code>while</code> statement has this form:</p>
+<pre>
+   <b>while</b> (<i>condition</i>) {
+      <i>statements to repeat while the condition is true</i>
+   }</pre>
+
+
+<h2>Condition is <code>true</code> or <code>false</code></h2>
+<p>The value of <i>condition</i> must be <code>true</code> or <code>false</code>
+   (ie, a <code>boolean</code> value).  It is often a comparison (see example below). 
+   </p>
+   
+
+<h2>Example: Loop continues while the condition is true</h2>
+
+<pre class="example">
+public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    int count = 0;
+    while (count &lt; 50) {
+       g.drawLine(20, count*5, 80, count*5);
+       count = count + 1;
+    }
+    g.drawString("Loop is finished.  count="+count, 10, 300);
+}</pre>
+   
+<p>This repeats the drawLine() call 50 times.  The first time
+      the while condition is tested, it is <code>true</code> because
+      the value of <code>count</code> is 0, which is less than 50.
+      After the statements in the body are done, the while loop comes
+      back to the top of the loop and makes the test again.
+      Each time the value of <code>count</code> is larger.  
+      Finally, <code>count</code>
+      is 50, and the value of the condition will be false.  
+      </p>
+      <p>
+      When the loop stops, the program continues with the statement after
+      the end of the loop (the drawLine() call).  This will display
+      the string "<code>Loop is finished.  count=50</code>".
+      </p>
+      
+
+<h2>Example with flowchart</h2>
+<p>The following shows some code and the equivalent flowchart.</p>
+<table>
+<tr valign="top"><td>
+<pre>
+   int n = 0;
+   int i = 1;
+   while (i &lt; 4) {
+      n++;
+      i++;
+   }
+   . . .</pre>
+   
+</td><td>
+<img alt="while flowchart" src="p1-while-flowchart.gif" />
+</td>
+</tr>
+</table>
+
+<h2>Here is another example of code and an equivalent flowchart</h2>
+<table>
+<tr valign="top"><td>
+<pre>
+   int n = 0;
+   int i = 1;
+   while (i &lt; 4) {
+      int j = 1;
+      while (j&lt;=i) {
+         n += 1;
+         j++;
+      }
+      i = i + 1;
+   }
+</pre>
+</td><td>
+
+<img alt="nested while flowchart" src="nested-while-flowchart.gif" />
+</td>
+</tr>
+</table>
+
+
+<div class="footer">
+Copyleft 2005 <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
+</div>
+</div></body>
+</html>
+

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../../notes.css"/>
+
+  <title>Java: 'if' Statement - if inside if</title>
+</head>
+<body><div id="content">
+
+<h1 class="title"><a href="../../index.html">Java Notes</a></h1><h1>'if' Statement - if inside if</h1>
+
+
+
+<h2>if inside if</h2>
+
+<p>You can put an <code>if</code> statement inside another <code>if</code>
+      statement.
+      </p>
+ 
+
+<h2>Nearest 'else'</h2>
+
+<p>If you use braces, there is no problem with deciding which 
+   <code>else</code> goes with which <code>if</code>
+   For example,
+   </p>
+<pre class="fragment">
+if (age &lt; 24) {
+    if (height &gt; 200) {
+        c = Color.RED;
+    }
+} else {
+    c = Color.BLUE;
+}</pre>
+   
+<p>Because the true and false parts are both single statements,
+   you might be tempted to omit braces and write:
+   </p>
+<pre class="fragment">
+if (age &lt; 24) 
+    if (height &gt; 200) 
+        c = Color.RED;
+else                // DANGER: which 'if' goes with this 'else'
+    c = Color.BLUE;</pre>
+      
+<p>But this is WRONG, because 'else' always goes with the nearest 'if' when
+   there are no braces.  This code is the same as:
+   </p>
+<pre class="fragment">
+if (age &lt; 24) {
+    if (height &gt; 200) 
+        c = Color.RED;
+    else
+        c = Color.BLUE;
+}</pre>
+   
+
+<h2>Advice: Always use braces on <code>if</code> statements</h2>
+<p>These kinds of errors are very hard to find.  This is another good reason
+   to <i>always use braces</i>.
+   </p>
+
+
+
+
+<h2>Watch out for semicolons on your if statements</h2>
+<p>Why does the following code always say it thinks the user is lying?</p>
+<pre class="fragment">
+String ageStr = JOptionPane.showInputDialog(null, "How old are you?");
+int age = Integer.parseInt(ageStr);
+if (age &gt; 120 || age &lt; 0);
+    System.out.println("I think you're lying about your age!");</pre>
+   
+<p>It's the semicolon!  if you put a semicolon directly after the condition
+in an <code>if</code> statement, Java thinks it's finished with the body 
+of the statement.  The indentation of the next line, which is so important
+to human readers, is ignored by Java.
+</p>
+
+<p>This is another error that's harder to make if you always follow the 
+condition by an opening brace.
+</p>
+
+<div class="footer">
+Copyleft 2006 <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
+</div>
+</div></body>
+</html>
+

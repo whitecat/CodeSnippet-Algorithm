@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="KEYWORDS" content="Java:Tutorials:Double Buffering" />
+<meta name="robots" content="index,follow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link title="Creative Commons" type="application/rdf+xml" href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=creativecommons" rel="meta" />
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html" />
+    <title>Java:Tutorials:Double Buffering - GPWiki</title>
+    <style type="text/css" media="screen,projection">/*<![CDATA[*/ @import "/skins/monobook/main.css"; /*]]>*/</style>
+    <link rel="stylesheet" type="text/css" media="print" href="/skins/common/commonPrint.css" />
+    <!--[if lt IE 5.5000]><style type="text/css">@import "/skins/monobook/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "/skins/monobook/IE55Fixes.css";</style><![endif]-->
+    <!--[if gte IE 6]><style type="text/css">@import "/skins/monobook/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="/skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+    <script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js"></script>    <script type="text/javascript" src="/skins/common/wikibits.js"></script>
+    <style type="text/css">/*<![CDATA[*/
+@import "/index.php?title=MediaWiki:Monobook.css&action=raw&ctype=text/css&smaxage=18000";
+@import "/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>              </head>
+  <body                 class="ns-0">
+    <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+	  	  <h1 class="firstHeading">Java:Tutorials:Double Buffering</h1>
+	  <div id="bodyContent">
+		<table width="100%" border="0" cellspacing="8" cellpadding="0" align="center" valign="top"><tr><td align="left" valign="top">
+		    <h3 id="siteSub">From GPWiki</h3>
+		    <div id="contentSub"></div>
+		    		    		    <!-- start content -->
+			<!--<div style="width: 90%; padding-top: 10px; padding-bottom:10px;">
+			<div style="border: 1px dashed #000000; width: 80%; padding: 10px; margin-left: 10%; text-align: center; vertical-align: top; background-color: lightyellow;">
+			<p><img src="/images/5/5e/GUITutorial_warn.gif" alt="Files:GUITutorial_warn.gif" width="16" height="16" longdesc="/index.php/Files:GUITutorial_warn.gif" /> <b>The Game Programming Wiki has moved!</b> <img src="/images/5/5e/GUITutorial_warn.gif" alt="Files:GUITutorial_warn.gif" width="16" height="16" longdesc="/index.php/Files:GUITutorial_warn.gif" />
+			</p><p><i>The wiki is now hosted by GameDev.NET at <a href="http://wiki.gamedev.net">wiki.gamedev.net</a>. All gpwiki.org content has been moved to the new server.</p><p>However, <a href="http://gpwiki.org/forums/">the GPWiki forums are still active</a>! Come say hello.</i>
+			</p>
+			</div>
+			</div>-->
+		    <table id='toc' class='toc'><tr><td><div id='toctitle'><h2>Contents</h2></div>
+<ul>
+<li class='toclevel-1'><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class='toclevel-1'><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a>
+<ul>
+<li class='toclevel-2'><a href="#Code_Example_1"><span class="tocnumber">2.1</span> <span class="toctext">Code Example 1</span></a></li>
+</ul>
+</li>
+<li class='toclevel-1'><a href="#Using_the_BufferStrategy"><span class="tocnumber">3</span> <span class="toctext">Using the BufferStrategy</span></a>
+<ul>
+<li class='toclevel-2'><a href="#Code_Example_2"><span class="tocnumber">3.1</span> <span class="toctext">Code Example 2</span></a></li>
+</ul>
+</li>
+<li class='toclevel-1'><a href="#More_Information"><span class="tocnumber">4</span> <span class="toctext">More Information</span></a></li>
+</ul>
+</td></tr></table>
+<p><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+</p>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=edit&amp;section=1" title="Java:Tutorials:Double Buffering">edit</a>]</div><a name="Introduction"></a><h1> Introduction </h1>
+<p>When drawing images that move or are animated, one will often encounter flickering. To remedy this, double buffering is necessary. Double buffering involves first drawing to an offscreen image, and then moving that image to the screen. This way, there is only one change to the screen at once, rather than several changes, one for each sprite. The best way to implement double buffering in Java is to use a <i>BufferStrategy</i>.(Make sure your vm is up to date, or you may encounter a problem.)
+</p>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=edit&amp;section=2" title="Java:Tutorials:Double Buffering">edit</a>]</div><a name="Setup"></a><h1> Setup </h1>
+<p>First, your application is going to need a visual output. In order to use the <i>BufferStrategy</i>, you need to extend <i>Window</i>, or something that extends Window. <i>JFrame</i> is a good choice for this. You will need to do a few things with the <i>JFrame</i> in order to make it usable for games:
+</p>
+<ul><li> Undecorate the <i>JFrame</i> to make it more suitable for games.
+</li><li> Set the size of your <i>JFrame</i> window.*
+</li><li> Make the <i>JFrame</i> visible.*
+</li><li> Create the <i>BufferStrategy</i>. You can have as many buffers as you like, but it's usually best to stick with 2.
+</li></ul>
+<p>(* These steps are not needed if you're going into fullscreen exclusive mode, which isn't covered here.)
+</p><p>Code Example 1 shows how to do this.
+</p>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=edit&amp;section=3" title="Java:Tutorials:Double Buffering">edit</a>]</div><a name="Code_Example_1"></a><h2> Code Example 1 </h2>
+<p><b>How to setup your <i>JFrame</i>.</b>
+</p>
+<pre class="java"><span style="color: #993333; font-weight: bold;">import java.awt.Graphics;</span>
+<span style="color: #993333; font-weight: bold;">import java.awt.image.BufferStrategy;</span>
+<span style="color: #993333; font-weight: bold;">import javax.swing.JFrame;</span>
+&nbsp;
+<span style="color: #993333; font-weight: bold;">public</span> <span style="color: #993333; font-weight: bold;">class</span> Game <span style="color: #993333; font-weight: bold;">extends</span> <a href="http://javadocs.org/JFrame"><span style="color: #000000; font-weight: bold;">JFrame</span></a> <span style="color: #000000;">&#123;</span>
+&nbsp;
+	<span style="color: #993333; font-weight: bold;">public</span> <span style="color: #993333; font-weight: bold;">static</span> <span style="color: #993333; font-weight: bold;">void</span> main<span style="color: #000000;">&#40;</span><a href="http://javadocs.org/String"><span style="color: #000000; font-weight: bold;">String</span></a><span style="color: #000000;">&#91;</span><span style="color: #000000;">&#93;</span> args<span style="color: #000000;">&#41;</span> <span style="color: #000000;">&#123;</span>
+		<span style="color: #993333; font-weight: bold;">new</span> Game<span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;
+	<span style="color: #000000;">&#125;</span>
+	
+	<span style="color: #993333; font-weight: bold;">public</span> Game<span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span> <span style="color: #000000;">&#123;</span>
+		<span style="color: #993333; font-weight: bold;">this</span>.<span style="color: #000000; font-weight: bold;">setDefaultCloseOperation</span><span style="color: #000000;">&#40;</span><a href="http://javadocs.org/JFrame"><span style="color: #000000; font-weight: bold;">JFrame</span></a>.<span style="color: #000000; font-weight: bold;">EXIT_ON_CLOSE</span><span style="color: #000000;">&#41;</span>;
+		<span style="color: #993333; font-weight: bold;">this</span>.<span style="color: #000000; font-weight: bold;">setUndecorated</span><span style="color: #000000;">&#40;</span><span style="color: #993333; font-weight: bold;">true</span><span style="color: #000000;">&#41;</span>;
+		<span style="color: #993333; font-weight: bold;">this</span>.<span style="color: #000000; font-weight: bold;">setSize</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">800</span>,<span style="color: #000000;">600</span><span style="color: #000000;">&#41;</span>;
+		<span style="color: #993333; font-weight: bold;">this</span>.<span style="color: #000000; font-weight: bold;">setVisible</span><span style="color: #000000;">&#40;</span><span style="color: #993333; font-weight: bold;">true</span><span style="color: #000000;">&#41;</span>;
+		
+		<span style="color: #993333; font-weight: bold;">this</span>.<span style="color: #000000; font-weight: bold;">createBufferStrategy</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">2</span><span style="color: #000000;">&#41;</span>;
+		
+		gameLoop<span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;
+	<span style="color: #000000;">&#125;</span>
+	
+	<span style="color: #993333; font-weight: bold;">private</span> <span style="color: #993333; font-weight: bold;">void</span> gameLoop<span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span> <span style="color: #000000;">&#123;</span>
+		<span style="color: #006600; font-style: italic;">// Your game logic goes here.</span>
+&nbsp;
+		drawStuff<span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;
+	<span style="color: #000000;">&#125;</span>
+	
+	<span style="color: #993333; font-weight: bold;">private</span> <span style="color: #993333; font-weight: bold;">void</span> drawStuff<span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span> <span style="color: #000000;">&#123;</span>
+		<span style="color: #006600; font-style: italic;">// Code for the drawing goes here.</span>
+	<span style="color: #000000;">&#125;</span>
+&nbsp;
+<span style="color: #000000;">&#125;</span></pre>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=edit&amp;section=4" title="Java:Tutorials:Double Buffering">edit</a>]</div><a name="Using_the_BufferStrategy"></a><h1> Using the <i>BufferStrategy</i> </h1>
+<p>I mentioned before that when using double buffering, you draw to an offscreen image. While the <i>BufferStrategy</i> isn't an <i>Image</i> itself, it does own one. Even better, it presents itself as if it were an <i>Image</i> to make things very simple. This means that like an <i>Image</i>, you can get a 'Graphics<i> object from the </i>BufferStrategy<i>. Once you have a </i>Graphics<i> object, all of the standard drawing methods are available to you. Often, it is easiest to pass the </i>Graphics<i> object off to your own objects for them to draw on.</i>
+</p><p>Once you have everything drawn to the offscreen image, it is then time to display it. There are two ways this can be done:
+</p>
+<ul><li> Draw from the offscreen image to the screen. (Called blitting.)
+</li><li> Tell the program to use the offscreen image as the image for the screen, and vice versa. (Called flipping.)
+</li></ul>
+<p>The second method, flipping, is much faster, as it involves changing a pointer rather than drawing the entire screen. Normally, Java will take care of this for you, but it is possible that flipping is unsupported on some hardware, so it useful to know.
+</p><p>To display your backbuffer, use the <i>BufferStrategy</i>.show() method. There are no parameters. Code Example 2 shows how to do all of this.
+</p>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=edit&amp;section=5" title="Java:Tutorials:Double Buffering">edit</a>]</div><a name="Code_Example_2"></a><h2> Code Example 2 </h2>
+<p><b>Drawing to the backbuffer, and then showing on the screen.</b>
+</p>
+<pre class="java"><span style="color: #993333; font-weight: bold;">private</span> <span style="color: #993333; font-weight: bold;">void</span> drawStuff<span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span> <span style="color: #000000;">&#123;</span>
+	BufferStrategy bf = <span style="color: #993333; font-weight: bold;">this</span>.<span style="color: #000000; font-weight: bold;">getBufferStrategy</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;
+	<a href="http://javadocs.org/Graphics"><span style="color: #000000; font-weight: bold;">Graphics</span></a> g = <span style="color: #993333; font-weight: bold;">null</span>;
+	
+	<span style="color: #993333; font-weight: bold;">try</span> <span style="color: #000000;">&#123;</span>
+		g = bf.<span style="color: #000000; font-weight: bold;">getDrawGraphics</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;
+		
+		<span style="color: #006600; font-style: italic;">// It is assumed that mySprite is created somewhere else.</span>
+		<span style="color: #006600; font-style: italic;">// This is just an example for passing off the Graphics object.</span>
+		mySprite.<span style="color: #000000; font-weight: bold;">draw</span><span style="color: #000000;">&#40;</span>g<span style="color: #000000;">&#41;</span>;
+		
+	<span style="color: #000000;">&#125;</span> <span style="color: #993333; font-weight: bold;">finally</span> <span style="color: #000000;">&#123;</span>
+		<span style="color: #006600; font-style: italic;">// It is best to dispose() a Graphics object when done with it.</span>
+		g.<span style="color: #000000; font-weight: bold;">dispose</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;
+	<span style="color: #000000;">&#125;</span>
+	
+	<span style="color: #006600; font-style: italic;">// Shows the contents of the backbuffer on the screen.</span>
+	bf.<span style="color: #000000; font-weight: bold;">show</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;
+&nbsp;
+        <span style="color: #006600; font-style: italic;">//Tell the System to do the Drawing now, otherwise it can take a few extra ms until </span>
+        <span style="color: #006600; font-style: italic;">//Drawing is done which looks very jerky</span>
+        <a href="http://javadocs.org/Toolkit"><span style="color: #000000; font-weight: bold;">Toolkit</span></a>.<span style="color: #000000; font-weight: bold;">getDefaultToolkit</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>.<span style="color: #000000; font-weight: bold;">sync</span><span style="color: #000000;">&#40;</span><span style="color: #000000;">&#41;</span>;	
+<span style="color: #000000;">&#125;</span></pre>
+<p>That's it! If you were originally using a <i>JFrame</i> for your window, and getting the <i>Graphics</i> object directly from the <i>JFrame</i>, this can easily be adapted to fit in. If not, it shouldn't be too hard to fit <i>BufferStrategy</i> into your existing code.
+</p>
+<div class="editsection" style="float:right;margin-left:5px;">[<a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=edit&amp;section=6" title="Java:Tutorials:Double Buffering">edit</a>]</div><a name="More_Information"></a><h1> More Information </h1>
+<ul><li> <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/awt/Graphics.html" class='external text' title="http://java.sun.com/j2se/1.5.0/docs/api/java/awt/Graphics.html" rel="nofollow">BufferStrategy API Specification</a>
+</li></ul>
+
+<!-- Saved in parser cache with key gpwiki:pcache:idhash:2203-0!1!0!0!!en!2 and timestamp 20100205030219 -->
+<div class="printfooter">
+Retrieved from "<a href="http://gpwiki.org/index.php/Java:Tutorials:Double_Buffering">http://gpwiki.org/index.php/Java:Tutorials:Double_Buffering</a>"</div>
+		    <div id="catlinks"><p class='catlinks'><a href="/index.php?title=Special:Categories&amp;article=Java%3ATutorials%3ADouble_Buffering" title="Special:Categories">Categories</a>: <a href="/index.php/Category:Java" title="Category:Java">Java</a> | <a href="/index.php/Category:Tutorial" title="Category:Tutorial">Tutorial</a></p></div>		    <!-- end content -->
+		    <div class="visualClear"></div></td>
+			<td align="right" valign="top">
+				<script type="text/javascript"><!--
+				google_ad_client = "pub-1728906505038372";
+				google_alternate_color = "FFFFFF";
+				google_ad_width = 120;
+				google_ad_height = 600;
+				google_ad_format = "120x600_as";
+				google_ad_type = "text_image";
+				//2007-07-30: GPWiki
+				google_ad_channel = "1632015984";
+				google_color_border = "FFFFFF";
+				google_color_bg = "FFFFFF";
+				google_color_link = "002BB8";
+				google_color_text = "000000";
+				google_color_url = "5A3696";
+				//-->
+				</script>
+				<script type="text/javascript"
+				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
+			</td></tr>
+		</table>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">
+	<div id="p-cactions" class="portlet">
+	  <h5>Views</h5>
+	  <ul>
+	    <li id="ca-nstab-main"
+	       class="selected"	       ><a href="/index.php/Java:Tutorials:Double_Buffering">Article</a></li><li id="ca-talk"
+	       class="new"	       ><a href="/index.php?title=Talk:Java:Tutorials:Double_Buffering&amp;action=edit">Discussion</a></li><li id="ca-edit"
+	       	       ><a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=edit">Edit</a></li><li id="ca-history"
+	       	       ><a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;action=history">History</a></li>	  </ul>
+	</div>
+	<div class="portlet" id="p-personal">
+	  <h5>Personal tools</h5>
+	  <div class="pBody">
+	    <ul>
+	    <li id="pt-login"><a href="/index.php?title=Special:Userlogin&amp;returnto=Java:Tutorials:Double_Buffering">Create an account or log in</a></li>	    </ul>
+	  </div>
+	</div>
+	<div class="portlet" id="p-logo">
+	  <a style="background-image: url(/stylesheets/images/wiki.png);"
+	    href="http://gpwiki.org"
+	    title="Game Programming Wiki"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+	  <h5>Navigation</h5>
+	  <div class='pBody'>
+	    <ul>
+	      <li><a href="http://gpwiki.org">Main Page</a></li>
+	      <li><a href="http://gpwiki.org/forums/">Message Board</a></li>
+	      <li><a href="http://gpwiki.org/index.php/Current_events">Current Events</a></li>
+	      <li><a href="http://gpwiki.org/index.php/Special:Recentchanges">Recent Changes</a></li>
+	      <li><a href="http://gpwiki.org/index.php/Special:Random">Random Page</a></li>
+	      <li><a href="http://gpwiki.org/index.php/Help:Contents">Help</a></li>
+	    </ul>
+	  </div>
+	</div>
+		<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">Search</label></h5>
+	  <div class="pBody">
+<!-- SiteSearch Google -->
+<FORM method="GET" action="http://www.google.com/search">
+<input type="hidden" name="ie" value="UTF-8" />
+<input type="hidden" name="oe" value="UTF-8" />
+<A HREF="http://www.google.com/"><IMG SRC="/images/google.gif" border="0" ALT="Google" /></A><br />
+<INPUT TYPE="text" name="q" size="16" maxlength="255" value="" />
+<input type="hidden" name="domains" value="http://gpwiki.org" /><br />
+<input type="radio" name="sitesearch" value=""></input> web 
+<input type="radio" name="sitesearch" value="http://gpwiki.org" checked="checked"></input> gpwiki <br />
+<INPUT type="submit" name="btnG" VALUE="search" />
+</FORM>
+<!-- SiteSearch Google -->
+	  </div>
+	</div>
+	<div class="portlet" id="p-tb">
+	  <h5>Toolbox</h5>
+	  <div class="pBody">
+	    <ul>
+		  		  <li id="t-whatlinkshere"><a href="/index.php/Special:Whatlinkshere/Java:Tutorials:Double_Buffering">What links here</a></li>
+		  		  <li id="t-recentchangeslinked"><a href="/index.php/Special:Recentchangeslinked/Java:Tutorials:Double_Buffering">Related changes</a></li>
+		                	      	      	      	      	      	      	      <li id="t-upload"><a href="/index.php/Special:Upload">Upload file</a></li>	      	      <li id="t-specialpages"><a href="/index.php/Special:Specialpages">Special pages</a></li>	      	      	      <li id="t-print"><a href="/index.php?title=Java:Tutorials:Double_Buffering&amp;printable=yes">Printable version</a></li>
+	      	    </ul>
+	  </div>
+	  <div align="center">
+	    <br /><a href="http://grubbygames.com?gad=CIuQ5qkBEgiQY0L_6DAecRjL547-AyDlmYYK"><img src="/images/grubbygames.gif" border="0" width="142" height="80" /></a><br />
+	    Hosting donated by <a href="http://grubbygames.com?gad=CIuQ5qkBEgiQY0L_6DAecRjL547-AyDlmYYK">Grubby Games</a>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div>
+      <div id="footer">
+		<script type="text/javascript"><!--
+		google_ad_client = "pub-1728906505038372";
+		google_ad_width = 728;
+		google_ad_height = 15;
+		google_ad_format = "728x15_0ads_al";
+		//2007-07-30: GPWiki
+		google_ad_channel = "1632015984";
+		google_color_border = "FFFFFF";
+		google_color_bg = "FFFFFF";
+		google_color_link = "002BB8";
+		google_color_text = "000000";
+		google_color_url = "5A3696";
+		//-->
+		</script>
+		<script type="text/javascript"
+		  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>
+    <div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="MediaWiki" /></a></div>	<div id="f-copyrightico"><a href="http://www.gnu.org/copyleft/fdl.html"><img src="/skins/common/images/gnu-fdl.png" alt='GNU Free Documentation License 1.2' /></a></div>	<ul id="f-list">
+	  	  	  	  <li id="f-copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" class='external ' title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>	  <li id="f-about"><a href="/index.php/GPWiki:About">About the Game 
+Programming Wiki</a></li>	  <li id="f-lastmod"><a href="/index.php/GPWiki_Link_Buttons">Link to Us!</a></li>	  <li id="f-disclaimer"><a href="/index.php/GPWiki:General_disclaimer" title="GPWiki:General disclaimer">Disclaimers</a></li>	  	</ul>
+      </div>
+    </div>
+    <!-- Served by server1.grubbygames.com in 0.15 secs. -->  </body>
+</html>

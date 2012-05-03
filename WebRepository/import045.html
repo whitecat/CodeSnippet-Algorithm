@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <!-- Skin = Monaco.php -->
+		<meta name="description" content="I like the build (make) process to be fast. Eclipse/Netbeans users are excited about &amp;quot;auto-import&amp;quot; features." />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.15.1" />
+		<meta name="keywords" content="Vim Tips Wiki,vim,Add Java import statements automatically,VimTip3,VimTip819,VimTip823,Category guidelines,Comment guidelines,Discussion guidelines,General guidelines,Merge guidelines" />
+		<link rel="canonical" href="/wiki/Add_Java_import_statements_automatically" />
+		<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=edit" />
+		<link rel="edit" title="Edit this page" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=edit" />
+		<link rel="apple-touch-icon" href="http://images.wikia.com/vim/images/b/bc/Wiki.png" />
+		<link rel="shortcut icon" href="http://images.wikia.com/vim/images/6/64/Favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Vim Tips Wiki (en)" />
+		<link rel="copyright" href="http://www.wikia.com/wiki/Wikia:Licensing" />
+		<link rel="alternate" type="application/rss+xml" title="Vim Tips Wiki RSS Feed" href="/index.php?title=Special:RecentChanges&amp;feed=rss" />
+		<link rel="alternate" type="application/atom+xml" title="Vim Tips Wiki Atom Feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+		<script type="text/javascript">/*<![CDATA[*/
+		var wgNow = new Date();
+		/*]]>*/</script>
+		<title>Add Java import statements automatically - Vim Tips Wiki</title>
+		<script type= "text/javascript">/*<![CDATA[*/
+		var skin = "monaco";
+		var stylepath = "http://images.wikia.com/common/releases_201002.1/skins";
+		var wgArticlePath = "/wiki/$1";
+		var wgScriptPath = "";
+		var wgScript = "/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://vim.wikia.com";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "Add_Java_import_statements_automatically";
+		var wgTitle = "Add Java import statements automatically";
+		var wgAction = "view";
+		var wgArticleId = "3214";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "en";
+		var wgContentLanguage = "en";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 21416;
+		var wgVersion = "1.15.1";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgEnableNewParser = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		var WikiaEnableNewCreatepage = false;
+		var ContentNamespacesText = [""];
+		var wgCatId = 12;
+		var wgParentCatId = 0;
+		var wgCurse = null;
+		var wgCityId = "2827";
+		var wgID = 2827;
+		var wgEnableAjaxLogin = true;
+		var wgReturnTo = "";
+		var wgDB = "vim";
+		var wgPrivateTracker = true;
+		var wgMainpage = "Vim Tips Wiki";
+		var wgIsMainpage = false;
+		var wgStyleVersion = "18021";
+		var themename = "smoke";
+		var wgExtensionsPath = "http://images.wikia.com/common/releases_201002.1/extensions";
+		var wgSitename = "Vim Tips Wiki";
+		var wgMenuMore = "more...";
+		var wgAfterContentAndJS = [];
+		var wgMWrevId = "";
+		var wgYUIPackageURL = "http://vim.wikia.com/extensions/wikia/StaticChute/?type=js\x26packages=yui\x26checksum=c2e946768b983c8d0c22396ef2b4c22e";
+		var wgRevisionId = 21416;
+		var ls_template_ns = "Template";
+		var ls_file_ns = "File";
+		var wgEnableMagCloudExt = true;
+		var wikistickies_msg_hide = "\x26lt;wikistickies-hide\x26gt;";
+		var wikistickies_msg_see_more = "\x26lt;wikistickies-more\x26gt;";
+		var wgComboAjaxLogin = true;
+		var prefs_help_birthmesg = "Why do I need to provide my birthday?";
+		var prefs_help_birthinfo = "Wikia requires all users to provide their real date of birth as both a safety precaution and as a means of preserving the integrity of the site while complying with federal regulations.";
+		var prefs_help_mailmesg = "E-mail";
+		var prefs_help_email = "We hate spam as much as you do. We will NOT sell your email address.";
+		var prefs_help_blurmesg = "Blurry word";
+		var prefs_help_blurinfo = "\x3cp\x3eWeb sites that accept postings from the public, like this wiki, are often abused by spammers who use automated tools to post their links to many sites. While these spam links can be removed, they are a significant nuisance.\n\x3c/p\x3e\x3cp\x3eSometimes, especially when adding new web links to a page, the wiki may show you an image of colored or distorted text and ask you to type the words shown. Since this is a task that\'s hard to automate, it will allow most real humans to make their posts while stopping most spammers and other robotic attackers.\n\x3c/p\x3e\x3cp\x3eUnfortunately this may inconvenience users with limited vision or using text-based or speech-based browsers. At the moment we do not have an audio alternative available. Please contact Wikia using the \x3ca href=\"/wiki/Special:Contact\" title=\"Special:Contact\"\x3econtact form\x3c/a\x3e if you need assistance.\n\x3c/p\x3e";
+		var wgIsLogin = false;
+		var pr_msg_exceeded = "The maximum number of characters in the Message field is 512. Please rewrite your message.";
+		var pr_msg_exchead = "Message is too long";
+		var csAddCategoryButtonText = "Add category";
+		var csInfoboxCaption = "Category options";
+		var csInfoboxCategoryText = "Provide the name of the category:";
+		var csInfoboxSortkeyText = "Alphabetize this article on the \"$1\" category page under the name:";
+		var csInfoboxSave = "Save";
+		var csEmptyName = "Provide category name (part before |)";
+		var csDefaultSort = "Add Java import statements automatically";
+		var csCategoryNamespaces = "Category|Category";
+		var csDefaultNamespace = "Category";
+		var csCodeView = "Code view";
+		var csVisualView = "Visual view";
+		var TOCimprovementsEnabled = "1";
+		/*]]>*/</script>
+
+		<link rel="stylesheet" type="text/css" href="http://vim.wikia.com/extensions/wikia/StaticChute/?type=css&amp;packages=monaco_css&amp;checksum=10cf54b53fad88e611a292ec163e21cc&amp;usetheme=smoke" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=86400&amp;action=raw&amp;maxage=86400" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=86400&amp;gen=css" type="text/css" />
+		<!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="http://images.wikia.com/common/releases_201002.1/skins/monaco/css/monaco_ltie7.css?18021" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" type="text/css" href="http://images.wikia.com/common/releases_201002.1/skins/monaco/css/monaco_ie7.css?18021" /><![endif]-->
+		<!--[if IE 8]><link rel="stylesheet" type="text/css" href="http://images.wikia.com/common/releases_201002.1/skins/monaco/css/monaco_ie8.css?18021" /><![endif]-->
+	</head>
+
+	<body class="mediawiki ltr ns-0 ns-subject page-Add_Java_import_statements_automatically TOCimprovements loggedout color2 wikiaSkinMonaco action_view" id="body">
+	<img src="http://www.google-analytics.com/__utm.gif?utmwv=1.3&amp;utmdtTest=test.wikia.com&amp;utmp=/tewst&amp;utmac=UA-288915-14" alt="" style="display: none" />
+		<form action="" method="post" name="userajaxloginform" id="userajaxloginform" style="display: none">
+			<input type="text" name="wpName" id="wpName1Ajax" tabindex="101" size="20" />
+			<input type="password" name="wpPassword" id="wpPassword1Ajax" tabindex="102" size="20" />
+			<input type="checkbox" name="wpRemember" id="wpRemember1Ajax" tabindex="104" value="1"  />
+		</form>
+	<!-- HEADER -->
+		<div id="wikia_header" class="reset color2">
+			<div class="monaco_shrinkwrap">
+			<div id="wikiaBranding">
+				<div id="wikia_logo"><a rel="nofollow" href="http://www.wikia.com/">Wikia</a></div>
+
+				<div style="position: absolute; left: 50%;">
+				<dl id="headerButtonHub" class="headerMenuButton">
+					<dt>Technology</dt><dd>&nbsp;</dd>
+				</dl>
+				</div>
+
+			</div>
+			<ul id="userData">
+				<li>
+					<a rel="nofollow" href="http://www.wikia.com/wiki/Special:CreateWiki" id="request_wiki">Create a new wiki</a>
+				</li>
+				<li id="userLogin">
+					<a rel="nofollow" class="wikia_button ajaxLogin" id="login" href="/index.php?title=Special:Signup&amp;returnto=Add_Java_import_statements_automatically"><span>Log in</span></a>
+				</li>
+				<li>
+					<a rel="nofollow" class="wikia_button" id="register" href="/index.php?title=Special:Signup&amp;returnto=Add_Java_import_statements_automatically"><span>Create an account</span></a>
+				</li>
+		</ul>
+		</div>
+	</div>
+
+	<div class="monaco_shrinkwrap"><div id="background_accent1"></div></div>
+	<div style="position: relative;"><div id="background_accent2"></div></div>
+
+		<div id="background_strip" class="reset">
+			<div class="monaco_shrinkwrap">
+
+			<div id="accent_graphic1"></div>
+			<div id="accent_graphic2"></div>
+			<div id="wiki_logo" style="background-image: url(http://images.wikia.com/vim/images/b/bc/Wiki.png);"><a href="/wiki/Vim_Tips_Wiki" accesskey="z">Vim Tips Wiki</a></div>
+			<!--[if lt IE 7]>
+			<style type="text/css">
+				#wiki_logo {
+					background-image: none !important;
+					filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://images.wikia.com/vim/images/b/bc/Wiki.png', sizingMethod='image');
+				}
+			</style>
+			<![endif]-->
+			</div>
+		</div>
+		<!-- /HEADER -->
+
+		<!-- PAGE -->
+
+	<div class="monaco_shrinkwrap" id="monaco_shrinkwrap_main">
+		<div id="wikia_page">
+					<div id="page_bar" class="reset color1 clearfix">
+				<ul id="page_controls">
+		  							  <li id="control_edit" class=""><div>&nbsp;</div><a rel="nofollow" id="ca-edit" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=edit"  title="You can edit this page. Please use the preview button before saving. [e]" accesskey="e">Edit this page</a></li>
+		  							  <li id="control_history" class=""><div>&nbsp;</div><a rel="nofollow" id="ca-history" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=history"  title="Past versions of this page [h]" accesskey="h">History</a></li>
+		  							  <li id="control_share_feature" class="disabled"><div>&nbsp;</div><a rel="nofollow" id="ca-share_feature" href="#" >Share this article</a></li>
+		  						  </ul>
+						  <ul id="page_tabs">
+		  							  <li class="selected"><a href="/wiki/Add_Java_import_statements_automatically" id="ca-nstab-main"  title="View the content page [c]" accesskey="c" class="selected">Article</a></li>
+		  							  <li class="new"><a href="/index.php?title=Talk:Add_Java_import_statements_automatically&amp;action=edit&amp;redlink=1" id="ca-talk"  title="Discussion about the content page [t]" accesskey="t" class="new">Discussion</a></li>
+		  				</ul>
+			</div>
+		        	<!-- #### BEGIN AdEngine::AdEngine::getSetupHtml ####-->
+<!-- #### END AdEngine::AdEngine::getSetupHtml ####-->
+					<!-- ARTICLE -->
+
+			<div id="article" >
+				<a name="top" id="top"></a>
+								<h1 class="firstHeading">Add Java import statements automatically<span class="editsection-upper"><a id="te-editanon" class="wikia_button" onclick="WET.byStr('articleAction/topedit')" href="/index.php?title=Add_Java_import_statements_automatically&action=edit"><span>edit</span></a></span></h1>				<div id="bodyContent">
+					<h3 id="siteSub">From Vim Tips Wiki</h3>
+					<div id="contentSub"></div>
+																				<!-- #### BEGIN AdEngine::AdEngine::getSetupHtml ####-->
+<!-- #### END AdEngine::AdEngine::getSetupHtml ####-->
+<div id="TOP_LEADERBOARD"><iframe width="728" height="90" id="TOP_LEADERBOARD_iframe" noresize="true" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" style="border:none" target="_blank"></iframe></div>					
+					<!-- start content -->
+					<div class="boilerplate metadata" id="delete" style="background-color: #fee; margin: 0 350px 0 1em; padding: 0 10px; border: 1px solid #aaa;">
+<p><b>Please review this tip:</b>
+</p>
+<ul><li>This tip was imported from vim.org and needs <a href="/wiki/Vim_Tips_Wiki:General_guidelines" title="Vim Tips Wiki:General guidelines">general review</a>.
+</li><li>You might <a href="/wiki/Vim_Tips_Wiki:Comment_guidelines" title="Vim Tips Wiki:Comment guidelines">clean up comments</a> or <a href="/wiki/Vim_Tips_Wiki:Merge_guidelines" title="Vim Tips Wiki:Merge guidelines">merge similar tips</a>.
+</li><li>Add suitable <a href="/wiki/Vim_Tips_Wiki:Category_guidelines" title="Vim Tips Wiki:Category guidelines">categories</a> so people can find the tip.
+</li><li>Please <a href="/wiki/Vim_Tips_Wiki:Discussion_guidelines" title="Vim Tips Wiki:Discussion guidelines">avoid the discussion page</a> (use the Comments section below for notes).
+</li><li>If the tip contains good advice for current Vim, remove the <tt>{{review}}</tt> line.
+</li></ul>
+</div>
+<div><b><a href="http://vim.wikia.com/wiki/Add_Java_import_statements_automatically" class="text" title="http://vim.wikia.com/wiki/Add_Java_import_statements_automatically" >Tip 822</a></b> <a href="/wiki/VimTip819" title="VimTip819" class="mw-redirect"><small>Previous</small></a> <a href="/wiki/VimTip823" title="VimTip823" class="mw-redirect"><small>Next</small></a>
+<p><b>created</b>&nbsp;2004&#32;&middot; <b>complexity</b>&nbsp;basic&#32;&middot; <b>author</b>&nbsp;Richard Faber&#32;&middot; <b>version</b>&nbsp;5.7
+</p>
+<hr />
+</div>
+<p>I like the build (make) process to be fast. Eclipse/Netbeans users are excited about "auto-import" features.
+</p><p>Vim can do it just fine. Well, I just got this working today, and it may need some tweaking.
+</p><p>If It doesn't work for you, take some java that compiles. Break one of the imports (assume you don't using foo.*; syntax much).
+</p><p>Then comment lines below starting from bottom up. Watch editing happen. Try to do edits slowly to reproduce what's here.
+</p><p>I generally hit F1 key to build with (jikes) (<a href="/wiki/VimTip3" title="VimTip3" class="mw-redirect">VimTip3</a>).
+</p><p>I hit F1 (:make), then hit F9 (add import for keyword found under cursor). Then F1 (make/build), and so on.
+</p><p>Add Import
+</p>
+<pre>
+:noremap &lt;F9&gt; &lt;Esc&gt;
+ \&lt;C-W&gt;}o//TEMP MARKER&lt;Esc&gt;
+ \&lt;C-W&gt;P1G/public class&lt;CR&gt;&lt;Esc&gt;yy&lt;C-W&gt;pG?import&lt;CR&gt;&lt;Esc&gt;p&lt;Esc&gt;
+ \&lt;C-W&gt;P1G/package&lt;CR&gt;&lt;Esc&gt;yy&lt;C-W&gt;pG?import&lt;CR&gt;&lt;Esc&gt;p&lt;Esc&gt;
+ \$xa.&lt;Esc&gt;0jwwi&lt;CR&gt;&lt;Esc&gt;kdd&lt;Esc&gt;
+ \wDx&lt;Esc&gt;kJxx&lt;Esc&gt;$a;&lt;Esc&gt;
+ \0cwimport&lt;Esc&gt;
+ \:update&lt;CR&gt;&lt;Esc&gt;
+ \/TEMP MARKER&lt;CR&gt;dd&lt;Esc&gt;
+</pre>
+<p>Make
+</p>
+<pre>
+:noremap &lt;F1&gt;&nbsp;:update&lt;CR&gt;:make&lt;CR&gt;&lt;C-W&gt;j&lt;Esc&gt;:cw 3&lt;CR&gt;&lt;C-W&gt;p
+</pre>
+<a rel="nofollow" name="Comments" id="Comments"></a><h2><span class="editsection">[<a href="/index.php?title=Add_Java_import_statements_automatically&amp;action=edit&amp;section=1" title="Edit section: Comments" rel="nofollow">edit</a>]</span> <span class="mw-headline">Comments</span></h2>
+<p>The <a class="external"  title="http://www.vim.org/scripts/script.php?script_id=325" href="http://vim.wikia.com/index.php?title=Special:Outbound&amp;f=Add_Java_import_statements_automatically&amp;u=http%3A%2F%2Fwww.vim.org%2Fscripts%2Fscript.php%3Fscript_id%3D325">JavaImp plugin</a> is also a very good solution to this problem.
+</p><p>It has some other nice goodies as well (i use a slightly modified version of it for auto import, smart import sorting, and tab completion of class names).
+</p>
+<hr />
+<p>This change handles Interfaces too. (Assumes public starts at col 0. Note: public final class not working)
+</p>
+<pre>\&lt;C-W&gt;P1G/^public &lt;CR&gt;&lt;Esc&gt;yy&lt;C-W&gt;pG?import&lt;CR&gt;&lt;Esc&gt;p&lt;Esc&gt;
+</pre>
+<hr />
+<p>A slightly more robust implementation, but essentially the same. I have a couple of small improvements. Do not add import statement if one already exists and update regexps to cope better with whitespaces. Doesn't clutter the buffer list and uses wincmd.
+</p>
+<pre>
+noremap &lt;F5&gt;&nbsp;:call JavaInsertImport()&lt;CR&gt;
+function! JavaInsertImport()
+  exe &quot;normal mz&quot;
+  let cur_class = expand(&quot;&lt;cword&gt;&quot;)
+  try
+    if search('^\s*import\s.*\.' . cur_class . '\s*;') &gt; 0
+      throw getline('.') . &quot;: import already exist!&quot;
+    endif
+    wincmd }
+    wincmd P
+    1
+    if search('^\s*public.*\s\%(class\|interface\)\s\+' . cur_class) &gt; 0
+      1
+      if search('^\s*package\s') &gt; 0
+        yank y
+      else
+        throw &quot;Package definition not found!&quot;
+      endif
+    else
+      throw cur_class . &quot;: class not found!&quot;
+    endif
+    wincmd p
+    normal! G
+    &quot; insert after last import or in first line
+    if search('^\s*import\s', 'b') &gt; 0
+      put y
+    else
+      1
+      put! y
+    endif
+    substitute/^\s*package/import/g
+    substitute/\s\+/ /g
+    exe &quot;normal! 2ER.&quot; . cur_class . &quot;;\&lt;Esc&gt;lD&quot;
+  catch /.*/
+    echoerr v:exception
+  finally
+    &quot; wipe preview window (from buffer list)
+    silent! wincmd P
+    if &amp;previewwindow
+      bwipeout
+    endif
+    exe &quot;normal! `z&quot;
+  endtry
+endfunction
+</pre>
+<hr />
+<!-- 
+NewPP limit report
+Preprocessor node count: 91/1000000
+Post-expand include size: 1683/2097152 bytes
+Template argument size: 151/2097152 bytes
+Expensive parser function count: 0/100
+--><!-- Saved in parser cache with key vim:pcache:idhash:3214-0!1!0!!en!2 and timestamp 20100127202422 --><div class="printfooter">
+Retrieved from "<a href="http://vim.wikia.com/wiki/Add_Java_import_statements_automatically">http://vim.wikia.com/wiki/Add_Java_import_statements_automatically</a>"</div>
+<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/wiki/Special:Categories" title="Special:Categories" rel="nofollow">Categories</a>:&#32;<span dir='ltr'><a href="/wiki/Category:Review" title="Category:Review">Review</a></span> | <span dir='ltr'><a href="/wiki/Category:VimTip" title="Category:VimTip">VimTip</a></span> | <span dir='ltr'><a href="/wiki/Category:Automated_Text_Insertion" title="Category:Automated Text Insertion">Automated Text Insertion</a></span> | <span dir='ltr'><a href="/wiki/Category:Java" title="Category:Java">Java</a></span></div> <div id="csAddCategorySwitch" class="noprint" style="position:relative;float:left;border: 1px solid #BBB;-moz-border-radius:3px;-webkit-border-radius:3px;padding:0 0 0 12px;background:#ddd url('http://images.wikia.com/common/skins/monaco/images/sprite.png?20100128') no-repeat -655px 1px;line-height: 16px;"><a href="#" onfocus="this.blur();" style="color:#000;font-size:0.85em;text-decoration:none;background:#ddd;display:block;padding:0 7px 0 3px" rel="nofollow">Add category</a></div></div>					<!-- end content -->
+										<div class="visualClear"></div>
+				</div>
+
+				<!--google_ad_section_end-->
+				<!--contextual_targeting_end-->
+
+			</div>
+			<!-- /ARTICLE -->
+			
+			<!-- ARTICLE FOOTER -->
+			<div id="articleFooter" class="reset">
+				<table cellspacing="0">
+					<tr>
+						<td class="col1">
+							<ul class="actions" id="articleFooterActions">
+								<li><a rel="nofollow" id="fe_edit_icon" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=edit"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_edit_img" class="sprite" alt="Edit this page" /></a> <div>Improve Vim Tips Wiki by <a id="fe_edit_link" rel="nofollow" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=edit">editing this page</a></div></li>
+								<li><a id="fe_user_icon" rel="nofollow" href="/wiki/User:JohnBot"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_user_img" class="sprite" alt="View user page" /></a> <div><a id="fe_user_link" rel="nofollow" href="/wiki/User:JohnBot">JohnBot</a> made an edit on December 2, 2008</div></li>
+							</ul>
+							<ul id="articleFooterActions3" class="actions clearfix">
+								<li id="fe_history"><a rel="nofollow" id="fe_history_icon" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=history"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_history_img" class="sprite" alt="History" /></a> <div><a id="fe_history_link" rel="nofollow" href="/index.php?title=Add_Java_import_statements_automatically&amp;action=history">History</a></div></li>
+								<li id="fe_recent"><a rel="nofollow" id="fe_recent_icon" href="/wiki/Special:RecentChangesLinked/Add_Java_import_statements_automatically"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_recent_img" class="sprite" alt="Related changes" /></a> <div><a id="fe_recent_link" rel="nofollow" href="/wiki/Special:RecentChangesLinked/Add_Java_import_statements_automatically">Related changes</a></div></li></ul><ul id="articleFooterActions4" class="actions clearfix">
+								<li id="fe_permalink"><a rel="nofollow" id="fe_permalink_icon" href="/index.php?title=Add_Java_import_statements_automatically&amp;oldid=21416"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_permalink_img" class="sprite" alt="Permanent link" /></a> <div><a id="fe_permalink_link" rel="nofollow" href="/index.php?title=Add_Java_import_statements_automatically&amp;oldid=21416">Permanent link</a></div></li>
+								<li id="fe_whatlinkshere"><a rel="nofollow" id="fe_whatlinkshere_icon" href="/wiki/Special:WhatLinksHere/Add_Java_import_statements_automatically"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_whatlinkshere_img" class="sprite" alt="What links here" /></a> <div><a id="fe_whatlinkshere_link" rel="nofollow" href="/wiki/Special:WhatLinksHere/Add_Java_import_statements_automatically">What links here</a></div></li></ul>						</td>
+						<td class="col2">
+							<ul class="actions" id="articleFooterActions2">
+								<li><a rel="nofollow" id="fe_random_icon" href="/wiki/Special:Random"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_random_img" class="sprite" alt="Random page" /></a> <div><a rel="nofollow" id="fe_random_link" href="/wiki/Special:Random">View random page</a></div></li>
+								<li><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_report_img" class="sprite" alt="Report a problem with this page" /> <div><a style="cursor:pointer" id="fe_report_link">Report a problem with this page</a></div></li>
+
+								<li><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="fe_sharefeature_img" class="sprite" alt="Share this article" /> <div><a style="cursor:pointer" id="fe_sharefeature_link">Share this article</a></div></li>
+							</ul>
+							<div class="clearfix" id="star-rating-row">
+								<strong>Rate this article:</strong>
+								<div id="star-rating-wrapper">
+									<ul id="star-rating" class="star-rating">
+										<li style="width: 0px;" id="current-rating" class="current-rating"><span>0/5</span></li>
+										<li><a rel="nofollow" class="one-star" id="star1" title="1/5"><span>1</span></a></li>
+										<li><a rel="nofollow" class="two-stars" id="star2" title="2/5"><span>2</span></a></li>
+										<li><a rel="nofollow" class="three-stars" id="star3" title="3/5"><span>3</span></a></li>
+										<li><a rel="nofollow" class="four-stars" id="star4" title="4/5"><span>4</span></a></li>
+										<li><a rel="nofollow" class="five-stars" id="star5" title="5/5"><span>5</span></a></li>
+									</ul>
+									<span style="display: none;" id="unrateLink"><a rel="nofollow" id="unrate" href="#">Unrate it</a></span>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- /ARTICLE FOOTER -->
+
+		</div>
+		<!-- /PAGE -->
+<!-- Begin Analytics -->
+<!-- Start for GA_Urchin, page_view -->
+<script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
+<script type="text/javascript">_uff=0;_uacct="UA-288915-1";urchinTracker();</script>
+<!-- Start for GA_Urchin, hub -->
+<script type="text/javascript">_uff=0;_uacct="UA-288915-2";urchinTracker("/Technology");</script>
+<!-- Start for GA_Urchin, onewiki -->
+<!-- No tracking for this wiki -->
+<!-- Start for GA_Urchin, pagetime -->
+<script type="text/javascript">
+			if (typeof window.wgNow == "object"){
+				var now = new Date();
+				var ms = (now.getTime() - window.wgNow.getTime()) / 1000;
+     			        var pageTime = Math.floor(ms * 10) / 10; // Round to 1 decimal
+				var slashtime = "/lean_monaco/" + pageTime.toString().replace(/\./, "/");	
+				_uff=0;
+				_uacct="UA-288915-42";	
+				urchinTracker(slashtime);
+			}
+			</script>
+<!-- End Analytics -->
+
+
+		<noscript><link rel="stylesheet" type="text/css" href="http://images.wikia.com/common/releases_201002.1/skins/monaco/css/noscript.css?18021" /></noscript>
+
+		<script type="text/javascript" src="http://vim.wikia.com/extensions/wikia/StaticChute/?type=js&amp;packages=monaco_anon_article_js&amp;checksum=a346b60550923222ed85a4d936ca1ab1"></script>
+<script type="text/javascript">/*<![CDATA[*/
+/* CategorySelect */
+wgAfterContentAndJS.push(function() {
+	$(".catlinks-allhidden").css("display", "block");
+	$('#csAddCategorySwitch').children('a').click(function() {
+		WET.byStr('articleAction/addCategory');
+
+		$.getScript(wgServer + wgScriptPath + '?action=ajax&rs=CategorySelectGetCategories');
+
+		$.loadYUI( function() {
+			$.getScript(wgExtensionsPath+ '/wikia/CategorySelect/CategorySelect.js?' + wgStyleVersion, function(){showCSpanel();});
+		});
+
+		$('#catlinks').addClass('csLoading');
+		return false;
+	});
+});
+/*]]>*/</script><script type="text/javascript">/*<![CDATA[*/for(var i=0;i<wgAfterContentAndJS.length;i++){wgAfterContentAndJS[i]();}/*]]>*/</script>
+		<div id="monaco_footer" class="reset">
+
+
+		<div id="spotlight_footer">
+		<table>
+		<tr>
+			<td>
+				<!-- ## BEGIN AdProviderGAM::AdProviderGAM::getSetupHtml ## -->
+<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+<script type="text/javascript">
+			wgAdBlockEnabled=false;
+			GS_googleAddAdSenseService("ca-pub-4086838842346968");
+			GS_googleEnableAllServices();
+</script><script type="text/javascript">GA_googleUseIframeRendering();</script><!-- ## END AdProviderGAM::AdProviderGAM::getSetupHtml ## -->
+<!-- ## BEGIN AdProviderGAM::AdProviderGAM::getBatchCallHtml ## -->
+<script type="text/javascript">
+GA_googleAddAttr("hub","tech");
+GA_googleAddAttr("skin_name","monaco");
+GA_googleAddAttr("cont_lang", wgContentLanguage);
+GA_googleAddAttr("user_lang", wgUserLanguage);
+GA_googleAddAttr("dbname", wgDB);
+GA_googleAddAdSensePageAttr("google_color_border", AdEngine.getAdColor("text"));
+GA_googleAddAdSensePageAttr("google_color_bg", AdEngine.getAdColor("bg"));
+GA_googleAddAdSensePageAttr("google_color_link", AdEngine.getAdColor("link"));
+GA_googleAddAdSensePageAttr("google_color_text", AdEngine.getAdColor("text"));
+GA_googleAddAdSensePageAttr("google_color_url", AdEngine.getAdColor("url"));
+GA_googleAddAdSensePageAttr("google_ad_channel", "7297263620");
+GA_googleAddAdSensePageAttr("google_page_url", "http://vim.wikia.com/wiki/Add_Java_import_statements_automatically");
+GA_googleAddAdSensePageAttr("google_language", wgContentLanguage);
+
+</script>
+<!-- ## END AdProviderGAM::AdProviderGAM::getBatchCallHtml ## -->
+<script type="text/javascript">GA_googleFillSlotWithSize("ca-pub-4086838842346968","FOOTER_SPOTLIGHT_LEFT","200","75");</script>			</td>
+			<td>
+				<script type="text/javascript">GA_googleFillSlotWithSize("ca-pub-4086838842346968","FOOTER_SPOTLIGHT_MIDDLE","200","75");</script>			</td>
+			<td>
+				<script type="text/javascript">GA_googleFillSlotWithSize("ca-pub-4086838842346968","FOOTER_SPOTLIGHT_RIGHT","200","75");</script>			</td>
+		</tr>
+		</table>
+		</div>
+				  <table id="wikia_footer">
+	  			<tr>
+				<td colspan="2" id="wikia_corporate_footer">
+	  <a rel="nofollow" href="http://www.wikia.com/wiki/About_Us">About Wikia</a> | <a rel="nofollow" href="http://www.wikia.com/wiki/Hiring">Wikia is Hiring</a> | <a rel="nofollow" href="/wiki/Special:Contact">Contact Wikia</a> | <a rel="nofollow" href="http://www.wikia.com/wiki/Terms_of_Use">Terms of Use</a> | <a rel="nofollow" href="http://www.wikia.com/wiki/Privacy_Policy">Privacy Policy</a> | <a href="http://www.wikia.com/wiki/Wikia:Licensing" title="w:Wikia:Licensing">CC-BY-SA</a> | <a rel="nofollow" href="http://www.wikia.com/wiki/Advertising">Advertise on Wikia</a>				</td>
+			</tr>
+	  	  </table>
+			<script type="text/javascript">/*<![CDATA[*/
+if (skin == "monaco") {
+	$("h2 span.editsection").each(function(i) {
+		//remove nodes in the editsection that are not anchors
+		$(this).contents().not("a").remove();
+		//add elements and styling
+		$(this).find("a").click(function(){WET.byStr('articleAction/editSection')}).addClass("wikia_button").contents().wrap("<span></span>").end().parent().css("position", "relative").css("top", "-3px").css("margin-bottom", "-2px");
+	});
+}
+/*]]>*/</script>		</div>
+		<!-- WIDGETS -->
+		<div id="widget_sidebar" class="reset widget_sidebar">
+
+			<!-- SEARCH/NAVIGATION -->
+			<div class="widget" id="navigation_widget">
+				<div id="search_box" class="color1">
+					<form action="/wiki/Special:Search" id="searchform">
+						<input id="search_field" name="search" type="text" value="Search Vim Tips Wiki" maxlength="200" onfocus="sf_focus(event);" alt="Search Vim Tips Wiki" autocomplete="off" title="Search Vim Tips Wiki [f]" accesskey="f" />
+						<input type="hidden" name="go" value="1" />
+						<input type="submit" id="search_button" value="" title="Search" />
+					</form>
+				</div>
+<div id="navigation"><div id="menu-item_1" class="menu-item"><a id="a-menu-item_1" href="/wiki/Vim_Tips_Wiki" rel="nofollow">Home</a></div><div id="menu-item_2" class="menu-item"><a id="a-menu-item_2" href="/wiki/Vim_Tips_Wiki:Community_Portal" rel="nofollow">Community portal</a></div><div id="menu-item_3" class="menu-item"><a id="a-menu-item_3" href="/wiki/Vim_Tips_Wiki:Todo" rel="nofollow">To do</a></div><div id="menu-item_4" class="menu-item"><a id="a-menu-item_4" href="/wiki/Vim_Tips_Wiki" rel="nofollow">Top content<em>&rsaquo;</em></a></div><div id="menu-item_9" class="menu-item"><a id="a-menu-item_9" href="/wiki/Category:Folding" rel="nofollow">Folding category<em>&rsaquo;</em></a></div><div id="menu-item_10" class="menu-item"><a id="a-menu-item_10" href="/wiki/Category:Searching" rel="nofollow">Searching category<em>&rsaquo;</em></a></div></div><script type="text/javascript" src="/index.php?action=ajax&amp;v=0.04&amp;rs=getMenu&amp;id=8d5bcb236edfecd68bc243012511a759"></script><table cellspacing="0" id="link_box_table">		<tbody id="link_box_dynamic">
+			<tr>
+				<td colspan="2">
+					<ul>
+<li id="dynamic-links-write-article-row" class="link_box_dynamic_item"><a rel="nofollow" id="dynamic-links-write-article-icon" href="/wiki/Special:CreatePage" onclick="WET.byStr('toolbox/dynamic/CreatePage')"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="dynamic-links-write-article-img" class="sprite" alt="Create a new article" /></a> <a id="dynamic-links-write-article-link" rel="nofollow" href="/wiki/Special:CreatePage" onclick="WET.byStr('toolbox/dynamic/CreatePage')">Create a new article</a></li><li id="dynamic-links-add-image-row" class="link_box_dynamic_item"><a rel="nofollow" id="dynamic-links-add-image-icon" href="/index.php?title=Special:Signup&amp;returnto=Special:Upload" onclick="WET.byStr('toolbox/dynamic/Upload')"><img src="http://images.wikia.com/common/releases_201002.1/skins/monobook/blank.gif" id="dynamic-links-add-image-img" class="sprite" alt="Upload a new image" /></a> <a id="dynamic-links-add-image-link" rel="nofollow" href="/index.php?title=Special:Signup&amp;returnto=Special:Upload" onclick="WET.byStr('toolbox/dynamic/Upload')">Upload a new image</a></li>					</ul>
+				</td>
+			</tr>
+		</tbody>
+		<tbody id="link_box" class="color2 linkbox_static">
+			<tr>
+				<td>
+					<ul>
+						<li><a rel="nofollow" href="/wiki/Special:RecentChanges" onclick="WET.byStr('toolbox/recentchanges')">Recent changes</a></li>
+						<li><a rel="nofollow" href="/wiki/Help:Contents" onclick="WET.byStr('toolbox/helppage')">Help</a></li>
+					</ul>
+				</td>
+				<td>
+					<ul>
+						<li><a rel="nofollow" href="/wiki/Special:Random" onclick="WET.byStr('toolbox/randompage')">Random page</a></li>
+						<li><a rel="nofollow" href="/wiki/Special:SpecialPages" onclick="WET.byStr('toolbox/specialpages')">Special pages</a></li>
+						<li style="font-size: 1px; position: absolute; top: -10000px"><a href="/wiki/Special:Recentchanges" accesskey="r" rel="nofollow">Recent changes</a><a href="/wiki/Special:Random" accesskey="x" rel="nofollow">Random page</a></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+			</div>
+			<!-- /SEARCH/NAVIGATION -->
+
+			<!-- Null Ad. Reason: Slot is disabled, slotname=LEFT_NAVBOX_1 -->
+
+			<div id="sidebar_1" class="sidebar">
+			<dl class="widget WidgetCommunity" id="widget_101"><dt class="color1 widget_title" id="widget_101_header"><span class="widgetToolbox"></span>Latest activity</dt><dd class="shadow widget_contents" id="widget_101_content"><div class="community_header accent">
+	<span class="article_count dark_text_1">1,598</span> articles on this wiki<br /></div>
+<div class="community_body">
+		<ul class="activityfeed widgetfeed" id="widget_101-recently-edited">		<li class="activity-type-edit activity-ns-0">			<div class="SpriteWrapper"><img class="edit sprite" src="http://images.wikia.com/common/releases_201001.4/skins/monobook/blank.gif"  alt="edit" title="edit" width="16" height="16" /></div>			<strong><a href="/wiki/Working_with_Unicode">Working with Unicode</a></strong>			<cite><span class="timeago" title="2010-02-03T01:59:16Z">2 seconds ago</span> by <a href="/wiki/Special:Contributions/93.197.185.233" rel="nofollow">Unregistered contributor</a></cite>		</li>		<li class="activity-type-edit activity-ns-0">			<div class="SpriteWrapper"><img class="edit sprite" src="http://images.wikia.com/common/releases_201001.4/skins/monobook/blank.gif"  alt="edit" title="edit" width="16" height="16" /></div>			<strong><a href="/wiki/Insert_current_date_or_time">Insert current date or time</a></strong>			<cite><span class="timeago" title="2010-02-02T14:02:30Z">11 hours ago</span> by <a href="/wiki/Special:Contributions/201.7.114.238" rel="nofollow">Unregistered contributor</a></cite>		</li>		<li class="activity-type-edit activity-ns-0">			<div class="SpriteWrapper"><img class="edit sprite" src="http://images.wikia.com/common/releases_201001.4/skins/monobook/blank.gif"  alt="edit" title="edit" width="16" height="16" /></div>			<strong><a href="/wiki/Execute_external_programs_asynchronously_under_Windows">Execute external programs asynchronously under Windows</a></strong>			<cite><span class="timeago" title="2010-01-31T15:57:08Z">2 days ago</span> by <a href="/wiki/User:Fritzophrenic" rel="nofollow">Fritzophrenic</a></cite>		</li>		<li class="activity-type-edit activity-ns-0">			<div class="SpriteWrapper"><img class="edit sprite" src="http://images.wikia.com/common/releases_201001.4/skins/monobook/blank.gif"  alt="edit" title="edit" width="16" height="16" /></div>			<strong><a href="/wiki/Mouse_wheel_for_scroll_only_-_disable_middle_button_paste">Mouse wheel for scroll only - disable middle button paste</a></strong>			<cite><span class="timeago" title="2010-01-30T15:45:11Z">3 days ago</span> by <a href="/wiki/Special:Contributions/218.186.10.250" rel="nofollow">Unregistered contributor</a></cite>		</li>		<li class="activity-type-edit activity-ns-0">			<div class="SpriteWrapper"><img class="edit sprite" src="http://images.wikia.com/common/releases_201001.4/skins/monobook/blank.gif"  alt="edit" title="edit" width="16" height="16" /></div>			<strong><a href="/wiki/Convert_between_hex_and_decimal">Convert between hex and decimal</a></strong>			<cite><span class="timeago" title="2010-01-30T10:34:50Z">3 days ago</span> by <a href="/wiki/Special:Contributions/79.94.12.57" rel="nofollow">Unregistered contributor</a></cite>		</li>	</ul></div>
+<div class="toolbar neutral">
+	<a id="community-widget-action-button" href="/index.php?title=Special:Signup&amp;returnto=Add_Java_import_statements_automatically" class="wikia_button" rel="nofollow"><span>Create an account</span></a>
+</div>
+<script type="text/javascript">
+var timestamp_widget_101 = '20100203234258';
+</script>
+</dd></dl><dl class="widget WidgetMagCloud" id="widget_143"><dt class="color1 widget_title" id="widget_143_header"><span class="widgetToolbox"></span>Magazine Creator</dt><dd class="shadow widget_contents" id="widget_143_content">	<div class="WidgetMagCloudSample WidgetMagCloudClickable">&nbsp;</div>
+	<p><a href="#" class="WidgetMagCloudClickable">Create a magazine from articles on Vim Tips Wiki!</a></p>
+	<div class="WidgetMagCloudPoweredBy">Powered by</div></dd></dl><div style='margin-bottom: 10px'><script type="text/javascript">GA_googleFillSlotWithSize("ca-pub-4086838842346968","LEFT_NAV_205x400","205","400");</script></div><dl class="widget WidgetAnswers" id="widget_142"><dt class="color1 widget_title" id="widget_142_header"><span class="widgetToolbox"></span>Answers</dt><dd class="shadow widget_contents" id="widget_142_content"><form method="get" action="" onsubmit="return false" name="ask_form" class="ask_form">
+	<input type="text" value="Ask a Vim question" class="answers_ask_field"/>
+</form><div style="padding: 7px;"><b>Recently Asked Questions</b></div><script type="text/javascript">/*<![CDATA[*/
+var ask_a_question_msg = "Ask a Vim question";
+if(typeof WidgetAnswers_html == 'undefined') var WidgetAnswers_html = '';
+var WidgetAnswers_domain = 'answers.wikia.com';
+var WidgetAnswers_category = 'Vim';
+var WidgetAnswers_url = 'http://answers.wikia.com/api.php?smaxage=300&maxage=300&callback=WidgetAnswers_load2&format=json&action=query&list=categorymembers&cmtitle=Category%3AVim&cmlimit=5&cmnamespace=0&cmprop=title%7Ctimestamp&cmsort=timestamp&cmdir=desc';
+var node = jQuery('#widget_142_content').children('div:last');
+if(WidgetAnswers_html == '') {
+	jQuery.getScript(WidgetAnswers_url, function() {
+		if(WidgetAnswers_html != '') node.append('<ul>' + WidgetAnswers_html + '</ul>');
+		else node.html('Help us create the best answer to any <a href="http://answers.wikia.com/wiki/Category:Un-answered_questions" target="_blank">question</a> at <b><a href="http://answers.wikia.com/wiki/Wikianswers" target="_blank">Wikianswers</a>.</b><br><br><a href="http://answers.wikia.com/wiki/Special:Search" target="_blank">Find</a> and answer <a href="http://answers.wikia.com/wiki/Category:Un-answered_questions" target="_blank">un-answered questions</a>.<br><br>Get started by asking a question about "Add Java import statements automatically"');
+	});
+} else node.append('<ul>' + WidgetAnswers_html + '</ul>');
+/*]]>*/</script><div class="widget_answers_note">Check out the <a href="http://answers.wikia.com/wiki/Category:Vim" target="_blank">Vim category</a> on Wikianswers!</div></dd></dl>
+			<!-- Null Ad. Reason: Slot is disabled, slotname=LEFT_SLIMBOX_1 --><!-- Null Ad. Reason: Slot is disabled, slotname=LEFT_NAVBOX_2 -->
+			</div>
+		</div>
+		<!-- /WIDGETS -->
+	<!--/div-->
+
+<script type="text/javascript" src="/__varnish_athena/athena/Athena.js?1"></script>
+<script type="text/javascript">
+Athena.setPageVar("wgDBname", "vim");
+Athena.setPageVar("hostname", "vim.wikia.com");
+Athena.setPageVar("request", "/wiki/Add_Java_import_statements_automatically");
+Athena.setPageVar("article_id", "3214");
+Athena.setPageVar("isMainPage", "");
+Athena.setPageVar("hub", "Technology");
+Athena.setPageVar("skin", "monaco");
+Athena.setPageVar("user_lang", "en");
+Athena.setPageVar("cont_lang", "en");
+Athena.setPageVar( "browser", Athena.getBrowser() );
+Athena.pullConfig();</script><script type="text/javascript">Athena.callAd("INVISIBLE_1");</script>
+<!-- #### BEGIN AdEngine::AdEngine::getDelayedIframeLoadingCode ####-->
+<script type="text/javascript">
+ProviderValues = {};
+ProviderValues.list = [];
+ProviderValues.string = "";
+</script><script type="text/javascript">Athena.callIframeAdDirect("TOP_LEADERBOARD");</script>
+<!-- #### END AdEngine::AdEngine::getDelayedIframeLoadingCode ####-->
+<script type="text/javascript">Athena.callAd("INVISIBLE_2");</script>
+</div><!-- Start for QuantServe, page_view -->
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<script type="text/javascript">/*<![CDATA[*/
+			try {
+				_qoptions = { qacct: 'p-8bG6eLqkH6Avk' };
+				// Hard code some hosts per Gil
+				if ((Athena.getPageVar('hostname') == 'answers.wikia.com') ||
+					 (Athena.getPageVar('hub')      == 'Lifestyle') ||
+					 (Athena.getPageVar('hub')      == 'Education')){ 
+					_qoptions.labels = 'mom';
+				} else {
+					_qoptions.labels = Athena.getPageVar('hub');
+					for (var i = 0; i < ProviderValues.list.length; i++){
+						_qoptions.labels += ',' + Athena.getPageVar('hub') + '.' + ProviderValues.list[i].value;
+					}
+				}
+			} catch (e){
+				// Fall back to old way.
+				_qacct="p-8bG6eLqkH6Avk";
+			}
+			/*]]>*/</script><script type="text/javascript">quantserve();</script>
+
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">/*<![CDATA[*/document.write("<img src=\"http://wikia-ads.wikia.com/onedot.php?c=2827&amp;x=vim&amp;y=&amp;u=0&amp;a=3214&amp;n=0"+((typeof document.referrer != "undefined") ? "&amp;r="+escape(document.referrer) : "")+"&amp;cb="+(new Date).valueOf()+"\" width=\"1\" height=\"1\" border=\"0\" alt=\"\" />");/*]]>*/</script><noscript><img src="http://wikia-ads.wikia.com/onedot.php?c=2827&amp;x=vim&amp;y=&amp;u=0&amp;a=3214&amp;n=0" width="1" height="1" border="0" alt="" /></noscript>
+<!-- Served by ap5 in 0.393 secs. cpu: 0.082 -->		<div id="positioned_elements" class="reset"></div>
+
+		<link rel="stylesheet" type="text/css" href="http://vim.wikia.com/extensions/wikia/StaticChute/?type=css&amp;packages=monaco_css_print&amp;checksum=d2889344fe82a9a7b737665a93285015&amp;usetheme=smoke" media="print" />
+
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=86400&amp;action=raw&amp;maxage=86400" type="text/css" media="print" />
+	</body>
+</html>

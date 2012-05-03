@@ -1,0 +1,1272 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    
+    <title>Does using final for variables in Java improve garbage collection? - Stack Overflow</title>
+    <link rel="stylesheet" href="http://sstatic.net/so/all.css?v=6230">
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico">
+    <link rel="apple-touch-icon" href="http://sstatic.net/so/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://sstatic.net/so/opensearch.xml">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="http://sstatic.net/so/js/master.js?v=6180"></script>
+    <script type="text/javascript">var imagePath = 'http://sstatic.net/so/img/';</script>
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Does using final for variables in Java improve garbage collection?'" href="/feeds/question/306862">
+    <script src="http://sstatic.net/so/js/question.js?v=6219" type="text/javascript"></script>
+    
+
+
+    <script type="text/javascript">
+        var fkey = "ecabba79f909212c8d5871153f24e8cd";
+    
+        
+        
+        $(function() {
+            
+            vote.init(306862);
+            comments.init();
+            styleCode();
+        
+        });
+    </script>
+
+
+</head>
+<body>
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container">
+    </div>
+
+
+    <script type="text/javascript">
+        $(function() { notify.showFirstTime(); });
+    </script>
+
+
+    <div class="container">
+        <div id="header">
+            <div id="topbar">
+                <div id="hlinks">
+                    
+                    
+                    <a href="/users/login?returnurl=%2fquestions%2f306862%2fdoes-using-final-for-variables-in-java-improve-garbage-collection">login</a>
+<span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+<span class="lsep">|</span>
+
+                    <a href="/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="/search" method="get">
+                    <div>
+                        <input name="q" class="textbox" tabindex="1" onfocus="if (this.value=='search') this.value = ''" type="text" maxlength="80" size="28" value="search">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/"><img src="http://sstatic.net/so/img/logo.png" width="250" height="61" alt="Stack Overflow"></a>
+            </div>
+            <div id="hmenus">
+                <div class="nav">
+                    <ul>
+                        <li class="youarehere"><a href="/questions">Questions</a></li>
+                        <li><a href="/tags">Tags</a></li>
+                        <li><a href="/users">Users</a></li>
+                        <li><a href="/badges">Badges</a></li>
+                        <li><a href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav" style="float:right">
+                    <ul>
+                        <li style="margin-right:0px" >
+                            <a href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+        <div id="content">
+            
+
+<div id="question-header">
+    <h2><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection" class="question-hyperlink">Does using final for variables in Java improve garbage collection?</a></h2>
+</div>
+
+<div id="mainbar">
+<div id="question" class="">
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,garbage-collection,final">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=3&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <table>
+    <tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input type="hidden" value="306862">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This question is useful and clear (click again to undo)">
+    <span class="vote-count-post">
+        9
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This question is unclear or not useful (click again to undo)">
+
+    <img class="vote-favorite" 
+        src="http://sstatic.net/so/img/vote-favorite-off.png"
+        width="32" height="31"
+        alt="star" title="This is a favorite question (click again to undo)">
+    <div class="favoritecount"><b>3</b></div>    
+
+</div>
+
+    </td>
+    <td>
+        <div>          
+            <div class="post-text">
+                <p>Today my colleagues and me have a discussion about the usage of the <code>final</code> keyword in Java to improve the garbage collection.</p>
+
+<p>For example, if you write a method like:</p>
+
+<pre><code>public Double doCalc(final Double value)
+{
+   final Double maxWeight = 1000.0;
+   final Double totalWeight = maxWeight * value;
+   return totalWeight;  
+}
+</code></pre>
+
+<p>Declaring the variables in the method <code>final</code> would help the garbage collection to clean up the memory from the unused variables in the method after the method exits.</p>
+
+<p>Is this true? </p>
+
+            </div>            
+            <div class="post-taglist">
+                <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/garbage-collection" class="post-tag" title="show questions tagged 'garbage-collection'" rel="tag">garbage-collection</a> <a href="/questions/tagged/final" class="post-tag" title="show questions tagged 'final'" rel="tag">final</a> 
+            </div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a id="flag-post-306862" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+        
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/306862/revisions" title="show all edits to this post"><span title="2008-11-21 09:05:38Z" class="relativetime">Nov 21 '08 at 9:05</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            
+            </td>
+            
+            <td class="post-signature owner">
+            <div class="user-info"><div class="user-action-time">asked <span title="2008-11-20 21:08:55Z" class="relativetime">Nov 20 '08 at 21:08</span></div><div class="user-gravatar32"><a href="/users/34856/goran-martinic"><img src="http://www.gravatar.com/avatar/1e57ced4476e0c629c70e6058159c4f0?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/34856/goran-martinic" >Goran Martinic</a><br><span class="reputation-score" title="reputation score">921</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="4 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">4</span></span><span title="10 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">10</span></span></div></div>
+            <br class="cbt">
+            <div class="accept-rate cool" title="this user has accepted an answer for 4 of 5 eligible questions">80% accept rate</div>
+            
+            </td>
+            </tr>
+            </table>
+        </div>
+    </td>
+    </tr>
+
+    
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-306862" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-150730" class="comment">
+        <td></td>
+        <td class="comment-text"><div>btw, your example doesn't compile. You can't reassign totalWeight because you've made it final (that's what += does, Double is immutable and a modification like this will create a new Double and attempt to assign it to the variable) &ndash;&nbsp;<a href="/users/1666/scdf" title="5483" class="comment-user">SCdF</a> <span class="comment-date"><span title="2008-11-20 21:31:38Z">Nov 20 '08 at 21:31</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-151595" class="comment">
+        <td></td>
+        <td class="comment-text"><div>thanks - it's a bad example &ndash;&nbsp;<a href="/users/34856/goran-martinic" title="921" class="comment-user owner">Goran Martinic</a> <span class="comment-date"><span title="2008-11-21 08:41:55Z">Nov 21 '08 at 8:41</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+    
+    </table>
+    
+</div>
+
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div id="subheader">
+            <h2>10 Answers</h2>
+            <div id="tabs">
+                <a href="/questions/306862?tab=oldest#tab-top" title="Answers in the order they were given">oldest</a>
+<a href="/questions/306862?tab=newest#tab-top" title="Most recent answers first">newest</a>
+<a class="youarehere" href="/questions/306862?tab=votes#tab-top" title="Answers with the most votes first">votes</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <a name="306966"></a>
+    
+    <div id="answer-306966" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="306966">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        5
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+<img src="http://sstatic.net/so/img/vote-accepted-on.png"
+    class="vote-accepted"
+    style="cursor:default"
+    width="30"
+    height="31"
+    alt="check"
+    title="The question owner accepted this as the best answer Jan 5 '09 at 20:38" >
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Here's a slightly different example, one with final reference-type fields rather than final value-type local variables:</p>
+
+<pre><code>public class MyClass {
+
+   public final MyOtherObject obj;
+
+}
+</code></pre>
+
+<p>Every time you create an instance of MyClass, you'll be creating an outgoing reference to a MyOtherObject instance, and the GC will have to follow that link to look for live objects.</p>
+
+<p>The JVM uses a mark-sweep GC algorithm, which has to examine all the live refereces in the GC "root" locations (like all the objects in the current call stack). Each live object is "marked" as being alive, and any object referred to by a live object is also marked as being alive.</p>
+
+<p>After the completion of the mark phase, the GC sweeps through the heap, freeing memory for all unmarked objects (and compacting the memory for the remaining live objects).</p>
+
+<p>Also, it's important to recognize that the Java heap memory is partitioned into a "young generation" and an "old generation". All objects are initially allocated in the young generation (sometimes referred to as "the nursery"). Since most objects are short-lived, the GC is more aggressive about freeing recent garbage from the young generation. If an object survives a collection cycle of the young generation, it gets moved into the old generation (sometimes referred to as the "tenured generation"), which is processed less frequently.</p>
+
+<p>So, off the top of my head, I'm going to say "no, the 'final' modifer doesn't help the GC reduce its workload".</p>
+
+<p>In my opinion, the best strategy for optimizing your memory-management in Java is to eliminate spurious references as quickly as possible. You could do that by assigning "null" to an object reference as soon as you're done using it.</p>
+
+<p>Or, better yet, minimize the size of each declaration scope. For example, if you declare an object at the beginning of a 1000-line method, and if the object stays alive until the close of that method's scope (the last closing curly brace), then the object might stay alive for much longer that actually necessary.</p>
+
+<p>If you use small methods, with only a dozen or so lines of code, then the objects declared within that method will fall out of scope more quickly, and the GC will be able to do most of its work within the much-more-efficient young generation. You don't want objects being moved into the older generation unless absolutely necessary.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/306966#306966" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-306966" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 21:46:09Z" class="relativetime">Nov 20 '08 at 21:46</span></div><div class="user-gravatar32"><a href="/users/22979/benjismith"><img src="http://www.gravatar.com/avatar/2e83b0be471ab4e50fd634a3880feaf5?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/22979/benjismith" >benjismith</a><br><span class="reputation-score" title="reputation score">3,991</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="9 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">9</span></span><span title="28 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">28</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-306966" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-186322" class="comment">
+        <td></td>
+        <td class="comment-text"><div>Food for thought. I always thought inline code was faster, but if jvm runs short of memory then it will slow as well. hmmmmm... &ndash;&nbsp;<a href="/users/13491/wolfmandragon" title="1794" class="comment-user">WolfmanDragon</a> <span class="comment-date"><span title="2008-12-09 21:33:16Z">Dec 9 '08 at 21:33</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-186705" class="comment">
+        <td></td>
+        <td class="comment-text"><div>I'm just guessing here... but I assume that the JIT compiler can inline final primitive values (not objects), for modest performance increases. Code inlining, on the other hand, is capable of producing significant optimizations, but doesn't have anything to do with final variables. &ndash;&nbsp;<a href="/users/22979/benjismith" title="3991" class="comment-user">benjismith</a> <span class="comment-date"><span title="2008-12-10 00:58:06Z">Dec 10 '08 at 0:58</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,garbage-collection,final">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=14&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+
+    <a name="306900"></a>
+    
+    <div id="answer-306900" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="306900">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        11
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Declaring a local variable <code>final</code> will not affect garbage collection, it only means you can not modify the variable.  Your example above should not compile as you are modifying the variable <code>totalWeight</code> which has been marked <code>final</code>.  On the other hand, declaring a primitive (<code>double</code> instead of <code>Double</code>) <code>final</code> will allows that variable to be inlined into the calling code, so that could cause some memory and performance improvement.  This is used when you have a number of <code>public static final Strings</code> in a class.</p>
+
+<p>In general, the compiler and runtime will optimize where it can.  It is best to write the code appropriately and not try to be too tricky.  Use <code>final</code> when you do not want the variable to be modified.  Assume that any easy optimizations will be performed by the compiler, and if you are worried about performance or memory use, use a profiler to determine the real problem. </p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/306900#306900" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-306900" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/306900/revisions" title="show all edits to this post"><span title="2008-11-21 02:38:12Z" class="relativetime">Nov 21 '08 at 2:38</span></a></div><div class="user-gravatar32"><a href="/users/8709/ken-gentle"><img src="http://www.gravatar.com/avatar/8a00e413bafa70f08861e4807ff72483?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/8709/ken-gentle" >Ken Gentle</a><br><span class="reputation-score" title="reputation score">5,521</span><span title="5 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">5</span></span><span title="18 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">18</span></span></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 21:25:25Z" class="relativetime">Nov 20 '08 at 21:25</span></div><div class="user-gravatar32"><a href="/users/19130/aaron"><img src="http://www.gravatar.com/avatar/997c24d1b2c3e9150f7afa455c3198ff?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/19130/aaron" >Aaron</a><br><span class="reputation-score" title="reputation score">595</span><span title="2 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">2</span></span><span title="9 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">9</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-306900" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="306893"></a>
+    
+    <div id="answer-306893" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="306893">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        5
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>No, it is emphatically not true. </p>
+
+<p>Remember that <code>final</code> does not mean constant, it just means you can't change the reference.</p>
+
+<pre><code>final MyObject o = new MyObject();
+o.setValue("foo"); // Works just fine
+o = new MyObject(); // Doesn't work.
+</code></pre>
+
+<p>There may be some small optimisation based around the knowledge that the JVM will never have to modify the reference (such as not having check to see if it has changed) but it would be so minor as to not worry about.</p>
+
+<p><code>Final</code> should be thought of as useful meta-data to the developer and not as a compiler optimisation.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/306893#306893" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-306893" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 21:23:36Z" class="relativetime">Nov 20 '08 at 21:23</span></div><div class="user-gravatar32"><a href="/users/1666/scdf"><img src="http://www.gravatar.com/avatar/d23c43fed180ee2eebef1c3efd75965d?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/1666/scdf" >SCdF</a><br><span class="reputation-score" title="reputation score">5,483</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">10</span></span><span title="39 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">39</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-306893" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="306869"></a>
+    
+    <div id="answer-306869" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="306869">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        4
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Well, I don't know about the use of the "final" modifier in this case, or its effect on the GC.</p>
+
+<p>But I <em>can</em> tell you this: your use of Boxed values rather than primitives (e.g., Double instead of double) will allocate those objects on the heap rather than the stack, and will produce unnecessary garbage that the GC will have to clean up.</p>
+
+<p>I only use boxed primitives when required by an existing API, or when I need nullable primatives.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/306869#306869" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-306869" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 21:13:29Z" class="relativetime">Nov 20 '08 at 21:13</span></div><div class="user-gravatar32"><a href="/users/22979/benjismith"><img src="http://www.gravatar.com/avatar/2e83b0be471ab4e50fd634a3880feaf5?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/22979/benjismith" >benjismith</a><br><span class="reputation-score" title="reputation score">3,991</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="9 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">9</span></span><span title="28 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">28</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-306869" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-150712" class="comment">
+        <td></td>
+        <td class="comment-text"><div>You are right. I only needed a quick example to explain my question.  &ndash;&nbsp;<a href="/users/34856/goran-martinic" title="921" class="comment-user owner">Goran Martinic</a> <span class="comment-date"><span title="2008-11-20 21:20:29Z">Nov 20 '08 at 21:20</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="307001"></a>
+    
+    <div id="answer-307001" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="307001">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>GC acts on unreachable refs. This has nothing to do with "final", which is merely an assertion of one-time assignment. Is it possible that some VM's GC can make use of "final"? I don't see how or why.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/307001#307001" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-307001" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 21:56:43Z" class="relativetime">Nov 20 '08 at 21:56</span></div><div class="user-gravatar32"><a href="/users/31962/dongilmore"><img src="http://www.gravatar.com/avatar/e15aa2346849c336e5eeacd48f049ca9?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/31962/dongilmore" >dongilmore</a><br><span class="reputation-score" title="reputation score">344</span><span title="1 silver badge"><span class="badge2">&#9679;</span><span class="badgecount">1</span></span><span title="4 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">4</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-307001" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="307103"></a>
+    
+    <div id="answer-307103" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="307103">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        1
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>There is a not so well known corner case with generational garbage collectors. (For a brief description read the answer by <a href="http://stackoverflow.com/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection#306966">benjismith</a> for a deeper insight read the articles at the end).</p>
+
+<p>The idea in generational GCs is that most of the time only young generations need to be considered. The root location is scanned for references, and then the young generation objects are scanned. During this more frequent sweeps no object in the old generation are checked.</p>
+
+<p>Now, the problem comes from the fact that an object is not allowed to have references to younger objects. When a long lived (old generation) object gets a reference to a new object, that reference must be explicitly tracked by the garbage collector (see article from IBM on the <a href="http://www.ibm.com/developerworks/java/library/j-jtp11253/" rel="nofollow">hotspot JVM collector</a>), actually affecting the GC performance. </p>
+
+<p>The reason why an old object cannot refer to a younger one is that, as the old object is not checked in minor collections, if the only reference to the object is kept in the old object, it will not get marked, and would be wrongly deallocated during the sweep stage.</p>
+
+<p>Of course, as pointed by many, the final keyword does not reallly affect the garbage collector, but it does guarantee that the reference will never be changed into a younger object if this object survives the minor collections and makes it to the older heap.</p>
+
+<p>Articles: </p>
+
+<p>IBM on garbage collection: <a href="http://www.ibm.com/developerworks/java/library/j-jtp10283/" rel="nofollow">history</a>, in the <a href="http://www.ibm.com/developerworks/java/library/j-jtp11253/" rel="nofollow">hotspot JVM</a> and <a href="http://www.ibm.com/developerworks/java/library/j-jtp01274.html" rel="nofollow">performance</a>. These may no longer be fully valid, as it dates back in 2003/04, but they give some easy to read insight into GCs.</p>
+
+<p>Sun on <a href="http://java.sun.com/docs/hotspot/gc1.4.2/" rel="nofollow">Tuning garbage collection</a></p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/307103#307103" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-307103" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">edited <a href="/posts/307103/revisions" title="show all edits to this post"><span title="2008-11-21 08:21:52Z" class="relativetime">Nov 21 '08 at 8:21</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 22:26:37Z" class="relativetime">Nov 20 '08 at 22:26</span></div><div class="user-gravatar32"><a href="/users/36565/david-rodriguez-dribeas"><img src="http://www.gravatar.com/avatar/1ccfec45e3fba785daf0e89a797c9216?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/36565/david-rodriguez-dribeas" >David Rodríguez - dribeas</a><br><span class="reputation-score" title="reputation score">9,502</span><span title="8 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">8</span></span><span title="30 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">30</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-307103" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="306872"></a>
+    
+    <div id="answer-306872" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="306872">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>I'm not sure this is true - following the method's exit anything declared inside (save a return value) go out of scope, final or not, and so can be garbage collected.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/306872#306872" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-306872" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 21:15:43Z" class="relativetime">Nov 20 '08 at 21:15</span></div><div class="user-gravatar32"><a href="/users/21849/dan-vinton"><img src="http://www.gravatar.com/avatar/33ddd62df99317225064ffb09af00788?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/21849/dan-vinton" >Dan Vinton</a><br><span class="reputation-score" title="reputation score">4,249</span><span title="3 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">3</span></span><span title="21 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">21</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-306872" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="306890"></a>
+    
+    <div id="answer-306890" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="306890">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>The only thing that I can think of is that the compiler might optimize away the final variables and inline them as constants into the code, thus you end up with no memory allocated.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/306890#306890" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-306890" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-20 21:21:52Z" class="relativetime">Nov 20 '08 at 21:21</span></div><div class="user-gravatar32"><a href="/users/8884/sijin"><img src="http://www.gravatar.com/avatar/7caf0cf413bbf8fc1d38b9bfb3b3b2f2?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/8884/sijin" >Sijin</a><br><span class="reputation-score" title="reputation score">1,638</span><span title="3 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">3</span></span><span title="12 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">12</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-306890" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="318357"></a>
+    
+    <div id="answer-318357" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="318357">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p><code>final</code> on local variables and parameters makes no difference to the class files produced, so cannot affect runtime performance. If a class has no subclasses, HotSpot treats that class as if it is final anyway (it can undo later if a class that breaks that assumption is loaded). I believe <code>final</code> on methods is much the same as classes. <code>final</code> on static field may allow the variable to be interpreted as a "compile-time constant" and optimisation to be done by javac on that basis. <code>final</code> on fields allows the JVM some freedom to ignore <em>happens-before</em> relations.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/318357#318357" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-318357" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2008-11-25 18:16:03Z" class="relativetime">Nov 25 '08 at 18:16</span></div><div class="user-gravatar32"><a href="/users/4725/tom-hawtin-tackline"><img src="http://www.gravatar.com/avatar/66d75405b2c8ef6f38e1ba2af321f239?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/4725/tom-hawtin-tackline" >Tom Hawtin - tackline</a><br><span class="reputation-score" title="reputation score">24.2k</span><span title="2 gold badges"><span class="badge1">&#9679;</span><span class="badgecount">2</span></span><span title="12 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">12</span></span><span title="39 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">39</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-318357" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+
+    <a name="1353417"></a>
+    
+    <div id="answer-1353417" class="answer ">
+        
+        <table>
+        <tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input type="hidden" value="1353417">
+    <img class="vote-up"
+        src="http://sstatic.net/so/img/vote-arrow-up.png"
+        width="40" height="25"
+        alt="vote up" title="This answer is useful (click again to undo)">
+    <span class="vote-count-post">
+        0
+    </span>
+    <img class="vote-down"
+        src="http://sstatic.net/so/img/vote-arrow-down.png"
+        width="40" height="25"
+        alt="vote down" title="This answer is not useful (click again to undo)">
+
+</div>
+
+        </td>
+        <td>
+            <div class="post-text"><p>Final variables cannot be changed after initial assignment (enforced by the compiler).</p>
+
+<p>This does not change the behaviour of the <em>garbage collection</em> as such.  Only thing is that these variables cannot be nulled when not being used any more (which may help the garbage collection in memory tight situations).</p>
+
+<p>You should know that final allows the compiler to make assumptions about what to optimize.  Inlining code and not including code known not to be reachable.</p>
+
+<pre><code>final boolean debug = false;
+
+......
+
+if (debug) {
+  System.out.println("DEBUG INFO!");
+}
+</code></pre>
+
+<p>The println will not be included in the byte code.</p>
+</div>
+            <table class="fw">
+            <tr>
+            <td class="vt">
+                <div class="post-menu"><a href="/questions/306862/does-using-final-for-variables-in-java-improve-garbage-collection/1353417#1353417" title="permalink to this answer">link</a><span class="lsep">|</span><a id="flag-post-1353417" title="flag this post for serious problems">flag</a></div>
+                
+            </td>
+            
+            <td align="right" class="post-signature">
+            <div class="user-info"><div class="user-action-time">answered <span title="2009-08-30 08:16:29Z" class="relativetime">Aug 30 at 8:16</span></div><div class="user-gravatar32"><a href="/users/53897/thorbjorn-ravn-andersen"><img src="http://www.gravatar.com/avatar/2e71c1745ebc5401c8c8dfbf7c9a5d30?s=32&amp;d=identicon&amp;r=PG" height="32" width="32" alt=""></a></div><div class="user-details"><a href="/users/53897/thorbjorn-ravn-andersen" >Thorbjørn Ravn Andersen</a><br><span class="reputation-score" title="reputation score">8,213</span><span title="1 gold badge"><span class="badge1">&#9679;</span><span class="badgecount">1</span></span><span title="4 silver badges"><span class="badge2">&#9679;</span><span class="badgecount">4</span></span><span title="16 bronze badges"><span class="badge3">&#9679;</span><span class="badgecount">16</span></span></div></div>
+            </td>
+            </tr>
+            </table>
+        </td>
+        </tr>
+        
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-1353417" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+</td>
+</tr>
+        </table>
+    </div>
+
+    <form id="post-form" action="/questions/306862/answer/submit" method="post">
+        <h2 class="space">Your Answer</h2>
+        
+<script src="http://sstatic.net/so/Js/wmd.js?v=6016" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function() { 
+        editorReady(1, heartbeat.answers);
+    });   
+</script>
+
+<div id="post-editor">
+
+    
+    <div id="wmd-container">
+        <div id="wmd-button-bar"></div>
+        <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea>
+    </div>
+
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox" >
+        <label for="communitymode" title="community owned posts do not generate any reputation for the owner, have a lower reputation barrier for collaborative editing, and show only a revision history instead of a signature block">community wiki</label>
+    </div>
+
+    <div id="wmd-preview"></div>
+
+
+    <div id="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ecabba79f909212c8d5871153f24e8cd">
+        <input id="author" name="author" type="text">
+    </div>
+</div>   
+<div class="form-item">
+    <table>
+    <tr>
+    <td class="vm">
+        <label for="openid_identifier">OpenID Login</label>
+        <input id="openid_identifier" name="openid_identifier" class="openid-identifer" type="text" size="40" maxlength="200" value="" tabindex="104">
+        <div class="form-item-info">
+            Get an <a href="http://openid.net/get/" target="_blank">OpenID</a>
+        </div>
+    </td>
+
+    <td class="orcell">
+        <div class="orword">or</div>
+        <div class="orline"></div>
+    </td>
+    <td class="vm">
+        <div>
+            <label for="display-name">Name</label>
+            <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+        </div>
+        <div>
+            <label for="m-address">Email</label>
+            <input id="m-address" name="m-address" type="text" size="40" maxlength="100" value="" tabindex="106">
+            <span class="edit-field-overlay" style="color:#999; font-weight:normal">never shown</span>
+        </div>
+        <div>
+            <label for="home-page">Home Page</label>
+            <input id="home-page" name="home-page" type="text" size="40" maxlength="200" value="" tabindex="107">
+        </div>
+    </td>
+
+    </tr>
+    </table>
+</div>
+
+        
+        <div class="form-submit cbt"><input id="submit-button" type="submit" value="Post Your Answer" tabindex="110"></div>
+    </form>
+    
+    
+
+    <h2 class="space">
+        Not the answer you're looking for?
+        Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a> <a href="/questions/tagged/garbage-collection" class="post-tag" title="show questions tagged 'garbage-collection'" rel="tag">garbage-collection</a> <a href="/questions/tagged/final" class="post-tag" title="show questions tagged 'final'" rel="tag">final</a>  or <a href="/questions/ask">ask your own question</a>.
+    </h2>
+</div>
+
+<img src="/posts/306862/ivc/aed5" class="dno" alt="">
+
+</div>
+
+<div id="sidebar" style="width:220px">
+
+
+<div class="module newuser" style="display:none">
+    <h4>Hello World!</h4>
+    <div>
+        <p>Stack Overflow is a <b>collaboratively edited question and answer site for programmers</b> &ndash; regardless of platform or language. It's 100% free, no registration required.</p>
+        <p class="tar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href="/faq">faq &raquo;</a></p>
+    </div>
+</div>
+    <div class="module" style="padding-bottom:1px">
+    <p class="label-key">tagged</p>
+    <div class="tagged">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class="item-multiplier">&times;&nbsp;34066</span><br>
+<a href="/questions/tagged/garbage-collection" class="post-tag" title="show questions tagged 'garbage-collection'" rel="tag">garbage-collection</a>&nbsp;<span class="item-multiplier">&times;&nbsp;536</span><br>
+<a href="/questions/tagged/final" class="post-tag" title="show questions tagged 'final'" rel="tag">final</a>&nbsp;<span class="item-multiplier">&times;&nbsp;57</span><br>
+
+    </div> 
+    <p class="label-key">asked</p>
+    <p class="label-value" title="2008-11-20 21:08:55Z">1 year ago</p>
+    <p class="label-key">viewed</p>
+    <p class="label-value">2,496 times</p>
+
+    <p class="label-key">latest activity</p>
+    <p class="label-value" title="2009-08-30 08:16:29Z">5 months ago</p>
+
+    </div>
+
+    
+    <div class="everyonelovesstackoverflow">
+        <script type="text/javascript">
+            document.write('<s'+'cript lang' + 'uage="jav' + 'ascript" src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;IFR=False&amp;PageID=52405&amp;SiteID=1&amp;Random=' + (+new Date()) + '&amp;Keywords=java,garbage-collection,final">'); 
+            document.write('</'+'scr'+'ipt>');
+        </script>
+        <noscript>
+            <div>
+            <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Click&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405">
+            <img src="http://ads.stackoverflow.com/a.aspx?ZoneID=4&amp;Task=Get&amp;Mode=HTML&amp;SiteID=1&amp;PageID=52405" alt="">
+            </a>
+            </div>
+        </noscript>
+    </div>
+
+    
+    <div class="welovestackoverflow">
+        <script type="text/javascript">
+            
+	document.write(
+	   '<strong>Wanted:</strong> ' +
+	   '<a href="http://jobs.stackoverflow.com/?6033">' +
+	   "Software Development Engineer, AmazonWireless - RCX" +
+	   ' at ' +
+	   "Amazon</a> (" +
+	   "Seattle, WA  98144" +
+	   '). See this and other great job listings at ' +
+	   '<a href="http://jobs.stackoverflow.com">jobs.stackoverflow.com</a>.');
+	
+        </script>
+    </div>
+    
+    <div class="module">
+    <h4>Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="/questions/2111845/does-the-java-final-keyword-actually-improve-security" class="question-hyperlink">Does the Java &lsquo;final&rsquo; keyword actually improve security?</a>
+</div>
+<div class="spacer">
+<a href="/questions/842609/why-does-c-not-allow-const-and-static-on-the-same-line" class="question-hyperlink">Why does C# not allow const and static on the same line?</a>
+</div>
+<div class="spacer">
+<a href="/questions/677595/initialize-final-variable-before-constructor-in-java" class="question-hyperlink">Initialize final variable before constructor in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/1249917/final-variable-manipulation-in-java" class="question-hyperlink">Final variable manipulation in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/2101327/final-variable-and-synchronized-block-in-java" class="question-hyperlink">Final variable and synchronized block in java</a>
+</div>
+<div class="spacer">
+<a href="/questions/1945663/where-are-java-final-local-variables-stored" class="question-hyperlink">Where are Java final local variables stored?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1693091/public-static-final-variable-in-an-imported-java-class" class="question-hyperlink">public static final variable in an imported java class </a>
+</div>
+<div class="spacer">
+<a href="/questions/2059773/final-variables-accessibility" class="question-hyperlink">Final variables accessibility</a>
+</div>
+<div class="spacer">
+<a href="/questions/1299837/cannot-refer-to-a-non-final-variable-inside-an-inner-class-defined-in-a-different" class="question-hyperlink">Cannot refer to a non-final variable inside an inner class defined in a different method</a>
+</div>
+<div class="spacer">
+<a href="/questions/609609/creating-final-variables-inside-a-loop" class="question-hyperlink">creating final variables inside a loop</a>
+</div>
+<div class="spacer">
+<a href="/questions/1415955/private-final-static-attribute-vs-private-final-attribute" class="question-hyperlink">private final static attribute vs private final attribute</a>
+</div>
+<div class="spacer">
+<a href="/questions/1615163/modifying-final-fields-in-java" class="question-hyperlink">Modifying final fields in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/1310009/java-possible-to-have-mutual-final-class-references" class="question-hyperlink">Java: Possible to have mutual, final class references?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1351568/java-basics-about-final-keyword" class="question-hyperlink">java basics about final keyword</a>
+</div>
+<div class="spacer">
+<a href="/questions/1181753/what-is-the-c-equivalent-of-public-final-static-in-java" class="question-hyperlink">what is the c# equivalent of public final static in java </a>
+</div>
+<div class="spacer">
+<a href="/questions/205239/why-can-final-constants-in-java-be-overriden" class="question-hyperlink">Why can final constants in Java be overriden?</a>
+</div>
+<div class="spacer">
+<a href="/questions/2068804/why-string-is-final-in-java" class="question-hyperlink">Why String is final in Java</a>
+</div>
+<div class="spacer">
+<a href="/questions/1734377/how-can-i-assign-final-variables-of-the-base-class-within-a-derived-class-constr" class="question-hyperlink">How can I assign final variables of the base class within a derived class' constructor in Java?</a>
+</div>
+<div class="spacer">
+<a href="/questions/1749588/proper-way-to-declare-and-set-a-private-final-member-variable-from-the-constructo" class="question-hyperlink">Proper way to declare and set a private final member variable from the constructor in Java?</a>
+</div>
+
+    </div>
+    </div>
+
+</div>
+
+<div id="mainbar-footer">    
+    
+<div id="feed-link">
+    <div id="feed-link-image"><a href="/feeds/question/306862" title="feed of this question and its answers"><img src="http://sstatic.net/so/Img/feed-icon-small.png" width="14" height="14" alt="feed icon"></a></div>
+    <div id="feed-link-text"><a href="/feeds/question/306862" title="feed of this question and its answers">question feed</a></div>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div id="footer-menu">
+                <a href="/about">about</a> |
+                <a href="/faq">faq</a> |
+                <a href="http://blog.stackoverflow.com/">blog</a> |
+                <a href="http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+                <a href="/privacy">privacy policy</a> |
+                <a href="http://ads.stackoverflow.com/a.aspx?ZoneID=0&amp;BannerID=323&amp;AdvertiserID=5&amp;CampaignID=194&amp;Task=Click&amp;SiteID=1">advertising info</a> |
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b> |
+                <b><a href="http://meta.stackoverflow.com">feedback always welcome</a></b>
+                <div id="footer-sites">
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://stackoverflow.com">stackoverflow.com</a>&nbsp;&nbsp;
+                    <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href="http://careers.stackoverflow.com">careers</a>&nbsp;&nbsp;
+                    <span style="color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href="http://serverfault.com">serverfault.com</a>&nbsp;&nbsp;
+                    <span style="color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href="http://superuser.com">superuser.com</a>&nbsp;&nbsp;
+                    <span style="color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href="http://meta.stackoverflow.com">meta</a>&nbsp;&nbsp;
+                    <a href="http://www.howtogeek.com">howtogeek.com</a>&nbsp;&nbsp;
+                    <a href="http://doctype.com">doctype.com</a>
+                </div>
+            </div>
+            <div id="footer-flair">
+                <img src="http://sstatic.net/so/Img/footer-cc-wiki-peak-internet.png" width="168" height="67" alt="cc-wiki, PEAK Internet" usemap="#footermap">
+                <map name="footermap">
+                    <area href="http://creativecommons.org/licenses/by-sa/2.5/" alt="cc-wiki" title="Creative Commons: Attribution - Share Alike"
+                        coords="0,0,50,67">
+                    <area href="http://www.peakinternet.com/business/hosting/colocation-dedicated#" alt="PEAK Internet"
+                        title="powered by PEAK Internet dedicated server hosting" coords="62,0,168,67">
+                </map>
+                <div id="svnrev">svn revision: 6239</div>
+            </div>
+            <div id="copyright">
+                site design and logo is &copy; 2010 stackoverflow.com llc; 
+                user contributed content licensed under <a href="http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+    
+    <script type="text/javascript">
+        document.write(unescape("%3Cscript src='http://www.google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5620270-1");
+        pageTracker._trackPageview();
+    </script>
+    <script type="text/javascript">
+        _qoptions = { qacct : "p-c1rF4kxgLUzNc" };
+    </script>
+    <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+        
+</body>
+</html>

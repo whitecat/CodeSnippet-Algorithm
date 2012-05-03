@@ -1,0 +1,636 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Chase The Devil: Java int Overflow Behavior</title>
+  <link rel="service.feed" type="application/atom+xml" title="Chase The Devil: Java int Overflow Behavior" href="http://feeds.feedburner.com/chasethedevil" />
+  <script type="text/javascript">(function() { var a=window;function e(b){this.t={};this.tick=function(c,h,d){d=d?d:(new Date).getTime();this.t[c]=[d,h]};this.tick("start",null,b)}var f=new e;a.jstiming={Timer:e,load:f};try{a.jstiming.pt=a.gtbExternal&&a.gtbExternal.pageT()||a.external&&a.external.pageT}catch(g){};a.tickAboveFold=function(b){b=b;var c=0;if(b.offsetParent){do c+=b.offsetTop;while(b=b.offsetParent)}b=c;b<=750&&a.jstiming.load.tick("aft")};var i=false;function j(){if(!i){i=true;a.jstiming.load.tick("firstScrollTime")}}a.addEventListener?a.addEventListener("scroll",j,false):a.attachEvent("onscroll",j); })();</script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="generator" content="Blogger" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="http://www.blogger.com/favicon.ico"/>
+<link rel="alternate" type="application/atom+xml" title="Chase The Devil - Atom" href="http://chasethedevil.blogspot.com/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="Chase The Devil - RSS" href="http://chasethedevil.blogspot.com/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="Chase The Devil - Atom" href="http://www.blogger.com/feeds/14415229/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=14415229" />
+<link rel="alternate" type="application/atom+xml" title="Chase The Devil - Atom" href="http://chasethedevil.blogspot.com/feeds/4065698287434762323/comments/default" />
+ <link rel="stylesheet" type="text/css" href="http://www.blogger.com/static/v1/v-css/3727950723-blog_controls.css"/> <link rel="stylesheet" type="text/css" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=14415229&zx=d9d92f00-1f1a-421e-9b19-30e66a897310"/>
+
+  <style type="text/css">
+
+/* 
+Blogger Template Style
+Name:     TicTac
+Author:   Dan Cederholm
+URL:      www.simplebits.com
+Date:     1 March 2004
+*/
+
+/* ---( page defaults )--- */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, sans-serif;
+  font-size: small;
+  text-align: center;
+  color: #333;
+  background: #e0e0e0;
+  }
+
+blockquote {
+  margin: 0 0 0 30px;
+  padding: 10px 0 0 20px;
+  font-size: 88%;
+  line-height: 1.5em;
+  color: #666;
+  background: url(http://www.blogblog.com/tictac/quotes.gif) no-repeat top left;
+  }
+
+blockquote p {
+  margin-top: 0;
+  }
+
+abbr, acronym {
+  cursor: help;
+  font-style: normal;
+  border-bottom: 1px dotted;
+  }
+
+code {
+  color: #f63;
+  }
+
+hr {
+  display: none;
+  }
+
+img {
+  border: none;
+  }
+
+/* unordered list style */
+
+ul {
+  list-style: none;
+  margin: 0 0 20px 30px;
+  padding: 0;
+  }
+
+li {
+  list-style: none;
+  padding-left: 14px;
+  margin-bottom: 3px;
+  background: url(http://www.blogblog.com/tictac/tictac_orange.gif) no-repeat 0 6px;
+  }
+
+/* links */
+
+a:link {
+  color: #664E38;
+  }
+
+a:visited {
+  color: #664E38;
+  }
+
+a:hover {
+  color: #047;
+  }
+
+a:active {
+  color: #664E38;
+  text-decoration: none;
+  }
+
+/* ---( layout structure )---*/
+
+#wrap {
+  width: 847px;
+  margin: 0 auto;
+  text-align: left;
+  background: url(http://www.blogblog.com/tictac/tile.gif) repeat-y;
+  }
+
+#content {
+  margin-left: 62px; /* to avoid the BMH */
+  }
+
+#main-content {
+  float: left;
+  width: 460px;
+  margin: 20px 0 0 0;
+  padding: 0;
+  line-height: 1.5em;
+  }
+
+#sidebar {
+  margin: 0 41px 0 547px;
+  padding: 20px 0 0 0;
+  font-size: 85%;
+  line-height: 1.4em;
+  color: #999;
+  background: url(http://www.blogblog.com/tictac/sidebar_bg.gif) no-repeat 0 0;
+  }
+
+
+/* ---( header and site name )--- */
+
+#blog-header {
+  margin: 0;
+  padding: 85px 50px 0px 410px;
+  font-family: "Lucida Grande", "Trebuchet MS";
+  background: #e0e0e0 url(http://logos01.googlepages.com/chaseh.gif) no-repeat top left;
+  }
+
+#blog-header h1 {
+  margin: 0;
+  padding: 45px 60px 50px 160px;
+  font-size: 200%;
+  color: #fff;
+  text-shadow: #81A75B 2px 2px 2px;
+  background: url(http://www.blogblog.com/tictac/top_h1.gif) no-repeat bottom left;
+  }
+
+#blog-header h1 a {
+  text-decoration: none;
+  color: #fff;
+  }
+
+#blog-header h1 a:hover {
+  color: #eee;
+  }
+
+/* ---( main column )--- */
+
+h2.date-header {
+  margin-top: 0;
+  padding-left: 14px;
+  font-size: 90%;
+  color: #f93;
+  background: url(http://www.blogblog.com/tictac/date_icon.gif) no-repeat 0 50%;
+  }
+
+h3.post-title {
+  margin-top: 0;
+  font-family: "Lucida Grande", "Trebuchet MS";
+  font-size: 130%;
+  letter-spacing: -1px;
+  color: #f63;
+  }
+
+.post {
+  margin: 0 0 1.5em 0;
+  padding: 0 0 1.5em 14px;
+  border-bottom: 1px solid #ddd;
+  }
+
+.post-footer {
+  margin: 0;
+  padding: 0 0 0 14px;
+  font-size: 88%;
+  color: #999;
+  background: url(http://www.blogblog.com/tictac/tictac_grey.gif) no-repeat 0 8px;
+  }
+
+.post img {
+  padding: 6px;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
+  }
+
+/* comment styles */
+
+#comments {
+  padding-top: 10px;
+  font-size: 85%;
+  line-height: 1.5em;
+  color: #666;
+  background: #eee url(http://www.blogblog.com/tictac/comments_curve.gif) no-repeat top left;
+  }
+
+#comments h4 {
+  margin: 20px 0 15px 0;
+  padding: 8px 0 0 40px;
+  font-family: "Lucida Grande", "Trebuchet MS";
+  font-size: 130%;
+  color: #666;
+  background: url(http://www.blogblog.com/tictac/bubbles.gif) no-repeat 10px 0;
+  height: 29px !important; /* for most browsers */
+  height /**/:37px; /* for IE5/Win */
+  }
+  
+#comments ul {
+  margin-left: 0;
+  }
+
+#comments li {
+  background: none;
+  padding-left: 0;
+  }
+  
+.comment-body {
+  padding: 0 10px 0 25px;
+  background: url(http://www.blogblog.com/tictac/tictac_orange.gif) no-repeat 10px 5px;
+  }
+
+.comment-body p {
+  margin-bottom: 0;
+  }
+
+.comment-data {
+  margin: 4px 0 0 0;
+  padding: 0 10px 1em 60px;
+  color: #999;
+  border-bottom: 1px solid #ddd;
+  background: url(http://www.blogblog.com/tictac/comment_arrow.gif) no-repeat 44px 2px;
+  }
+
+
+.deleted-comment {
+  font-style:italic;
+  color:gray;
+  }
+
+/* ---( sidebar )--- */
+
+h2.sidebar-title {
+  margin: 0 0 0 0;
+  padding: 25px 0 0 50px;
+  font-family: "Lucida Grande", "Trebuchet MS";
+  font-size: 130%;
+  color: #666;
+  height: 32px;
+  background: url(http://www.blogblog.com/tictac/sidebar_icon.gif) no-repeat 20px 15px;
+  height: 32px !important; /* for most browsers */
+  height /**/:57px; /* for IE5/Win */
+  }
+
+#sidebar ul, #sidebar p {
+  margin: 0;
+  padding: 5px 20px 1em 20px;
+  border-bottom: 1px solid #ddd;
+  }
+
+#sidebar li {
+  background: url(http://www.blogblog.com/tictac/tictac_green.gif) no-repeat 0 5px;
+  }
+
+/* profile block */
+
+.profile-datablock {
+  margin: 0;
+  padding: 5px 20px 0 20px;
+  }
+
+.profile-datablock dd {
+  margin: 0;
+  padding: 0;
+  }
+
+.profile-img img {
+  float: left;
+  margin: 0 10px 0 0;
+  padding: 4px;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
+  background: #fff;
+  }
+
+#sidebar p.profile-link {
+  padding-left: 36px;
+  background: url(http://www.blogblog.com/tictac/profile.gif) no-repeat 20px 4px;
+  }
+
+p#powered-by, #sidebar p.profile-textblock {
+  margin-top: 1em;
+  border: none;
+  }
+
+/* ---( footer )--- */
+
+.clear { /* to fix IE6 padding-top issue */
+  clear: both;
+  height: 0;
+  }
+
+#footer {
+  margin: 0;
+  padding: 0 0 9px 0;
+  font-size: 85%;
+  color: #ddd;
+  background: url(http://www.blogblog.com/tictac/bottom_sill.gif) no-repeat bottom left;
+  }
+
+#footer p {
+  margin: 0;
+  padding: 20px 320px 20px 95px;
+  background: url(http://www.blogblog.com/tictac/bottom_sash.gif) no-repeat top left;
+  }
+
+
+/* ---- overrides for post page ---- */
+
+.post {
+  padding: 0;
+  border: none;
+  }
+
+  </style>
+
+
+<!-- --><style type="text/css">@import url(http://www.blogger.com/static/v1/v-css/navbar/697174003-classic.css);
+div.b-mobile {display:none;}
+</style>
+
+</head>
+
+<body><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener("load",
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<iframe src="http://www.blogger.com/navbar.g?targetBlogID=14415229&amp;blogName=Chase+The+Devil&amp;publishMode=PUBLISH_MODE_BLOGSPOT&amp;navbarType=TAN&amp;layoutType=CLASSIC&amp;searchRoot=http%3A%2F%2Fchasethedevil.blogspot.com%2Fsearch&amp;blogLocale=en_US&amp;homepageUrl=http%3A%2F%2Fchasethedevil.blogspot.com%2F" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" height="30px" width="100%" id="navbar-iframe" allowtransparency="true" title="Blogger Navigation and Search"></iframe>
+<div></div>
+
+<div id="wrap"> <!-- #wrap - for centering -->
+
+<!-- Blog Header -->
+<div id="blog-header">
+  <!--h1>
+    <a href="http://chasethedevil.blogspot.com/">
+	Chase The Devil
+	</a>&nbsp;&nbsp;&nbsp;
+  </h1-->
+<script type="text/javascript"><!--
+google_ad_client="pub-3823567334496400";
+google_ad_host="pub-1556223355139109";
+google_ad_host_channel="00000+00031+00005";
+google_ad_width=234;
+google_ad_height=60;
+google_ad_format="234x60_as";
+google_ad_type="text";
+google_color_border="BCAC97";
+google_color_bg="F5ECE2";
+google_color_link="664E38";
+google_color_url="664E38";
+google_color_text="A4917C";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+</div>
+
+
+<div id="content"> <!-- #content wrapper -->
+
+<!-- Begin #main-content -->
+<div id="main-content">
+
+
+
+    
+  <h2 class="date-header">Monday, June 15, 2009</h2>
+  
+  
+     
+  <!-- Begin .post -->
+  <div class="post"><a name="4065698287434762323"></a>
+     
+    
+    <h3 class="post-title">
+	 
+	 Java int Overflow Behavior
+	 
+    </h3>
+    
+     
+    <div class="post-body">
+    
+      <p><div style="clear:both;"></div>A coworker recently asked me if there was a guaranteed behavior in the case of int overflow. He gave the specific example on:<br />can we rely that int x = Integer.MAX_VALUE + 1 is the same for every JVM on any platform?<br /><br />I thought the answer would be easy to find in the Java specifications document. But I was wrong. It is not clearly defined.<br /><br />I found a trick that suggests this behavior is indeed standard and will stay the same, it is related to type casting. Java guarantees that the cast of a long just truncates the long to int precision. Therefore if<br />long l = Integer.MAX_VALUE;<br />l = l +1;<br />x = (int)l;<br />x has a guaranteed value.<br /><br /><a href="http://java.sun.com/docs/books/jls/third_edition/html/conversions.html">http://java.sun.com/docs/books/jls/third_edition/html/conversions.html</a><br />paragraph 5.1.3<div style="clear:both; padding-bottom:0.25em"></div><p class="blogger-labels">Labels: <a rel='tag' href="http://chasethedevil.blogspot.com/search/label/java">java</a></p></p>
+    
+    </div>
+    <script src="http://feeds.feedburner.com/~s/chasethedevil?i=http://chasethedevil.blogspot.com/2009/06/java-int-overflow-behavior.html" type="text/javascript" charset="utf-8"></script>
+    <p class="post-footer">posted by Fabien at 
+      <a href="http://chasethedevil.blogspot.com/2009/06/java-int-overflow-behavior.html" title="permanent link">16:15</a> 
+       <span class="item-action"><a href="http://www.blogger.com/email-post.g?blogID=14415229&postID=4065698287434762323" title="Email Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_email.gif" height="13" width="18"/></a></span><span class="item-control blog-admin pid-866994858"><a style="border:none;" href="http://www.blogger.com/post-edit.g?blogID=14415229&postID=4065698287434762323" title="Edit Post"><img class="icon-action" alt="" src="http://www.blogger.com:80/img/icon18_edit_allbkg.gif" height="18" width="18"></a></span></p>
+  
+  </div>
+  <!-- End .post -->
+  
+  
+   <!-- Begin #comments -->
+ 
+
+  <div id="comments">
+
+	<a name="comments"></a>
+    
+    <h4>2 Comments:</h4>
+    
+    <ul>
+      
+      <li id="c3564097583720153716"><a name="c3564097583720153716"></a>
+        <div class="comment-body">
+         <p>Its part of the TCK tests.  These are the tests a JVM must pass in order to be a compliant Java VM.  So the answer is yes this will be true on all compliant JVMs.</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon blogger-comment-icon"><img src="http://www.blogger.com/img/b16-rounded.gif" alt="Blogger" style="display:inline;" /></span>&nbsp;<a href="http://www.blogger.com/profile/01201512975888985121" rel="nofollow">Eric Arseneau</a>, at <a href="#c3564097583720153716" title="comment permalink">June 17, 2009 8:31 PM</a>
+	  <span class="item-control blog-admin pid-197275054"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=14415229&postID=3564097583720153716" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+      <li id="c6921849980277965284"><a name="c6921849980277965284"></a>
+        <div class="comment-body">
+         <p>See the binarySearch() methods in the Arrays and Collections classes... it handles a possible overflow due to the addition of two ints by an unsigned right shift...</p>
+        </div>
+        <p class="comment-data">By <span style="line-height:16px" class="comment-icon anon-comment-icon"><img src="http://www.blogger.com/img/anon16-rounded.gif" alt="Anonymous" style="display:inline;" /></span>&nbsp;<span class="anon-comment-author">Trollhorn</span>, at <a href="#c6921849980277965284" title="comment permalink">June 18, 2009 10:26 AM</a>
+	  <span class="item-control blog-admin pid-1629768598"><a style="border:none;" href="http://www.blogger.com/delete-comment.g?blogID=14415229&postID=6921849980277965284" title="Delete Comment" ><span class="delete-comment-icon">&nbsp;</span></a></span></p>
+      </li>
+      
+    </ul>
+	
+	<p class="comment-data">
+    <a class="comment-link" href="https://www.blogger.com/comment.g?blogID=14415229&postID=4065698287434762323">Post a Comment</a>
+    <br /><br />
+
+	
+
+	<a href="http://chasethedevil.blogspot.com/">&lt;&lt; Home</a>
+    </p>
+    </div>
+  
+
+  <!-- End #comments -->
+
+
+
+  <hr />
+</div><!-- End #main-content -->
+</div><!-- End #content -->
+
+
+
+<!-- Begin #sidebar -->
+<div id="sidebar">
+
+
+  <h2 class="sidebar-title">About</h2>
+  
+  <p>Technical blog for Fabien (<a href="http://chasethedevil.blogspot.com/">Main Page</a>)
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-365717-1";
+urchinTracker();
+</script>
+<br/><a href="http://feeds.feedburner.com/chasethedevil" title="Subscribe to my feed, Chase The Devil" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" alt="" style="border:0"/></a>
+<br/><a href="http://chasethedevil.blogspot.com/feeds/posts/default" title="Atom feed">Site Feed</a>
+<br/><a href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http://feeds.feedburner.com/chasethedevil" title="Chase The Devil"><img src="http://www.newsgator.com/images/ngsub1.gif" alt="Subscribe in NewsGator Online" style="border:0"/></a>
+<br/><a href="http://fusion.google.com/add?feedurl=http://feeds.feedburner.com/chasethedevil"><img src="http://buttons.googlesyndication.com/fusion/add.gif" width="104" height="17" style="border:0" alt="Add to Google"/></a>
+<a href="http://www.bloglines.com/sub/http://feeds.feedburner.com/chasethedevil" title="Chase The Devil" type="application/rss+xml"><img src="http://www.bloglines.com/images/sub_modern1.gif" alt="Subscribe in Bloglines" style="border:0"/></a>
+</p>
+   
+  <h2 class="sidebar-title">Most Popular</h2>
+    <ul id="popular">
+    </ul>    
+    <script type="text/javascript" src="http://logos01.googlepages.com/mostpopular.html"></script>
+    <script type="text/javascript">
+    function popularLoad(){
+var ul = document.getElementById('popular')
+for (var i=0, post; post = MostPopular.posts[i]; i++) {
+	var li = document.createElement('li')
+	var a = document.createElement('a')
+	//a.style.marginLeft = '20px'
+	a.setAttribute('href', post.link)
+	a.appendChild(document.createTextNode(post.title))
+	li.appendChild(a)
+	ul.appendChild(li)
+} 
+}
+popularLoad();
+    </script>
+ 
+  <h2 class="sidebar-title">Previous</h2>
+  
+  <ul id="recently">
+    
+        <li><a href="http://chasethedevil.blogspot.com/2009/06/static-fields-and-inheritance.html">Static Fields and Inheritance</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/06/benchmarking-languages-is-difficult.html">Benchmarking Languages Is Difficult</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/05/cholesky-jakarta-commons-math.html">Cholesky &amp; Jakarta Commons Math</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/05/hull-american-option-price-fallacies.html">Hull American Option Price Fallacies</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/05/on-quasi-random-numbers-mersennetwister.html">On Quasi Random Numbers - MersenneTwister vs Sobol...</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/04/java-logging-still-crap-in-2009.html">Java Logging Still Crap in 2009</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/03/bachelier-vs-black.html">Bachelier vs. Black</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/03/linux-audio-state-miserable.html">Linux Audio State = Miserable</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/02/senior-developers-team-productivity-x4.html">Senior Developers Team Productivity X4 (from MS Re...</a></li>
+     
+        <li><a href="http://chasethedevil.blogspot.com/2009/01/end-of-rings-around-plain-java-better.html">The End Of Rings Around Plain Java - A Better Conc...</a></li>
+     
+  </ul>
+
+  <h2 class="sidebar-title">Links</h2>
+<!--div-->
+<!--script type="text/javascript"--><!--
+google_ad_client = "pub-3823567334496400";
+google_ad_width = 250;
+google_ad_height = 250;
+google_ad_format = "250x250_as";
+google_ad_type = "text";
+google_ad_channel ="5789340492";
+google_color_border = "CCCCCC";
+google_color_bg = "EEEEEE";
+google_color_link = "664E38";
+google_color_url = "664E38";
+google_color_text = "000000";
+//-->
+<!--/script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div-->
+        
+  
+  
+  <h2 class="sidebar-title">Del.icio.us Links</h2>
+<ul id="delicious">
+
+</ul>
+<script type="text/javascript" src="http://del.icio.us/feeds/json/logos01?count=10"></script>
+<script type="text/javascript">
+function showImage(img){ return (function(){ img.style.display='inline' }) }
+function deliciousLoad(){
+var ul = document.getElementById('delicious')
+for (var i=0, post; post = Delicious.posts[i]; i++) {
+	var li = document.createElement('li')
+	var a = document.createElement('a')
+	//a.style.marginLeft = '20px'
+	//var img = document.createElement('img')
+	//img.style.position = 'absolute'
+	//img.style.display = 'none'
+	//img.height = img.width = 16
+	//img.src = post.u.split('/').splice(0,3).join('/')+'/favicon.ico'
+	//img.onload = showImage(img);
+	a.setAttribute('href', post.u)
+	a.appendChild(document.createTextNode(post.d))
+	//li.appendChild(img)
+	li.appendChild(a)
+	ul.appendChild(li)
+} 
+}
+deliciousLoad();
+</script>
+
+ <!--<h2 class="sidebar-title">New</h2>
+  
+  <p>This is a paragraph of text in the sidebar.</p>
+  -->
+     <!-- Begin #profile-container -->
+   
+   <div id="profile-container"><h2 class="sidebar-title">About Me</h2>
+<dl class="profile-datablock"><dt class="profile-img"><a href="http://www.blogger.com/profile/07288327695801480778"><img src="http://photos1.blogger.com/blogger/6384/1303/200/IMG_3839-1.jpg" width="60" height="80" alt="My Photo"></a></dt>
+<dd class="profile-data"><strong>Name:</strong>  Fabien </dd>
+<dd class="profile-data"><strong>Location:</strong>  Paris, Afghanistan </dd></dl>
+<p class="profile-textblock">My name is never pronounced correctly, even by myself, which is why I don't bother giving it.
+
+I characterize myself as an Engineer, with all the bad sides (talking too much about tech), but I am also someone very curious about the world.</p>
+<p class="profile-link"><a href="http://www.blogger.com/profile/07288327695801480778">View my complete profile</a></p></div>
+   
+     <!-- End #profile -->
+
+  <p id="powered-by"><a href="http://www.blogger.com"><img src="http://buttons.blogger.com/bloggerbutton1.gif" alt="Powered by Blogger" /></a></p>
+  <p><a href="http://feeds.feedburner.com/chasethedevil"><img src="http://feeds.feedburner.com/~fc/chasethedevil?bg=99CCFF&fg=444444&anim=0" height="26" width="88" style="border:0" alt="" /></a>
+<br/><script type="text/javascript" src="http://technorati.com/embed/bkqhfk735b.js"> </script></p>
+
+
+</div>
+<!-- End #sidebar -->
+
+<div class="clear">&nbsp;</div>
+
+<div id="footer">
+   <p><!-- If you'd like, you could place footer information here. -->&nbsp;
+</p>
+</div>
+
+</div> <!-- end #wrap -->
+
+<!-- c(~) -->
+</body>
+</html>

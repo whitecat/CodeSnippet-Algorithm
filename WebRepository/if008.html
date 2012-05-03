@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)"/>
+  <meta name="level" content="1"/>
+  <link rel="stylesheet" type="text/css" href="../../notes.css"/>
+
+  <title>Java: 'if' Statement - 'else if' style</title>
+</head>
+<body><div id="content">
+
+<h1 class="title"><a href="../../index.html">Java Notes</a></h1><h1>'if' Statement - 'else if' style</h1>
+
+
+
+<h2>Series of tests</h2>
+
+<p>It is common to make a series of tests on a value, where the 
+  <code>else</code> part contains only another <code>if</code> statement.
+  If you use indentation for the else part, it isn't 
+  easy to see that these are really a series of tests which
+  are similar.  It is better to write them at the same indentation
+  level by writing the <code>if</code> on the same line
+  as the <code>else</code>.
+  </p>
+
+        
+<h2>Example -- series of tests - cascading ifs</h2>
+
+<p>This code is correctly indented, but ugly and hard to read.
+   It also can go very far to the right if there are many tests.
+   </p>
+<pre class="fragment">
+if (score &lt; 35) {
+    g.setColor(Color.MAGENTA);
+} else {
+    if (score &lt; 50) {
+        g.setColor(Color.RED);
+    } else {
+        if (score &lt; 60) {
+            g.setColor(Color.ORANGE);
+        } else  {
+            if (score &lt; 80) {
+                g.setColor(Color.YELLOW);
+            } else {
+                g.setColor(Color.GREEN);
+            }
+        }
+    }
+}
+</pre>
+        
+        
+<h2>Example -- using 'else if' style for formatting</h2>
+
+<p>Here is the same example, using a style of writing the <code>if</code>
+       immediately after the <code>else</code>.  This is a common
+       exception to the indenting rules, because it results in more
+       readable programs.  Note that it makes use of the rule that
+       a single statement in one of the Java clauses doesn't need
+       braces.
+       </p>
+<pre class="fragment">
+if (score &lt; 35) {
+    g.setColor(Color.MAGENTA);
+} else if (score &lt; 50) {
+    g.setColor(Color.RED);
+} else if (score &lt; 60) {
+    g.setColor(Color.ORANGE);
+} else if (score &lt; 80) {
+    g.setColor(Color.YELLOW);
+} else {
+    g.setColor(Color.GREEN);
+} 
+</pre>
+
+
+
+<h2>Other languages</h2>
+
+<p>Some programming languages recognize this common 
+   construction with a special
+   <i>elseif</i> keyword.  
+   Although it is hardly necessary, this kind of small touch
+   can make a language a little nicer to use.
+   The Java language designers are very conservative about adding
+   keywords to the language, so don't expect it.
+   </p>
+
+
+<div class="footer">
+Copyleft 2006 <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
+</div>
+</div></body>
+</html>
+

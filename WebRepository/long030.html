@@ -1,0 +1,709 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="verify-v1" content="ynzW/GE7rr+SwTxuVauAHAJHCND7JANXtoLBw5Ci6tY=" />
+	<title>MySQL ::   MySQL 5.0 Reference Manual :: 20.3.4.3 Java, JDBC and MySQL Types</title> 
+
+	 
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/common/css/mysql.css?v=sakilanew" />
+	<link rel="stylesheet" type="text/css" media="projection" href="/common/css/mysql.css?v=sakilanew" />
+	<link rel="stylesheet" type="text/css" media="print" href="/common/css/print.css" />
+	
+	 
+		<link rel="stylesheet" type="text/css" href="/doc/docs.css" />
+	 
+		
+		
+		
+		
+	<link rel="contents" href="index.html" title="MySQL Manual" /><link rel="start" href="index.html" title="MySQL Manual" /><link rel="stylesheet" type="text/css" href="/doc/docs.css" /><link rel="prev" href="connector-j-reference-implementation-notes.html" title="20.3.4.2 JDBC API Implementation Notes"/><link rel="next" href="connector-j-reference-charsets.html?ff=nopfpls" title="20.3.4.4 Using Character Sets and Unicode"/><link rel="up" href="connector-j-reference.html" title="20.3.4 Connector/J (JDBC) Reference"/> 
+		<link rel="shortcut icon" href="/common/themes/sakila/favicon.ico" />
+	
+		<script language="javascript" type="text/javascript" src="/common/js/clear_search_text.js"></script>
+    	
+		<noscript></noscript>
+	    
+		    
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+    
+    
+</head>
+
+<body class="doc" >
+
+<div id="container">
+
+<!--UdmComment-->
+<a class="skipToContent" href="#mainContent">Skip navigation links</a>
+
+	<div id="header" >
+	
+	<div class="left">
+							    <div id="logo-cic">
+		    		    	
+		    <a href="http://dev.mysql.com/" title="MySQL">
+		    		    <img src="/common/logos/logo-mysql-110x57.png" alt="MySQL" width="110" height="57" /></a>
+		    </div>
+		    <div id="tagline-cic">The world's most popular open source database</div>
+				
+				
+
+	</div>
+	
+	<div class="right">
+				
+		<div id="search_box"> <!-- Start Search -->
+				    <form id="searchform" name="searchform" method="get" action="http://search.mysql.com/search">
+			<input type="text" id="q" name="q" value="Search" class="swap_value" onfocus="clearSearchText();" />
+			<input type="hidden" name="ie" value="utf-8" />
+			<input type="hidden" name="lr" value="lang_en" />
+			<input type="image" src="/common/themes/sakila/search_g.png" id="go" alt="Search" title="Search" value="Search" />
+		    </form>
+		
+		</div> <!-- End Search -->
+
+				
+		  		  
+		<div id="login" >
+			
+		  	
+				
+									 <p><a href="http://dev.mysql.com/login/?dest=http%3a%2f%2fdev.mysql.com%2Fdoc%2Frefman%2F5.0%2Fen%2Fconnector-j-reference-type-conversions.html">Login</a> | <a href="http://dev.mysql.com/register.php">Register</a></p>
+									</div>
+  
+			</div>
+
+	</div> 
+
+	<!-- MySQL Navigation -->
+	<div id="nav_container">
+	
+	<div id="flags">
+            <ul>
+		<br />
+            </ul>
+        </div>
+		
+						<div id="tab_last">
+		<ul>
+			<li class="first"><a href="http://dev.mysql.com">Developer Zone</a></li>
+			<li class="second"><a href="http://dev.mysql.com/downloads/" onclick="javascript: pageTracker._trackPageview('/FP/Tabs/Downloads');">Downloads</a></li>
+			<li class="current"><a href="http://dev.mysql.com/doc/">Documentation</a></li>
+		</ul>
+		</div>	
+				
+
+	
+	<div id="mysql_menu">
+	    <ul>
+	<li class="current"><a class="current " href="/doc/">MySQL Manual</a>
+	
+		
+		
+	</li>
+	
+	<li class="link"><a  href="/doc/index-gui.html">MySQL Workbench</a>
+	
+		
+		
+	</li>
+	
+	<li class="link"><a  href="/doc/index-expert.html">Expert Guides</a>
+	
+		
+		
+	</li>
+	
+	<li class="link"><a  href="/doc/index-topic.html">Topic Guides</a>
+	
+		
+		
+	</li>
+	
+	<li class="link"><a  href="/doc/index-cluster.html">MySQL Cluster</a>
+	
+		
+		
+	</li>
+	
+	<li class="link"><a  href="/doc/index-other.html">Other Docs</a>
+	
+		
+		
+	</li>
+	
+	<li class="link"><a  href="/doc/index-mysqlu.html">MySQL Uni</a>
+	
+		
+		
+	</li>
+	
+	<li class="link"><a  href="/doc/index-about.html">About</a>
+	
+		
+		
+	</li>
+	
+	<li class="link last"><a  href="/doc/index-archive.html">Archives</a>
+	
+		
+		
+	</li>
+	
+</ul>
+	</div>
+
+		<div id="og_sakila">&nbsp;</div>
+	        <div id="og_title">&nbsp;</div>
+	
+	</div>
+	<!-- End Navigation Container -->
+
+<!--/UdmComment-->
+
+<div class="page_container">
+	<div class="page_sidebar">
+	<!--UdmComment-->
+
+	<div id="menu_title"></div>
+	
+	<div id="menu">	
+		<ul>
+			<li class="current"><a class="current subitems" href="/doc/index.html">Documentation Library</a>
+			
+			<ul class="subitems1">
+				 <li><a href="index.html"><b>Table of Contents</b></a>
+				 
+
+				 <ul class="subitems2">
+				 				 
+				 					 		<li>
+					 	<a href="/doc/refman/5.5/en/connector-j-reference-type-conversions.html" >MySQL 5.5 Manual</a>  										
+				 	</li>
+				 
+				 				 
+				 					 		<li>
+					 	<a href="/doc/refman/5.4/en/connector-j-reference-type-conversions.html" >MySQL 5.4 Manual</a>  										
+				 	</li>
+				 
+				 				 
+				 					 		<li>
+					 	<a href="/doc/refman/5.1/en/connector-j-reference-type-conversions.html" >MySQL 5.1 Manual</a>  										
+				 	</li>
+				 
+				 				 
+				 					 		<li class="current">MySQL 5.0 Manual
+				 						
+				 	</li>
+				 
+				 				 
+				 					 		<li>
+					 	<a href="/doc/refman/4.1/en/connector-j-reference-type-conversions.html" >MySQL 3.23/4.0/4.1 Manual</a>  										
+				 	</li>
+				 
+				 				 
+				 </ul>
+				 
+				 
+				 
+				 </li>
+
+
+			</ul>
+			
+			
+			</li>
+		</ul>
+
+	 <div class="searchmanual">	
+		<form action="http://search.mysql.com/search" method="get" id="docsearch">
+		<strong><label for="searchq">Search manual:</label></strong> <br />
+			 <input type="hidden" name="site" value="refman-50" />
+			 <input id="searchq" type="text" name="q" value="" size="14" />
+			 <input id="searchsubmit" type="submit" value="Go" />
+			 <input type="hidden" name="lr" value="lang_en" />
+			</form>
+		</div>
+	
+	
+	</div>
+
+	<div id="related_pages">
+		<b>Additional languages</b>
+		<ul>
+			
+		</ul>			 
+	</div>
+
+  <div class="gray1"><hr /></div>
+
+	
+	<div style="margin-top: 15px; text-align: center">
+		<script type="text/javascript" language="javascript">
+		<!--
+		google_ad_client = "pub-3255031602947757";
+		google_ad_width = 160;
+		google_ad_height = 600;
+		google_ad_format = "160x600_as";
+		google_ad_type = "text";
+		google_ad_channel = "";
+		google_color_border = "eeeeee";
+		google_color_bg = "eeeeee";
+		google_color_link = "00648c";
+		google_color_url = "00648c";
+		google_color_text = "000000";
+		//-->
+		</script>
+		<noscript></noscript>		
+		<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js" language="javascript">
+		</script>
+		<noscript></noscript>
+	</div>			
+		
+	
+
+  <div class="gray2"><hr /></div>
+			
+  <!--/UdmComment-->
+	
+</div>  
+<!-- Main content -->
+<a name="mainContent"></a>
+
+<div id="page" class="sidebar" >
+
+	 
+	
+	
+
+
+
+
+	<!--UdmComment-->
+
+<div id="docheader"><a href="index.html"> MySQL 5.0 Reference Manual</a> :: <a href="connectors-apis.html">20 Connectors and APIs</a> :: <a href="connector-j.html">20.3 MySQL Connector/J</a> :: <a href="connector-j-reference.html">20.3.4 Connector/J (JDBC) Reference</a> :: 20.3.4.3 Java, JDBC and MySQL Types</div>
+
+	 
+	
+
+	
+<script language="javascript">
+
+<!--
+function toggle(what){
+ if(document.getElementById(what).style.display == "none"){
+   document.getElementById(what).style.display = "block";
+ }else{
+   document.getElementById(what).style.display = "none";
+ }
+}
+//-->
+
+</script>
+<noscript></noscript>
+
+<div style="float: right; width: 250px; margin: 0px 0px 8px 8px; background: white">
+	<div style="text-align: right; font-size: 90%; margin-bottom: 4px">
+		<div style="text-align: left;"><a style="text-decoration: none" href="connector-j-reference-implementation-notes.html" title="Previous Section">&laquo; 20.3.4.2 JDBC API Implementation Notes</a></div>
+		<hr size="1" noshade="noshade" align="center" width="40" style="margin: 0px auto 2px auto" />		<a style="text-decoration: none" href="connector-j-reference-charsets.html" title="Next Section">20.3.4.4 Using Character Sets and Unicode  &raquo;</a>	</div>
+	<div style="padding: 4px 0px 0px 4px; border: 2px dotted #ccc; border-right: none;">
+		<b>Section Navigation</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>[<a href="#" onclick="toggle('sectionnav');"  onkeypress="if (event.keyCode == 13) { toggle('sectionnav'); }">Toggle</a>]</small>
+			<ul id="sectionnav">
+				<li class="p"><a href="connector-j-reference.html">20.3.4 Connector/J (JDBC) Reference</a></li><li><a href="connector-j-reference-configuration-properties.html">20.3.4.1 Driver/Datasource Class Names, URL Syntax and Configuration Properties
+        for Connector/J</a></li>
+<li><a href="connector-j-reference-implementation-notes.html">20.3.4.2 JDBC API Implementation Notes</a></li>
+<li class="self">20.3.4.3 Java, JDBC and MySQL Types</li>
+<li><a href="connector-j-reference-charsets.html">20.3.4.4 Using Character Sets and Unicode</a></li>
+<li><a href="connector-j-reference-using-ssl.html">20.3.4.5 Connecting Securely Using SSL</a></li>
+<li><a href="connector-j-reference-replication-connection.html">20.3.4.6 Using Master/Slave Replication with ReplicationConnection</a></li>
+<li><a href="connector-j-reference-error-sqlstates.html">20.3.4.7 Mapping MySQL Error Numbers to SQLStates</a></li>
+</ul>
+
+			</ul>		
+	</div>
+
+</div>
+<!--/UdmComment-->
+
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="connector-j-reference-type-conversions"></a>20.3.4.3. Java, JDBC and MySQL Types</h4></div></div></div>
+<p>
+        MySQL Connector/J is flexible in the way it handles conversions
+        between MySQL data types and Java data types.
+      </p>
+<p>
+        In general, any MySQL data type can be converted to a
+        java.lang.String, and any numerical type can be converted to any
+        of the Java numerical types, although round-off, overflow, or
+        loss of precision may occur.
+      </p>
+<p>
+        Starting with Connector/J 3.1.0, the JDBC driver will issue
+        warnings or throw DataTruncation exceptions as is required by
+        the JDBC specification unless the connection was configured not
+        to do so by using the property
+        <span class="property">jdbcCompliantTruncation</span> and setting it to
+        <code class="literal">false</code>.
+      </p>
+<p>
+        The conversions that are always guaranteed to work are listed in
+        the following table:
+      </p>
+<p><b>Connection Properties - Miscellaneous. </b>
+          </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><span class="bold"><strong>These MySQL Data Types</strong></span></td>
+<td><span class="bold"><strong>Can always be converted to these Java
+                    types</strong></span></td>
+</tr>
+<tr>
+<td><code class="literal">CHAR, VARCHAR, BLOB, TEXT, ENUM, and SET</code></td>
+<td><code class="literal">java.lang.String, java.io.InputStream, java.io.Reader,
+                    java.sql.Blob, java.sql.Clob</code></td>
+</tr>
+<tr>
+<td><code class="literal">FLOAT, REAL, DOUBLE PRECISION, NUMERIC, DECIMAL, TINYINT,
+                    SMALLINT, MEDIUMINT, INTEGER, BIGINT</code></td>
+<td><code class="literal">java.lang.String, java.lang.Short, java.lang.Integer,
+                    java.lang.Long, java.lang.Double,
+                    java.math.BigDecimal</code></td>
+</tr>
+<tr>
+<td><code class="literal">DATE, TIME, DATETIME, TIMESTAMP</code></td>
+<td><code class="literal">java.lang.String, java.sql.Date, java.sql.Timestamp</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        </p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+          Round-off, overflow or loss of precision may occur if you
+          choose a Java numeric data type that has less precision or
+          capacity than the MySQL data type you are converting to/from.
+        </p>
+</div>
+<p>
+        The <code class="classname">ResultSet.getObject()</code> method uses the
+        type conversions between MySQL and Java types, following the
+        JDBC specification where appropriate. The value returned by
+        <code class="classname">ResultSetMetaData.GetColumnClassName()</code> is
+        also shown below. For more information on the
+        <code class="literal">java.sql.Types</code> classes see
+        <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/sql/Types.html" target="_top">Java
+        2 Platform Types</a>.
+      </p>
+<p><b>MySQL Types to Java Types for ResultSet.getObject(). </b>
+          </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><span class="bold"><strong>MySQL Type Name</strong></span></td>
+<td><span class="bold"><strong>Return value of
+                    <code class="literal">GetColumnClassName</code></strong></span></td>
+<td><span class="bold"><strong>Returned as Java Class</strong></span></td>
+</tr>
+<tr>
+<td>
+<span class="type">BIT(1)</span> (new in MySQL-5.0)</td>
+<td><span class="type">BIT</span></td>
+<td><code class="classname">java.lang.Boolean</code></td>
+</tr>
+<tr>
+<td>
+<span class="type">BIT( &gt; 1)</span> (new in MySQL-5.0)</td>
+<td><span class="type">BIT</span></td>
+<td><code class="classname">byte[]</code></td>
+</tr>
+<tr>
+<td><span class="type">TINYINT</span></td>
+<td><span class="type">TINYINT</span></td>
+<td>
+<code class="classname">java.lang.Boolean</code> if the configuration property
+                    <code class="literal">tinyInt1isBit</code> is set to
+                    <code class="literal">true</code> (the default) and the
+                    storage size is 1, or
+                    <code class="classname">java.lang.Integer</code> if not.</td>
+</tr>
+<tr>
+<td>
+<span class="type">BOOL</span>, <span class="type">BOOLEAN</span>
+</td>
+<td><span class="type">TINYINT</span></td>
+<td>See <span class="type">TINYINT</span>, above as these are aliases for
+                    <span class="type">TINYINT(1)</span>, currently.</td>
+</tr>
+<tr>
+<td><span class="type">SMALLINT[(M)] [UNSIGNED]</span></td>
+<td><span class="type">SMALLINT [UNSIGNED]</span></td>
+<td>
+<code class="classname">java.lang.Integer</code> (regardless if UNSIGNED or not)</td>
+</tr>
+<tr>
+<td><span class="type">MEDIUMINT[(M)] [UNSIGNED]</span></td>
+<td><span class="type">MEDIUMINT [UNSIGNED]</span></td>
+<td>
+<code class="classname">java.lang.Integer,</code> if UNSIGNED
+                    <code class="classname">java.lang.Long</code> (C/J 3.1 and
+                    earlier), or
+                    <code class="classname">java.lang.Integer</code> for C/J 5.0
+                    and later</td>
+</tr>
+<tr>
+<td><span class="type">INT,INTEGER[(M)] [UNSIGNED]</span></td>
+<td><span class="type">INTEGER [UNSIGNED]</span></td>
+<td>
+<code class="classname">java.lang.Integer</code>, if UNSIGNED
+                    <code class="classname">java.lang.Long</code>
+</td>
+</tr>
+<tr>
+<td><span class="type">BIGINT[(M)] [UNSIGNED]</span></td>
+<td><span class="type">BIGINT [UNSIGNED]</span></td>
+<td>
+<code class="classname">java.lang.Long</code>, if UNSIGNED
+                    <code class="classname">java.math.BigInteger</code>
+</td>
+</tr>
+<tr>
+<td><span class="type">FLOAT[(M,D)]</span></td>
+<td><span class="type">FLOAT</span></td>
+<td><code class="classname">java.lang.Float</code></td>
+</tr>
+<tr>
+<td><span class="type">DOUBLE[(M,B)]</span></td>
+<td><span class="type">DOUBLE</span></td>
+<td><code class="classname">java.lang.Double</code></td>
+</tr>
+<tr>
+<td><span class="type">DECIMAL[(M[,D])]</span></td>
+<td><span class="type">DECIMAL</span></td>
+<td><code class="classname">java.math.BigDecimal</code></td>
+</tr>
+<tr>
+<td><span class="type">DATE</span></td>
+<td><span class="type">DATE</span></td>
+<td><code class="classname">java.sql.Date</code></td>
+</tr>
+<tr>
+<td><span class="type">DATETIME</span></td>
+<td><span class="type">DATETIME</span></td>
+<td><code class="classname">java.sql.Timestamp</code></td>
+</tr>
+<tr>
+<td><span class="type">TIMESTAMP[(M)]</span></td>
+<td><span class="type">TIMESTAMP</span></td>
+<td><code class="classname">java.sql.Timestamp</code></td>
+</tr>
+<tr>
+<td><span class="type">TIME</span></td>
+<td><span class="type">TIME</span></td>
+<td><code class="classname">java.sql.Time</code></td>
+</tr>
+<tr>
+<td><span class="type">YEAR[(2|4)]</span></td>
+<td><span class="type">YEAR</span></td>
+<td>If <code class="literal">yearIsDateType</code> configuration property is set to
+                    false, then the returned object type is
+                    <code class="classname">java.sql.Short</code>. If set to
+                    true (the default) then an object of type
+                    <code class="classname">java.sql.Date</code> (with the date
+                    set to January 1st, at midnight).</td>
+</tr>
+<tr>
+<td><span class="type">CHAR(M)</span></td>
+<td><span class="type">CHAR</span></td>
+<td>
+<code class="classname">java.lang.String</code> (unless the character set for
+                    the column is <span class="type">BINARY</span>, then
+                    <code class="classname">byte[]</code> is returned.</td>
+</tr>
+<tr>
+<td><span class="type">VARCHAR(M) [BINARY]</span></td>
+<td><span class="type">VARCHAR</span></td>
+<td>
+<code class="classname">java.lang.String</code> (unless the character set for
+                    the column is <span class="type">BINARY</span>, then
+                    <code class="classname">byte[]</code> is returned.</td>
+</tr>
+<tr>
+<td><span class="type">BINARY(M)</span></td>
+<td><span class="type">BINARY</span></td>
+<td><code class="classname">byte[]</code></td>
+</tr>
+<tr>
+<td><span class="type">VARBINARY(M)</span></td>
+<td><span class="type">VARBINARY</span></td>
+<td><code class="classname">byte[]</code></td>
+</tr>
+<tr>
+<td><span class="type">TINYBLOB</span></td>
+<td><span class="type">TINYBLOB</span></td>
+<td><code class="classname">byte[]</code></td>
+</tr>
+<tr>
+<td><span class="type">TINYTEXT</span></td>
+<td><span class="type">VARCHAR</span></td>
+<td><code class="classname">java.lang.String</code></td>
+</tr>
+<tr>
+<td><span class="type">BLOB</span></td>
+<td><span class="type">BLOB</span></td>
+<td><code class="classname">byte[]</code></td>
+</tr>
+<tr>
+<td><span class="type">TEXT</span></td>
+<td><span class="type">VARCHAR</span></td>
+<td><code class="classname">java.lang.String</code></td>
+</tr>
+<tr>
+<td><span class="type">MEDIUMBLOB</span></td>
+<td><span class="type">MEDIUMBLOB</span></td>
+<td><code class="classname">byte[]</code></td>
+</tr>
+<tr>
+<td><span class="type">MEDIUMTEXT</span></td>
+<td><span class="type">VARCHAR</span></td>
+<td><code class="classname">java.lang.String</code></td>
+</tr>
+<tr>
+<td><span class="type">LONGBLOB</span></td>
+<td><span class="type">LONGBLOB</span></td>
+<td><code class="classname">byte[]</code></td>
+</tr>
+<tr>
+<td><span class="type">LONGTEXT</span></td>
+<td><span class="type">VARCHAR</span></td>
+<td><code class="classname">java.lang.String</code></td>
+</tr>
+<tr>
+<td><span class="type">ENUM('value1','value2',...)</span></td>
+<td><span class="type">CHAR</span></td>
+<td><code class="classname">java.lang.String</code></td>
+</tr>
+<tr>
+<td><span class="type">SET('value1','value2',...)</span></td>
+<td><span class="type">CHAR</span></td>
+<td><code class="classname">java.lang.String</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        </p>
+</div>
+<!--UdmComment--><div id="docnav"><a rel="prev" href="connector-j-reference-implementation-notes.html" title="20.3.4.2 JDBC API Implementation Notes">Previous</a> / <a rel="next" href="connector-j-reference-charsets.html" title="20.3.4.4 Using Character Sets and Unicode">Next</a> / <a rel="up" href="connector-j-reference.html" title="20.3.4 Connector/J (JDBC) Reference">Up</a> / <a rel="contents" href="index.html">Table of Contents</a></div><!--/UdmComment--><br class="clear" /><!--UdmComment--><div id="comments"><h2>User Comments</h2><p><a href="/doc/mysql/comment.php?sect=connector-j-reference-type-conversions">Add your own comment.</a></p></div><!--UdmComment--><div id="docnav"><a href="#">Top</a> / <a rel="prev" href="connector-j-reference-implementation-notes.html" title="20.3.4.2 JDBC API Implementation Notes">Previous</a> / <a rel="next" href="connector-j-reference-charsets.html" title="20.3.4.4 Using Character Sets and Unicode">Next</a> / <a rel="up" href="connector-j-reference.html" title="20.3.4 Connector/J (JDBC) Reference">Up</a> / <a rel="contents" href="index.html">Table of Contents</a></div><!--/UdmComment--></div></div>
+
+
+
+
+
+
+
+
+
+ </div> 
+</div> 
+<div id="footer">
+
+
+    <div class="links">
+        <ul>
+            <li class="top"><a href="http://dev.mysql.com">Developer Zone</a></li>
+	    <li><a href="http://dev.mysql.com/doc/">Documentation</a></li>
+            <li><a href="http://dev.mysql.com/librarian/">Librarian</a></li>
+            <li><a href="http://dev.mysql.com/articles/">Developer Articles</a></li>
+            <li><a href="http://forums.mysql.com/">Forums</a></li>
+            <li><a href="http://bugs.mysql.com/">Bugs</a></li>
+            <li><a href="http://forge.mysql.com/">Forge</a></li>
+			            <li><a href="http://planet.mysql.com/">Planet MySQL</a></li>
+			            <li><a href="http://labs.mysql.com/">Labs</a></li>
+        </ul>
+    </div>
+    
+    <div class="links">
+        <ul>
+            <li class="top"><a href="http://dev.mysql.com/downloads/">Downloads</a></li>
+            <li><a href="http://dev.mysql.com/downloads/mysql/">MySQL Community Server</a></li>
+            <li><a href="http://dev.mysql.com/downloads/mysql-proxy/">MySQL Proxy</a></li>
+            <li><a href="http://dev.mysql.com/downloads/cluster/">MySQL Cluster</a></li>
+            <li><a href="http://dev.mysql.com/downloads/workbench/">MySQL Workbench</a></li>
+            <li><a href="http://dev.mysql.com/downloads/connector/">Connectors</a></li>
+            <li><a href="http://downloads.mysql.com/archives.php">Archives</a></li>
+            <li><a href="http://downloads.mysql.com/snapshots.php">Snapshots</a></li>
+            <li><a href="http://dev.mysql.com/downloads/mirrors.html">Mirrors</a></li>
+        </ul>
+    </div>
+    
+    <div class="links">
+        <ul>
+            <li class="top"><a href="http://dev.mysql.com/doc/">Documentation</a></li>
+            <li><a href="http://dev.mysql.com/doc/">MySQL Reference Manuals</a></li>
+            <li><a href="http://dev.mysql.com/doc/index-gui.html">MySQL Workbench</a></li>
+            <li><a href="http://dev.mysql.com/doc/index-expert.html">Expert Guides</a></li>
+            <li><a href="http://dev.mysql.com/doc/index-topic.html">Topic Guides</a></li>
+            <li><a href="http://dev.mysql.com/doc/index-cluster.html">MySQL Cluster</a></li>
+            <li><a href="http://dev.mysql.com/doc/index-other.html">Other Documents</a></li>
+            <li><a href="http://dev.mysql.com/doc/index-mysqlu.html">MySQL University</a></li> 
+            <li><a href="http://dev.mysql.com/doc/index-about.html">About</a></li>     
+            <li><a href="http://dev.mysql.com/doc/index-archive.html">Archives</a></li>   
+        </ul>
+    </div>
+
+    <div class="links">
+        <ul>
+            <li class="top"><a href="http://dev.mysql.com/support/">Support</a></li>
+            <li><a href="http://forge.mysql.com/wiki/Category:MySQLUserGroups">MySQL Meetups</a></li>
+            <li><a href="http://dev.mysql.com/guilds/">Guilds</a></li>
+            <li><a href="http://lists.mysql.com/">Lists</a></li>
+            <li><a href="http://forums.mysql.com/">Forums</a></li>            
+		</ul>
+			
+		<ul>
+            <li class="top">Other</li>      
+            <li><a href="http://dev.mysql.com/legal/">Privacy Policy</a></li>
+			<li><a href="http://dev.mysql.com/contact/">Contact Us</a></li>
+            <li><a href="http://dev.mysql.com/sitemap.html">Site Map</a></li>
+        </ul>
+    </div>
+    
+
+        
+    <div id="search">
+        <form id="footer_search" action="http://search.mysql.com/search" method="get">
+            <input type="text" id="f_q" name="q" value="" class="swap_value" onfocus="clearSearchText();" />
+	    <input type="image" src="/common/themes/sakila/footer_search_g.png" id="f_go" alt="Search" title="Search" value="Search" />
+        </form>
+    </div>
+
+</div><!-- End Footer -->
+    
+        <div id="copyright-oracle"><a href="http://www.oracle.com/"><img src="/common/logos/logo-oracle-red-91x22.gif" alt="Oracle" width="91" height="22" border="0" /></a>&nbsp;&nbsp;<span>&copy; 2010, Oracle Corporation and/or its affiliates</span></div>
+    
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-225536-3");
+    pageTracker._trackPageview();
+    </script>
+
+<script type="text/javascript" src="/common/js/s_code_remote.js?ver=20091011"></script>
+
+</body>
+</html>

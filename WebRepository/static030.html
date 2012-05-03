@@ -1,0 +1,701 @@
+<html>
+	<head>
+		<title>Static Block and Static Initializer in Java</title>
+		<meta name="description" content="Static Block and Static Initializer in Java">
+		<meta name="keywords" content="Static Block and Static Initializer in Java">
+		<LINK REL=StyleSheet HREF="http://www.javabeat.net/javabeat/css/articles.css" TITLE="Contemporary" TYPE="text/css">
+		<script type="text/javascript" src="http://www.javabeat.net/templates/jquery-1.2.6.pack.js"></script>
+		<script type="text/javascript" src="http://www.javabeat.net/templates/ddaccordion.js"></script>
+		<script>
+			function feedback(obj)
+			{
+				window.open('http://www.javabeat.net/qna/feedback.php?q_id='+obj,'P','width=550,height=300,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,resizable=yes,copyhistory=no');
+			}
+			function reqQna(obj)
+			{
+				window.open('http://www.javabeat.net/qna/ask.php?q_id='+obj,'P','width=550,height=300,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,resizable=yes,copyhistory=no');
+			}
+			function print(obj)
+			{
+				window.open('http://www.javabeat.net/qna/print.php?q_id='+obj,'P','width=750,height=600,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,resizable=yes,copyhistory=no');
+			}
+			function sendEmail(obj)
+			{
+				window.open('http://www.javabeat.net/qna/email.php?q_id='+obj,'P','width=550,height=300,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,resizable=yes,copyhistory=no');
+			}
+			function showPdf(obj)
+			{
+				window.open('http://www.javabeat.net/qna/pdf.php?q_id='+obj,'P','width=750,height=600,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,resizable=yes,copyhistory=no');
+			}
+
+		</script>
+
+	</head>
+	<body>
+		<table width="1000" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100%">
+					<style> 
+.test { 
+ color: black; 
+ font-weight:bold; 
+ text-align: left; 
+ height:30;
+} 
+</style> 
+<table background="http://www.javabeat.net/templates/back.jpg" width="100%" height="80">
+	<tr>
+		<td width="20%">
+			<a href="http://www.javabeat.net"><img src="http://www.javabeat.net/templates/jbheader.jpg" height="80" border="0"></a>
+		</td>
+		<td>
+			<!--<script type="text/javascript" src="http://www.bluehost.com/src/js/kks_krishna/CODE60/468x60/bh_468x60_03.gif"></script>-->
+<!--<a href="http://www.discryptor.com/products/discryptor-business-edition?utm_source=javabeat&utm_medium=banner&utm_campaign=bannerfromdigitalpoint" target="_blank" rel="nofollow"><img src="http://www.discryptor.com/images/stories/banners/banner_468x60_eng_v1_noloop.gif" border="0"></a>-->
+<!--			<script type="text/javascript"><!--
+google_ad_client = "pub-1490953723360528";
+/* Header - Banner */
+google_ad_slot = "0163489113";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+<!--</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>-->
+		
+		</td>
+		<td >
+			<table width="100%" height="80">
+				<tr>
+					<td class="text_format" width="100%" valign="top" align="right">
+						<font size="1">
+							<a href="http://www.chatforfree.org/" target="_blank">Webcam Chat</a>
+							<a href="http://www.elitesat.com/" target="_blank">Satellite Internet</a>
+							<a href="http://www.rockryno.com/quickbooks/1.htm" target="_blank">QuickBooks Advice</a>	
+							<a href="http://www.enjoyprepaid.com/" target="_blank">international calling cards</a>
+							<a href="http://www.nobelcom.com/" target="_blank">international phone cards</a>
+						</font>
+					</td>
+				</tr>				
+				<tr>
+					<td class="text_format" width="100%" valign="bottom" align="right">
+						<form action="http://www.javabeat.net/search/index.php" id="cse-search-box">
+						  <div>
+							<input type="hidden" name="cx" value="007688475696303719593:jkbg31bkfjm" />
+							<input type="hidden" name="cof" value="FORID:10" />
+							<input type="hidden" name="ie" value="UTF-8" />
+							<table>
+								<tr>
+									<td>
+										<input type="text" name="q" size="30" class="test"/>
+									</td>
+									<td>
+										<input type="submit" name="sa" value="Search" class="searchbutton"/>
+									</td>
+								</tr>
+							</table>
+						  </div>
+						</form>
+						<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
+					</td>
+				</tr>				
+			</table>
+		</td>
+	</tr>
+</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" valign="top">
+					<table cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="90" valign="top">
+								<head>
+<script type="text/javascript">
+ddaccordion.init({
+	headerclass: "submenuheader", //Shared CSS class name of headers group
+	contentclass: "submenu", //Shared CSS class name of contents group
+	revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click" or "mouseover
+	mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+	collapseprev: true, //Collapse previous content (so only one open at any time)? true/false 
+	defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+	onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+	animatedefault: false, //Should contents open by default be animated into view?
+	persiststate: true, //persist state of opened contents within browser session?
+	toggleclass: ["", ""], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+	togglehtml: ["suffix", "<img src='http://www.javabeat.net/templates/plus.gif' class='statusicon' />", "<img src='http://www.javabeat.net/templates/minus.gif' class='statusicon' />"], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+	animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+	oninit:function(headers, expandedindices){ //custom code to run when headers have initalized
+		//do nothing
+	},
+	onopenclose:function(header, index, state, isuseractivated){ //custom code to run whenever a header is opened or closed
+		//do nothing
+	}
+})
+
+
+</script>
+
+
+<style type="text/css">
+
+.glossymenu{
+margin: 1px 0;
+padding: 0;
+width: 200px; /*width of menu*/
+border: 1px solid #9A9A9A;
+border-bottom-width: 0;
+}
+
+.glossymenu a.menuitem{
+background: black url(http://www.javabeat.net/templates/glossyback.gif) repeat-x bottom left;
+font: bold 14px "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+color: white;
+display: block;
+position: relative; /*To help in the anchoring of the ".statusicon" icon image*/
+width: auto;
+padding: 4px 0;
+padding-left: 10px;
+text-decoration: none;
+}
+
+
+.glossymenu a.menuitem:visited, .glossymenu .menuitem:active{
+color: white;
+}
+
+.glossymenu a.menuitem .statusicon{ /*CSS for icon image that gets dynamically added to headers*/
+position: absolute;
+top: 5px;
+right: 5px;
+border: none;
+}
+
+.glossymenu a.menuitem:hover{
+background-image: url(http://www.javabeat.net/templates/glossyback2.gif);
+}
+
+.glossymenu div.submenu{ /*DIV that contains each sub menu*/
+background: white;
+}
+
+.glossymenu div.submenu ul{ /*UL of each sub menu*/
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+.glossymenu div.submenu ul li{
+border-bottom: 1px solid blue;
+}
+
+.glossymenu div.submenu ul li a{
+display: block;
+font: normal 13px "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+color: black;
+text-decoration: none;
+padding: 2px 0;
+padding-left: 10px;
+}
+
+.glossymenu div.submenu ul li a:hover{
+background: #DFDCCB;
+colorz: white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="glossymenu">
+<a class="menuitem submenuheader" href="">JavaBeat</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/">Home</a></li>
+		<li><a href="http://www.javabeat.net/articles/page/1/">Articles</a></li>
+		<li><a href="http://www.javabeat.net/tips/page/1/">Tips</a></li>
+		<li><a href="http://www.javabeat.net/qna/all/1/">Qna</a></li>
+		<li><a href="http://www.javabeat.net/dlinks/">Dlinks</a></li>
+		<li><a href="http://astore.amazon.com/javabeat-20">Books</a></li>
+		<li><a href="http://forums.javabeat.net/">Forums</a></li>
+	</ul>
+</div>
+
+
+<a class="menuitem submenuheader" href="" >Certifications</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/cert/scja/">SCJA</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp2/">SCJP 1.4</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/">SCJP 1.5</a></li>
+		<li><a href="http://www.javabeat.net/cert/scjp-6-0/">SCJP 1.6</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scwcd/">SCWCD 1.4</a></li>
+		<li><a href="http://www.javabeat.net/cert/scwcd-5-0/">SCWCD 5.0</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scbcd/">SCBCD</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scbcd5/">SCBCD 5.0</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scdjws/">SCDJWS</a></li>
+		<li><a href="http://www.javabeat.net/cert/scea/">SCEA</a></li>
+		<li><a href="http://www.javabeat.net/cert/scea-5-0/">SCEA 5.0</a></li>
+		<li><a href="http://www.javabeat.net/cert/scmad/">SCMAD</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >Certifications Kits</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/products/cert/scjp-1-5.php">SCJP 1.5</a></li>
+		<li><a href="http://www.javabeat.net/products/cert/scjp-1-6.php">SCJP 1.6</a></li>
+		<li><a href="http://www.javabeat.net/products/cert/scwcd-5-0.php">SCWCD 5.0</a></li>
+		<li><a href="http://www.javabeat.net/products/cert/scbcd-5-0.php">SCBCD 5.0</a></li>
+		<li><a href="http://www.javabeat.net/products/cert/interview-questions.php">Interview Questions</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >Articles</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/articles/page/1/">All Articles</a></li>
+		<li><a href="http://www.javabeat.net/articles/j2ee/1/">J2EE 1.4</a> </li>
+		<li><a href="http://www.javabeat.net/articles/java-ee-5-0/1/">Java EE 5.0</a></li>
+		<li><a href="http://www.javabeat.net/articles/java-ee-6-0/1/">Java EE 6.0</a></li>
+		<li><a href="http://www.javabeat.net/articles/ejb3/1/">EJB 3.0</a></li>
+		<li><a href="http://www.javabeat.net/articles/java5/1/">Java 5.0</a></li>
+		<li><a href="http://www.javabeat.net/articles/java6/1/">Java 6.0</a></li>
+		<li><a href="http://www.javabeat.net/articles/java7/1/">Java 7.0</a></li>
+		<li><a href="http://www.javabeat.net/articles/j2me/1/">J2ME</a></li>
+		<li><a href="http://www.javabeat.net/articles/struts/1/">Struts</a></li>
+		<li><a href="http://www.javabeat.net/articles/spring/1/">Spring</a></li>
+		<li><a href="http://www.javabeat.net/articles/hibernate/1/">Hibernate</a></li>
+		<li><a href="http://www.javabeat.net/articles/jpa/1/">JPA</a></li>
+		<li><a href="http://www.javabeat.net/articles/jsf/1/">JSF</a></li>
+		<li><a href="http://www.javabeat.net/articles/seam/1/">JBoss Seam</a></li>
+		<li><a href="http://www.javabeat.net/articles/guice/1/">Google Guice</a></li>
+		<li><a href="http://www.javabeat.net/articles/groovy/1/">Groovy</a></li>
+		<li><a href="http://www.javabeat.net/articles/web-beans/1/">Web Beans</a></li>
+		<li><a href="http://www.javabeat.net/articles/ajax/1/">AJAX</a></li>
+		<li><a href="http://www.javabeat.net/articles/gwt/1/">GWT</a></li>
+		<li><a href="http://www.javabeat.net/articles/javafx/1/">JavaFx</a></li>
+		<li><a href="http://www.javabeat.net/articles/eclipse/1/">Eclipse</a></li>
+		<li><a href="http://www.javabeat.net/articles/netbeans/1/">NetBeans</a></li>
+		<li><a href="http://www.javabeat.net/articles/jca/1/">JCA</a></li>
+		<li><a href="http://www.javabeat.net/articles/webservice/1/">WebServices</a></li>
+		<li><a href="http://www.javabeat.net/articles/soa/1/">SOA</a></li>
+		<li><a href="http://www.javabeat.net/articles/books/1/">Java Books</a></li>
+	</ul>
+</div>
+<a class="menuitem submenuheader" href="" >Tutorials</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/tutorials/">Tutorials Home</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/spring/1/">Spring Framework</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/hibernate/1/">Hibernate Framework</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/jsf/1/">JSF Framework</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/struts/1/">Struts Framework</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/jsp/1/">JSP</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/servlets/1/">Servlets</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/design-patterns/1/">Design Patterns</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/scjp/1/">SCJP</a></li>
+		<li><a href="http://www.javabeat.net/tutorials/scea/1/">SCEA</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >Tips</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/tips/java/1/">Java Basics</a></li>
+		<li><a href="http://www.javabeat.net/tips/jsp/1/">JSP</a></li>
+		<li><a href="http://www.javabeat.net/tips/jsf/1/">JSF</a></li>
+		<li><a href="http://www.javabeat.net/tips/spring/1/">Spring</a></li>
+		<li><a href="http://www.javabeat.net/tips/hibernate/1/">Hibernate</a></li>
+		<li><a href="http://www.javabeat.net/tips/ejb3/1/">EJB 3.0</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >QNA</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/qna/java/1/">Java</a></li>
+		<li><a href="http://www.javabeat.net/qna/jsp/1/">JSP</a></li>
+		<li><a href="http://www.javabeat.net/qna/jsf/1/">JSF</a></li>
+		<li><a href="http://www.javabeat.net/qna/spring/1/">Spring</a></li>
+		<li><a href="http://www.javabeat.net/qna/hibernate/1/">Hibernate</a></li>
+		<li><a href="http://www.javabeat.net/qna/ejb3/1/">EJB 3.0</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >Interview Questions</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/articles/java-j2ee-interview-questions.php">Interview Questions</a></li>
+		<li><a href="http://www.javabeat.net/articles/java-interview-questions.php">Java</a></li>
+		<li><a href="http://www.javabeat.net/articles/j2ee-interview-questions.php">J2EE</a></li>
+		<li><a href="http://www.javabeat.net/articles/servlets-interview-questions.php">Servlets</a></li>
+		<li><a href="http://www.javabeat.net/articles/ejb-interview-questions.php">EJB</a></li>
+		<li><a href="http://www.javabeat.net/articles/jdbc-interview-questions.php">JDBC</a></li>
+		<li><a href="http://www.javabeat.net/articles/rmi-interview-questions.php">RMI</a></li>
+		<li><a href="http://www.javabeat.net/articles/jms-interview-questions.php">JMS</a></li>
+		<li><a href="http://www.javabeat.net/articles/jni-interview-questions.php">JNI</a></li>
+		<li><a href="http://www.javabeat.net/articles/jsf-interview-questions.php">JSF</a></li>
+		<li><a href="http://www.javabeat.net/articles/design-patterns-interview-questions.php">Design Patterns</a></li>
+		<li><a href="http://www.javabeat.net/articles/java-exception-handling-interview-questions.php">Exception</a></li>
+		<li><a href="http://www.javabeat.net/articles/spring-framework-interview-questions.php">Spring</a></li>
+		<li><a href="http://www.javabeat.net/articles/hibernate-interview-questions.php">Hibernate</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >SCJP 1.5</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/">Home</a></li>
+		<li><a href="http://www.javabeat.net/cert/scjp-books/">SCJP Books</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/newbie/">New to SCJP?</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/difference-scjp-1-4-scjp-1-5.php">SCJP 1.4 or SCJP 1.5</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/objectives/">Objectives</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/articles/">Articles</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/mocks/">Mock Exams</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/scjp5/tutorials/">Tutorials</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >SCBCD 5.0</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/">Home</a></li>
+		<li><a href="http://www.javabeat.net/cert/scjp-books/">SCJP Books</a></li>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/objectives/">Objectives</a></li>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/mocks/">Mock Exams</a></li>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/mocks/1-ejb-3-0-overview.php">Objective - 1</a></li>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/mocks/scbcd-5-0-mock-exam-1.php">Mock Exam - 1</a></li>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/mocks/scbcd-5-0-mock-exam-2.php">Mock Exam - 2</a></li>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/mocks/scbcd-5-0-mock-exam-3.php">Mock Exam - 3</a></li>
+		<li><a href="http://www.javabeat.net/cert/scbcd-5-0/mocks/scbcd-5-0-mock-exam-4.php">Mock Exam - 4</a></li>
+		<li><a href="http://forums.javabeat.net/index.php?board=4.0">SCBCD 5.0 Forums</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >Java/J2EE</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://www.javabeat.net/javabeat/java5/">Java 5.0</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/java6/">Java 6.0</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/java7/">Java 7.0</a></li>
+		<li><a href="http://jsp.javabeat.net/">JSP</a></li>
+		<li><a href="http://servlet.javabeat.net/">Servlets</a></li>
+		<li><a href="http://ejb.javabeat.net/">EJB</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/ejb3/">EJB 3.0</a></li>
+		<li><a href="http://www.javabeat.net/javabeat/wicket/">Wicket</a></li>
+		<li><a href="http://www.javabeat.net/advanced/design-pattern/">Design Patterns</a></li>
+	</ul>
+</div>
+
+<a class="menuitem submenuheader" href="" >Feeds</a>
+<div class="submenu">
+	<ul>
+		<li><a href="http://feeds.feedburner.com/JavabeatArticles">Articles</a></li>
+		<li><a href="http://feeds.feedburner.com/JavabeatTips">Tips</a></li>
+	</ul>
+</div>
+<div >
+<script type="text/javascript"><!--
+google_ad_client = "pub-1490953723360528";
+/* Site Left Nav Bar */
+google_ad_slot = "2356032116";
+google_ad_width = 200;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</div>
+
+<!--<SCRIPT charset="utf-8" type="text/javascript" src="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822/US/java03c-20/8001/5479b44b-8023-4512-a7a1-7dbfd5bee01b"> </SCRIPT> <NOSCRIPT><A HREF="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Fjava03c-20%2F8001%2F5479b44b-8023-4512-a7a1-7dbfd5bee01b&Operation=NoScript">Amazon.com Widgets</A></NOSCRIPT>-->
+
+
+
+							</td>
+							<td width="910" valign="top">
+								<div id="container_common">
+									<table class="text_format" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>
+												<script type="text/javascript"><!--
+												google_ad_client = "pub-1490953723360528";
+												/* QNA */
+												google_ad_slot = "0851265575";
+												google_ad_width = 728;
+												google_ad_height = 15;
+												//-->
+												</script>
+												<script type="text/javascript"
+												src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+												</script>
+											</td>
+										</tr>
+										<tr>
+											<td class="text_format" align="right">
+												<input type="button" onclick="javascript:feedback('868')" value="feedback">
+												<input type="button" onclick="javascript:reqQna('868')" value="ask questions">
+												<input type="button" onclick="javascript:print('868')" value="print">
+												<input type="button" onclick="javascript:sendEmail('868')" value="email">
+											</td>
+										</tr>
+										<tr>
+											<td class="text_format" align="right">
+											<script type="text/javascript"><!--
+google_ad_client = "pub-1490953723360528";
+/* QNA Banner */
+google_ad_slot = "3192702888";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+											</td>
+										</tr>
+										<tr>
+											<td class="text_format">
+												<table>
+													<tr>
+														<td class="text_format" valign="top">
+															<h1>Static Block and Static Initializer in Java</h1>
+												<script type="text/javascript"><!--
+												google_ad_client = "pub-1490953723360528";
+												/* QNA */
+												google_ad_slot = "0851265575";
+												google_ad_width = 728;
+												google_ad_height = 15;
+												//-->
+												</script>
+												<script type="text/javascript"
+												src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+												</script>
+												The static variables or static blocks in a class will be initialised before the class gets instantiated. Also, we all know that the static variables are not tied up with the instances. So even if we have the reference as null, the variable s value had already been initalised to "hello". So calling it that way will print the values Inside Method and Hello as the variable call will be made with the class name as they are tied up with the class. If you make the variable non - static, you will get a NPE.
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+<tr>
+				<td width="100%" align="center">
+				<div id="relatedlinks_container_div"></div>
+<script language=javascript defer>
+  var escFun = window.encodeURIComponent ? window.encodeURIComponent : escape;
+  var relatedlinks_js = document.createElement("script");
+  relatedlinks_js.setAttribute("charset", "utf-8");
+  relatedlinks_js.src = "http://relatedlinks.googlelabs.com/client/client.js?url=" +
+      escFun(document.URL) + "&referrer=" + escFun(document.referrer) +
+      "&relatedlinks_id=10293_614985394816227825&title=" + escFun(document.title);
+  document.getElementsByTagName("head")[0].appendChild(relatedlinks_js);
+</script>
+				</td>
+			</tr>
+											<td >
+												<script type="text/javascript"><!--
+google_ad_client = "pub-1490953723360528";
+/* QNA Banner */
+google_ad_slot = "3192702888";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+											</td>
+										</tr>	
+<tr>
+											<td>
+												<a href="http://www.javabeat.net/qna/all/1/">All</a>
+												<a href="http://www.javabeat.net/qna/api/1/">api</a>
+												<a href="http://www.javabeat.net/qna/java/1/">java</a>
+												<a href="http://www.javabeat.net/qna/java6/1/">java 6.0</a>
+												<a href="http://www.javabeat.net/qna/java7/1/">java 7.0</a>
+												<a href="http://www.javabeat.net/qna/jdbc/1/">jdbc</a>
+												<a href="http://www.javabeat.net/qna/jsp/1/">jsp</a>
+												<a href="http://www.javabeat.net/qna/servlet/1/">servlet</a>
+												<a href="http://www.javabeat.net/qna/ejb/1/">ejb</a>
+												<a href="http://www.javabeat.net/qna/jndi/1/">jndi</a>
+												<a href="http://www.javabeat.net/qna/jms/1/">jms</a>
+												<a href="http://www.javabeat.net/qna/ejb3/1/">ejb 3.0</a>
+												<a href="http://www.javabeat.net/qna/j2ee/1/">j2ee</a>
+												<a href="http://www.javabeat.net/qna/jee-5-0/1/">jee 5.0</a>
+												<a href="http://www.javabeat.net/qna/jee-6-0/1/">jee 6.0</a>
+												<a href="http://www.javabeat.net/qna/jsf/1/">jsf</a>
+												<a href="http://www.javabeat.net/qna/struts/1/">struts</a>
+												<a href="http://www.javabeat.net/qna/spring/1/">spring</a>
+												<a href="http://www.javabeat.net/qna/hibernate/1/">Hibernate</a>
+												<a href="http://www.javabeat.net/qna/ajax/1/">ajax</a>
+												<a href="http://www.javabeat.net/qna/jboss-seam/1/">JBoss Seam</a>
+												<a href="http://www.javabeat.net/qna/netbeans/1/">netbeans</a>
+												<a href="http://www.javabeat.net/qna/eclipse/1/">eclipse</a>
+												<a href="http://www.javabeat.net/qna/ant/1/">ant</a>
+												<a href="http://www.javabeat.net/qna/xml/1/">xml</a>
+												<a href="http://www.javabeat.net/qna/maven/1/">maven</a>
+												<a href="http://www.javabeat.net/qna/dojo/1/">dojo</a>
+												<a href="http://www.javabeat.net/qna/junit/1/">junit</a>
+												<a href="http://www.javabeat.net/qna/javafx/1/">javafx</a>
+												<a href="http://www.javabeat.net/qna/j2me/1/">j2me</a>
+												<a href="http://www.javabeat.net/qna/log4j/1/">log4j</a>
+												<a href="http://www.javabeat.net/qna/esb/1/">ESB</a>
+												<a href="http://www.javabeat.net/qna/jboss/1/">JBoss</a>
+												<a href="http://www.javabeat.net/qna/apache/1/">Apache</a>
+												<a href="http://www.javabeat.net/qna/quartz/1/">Quartz</a>
+												<a href="http://www.javabeat.net/qna/scjp/1/">scjp</a>
+												<a href="http://www.javabeat.net/qna/mysql/1/">mysql</a>
+												<a href="http://www.javabeat.net/qna/oracle/1/">oracle</a>
+												<a href="http://www.javabeat.net/qna/gwt/1/">gwt</a>
+												<a href="http://www.javabeat.net/qna/openjpa/1/">openjpa</a>
+												<a href="http://www.javabeat.net/qna/jmx/1/">jmx</a>
+												<a href="http://www.javabeat.net/qna/yui/1/">yui</a>
+												<a href="http://www.javabeat.net/qna/google-guice/1/">google-guice</a>
+												<a href="http://www.javabeat.net/qna/android/1/">android</a>
+												<a href="http://www.javabeat.net/qna/jboss/1/">JBoss</a>
+												<a href="http://www.javabeat.net/qna/scwcd-5-0/1/">scwcd 5.0</a>
+												<a href="http://www.javabeat.net/qna/scjp-1-5/1/">scjp 1.5</a>
+												<a href="http://www.javabeat.net/qna/scjp-1-6/1/">scjp 1.6</a>
+												<a href="http://www.javabeat.net/qna/scja/1/">scja</a>
+												<a href="http://www.javabeat.net/qna/scbcd-5-0/1/">scbcd 5.0</a>
+											</td>
+										</tr>										
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%">
+					<table width="1000" align="center" >
+	<tr>
+		<td>
+			<hr class="dark">
+		</td>
+	</tr>
+	<tr>
+		<td width="100%">
+			<table>
+				<tr>
+					<td valign="top" width="35%">
+						<table width="100%" class="text_format">
+							<tr>
+								<td class="column-header">
+									Favorites
+								</td>
+							</tr>	
+						</table>
+					</td>
+					<td width="30%">
+						
+					</td>
+					<td valign="top" width="30%">
+						<table>
+							<tr>
+								<td>
+									
+								</td>
+							</tr>
+							<tr>
+								<td class="column-header">
+									Latest QnA
+								</td>
+							</tr>
+															<tr>
+									<td class="text_format">
+										<a href='http://www.javabeat.net/qna/872-scjd-tips/'>SCJD Tips</a><br>
+									</td>
+								</tr>
+															<tr>
+									<td class="text_format">
+										<a href='http://www.javabeat.net/qna/871-when-we-start-a-thread-by-applying-start-me/'>When we start a thread by applying start() method on it ,how does it knows that to execute run()method?</a><br>
+									</td>
+								</tr>
+															<tr>
+									<td class="text_format">
+										<a href='http://www.javabeat.net/qna/870-about-wrapper-class-in-java/'>About Wrapper class in Java</a><br>
+									</td>
+								</tr>
+															<tr>
+									<td class="text_format">
+										<a href='http://www.javabeat.net/qna/869-how-to-configure-weblogic-70-in-myeclipse/'>How to configure weblogic 7.0 in MyEclipse?</a><br>
+									</td>
+								</tr>
+															<tr>
+									<td class="text_format">
+										<a href='http://www.javabeat.net/qna/868-static-block-and-static-initializer-in-java/'>Static Block and Static Initializer in Java</a><br>
+									</td>
+								</tr>
+								
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<hr class="dark">
+		</td>
+	</tr>
+	<tr>
+		<td align="center" class="text_format"> 
+		JavaBeat Website (2004-2009), India 
+		</td>
+	</tr>
+	<tr>
+		<td align="center" class="text_format">
+			<a href="http://www.javabeat.net/">javabeat</a> |			
+			<a href="http://www.javabeat.net/about/">about us</a> |
+			<a href="http://www.javabeat.net/resources/">useful resources</a>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<table class="text_format">
+				<tr>
+					<td align="center">
+						Copyright (2004 - 2009), JavaBeat
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+
+<!-- Kontera ContentLink(TM);-->
+<!--<script type='text/javascript'>
+var dc_AdLinkColor = 'blue' ;
+var dc_UnitID = 14 ;
+var dc_PublisherID = 24157 ;
+var dc_adprod = 'ADL' ;
+</script>
+<script type='text/javascript' src='http://kona.kontera.com/javascript/lib/KonaLibInline.js'>
+</script>
+<!-- Kontera ContentLink(TM) -->
+
+
+<script type="text/javascript">var infolink_pid = 14761;</script>
+<script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script>
+
+
+
+<!-- Google Analytics - Start -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-96332-1";
+urchinTracker();
+</script>
+<!-- Google Analytics - End -->
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

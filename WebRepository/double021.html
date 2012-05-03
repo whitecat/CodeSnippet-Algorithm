@@ -1,0 +1,3624 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+<head>
+<base href="http://www.java-forums.org/" /><!--[if IE]></base><![endif]-->
+	<link rel="canonical" href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta name="generator" content="vBulletin 3.8.4" />
+
+<meta name="keywords" content="rounding,double,two,decimal,places, rounding double to two decimal places, java,forum,java forum,java forums" />
+<meta name="description" content="is there an easy way to round a double to two decimal places? i.e. 1.98999 would round to 1.99 the math.round method only rounds to nearest integer." />
+
+
+<!-- CSS Stylesheet -->
+<style type="text/css" id="vbulletin_css">
+/**
+* vBulletin 3.8.4 CSS
+* Style: 'CA Evo - Blue Fluid'; Style ID: 4
+*/
+body
+{
+	background: #E9E9E9 url(images/ca_evo2/misc/bg_body.gif);
+	color: #000000;
+	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	margin: 0 10px 10px 10px; padding: 0px;
+}
+a:link, body_alink
+{
+	color: #3F749B;
+}
+a:visited, body_avisited
+{
+	color: #3F749B;
+}
+a:hover, a:active, body_ahover
+{
+	color: #E3962D;
+}
+.page
+{
+	background: #FFFFFF;
+	color: #000000;
+}
+td, th, p, li
+{
+	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.tborder
+{
+	background: #E1E1E1;
+	color: #000000;
+	border: 1px solid #989898;
+}
+.tcat
+{
+	background: #F8F8F8 url(images/ca_evo2/misc/bg_tcat.gif);
+	color: #487DA4;
+	font: bold 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border-left: solid 1px #FFF; border-top: solid 1px #FFF; border-right: solid 1px #CCC; border-bottom: solid 1px #CCC;
+}
+.tcat a:link, .tcat_alink
+{
+	color: #487DA4;
+	text-decoration: none;
+}
+.tcat a:visited, .tcat_avisited
+{
+	color: #487DA4;
+	text-decoration: none;
+}
+.tcat a:hover, .tcat a:active, .tcat_ahover
+{
+	color: #E3962D;
+	text-decoration: underline;
+}
+.thead
+{
+	background: #487DA4 url(images/ca_evo2/misc/bg_thead.gif) repeat-x top left;
+	color: #EAF3EC;
+	font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border-top: solid 1px #709BBC; border-bottom: solid 2px #487DA4; border-left: solid 1px #709BBC; border-right: solid 1px #356D96;
+}
+.thead a:link, .thead_alink
+{
+	color: #EAF3EC;
+	text-decoration: underline;
+}
+.thead a:visited, .thead_avisited
+{
+	color: #EAF3EC;
+	text-decoration: underline;
+}
+.thead a:hover, .thead a:active, .thead_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.tfoot
+{
+	background: #5686AB url(images/ca_evo2/misc/bg_tfoot.gif);
+	color: #EAF3EC;
+	border-top: solid 1px #709BBC; border-bottom: solid 2px #487DA4; border-left: solid 1px #709BBC; border-right: solid 1px #356D96;
+}
+.tfoot a:link, .tfoot_alink
+{
+	color: #EAF3EC;
+	text-decoration: underline;
+}
+.tfoot a:visited, .tfoot_avisited
+{
+	color: #EAF3EC;
+	text-decoration: underline;
+}
+.tfoot a:hover, .tfoot a:active, .tfoot_ahover
+{
+	color: #FFF;
+	text-decoration: underline;
+}
+.alt1, .alt1Active
+{
+	background: #FFFFFF url(images/ca_evo2/misc/bg_alt1.gif) top left repeat-x;
+	color: #000000;
+	border-top: solid 1px #FFFFFF; border-left: solid 1px #FFFFFF; border-right: solid 1px #E0E0E0; border-bottom: solid 1px #E0E0E0;
+}
+.alt2, .alt2Active
+{
+	background: #F8F8F8 url(images/ca_evo2/misc/bg_alt2.gif) top left repeat-x;
+	color: #000000;
+	border-top: solid 1px #FFFFFF; border-left: solid 1px #FFFFFF; border-right: solid 1px #D7D7D7; border-bottom: solid 1px #D7D7D7;
+}
+.inlinemod
+{
+	background: #FFFFFF url(images/ca_evo2/misc/bg_alt1.gif) top left repeat-x;
+	color: #E3962D;
+	border-top: solid 1px #FFFFFF; border-left: solid 1px #FFFFFF; border-right: solid 1px #E0E0E0; border-bottom: solid 1px #E0E0E0;
+}
+.wysiwyg
+{
+	background: #F8F8F8;
+	color: #000000;
+	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+textarea, .bginput
+{
+	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.bginput option, .bginput optgroup
+{
+	font-size: 10pt;
+	font-family: verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.button
+{
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+select
+{
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+option, optgroup
+{
+	font-size: 11px;
+	font-family: verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.smallfont
+{
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.time
+{
+	color: #666;
+}
+.navbar
+{
+	color: #666666;
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.highlight
+{
+	color: #FF0000;
+	font-weight: bold;
+}
+.fjsel
+{
+	background: #3E5C92;
+	color: #E0E0F6;
+}
+.fjdpth0
+{
+	background: #F7F7F7;
+	color: #000000;
+}
+.fjdpth1
+{
+	background: #FFF;
+	color: #444;
+}
+.panel
+{
+	background: #F8F8F8 url(images/ca_evo2/misc/bg_alt2.gif) top left repeat-x;
+	color: #000000;
+	padding: 10px; border: solid 1px #E1E1E1;
+}
+.panelsurround
+{
+	background: #FFFFFF url(images/ca_evo2/misc/bg_alt1.gif) top left repeat-x;
+	color: #000000;
+	border-top: solid 1px #FFFFFF; border-left: solid 1px #FFFFFF; border-right: solid 1px #E0E0E0; border-bottom: solid 1px #E0E0E0;
+}
+legend
+{
+	color: #184361;
+	font: 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.vbmenu_control
+{
+	background: #F8F8F8 url(images/ca_evo2/misc/bg_tcat.gif);
+	color: #487DA4;
+	font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	padding: 3px 6px 3px 6px; white-space: nowrap; border-left: solid 1px #FFF; border-top: solid 1px #FFF; border-right: solid 1px #CCC; border-bottom: solid 1px #CCC;
+}
+.vbmenu_control a:link, .vbmenu_control_alink
+{
+	color: #487DA4;
+	text-decoration: none;
+}
+.vbmenu_control a:visited, .vbmenu_control_avisited
+{
+	color: #487DA4;
+	text-decoration: none;
+}
+.vbmenu_control a:hover, .vbmenu_control a:active, .vbmenu_control_ahover
+{
+	color: #E3962D;
+	text-decoration: underline;
+}
+.vbmenu_popup
+{
+	background: #E1E1E1;
+	color: #000000;
+	border: 1px solid #989898;
+}
+.vbmenu_option
+{
+	background: #F8F8F8;
+	color: #000000;
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.vbmenu_option a:link, .vbmenu_option_alink
+{
+	color: #3F749B;
+	text-decoration: none;
+}
+.vbmenu_option a:visited, .vbmenu_option_avisited
+{
+	color: #3F749B;
+	text-decoration: none;
+}
+.vbmenu_option a:hover, .vbmenu_option a:active, .vbmenu_option_ahover
+{
+	color: #E3962D;
+	text-decoration: none;
+}
+.vbmenu_hilite
+{
+	background: #487DA4;
+	color: #FFFFFF;
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.vbmenu_hilite a:link, .vbmenu_hilite_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_hilite a:visited, .vbmenu_hilite_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_hilite a:hover, .vbmenu_hilite a:active, .vbmenu_hilite_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+/* ***** styling for 'big' usernames on postbit etc. ***** */
+.bigusername { font-size: 14pt; }
+
+/* ***** small padding on 'thead' elements ***** */
+td.thead, div.thead { padding: 4px; }
+
+/* ***** basic styles for multi-page nav elements */
+.pagenav a { text-decoration: none; }
+.pagenav td { padding: 2px 4px 2px 4px; }
+
+/* ***** define margin and font-size for elements inside panels ***** */
+.fieldset { margin-bottom: 6px; }
+.fieldset, .fieldset td, .fieldset p, .fieldset li { font-size: 11px; }
+
+/* ***** don't change the following ***** */
+form { display: inline; }
+label { cursor: default; }
+.normal { font-weight: normal; }
+.inlineimg { vertical-align: middle; }
+
+/* ***** logo row ***** */
+.header-row { 
+	color: #000;
+	padding: 1px;
+	padding-bottom: 5px;
+}
+
+.header-table {
+	background: #E0E0E0 url(images/ca_evo2/misc/logo_bg.gif) bottom left repeat-x;
+}
+.header-table-left {
+	background: url(images/ca_evo2/misc/logo_left.gif) bottom left no-repeat;
+}
+.header-table-right {
+	background: url(images/ca_evo2/misc/logo_right.gif) bottom right no-repeat;
+}
+.header-table-login { padding: 5px; }
+
+/* ***** navbar ***** */
+.navbar-row {
+	padding: 0;
+}
+.navbar-row td.vbmenu_control {
+	background: url(images/ca_evo2/misc/nav_bg.gif) top left repeat-x;
+	padding: 1px 6px 3px 6px;
+}
+
+#navbar-row {
+	padding-top: 10px;
+	background: url(images/ca_evo2/misc/bg_navbar.gif) bottom left no-repeat;
+	padding-left: 15px;
+}
+.navbar-top-row {
+	background: url(images/ca_evo2/misc/nav_top.gif) bottom left repeat-x;
+}
+
+/* ***** content ***** */
+.content-row {
+	background-color: #FFF;
+	padding: 0 12px 0 12px;
+	border: solid 1px #C2C2C2;
+	border-width: 0 1px 0 1px;
+}
+
+/* ***** navbar ***** */
+.footer-row {
+	border: solid 1px #C2C2C2;
+	background-color: #E1E1E1;
+	padding: 1px;
+}
+
+/* spacer */
+br.spacer { height: 5px; font-size: 5px; line-height: 5px; overflow: hidden; }
+br.spacer8 { height: 8px; font-size: 8px; line-height: 8px; overflow: hidden; }
+
+/* navbar */
+.navbar-top strong { color: #000; font-weight: normal; }
+.navbar-top { color: #666; }
+
+/* vbmenu for header */
+.vbmenu_dark .vbmenu_control
+{
+	background: #487DA4;
+	border: none;
+	color: #FFFFFF;
+}
+.vbmenu_dark .vbmenu_control a:link, .vbmenu_dark .vbmenu_control_alink
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.vbmenu_dark .vbmenu_control a:visited, .vbmenu_dark .vbmenu_control_avisited
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.vbmenu_dark .vbmenu_control a:hover, .vbmenu_dark .vbmenu_control a:active, .vbmenu_dark .vbmenu_control_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+/* vbmenu for thead */
+.thead-row .vbmenu_control
+{
+	background: #487DA4 url(images/ca_evo2/misc/bg_thead.gif) repeat-x top left;
+	border-top: solid 1px #709BBC; border-bottom: solid 2px #487DA4; border-left: solid 1px #709BBC; border-right: solid 1px #356D96;
+	color: #FFFFFF;
+}
+.thead-row .vbmenu_control a:link, .thead-row .vbmenu_control_alink
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.thead-row .vbmenu_control a:visited, .thead-row .vbmenu_control_avisited
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.thead-row .vbmenu_control a:hover, .thead-row .vbmenu_control a:active, .thead-row .vbmenu_control_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+/* active links */
+td.row-new a.forum-link, td.row-new a.forum-link:visited { color: #E3962D; }
+td.row-new a.forum-link:hover, td.row-new a.forum-link:active { color: #3F749B; }
+a.post-new, a.post-new:visited { color: #E3962D; font-weight: bold; }
+a.post-new:hover, a.post-new:active { color: #3F749B; font-weight: bold; }
+
+/* inputs */
+textarea, .bginput, .button {
+	background-color: #FFF;
+	color: #444;
+	border: solid 1px #989898;
+}
+.button { border-color: #666; }
+
+* html textarea, * html .bginput {
+	color: #000;
+}
+
+textarea:hover, .bginput:hover {
+	color: #000;
+	border-color: #487DA4;
+}
+
+textarea:focus, .bginput:focus {
+	color: #000;
+	border-color: #487DA4;
+	background-color: #F0F0F0;
+}
+
+/* editor and panels */
+div.vBulletin_editor, td.vBulletin_editor { border: solid 1px #989898;  }
+div.vBulletin_editor:hover, td.vBulletin_editor:hover { border-color: #487DA4;  }
+.ca-panel { border: solid 1px #989898; }
+
+/* quote, code, html bbcode */
+.bbcode-start {
+	border: solid 1px #989898;
+	margin: 3px 20px 3px 20px;
+}
+.bbcode-header {
+	background: #F8F8F8 url(images/ca_evo2/misc/bg_tcat.gif);
+	border-left: solid 2px #487DA4;
+	border-bottom: solid 1px #CCC;
+	padding: 5px 3px;
+	color: #487DA4;
+}
+.bbcode-header a, .bbcode-header a:visited {
+	color: #487DA4;
+}
+.bbcode-header a:hover, .bbcode-header a:active {
+	color: #E3962D;
+}
+.bbcode-content {
+	padding: 3px;
+	background-color: #F8F8F8;
+	color: #444;
+}
+
+.bbcode-rounded {
+	background-color: #FAFAFA;
+	margin: 3px 20px 3px 20px;
+}
+.bbcode-rounded-attach {
+	margin: 3px 5px 3px 5px;
+}
+.bbcode-rounded-header, .bbcode-rounded-header div, .bbcode-rounded-header span, .bbcode-rounded-footer, .bbcode-rounded-footer div, .bbcode-rounded-footer span {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	line-height: 1px;
+	font-size: 1px;
+	height: 5px;
+}
+.bbcode-rounded-header, .bbcode-rounded-header div {
+	background: url(images/ca_evo2/misc/bg_box1.gif) top right no-repeat;
+}
+.bbcode-rounded-footer, .bbcode-rounded-footer div {
+	background: url(images/ca_evo2/misc/bg_box2.gif) top right no-repeat;
+}
+.bbcode-rounded-header div, .bbcode-rounded-footer div {
+	background-position: 0 -5px;
+	height: 5px;
+	padding: 0 5px;
+}
+.bbcode-rounded-header span {
+	display: block;
+	border-top: solid 1px #CCC;
+	height: 4px;
+}
+.bbcode-rounded-footer span {
+	display: block;
+	border-bottom: solid 1px #CCC;
+	height: 4px;
+}
+.bbcode-rounded-author, .bbcode-rounded-content {
+	border-left: solid 1px #CCC;
+	border-right: solid 1px #CCC;
+	padding: 4px;
+}
+.bbcode-rounded-attach .bbcode-rounded-content {
+	padding-top: 0;
+}
+
+/* * html .bbcode-rounded pre {
+	margin-left: 2px;
+} */
+/* * html .bbcode-rounded-code .bbcode-rounded-footer {
+	margin-left: 2px;
+	margin-right: 2px;
+} */
+
+.bbcode-rounded code, .bbcode-rounded pre { 
+	margin: 0; 
+	padding: 0 3px; 
+	overflow: auto;
+}
+.bbcode-rounded-code .bbcode-rounded-content { padding: 0; }
+.bbcode-rounded-author { padding-top: 0; }
+.bbcode-rounded-content { padding-bottom: 0; }
+.bbcode-rounded-quote { background: #FAFAFA url(images/ca_evo2/misc/bg_box_quote.gif) top right no-repeat; }
+.bbcode-rounded-code { background: #FAFAFA url(images/ca_evo2/misc/bg_box_code.gif) top right no-repeat; }
+.bbcode-rounded-attach { background: #FAFAFA url(images/ca_evo2/misc/bg_box_attach.gif) top right no-repeat; }
+.bbcode-poster, .bbcode-rounded-author {
+	color: #666;
+	padding-bottom: 4px;
+	font-size: 10px;
+}
+.bbcode-poster strong, .bbcode-rounded-author strong {
+	font-weight: normal;
+	color: #487DA4;
+}
+
+/* new private messages */
+.pm-new { color: #444; }
+.pm-new a, .pm-new a:hover { text-decoration: none; }
+.pm-new strong { color: #E3962D; }
+
+/* tcat fix */
+.tcat2 { border-left: none; }
+
+/* <hr>, <br> */
+hr { border: solid 1px #888; border-width: 1px 0 0 0; }
+br.clear { clear: both; height: 1px; line-height: 1px; font-size: 1px; overflow: hidden; }
+
+/* postbit */
+.usertitle { color: #444; }
+.postdata { 
+	border-top: solid 1px #E0E0E0; 
+	border-left: solid 1px #E0E0E0; 
+	border-right: solid 1px #D7D7D7; 
+	border-bottom: solid 1px #D7D7D7;
+	margin: 3px 5px; 
+	padding: 2px; 
+	color: #808080; 
+	background: #FFFFFF url(images/ca_evo2/misc/bg_alt1.gif) top left repeat-x;
+	font-size: 10px; 
+}
+.post-title { padding-bottom: 5px; }
+.post-title strong { color: #3F749B; }
+td.alt-noimage { background-image: none; }
+.post-bottom img { vertical-align: bottom; }
+
+/* rounded headers */
+.tcat-rounded {
+	background: url(images/ca_evo2/misc/tcat_mid.gif) bottom left repeat-x;
+}
+.tcat-rounded td { 
+	height: 27px;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	background: none;
+}
+.tcat-rounded td.tcat-rounded-left {
+	background: url(images/ca_evo2/misc/tcat_left.gif) bottom right no-repeat;
+}
+.tcat-rounded td.tcat-rounded-right {
+	background: url(images/ca_evo2/misc/tcat_right.gif) bottom left no-repeat;
+}
+.tcat-rounded .tcat {
+	border: none;
+	padding-top: 1px;
+}
+.tcat-rounded .vbmenu_control {
+	padding-left: 6px;
+	padding-right: 4px;
+	border: none;
+}
+
+/* vB 3.6.6 classes */
+.shade, a.shade:link, a.shade:visited { color: #777777; text-decoration: none; }
+a.shade:active, a.shade:hover { color: #3F749B; text-decoration: underline; }
+.tcat .shade, .thead .shade, .tfoot .shade { color: #DDDDDD; }
+.underline { text-decoration: underline; }
+
+
+/* VBA portal */
+.portal-left .link-minimize, .portal-right .link-minimize { display: none; }
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.java-forums.org/clientscript/vbulletin_important.css?v=384" />
+
+
+<!-- / CSS Stylesheet -->
+
+<script type="text/javascript" src="http://www.java-forums.org/clientscript/yui/yahoo-dom-event/yahoo-dom-event.js?v=384"></script>
+<script type="text/javascript" src="http://www.java-forums.org/clientscript/yui/connection/connection-min.js?v=384"></script>
+<script type="text/javascript">
+<!--
+var SESSIONURL = "s=8e7e7edaf91c15b649deba15d9c64bf9&";
+var SECURITYTOKEN = "guest";
+var IMGDIR_MISC = "images/ca_evo2/misc";
+var vb_disable_ajax = parseInt("0", 10);
+// -->
+</script>
+<script type="text/javascript" src="http://www.java-forums.org/clientscript/vbulletin_global.js?v=384"></script>
+
+
+
+	<link rel="alternate" type="application/rss+xml" title="Java Forums RSS Feed" href="http://www.java-forums.org/external.php?type=RSS2" />
+	
+		<link rel="alternate" type="application/rss+xml" title="Java Forums - Advanced Java - RSS Feed" href="http://www.java-forums.org/external.php?type=RSS2&amp;forumids=24" />
+	
+
+	<title> rounding double to two decimal places - Java Forums</title>
+	<script type="text/javascript" src="http://www.java-forums.org/clientscript/vbulletin_post_loader.js?v=384"></script>
+	<style type="text/css" id="vbulletin_showthread_css">
+	<!--
+	
+	#links div { white-space: nowrap; }
+	#links img { vertical-align: middle; }
+	-->
+	</style>
+</head>
+<body onload="">
+<!-- logo -->
+<a name="top"></a>
+<!-- main table --><table border="0" width="100%" cellpadding="0" cellspacing="0" align="center" class="maintable">
+<tr>
+	<td>
+<!-- content table -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="header-row"><table border="0" cellspacing="0" cellpadding="0" class="header-table" width="100%">
+	<tr>
+		<td class="header-table-left" width="9"><img src="http://www.java-forums.org/clear.gif" width="9" height="1" border="0" alt="" /></td>
+		<td align="left" class="header-table-logo"><a href="http://www.java-forums.org/"><img src="http://www.java-forums.org/images/ca_evo2/misc/logo.gif" border="0" alt="Java Forums" onload="if(this.height > 165) { this.height = 165; }" /></a></td>
+
+<td align="right" valign="bottom" width="100%" nowrap="nowrap" class="header-table-login">
+
+
+
+
+
+
+
+		<!-- login form -->
+		<form action="http://www.java-forums.org/login.php?do=login" method="post" onsubmit="md5hash(vb_login_password, vb_login_md5password, vb_login_md5password_utf, 0)">
+		<script type="text/javascript" src="http://www.java-forums.org/clientscript/vbulletin_md5.js?v=384"></script>
+		<table cellpadding="0" cellspacing="3" border="0">
+		<tr>
+			<td class="smallfont" style="white-space: nowrap;"><label for="navbar_username">User Name</label></td>
+			<td><input type="text" class="bginput" style="font-size: 11px" name="vb_login_username" id="navbar_username" size="10" accesskey="u" tabindex="101" value="User Name" onfocus="if (this.value == 'User Name') this.value = '';" /></td>
+			<td class="smallfont" nowrap="nowrap"><label for="cb_cookieuser_navbar"><input type="checkbox" name="cookieuser" value="1" tabindex="103" id="cb_cookieuser_navbar" accesskey="c" />Remember Me?</label></td>
+		</tr>
+		<tr>
+			<td class="smallfont"><label for="navbar_password">Password</label></td>
+			<td><input type="password" class="bginput" style="font-size: 11px" name="vb_login_password" id="navbar_password" size="10" tabindex="102" /></td>
+			<td><input type="submit" class="button" value="Log in" tabindex="104" title="Enter your username and password in the boxes provided to login, or click the 'register' button to create a profile for yourself." accesskey="s" /></td>
+		</tr>
+		</table>
+		<input type="hidden" name="s" value="8e7e7edaf91c15b649deba15d9c64bf9" />
+		<input type="hidden" name="securitytoken" value="guest" />
+		<input type="hidden" name="do" value="login" />
+		<input type="hidden" name="vb_login_md5password" />
+		<input type="hidden" name="vb_login_md5password_utf" />
+		</form>
+		<!-- / login form -->
+
+	
+
+</td>
+<td width="9" class="header-table-right"><img src="http://www.java-forums.org/clear.gif" width="9" height="1" border="0" alt="" /><br /></td>
+</tr>
+</table></td>
+</tr>
+
+
+<!-- /logo -->
+
+
+
+
+<!-- nav buttons bar -->
+<tr>
+	<td style="border: none; padding: 0;"><table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td width="9" align="right" valign="bottom"><img src="http://www.java-forums.org/images/ca_evo2/misc/nav_top_left.gif" width="9" height="2" border="0" alt="" /></td>
+		<td width="100%" class="navbar-top-row"><img src="http://www.java-forums.org/clear.gif" width="1" height="2" border="0" alt="" /></td>
+		<td width="9" align="left" valign="bottom"><img src="http://www.java-forums.org/images/ca_evo2/misc/nav_top_right.gif" width="9" height="2" border="0" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+<tr>
+	<td class="navbar-row" align="center"><table cellpadding="4" cellspacing="0" border="0" width="100%" align="center" class="navbar-row-table">
+	<tr align="center" class="vbmenu_dark">
+		<td width="9" align="right" style="padding: 0;"><img src="http://www.java-forums.org/images/ca_evo2/misc/nav_left.gif" width="9" height="21" border="0" alt="" /></td>
+		
+		
+			<td class="vbmenu_control"><a href="http://www.java-forums.org/register.php" rel="nofollow">Register</a></td>
+		
+		
+		<td class="vbmenu_control"><a rel="help" href="http://www.java-forums.org/faq.php" accesskey="5">FAQ</a></td>
+		
+			
+			
+				<td class="vbmenu_control"><a href="http://www.java-forums.org/groups/">Social Groups</a></td>
+			
+		
+		<td class="vbmenu_control"><a href="http://www.java-forums.org/calendar.php">Calendar</a></td>
+		
+			
+				<td class="vbmenu_control"><a href="http://www.java-forums.org/search.php" accesskey="4">Search</a></td>
+				
+				<td class="vbmenu_control"><a href="http://www.java-forums.org/search.php?do=getdaily" accesskey="2">Today's Posts</a></td>
+				
+			
+			<td class="vbmenu_control"><a href="http://www.java-forums.org/forumdisplay.php?do=markread" rel="nofollow">Mark Forums Read</a></td>
+			
+		
+		
+		
+		<td width="9" align="left" style="padding: 0;"><img src="http://www.java-forums.org/images/ca_evo2/misc/nav_right.gif" width="9" height="21" border="0" alt="" /></td>
+	</tr>
+	</table></td>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+
+<!-- content table -->
+
+
+
+
+
+
+
+<div style="width:728px; margin:0 auto; padding-bottom:1em">
+<script src='http://www.enticelabs.com/EL/assets/js/el_dyn.js?c=fa77e700421da1301a29f594168a29ab&h=90&w=728&d=https://www.enticelabs.com:443/EL' type='text/javascript'></script>
+</div>
+
+
+<!-- breadcrumb -->
+<div id="navbar-row">
+
+	<div class="navbar navbar-top"><a href="http://www.java-forums.org/" accesskey="1">Java Forums</a> 
+	<span class="navbar">&raquo; <a href="http://www.java-forums.org/general-java/">General Java</a></span>
+
+	<span class="navbar">&raquo; <a href="http://www.java-forums.org/advanced-java/">Advanced Java</a></span>
+
+	 &raquo; <strong>
+	 rounding double to two decimal places
+</strong></div>
+
+</div>
+<br class="spacer8" />
+<!-- / breadcrumb -->
+
+
+
+
+
+<a name="poststop" id="poststop"></a>
+
+<!-- controls above postbits -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:3px">
+<tr valign="bottom">
+	
+		<td class="smallfont"><a href="http://www.java-forums.org/newreply.php?do=newreply&amp;noquote=1&amp;p=8601" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/reply.gif" alt="Reply" border="0" /></a></td>
+	
+	
+</tr>
+</table>
+<!-- / controls above postbits -->
+
+<!-- toolbar -->
+<table class="tcat-rounded" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+	<tr>
+		<td width="25" class="tcat-rounded-left"><img src="http://www.java-forums.org/images/ca_evo2/misc/spacer.gif" width="25" height="27" border="0" alt="" /></td>
+
+	<td class="tcat" width="100%">
+		<div class="smallfont">
+		
+		&nbsp;
+		</div>
+	</td>
+	
+<td class="vbmenu_control" id="linkbacktools" nowrap="nowrap">
+	<a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#links">LinkBack</a>
+	
+</td>
+<td class="vbmenu_control" id="threadtools" nowrap="nowrap">
+		<a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#goto_threadtools">Thread Tools</a>
+		
+	</td>
+	
+	
+	
+	<td class="vbmenu_control" id="displaymodes" nowrap="nowrap">
+		<a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#goto_displaymodes">Display Modes</a>
+		
+	</td>
+	
+
+	
+
+<td width="10" class="tcat-rounded-right"><img src="http://www.java-forums.org/images/ca_evo2/misc/spacer.gif" width="10" height="27" border="0" alt="" /></td>
+	</tr>
+</table>
+<!-- / toolbar -->
+
+
+
+<!-- end content table -->
+	</td>
+</tr>
+</table>
+<!-- / close content container -->
+<!-- / end content table -->
+
+
+
+
+
+<div id="posts"><!-- post #8601 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit8601" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post8601" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/8601-post1.html" target="new"  id="postcount8601" name="1"><strong>1</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post8601" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post8601"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				11-26-2007, 06:35 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			
+			<td nowrap="nowrap">
+
+				<div id="postmenu_8601">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/javamike.html">javaMike</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="javaMike is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Nov 2007</div>
+					
+					
+					<div>
+						Posts: 5
+					</div>
+					
+					
+					Rep Power: <span id="reppower_8601_1644">0</span> <div><span id="repdisplay_8601_1644"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="javaMike is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_8601">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon5.gif" alt="Question" border="0" />
+				<strong>rounding double to two decimal places</strong>
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_8601">
+			
+
+<div style="float:right; width:300px; height:250px; margin-left:10px">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6304269038762493";
+google_ad_host = "pub-2606800903002383";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+google_color_border = "FFFFFF";
+google_color_bg = "F8F8F8";
+google_color_link = "3F749B";
+google_color_text = "000000";
+google_color_url = "3F749B";
+google_ui_features = "rc:6";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+			is there an easy way to round a double to two decimal places?<br />
+<br />
+i.e. 1.98999 would round to 1.99<br />
+<br />
+the math.round method only rounds to nearest integer.<br />
+<br />
+decimalformat class converts number to a string.<br />
+<br />
+i figure there must be an easy way to do this...?? pls advise
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+<div style="clear:both"></div>
+
+
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post8601" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=8601" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 8601 popup menu -->
+
+<!-- / post 8601 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #8601 --><!-- post #8646 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit8646" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post8646" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/8646-post2.html" target="new"  id="postcount8646" name="2"><strong>2</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post8646" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post8646"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				11-27-2007, 04:58 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			
+			<td nowrap="nowrap">
+
+				<div id="postmenu_8646">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/staykovmarin.html">staykovmarin</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="staykovmarin is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Senior Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Nov 2007</div>
+					<div>Location: Newport, WA</div>
+					
+					<div>
+						Posts: 141
+					</div>
+					
+					
+					Rep Power: <span id="reppower_8646_1562">0</span> <div><span id="repdisplay_8646_1562"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="staykovmarin is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_8646">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_8646">
+			
+			DecimalFormat really is the easiest option to use:<br />
+<table class="bbcode-rounded bbcode-rounded-code" cellspacing="0" style="margin-right: auto;">
+<tr>
+	<td class="bbcode-rounded-header"><div><span></span></div></td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-author">
+		<div class="smallfont">Code:</div>
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-content bbcode-rounded-content-code"><pre style="width: 900px;" dir="ltr">double roundTwoDecimals(double d) {
+        	DecimalFormat twoDForm = new DecimalFormat(&quot;#.##&quot;);
+		return Double.valueOf(twoDForm.format(d));
+}</pre></td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-footer"><div><span></span></div></td>
+</tr>
+</table>
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post8646" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=8646" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 8646 popup menu -->
+
+<!-- / post 8646 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #8646 --><!-- post #31995 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit31995" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post31995" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/31995-post3.html" target="new"  id="postcount31995" name="3"><strong>3</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post31995" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post31995"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				08-20-2008, 07:25 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			
+			<td nowrap="nowrap">
+
+				<div id="postmenu_31995">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/shalomshachne.html">shalomshachne</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="shalomshachne is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Aug 2008</div>
+					
+					
+					<div>
+						Posts: 1
+					</div>
+					
+					
+					Rep Power: <span id="reppower_31995_6844">0</span> <div><span id="repdisplay_31995_6844"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="shalomshachne is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_31995">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				<strong>Thanks for help with that...</strong>
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_31995">
+			
+			Thanks for your help with that post.  Am I insane, or does anyone else think that it's crazy not to have a simple already built function in Java to round a double to specified # of decimal places? <br />
+<br />
+Am I missing something?  Why would everyone want to custom code this function?
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post31995" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=31995" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 31995 popup menu -->
+
+<!-- / post 31995 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #31995 --><!-- post #31997 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit31997" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post31997" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/31997-post4.html" target="new"  id="postcount31997" name="4"><strong>4</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post31997" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post31997"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				08-20-2008, 07:39 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			<td class="alt2"><a rel="nofollow" href="http://www.java-forums.org/members/norm.html"><img src="http://www.java-forums.org/avatars/norm.gif?dateline=1214591516" width="80" height="80" alt="Norm's Avatar" border="0" /></a></td>
+			<td nowrap="nowrap">
+
+				<div id="postmenu_31997">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/norm.html">Norm</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="Norm is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Senior Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Jun 2008</div>
+					<div>Location: SouthWest Missouri, USA</div>
+					
+					<div>
+						Posts: 2,229
+					</div>
+					
+					
+					Rep Power: <span id="reppower_31997_5568">4</span> <div><span id="repdisplay_31997_5568"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="Norm is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_31997">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_31997">
+			
+			Another way to change the value of the double, you'd need to do something like this:<br />
+        double dbl = 12.3456;<br />
+        int ix = (int)(dbl * 100.0);  // scale it <br />
+        double dbl2 =  ((double)ix)/100.0;<br />
+        System.out.println(&quot;dbl=&quot; + dbl + &quot;, dbl2=&quot; + dbl2);  //dbl=12.3456, dbl2=12.34<br />
+<br />
+To round, you'd need to add in some value.
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+		<!-- edit note -->
+			<div class="smallfont">
+				<hr size="1" style="color:#E1E1E1" />
+				<em>
+					
+						Last edited by Norm; 08-20-2008 at <span class="time">07:41 PM</span>.
+					
+					
+				</em>
+			</div>
+		<!-- / edit note -->
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post31997" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=31997" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 31997 popup menu -->
+
+<!-- / post 31997 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #31997 --><!-- post #32002 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit32002" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post32002" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/32002-post5.html" target="new"  id="postcount32002" name="5"><strong>5</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post32002" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post32002"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				08-20-2008, 11:50 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			<td class="alt2"><a rel="nofollow" href="http://www.java-forums.org/members/fishtoprecords.html"><img src="http://www.java-forums.org/avatars/fishtoprecords.gif?dateline=1214102153" width="70" height="70" alt="fishtoprecords's Avatar" border="0" /></a></td>
+			<td nowrap="nowrap">
+
+				<div id="postmenu_32002">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/fishtoprecords.html">fishtoprecords</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="fishtoprecords is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Senior Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Jun 2008</div>
+					
+					
+					<div>
+						Posts: 571
+					</div>
+					
+					
+					Rep Power: <span id="reppower_32002_5405">2</span> <div><span id="repdisplay_32002_5405"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="fishtoprecords is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_32002">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_32002">
+			
+			You are not, by chance, violating the number one rule, are you:<br />
+<br />
+Never use float or double for money. Its a sin.
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post32002" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=32002" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 32002 popup menu -->
+
+<!-- / post 32002 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #32002 --><!-- post #32012 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit32012" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post32012" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/32012-post6.html" target="new"  id="postcount32012" name="6"><strong>6</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post32012" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post32012"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				08-21-2008, 12:59 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			<td class="alt2"><a rel="nofollow" href="http://www.java-forums.org/members/fubarable.html"><img src="http://www.java-forums.org/avatars/fubarable.gif?dateline=1224939645" width="50" height="50" alt="Fubarable's Avatar" border="0" /></a></td>
+			<td nowrap="nowrap">
+
+				<div id="postmenu_32012">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/fubarable.html">Fubarable</a>
+					
+<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_online.gif" alt="Fubarable is online now" border="0" />
+
+					
+					
+				</div>
+
+				<div class="smallfont">Moderator</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Jun 2008</div>
+					
+					
+					<div>
+						Posts: 5,907
+					</div>
+					
+					
+					Rep Power: <span id="reppower_32012_5029">7</span> <div><span id="repdisplay_32012_5029"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="Fubarable is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_32012">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_32012">
+			
+			<table class="bbcode-rounded bbcode-rounded-quote" cellspacing="0">
+<tr>
+	<td class="bbcode-rounded-header"><div><span></span></div></td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-author">
+		
+			<div class="smallfont">Quote:</div>
+		
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-content">
+		Never use float or double for money. Its a sin.
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-footer"><div><span></span></div></td>
+</tr>
+</table>I can't disagree with you as you know a heck of a lot more Java than I'll ever know, but do you think this rule needs to be rigidly enforced for folks taking intro to Java courses?
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post32012" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=32012" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 32012 popup menu -->
+
+<!-- / post 32012 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #32012 --><!-- post #32013 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit32013" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post32013" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/32013-post7.html" target="new"  id="postcount32013" name="7"><strong>7</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post32013" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post32013"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				08-21-2008, 01:02 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			<td class="alt2"><a rel="nofollow" href="http://www.java-forums.org/members/fishtoprecords.html"><img src="http://www.java-forums.org/avatars/fishtoprecords.gif?dateline=1214102153" width="70" height="70" alt="fishtoprecords's Avatar" border="0" /></a></td>
+			<td nowrap="nowrap">
+
+				<div id="postmenu_32013">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/fishtoprecords.html">fishtoprecords</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="fishtoprecords is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Senior Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Jun 2008</div>
+					
+					
+					<div>
+						Posts: 571
+					</div>
+					
+					
+					Rep Power: <span id="reppower_32013_5405">2</span> <div><span id="repdisplay_32013_5405"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="fishtoprecords is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_32013">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_32013">
+			
+			I think teaching the use of float/double for currency is a mortal sin.<br />
+<br />
+Sadly, some teachers don't know any better.<br />
+<br />
+On this, and other forums, you see folks just starting out, clearly doing homework, and they all use floats or doubles.<br />
+<br />
+The real problem is that it works for wimpy testing, and when you put it in production, stuff doesn't add up, the accountants get very mad, and you have a real mess to fix.<br />
+<br />
+Cobol had fixed point built in from day one. For a reason.
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post32013" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=32013" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 32013 popup menu -->
+
+<!-- / post 32013 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #32013 --><!-- post #32017 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit32017" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post32017" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/32017-post8.html" target="new"  id="postcount32017" name="8"><strong>8</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post32017" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post32017"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				08-21-2008, 02:32 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			<td class="alt2"><a rel="nofollow" href="http://www.java-forums.org/members/fubarable.html"><img src="http://www.java-forums.org/avatars/fubarable.gif?dateline=1224939645" width="50" height="50" alt="Fubarable's Avatar" border="0" /></a></td>
+			<td nowrap="nowrap">
+
+				<div id="postmenu_32017">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/fubarable.html">Fubarable</a>
+					
+<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_online.gif" alt="Fubarable is online now" border="0" />
+
+					
+					
+				</div>
+
+				<div class="smallfont">Moderator</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Jun 2008</div>
+					
+					
+					<div>
+						Posts: 5,907
+					</div>
+					
+					
+					Rep Power: <span id="reppower_32017_5029">7</span> <div><span id="repdisplay_32017_5029"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="Fubarable is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_32017">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_32017">
+			
+			Again, can't argue with any of that.  As you state though, most teachers don't know any better, and most students here are coding with constraints set by these same teachers.  <br />
+<br />
+Again, thanks for posting your thoughts on this.
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post32017" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=32017" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 32017 popup menu -->
+
+<!-- / post 32017 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #32017 --><!-- post #52516 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit52516" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post52516" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/52516-post9.html" target="new"  id="postcount52516" name="9"><strong>9</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post52516" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post52516"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				01-23-2009, 01:45 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			
+			<td nowrap="nowrap">
+
+				<div id="postmenu_52516">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/netstat1.html">netstat1</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="netstat1 is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Jan 2009</div>
+					
+					
+					<div>
+						Posts: 1
+					</div>
+					
+					
+					Rep Power: <span id="reppower_52516_15056">0</span> <div><span id="repdisplay_52516_15056"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="netstat1 is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_52516">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_52516">
+			
+			So what do you suggest using? BigDecimal?<br />
+<br />
+<table class="bbcode-rounded bbcode-rounded-quote" cellspacing="0">
+<tr>
+	<td class="bbcode-rounded-header"><div><span></span></div></td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-author">
+		
+			Originally Posted by <strong>fishtoprecords</strong>
+			<a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post32002" rel="nofollow"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/buttons/viewpost.gif" border="0" alt="View Post" /></a>
+		
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-content">
+		You are not, by chance, violating the number one rule, are you:<br />
+<br />
+Never use float or double for money. Its a sin.
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-footer"><div><span></span></div></td>
+</tr>
+</table>
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post52516" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=52516" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 52516 popup menu -->
+
+<!-- / post 52516 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #52516 --><!-- post #52564 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit52564" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post52564" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/52564-post10.html" target="new"  id="postcount52564" name="10"><strong>10</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post52564" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post52564"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				01-23-2009, 07:39 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			<td class="alt2"><a rel="nofollow" href="http://www.java-forums.org/members/fishtoprecords.html"><img src="http://www.java-forums.org/avatars/fishtoprecords.gif?dateline=1214102153" width="70" height="70" alt="fishtoprecords's Avatar" border="0" /></a></td>
+			<td nowrap="nowrap">
+
+				<div id="postmenu_52564">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/fishtoprecords.html">fishtoprecords</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="fishtoprecords is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Senior Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Jun 2008</div>
+					
+					
+					<div>
+						Posts: 571
+					</div>
+					
+					
+					Rep Power: <span id="reppower_52564_5405">2</span> <div><span id="repdisplay_52564_5405"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="fishtoprecords is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_52564">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_52564">
+			
+			<table class="bbcode-rounded bbcode-rounded-quote" cellspacing="0">
+<tr>
+	<td class="bbcode-rounded-header"><div><span></span></div></td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-author">
+		
+			Originally Posted by <strong>netstat1</strong>
+			<a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post52516" rel="nofollow"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/buttons/viewpost.gif" border="0" alt="View Post" /></a>
+		
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-content">
+		So what do you suggest using? BigDecimal?
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-footer"><div><span></span></div></td>
+</tr>
+</table>You can if you must, but for most folks, you can simply store money as &quot;pennies&quot; rather that &quot;dollars and cents&quot; and use integer.<br />
+<br />
+Since an integer can hold +-2billion, that is +- 2 billion cents, or 20 million dollars. For most applications that is enough.
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post52564" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=52564" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 52564 popup menu -->
+
+<!-- / post 52564 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #52564 --><!-- post #52649 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit52649" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post52649" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/52649-post11.html" target="new"  id="postcount52649" name="11"><strong>11</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post52649" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post52649"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				01-23-2009, 06:06 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			<td class="alt2"><a rel="nofollow" href="http://www.java-forums.org/members/steve11235.html"><img src="http://www.java-forums.org/avatars/steve11235.gif?dateline=1230649228" width="67" height="80" alt="Steve11235's Avatar" border="0" /></a></td>
+			<td nowrap="nowrap">
+
+				<div id="postmenu_52649">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/steve11235.html">Steve11235</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="Steve11235 is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Senior Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Dec 2008</div>
+					
+					
+					<div>
+						Posts: 921
+					</div>
+					
+					
+					Rep Power: <span id="reppower_52649_12952">2</span> <div><span id="repdisplay_52649_12952"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="Steve11235 is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_52649">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_52649">
+			
+			Fish is right when you do have to deal with fractional amounts.<br />
+<br />
+BigDecimal is specifically designed to handle very large values, exact values, calculations with a bunch of specific rounding methods, etc.
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post52649" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=52649" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 52649 popup menu -->
+
+<!-- / post 52649 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #52649 --><!-- post #90871 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit90871" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post90871" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/90871-post12.html" target="new"  id="postcount90871" name="12"><strong>12</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post90871" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post90871"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				11-12-2009, 07:38 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			
+			<td nowrap="nowrap">
+
+				<div id="postmenu_90871">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/joao.html">Joao</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="Joao is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Nov 2009</div>
+					
+					
+					<div>
+						Posts: 1
+					</div>
+					
+					
+					Rep Power: <span id="reppower_90871_28214">0</span> <div><span id="repdisplay_90871_28214"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="Joao is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_90871">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_90871">
+			
+			What about<b></b>:<br />
+<br />
+    public static double roundToDecimals(double d, int c) {<br />
+        int temp=(int)((d*Math.pow(10,c)));<br />
+        return (((double)temp)/Math.pow(10,c));<br />
+    }<br />
+<br />
+It gives you control of how many numbers after the point are needed. d=number to round; c = number of decimal places.
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post90871" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=90871" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 90871 popup menu -->
+
+<!-- / post 90871 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #90871 --><!-- post #92713 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit92713" style="padding:0px 0px 4px 0px">
+	<!-- this is not the last post shown on the page -->
+
+
+
+<table class="tborder" id="post92713" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/92713-post13.html" target="new"  id="postcount92713" name="13"><strong>13</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post92713" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post92713"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				11-24-2009, 04:21 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			
+			<td nowrap="nowrap">
+
+				<div id="postmenu_92713">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/spaznur.html">Spaznur</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="Spaznur is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Nov 2009</div>
+					
+					
+					<div>
+						Posts: 1
+					</div>
+					
+					
+					Rep Power: <span id="reppower_92713_28546">0</span> <div><span id="repdisplay_92713_28546"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="Spaznur is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_92713">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_92713">
+			
+			public static double round2(double num) {<br />
+    double result = value * 100;<br />
+    result = Math.round(result);<br />
+    result = result / 100;<br />
+    return result;<br />
+}<br />
+<br />
+<br />
+<br />
+<u>This works fine.</u>
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post92713" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=92713" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 92713 popup menu -->
+
+<!-- / post 92713 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #92713 --><!-- post #92770 -->
+
+	<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+	<div id="edit92770" style="padding:0px 0px 4px 0px">
+	
+
+
+
+<table class="tborder" id="post92770" cellpadding="4" cellspacing="0" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+		<div class="normal" style="float:right">
+			&nbsp;
+			#<a href="http://www.java-forums.org/92770-post14.html" target="new"  id="postcount92770" name="14"><strong>14</strong></a> (<b><a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#post92770" title="Link to this Post">permalink</a></b>) &nbsp;
+		 
+		</div>
+
+		<div class="normal">
+			<!-- status icon and date -->
+			<a name="post92770"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/post_old.gif" alt="Old" border="0" /></a>
+			
+				11-24-2009, 11:44 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="4" border="0" width="100%">
+		<tr>
+			
+			<td nowrap="nowrap">
+
+				<div id="postmenu_92770">
+					
+					<a rel="nofollow" class="bigusername" href="http://www.java-forums.org/members/menre.html">Menre</a>
+					<img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/statusicon/user_offline.gif" alt="Menre is offline" border="0" />
+
+
+					
+					
+				</div>
+
+				<div class="smallfont">Member</div>
+				
+				
+
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+
+				<div class="smallfont">
+					<div>Join Date: Feb 2008</div>
+					
+					
+					<div>
+						Posts: 74
+					</div>
+					
+					
+					Rep Power: <span id="reppower_92770_2945">0</span> <div><span id="repdisplay_92770_2945"><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/reputation/reputation_pos.gif" alt="Menre is on a distinguished road" border="0" /></span></div>
+					
+					<div>    </div>
+				</div>
+
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+<td class="alt1" id="td_post_92770">
+	<!-- message, attachments, sig -->
+
+		
+
+		
+			<!-- icon and title -->
+			<div class="smallfont post-title">
+				<img class="inlineimg" src="http://www.java-forums.org/images/icons/icon1.gif" alt="Default" border="0" />
+				
+			</div>
+			
+			<!-- / icon and title -->
+		
+
+		<!-- message -->
+		<div id="post_message_92770">
+			
+			Maybe nice to blame teachers and students on this issue. But I aggree with these questions.<br />
+<br />
+<table class="bbcode-rounded bbcode-rounded-quote" cellspacing="0">
+<tr>
+	<td class="bbcode-rounded-header"><div><span></span></div></td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-author">
+		
+			<div class="smallfont">Quote:</div>
+		
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-content">
+		...not to have a simple already built function in Java to round a double to specified # of decimal places?<br />
+... Why would everyone want to custom code this function?
+	</td>
+</tr>
+<tr>
+	<td class="bbcode-rounded-footer"><div><span></span></div></td>
+</tr>
+</table>
+		</div>
+		<!-- / message -->
+
+		
+
+		
+		
+
+		
+
+		
+
+		
+
+		<div style="margin-top: 10px" align="right" class="post-bottom">
+			<!-- controls -->			
+			
+			
+
+			<div style="float:left"><a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html%23post92770" target="_blank"><img src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark Post in Technorati" border="0" /></a></div>
+
+			
+			
+				<a href="http://www.java-forums.org/newreply.php?do=newreply&amp;p=92770" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			<!-- / controls -->
+		</div>
+
+	<!-- message, attachments, sig -->
+
+	</td>
+</tr>
+</table>
+
+
+<!-- post 92770 popup menu -->
+
+<!-- / post 92770 popup menu -->
+
+
+	</div>
+		</td>
+</tr>
+</table>
+<!-- / close content container -->
+
+<!-- / post #92770 --><div id="lastpost"></div></div>
+
+<!-- start content table -->
+<!-- open content container -->
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr>
+	<td class="content-row" valign="top">
+<!-- / start content table -->
+
+<!-- controls below postbits -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top">
+	
+		<td class="smallfont"><a href="http://www.java-forums.org/newreply.php?do=newreply&amp;noquote=1&amp;p=92770" rel="nofollow"><img src="http://www.java-forums.org/images/ca_evo2/buttons/reply.gif" alt="Reply" border="0" /></a></td>
+	
+	
+</tr>
+</table>
+<!-- / controls below postbits -->
+
+
+
+
+<!-- social bookmarking links -->
+	<br />
+	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="tborder" align="center">
+	<tr>
+		<td class="thead">Bookmarks</td>
+	</tr>
+	<tr>
+		<td class="alt2" style="padding-top:0px"><div style="clear:both"></div><ul style="list-style-type:none; margin:0px; padding:0px"><li class="smallfont" style="width:25%; min-width:160px; float:left; margin-top:4px">
+	
+		<a rel="nofollow" href="http://digg.com/submit?phrase=2&amp;url=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark"><img src="http://www.java-forums.org/images/ca_evo2/misc/bookmarksite_digg.gif" border="0" alt="Submit Thread to Digg" class="inlineimg" /></a>
+	
+	<a rel="nofollow" href="http://digg.com/submit?phrase=2&amp;url=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark" style="text-decoration:none">Digg</a>
+</li><li class="smallfont" style="width:25%; min-width:160px; float:left; margin-top:4px">
+	
+		<a rel="nofollow" href="http://del.icio.us/post?url=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark"><img src="http://www.java-forums.org/images/ca_evo2/misc/bookmarksite_delicious.gif" border="0" alt="Submit Thread to del.icio.us" class="inlineimg" /></a>
+	
+	<a rel="nofollow" href="http://del.icio.us/post?url=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark" style="text-decoration:none">del.icio.us</a>
+</li><li class="smallfont" style="width:25%; min-width:160px; float:left; margin-top:4px">
+	
+		<a rel="nofollow" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark"><img src="http://www.java-forums.org/images/ca_evo2/misc/bookmarksite_stumbleupon.gif" border="0" alt="Submit Thread to StumbleUpon" class="inlineimg" /></a>
+	
+	<a rel="nofollow" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark" style="text-decoration:none">StumbleUpon</a>
+</li><li class="smallfont" style="width:25%; min-width:160px; float:left; margin-top:4px">
+	
+		<a rel="nofollow" href="http://www.google.com/bookmarks/mark?op=edit&amp;output=popup&amp;bkmk=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark"><img src="http://www.java-forums.org/images/ca_evo2/misc/bookmarksite_google.gif" border="0" alt="Submit Thread to Google" class="inlineimg" /></a>
+	
+	<a rel="nofollow" href="http://www.google.com/bookmarks/mark?op=edit&amp;output=popup&amp;bkmk=http%3A%2F%2Fwww.java-forums.org%2Fshowthread.php%3Ft%3D4130&amp;title=rounding+double+to+two+decimal+places" target="socialbookmark" style="text-decoration:none">Google</a>
+</li></ul><div style="clear:both"></div></td>
+	</tr>
+	</table>
+<!-- / social bookmarking links -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- next / previous links -->
+	<br />
+	<div class="smallfont" align="center">
+		<strong>&laquo;</strong>
+			<a href="http://www.java-forums.org/advanced-java/23244-server-authentication-using-ssl.html" >Server authentication using SSL</a>
+			|
+			<a href="http://www.java-forums.org/advanced-java/23263-java-arrays-not-sure-if-question-advanced.html" >Java arrays (not sure if this question is advanced)</a>
+		<strong>&raquo;</strong>
+	</div>
+<!-- / next / previous links -->
+
+
+
+
+
+
+
+<!-- controls for non-popup browsers -->
+
+
+<table class="tborder" cellpadding="4" cellspacing="0" border="0" width="100%" align="center" style="border-top-width:0px">
+<tr>
+	<td class="thead" colspan="2">Thread Tools<a name="goto_threadtools"></a></td>
+	
+</tr>
+<tr valign="top">
+	<td class="alt1" colspan="2">
+
+	<!-- thread tools -->
+	<div class="smallfont">
+		
+
+			<div><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/buttons/printer.gif" alt="Show Printable Version" vspace="1" /> <a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places-print.html" rel="nofollow">Show Printable Version</a></div>
+			<div><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/buttons/sendtofriend.gif" alt="Email this Page" vspace="1" /> <a href="http://www.java-forums.org/sendmessage.php?do=sendtofriend&amp;t=4130" rel="nofollow">Email this Page</a></div>
+		
+		
+				
+		
+			
+	
+	</div>
+	<!-- / thread tools -->
+
+	</td>
+	
+</tr>
+
+<tr>
+	<td class="thead" colspan="2">Display Modes<a name="goto_displaymodes"></a></td>
+	
+</tr>
+<tr valign="top">
+	
+	<td class="alt2" colspan="2">
+
+	<!-- thread display modes -->
+
+	<div class="smallfont">
+		<div><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/buttons/mode_linear.gif" alt="Linear Mode" vspace="1" /> <strong>Linear Mode</strong></div>
+		<div><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/buttons/mode_hybrid.gif" alt="Hybrid Mode" vspace="1" /> <a rel="nofollow" href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html?mode=hybrid">Switch to Hybrid Mode</a></div>
+		<div><img class="inlineimg" src="http://www.java-forums.org/images/ca_evo2/buttons/mode_threaded.gif" alt="Threaded Mode" vspace="1" /> <a rel="nofollow" href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html?mode=threaded#post8601">Switch to Threaded Mode</a></div>
+	</div>
+
+	<!-- / thread display modes -->
+
+	</td>
+	
+	
+</tr>
+
+</table>
+<br />
+
+
+<!-- / controls for non-popup browsers -->
+
+
+<!-- forum rules and admin links -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+<tr valign="bottom">
+	<td width="100%" valign="top">
+		<table class="tborder" cellpadding="4" cellspacing="0" border="0" width="210">
+<thead>
+<tr>
+	<td class="thead">
+		<a style="float:right" href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#top" onclick="return toggle_collapse('forumrules')"><img id="collapseimg_forumrules" src="http://www.java-forums.org/images/ca_evo2/buttons/collapse_thead.gif" alt="" border="0" /></a>
+		Posting Rules
+	</td>
+</tr>
+</thead>
+<tbody id="collapseobj_forumrules" style="">
+<tr>
+	<td class="alt1" nowrap="nowrap"><div class="smallfont">
+		
+		<div>You <strong>may not</strong> post new threads</div>
+		<div>You <strong>may not</strong> post replies</div>
+		<div>You <strong>may not</strong> post attachments</div>
+		<div>You <strong>may not</strong> edit your posts</div>
+		<hr />
+		
+		<div><a rel="nofollow" href="http://www.java-forums.org/misc.php?do=bbcode" target="_blank">BB code</a> is <strong>On</strong></div>
+		<div><a rel="nofollow" href="http://www.java-forums.org/misc.php?do=showsmilies" target="_blank">Smilies</a> are <strong>On</strong></div>
+		<div><a rel="nofollow" href="http://www.java-forums.org/misc.php?do=bbcode#imgcode" target="_blank">[IMG]</a> code is <strong>On</strong></div>
+		<div>HTML code is <strong>Off</strong></div><div><a rel="nofollow" href="http://www.java-forums.org/misc.php?do=linkbacks#trackbacks" target="_blank">Trackbacks</a> are <strong>On</strong></div>
+<div><a rel="nofollow" href="http://www.java-forums.org/misc.php?do=linkbacks#pingbacks" target="_blank">Pingbacks</a> are <strong>On</strong></div>
+<div><a rel="nofollow" href="http://www.java-forums.org/misc.php?do=linkbacks#refbacks" target="_blank">Refbacks</a> are <strong>On</strong></div>
+		<hr />
+		<div><a rel="nofollow" href="http://www.java-forums.org/misc.php?do=showrules" target="_blank">Forum Rules</a></div>
+	</div></td>
+</tr>
+</tbody>
+</table>
+	</td>
+	<td class="smallfont" align="right">
+		<table cellpadding="0" cellspacing="0" border="0">
+		
+		<tr>
+			<td>
+			
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+<!-- /forum rules and admin links -->
+
+<br />
+
+
+<table class="tcat-rounded" cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+	<tr>
+		<td width="25" class="tcat-rounded-left"><img src="http://www.java-forums.org/images/ca_evo2/misc/spacer.gif" width="25" height="27" border="0" alt="" /></td>
+
+		<td class="tcat" width="100%">
+			<a style="float:right" href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#top" onclick="return toggle_collapse('similarthreads')"><img id="collapseimg_similarthreads" src="http://www.java-forums.org/images/ca_evo2/buttons/collapse_tcat.gif" alt="" border="0" /></a>
+			Similar Threads<a name="similarthreads"></a>
+		</td>
+<td width="10" class="tcat-rounded-right"><img src="http://www.java-forums.org/images/ca_evo2/misc/spacer.gif" width="10" height="27" border="0" alt="" /></td>
+	</tr>
+</table>
+<table class="tborder" cellpadding="4" cellspacing="0" border="0" width="100%" align="center" style="border-top-width: 0;">
+<tbody id="collapseobj_similarthreads" style="">
+<tr class="thead" align="center">
+	<td class="thead" width="40%">Thread</td>
+	<td class="thead" width="15%" nowrap="nowrap">Thread Starter</td>
+	<td class="thead" width="20%">Forum</td>
+	<td class="thead" width="5%">Replies</td>
+	<td class="thead" width="20%">Last Post</td>
+</tr>
+<tr>
+	<td class="alt1" align="left">
+		
+		<span class="smallfont"> <a href="http://www.java-forums.org/new-java/7575-java-calculator-decimal.html" title="I need to have my calculator be able to work with decimals. I've changed all the  pertinent numbers to be doubles, but I can't figure out the code to...">Java calculator decimal</a></span>
+	</td>
+	<td class="alt2" nowrap="nowrap"><span class="smallfont">cart1443</span></td>
+	<td class="alt1" nowrap="nowrap"><span class="smallfont">New To Java</span></td>
+	<td class="alt2" align="center"><span class="smallfont">2</span></td>
+	<td class="alt1" align="right"><span class="smallfont">04-16-2008 <span class="time">02:19 PM</span></span></td>
+</tr>
+<tr>
+	<td class="alt1" align="left">
+		
+		<span class="smallfont"> <a href="http://www.java-forums.org/new-java/5346-how-do-i-convert-decimal-value-hexadecimal-double-precision-64-bit.html" title="I want to convert a decimal value to a hex value  with double precision. For example: 37.22 would convert to : 40429C28F5C28F5C 
+ 
+I found this...">How do I convert a decimal value to hexadecimal  with double precision (64 bit)</a></span>
+	</td>
+	<td class="alt2" nowrap="nowrap"><span class="smallfont">SKaur</span></td>
+	<td class="alt1" nowrap="nowrap"><span class="smallfont">New To Java</span></td>
+	<td class="alt2" align="center"><span class="smallfont">7</span></td>
+	<td class="alt1" align="right"><span class="smallfont">01-12-2008 <span class="time">10:02 PM</span></span></td>
+</tr>
+<tr>
+	<td class="alt1" align="left">
+		
+		<span class="smallfont"> <a href="http://www.java-forums.org/new-java/4813-capping-decimal-places.html" title="int previous = Integer.parseInt(TxtPrevious.getText()); 
+int current = Integer.parseInt(TxtCurrent.getText()); 
+double cpu = 0.07; 
+double quart =...">Capping decimal places</a></span>
+	</td>
+	<td class="alt2" nowrap="nowrap"><span class="smallfont">Rageagainst20</span></td>
+	<td class="alt1" nowrap="nowrap"><span class="smallfont">New To Java</span></td>
+	<td class="alt2" align="center"><span class="smallfont">1</span></td>
+	<td class="alt1" align="right"><span class="smallfont">12-20-2007 <span class="time">10:28 PM</span></span></td>
+</tr>
+<tr>
+	<td class="alt1" align="left">
+		
+		<span class="smallfont"> <a href="http://www.java-forums.org/new-java/4129-round-two-decimal-places.html" title="is there an easy way to round a double to two decimal places? 
+ 
+i.e. 1.98999 would round to 1.99 
+ 
+the math.round method only rounds to nearest...">round to two decimal places</a></span>
+	</td>
+	<td class="alt2" nowrap="nowrap"><span class="smallfont">javaMike</span></td>
+	<td class="alt1" nowrap="nowrap"><span class="smallfont">New To Java</span></td>
+	<td class="alt2" align="center"><span class="smallfont">1</span></td>
+	<td class="alt1" align="right"><span class="smallfont">11-26-2007 <span class="time">10:46 PM</span></span></td>
+</tr>
+<tr>
+	<td class="alt1" align="left">
+		
+		<span class="smallfont"> <a href="http://www.java-forums.org/new-java/1871-help-java-rounding.html" title="Hi,  I want to get my Java application to be able to round double varibles, but I do not want to use math.round(), I want to do this another way... 
+...">Help with java Rounding</a></span>
+	</td>
+	<td class="alt2" nowrap="nowrap"><span class="smallfont">silvia</span></td>
+	<td class="alt1" nowrap="nowrap"><span class="smallfont">New To Java</span></td>
+	<td class="alt2" align="center"><span class="smallfont">1</span></td>
+	<td class="alt1" align="right"><span class="smallfont">07-20-2007 <span class="time">08:25 AM</span></span></td>
+</tr>
+
+</tbody>
+</table>
+
+<br />
+
+
+<div style="width:728px; margin:0 auto; padding-top:1em">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6304269038762493";
+google_ad_host = "pub-2606800903002383";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "3F749B";
+google_color_text = "000000";
+google_color_url = "3F749B";
+google_ui_features = "rc:6";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+<br />
+<div class="smallfont" align="center">All times are GMT +2. The time now is <span class="time">10:21 PM</span>.</div>
+<br />
+
+<div class="smallfont" align="center">
+<a onclick="pageTracker._trackPageview ('/outgoing/http_www_java_tips_org');" href="http://www.java-tips.org">Java Tips</a> | <a onclick="pageTracker._trackPageview ('/outgoing/http_www_linux_archive_org');" href="http://www.linux-archive.org">Linux Archive</a> 
+</div>
+
+<br />
+
+	</td>
+</tr>
+</table>
+<!-- / close content container -->
+<!-- /content area table -->
+
+<tr>
+<form action="http://www.java-forums.org/" method="get" style="display: inline;">
+	<td class="footer-row"><table cellpadding="4" cellspacing="0" border="0" width="100%" class="page" align="center">
+<tr>
+	
+	
+	<td class="tfoot" align="right" width="100%" >
+		<div class="smallfont">
+			<strong>
+				<a href="http://www.java-forums.org/sendmessage.php" rel="nofollow" accesskey="9">Contact Us</a> -
+				<a href="http://www.java-forums.org">Java Forums</a> -
+				
+				
+				<a href="http://www.java-forums.org/sitemap/">Sitemap</a> -
+				
+				
+				
+				<a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html#top" onclick="self.scrollTo(0, 0); return false;">Top</a>
+			</strong>
+		</div>
+	</td>
+</tr>
+</table><!-- / footer table --></td>
+</tr>
+</table><!-- / content table --></td>
+</tr>
+</table><!-- / main table -->
+
+<br />
+
+<div align="center">
+	<div class="smallfont" align="center">
+	<!-- Do not remove this copyright notice -->
+	VBulletin, Copyright ©2000 - 2010, Jelsoft Enterprises Ltd.
+<br />Content Relevant URLs by vBSEO &copy;2009, Crawlability, Inc.
+	<!-- Do not remove this copyright notice -->
+	</div>
+
+	<div class="smallfont" align="center">
+	<!-- Do not remove cronimage or your scheduled tasks will cease to function -->
+	
+	<!-- Do not remove cronimage or your scheduled tasks will cease to function -->
+
+	Copyright ©2006 - 2007, www.java-forums.org
+
+
+
+
+	</div>
+</div>
+
+</form>
+
+
+
+
+<script type="text/javascript">
+<!--
+	// Main vBulletin Javascript Initialization
+	vBulletin_init();
+//-->
+</script>
+
+<!-- temp -->
+<div style="display:none">
+	<!-- thread rate -->
+	
+		
+	
+	<!-- / thread rate -->
+</div>
+
+
+<div class="vbmenu_popup" id="linkbacktools_menu" style="display:none">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">LinkBack<a name="goto_linkback"></a></td>
+	</tr>
+
+	<tr>
+		<td class="vbmenu_option"><img class="inlineimg" src="http://www.java-forums.org/images/vbseo/linkback_url.gif" alt="LinkBack URL" /> <a href="http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html" onclick="prompt('Use the following URL when referencing this thread from another forum or blog.','http://www.java-forums.org/advanced-java/4130-rounding-double-two-decimal-places.html');return false;">LinkBack URL</a></td>
+	</tr>
+	<tr>
+		<td class="vbmenu_option"><img class="inlineimg" src="http://www.java-forums.org/images/vbseo/linkback_about.gif" alt="About LinkBacks" /> <a rel="nofollow" href="http://www.java-forums.org/misc.php?do=linkbacks">About LinkBacks</a></td>
+	</tr>
+
+	<tr>
+		<td class="thead">Bookmark &amp; Share</td>
+	</tr>
+	<tr><td class="vbmenu_option"><img class="inlineimg" src="http://www.java-forums.org/images/vbseo/technorati.gif" alt="Bookmark in Technorati" /> <a rel="nofollow" href="http://technorati.com/faves/?add=http%3A%2F%2Fwww.java-forums.org%2Fadvanced-java%2F4130-rounding-double-two-decimal-places.html" target="_blank">Bookmark in Technorati</a><a name="vbseodm_0"></a></td></tr>
+
+	</table>
+</div>
+
+<script type="text/javascript"><!--
+window.google_analytics_uacct = "UA-136266-54";
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+//-->
+</script>
+<script type="text/javascript"><!--
+try {
+var pageTracker = _gat._getTracker("UA-136266-54");
+pageTracker._trackPageview();
+pageTracker._setVar("usergroup-1-Unregistered / Not Logged In");
+} catch(err) {}
+//-->
+</script>
+
+<script type="text/javascript"><!--
+
+window.orig_onload = window.onload;
+window.onload = function() {
+var cpost=document.location.hash;if(cpost){ if(cobj = fetch_object(cpost.substring(1,cpost.length)))cobj.scrollIntoView(true);else {cpostno = cpost.substring(5,cpost.length);if(parseInt(cpostno)>0 && (cpost.substring(1,5)=='post')){document.location.href='showthread.php?p='+cpostno;};} }
+
+if(typeof window.orig_onload == "function") window.orig_onload();
+}
+
+//-->
+</script>
+</body>
+</html>

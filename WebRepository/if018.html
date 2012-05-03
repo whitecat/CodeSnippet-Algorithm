@@ -1,0 +1,441 @@
+<HTML>
+
+<HEAD>
+<TITLE>Java Programming: Section 3.5</TITLE>
+</HEAD>
+
+<BODY bgcolor="#FFFFFF" text="#000000" link="#0000CC" alink="#CC2222" vlink="#553377">
+<BLOCKQUOTE>
+<H3>Section 3.5<br>
+    The <tt>if</tt> Statement</H3>
+
+<HR align=center width="33%">
+
+<P><font size="+2">T</font>HE FIRST OF THE TWO BRANCHING STATEMENTS in Java is
+the <tt>if</tt> statement, which you have already seen in <A HREF="s1.html">Section 1</A>.
+It takes the form</p>
+
+<pre>             if (<font color="#009000"><b>boolean-expression</b></font>)
+                  <font color="#009000"><b>statement-1</b></font>
+             else
+                  <font color="#009000"><b>statement-2</b></font>
+</pre>
+
+<p>As usual, the statements inside an <tt>if</tt> statements can be
+blocks.  The <tt>if</tt> statement represents a two-way branch.  The
+<tt>else</tt> part of an <tt>if</tt> statement -- consisting of the word &quot;else&quot;
+and the statement that follows it -- can be omitted.</p>
+
+<p>Now, an <tt>if</tt> statement is, in particular, a statement.  This
+means that either <font color="#009000"><b>statement-1</b></font>
+or <font color="#009000"><b>statement-2</b></font> in the above
+<tt>if</tt> statement can itself be an <tt>if</tt> statement.  A problem arises, however,
+if <font color="#009000"><b>statement-1</b></font> is an <tt>if</tt> statement
+that has no <tt>else</tt> part.  This special case is effectively forbidden by
+the syntax of Java.  Suppose, for example, that you type</p>
+
+<pre>             if ( x &gt; 0 )
+                 if (y &gt; 0)
+                    System.out.println("First case");
+             else
+                 System.out.println("Second case");
+</pre>
+
+<p>Now, remember that the way you've indented this doesn't mean anything at all to
+the computer.  You might think that the <tt>else</tt> part is the second half of
+your &quot;<tt>if (x &gt; 0)</tt>&quot; statement, but the rule that the computer follows attaches
+the <tt>else</tt> to &quot;<tt>if (y &gt; 0)</tt>&quot;, which is closer.  That is, the computer 
+reads your statement as if it were formatted:</p>
+
+<pre>             if ( x &gt; 0 )
+                 if (y &gt; 0)
+                    System.out.println("First case");
+                 else
+                     System.out.println("Second case");
+</pre>
+
+<p>You can force the computer to use the other interpretation by enclosing the
+nested <tt>if</tt> in a block:</p>
+
+<pre>             if ( x &gt; 0 ) {
+                 if (y &gt; 0)
+                    System.out.println("First case");
+             }
+             else
+                 System.out.println("Second case");
+</pre>
+
+
+<p>These two statements have different meanings:  If <tt>x &lt;= 0</tt>,
+the first statement doesn't print anything, but the second statement prints &quot;Second case.&quot;.</p>
+
+
+<p>Much more interesting than this technicality is the case where
+<font color="#009000"><b>statement-2</b></font>, the <tt>else</tt> part of the <tt>if</tt> statement,
+is itself an <tt>if</tt> statement.  The statement
+would look like this (perhaps without the final else part):</p>
+
+<pre>             if (<font color="#009000"><b>boolean-expression-1</b></font>)
+                  <font color="#009000"><b>statement-1</b></font>
+             else
+                  if (<font color="#009000"><b>boolean-expression-2</b></font>)
+                      <font color="#009000"><b>statement-2</b></font>
+                  else
+                      <font color="#009000"><b>statement-3</b></font>
+</pre>
+
+<p>However, since the computer doesn't care how a
+program is laid out on the page, this is almost always written in
+the format:</p>
+
+<pre>             if (<font color="#009000"><b>boolean-expression-1</b></font>)
+                  <font color="#009000"><b>statement-1</b></font>
+             else if (<font color="#009000"><b>boolean-expression-2</b></font>)
+                  <font color="#009000"><b>statement-2</b></font>
+             else
+                  <font color="#009000"><b>statement-3</b></font>
+</pre>
+
+<p>You should think of this as a single statement representing
+a three-way branch.  When the computer executes this, one and
+only one of the three statements -- <font color="#009000"><b>statement-1</b></font>,
+<font color="#009000"><b>statement-2</b></font>, or
+<font color="#009000"><b>statement-3</b></font> -- will be executed.
+The computer starts by evaluating <font color="#009000"><b>boolean-expression-1</b></font>.
+If it is <tt>true</tt>, the computer executes <font color="#009000"><b>statement-1</b></font>
+and then jumps all the way to the end of the outer if statement,
+skipping the other two <font color="#009000"><b>statement</b></font>s.
+If <font color="#009000"><b>boolean-expression-1</b></font> is
+<tt>false</tt>, the computer skips <font color="#009000"><b>statement-1</b></font>
+and executes the second, nested if statement.  To do this, it
+tests the value of <font color="#009000"><b>boolean-expression-2</b></font>
+and uses it to decide between <font color="#009000"><b>statement-2</b></font>
+and <font color="#009000"><b>statement-3</b></font>.</p>
+
+<p>Here is an example that will print out one of three different
+messages, depending on the value of a variable named <tt>temperature</tt>:</p>
+
+<pre>            if (temperature &lt; 50)
+               System.out.println(&quot;It's cold.&quot;);
+            else if (temperature &lt; 80)
+               System.out.println(&quot;It's nice.&quot;);
+            else
+               System.out.println(&quot;It's hot.&quot;);
+</pre>
+
+<p>If <tt>temperature</tt> is, say, 42, the first test is <tt>true</tt>.
+The computer prints out the message &quot;It's cold&quot;, and skips the rest -- without
+even evaluating the second condition.  For a temperature of
+75, the first test is <tt>false</tt>, so the computer goes on to the second test.
+This test is <tt>true</tt>, so the computer prints &quot;It's nice&quot;
+and skips the rest. If the temperature is 173, both of the tests evaluate
+to <tt>false</tt>, so the computer says &quot;It's hot&quot; (unless its circuits
+have been fried by the heat, that is).</p>
+
+<p>You can go on stringing together &quot;else-if's&quot; to
+make multi-way branches with any number of cases:</p>
+
+<pre>             if (<font color="#009000"><b>boolean-expression-1</b></font>)
+                  <font color="#009000"><b>statement-1</b></font>
+             else if (<font color="#009000"><b>boolean-expression-2</b></font>)
+                  <font color="#009000"><b>statement-2</b></font>
+             else if (<font color="#009000"><b>boolean-expression-3</b></font>)
+                  <font color="#009000"><b>statement-3</b></font>
+               .
+               . // (more cases)
+               .
+             else if (<font color="#009000"><b>boolean-expression-N</b></font>)
+                  <font color="#009000"><b>statement-N</b></font>
+             else
+                  <font color="#009000"><b>statement-(N+1)</b></font>
+</pre>
+
+<p>The computer evaluates boolean expressions one after the other until it comes
+to one that is <tt>true</tt>.  It executes the associated statement and
+skips the rest.  If none of the boolean expressions evaluate to <tt>true</tt>,
+then the statement in the <tt>else</tt> part is executed.
+This statement is called a multi-way branch because only one of the 
+statements will be executed.   The final <tt>else</tt>
+part can be omitted.  In that case, if all the boolean expressions
+are false, none of the statements is executed.  Of course,
+each of the statements can be a
+block, consisting of a number of statements enclosed
+between { and }.  (Admittedly, there is lot of syntax 
+here; as you study and practice, you'll become comfortable
+with it.)</p> 
+
+<HR align=center width="33%">
+
+<p>As an example of using <tt>if</tt> statements, lets suppose that
+<tt>x</tt>, <tt>y</tt>, and <tt>z</tt> are variables of type <tt>int</tt>,
+and that each variable has already been assigned a value.  Consider
+the problem of printing out the values of the three variables in
+increasing order.  For examples, if the values are 42, 17, and 20,
+then the output should be in the order 17, 20, 42.</p>
+
+<p>One way to approach this is to ask, where does <tt>x</tt> belong
+in the list?  It comes first if it's less than both <tt>y</tt> and <tt>z</tt>.
+It comes last if it's greater than both <tt>y</tt> and <tt>z</tt>.  Otherwise,
+it comes in the middle.  We can express this with a 3-way <tt>if</tt> statement,
+but we still have to worry about the order in which <tt>y</tt> and <tt>z</tt>
+should be printed.  In pseudocode,</p>
+
+<pre>           if (x &lt; y &amp;&amp; x &lt; z) {
+               output x, followed by y and z in their correct order
+           }
+           else if (x &gt; y &amp;&amp; x &gt; z) {
+               output y and z in their correct order, followed by x
+           }
+           else {
+               output x in between y and z in their correct order
+           }
+</pre>
+
+<p>Determining the relative order of <tt>y</tt> and <tt>z</tt> requires
+another <tt>if</tt> statement, so this becomes</p>
+
+<pre>           if (x &lt; y &amp;&amp; x &lt; z) {        // x comes first
+               if (y &lt; z)
+                  System.out.println( x + " " + y + " " + z );
+               else
+                  System.out.println( x + " " + z + " " + y );
+           }
+           else if (x &gt; y &amp;&amp; x &gt; z) {   // x comes last
+               if (y &lt; z)
+                  System.out.println( y + " " + z + " " + x );
+               else
+                  System.out.println( z + " " + y + " " + x );
+           }
+           else {                       // x in the middle
+               if (y &lt; z)
+                  System.out.println( y + " " + x + " " + z);
+               else
+                  System.out.println( z + " " + x + " " + y);
+           }
+</pre>
+      
+<p>You might check that this code will work correctly even if some of the
+values are the same.  If the values of two variables are the same, 
+it doesn't matter which order you print them in.</p>
+
+<p>Note, by the way, that even though you can say in English &quot;if
+x is less than y and z,&quot;, you can't say in Java &quot;<tt>if
+(x &lt; y &amp;&amp; z)</tt>&quot;.  The <tt>&amp;&amp;</tt> operator
+can only be used between boolean values, so you have to make separate
+tests, <tt>x&lt;y</tt> and <tt>x&lt;z</tt>, and then combine the two
+tests with <tt>&amp;&amp;</tt>.</p>
+
+<p>There is an alternative approach to this problem that begins by 
+asking, &quot;which order should <tt>x</tt> and <tt>y</tt> be printed in?&quot;
+Once that's known, you only have to decide where to stick in <tt>z</tt>.
+This line of thought leads to different Java code:</p>
+
+<pre>            if ( x &lt; y ) {  // x comes before y
+               if ( z &lt; x ) 
+                  System.out.println( z + " " + x + " " + y);
+               else if ( z &gt; y )
+                  System.out.println( x + " " + y + " " + z);
+               else
+                  System.out.println( x + " " + z + " " + y);
+            }
+            else {          // y comes before x
+               if ( z &lt; y ) 
+                  System.out.println( z + " " + y + " " + x);
+               else if ( z &gt; x )
+                  System.out.println( y + " " + x + " " + z);
+               else
+                  System.out.println( y + " " + z + " " + x);
+            }
+</pre>
+
+<p>Once again, we see how the same problem can be solved in many different
+ways.  The two approaches to this problem have not exhausted all the
+possibilities.  For example, you might start by testing whether
+<tt>x</tt> is greater than <tt>y</tt>.  If so, you could swap their values.
+Once you've done that, you know that <tt>x</tt> should be printed
+before <tt>y</tt>.</p>
+
+
+<HR align=center width="33%">
+
+<p>Finally, let's write a complete program that uses an <tt>if</tt> statement
+in an interesting way.  I want a program that will convert measurements
+of length from one unit of measurement to another, such as miles to yards
+or inches to feet.  So far, the problem is extremely under-specified.
+Let's say that the program will only deal with measurements in inches,
+feet, yards, and miles.  It would be easy to extend it later to deal with
+other units.  The user will type in a measurement in one of these
+units, such as &quot;17 feet&quot; or &quot;2.73 miles&quot;.  The
+output will show the length in terms of <strong>each</strong>
+of the four units of measure.  (This is easier than asking the
+user which units to use in the output.)  An outline of the process
+is</p>
+
+<pre>           Read the user's input measurement and units of measure
+           Express the measurement in inches, feet, yards, and miles
+           Display the four results
+</pre>
+
+<p>The program can read both parts of the user's input from the same line by
+using <tt>TextIO.getDouble()</tt> to read the numerical measurement and
+<tt>TextIO.getlnWord()</tt> to read the units of measure.  The conversion
+into different units of measure can be simplified by first converting
+the user's input into inches.  From there, it can be converted into
+feet, yards, and miles.  We still have to test the input to determine
+which unit of measure the user has specified:</p>
+
+<pre>        Let measurement = TextIO.getDouble()
+        Let units = TextIO.getlnWord()
+        if the units are inches
+           Let inches = measurement
+        else if the units are feet
+           Let inches = measurement * 12         // 12 inches per foot
+        else if the units are yards
+           Let inches = measurement * 36         // 36 inches per yard
+        else if the units are miles
+           Let inches = measurement * 12 * 5280  // 5280 feet per mile
+        else
+           The units are illegal!
+           Print an error message and stop processing
+        Let feet = inches / 12.0
+        Let yards = inches / 36.0
+        Let miles = inches / (12.0 * 5280.0)
+        Display the results
+</pre>
+
+<p>Since <tt>units</tt> is a <tt>String</tt>, we can use 
+<tt>units.equals(&quot;inches&quot;)</tt> to check whether the specified
+unit of measure is &quot;inches&quot;.  However, it would be nice to
+allow the units to be specified as &quot;inch&quot; or abbreviated to
+&quot;in&quot;.  To allow these three possibilities, we can check
+<tt>if (units.equals("inches") || units.equals("inch") ||
+units.equals("in"))</tt>.  It would also be nice to allow upper case
+letters, as in &quot;Inches&quot; or &quot;IN&quot;.  We can do this
+by converting <tt>units</tt> to lower case before testing it or by substituting
+the function <tt>units.equalsIgnoreCase</tt> for <tt>units.equals</tt>.</p>
+
+<p>In my final program, I decided to make things more interesting
+by allowing the user to enter a whole sequence of measurements.
+The program will end only when the user inputs 0.  To do this,
+I just have to wrap the above algorithm inside a <tt>while</tt> loop,
+and make sure that the loop ends when the user inputs a 0.
+Here's the complete program, followed by an applet that simulates it.</p>
+
+<pre>
+
+   public class LengthConverter {
+   
+      /* This program will convert measurements expressed in inches,
+         feet, yards, or miles into each of the possible units of
+         measure.  The measurement is input by the user, followed by
+         the unit of measure.  For example:  "17 feet", "1 inch",
+         "2.73 mi".  Abbreviations in, ft, yd, and mi are accepted.
+         The program will continue to read and convert measurements
+         until the user enters an input of 0.
+      */
+   
+      public static void main(String[] args) {
+         
+         double measurement;  // Numerical measurement, input by user.
+         String units;        // The unit of measure for the input, also
+                              //    specified by the user.
+         
+         double inches, feet, yards, miles;  // Measurement expressed in
+                                             //   each possible unit of
+                                             //   measure.
+         
+         TextIO.putln("Enter measurements in inches, feet, yards, or miles.");
+         TextIO.putln("For example:  1 inch    17 feet    2.73 miles");
+         TextIO.putln("You can use abbreviations:   in   ft  yd   mi");
+         TextIO.putln("I will convert your input into the other units");
+         TextIO.putln("of measure.");
+         TextIO.putln();
+         
+         while (true) {
+            
+            /* Get the user's input, and convert units to lower case. */
+            
+            TextIO.put("Enter your measurement, or 0 to end:  ");
+            measurement = TextIO.getDouble();
+            if (measurement == 0)
+               break;  // terminate the while loop
+            units = TextIO.getlnWord();            
+            units = units.toLowerCase();
+            
+            /* Convert the input measurement to inches. */
+            
+            if (units.equals("inch") || units.equals("inches") 
+                                            || units.equals("in")) {
+                inches = measurement;
+            }
+            else if (units.equals("foot") || units.equals("feet") 
+                                            || units.equals("ft")) {
+                inches = measurement * 12;
+            }
+            else if (units.equals("yard") || units.equals("yards") 
+                                             || units.equals("yd")) {
+                inches = measurement * 36;
+            }
+            else if (units.equals("mile") || units.equals("miles") 
+                                               || units.equals("mi")) {
+                inches = measurement * 12 * 5280;
+            }
+            else {
+                TextIO.putln("Sorry, but I don't understand \"" 
+                                                     + units + "\".");
+                continue;  // back to start of while loop
+            }
+            
+            /* Convert measurement in inches to feet, yards, and miles. */
+            
+            feet = inches / 12;
+            yards = inches / 36;
+            miles = inches / (12*5280);
+            
+            /* Output measurement in terms of each unit of measure. */
+            
+            TextIO.putln();
+            TextIO.putln("That's equivalent to:");
+            TextIO.put(inches, 15);
+            TextIO.putln(" inches");
+            TextIO.put(feet, 15);
+            TextIO.putln(" feet");
+            TextIO.put(yards, 15);
+            TextIO.putln(" yards");
+            TextIO.put(miles, 15);
+            TextIO.putln(" miles");
+            TextIO.putln();
+         
+         } // end while
+         
+         TextIO.putln();
+         TextIO.putln("OK!  Bye for now.");
+         
+      } // end main()
+      
+   } // end class LengthConverter
+</pre>
+
+<p align=center>
+   <applet code="LengthConverterConsole" height=250 width=500
+        alt="(Applet 'LengthConverterConsole' should be displayed here.)">
+     <font color="#E70000">
+     (Applet "LengthConverterConsole" would be displayed here<br>
+     if Java were available.)</font>
+   </applet>
+</p>
+
+
+<HR>
+</BLOCKQUOTE>
+
+<p align=center><font size=-1>
+[ <A HREF="s6.html">Next Section</A>
+| <A HREF="s4.html">Previous Section</A>
+| <A HREF="index.html">Chapter Index</A>
+| <A HREF="../index.html">Main Index</A>
+]</font></p>
+
+</BODY>
+
+</HTML>

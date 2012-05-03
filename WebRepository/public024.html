@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>The main Method in Java by Richard G Baldwin</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<P><!--start--></P>
+<I><H3 ALIGN="CENTER">Richard G Baldwin (512) 223-4758, </I><A HREF="mailto:baldwin@austin.cc.tx.us"><I>baldwin@austin.cc.tx.us</I></A><I>, </I><A HREF="http://www2.austin.cc.tx.us/baldwin/"><I>http://www2.austin.cc.tx.us/baldwin/</I></A></H3>
+<H2 ALIGN="CENTER"><!--title-->The main() Method<!--endtitle--></H2>
+<P>Java Programming, Lecture Notes # 14, Revised 10/03/99. </P>
+<P><!-toc file=Java014a.htm words=Preface-><A HREF="#preface">Preface</A><BR>
+<!--endtoc--><!-toc file=Java014b.htm words=Introduction-><A HREF="#introduction">Introduction</A><BR>
+<!--endtoc--><!-toc file=Java014c.htm words=The main() Method in Java-><A HREF="#themainmethodinjava">The main() Method in Java</A><BR>
+<!--endtoc--><!-toc file=Java014d.htm words=The main() Function in C++-><A HREF="#themainfunctioninc">The main() Function in C++</A><BR>
+<!--endtoc--><!-toc file=Java014e.htm words=Review Questions for Lesson 14-><A HREF="#review">Review Questions for Lesson 14</A><!--endtoc--> </P>
+<P><!-next=Java014a.htm><!-first=Java014.htm-></P>
+<FONT COLOR="#ff0000"><H2 ALIGN="CENTER"><A NAME="preface"></A>Preface</H2>
+</FONT><P>Students in Prof. Baldwin's <B><U>Introductory Java Programming</B></U> classes at ACC are responsible for knowing and understanding all of the material in this lesson (except that they are not responsible for detailed information that is specific to C++). </P>
+<P>The detailed material on C++ is provided as supplementary material for the benefit of those persons who are already familiar with C++ and who are making the transition into Java. </P>
+<P><!-prev=Java014.htm-><!-next=Java014b.htm><!-first=Java014.htm-></P>
+<FONT COLOR="#ff0000"><H2 ALIGN="CENTER"><A NAME="introduction"></A>Introduction</H2>
+</FONT><B><I><FONT FACE="Arial" COLOR="#ff0000"><P>The main() Method</P>
+</B></I></FONT><P>There must be a <B>main</B> method in the <I>controlling class</I> in a Java <U>application</U>. There must also be a <B>main</B> function in a stand-alone C++ program. </P>
+<P><!-prev=Java014a.htm-><!-next=Java014c.htm><!-first=Java014.htm-></P>
+<FONT COLOR="#ff0000"><H3 ALIGN="CENTER"><A NAME="themainmethodinjava">The main() Method in Java</A></H3>
+</FONT><B><I><FONT FACE="Arial" COLOR="#ff0000"><P>The Method Signature</P>
+</B></I></FONT><P>The Java literature frequently refers to the <I>signature</I> of a method, or the <I>method signature</I>. </P>
+<U><P>Exploring Java</U> by Patrick Niemeyer &amp; Joshua Peck (O'Reilly) provides the following definition of a <I>method signature</I>. <BR>
+&nbsp; </P>
+<TABLE BORDER CELLSPACING=1 WIDTH=480>
+<TR><TD VALIGN="MIDDLE" BGCOLOR="#00ffff">
+<P>"A method signature is a collection of information about the method, as in a C prototype or a forward function declaration in other languages. It includes the method's name, <I>type</I>, and visibility, as well as its arguments and return type."</TD>
+</TR>
+</TABLE>
+
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P ALIGN="CENTER">Type</P>
+</B></I></FONT><P>Apparently in this definition, they are referring to the <I>type</I> of the method as distinguishing between <I>static</I> and <I>non-static</I> (other literature refers to the <I>type </I>of a function as being the <I>return type</I> which according to the above definition is a separate part of the <I>signature</I>.) </P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>Visibility</P>
+</B></I></FONT><P>Apparently also the use of the word <I>visibility</I> in the above definition refers to the use of <I>public, private</I>, etc. </P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>Bottom Line on Method Signature</P>
+</B></I></FONT><P>In brief, the <I>method signature</I> can probably be thought of as providing all the information there is about the <I>interface</I> to the method. In other words, it provides all the information that you need to know to be able to invoke the method. </P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>Signature of main() Method</P>
+</B></I></FONT><P>The <I>controlling class</I> of every Java application must contain a <B>main()</B> method having one of the following signatures (this author prefers the first signature as being the most descriptive of an array of <B>String </B>references which is what is passed in as an argument). <BR>
+&nbsp; </P>
+<TABLE BORDER CELLSPACING=1 WIDTH=480>
+<TR><TD VALIGN="MIDDLE" BGCOLOR="#ffff00">
+<PRE>public static void <B>main</B>(String[] args)
+public static void <B>main</B>(String args[])</PRE></TD>
+</TR>
+</TABLE>
+
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>public</P>
+</B></I></FONT><P>The keyword <B>public</B> indicates that the method can be called by any object. A subsequent lesson will discuss the keywords <B>public</B>, <B>private</B>, and <B>protected</B> in more detail. </P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>static</P>
+</B></I></FONT><P>The keyword <B>static</B> indicates that the method is a <I>class</I> method, which can be called without the requirement to instantiate an object of the class. This is used by the Java interpreter to launch the program by invoking the <B>main</B> method of the class identified in the command to start the program. </P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>void</P>
+</B></I></FONT><P>The keyword <B>void</B> indicates that the method doesn't return any value. </P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>args</P>
+</B></I></FONT><P>The formal parameter <B>args</B> is an array of type <B>String</B>, which contains arguments entered at the command line. Note that the <B>args</B> parameter must be specified <U>whether or not</U> the user is required to enter a command-line argument and whether or not the code in the program actually makes use of the argument. </P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>The length Property</P>
+</B></I></FONT><P>In Java, <B>args</B> is a true array object. Array objects have a property named <B>length</B>. </P>
+<P>The runtime system monitors for the entry of command-line arguments by the user and constructs the <B>String </B>array containing those arguments.</P>
+<B><I><FONT FACE="Arial" COLOR="#ff0000"><P>Processing Command-Line Arguments</P>
+</B></I></FONT><P>The <B>args.length</B> property can be used by the code in the program to determine the number of arguments actually entered by the user. </P>
+<P>If the array of strings contains data, the first string in the array corresponds to the first argument (not the name of the program as in C++). </P>
+<P>Command-line arguments along with strings and <B>String</B> arrays will be discussed in more detail in a subsequent lesson. <BR>
+&nbsp; </P>
+<P><!-prev=Java014b.htm-><!-next=Java014d.htm><!-first=Java014.htm-></P>
+<TABLE BORDER CELLSPACING=1 WIDTH=480>
+<TR><TD VALIGN="MIDDLE" BGCOLOR="#00ff00">
+<H3 ALIGN="CENTER"><A NAME="themainfunctioninc"><FONT COLOR="#ff0000">The main() Function in C++&nbsp;</A></H3>
+</FONT><FONT SIZE=4><P ALIGN="CENTER">The <B>main</B> function in a C++ program can have <U>either</U> of the following signatures:&nbsp; <BR>
+&nbsp; </FONT></TD>
+</TR>
+<TR><TD VALIGN="MIDDLE" BGCOLOR="#00ff00">
+<PRE>return-type <B>main</B>()
+<I>return-type</I> <B>main(int</B> argc, char *argv[])</PRE></TD>
+</TR>
+<TR><TD VALIGN="MIDDLE" BGCOLOR="#00ff00">
+<P>The <I>return-type</I> can be any valid type or <B>void</B> indicating that the function does not return any value. The argument list can be empty, or can contain the arguments shown to support the use of command-line arguments.&nbsp; </P>
+<P>The argument <B><TT>int argc</B></TT> is used by the operating system to pass an integer value specifying the number of command-line arguments entered by the user. </P>
+<P>The argument <B><TT>char *argv[]</B></TT> passes a <U>pointer</U> to an <U>array of pointers</U> of type <B>char</B>. Each of the pointers in the array points to a null-terminated string in memory, which is an argument, entered at the command line. The pointer with an index of 0 points to a string containing the name of the program (or garbage with some systems). The pointer with an index of 1 points to the first true command-line argument.&nbsp; </P>
+<P>The names of the arguments shown are traditional, but not required.&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>. </P>
+<P><!-prev=Java014c.htm-><!-next=Java014e.htm><!-first=Java014.htm-></P>
+<FONT COLOR="#ff0000"><H2 ALIGN="CENTER"><A NAME="review">Review Questions for Lesson 14</A></H2>
+</FONT><P>Q - Write the method signature for the <B>main</B> method in a Java application. </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - public static void main(String[] args)</FONT> </P>
+<P>Q - Briefly explain the reason that the <B>main</B> method in a Java application is declared <B>public</B>. </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - The keyword <B>public</B> indicates that the method can be called by any object.</FONT> </P>
+<P>Q - Explain the reason that the <B>main </B>method in a Java application must be declared <B>static</B>. </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - The keyword <B>static</B> indicates that the method is a <I>class</I> method which can be called without the requirement to instantiate an object of the class. This is used by the Java interpreter to launch the program by invoking the <B>main</B> method of the class identified in the command to start the program.</FONT> </P>
+<P>Q - Describe the purpose of the keyword <B>void</B> when used as the return type for the <B>main</B> method. </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - The <B>void </B>keyword when used as the return type for any Java methods indicates that the method does not <B>return </B>anything.</FONT> </P>
+<P>Q - As in C++, if the Java application is not designed to use command-line arguments, it is not necessary to include a formal parameter for the <B>main</B> method which is an array of type <B>String</B>: True or False? </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - False. Although C++ allows the formal argument list to be omitted from a <B>main</B> method that is not designed to support <I>command-line arguments</I>, the <B>main</B> method in a Java program must always provide the formal argument list regardless of whether it is actually used in the program.</FONT> </P>
+<P>Q - When using command-line arguments in Java, if the name of the string array is <B>args</B>, the <B>args.length</B> variable can be used by the code in the program to determine the number of arguments actually entered: True or False? </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - True</FONT> </P>
+<P>Q - As in C++, the first string in the array of command-line arguments contains the name of the Java application: True or False? </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - False. Unlike C++, the first string in the array of command-line arguments in a Java application does <U>not</U> contain the name of the application.</FONT> </P>
+<P>Q - The <I>controlling class</I> of every Java application must contain a <B>main</B> method. Can other classes in the same application also have a <B>main</B> method? If not, why not? If so, why might you want to do this? </P>
+<FONT SIZE=2 COLOR="#0000ff"><P>A - Yes. It is often desirable to provide a <B>main</B> method for a class that will not ultimately be the <I>controlling class</I> in an application to allow the class to be tested in a stand-alone mode, independent of any other classes.</FONT> </P>
+<P><!-prev=Java014d.htm-><!-first=Java014.htm-></P>
+<P>-end-<!--end--></P></BODY>
+</HTML>

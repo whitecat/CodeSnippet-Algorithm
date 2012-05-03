@@ -1,0 +1,1716 @@
+
+ 
+
+ 
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="regenabled gecko jsenabled gecko jsenabled"><head>
+
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<title>New To Java - Using an Abstract Class : ByteBuffer</title>
+<link rel="stylesheet" type="text/css" href="/style/style.css"/>
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" href="/css/default_developer.css" />
+<link href="css/sr.css" rel="stylesheet" type="text/css">
+<script language="javascript1.2" type="text/javascript" src="/js/sniff.js"></script>
+
+
+</head><body>
+
+<table width="100%">
+<tr>
+<td>
+<!-- BEGIN A2 COMPONENT V.8 -->
+<div id="a2v8" class="a2v8forums">
+<div class="a2v8w1"><div class="a2v8w2"><div class="a2v8w3">
+
+<ul class="a2v8links">
+<li class="a2v8sunlogo"><a href="http://www.sun.com/" title="www.sun.com"><span>Sun.com</span></a></li>
+<li><a href="http://forums.sun.com/" title="forums.sun.com"><span>forums.sun.com</span></a></li>
+</ul>
+
+<h3 class="listTitle">participate</h3>
+<form action=""><select class="goto"><option value="" class="gotoHeading">participate</option>
+
+<option value="http://wikis.sun.com/">wikis</option><option value="http://blogs.sun.com/">blogs</option><option value="http://planets.sun.com/">planets</option><option value="http://forums.sun.com/">forums</option><option value="http://mediacast.sun.com/">mediacast</option></select></form>
+
+<div class="a2v8x1"></div>
+</div></div></div>
+</div>
+<!-- END A2 COMPONENT V.8 -->
+
+</td>
+</tr>
+</table>
+
+<!-- BEGIN breadcrumbs -->
+           <div class="breadcrumb">
+            
+                    <nobr><a href="http://forums.sun.com">Oracle Forums</a> &gt;</nobr>
+
+            
+                                    <nobr><a href="category.jspa?categoryID=5">Java Essentials</a> &gt;</nobr>
+            
+                                    <nobr><a href="forum.jspa?forumID=54&start=0">New To Java</a> &gt;</nobr>
+            
+            </div>
+
+<!-- END breadcrumbs -->
+    
+<br>
+ <div class="pagetitle">New To Java - Using an Abstract Class : ByteBuffer</div>
+
+
+
+
+
+
+<table width="100%" cellpadding="0" cellspacing="0"> <!-- CONTENT & NAV TABLE --> 
+<tbody><tr>
+
+<td valign="top"> <!-- MAIN CONTENT -->
+<!--startindex-->
+<!-- BEGIN WRAPPER TABLE, 1 COLUMN, MAIN -->
+<table border="0" cellpadding="0" cellspacing="10" width="100%">
+<tr><td width="100%" valign="top">
+
+<link rel="alternate" type="application/rss+xml" title="RSS Summary Feed"
+        href="http://forums.sun.com/rss/rssmessages.jspa?threadID=5426502">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS Full Feed"
+        href="http://forums.sun.com/rss/rssmessages.jspa?threadID=5426502&full=true">
+
+
+
+
+
+
+<!-- BEGIN MAIN CONTENT -->
+
+<table border="0" cellpadding="4" cellspacing="0" width="100%" class="vtop">
+<tr>
+<td>
+
+
+
+
+
+    <div id="jive-question-box" class="jive-infobox">
+    <table cellpadding="2" cellspacing="0" border="0">
+    <tbody>
+	
+
+        <tr valign="top">
+            <td><img src="images/question-resolved-24x24.gif" alt="" border="0"></td>
+            <td>
+                
+
+                    
+
+                        
+
+                        
+                            
+                            This question is <span class="ans">answered</span>.
+
+                        
+
+                        
+			
+			    <a href="thread.jspa?messageID=10919921#10919921"> Correct Answer available</a>
+			
+<!--
+                        
+
+-->
+                    
+
+                
+            </td>
+       </tr>
+    </tbody>
+    </table>
+    </div><br />
+
+
+ 
+</td>
+</tr>
+
+<tr>
+<td>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<a href="forum.jspa?forumID=54"><< &nbsp; Back to Forum</a>
+&nbsp;| &nbsp; <a href="http://developers.sun.com/contact/feedback.jsp?referer=http://forums.sun.com?forumID=54&category=sdn&mailsubject=Forums%20or%20Community">Give us Feedback </a>
+</td>
+
+<td align="right">
+ <!--  BEGIN VTI2 PAGINATION COMPONENT, variation 2 without number links -->
+
+            
+               
+                Topics:
+
+                
+
+                    
+                    <b>
+                    <a href="thread.jspa?threadID=5426699&tstart=0"
+                     >&laquo; Previous</a>
+                    </b>
+
+                
+
+                |
+
+                
+
+                    
+                    <b class="dkgrey" style="font-size:8pt !important;">
+                    Next
+                    </b>
+
+                
+
+           
+
+    <!--  END VTI2 PAGINATION COMPONENT, variation 2 without number links -->
+
+</td>
+
+</tr>
+</table>
+
+<!-- BEGIN G15 GENERIC CONTENT TABLE -->
+<table border="0" cellpadding="4" cellspacing="0" width="100%" class="vtop" bgcolor="#666666"><tr><td>
+<table border="0" cellpadding="2" cellspacing="0" width="100%" class="vtop">
+
+<tr bgcolor="#666666">
+
+<!-- BEGIN DUKE DOLLARS -->
+<td colspan="2">
+<table width="100%" border="0">
+<tr>
+<td><div class="pad5x10"><span style="color:#fff;">
+        
+
+                   <img src="im/duke.gif" width="15" height="12" border="0">
+                   3 Duke Stars rewarded for this thread
+        
+
+
+</span></div>
+</td>
+
+<td align="right"><div class="pad5x10"><span style="color:#fff;">
+ 
+                This topic has
+                8
+                replies
+                on
+                1
+                page.
+
+            
+
+            
+</span></div></td>
+
+</tr>
+</table>
+</td>
+</tr>
+
+
+<tr bgcolor="#666666">
+<td colspan="2" align="right"><div class="pad5x10"><span style="color:#fff;">
+
+	<!-- BEGIN  Move Ability for moderators -->
+
+           
+	<!-- END move ability for moderators -->
+
+   	<img src="im/ic_email.gif" width="14" height="12" border="0" hspace="4" vspace="1" alt=" "><a href="emailfriend!default.jspa?threadID=5426502"><font color="#ffffff">E-mail this Topic</font></a> &nbsp;
+        
+	<img src="im/ic_eye.gif" hspace="4" border="0" alt=" " />
+
+      <a href="watches!add.jspa?forumID=54&threadID=5426502"><font color="#ffffff">Watch this topic</font></a>
+      &nbsp;
+
+</span></div></td>
+
+</tr>
+
+
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/bronze-star.gif"
+		title="Dukes Earned 0" />  
+	  
+	 
+	
+
+	<a href="profile.jspa?userID=1193704"">piMeson</a>
+
+	   <br />
+	 Posts:7
+	<br />
+	Registered: 1/14/10
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10919913"></a>  Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10919913#10919913">
+	Feb 2, 2010 10:32 AM </a> 
+
+
+	 </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10919913"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10919913"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10919913', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 In Java.nio.*   there is a class called ByteBuffer<br />
+<br />
+According to the <a class="jive-link-external" href="http://java.sun.com/javase/6/docs/api/java/nio/ByteBuffer.html">documentation</a> this is an abstract class.<br />
+<br />
+From what I read in the tutorials this means that it can't be instantiated.  Further, it means that  the methods declared as ABSTRACT are just declarations and not implemented...<br />
+<br />
+And yet in one of the examples I found that class in use!<br />
+So I tried it... and it works just fine.  Not only can a make a ByteBuffer object, I can call on the abstract functions and they work as expected.<br />
+<br />
+I can do this<br />
+<br />
+<pre class="jive-pre"><code class="jive-code jive-java"> 
+ <font color="navy"><b>byte</b></font>[] myBytes = <font color="navy"><b>new</b></font> <font color="navy"><b>byte</b></font>[100]
+ByteBuffer myBuffer = ByteBuffer.wrap(myBytes);
+<font color="navy"><b>short</b></font> myShort = 0x0102;
+myBuffer.putShort(myShort);
+myBuffer.order(LITTLE_ENDIAN);
+myBuffer.putShort(myShort);
+&nbsp;
+<font color="navy"><b>for</b></font> (i = 0; i&lt;4; i++)<font color="navy">{</font>
+  system.out.println(myBytes[i]);
+<font color="navy">}</font>
+</code></pre><br />
+<br />
+This will give output like<br />
+01    <br />
+02  <br />
+02   <br />
+01<br />
+<br />
+Which is just what I would expect of the order method, and the putShort method worked and were <u>not</u> abstract.<br />
+So these methods like putShort which are declared as abstract are actually implemented.<br />
+And I can make a ByteBuffer object such as myBuffer provided I use the static "wrap" function.<br />
+<br />
+What I can't do is the following...<br />
+<br />
+<pre class="jive-pre"><code class="jive-code jive-java">ByteBuffer newBuffer = <font color="navy"><b>new</b></font> ByteBuffer(sizeOfBuffer);
+</code></pre><br />
+<br />
+That will yield an error claiming that it is not possible to instantiate an abstract class.<br />
+<br />
+Okay but other than I don't have a normal constructor, what is the meaning of declaring a class abstract?  The object called myBuffer seems to have all the properties of an instatiated object that I can tell except that maybe its underlying class, myBytes, is exposed.  But the same would be true of DataBuffer and BufferedInputStream objects (whose underlying steams are passed in the constructor but are still exposed) and they are not declared abstract.<br />
+<br />
+And what about the methods that are abstract?  What is the difference between those an a normal method?<br />
+<br />
+P.S.  That is just pseudo code up there... I haven't tested it to compile or anything... it is just to give you an idea.<br />
+<br />
+Edited by: piMeson on Feb 2, 2010 10:32 AM 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/platinum-star.gif"
+		title="Dukes Earned 2434" />  
+	  
+	 
+	
+
+	<a href="profile.jspa?userID=136907"">warnerja</a>
+
+	   <br />
+	 Posts:23,914
+	<br />
+	Registered: 9/26/01
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10919921"></a>  Re: Using an Abstract Class : ByteBuffer
+	 &nbsp;&nbsp;<img src="im/duke.gif"
+		title="3 Duke Stars rewarded"
+		width="15" height="12" border="0">   &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10919921#10919921">
+	Feb 2, 2010 10:51 AM </a> 
+
+
+	 (reply 1
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10919913#10919913">
+	
+	original post</a> )   </b> 
+
+		
+
+		
+
+		<img id="jive-correct-img" src="im/answer-correct-24x24.gif"
+			title=""
+			border="0" alt="" />
+		
+		Correct
+
+		
+		
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10919921"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10919921"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10919921', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 <div class="jive-quote">ByteBuffer myBuffer = ByteBuffer.wrap(myBytes);</div>
+This is NOT creating a ByteBuffer instance. It is creating an instance of something that <b>extends</b> ByteBuffer. You don't know what the actual class is, but it doesn't matter.<br />
+<br />
+<pre class="jive-pre"><code class="jive-code jive-java"><font color="navy"><b>public</b></font> <font color="navy"><b>interface</b></font> IFoo
+<font color="navy">{</font>
+  <font color="navy"><b>public</b></font> <font color="navy"><b>void</b></font> bar(); <font color="darkgreen">// abstract by definition</font>
+<font color="navy">}</font>
+&nbsp;
+<font color="navy"><b>public</b></font> <font color="navy"><b>class</b></font> MyFoo <font color="navy"><b>implements</b></font> IFoo
+<font color="navy">{</font>
+  <font color="navy"><b>public</b></font> <font color="navy"><b>void</b></font> bar() <font color="navy">{</font> <font color="darkgreen">/* do something */</font> <font color="navy">}</font> <font color="darkgreen">// implemented</font>
+<font color="navy">}</font>
+&nbsp;
+<font color="navy"><b>public</b></font> <font color="navy"><b>class</b></font> FooFactory
+<font color="navy">{</font>
+  <font color="navy"><b>public</b></font> <font color="navy"><b>static</b></font> IFoo giveMeAFoo() <font color="navy">{</font> <font color="navy"><b>return</b></font> <font color="navy"><b>new</b></font> MyFoo(); <font color="navy">}</font>
+<font color="navy">}</font>
+&nbsp;
+...
+IFoo foo = FooFactory.giveMeAFoo();
+foo.bar();
+</code></pre><br />
+Your argument would also say the above is illegal because it looks like it is "creating" an IFoo. Of course you cannot actually instantiate IFoo because it is just an interface. But the code is creating something concrete which inherits from IFoo and only needs to deal with it at the interface level. 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/platinum-star.gif"
+		title="Dukes Earned 1037" />  
+	  
+	 
+	
+
+	<a href="profile.jspa?userID=622530"">georgemc</a>
+
+	   <br />
+	 Posts:17,709
+	<br />
+	Registered: 08/05/06
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10919922"></a>  Re: Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10919922#10919922">
+	Feb 2, 2010 10:46 AM </a> 
+
+
+	 (reply 2
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10919913#10919913">
+	
+	original post</a> )   </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10919922"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10919922"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10919922', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 The static factory method ByteBuffer.wrap is returning an instance of a concrete subclass of ByteBuffer. Have a look at java.util.Calendar, which is also abstract, but "can be used". It's a fairly common pattern 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/platinum-star.gif"
+		title="Dukes Earned 2434" />  
+	  
+	 
+	
+
+	<a href="profile.jspa?userID=136907"">warnerja</a>
+
+	   <br />
+	 Posts:23,914
+	<br />
+	Registered: 9/26/01
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10920074"></a>  Re: Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10920074#10920074">
+	Feb 2, 2010 12:39 PM </a> 
+
+
+	 (reply 3
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10919913#10919913">
+	
+	original post</a> )   </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10920074"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10920074"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10920074', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 You're welcome, piMeson. I hope you weren't abducted by aliens, which prevented you from responding with a simple "thank you" of some sort. 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/bronze-star.gif"
+		title="Dukes Earned 0" />  
+	  
+	 
+	
+
+	<a href="profile.jspa?userID=1193704"">piMeson</a>
+
+	   <br />
+	 Posts:7
+	<br />
+	Registered: 1/14/10
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10920275"></a>  Re: Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10920275#10920275">
+	Feb 2, 2010 6:25 PM </a> 
+
+
+	 (reply 4
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10920074#10920074">
+	 #3 </a> )   </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10920275"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10920275"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10920275', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 Aliens?  Oh I only <u>wish</u> it had been aliens.  They were Bureaucrats!  It was horrible!<br />
+<br />
+I think I understand your exmaple with the interface fairly clearly.  I can see why object created by FooFactor is not, in fact an IFOO but something that just follows the interface defined by IFOO.   That was very clear thank you.<br />
+<br />
+Let me ask a follow up question if I may.<br />
+So in my case, ByteBuffer is an abstract class which contains real and abstract methods.<br />
+ByteBuffer.wrap() is a static method that returns an object(whose class name we don't know but following your example we can call it <b>MyByteBuffer</b>) that inherits (or overrides) all the concrete functions of ByteBuffer and implements all the abstract methods of ByteBuffer. <br />
+<br />
+So this <b>MyByteBuffer</b> class, what/where is that?  Why was it implemented in this peculiar way?  If a full implementation of ByteBuffer exists as MyByteBuffer, what is the advantage of hiding it behind this abstract class called ByteBuffer?<br />
+<br />
+I don't really need to know the answer to that question to use ByteBuffer as it is, but it seems like there is a bit of programming expertise I should be learning here.<br />
+<br />
+Thanks in advance...<br />
+piMeson.<br />
+<br />
+PS.  I promise to monitor the thread more closely<br />
+<br />
+Edited by: piMeson on Feb 2, 2010 6:23 PM 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/platinum-star.gif"
+		title="Dukes Earned 2242" />  
+	    
+	 
+	
+
+	<a href="profile.jspa?userID=934010"">DarrylBurke</a>
+
+	   <br />
+	 Posts:16,631
+	<br />
+	Registered: 7/2/07
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10920372"></a>  Re: Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10920372#10920372">
+	Feb 2, 2010 9:10 PM </a> 
+
+
+	 (reply 5
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10920275#10920275">
+	 #4 </a> )   </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10920372"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10920372"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10920372', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 Read the source.  ByteBuffer#wrap(...) returns an instance of java.nio.HeapByteBuffer, which is a package-private class.  The reason for the public facing API specifying the return type as ByteBuffer is that this is an implementation detail that can be changed in future releases and you don't have to worry about that.<br />
+<br />
+db<br />
+<br />
+PS In case you're unaware of this, the source files are in the src.zip in your JDK directory.  If you're using an IDE like NetBeans, you can open the zip file and peruse the sources in the IDE without having to unzip the file. 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/platinum-star.gif"
+		title="Dukes Earned 3959" />  
+	    
+	 
+	
+
+	<a href="profile.jspa?userID=52259"">ejp</a>
+
+	   <br />
+	 Posts:27,571
+	<br />
+	Registered: 5/11/97
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10920466"></a>  Re: Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10920466#10920466">
+	Feb 2, 2010 11:40 PM </a> 
+
+
+	 (reply 6
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10920372#10920372">
+	 #5 </a> )   </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10920466"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10920466"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10920466', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 Or don't read the source: just observe that you aren't calling new ByteBuffer(), you are calling a static method whose return type is ByteBuffer, and whose internals you don't know anything about - but what you do know is that it can't call new ByteBuffer() either, for the same reason you can't. Ergo it must be supplying you with a concrete derived class. 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/bronze-star.gif"
+		title="Dukes Earned 0" />  
+	  
+	 
+	
+
+	<a href="profile.jspa?userID=1193704"">piMeson</a>
+
+	   <br />
+	 Posts:7
+	<br />
+	Registered: 1/14/10
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10921323"></a>  Re: Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10921323#10921323">
+	Feb 3, 2010 3:03 PM </a> 
+
+
+	 (reply 7
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10920372#10920372">
+	 #5 </a> )   </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10921323"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10921323"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10921323', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 So when I might want to create an abstract class that has a method that returns an implentation of that class?<br />
+<br />
+Is it something I would do in my own code? <br />
+Or only when I might release a library to someone? 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+    <div class="jive-message-list">
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr bgcolor="#eeeeee">
+	<td width="20%" nowrap="nowrap">
+	<div class="pad5x10">
+	   <img src="im/platinum-star.gif"
+		title="Dukes Earned 3959" />  
+	    
+	 
+	
+
+	<a href="profile.jspa?userID=52259"">ejp</a>
+
+	   <br />
+	 Posts:27,571
+	<br />
+	Registered: 5/11/97
+	
+	</div>
+	</td>
+
+	<!-- END Author Name or Guest -->
+
+	<td width="60%">
+	<div class="pad5x10"><b><a name="10921308"></a>  Re: Using an Abstract Class : ByteBuffer
+	  &nbsp;&nbsp;  <br />
+
+	  <a
+		href="thread.jspa?messageID=10921308#10921308">
+	Feb 3, 2010 3:06 PM </a> 
+
+
+	 (reply 8
+	of 8) &nbsp;(In reply to <a
+		href="thread.jspa?messageID=10921323#10921323">
+	 #7 </a> )   </b> 
+
+		
+
+		
+
+    &nbsp;
+
+    
+
+	 <br />
+
+
+	<!-- start tags stuff -->  
+	</div>
+	</td>
+	<!-- END Subject -->
+
+
+	<td align="right" nowrap="nowrap" width="20%">
+	<div class="pad5x10">
+	 <a
+		href="emailmessage!default.jspa?messageID=10921308"
+		title="Click to email this message" /> <img src="im/ic_email.gif"
+		width="14" height="12" border="0" hspace="4" vspace="1"
+		alt="Click to email this message" /></a> 
+	   <br>
+	<br>
+	 
+	
+	<form action="post!reply.jspa"><input type="hidden"
+		name="messageID" value="10921308"> <input
+		type="submit" class="buttonblue" value="Reply &raquo;"
+		onmouseover="this.style.color='#fbe249';"
+		onmouseout="this.style.color='#FFF';"></form>
+	   <br>
+	<br>
+	<!--
+    <a href="javascript:void(0)" onclick="window.open('unfiltered.jspa?messageID=10921308', 'Welcome', 'width=500, height=500, menubar=yes, scrollbars=yes')">View Unfiltered</a>
+--></div>
+	</td>
+	<!-- END REPLY Button -->
+
+</tr>
+<!-- END Heading Row -->
+
+<!-- Begin message row -->
+<tr class="white">
+
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+	<td>
+	<div class="pad5x10">
+	 Google the Factory pattern. Quite common. Most of NIO exhibits it in spades, for example Selector.open(), SocketChannel.open(), ByteBuffer.create()/wrap()/... 
+	</div>
+	</td>
+	<td>
+	<div class="pad5x10">&nbsp;</div>
+	</td>
+</tr>
+
+
+
+    </div>
+
+
+
+</table>
+</td></tr></table>
+
+<table border="0" cellpadding="4" cellspacing="0" width="100%" class="vtop" bgcolor="#666666"><tr><td>
+<table border="0" cellpadding="2" cellspacing="0" width="100%" class="vtop">
+
+<tr bgcolor="#666666">
+
+<td align="right"><div class="pad5x10"><span style="color:#fff;">
+ 
+                This topic has
+                8
+                replies
+                on
+                1
+                page.
+
+            
+
+            
+</span></div></td>
+
+</tr>
+</table>
+
+</td></tr></table>
+
+<a href="forum.jspa?forumID=54">Back to Forum</a>
+<br>
+<span class="sp10">&#160;</span><br />
+<a href="http://wikis.sun.com/display/SunForums/Sun+Forums+Code+of+Conduct">Read the Developer Forums Code of Conduct </a><br><br>
+<img src="im/ic_email.gif" width="14" height="12" border="0" hspace="4" vspace="1" alt="Click to email this message"/> Email this Topic
+<br>
+<br>
+<img src="im/edit-16x16.gif" width="16" height="16" border="0" /> Edit this Topic
+<!-- END G15 GENERIC CONTENT TABLE -->
+
+</td></tr></table>
+
+<!--stopindex-->
+
+</td>  <!-- END MAIN CONTENT --> 
+</div> <!-- END MAIN CONTENT -->
+ 
+<td width="170" valign="top" align="right"> <!-- RIGHT NAV -->
+
+
+
+
+
+
+
+<!-- BEGIN AD PORTION -->
+
+<!-- END AD PORTION -->
+
+<table border="0" cellspacing="0" cellpadding="6">
+	<tr>
+		<td width="170" valign="top"><!-- BEGIN USER ALERT -->  <!-- END USER ALERT --> <!-- BEGIN E15 COMPONENT V.0 -->
+		<div class="e15 e15v2">
+		<div class="e15w1">
+		<div class="e15w2">
+		
+		<h3>
+		 Sun
+		Forums 
+		</h3>
+
+		
+		<h5>Welcome</h5>
+		<ul>
+			
+			<li><a
+				href="http://forums.sun.com/login!withRedirect.jspa?referrer=http%3A%2F%2Fforums.sun.com%2Fthread.jspa%3FthreadID%3D5426502%26tstart%3D1">Login</a></li>
+			
+			<li><a
+				href="http://forums.sun.com/editwatches!default.jspa">Watch
+			List</a></li>
+			
+				<li><a
+					href="http://wikis.sun.com/display/SunForums/Duke+Stars+Program+Overview">Duke
+				Stars Program</a></li>
+				<li><a href="http://wikis.sun.com/display/SunForums/Tips">Beginners
+				Quick Start</a></li>
+				<li><a
+					href="http://forums.sun.com/myforums.jspa">My
+				Forums</a></li>
+				<li><a
+					href="http://developers.sun.com/contact/feedback.jsp?referer=http://forums.sun.com&category=sdn&mailsubject=Forums%20or%20Community">
+				Feedback </a></li>
+				<li><a
+					href="http://wikis.sun.com/display/SunForums/Forums.sun.com+FAQ">FAQ</a></li>
+				<li width="100%"><a
+					href="http://wikis.sun.com/display/SunForums/Sun+Forums+Code+of+Conduct">Code
+				of Conduct</a></li>
+				
+			</ul>
+
+			<!-- END E15 COMPONENT -->
+		</div>
+		</div>
+		</div>
+
+		<!-- BEGIN SEARCH BOX --> <!-- DISPLAYS NOT FOR MAIN PAGE --> 
+		<div class="e5">
+		<table border="0" cellpadding="0" cellspacing="0" class="blue1"
+			width="100%">
+			<tr>
+				<td>
+
+				<table border="0" cellpadding="0" cellspacing="0" width="100%"
+					class="white1">
+					<form action="/sunsearch.jspa" method="post">
+					<tr>
+						<td>
+						<div class="pad6"><label for="f7text1"><b>Search
+						Forums</b></label></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<div class="cellpadbottom">
+
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td valign="top"><input id="f7text1" name="qt" align="top"
+									type="text" class="medium" size="6"
+									onFocus="if( this.value==this.defaultValue ) this.value='';"
+									value="Search" /></td>
+								<td>&#160;&#160;</td>
+								
+								<input type="hidden" name="inmeta" value="inmeta:forum=54" />
+
+								<td valign="top"><input type="submit" border="0"
+									class="hotbutton" value="&#160;&raquo;&#160;"
+									onmouseover="this.style.color='#fbe249';"
+									onmouseout="this.style.color='#FFF';" /></td>
+							</tr>
+						</table>
+
+						</div>
+						</td>
+					</tr>
+					</form>
+					<tr>
+						<td>
+						<div class="cellpadbottom"><span class="rightarrowblue">&raquo;</span>&#160;&#160;<a
+							href="http://search.sun.com/main/index.jsp">Advanced Search</a></div>
+						</td>
+					</tr>
+				</table>
+
+				</td>
+			</tr>
+		</table>
+		<span class="sp10">&#160;</span><br />
+		</div>
+		 <!-- END SEARCH BOX --> <!-- Ad Box -->  <script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://ads.sun.com/ads/www/delivery/ajs.php':'http://ads.sun.com/ads/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=585");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://ads.sun.com/ads/www/delivery/ck.php?n=a4223322&amp;cb=555' target='_blank'><img src='http://ads.sun.com/ads/www/delivery/avw.php?zoneid=585&amp;cb=555&amp;n=a4223322' border='0' alt='' /></a></noscript>  <!-- End Ad Box --> <!-- BEGIN SPOTLIGHT ALERT --> 
+		<div class="e2">
+		<table border="0" cellpadding="8" cellspacing="0" width="100%"
+			class="navblue">
+			<tr>
+				<td>
+
+				<table border="0" cellpadding="0" cellspacing="0" width="100%"
+					class="vatop">
+					<tr>
+						<td colspan="2"><b>Site Upgrade</b><br>
+<a href="http://forums.sun.com/thread.jspa?threadID=5413241">Forums 7.1.8</a> was deployed Oct 26th. The release consists of minor fixes & a few enhancements.
+						</td>
+					</tr>
+				</table>
+
+				</td>
+			</tr>
+		</table>
+		<span class="sp10">&#160;</span><br />
+		</div>
+		 <!-- END SPOTLIGHT ALERT --> <!-- BEGIN E15 COMPONENT V.0 -->
+		<div class="e15 e15v2">
+		<div class="e15w1">
+		<div class="e15w2"><!-- BEGIN STATISTICS LINKS -->
+		<h5>Forums Statistics</h5>
+		<ul
+			
+			</ul>
+		<!-- END STATISTICS --> <!-- END E15 COMPONENT --></div>
+		</div>
+		</div>
+
+		<br>
+
+		<!-- BEGIN E15 COMPONENT V.0 -->
+		<div class="e15 e15v2">
+		<div class="e15w1">
+		<div class="e15w2"><!-- BEGIN ABOUT SUN FORUMS -->
+		<h5>About Sun forums</h5>
+		<ul>
+			<li>
+
+			<p>Oracle Forums is a large collection of user generated
+			discussions. It is here to help you ask questions, find answers, and
+			participate in discussions.</p>
+			<p>Check out our guide on <a
+				href="http://wikis.sun.com/display/SunForums/Tips">Getting
+			started with Oracle Forums</a> for a full walkthrough of how to best
+			leverage the benefits of this community.</p>
+			</li>
+		</ul>
+		<!-- END ABOUT SUN FORUMS --></div>
+		</div>
+		</div>
+		<!-- END e15 components --></td>
+	</tr>
+</table>
+</END side nav table>
+
+
+</td> <!-- END RIGHT NAV-->
+
+</tr>
+</tbody>
+</table> <!-- END CONTENT & NAV TABLE -->
+
+
+<script language="JavaScript" src="/s_code_remote.js"></script>
+
+<table> 
+<tr> <td> 
+    
+
+    </td>
+</tr>
+<tr>
+    <td valign="bottom">
+        <a href="http://www.jivesoftware.com/poweredby/" target="_new">
+            <img src="/im/ic_jive_forums.gif" alt="Powered by Jive Forums" width="74" height="24" border="0">
+        </a>
+    </td>
+</tr>
+</table>
+
+
+    
+    <!-- END RIGHT COLUMN COMPONENTS -->
+<br /><img src="/im/a.gif" width="170" height="1" border="0" alt=" " /></td></tr>
+<tr><td rowspan="2" valign="bottom"><img src="/im/a.gif" width="170" height="1" border="0" alt=" " /><br />
+<!--  BEGIN CELL FOR OPTIONAL MASTHEAD CAPTION -->
+<!--  END CELL FOR OPTIONAL MASTHEAD CAPTION --></td></tr>
+<!-- END SPACER ROW -->
+</table>
+<!-- END WRAPPER TABLE, 3 COLUMN, LEFT/MAIN/RIGHT -->
+    <html><head><!-- BEGIN VNV5 FOOTER  --></head><body><table border="0" cellpadding="0" cellspacing="10" width="100%">
+<tbody><tr>
+<td>
+<table class="vatop" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td colspan="4" class="grey3" valign="top"><img src="/im/a.gif" alt="" border="0" height="2" width="1"></td></tr>
+<tr>
+<td><img src="/im/a.gif" alt="" border="0" height="1" width="190"><br>
+<a href="http://www.oracle.com"><img src="http://stest-wip.sfbay.sun.com/im/logo_oracle_footer.gif" width="93" height="29" /> </a> </td>
+<td valign="top" width="100%"><img src="/im/a.gif" alt="" border="0" height="1" width="350"><br>
+<div class="footer">
+<a href="http://www.sun.com/communities/guidelines.jsp">Sun Guidelines for Public Discourse</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/aboutsun.html">About Sun</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/aboutsdn.html">About This Site</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/newsletters.html">Newsletters</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/contact.html">Contact Us</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/employment.html">Employment</a><br>
+<a href="http://developers.sun.com/global/howtobuy.html">How to Buy</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/licensing.html">Licensing</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/termsofuse.html">Terms of Use</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/privacy.html">Privacy</a> &nbsp;|&nbsp;
+<a href="http://developers.sun.com/global/trademarks.html">Trademarks</a>
+<br><span class="sp10">&nbsp;</span><br>
+<br><span class="sp10">&nbsp;</span><br>
+<span style="display:block;float:right;text-align:right" class="footercopy">
+            &copy; 2009, Oracle Corporation and/or its affiliates<br>
+</spav>
+</div></td>
+<td><img src="/im/a.gif" alt="" border="0" height="1" width="40"></td>
+<td valign="top"><div class="footer"><b><a href="http://developers.sun.com/global/aboutsdn.html">A Sun Developer Network Site</a></b></div>
+<div class="footer">
+<img src="/im/a.gif" alt="" border="0" height="1" width="170"><br>
+Unless otherwise licensed, code in all technical manuals herein (including articles, FAQs, samples) is provided under this <a href="http://developers.sun.com/global/berkeley_license.html">License</a>.
+<br><span class="sp5">&nbsp;</span><br>
+<a href="http://developers.sun.com/global/rss_sdn.html"><img src="/im/button_xml.gif" alt="XML" align="top" border="0" height="14" width="36"></a>&nbsp;<a href="http://developers.sun.com/global/content_feeds.html">Content Feeds</a>
+</div></td></tr>
+<tr><td colspan="4" class="grey3" valign="top"><img src="/im/a.gif" alt="" border="0" height="2" width="1"></td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+<!-- END VNV5 FOOTER -->
+</body></html>
+
+    </div>  <!-- end of "a0 a0v1" div -->
+</body></html>
+</td></tr></table>
+</table>
+
